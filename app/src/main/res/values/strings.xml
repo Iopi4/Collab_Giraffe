@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">GIRAFFEnew</string>
+    <string name="mail">mail@giraffecrane.ru</string>
+
+    <!-- Текст главного меню -->
+    <string name="menu_home">Главный экран</string>
+    <string name="menu_initial_setup">Начальные настройки</string>
+    <string name="menu_setting_load_capacity">Настройка грузоподъемности</string>
+    <string name="menu_setting_sensors">Настройка датчиков положения</string>
+    <string name="menu_coordinate_protection">Координатная защита</string>
+    <string name="menu_anticollision">Меню противостолкновения</string>
+    <string name="menu_setting_rotation">Настройка поворота</string>
+    <string name="menu_service">Сервисное меню</string>
+    <string name="menu_diagnostic">Диагностика</string>
+    <string name="menu_parameter_logger">Регистратор параметров</string>
+    <string name="menu_technical_maintenance">Техническое обслуживание</string>
+    <string name="menu_accident_and_waring_log">Журнал Аварий и Предупреждений</string>
+    <string name="menu_Login">Авторизация пользователя</string>
+    <string name="menu_ModbusTools">Настройка Modbus</string>
+
+
+    <string name="accident_and_warning_log">Журнал Аварий и Предупреждений</string>
+
+<!-- Текст экрана Home' -->
+    <!-- Текст экрана с краном' -->
+    <string name="Home_LOADING_CAPACITY">ГРУЗОПОДЪЕМНОСТЬ</string>
+    <string name="Home_LIFT_HEIGHT">ВЫСОТА ПОДЪЕМА</string>
+    <string name="Home_MOVE_CRANE">ХОД КРАНА</string>
+    <string name="Home_">ВЫСОТА ПОДЪЕМА</string>
+    <!-- Текст параметры крана' -->
+    <string name="Home_Weight">ГРУЗ [T]</string>
+    <string name="Home_Trolley">ВЫЛЕТ [М]</string>
+    <string name="Home_Slewing">АЗИМУТ [Гр]</string>
+    <string name="Home_Height">ВЫСОТА [М]</string>
+    <string name="Home_Move">ХОД [М]</string>
+    <string name="Home_Wind">ВЕТЕР [М/C]</string>
+    <string name="Home_Voltage">ПИТАНИЕ</string>
+    <string name="Home_Ready">ГОТОВНОСТЬ</string>
+
+
+<!-- Текст экрана Home' -->
+
+
+
+
+</resources>

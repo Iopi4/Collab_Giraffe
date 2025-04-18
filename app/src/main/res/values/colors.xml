@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <color name="purple_200">#FFBB86FC</color>
+        <color name="purple_500">#FF6200EE</color>
+        <color name="purple_700">#FF3700B3</color>
+        <color name="teal_200">#FF03DAC5</color>
+        <color name="teal_700">#FF018786</color>
+        <color name="black">#FF000000</color>
+
+
+        //Цвета для приложения GIRAFFE INTERFACE
+        <color name="white">#FFFFFFFF</color>
+        <color name="Orange">#fe5000</color>
+        <color name="Orange_50_percent">#ffac80</color>
+        <color name="DarkGrew">#2B2A29</color>
+        <color name="Grew">#4b4f54</color>
+        <color name="Grew_50_percent">#a6a6a6</color>
+        <color name="Silver">#c4c4c4</color>
+        <color name="Lavanda">#CDC7F2</color> //Для СОЗР
+        <color name="Burgundy_violet">#672146</color>
+        <color name="Emerald">#33CC66</color> <!--Изумрудный цвет-->
+        <color name="Limon">#ffee14</color>
+        <color name="Red">#ff0000</color>
+        <color name="Blue">#00CCFF</color>
+        <color name="DarkLemon">#A6A600</color>
+
+</resources>
