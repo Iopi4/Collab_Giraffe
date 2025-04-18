@@ -1,27 +1,9 @@
 package com.example.giraffenew.navigate
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.giraffenew.R
 import com.example.giraffenew.navigate.ui_kit.DrawerHeaderTop
 import com.example.giraffenew.navigate.ui_kit.NavigationButton
@@ -56,7 +38,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_home,
             labelResId = R.string.menu_home,
-            isSelected = route == AllDestinations.nav_home,
+            isSelected = route == AllDestinations.NAVIGATE_TO_HOME,
             onClick = {
                 navigateToHome()
                 closeDrawer() },
@@ -66,7 +48,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_initial_setup,
             labelResId = R.string.menu_initial_setup,
-            isSelected = route == AllDestinations.nav_initial_setup,
+            isSelected = route == AllDestinations.NAVIGATE_INITIAL_SETUP,
             onClick = {
                 navigateToSettings()
                 closeDrawer() },
@@ -76,7 +58,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_setting_load_capacity,
             labelResId = R.string.menu_setting_load_capacity,
-            isSelected = route == AllDestinations.nav_setting_load_capacity,
+            isSelected = route == AllDestinations.NAVIGATE_SETTING_LOAD_CAPASITY,
             onClick = {
                 navigateToSettingLoadCapacity()
                 closeDrawer() },
@@ -86,7 +68,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_setting_sensors,
             labelResId = R.string.menu_setting_sensors,
-            isSelected = route == AllDestinations.nav_setting_sensors,
+            isSelected = route == AllDestinations.NAVIGATE_SETTING_SENSORS,
             onClick = {
                 navigateToSettingSensor()
                 closeDrawer() },
@@ -96,7 +78,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_coordinate_protection,
             labelResId = R.string.menu_coordinate_protection,
-            isSelected = route == AllDestinations.nav_coordinate_protection,
+            isSelected = route == AllDestinations.NAVIGATE_COORDINATE_PROTECTION,
             onClick = {
                 navigateToCoordinateProtection()
                 closeDrawer() },
@@ -106,7 +88,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_setting_rotation,
             labelResId = R.string.menu_setting_rotation,
-            isSelected = route == AllDestinations.nav_setting_rotation,
+            isSelected = route == AllDestinations.NAVIGATE_SETTING_ROTATION,
             onClick = {
                 navigateToSettingRotation()
                 closeDrawer() },
@@ -116,7 +98,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_service_menu,
             labelResId = R.string.menu_service,
-            isSelected = route == AllDestinations.nav_service_menu,
+            isSelected = route == AllDestinations.NAVIGATE_SERVICE_MENU,
             onClick = {
                 navigateToServiceMenu()
                 closeDrawer() },
@@ -126,7 +108,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_diagnostics,
             labelResId = R.string.menu_diagnostic,
-            isSelected = route == AllDestinations.nav_diagnostics,
+            isSelected = route == AllDestinations.NAVIGATE_DIAGNOSTICS,
             onClick = {
                 navigateToDiagnostics()
                 closeDrawer() },
@@ -136,7 +118,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_regist_param,
             labelResId = R.string.menu_parameter_logger,
-            isSelected = route == AllDestinations.nav_parameter_logger,
+            isSelected = route == AllDestinations.NAVIGATE_PARAMETER_LOGGER,
             onClick = {
                 navigateToParameterLogger()
                 closeDrawer() },
@@ -147,7 +129,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_technical_maintenance,
             labelResId = R.string.menu_technical_maintenance,
-            isSelected = route == AllDestinations.nav_technical_maintenance,
+            isSelected = route == AllDestinations.NAVIGATE_TECHNICAL_MAINTENANCE,
             onClick = {
                 navigateToTechnicalMaintenance()
                 closeDrawer() },
@@ -157,7 +139,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_accident,
             labelResId = R.string.accident_and_warning_log,
-            isSelected = route == AllDestinations.nav_accident_and_warning_log,
+            isSelected = route == AllDestinations.NAVIGATE_ACCIDENT_AND_WARNING_LOG,
             onClick = {
                 navigateToAccidentWarninglog()
                 closeDrawer() },
@@ -167,7 +149,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_login,
             labelResId = R.string.menu_Login,
-            isSelected = route == AllDestinations.nav_login,
+            isSelected = route == AllDestinations.NAVIGATE_LOGIN,
             onClick = {
                 navigateToLogin()
                 closeDrawer() },
@@ -177,7 +159,7 @@ fun AppDrawer(
         NavigationButton(
             iconResId = R.drawable.ic_nav_setting_modbus,
             labelResId = R.string.menu_ModbusTools,
-            isSelected = route == AllDestinations.nav_modbus_tools,
+            isSelected = route == AllDestinations.NAVIGATE_MODBUS_TOOLS,
             onClick = {
                 navigateToModbusTools()
                 closeDrawer() },
@@ -186,13 +168,8 @@ fun AppDrawer(
 }
 
 
-
-
-
-
-
 @Preview
 @Composable
 fun DrawerHeaderPreview() {
-    AppDrawer(modifier = Modifier, route = AllDestinations.nav_home)
+    AppDrawer(modifier = Modifier, route = AllDestinations.NAVIGATE_TO_HOME)
 }

@@ -1,123 +1,123 @@
 package com.example.giraffenew.navigate
 
 import androidx.navigation.NavHostController
-import com.example.giraffenew.navigate.AllDestinations.nav_home
-import com.example.giraffenew.navigate.AllDestinations.nav_initial_setup
-import com.example.giraffenew.navigate.AllDestinations.nav_setting_load_capacity
-import com.example.giraffenew.navigate.AllDestinations.nav_setting_sensors
-import com.example.giraffenew.navigate.AllDestinations.nav_coordinate_protection
-import com.example.giraffenew.navigate.AllDestinations.nav_setting_rotation
-import com.example.giraffenew.navigate.AllDestinations.nav_service_menu
-import com.example.giraffenew.navigate.AllDestinations.nav_diagnostics
-import com.example.giraffenew.navigate.AllDestinations.nav_parameter_logger
-import com.example.giraffenew.navigate.AllDestinations.nav_technical_maintenance
-import com.example.giraffenew.navigate.AllDestinations.nav_accident_and_warning_log
-import com.example.giraffenew.navigate.AllDestinations.nav_login
-import com.example.giraffenew.navigate.AllDestinations.nav_modbus_tools
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_TO_HOME
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_INITIAL_SETUP
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_SETTING_LOAD_CAPASITY
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_SETTING_SENSORS
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_COORDINATE_PROTECTION
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_SETTING_ROTATION
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_SERVICE_MENU
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_DIAGNOSTICS
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_PARAMETER_LOGGER
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_TECHNICAL_MAINTENANCE
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_ACCIDENT_AND_WARNING_LOG
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_LOGIN
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_MODBUS_TOOLS
 
 
 object AllDestinations {
     //Название окна в верхней панели
-    const val nav_home = "Главный экран"
-    const val nav_initial_setup = "Начальные настройки"
-    const val nav_setting_load_capacity = "Настройка грузоподъемности"
-    const val nav_setting_sensors = "Настройка датчиков положения"
-    const val nav_coordinate_protection = "Координатная защита"
-    const val nav_setting_rotation = "Настройка поворота"
-    const val nav_service_menu = "Сервисное меню"
-    const val nav_diagnostics = "Диагностика"
-    const val nav_parameter_logger = "Регистратор параметров"
-    const val nav_technical_maintenance = "Техническое обслуживание"
-    const val nav_accident_and_warning_log = "Журнал аварий и предупреждений"
-    const val nav_login = "Авторизация пользователя"
-    const val nav_modbus_tools = "Настройка Modbus"
+    const val NAVIGATE_TO_HOME: String = "Главный экран"
+    const val NAVIGATE_INITIAL_SETUP = "Начальные настройки"
+    const val NAVIGATE_SETTING_LOAD_CAPASITY = "Настройка грузоподъемности"
+    const val NAVIGATE_SETTING_SENSORS = "Настройка датчиков положения"
+    const val NAVIGATE_COORDINATE_PROTECTION = "Координатная защита"
+    const val NAVIGATE_SETTING_ROTATION = "Настройка поворота"
+    const val NAVIGATE_SERVICE_MENU = "Сервисное меню"
+    const val NAVIGATE_DIAGNOSTICS = "Диагностика"
+    const val NAVIGATE_PARAMETER_LOGGER = "Регистратор параметров"
+    const val NAVIGATE_TECHNICAL_MAINTENANCE = "Техническое обслуживание"
+    const val NAVIGATE_ACCIDENT_AND_WARNING_LOG = "Журнал аварий и предупреждений"
+    const val NAVIGATE_LOGIN = "Авторизация пользователя"
+    const val NAVIGATE_MODBUS_TOOLS = "Настройка Modbus"
 }
 class AppNavigationActions(private val navController: NavHostController) {
 
     fun navigateToHome() {
-        navController.navigate(nav_home) {
-            popUpTo(nav_home)
+        navController.navigate(NAVIGATE_TO_HOME) {
+            popUpTo(NAVIGATE_TO_HOME)
         }
     }
 
     fun navigateTo_InitialSetup() {
-        navController.navigate(nav_initial_setup) {
+        navController.navigate(NAVIGATE_INITIAL_SETUP) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_SettingLoadCapacity() {
-        navController.navigate(nav_setting_load_capacity) {
+        navController.navigate(NAVIGATE_SETTING_LOAD_CAPASITY) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_SettingSensors() {
-        navController.navigate(nav_setting_sensors) {
+        navController.navigate(NAVIGATE_SETTING_SENSORS) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_CoordinateProtection() {
-        navController.navigate(nav_coordinate_protection) {
+        navController.navigate(NAVIGATE_COORDINATE_PROTECTION) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_SettingRotation() {
-        navController.navigate(nav_setting_rotation) {
+        navController.navigate(NAVIGATE_SETTING_ROTATION) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_ServiceMenu() {
-        navController.navigate(nav_service_menu) {
+        navController.navigate(NAVIGATE_SERVICE_MENU) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_Diagnostics() {
-        navController.navigate(nav_diagnostics) {
+        navController.navigate(NAVIGATE_DIAGNOSTICS) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_ParameterLogger() {
-        navController.navigate(nav_parameter_logger) {
+        navController.navigate(NAVIGATE_PARAMETER_LOGGER) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_TechnicalMaintenance() {
-        navController.navigate(nav_technical_maintenance) {
+        navController.navigate(NAVIGATE_TECHNICAL_MAINTENANCE) {
             launchSingleTop = true
             restoreState = true
         }
     }
     fun navigateTo_AccidentAndWarningLog() {
-        navController.navigate(nav_accident_and_warning_log) {
+        navController.navigate(NAVIGATE_ACCIDENT_AND_WARNING_LOG) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_Login() {
-        navController.navigate(nav_login) {
+        navController.navigate(NAVIGATE_LOGIN) {
             launchSingleTop = true
             restoreState = true
         }
     }
 
     fun navigateTo_ModbusTools() {
-        navController.navigate(nav_modbus_tools) {
+        navController.navigate(NAVIGATE_MODBUS_TOOLS) {
             launchSingleTop = true
             restoreState = true
         }

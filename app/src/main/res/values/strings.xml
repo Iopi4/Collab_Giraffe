@@ -2,7 +2,7 @@
     <string name="app_name">GIRAFFEnew</string>
     <string name="mail">mail@giraffecrane.ru</string>
 
-    <!-- Текст главного меню -->
+    <!-- Текст меню навигации -->
     <string name="menu_home">Главный экран</string>
     <string name="menu_initial_setup">Начальные настройки</string>
     <string name="menu_setting_load_capacity">Настройка грузоподъемности</string>
@@ -17,8 +17,6 @@
     <string name="menu_accident_and_waring_log">Журнал Аварий и Предупреждений</string>
     <string name="menu_Login">Авторизация пользователя</string>
     <string name="menu_ModbusTools">Настройка Modbus</string>
-
-
     <string name="accident_and_warning_log">Журнал Аварий и Предупреждений</string>
 
 <!-- Текст экрана Home' -->
@@ -36,9 +34,22 @@
     <string name="Home_Wind">ВЕТЕР [М/C]</string>
     <string name="Home_Voltage">ПИТАНИЕ</string>
     <string name="Home_Ready">ГОТОВНОСТЬ</string>
-
-
 <!-- Текст экрана Home' -->
+
+<!-- Текст экрана InitialSetup' -->
+    <!-- Текст параметров настройки даты и времени' -->
+    <string name="InitialSetup_Text_Current_Time">Текущее время [Час:Мин]</string>
+    <string name="InitialSetup_Text_Current_Date">Текущая дата [День.Мес.Год]</string>
+    <string name="InitialSetup_TextFilled_Time">Ввод. [ЧЧ] [ММ]</string>
+    <string name="InitialSetup_TextFilled_Date">Ввод. [ДД] [ММ] [ГГГГ]</string>
+    <!-- Текст параметров настройки крана' -->
+    <string name="InitialSetup_TextFilled_Model_Crane">Ввод. Модель крана</string>
+    <string name="InitialSetup_TextFilled_Number_Crane">Ввод. Заводской номер крана</string>
+    <string name="InitialSetup_TextFilled_Registration">Ввод. Дата рег. в Ростехнадзоре</string>
+    <string name="InitialSetup_TextFilled_Operation">Ввод. Дата ввода в эксплуатацию</string>
+    <string name="InitialSetup_TextFilled_Number_SBKB">Ввод. Заводской номер СБКБ</string>
+    <string name="InitialSetup_TextFilled_Date_SBKB">Ввод. Дата установки СБКБ</string>
+<!-- Текст экрана InitialSetup' -->
 
 
 

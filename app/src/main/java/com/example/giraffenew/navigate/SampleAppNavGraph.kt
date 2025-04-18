@@ -39,7 +39,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.giraffenew.accident_and_warning_log.AccidentWarninglogScreen
+import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
 import com.example.giraffenew.coordinate_protection.CoordinateProtectionScreen
 import com.example.giraffenew.diagnostics.DiagnosticsScreen
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -48,7 +48,7 @@ import com.example.giraffenew.ui.theme.white
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import com.example.giraffenew.home.presentanion.HomeScreen
-import com.example.giraffenew.initial_setup.SettingsScreen
+import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.LoginScreen
 import com.example.giraffenew.modbus_tools.ModbusToolsScreen
 import com.example.giraffenew.parameter_logger.ParameterLoggerScreen
@@ -69,7 +69,7 @@ fun SampleAppNavGraph(
 ) {
 
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.nav_home
+    val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.NAVIGATE_TO_HOME
     val navigationActions = remember (navController) {
         AppNavigationActions(navController)
     }
@@ -147,59 +147,59 @@ fun SampleAppNavGraph(
                 //При вызове в NavHost передается объект NavHostController, компонент, который будет служить
                 // начальным экраном/начальным пунктом назначения, и граф навигации (navigation graph):
                 navController = navController,
-                startDestination = AllDestinations.nav_home, modifier = modifier.padding(it)
+                startDestination = AllDestinations.NAVIGATE_TO_HOME, modifier = modifier.padding(it)
                     //startDestination = HOME_SCREEN_ROUTE
                 ) {
 
-                composable (AllDestinations.nav_home) {
+                composable (AllDestinations.NAVIGATE_TO_HOME) {
                     HomeScreen()
                 }
 
-                composable(AllDestinations.nav_initial_setup) {
-                    SettingsScreen()
+                composable(AllDestinations.NAVIGATE_INITIAL_SETUP) {
+                    InitialSetupScreen()
                 }
 
-                composable(AllDestinations.nav_setting_load_capacity) {
+                composable(AllDestinations.NAVIGATE_SETTING_LOAD_CAPASITY) {
                     SettingLoadCapacityScreen()
                 }
 
-                composable(AllDestinations.nav_setting_sensors) {
+                composable(AllDestinations.NAVIGATE_SETTING_SENSORS) {
                     SettingSensorsScreen()
                 }
 
-                composable(AllDestinations.nav_coordinate_protection) {
+                composable(AllDestinations.NAVIGATE_COORDINATE_PROTECTION) {
                     CoordinateProtectionScreen()
                 }
 
-                composable(AllDestinations.nav_setting_rotation) {
+                composable(AllDestinations.NAVIGATE_SETTING_ROTATION) {
                     SettingRotationScreen()
                 }
 
-                composable(AllDestinations.nav_service_menu) {
+                composable(AllDestinations.NAVIGATE_SERVICE_MENU) {
                     ServiceMenuScreen()
                 }
 
-                composable(AllDestinations.nav_diagnostics) {
+                composable(AllDestinations.NAVIGATE_DIAGNOSTICS) {
                     DiagnosticsScreen()
                 }
 
-                composable(AllDestinations.nav_parameter_logger) {
+                composable(AllDestinations.NAVIGATE_PARAMETER_LOGGER) {
                     ParameterLoggerScreen()
                 }
 
-                composable(AllDestinations.nav_technical_maintenance) {
+                composable(AllDestinations.NAVIGATE_TECHNICAL_MAINTENANCE) {
                     TechnicalMaintenanceScreen()
                 }
 
-                composable(AllDestinations.nav_accident_and_warning_log) {
-                    AccidentWarninglogScreen()
+                composable(AllDestinations.NAVIGATE_ACCIDENT_AND_WARNING_LOG) {
+                    AccidentWarningLogScreen()
                 }
 
-                composable(AllDestinations.nav_login) {
+                composable(AllDestinations.NAVIGATE_LOGIN) {
                     LoginScreen()
                 }
 
-                composable(AllDestinations.nav_modbus_tools) {
+                composable(AllDestinations.NAVIGATE_MODBUS_TOOLS) {
                     ModbusToolsScreen()
                 }
 
@@ -212,10 +212,10 @@ fun SampleAppNavGraph(
 
 @Composable
 //Создадим функцию для свойств текста TopAppBar (Верхняя часть экрана - Информация о кране)
-fun TopBarText (text:String, textModifier:Modifier=Modifier){
-    Text(text, textModifier, fontSize = 16.sp, textAlign = TextAlign.Start, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
+fun TopBarText (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier, fontSize = 16.sp, textAlign = TextAlign.Start, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
 
 @Composable
 //Создадим функцию для свойств текста TopAppBar (Верхняя часть экрана - Дата и время)
-fun TopBarTextDateTime (text:String, textModifier:Modifier=Modifier){
-    Text(text, modifier = Modifier.padding(5.dp), fontSize = 20.sp, textAlign = TextAlign.Center, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
+fun TopBarTextDateTime (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier.padding(5.dp), fontSize = 20.sp, textAlign = TextAlign.Center, color = Burgundy_violet, fontWeight = FontWeight.Bold) }

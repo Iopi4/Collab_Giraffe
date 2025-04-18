@@ -35,7 +35,7 @@ fun BasicFilledButtonGiraffe(
         containerColor = colorResource(R.color.Burgundy_violet),
         contentColor = Color.White),
 ) {
-        Text( text = text, fontSize = 20.sp,)
+        Text( text = text, fontSize = 20.sp)
     }
 }
 

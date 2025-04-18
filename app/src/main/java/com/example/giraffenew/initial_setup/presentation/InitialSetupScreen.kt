@@ -1,4 +1,4 @@
-package com.example.giraffenew.initial_setup
+package com.example.giraffenew.initial_setup.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,18 +15,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsValues
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
+import com.example.giraffenew.initial_setup.ui.ParametersDataAndTimeText
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.DarkLemon
+import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun SettingsScreen(
+fun InitialSetupScreen(
     ) {
     BasicSettingBackground()
 
@@ -92,56 +94,12 @@ fun SettingsScreen(
 
 
 //№.1 - Левая область для отображения двух основных боксов. (1 Бокс - Дата и время , 2 Бокс - Данные крана)
-        Column(
-            modifier = Modifier
+        Column( modifier = Modifier
                 .fillMaxSize()
                 .weight(3f),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-
-            //Бокс 1.1 для отображения текста параметров даты и времени
-            Box(myBoxSettingModifierOR) {
-                Column(modifier = Modifier
-                    .fillMaxSize(),
-                    verticalArrangement = Arrangement.Top) {
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Текущее время [Час:Мин]") }
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Текущая дата [День.Мес.Год]") }
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. [ЧЧ] [ММ]") }
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. [ДД] [ММ] [ГГГГ]") }
-                }
-            }
-
-            //Бокс 1.2 для отображения текста параметров крана
-            Box(myBoxSettingModifierOR) {
-                Column(modifier = Modifier
-                    .fillMaxSize(),
-                    verticalArrangement = Arrangement.Top) {
-
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Модель крана") }
-
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Заводской номер крана")}
-
-                    //Ввод. Дата регистр. в Ростехнадзоре
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Дата рег. в Ростехнадзоре")}
-
-                    //Ввод. Дата ввода в эксплуатацию
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Дата ввода в эксплуатацию")}
-
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Заводской номер СБКБ") }
-
-                    Box (myBoxTextModifier) {
-                        BasicSettingsText("Ввод. Дата установки СБКБ") }
-                }
-            }
+        ParametersDataAndTimeText()
         }
 
 //№.2 - Правая область для отображения и ввода параметров. (1- Дата и время , 2-Тип крана)
@@ -499,5 +457,14 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun SettingsScreenPreview (){
+    GIRAFFEnewTheme(dynamicColor = false) {
+        InitialSetupScreen(
+        )
     }
 }

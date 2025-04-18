@@ -1,0 +1,57 @@
+package com.example.giraffenew.core.ui_kit.composable
+
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.giraffenew.R
+import com.example.giraffenew.ui.theme.DarkGrew
+import com.example.giraffenew.ui.theme.DarkLemon
+import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+
+@Composable
+    //Функция отображения текста в левой области экрана для меню настроек
+    fun BasicNameSettingParameterGiraffe (
+        settingParameterId: Int,
+    ){
+
+        var myBoxTextModifier = Modifier
+            .padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 0.dp)
+            .clip(shape = RoundedCornerShape(5.dp))
+            .fillMaxWidth()
+            .border(
+                width = 2.dp,
+                color = DarkLemon,
+                shape = RoundedCornerShape(5.dp)
+            )
+        Box (myBoxTextModifier) {
+            Text(modifier = Modifier
+                .padding(5.dp),
+                text = stringResource(id = settingParameterId),
+                fontSize = 20.sp, fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start, color = DarkGrew
+            )
+        }
+    }
+
+
+@Preview
+@Composable
+fun BasicNameSettingParameterGiraffePreview (){
+    GIRAFFEnewTheme(dynamicColor = false) {
+        BasicNameSettingParameterGiraffe(
+            settingParameterId = R.string.menu_home
+        )
+    }
+}
