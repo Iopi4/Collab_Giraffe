@@ -1,8 +1,10 @@
 package com.example.giraffenew.navigate
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.giraffenew.R
 import com.example.giraffenew.navigate.ui_kit.DrawerHeaderTop
@@ -30,7 +32,7 @@ fun AppDrawer(
 
 )
 {
-    ModalDrawerSheet(modifier = Modifier) {
+    ModalDrawerSheet(modifier = Modifier.background(colorResource(R.color.Silver))) {
 //Верхняя часть выдвижного окна навигации
         DrawerHeaderTop(modifier)
 

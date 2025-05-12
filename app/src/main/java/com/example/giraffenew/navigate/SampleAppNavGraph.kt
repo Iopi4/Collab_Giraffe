@@ -40,7 +40,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
-import com.example.giraffenew.coordinate_protection.CoordinateProtectionScreen
+import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionScreen
 import com.example.giraffenew.diagnostics.DiagnosticsScreen
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.Orange
@@ -53,9 +53,9 @@ import com.example.giraffenew.login.LoginScreen
 import com.example.giraffenew.modbus_tools.ModbusToolsScreen
 import com.example.giraffenew.parameter_logger.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.ServiceMenuScreen
-import com.example.giraffenew.setting_load_capacity.SettingLoadCapacityScreen
+import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapacityScreen
 import com.example.giraffenew.setting_rotation.SettingRotationScreen
-import com.example.giraffenew.setting_sensors.SettingSensorsScreen
+import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.TechnicalMaintenanceScreen
 
 

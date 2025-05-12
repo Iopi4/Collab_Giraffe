@@ -28,7 +28,7 @@ fun BasicSettingBackground (){
             bitmap = ImageBitmap.imageResource(R.drawable.background_setting),
             contentDescription = "Фон меню настроек",
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier.padding(horizontal =7.dp, vertical = 5.dp)
+            modifier = Modifier.padding(horizontal =8.dp, vertical = 5.dp)
         )
     }
 }

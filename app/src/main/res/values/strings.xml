@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">GIRAFFEnew</string>
+    <string name="app_name">GIRAFFE INTERFACE</string>
     <string name="mail">mail@giraffecrane.ru</string>
+
+    <string name="nul">nul</string>
 
     <!-- Текст меню навигации -->
     <string name="menu_home">Главный экран</string>
@@ -52,6 +54,90 @@
 <!-- Текст экрана InitialSetup' -->
 
 
+    <!-- Текст экрана SettingLoadCapacity' -->
+    <string name="SettingLoadCapacity_Text_Type_GH">Тип грузовой характеристики</string>
+    <string name="SettingLoadCapacity_Text_ChoiceType_GH">Выбор груз.хар.</string>
+
+    <string name="SettingLoadCapacity_Text_GH_0">Запасовка 2, стрела 30м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_1">Запасовка 2, стрела 35м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_2">Запасовка 2, стрела 40м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_3">Запасовка 2, стрела 45м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_4">Запасовка 2, стрела 50м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_5">Запасовка 2, стрела 55м, 10 т.</string>
+    <string name="SettingLoadCapacity_Text_GH_6">Запасовка 2, стрела 60м, 10 т.</string>
+
+    <string name="SettingLoadCapacity_Text_Parameters_GH">Параметры ГХ</string>
+    <string name="SettingLoadCapacity_Text_ValuesParameters_GH">Данные выбр. ГХ</string>
+    <string name="SettingLoadCapacity_Text_PulleyBlock">Кратность запасовки</string>
+    <string name="SettingLoadCapacity_Text_NominalLoadCapacity">Макс. грузоподъемность [T]</string>
+    <string name="SettingLoadCapacity_Text_MaxLoadCapacity">Макс. вес на конце стрелы [T]</string>
+    <string name="SettingLoadCapacity_Text_ArrowLength">Длина стрелы [М]</string>
+
+    <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика усилия</string>
+    <string name="SettingLoadCapacity_Text_SettingSensor">Настройка датчика</string>
+    <string name="SettingLoadCapacity_Text_SensorReadings">Показания датчика</string>
+    <string name="SettingLoadCapacity_Text_HookWeightReadings">Текущий вес на крюке</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMin">Ввод. Мин. вес груза [Т]</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMax">Ввод. Макс. вес груза [Т]</string>
+    <!-- Текст экрана SettingLoadCapacityScreen' -->
+
+    <!-- Текст экрана SettingSensorsScreen' -->
+    <string name="SettingSensors_Text_Sensor">Датчик</string>
+    <string name="SettingSensors_Text_Examination">Тест ограничений</string>
+    <string name="SettingSensors_Text_Status">статус</string>
+    <string name="SettingSensors_Text_Parameters">Параметры</string>
+
+    <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
+    <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Up">Ввод. Стоп вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Down">Ввод. Стоп вниз [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Up">Ввод. Сниж. скор. вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Down">Ввод. Сниж. скор. вниз [м]</string>
+
+    <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
+    <string name="SettingSensors_Text_Trolley_Departure">Вылет [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Forward">Ввод. Стоп вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Revers">Ввод. Стоп назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Decline_Forward">Ввод. Сниж. скор. вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Decline_Revers">Ввод. Сниж. скор. назад [м]</string>
+
+    <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
+    <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
+    <string name="SettingSensors_Text_Slewing_Installation_Zero">Ввод. Установка 0 [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Ввод. Установка угла [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Ввод. Макс. угол [град]</string>
+
+    <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
+    <string name="SettingSensors_Text_Crane_Run">Путь</string>
+    <string name="SettingSensors_Text_Crane_Stop_Right">Ввод. Стоп вправо [м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Left">Ввод. Стоп влево [м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вправо [м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. влево [м]</string>
+    <string name="SettingSensors_Text_Crane_Reference_Point">Реперная точка [м]</string>
+    <string name="SettingSensors_Text_Crane_Activate">Активация хода крана</string>
+    <!-- Текст экрана SettingSensorsScreen' -->
+
+
+    <!-- Текст экрана CoordinateProtectionScreen' -->
+    <string name="CoordinateProtection_Text_Polygon_1">Настройка полигона №1</string>
+    <string name="CoordinateProtection_Text_Polygon_2">Настройка полигона №2</string>
+    <string name="CoordinateProtection_Text_Polygon_3">Настройка полигона №3</string>
+    <string name="CoordinateProtection_Text_Polygon_4">Настройка полигона №4</string>
+
+    <string name="CoordinateProtection_Text_Polygon_Activate">Активировать полигон</string>
+    <string name="CoordinateProtection_Text_Activate_Protection">Зашита [вкл./выкл.]</string>
+    <string name="CoordinateProtection_Text_Protection_Mode">Режим защиты [груз/стрела]</string>
+
+
+    <string name="CoordinateProtection_Text_Number_Of_Points">Количество точек</string>
+    <string name="CoordinateProtection_Text_Height_Of_Polygon">Высота полигона</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_The_Top">Количество точек</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_The_Down">Количество точек</string>
+    <string name="CoordinateProtection_Text_Entering_Points_By_Coordinates">Ввод точек по координатам</string>
+    <string name="CoordinateProtection_Text_Entering_Points_By_Trolley">Ввод точек по вылету</string>
+
+    <string name="CoordinateProtection_Text_Entering_Coordinates">К координатам-></string>
+    <!-- Текст экрана CoordinateProtectionScreen' -->
 
 
 </resources>
