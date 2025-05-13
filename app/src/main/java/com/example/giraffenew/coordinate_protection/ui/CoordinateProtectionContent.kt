@@ -29,6 +29,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import kotlinx.coroutines.launch
@@ -41,16 +42,17 @@ fun CoordinateProtectionContent(
         modifier = Modifier
             .fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
-    { NavBar (navController = navController)
-        NavHost(navController, startDestination = NavRoutes.PagePolygon1.route){
-            composable(NavRoutes.PagePolygon1.route) { Polygon1() }
-            composable(NavRoutes.PagePolygon2.route) { Polygon2() }
+    { NavBarCoordinateProtection (navController = navController)
+        NavHost(navController, startDestination = NavRoutesCoordinateProtection.PagePolygon1.route){
+            composable(NavRoutesCoordinateProtection.PagePolygon1.route) { Polygon1() }
+            composable(NavRoutesCoordinateProtection.PagePolygon2.route) { Polygon2() }
+
         }
     }
 }
 
 @Composable
-fun NavBar(navController: NavController) {
+fun NavBarCoordinateProtection(navController: NavController) {
     //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
 
     val data = listOf("Полигон №1", "Полигон №2")
@@ -105,7 +107,7 @@ fun NavBar(navController: NavController) {
                         .size(40.dp)
                         .rotate(180f)
                         .clickable {
-                            navController.navigate(NavRoutes.PagePolygon1.route)
+                            navController.navigate(NavRoutesCoordinateProtection.PagePolygon1.route)
                             coroutineScope.launch{
                                 pagerState.animateScrollToPage(pagerState.currentPage -1)
                             }
@@ -125,7 +127,7 @@ fun NavBar(navController: NavController) {
                     modifier = Modifier
                         .size(40.dp)
                         .clickable {
-                            navController.navigate(NavRoutes.PagePolygon2.route)
+                            navController.navigate(NavRoutesCoordinateProtection.PagePolygon2.route)
                             coroutineScope.launch{
                                 pagerState.animateScrollToPage(pagerState.currentPage +1)
                             }
@@ -134,12 +136,12 @@ fun NavBar(navController: NavController) {
             }
         }
     }
-
 }
 
-sealed class NavRoutes (val route: String) {
-    object PagePolygon1: NavRoutes("Стр.1")
-    object PagePolygon2: NavRoutes("Стр.2")
+
+sealed class NavRoutesCoordinateProtection (val route: String) {
+    object PagePolygon1: NavRoutesCoordinateProtection("Полигон №1")
+    object PagePolygon2: NavRoutesCoordinateProtection("Полигон №2")
 }
 
 @Preview

@@ -2,10 +2,13 @@ package com.example.giraffenew.coordinate_protection.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +16,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -38,13 +46,41 @@ fun Polygon1(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-// Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Polygon_1))
+            // Заголовок
+            BasicSettingsName(
+                modifier = Modifier,
+                text = stringResource(R.string.CoordinateProtection_Text_Setting_Polygon))
+            //Активировать полигон
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Polygon_Activate)
+            //Количество точек
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Number_Of_Points)
+        //Высота полигона
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Height_Of_Polygon)
+        //Разрешить работу вверху
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Allow_Work_At_Up)
+        //Разрешить работу внизу
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Allow_Work_At_Down)
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            // Выбор режима задания точек
+            BasicSettingsName(
+                modifier = Modifier,
+                text = stringResource(R.string.CoordinateProtection_Text_Point_Setting_Mode))
+            //Задание точек по коорд.
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Entering_Points_Coordinate)
+            //Задание точек по вылету
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Entering_Points_Trolley)
+            //Spacer(modifier = Modifier.size(50.dp))
+
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Coordinate)
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            //Статус настроки полигона
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Status)
 
         }
-
-
 
         //№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
@@ -55,11 +91,152 @@ fun Polygon1(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+            //Поле активации полигона
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "Активировать",
+                        onClick = {},
+                    ) {}
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+            }
+
+            //Ввод. Количество точек полигона
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                BasicTextFilledGiraffe(
+                    placeholder = "0",
+                    text = "",
+                    onValueChange = { ""},
+                    modifier = Modifier,
+                )
+            }
+
+            //Ввод. Высота полигона
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                BasicTextFilledGiraffe(
+                    placeholder = "0.0",
+                    text = "",
+                    onValueChange = { ""},
+                    modifier = Modifier,
+                )
+            }
+
+            //Кнопка. Разрешить работу вверху
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "Разрешить",
+                        onClick = {},
+                    ) {}
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+            }
+
+            //Кнопка. Разрешить работу внизу
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "Разрешить",
+                        onClick = {},
+                    ) {}
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            // Выбор режима задания точек
+            BasicSettingsName(
+                modifier = Modifier,
+                text = stringResource(R.string.CoordinateProtection_Text_Mode))
+
+
+            //Кнопка. Выбор задание по координатам. Состояние
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "По координат.",
+                        onClick = {},
+                    ) {}
+                }
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+            }
+
+            //Кнопка. Выбор задание по вылету. Состояние
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "По вылету",
+                        onClick = {},
+                    ) {}
+                }
+
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+
+            }
+
+            Box(modifier = Modifier) {
+                SettingPointsNavBar()
+            }
+
+
+            Spacer(modifier = Modifier.size(30.dp))
+
+            //Статус активации/настройки полигона
+            //1.Многоугольник активирован – успешная активация)
+            //2.Используется мало точек – многоугольник не активирован, если введено менее трех точек многоугольника
+            //3.Настройки не завершены – многоугольник не активирован
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                BasicValuesSettingsParameterGiraffe(
+                    modifier = Modifier,
+                    valueParameterId = "Не активен."
+                )
+            }
+
+
+
+
+
 
         }
-
     }
-
 }
 
 

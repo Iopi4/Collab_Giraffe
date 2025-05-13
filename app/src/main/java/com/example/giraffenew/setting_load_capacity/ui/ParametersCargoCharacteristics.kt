@@ -75,19 +75,23 @@ fun ParametersCargoCharacteristics() {
                 text = stringResource(R.string.SettingLoadCapacity_Text_ValuesParameters_GH) )
 
             // Отображение текущих параметров ГХ
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "2")
             }
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "10.0")
             }
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "4.81")
             }
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "35")
             }

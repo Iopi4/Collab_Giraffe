@@ -87,14 +87,14 @@ fun CalibrationSensorCrane(
             )
 
             // Отображение текущего значения датчика хода крана
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "45459012"
                 )
             }
             // Отображение пройденного пути
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "12.8"
@@ -146,7 +146,7 @@ fun CalibrationSensorCrane(
                 //Поле ввода значения при котором снижается скорость вылета при движении назад
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -170,7 +170,7 @@ fun CalibrationSensorCrane(
                 //Поле ввода значения при котором снижается скорость тележки вперед
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(

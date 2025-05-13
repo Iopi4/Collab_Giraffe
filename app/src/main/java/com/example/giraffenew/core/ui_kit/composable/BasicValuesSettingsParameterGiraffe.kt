@@ -28,7 +28,6 @@ fun BasicValuesSettingsParameterGiraffe (
 ){
 
     var myBoxVisualValuesModifier = Modifier
-        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
         .background(colorResource(R.color.Orange_50_percent))
         .fillMaxWidth()

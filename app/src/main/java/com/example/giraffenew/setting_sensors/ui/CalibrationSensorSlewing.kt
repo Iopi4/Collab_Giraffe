@@ -88,14 +88,14 @@ fun CalibrationSensorSlewing(
             )
 
             // Отображение текущего значения датчика хода крана
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "145598"
                 )
             }
             // Отображение текущего угла поворота
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "106"

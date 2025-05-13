@@ -3,6 +3,7 @@
     <string name="mail">mail@giraffecrane.ru</string>
 
     <string name="nul">nul</string>
+    <string name="spacer"> </string>
 
     <!-- Текст меню навигации -->
     <string name="menu_home">Главный экран</string>
@@ -119,24 +120,45 @@
 
 
     <!-- Текст экрана CoordinateProtectionScreen' -->
-    <string name="CoordinateProtection_Text_Polygon_1">Настройка полигона №1</string>
-    <string name="CoordinateProtection_Text_Polygon_2">Настройка полигона №2</string>
-    <string name="CoordinateProtection_Text_Polygon_3">Настройка полигона №3</string>
-    <string name="CoordinateProtection_Text_Polygon_4">Настройка полигона №4</string>
+    <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
-    <string name="CoordinateProtection_Text_Polygon_Activate">Активировать полигон</string>
     <string name="CoordinateProtection_Text_Activate_Protection">Зашита [вкл./выкл.]</string>
     <string name="CoordinateProtection_Text_Protection_Mode">Режим защиты [груз/стрела]</string>
 
+    <string name="CoordinateProtection_Text_Polygon_Activate">Активация полигона</string>
+    <string name="CoordinateProtection_Text_Number_Of_Points">Ввод. Количество точек [шт]</string>
+    <string name="CoordinateProtection_Text_Height_Of_Polygon">Ввод. Высота полигона [м]</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_Up">Разрешение. Работа вверху</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_Down">Разрешение. Работа внизу</string>
 
-    <string name="CoordinateProtection_Text_Number_Of_Points">Количество точек</string>
-    <string name="CoordinateProtection_Text_Height_Of_Polygon">Высота полигона</string>
-    <string name="CoordinateProtection_Text_Allow_Work_At_The_Top">Количество точек</string>
-    <string name="CoordinateProtection_Text_Allow_Work_At_The_Down">Количество точек</string>
-    <string name="CoordinateProtection_Text_Entering_Points_By_Coordinates">Ввод точек по координатам</string>
-    <string name="CoordinateProtection_Text_Entering_Points_By_Trolley">Ввод точек по вылету</string>
+    <string name="CoordinateProtection_Text_Point_Setting_Mode">Выбор режима задания точек</string>
+    <string name="CoordinateProtection_Text_Entering_Points_Coordinate">По координатам X - Y</string>
+    <string name="CoordinateProtection_Text_Entering_Points_Trolley">Ручной ввод</string>
+    <string name="CoordinateProtection_Text_Coordinate">Настройка точек полигона</string>
+    <string name="CoordinateProtection_Text_Mode">Режим</string>
 
-    <string name="CoordinateProtection_Text_Entering_Coordinates">К координатам-></string>
+    <string name="CoordinateProtection_Text_Status">Статус активации полигона</string>
+
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Position">Задание точек полигона. Перемещение крюка в требуемое положение</string>
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Coordinate">Задание точек полигона. Ввод абсолютных координат</string>
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Manual">Задание точек полигона. Ввод требуемого положения крюка</string>
+    <string name="CoordinateProtection_Text_Coordinate_Points">Координаты X и Y точек</string>
+
+    <string name="CoordinateProtection_Text_Trolley">Вылет [м]</string>
+    <string name="CoordinateProtection_Text_Slewing">Поворот [град]</string>
+    <string name="CoordinateProtection_Text_Crane">Ход крана [м]</string>
+
+    <string name="CoordinateProtection_Text_Entering_Points_1">Задать точку 1-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_2">Задать точку 2-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_3">Задать точку 3-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_4">Задать точку 4-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_5">Задать точку 5-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_6">Задать точку 6-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_7">Задать точку 7-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_8">Задать точку 8-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_9">Задать точку 9-></string>
+    <string name="CoordinateProtection_Text_Entering_Points_10">Задать точку 10-></string>
+
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
 

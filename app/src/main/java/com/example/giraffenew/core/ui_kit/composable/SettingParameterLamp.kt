@@ -37,9 +37,9 @@ fun BasicSettingParameterLamp(
     )
 
     val myBoxTextModifier = Modifier
-        .padding(start = 7.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+        .padding(start = 0.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
-        .size(30.dp)
+        .size(width = 450.dp, height = 30.dp)
         .border(
             width = 2.dp,
             color = Grew_50_percent,

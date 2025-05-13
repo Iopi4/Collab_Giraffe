@@ -10,6 +10,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,6 +36,9 @@ fun BasicFilledButtonGiraffe(
     function: () -> Unit,
     ) {
 
+    val coroutineScope = rememberCoroutineScope()
+    var buttonEnabled by remember { mutableStateOf(true) } // Button state
+
     val myBoxButtonModifier = Modifier
         .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
@@ -39,7 +47,7 @@ fun BasicFilledButtonGiraffe(
     Box(myBoxButtonModifier){
         Button(
             modifier = modifier
-                .size(width = 150.dp, height = 30.dp),
+                .size(width = 350.dp, height = 30.dp),
             onClick = onClick,
             contentPadding = PaddingValues(2.dp),
             shape = RoundedCornerShape(5.dp),

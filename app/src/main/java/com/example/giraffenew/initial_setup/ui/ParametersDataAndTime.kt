@@ -75,12 +75,14 @@ fun ParametersDataAndTime(
 
 
             // Отображение текущего времени
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "Time"
                 )
             }
-            Box(modifier = Modifier) {
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "Date"
                 )
