@@ -26,11 +26,7 @@ val navController = rememberNavController()
             .fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
     {NavBarSettingPoints(navController = navController)
-        NavHost (navController, startDestination = NavRoutesPoints.PagePolygon1PointsTrolley){
-            composable(NavRoutesPoints.PagePolygon1PointsTrolley.route){ SettingPointsTrolleyPolygon1()}
-            composable(NavRoutesPoints.PagePolygon1PointsCoordinate.route) {SettingPointsCoordinatePolygon1()}
-            composable(NavRoutesPoints.PagePolygon1PointsManual.route) {SettingPointsManualPolygon1()  }
-        }
+
     }
 
 }
