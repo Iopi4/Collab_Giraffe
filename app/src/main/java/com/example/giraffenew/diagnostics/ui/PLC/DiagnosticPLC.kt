@@ -1,4 +1,4 @@
-package com.example.giraffenew.coordinate_protection.ui
+package com.example.giraffenew.diagnostics.ui.PLC
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +16,10 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun Polygon2(
+fun DiagnosticPLC(
 
 ) {
-    //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
+//Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -36,31 +36,26 @@ fun Polygon2(
             verticalArrangement = Arrangement.Top
         ) {}
 
-
-
-        //№.2 - Правая область для отображения и ввода данных настройки полигона
+//№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
                     width = 3.dp,
                     color = Burgundy_violet,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {}
-
-
 
 
     }
 }
 
-
-
 @Preview
 @Composable
-fun Polygon2Preview (){
+fun DiagnosticCranePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        Polygon2(
+        DiagnosticPLC(
         )
     }
 }

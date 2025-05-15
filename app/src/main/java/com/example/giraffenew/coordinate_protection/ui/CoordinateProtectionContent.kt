@@ -29,7 +29,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1
+import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1Content
+import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2
+import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2Content
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import kotlinx.coroutines.launch
@@ -44,8 +47,8 @@ fun CoordinateProtectionContent(
         verticalArrangement = Arrangement.SpaceEvenly)
     { NavBarCoordinateProtection (navController = navController)
         NavHost(navController, startDestination = NavRoutesCoordinateProtection.PagePolygon1.route){
-            composable(NavRoutesCoordinateProtection.PagePolygon1.route) { Polygon1() }
-            composable(NavRoutesCoordinateProtection.PagePolygon2.route) { Polygon2() }
+            composable(NavRoutesCoordinateProtection.PagePolygon1.route) { Polygon1Content() }
+            composable(NavRoutesCoordinateProtection.PagePolygon2.route) { Polygon2Content() }
 
         }
     }
@@ -83,7 +86,7 @@ fun NavBarCoordinateProtection(navController: NavController) {
     ) { page ->
 
         Row (myBoxSettingModifierGR,
-            horizontalArrangement = Arrangement.SpaceBetween) {
+            horizontalArrangement = Arrangement.Start) {
             val product = data[page]
 
             Box (modifier = Modifier

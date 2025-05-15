@@ -1,15 +1,12 @@
-package com.example.giraffenew.coordinate_protection.ui
+package com.example.giraffenew.coordinate_protection.ui.polygon_2
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,22 +17,22 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun SettingPointsTrolleyPolygon1(
-
+fun SettingPointsPolygon2Coordinate (
 ) {
-//Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
+    //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
     ) {
 
-        //№.1 - Левая область для отображения параметров точек полигона)
+        //№.1 - Левая область для отображения параметров настройки точек полигона)
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
@@ -48,10 +45,11 @@ fun SettingPointsTrolleyPolygon1(
             // Заголовок
             BasicSettingsName(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Setting_Points_Polygon_Position))
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Trolley)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Slewing)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Crane)
+                text = stringResource(R.string.CoordinateProtection_Text_Setting_Points_Polygon_Coordinate))
+
+
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Coordinate_Point_X)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Coordinate_Point_Y)
 
             // Координаты X и Y точек
             BasicSettingsName(
@@ -220,42 +218,37 @@ fun SettingPointsTrolleyPolygon1(
         }
 
 
-
-        //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
+        //№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
                     width = 3.dp,
                     color = Burgundy_violet,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
-                //Отображение текущего вылета
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
-                    BasicValuesSettingsParameterGiraffe(
-                        modifier = Modifier,
-                        valueParameterId = "24.2"
-                    )
-                }
-            //Отображение текущего угла поворота
+            //Ввод. Требуемое значение. Координата X
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
-                BasicValuesSettingsParameterGiraffe(
+                BasicTextFilledGiraffe(
+                    placeholder = "00.0",
+                    text = "",
+                    onValueChange = { ""},
                     modifier = Modifier,
-                    valueParameterId = "133.2"
                 )
             }
-
-            //Отображение расстояние крана. Путь.
+            //Ввод. Требуемое значение. Координата Y
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
-                BasicValuesSettingsParameterGiraffe(
+                BasicTextFilledGiraffe(
+                    placeholder = "00.0",
+                    text = "",
+                    onValueChange = { ""},
                     modifier = Modifier,
-                    valueParameterId = "12.8"
                 )
             }
 
@@ -330,22 +323,17 @@ fun SettingPointsTrolleyPolygon1(
 
 
 
-
-
-
-
-
-
         }
+
+
     }
 }
 
-
 @Preview
 @Composable
-fun SettingPointsTrolleyPolygon1Preview (){
+fun SettingPointsPolygon2CoordinatePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        SettingPointsTrolleyPolygon1(
+        SettingPointsPolygon2Coordinate(
         )
     }
 }

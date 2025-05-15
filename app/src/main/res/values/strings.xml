@@ -139,27 +139,59 @@
 
     <string name="CoordinateProtection_Text_Status">Статус активации полигона</string>
 
-    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Position">Задание точек полигона. Перемещение крюка в требуемое положение</string>
-    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Coordinate">Задание точек полигона. Ввод абсолютных координат</string>
-    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Manual">Задание точек полигона. Ввод требуемого положения крюка</string>
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Position">Задание точек по вылету</string>
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Coordinate">Задание точек по координатам</string>
+    <string name="CoordinateProtection_Text_Setting_Points_Polygon_Manual">Задание точек вручную</string>
     <string name="CoordinateProtection_Text_Coordinate_Points">Координаты X и Y точек</string>
 
     <string name="CoordinateProtection_Text_Trolley">Вылет [м]</string>
     <string name="CoordinateProtection_Text_Slewing">Поворот [град]</string>
     <string name="CoordinateProtection_Text_Crane">Ход крана [м]</string>
+    <string name="CoordinateProtection_Coordinate_Point_X">Координата точки X [м]</string>
+    <string name="CoordinateProtection_Coordinate_Point_Y">Координата точки Y [м]</string>
 
-    <string name="CoordinateProtection_Text_Entering_Points_1">Задать точку 1-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_2">Задать точку 2-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_3">Задать точку 3-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_4">Задать точку 4-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_5">Задать точку 5-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_6">Задать точку 6-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_7">Задать точку 7-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_8">Задать точку 8-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_9">Задать точку 9-></string>
-    <string name="CoordinateProtection_Text_Entering_Points_10">Задать точку 10-></string>
-
+    <string name="CoordinateProtection_Text_Entering_Points_1">Задать точку 1</string>
+    <string name="CoordinateProtection_Text_Entering_Points_2">Задать точку 2</string>
+    <string name="CoordinateProtection_Text_Entering_Points_3">Задать точку 3</string>
+    <string name="CoordinateProtection_Text_Entering_Points_4">Задать точку 4</string>
+    <string name="CoordinateProtection_Text_Entering_Points_5">Задать точку 5</string>
+    <string name="CoordinateProtection_Text_Entering_Points_6">Задать точку 6</string>
+    <string name="CoordinateProtection_Text_Entering_Points_7">Задать точку 7</string>
+    <string name="CoordinateProtection_Text_Entering_Points_8">Задать точку 8</string>
+    <string name="CoordinateProtection_Text_Entering_Points_9">Задать точку 9</string>
+    <string name="CoordinateProtection_Text_Entering_Points_10">Задать точку 10</string>
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
+
+    <!-- Текст экрана DiagnosticsScreen' -->
+    <string name="Diagnostic_Text_Error_Reset">Сброс ошибки</string>
+
+    <string name="Diagnostic_Text_System">Система управления</string>
+    <string name="Diagnostic_Text_PLC">ПЛК</string>
+    <string name="Diagnostic_Text_Sensors">Датчики</string>
+    <string name="Diagnostic_Text_Hoist">Привод подъема</string>
+    <string name="Diagnostic_Text_Trolley">Привод тележки</string>
+    <string name="Diagnostic_Text_Slewing">Привод поворота</string>
+    <string name="Diagnostic_Text_Crane">Привод хода</string>
+
+    <string name="Diagnostic_Text_System_Status_PLC">Статус. Контроллер</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Статус. Датчик крит. момента</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Сargo">Статус. Датчик груза</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Wind">Статус. Датчик ветра</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Hoist">Статус. Датчик подъема</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Trolley">Статус. Датчик вылета</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Slewing">Статус. Датчик поворота</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Crane">Статус. Датчик хода</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Crane_Reference_Point">Статус. Реперная точка. Ход</string>
+    <string name="Diagnostic_Text_System_Status_Hoist">Статус. Привод подъема</string>
+    <string name="Diagnostic_Text_System_Status_Trolley">Статус. Привод вылета</string>
+    <string name="Diagnostic_Text_System_Status_Slewing">Статус. Привод поворота</string>
+    <string name="Diagnostic_Text_System_Status_Crane">Статус. Привод хода</string>
+
+    <string name="Diagnostic_Text_Hoist_Last_Fault">Запись. Последняя ошибка</string>
+    <string name="Diagnostic_Text_Hoist_Magazine_Fault">Запись. Журнал ошибок</string>
+
+
+    <!-- Текст экрана DiagnosticsScreen' -->
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics
+package com.example.giraffenew.diagnostics.prezentation
 
 import androidx.compose.runtime.Composable
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground

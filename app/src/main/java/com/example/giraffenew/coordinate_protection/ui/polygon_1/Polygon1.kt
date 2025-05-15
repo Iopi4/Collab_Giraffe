@@ -1,4 +1,4 @@
-package com.example.giraffenew.coordinate_protection.ui
+package com.example.giraffenew.coordinate_protection.ui.polygon_1
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -54,11 +54,11 @@ fun Polygon1(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Polygon_Activate)
             //Количество точек
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Number_Of_Points)
-        //Высота полигона
+            //Высота полигона
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Height_Of_Polygon)
-        //Разрешить работу вверху
+            //Разрешить работу вверху
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Allow_Work_At_Up)
-        //Разрешить работу внизу
+            //Разрешить работу внизу
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Allow_Work_At_Down)
 
             Spacer(modifier = Modifier.size(30.dp))
@@ -67,13 +67,11 @@ fun Polygon1(
             BasicSettingsName(
                 modifier = Modifier,
                 text = stringResource(R.string.CoordinateProtection_Text_Point_Setting_Mode))
-            //Задание точек по коорд.
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Entering_Points_Coordinate)
             //Задание точек по вылету
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Entering_Points_Trolley)
+            //Задание точек по коорд.
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Entering_Points_Coordinate)
             //Spacer(modifier = Modifier.size(50.dp))
-
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Text_Coordinate)
 
             Spacer(modifier = Modifier.size(30.dp))
 
@@ -175,7 +173,25 @@ fun Polygon1(
                 text = stringResource(R.string.CoordinateProtection_Text_Mode))
 
 
-            //Кнопка. Выбор задание по координатам. Состояние
+            //Кнопка. Выбор задание точек в ручную. Состояние
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(4f)) {
+                    BasicFilledButtonGiraffe(
+                        modifier = Modifier,
+                        text = "Ручной ввод",
+                        onClick = {},
+                    ) {}
+                }
+
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicSettingParameterLamp(
+                        isLampStatus = 2
+                    )
+                }
+            }
+
+            //Кнопка. Выбор задание точек по координатам. Состояние
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
@@ -192,30 +208,6 @@ fun Polygon1(
                 }
             }
 
-            //Кнопка. Выбор задание по вылету. Состояние
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
-                        modifier = Modifier,
-                        text = "По вылету",
-                        onClick = {},
-                    ) {}
-                }
-
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-
-            }
-
-            Box(modifier = Modifier) {
-                SettingPointsNavBar()
-            }
-
-
             Spacer(modifier = Modifier.size(30.dp))
 
             //Статус активации/настройки полигона
@@ -226,7 +218,7 @@ fun Polygon1(
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "Не активен."
+                    valueParameterId = "Не активен"
                 )
             }
 

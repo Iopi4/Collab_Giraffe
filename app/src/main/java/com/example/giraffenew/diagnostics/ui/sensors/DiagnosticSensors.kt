@@ -1,4 +1,4 @@
-package com.example.giraffenew.coordinate_protection.ui
+package com.example.giraffenew.diagnostics.ui.sensors
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,25 +9,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun SettingPointsCoordinatePolygon1 (
+fun DiagnosticSensors(
+
 ) {
-    //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
+//Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
             .fillMaxSize()
     ) {
 
-        //№.1 - Левая область для отображения параметров настройки точек полигона)
+        //№.1 - Левая область для отображения параметров настройки полигона)
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
@@ -36,17 +34,9 @@ fun SettingPointsCoordinatePolygon1 (
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {
-            // Заголовок
-            BasicSettingsName(
-                modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Setting_Points_Polygon_Coordinate))
+        ) {}
 
-
-        }
-
-
-        //№.2 - Правая область для отображения и ввода данных настройки полигона
+//№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
@@ -63,9 +53,9 @@ fun SettingPointsCoordinatePolygon1 (
 
 @Preview
 @Composable
-fun SettingPointsCoordinatePolygon1Preview (){
+fun DiagnosticSensorsPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        SettingPointsCoordinatePolygon1(
+        DiagnosticSensors(
         )
     }
 }
