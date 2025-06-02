@@ -97,7 +97,7 @@ fun ParametersDataAndTime(
                     .weight(1f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "Час",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                         )
@@ -110,7 +110,7 @@ fun ParametersDataAndTime(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "Mин",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                         )
@@ -127,7 +127,7 @@ fun ParametersDataAndTime(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "ДД",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )
@@ -139,7 +139,7 @@ fun ParametersDataAndTime(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "ММ",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )
@@ -150,7 +150,7 @@ fun ParametersDataAndTime(
                     .weight(2f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "ГГГГ",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )

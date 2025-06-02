@@ -97,7 +97,7 @@ fun ParameterWeightSensor() {
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "0.0",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )
@@ -121,7 +121,7 @@ fun ParameterWeightSensor() {
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "10.0",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )

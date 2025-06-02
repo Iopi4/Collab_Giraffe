@@ -236,9 +236,10 @@ fun SettingPointsPolygon1Manual (
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
+
                 )
             }
             //Ввод. Требуемое значение. Угол поворота
@@ -246,9 +247,10 @@ fun SettingPointsPolygon1Manual (
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
+
                 )
             }
 
@@ -257,9 +259,10 @@ fun SettingPointsPolygon1Manual (
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
+
                 )
             }
 

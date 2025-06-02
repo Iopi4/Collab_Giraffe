@@ -129,7 +129,7 @@ fun CalibrationSensorHoist(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -160,7 +160,7 @@ fun CalibrationSensorHoist(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -184,7 +184,7 @@ fun CalibrationSensorHoist(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -207,7 +207,7 @@ fun CalibrationSensorHoist(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "0.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )

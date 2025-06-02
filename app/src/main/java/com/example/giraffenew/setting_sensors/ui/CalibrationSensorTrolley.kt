@@ -116,7 +116,7 @@ fun CalibrationSensorTrolley(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "0.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -147,7 +147,7 @@ fun CalibrationSensorTrolley(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -171,7 +171,7 @@ fun CalibrationSensorTrolley(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -194,7 +194,7 @@ fun CalibrationSensorTrolley(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )

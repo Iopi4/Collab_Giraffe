@@ -120,7 +120,7 @@ fun CalibrationSensorCrane(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "0.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -151,7 +151,7 @@ fun CalibrationSensorCrane(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -175,7 +175,7 @@ fun CalibrationSensorCrane(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -198,7 +198,7 @@ fun CalibrationSensorCrane(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "00.0",
-                        text = "",
+                        value = "",
                         onValueChange = { "" },
                         modifier = Modifier,
                     )
@@ -223,7 +223,7 @@ fun CalibrationSensorCrane(
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = {""},
                     modifier = Modifier,
                 )

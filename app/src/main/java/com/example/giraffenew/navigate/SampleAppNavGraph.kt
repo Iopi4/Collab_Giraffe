@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
 import com.example.giraffenew.home.presentanion.HomeScreen
 import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.LoginScreen
-import com.example.giraffenew.modbus_tools.ModbusToolsScreen
+import com.example.giraffenew.modbus_tools.presentation.ModbusToolsScreen
 import com.example.giraffenew.parameter_logger.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.ServiceMenuScreen
 import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapacityScreen

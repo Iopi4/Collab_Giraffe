@@ -236,9 +236,10 @@ fun SettingPointsPolygon1Coordinate (
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
+
                 )
             }
             //Ввод. Требуемое значение. Координата Y
@@ -246,9 +247,10 @@ fun SettingPointsPolygon1Coordinate (
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "00.0",
-                    text = "",
+                    value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
+
                 )
             }
 

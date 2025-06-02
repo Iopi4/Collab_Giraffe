@@ -191,7 +191,17 @@
     <string name="Diagnostic_Text_Hoist_Last_Fault">Запись. Последняя ошибка</string>
     <string name="Diagnostic_Text_Hoist_Magazine_Fault">Запись. Журнал ошибок</string>
 
-
     <!-- Текст экрана DiagnosticsScreen' -->
+
+
+    <!-- Текст экрана ModbusToolsScreen' -->
+    <string name="ModbusTools_Text_Server_IP">Server IP</string>
+    <string name="ModbusTools_Text_Server_Port">Server Port</string>
+    <string name="ModbusTools_Text_Status">Status</string>
+    <string name="ModbusTools_Text_Register_Address">Register Address</string>
+    <string name="ModbusTools_Text_Value_To_Write">Value to Write</string>
+    <string name="ModbusTools_Text_Read_Value">Read Value</string>
+    <!-- Текст экрана ModbusToolsScreen' -->
+
 
 </resources>

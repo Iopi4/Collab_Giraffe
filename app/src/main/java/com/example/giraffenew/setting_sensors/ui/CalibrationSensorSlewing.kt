@@ -117,7 +117,7 @@ fun CalibrationSensorSlewing(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )
@@ -141,7 +141,7 @@ fun CalibrationSensorSlewing(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        text = "",
+                        value = "",
                         onValueChange = { ""},
                         modifier = Modifier,
                     )

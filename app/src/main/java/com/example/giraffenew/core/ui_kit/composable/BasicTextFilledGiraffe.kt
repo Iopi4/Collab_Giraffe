@@ -35,7 +35,7 @@ import com.example.giraffenew.ui.theme.Grew_50_percent
 @Composable
 fun BasicTextFilledGiraffe (
     placeholder: String,
-    text: String,
+    value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 
@@ -64,7 +64,7 @@ fun BasicTextFilledGiraffe (
 
     Box(myBoxVisualTextFieldModifier) {
         BasicTextField(
-            value = text,
+            value = value,
             onValueChange = onValueChange,
             modifier = Modifier
                 .size(height = 30.dp, width = 500.dp),
@@ -81,7 +81,7 @@ fun BasicTextFilledGiraffe (
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number) //Выбор типа клавиатуры
         ){
             TextFieldDefaults.DecorationBox(
-                value = text,
+                value = value,
                 visualTransformation = VisualTransformation.None,
                 innerTextField = it, //поле ввода текста, которое оборачивает этот декоративный блок.
                 // Вы передадите сюда управляемый фреймворком компонуемый параметр "innerTextField" из decorationBox lambda BasicTextField
@@ -118,9 +118,9 @@ fun BasicTextFilledGiraffePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         BasicTextFilledGiraffe(
             placeholder = "Value",
-            text = "Value Value Value",
             onValueChange = { },
             modifier = Modifier,
+            value = ""
         )
     }
 }
