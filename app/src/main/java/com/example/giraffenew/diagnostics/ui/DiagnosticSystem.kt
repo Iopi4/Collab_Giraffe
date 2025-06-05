@@ -92,108 +92,36 @@ fun DiagnosticSystem(
             }
 
 // Отображение статус датчика усилия
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения сигнала от датчика усилия
-                Box(modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                        .weight(3f)) {
-                        BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                            valueParameterId = "1000")
-                }
-                //Статус
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "1000",
+                isValueStatus = 2)
 
 // Отображение статус датчика ветра
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения сигнала от датчика ветра
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f)) {
-                    BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                        valueParameterId = "1000")
-                }
-                //Статус датчика ветра
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "1000",
+                isValueStatus = 2)
 
 // Отображение статуса датчика высоты Hoist
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения датчика высоты Hoist
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f)) {
-                    BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                        valueParameterId = "111111111")
-                }
-                //Статус датчика Hoist
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "111111111",
+                isValueStatus = 2)
 
 // Отображение статуса датчика азимута Slewing
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения датчика азимута Slewing
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f)) {
-                    BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                        valueParameterId = "222222222")
-                }
-                //Статус датчика азимута Slewing
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "222222222",
+                isValueStatus = 2)
 
 
 // Отображение статуса датчика вылета Trolley
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения датчика вылета Trolley
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f)) {
-                    BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                        valueParameterId = "333333333")
-                }
-                //Статус датчика вылета Trolleyc
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "333333333",
+                isValueStatus = 2)
 
 
 // Отображение статуса датчика хода Crane
-            Row(horizontalArrangement = Arrangement.Start) {
-                // Отображение текущего значения датчика хода Crane
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f)) {
-                    BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                        valueParameterId = "444444444")
-                }
-                //Статус датчика хода Crane
-                Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
-                    )
-                }
-            }
+            StateValue(
+                isValueParameter = "444444444",
+                isValueStatus = 2)
 
 // Отображение статус датчика реперной точки хода крана
             Box(modifier = Modifier.padding(start = 15.dp)) {

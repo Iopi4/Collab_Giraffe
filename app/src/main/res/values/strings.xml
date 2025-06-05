@@ -187,7 +187,7 @@
     <string name="Diagnostic_Text_State_DIDO">№ вх.вых./Статус</string>
     <string name="Diagnostic_Text_State_DI">№ входа/Статус</string>
     <string name="Diagnostic_Text_State_DO">№ выхода/Статус</string>
-    <string name="Diagnostic_Text_State_AI">№ входа/Статус</string>
+    <string name="Diagnostic_Text_State_AI">№ входа/Значение</string>
     <string name="Diagnostic_Text_PLC">Контроллер</string>
     <string name="Diagnostic_Text_System">Система управления</string>
     <string name="Diagnostic_Text_Sensors">Датчики</string>
@@ -278,10 +278,17 @@
     <string name="Diagnostic_Text_PLC_Module_DO10_DO16">DO-10..DO-16</string>
     <string name="Diagnostic_Text_PLC_Module_DO_17">Сброс ошибки АЦСС</string>
 
+    <string name="Diagnostic_Text_PLC_Module_DO17">DO-17</string>
+
     <string name="Diagnostic_Text_PLC_Status_AI_1">Канал-1. Датчик усилия</string>
     <string name="Diagnostic_Text_PLC_Status_AI_2">Канал-2. Датчик скорости ветра</string>
     <string name="Diagnostic_Text_PLC_Status_AI_3">Канал-3. Резерв</string>
     <string name="Diagnostic_Text_PLC_Status_AI_4">Канал-4. Резерв</string>
+
+    <string name="Diagnostic_Text_PLC_Status_AI1">AI-1</string>
+    <string name="Diagnostic_Text_PLC_Status_AI2">AI-2</string>
+    <string name="Diagnostic_Text_PLC_Status_AI3">AI-3</string>
+    <string name="Diagnostic_Text_PLC_Status_AI4">AI-4</string>
 
     <!-- Текст экрана DiagnosticsScreen' -->
 

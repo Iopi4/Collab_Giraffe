@@ -60,7 +60,27 @@ fun DiagnosticPLCModuleDO(
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {}
+        ) {
+// Заголовок
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.Diagnostic_Text_State_DO))
+// Отображение состояния Звуковая сигнализация. DO_0
+            StateDIDO(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_DO0,
+                isDIDOStatus = 2)
+// Резерв
+            BasicSettingsName(modifier = Modifier.padding(5.dp)
+                , text = stringResource(R.string.Diagnostic_Text_PLC_Module_DO1_DO7))
+// Резерв
+            BasicSettingsName(modifier = Modifier.padding(5.dp),
+                text = stringResource(R.string.Diagnostic_Text_PLC_Module_DO10_DO16))
+// Отображение состояния Сброс ошибки АЦСС. DO_17
+            StateDIDO(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DO17,
+                isDIDOStatus = 2)
+
+
+
+        }
 
 
     }

@@ -67,17 +67,17 @@ fun DiagnosticPLCModuleDI(
             verticalArrangement = Arrangement.Top
         ) {
 // Заголовок
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.Diagnostic_Text_State_DIDO))
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.Diagnostic_Text_State_DI))
 // Отображение состояния Питание обогрева в тех.помещ. DI_0
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI0,
                 isDIDOStatus = 2)
 // Отображение состояния Питание тормозов двигателей. DI_1
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI1,
                 isDIDOStatus = 2)
 // Отображение состояния Питание назависим. вентиляции. DI_2
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI2,
                 isDIDOStatus = 2)
 // Резерв
@@ -87,23 +87,23 @@ fun DiagnosticPLCModuleDI(
             BasicSettingsName(modifier = Modifier.padding(5.dp),
                 text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI10_DI12))
 // Отображение состояния Люк ОПУ. DI_13
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI13,
                 isDIDOStatus = 2)
 // Отображение состояния 0-е полож. джойстика подъема. DI_14
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI14,
                 isDIDOStatus = 2)
 // Отображение состояния 0-е полож. джойстика поворота. DI_15
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI15,
                 isDIDOStatus = 2)
 // Отображение состояния 0-е полож. джойстика тележки. DI_16
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI16,
                 isDIDOStatus = 2)
 // Отображение состояния 0-е полож. джойстика хода. DI_17
-            State(
+            StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI17,
                 isDIDOStatus = 2)
 

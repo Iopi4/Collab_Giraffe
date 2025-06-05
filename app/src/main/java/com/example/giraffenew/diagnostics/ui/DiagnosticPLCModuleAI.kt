@@ -58,7 +58,21 @@ fun DiagnosticPLCModuleAI(
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {}
+        ) {
+// Заголовок
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.Diagnostic_Text_State_AI))
+
+// Отображение статус датчика усилия
+            StateValueAI(
+                isValueParameter = "1000",
+                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI1)
+
+// Отображение статус датчика ветра
+            StateValueAI(
+                isValueParameter = "1000",
+                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI2)
+
+        }
 
 
     }
