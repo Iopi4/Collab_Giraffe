@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.PLC
+package com.example.giraffenew.diagnostics.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticPLC(
+fun DiagnosticCrane(
 
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -34,7 +34,8 @@ fun DiagnosticPLC(
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {}
+        ) {
+                    }
 
 //№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
@@ -55,7 +56,7 @@ fun DiagnosticPLC(
 @Composable
 fun DiagnosticCranePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        DiagnosticPLC(
+        DiagnosticCrane(
         )
     }
 }

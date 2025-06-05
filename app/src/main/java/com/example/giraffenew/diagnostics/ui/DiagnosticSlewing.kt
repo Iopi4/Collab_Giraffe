@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.Slewing
+package com.example.giraffenew.diagnostics.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

@@ -17,7 +17,7 @@ import kotlin.random.Random
 
 // ModbusViewModel to handle business logic and state
 class ModbusViewModel: ViewModel() {
-    var serverIp by mutableStateOf("192.168.33.5")
+    var serverIp by mutableStateOf("192.168.33.10")
     var serverPort by mutableStateOf("502")
     var registerAddress by mutableStateOf("")
     var registerValue by mutableStateOf("")

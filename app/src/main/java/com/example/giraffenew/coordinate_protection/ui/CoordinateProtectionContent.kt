@@ -58,7 +58,7 @@ fun CoordinateProtectionContent(
 fun NavBarCoordinateProtection(navController: NavController) {
     //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
 
-    val data = listOf("Полигон №1", "Полигон №2")
+    val data = listOf("ПОЛИГОН №1", "ПОЛИГОН №2")
     //Количество страниц из переменной data
     val pagerState = rememberPagerState { data.size }
 

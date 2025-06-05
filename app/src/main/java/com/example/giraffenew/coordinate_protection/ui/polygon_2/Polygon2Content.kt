@@ -66,7 +66,7 @@ fun NavBarPolygon2(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "Настройка",
+                text = "НАСТРОЙКА",
                 onClick = {
                     navController.navigate(NavRoutesPolygon2.PageSettingPolygon2.route)
                 },
@@ -75,7 +75,7 @@ fun NavBarPolygon2(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "По вылету",
+                text = "ПО ВЫЛЕТУ",
                 onClick = {
                     navController.navigate(NavRoutesPolygon2.PageSettingPointsPolygon2Trolley.route)
                 },
@@ -84,7 +84,7 @@ fun NavBarPolygon2(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "Ручной ввод",
+                text = "РУЧНОЙ ВВОД",
                 onClick = {
                     navController.navigate(NavRoutesPolygon2.PageSettingPointsPolygon2Manual.route)
                 },
@@ -93,7 +93,7 @@ fun NavBarPolygon2(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier.padding(end = 7.dp),
-                text = "Координаты",
+                text = "КООРДИНАТЫ",
                 onClick = {
                     navController.navigate(NavRoutesPolygon2.PageSettingPointsPolygon2Coordinate.route)
                 },

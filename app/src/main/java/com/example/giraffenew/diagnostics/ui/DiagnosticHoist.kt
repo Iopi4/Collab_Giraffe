@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.Crane
+package com.example.giraffenew.diagnostics.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,17 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticCrane(
+fun DiagnosticHoist(
 
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -37,8 +34,7 @@ fun DiagnosticCrane(
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {
-                    }
+        ) {}
 
 //№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
@@ -57,9 +53,9 @@ fun DiagnosticCrane(
 
 @Preview
 @Composable
-fun DiagnosticCranePreview (){
+fun DiagnosticHoistPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        DiagnosticCrane(
+        DiagnosticHoist(
         )
     }
 }

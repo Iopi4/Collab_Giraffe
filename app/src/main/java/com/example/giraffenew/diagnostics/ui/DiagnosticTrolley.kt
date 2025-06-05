@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.sensors
+package com.example.giraffenew.diagnostics.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticSensors(
+fun DiagnosticTrolley(
 
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -53,9 +53,9 @@ fun DiagnosticSensors(
 
 @Preview
 @Composable
-fun DiagnosticSensorsPreview (){
+fun DiagnosticTrolleyPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        DiagnosticSensors(
+        DiagnosticTrolley(
         )
     }
 }

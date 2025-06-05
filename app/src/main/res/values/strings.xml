@@ -165,7 +165,7 @@
 
     <!-- Текст экрана DiagnosticsScreen' -->
     <string name="Diagnostic_Text_Error_Reset">Сброс ошибки</string>
-
+    <string name="Diagnostic_Text_Status">Статус</string>
     <string name="Diagnostic_Text_System">Система управления</string>
     <string name="Diagnostic_Text_PLC">ПЛК</string>
     <string name="Diagnostic_Text_Sensors">Датчики</string>
@@ -175,7 +175,7 @@
     <string name="Diagnostic_Text_Crane">Привод хода</string>
 
     <string name="Diagnostic_Text_System_Status_PLC">Статус. Контроллер</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Статус. Датчик крит. момента</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Статус. Датчик критич момента</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Сargo">Статус. Датчик груза</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Wind">Статус. Датчик ветра</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Hoist">Статус. Датчик подъема</string>
