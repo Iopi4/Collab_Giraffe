@@ -74,7 +74,7 @@ fun ParametersCraneAndSBKB(
 
         //Ввод. Модель крана
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "10.180",
                     value = "",
@@ -85,7 +85,7 @@ fun ParametersCraneAndSBKB(
             }
         //Ввод. Заводской номер крана
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "№",
                     value = "",
@@ -98,7 +98,7 @@ fun ParametersCraneAndSBKB(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //День
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -110,7 +110,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Месяц
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -122,7 +122,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Год
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                     .weight(2f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "ГГГГ",
@@ -138,7 +138,7 @@ fun ParametersCraneAndSBKB(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //День
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -150,7 +150,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Месяц
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -162,7 +162,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Год
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                     .weight(2f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "ГГГГ",
@@ -175,7 +175,7 @@ fun ParametersCraneAndSBKB(
 
             //Ввод. Заводской номер СБКБ
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "№",
                     value = "",
@@ -188,7 +188,7 @@ fun ParametersCraneAndSBKB(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //День
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -200,7 +200,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Месяц
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -213,7 +213,7 @@ fun ParametersCraneAndSBKB(
                 }
                 //Год
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                     .weight(2f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "ГГГГ",

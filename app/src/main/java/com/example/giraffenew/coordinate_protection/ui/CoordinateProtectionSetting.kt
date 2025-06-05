@@ -60,7 +60,7 @@ fun CoordinateProtectionSetting(
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле состояния и активации коррдинатной защиты
                 Box(modifier = Modifier.weight(5f)
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)) {
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = "Выкл."
@@ -79,7 +79,7 @@ fun CoordinateProtectionSetting(
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле состояния и активации коррдинатной защиты
                 Box(modifier = Modifier.weight(5f)
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)) {
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = "Стрела."

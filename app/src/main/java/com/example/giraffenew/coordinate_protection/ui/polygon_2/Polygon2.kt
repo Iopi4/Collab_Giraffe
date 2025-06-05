@@ -112,7 +112,7 @@ fun Polygon2(
 
             //Ввод. Количество точек полигона
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "0",
                     value = "",
@@ -123,7 +123,7 @@ fun Polygon2(
 
             //Ввод. Высота полигона
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "0.0",
                     value = "",
@@ -217,7 +217,7 @@ fun Polygon2(
             //2.Используется мало точек – многоугольник не активирован, если введено менее трех точек многоугольника
             //3.Настройки не завершены – многоугольник не активирован
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "Не активен"

@@ -27,7 +27,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
     ){
 
         var myBoxTextModifier = Modifier
-            .padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 0.dp)
+            .padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp)
             .clip(shape = RoundedCornerShape(5.dp))
             .fillMaxWidth()
             .border(

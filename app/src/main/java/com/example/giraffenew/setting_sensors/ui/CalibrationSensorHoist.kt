@@ -96,14 +96,14 @@ fun CalibrationSensorHoist(
             )
 
             // Отображение текущего значения датчика
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "104350"
                 )
             }
             // Отображение текущей высоты подъема
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "41.8"
@@ -124,7 +124,7 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения максимальной высоты подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -155,7 +155,7 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения при котором снижается скорость подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -179,7 +179,7 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения при котором снижается скорость опускания
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -202,7 +202,7 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения минимальной высоты подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(

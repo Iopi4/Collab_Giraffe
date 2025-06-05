@@ -79,11 +79,11 @@ fun ParameterWeightSensor() {
                 text = stringResource(R.string.SettingLoadCapacity_Text_SettingSensor))
 
             // Отображение текущих параметров датчика усилия
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "1000")
             }
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "10.0")
             }
@@ -92,7 +92,7 @@ fun ParameterWeightSensor() {
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения минимального веса груза
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -116,7 +116,7 @@ fun ParameterWeightSensor() {
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения максимального веса груза
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(

@@ -29,7 +29,7 @@ fun DiagnosticPLCModuleDI(
             .fillMaxSize()
     ) {
 
-        //№.1 - Левая область для отображения параметров настройки полигона)
+        //№.1 - Левая область для отображения назначения дискретных входов
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
@@ -42,20 +42,21 @@ fun DiagnosticPLCModuleDI(
             // Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI))
+
             //Состояние дискретных входных сигналов от СУ
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_0)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_1)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_2)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_3_DI_7)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_10_DI_12)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_13)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_14)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_15)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_16)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Status_DI_17)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_0)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_1)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_2)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_3_DI_7)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_10_DI_12)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_13)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_14)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_15)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_16)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_17)
         }
 
-//№.2 - Правая область для отображения и ввода данных настройки полигона
+//№.2 - Правая область для отображения состояния дискретных входов
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(

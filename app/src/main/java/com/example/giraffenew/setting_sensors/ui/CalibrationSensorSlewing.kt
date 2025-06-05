@@ -88,14 +88,14 @@ fun CalibrationSensorSlewing(
             )
 
             // Отображение текущего значения датчика хода крана
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "145598"
                 )
             }
             // Отображение текущего угла поворота
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "106"
@@ -112,7 +112,7 @@ fun CalibrationSensorSlewing(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения текущего угла поворота стрелы
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -136,7 +136,7 @@ fun CalibrationSensorSlewing(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения максимального угла поворота стрелы
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(

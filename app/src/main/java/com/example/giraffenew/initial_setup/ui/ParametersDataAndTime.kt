@@ -76,13 +76,13 @@ fun ParametersDataAndTime(
 
             // Отображение текущего времени
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "Time"
                 )
             }
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                     valueParameterId = "Date"
                 )
@@ -93,7 +93,7 @@ fun ParametersDataAndTime(
 
                 //Поле ввода ЧАСЫ
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "Час",
@@ -105,7 +105,7 @@ fun ParametersDataAndTime(
 
                 //Поле ввода МИНУТЫ
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -122,7 +122,7 @@ fun ParametersDataAndTime(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //День
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -134,7 +134,7 @@ fun ParametersDataAndTime(
                 }
                 //Месяц
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -146,7 +146,7 @@ fun ParametersDataAndTime(
                 }
                 //Год
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                     .weight(2f)) {
                     BasicTextFilledGiraffe(
                         placeholder = "ГГГГ",

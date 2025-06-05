@@ -38,11 +38,11 @@ fun BasicSettingsValues (text:String, modifier:Modifier=Modifier.padding(5.dp).f
 @Composable
 //Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
 fun BasicSettingsName (text:String, modifier:Modifier=Modifier){
-    Text(text, modifier.padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 0.dp).fillMaxWidth()
+    Text(text, modifier.padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()
         , fontSize = 20.sp, textAlign = TextAlign.Center, color = Black, fontWeight = FontWeight.Bold) }
 
 @Composable
 //Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
 fun BasicSettingsText (text:String, modifier:Modifier=Modifier){
-    Text(text, modifier.padding(start = 7.dp, end = 7.dp, top = 7.dp, bottom = 0.dp).fillMaxWidth()
+    Text(text, modifier.padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()
         , fontSize = 20.sp, textAlign = TextAlign.Start, color = DarkGrew) }

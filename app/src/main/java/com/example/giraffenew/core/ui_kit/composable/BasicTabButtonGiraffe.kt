@@ -42,7 +42,7 @@ fun BasicTabButtonGiraffe(
     var buttonEnabled by remember { mutableStateOf(true) } // Button state
 
     val myBoxButtonModifier = Modifier
-        .padding(start = 7.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+        .padding(start = 7.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
         .fillMaxWidth()
 

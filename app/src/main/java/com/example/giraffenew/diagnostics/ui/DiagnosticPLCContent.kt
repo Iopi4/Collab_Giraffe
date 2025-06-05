@@ -34,9 +34,10 @@ fun DiagnosticPLCContent(
     {
         NavBarDiagnosticPLC(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote){
-         composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote) {DiagnosticPLCModuleDI()}
-         composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.roote) {DiagnosticPLCModuleDO()}
-         composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.roote) {DiagnosticPLCModuleAI()}
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote) { DiagnosticPLCDIDO() }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote) {DiagnosticPLCModuleDI()}
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.roote) {DiagnosticPLCModuleDO()}
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.roote) {DiagnosticPLCModuleAI()}
         }
 
     }
@@ -64,6 +65,14 @@ fun NavBarDiagnosticPLC(navController: NavController){
         //Код для формирования области в верху с кнопками переходов между страницами
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicTabButtonGiraffe(
+                    modifier = Modifier,
+                    text = R.string.Diagnostic_Button_PLC_DIDO,
+                    onClick = {
+                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote) },) {}
+            }
 
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
@@ -100,9 +109,11 @@ fun NavBarDiagnosticPLC(navController: NavController){
 
 
 sealed class NavRoutesDiagnosticPLC (val roote: String){
-    object PageDiagnosticPLCModuleDI: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Дискретные входа")
-    object PageDiagnosticPLCModuleDO: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Дискретные выходы")
-    object PageDiagnosticPLCModuleAI: NavRoutesDiagnosticPLC("Диагностика. АЛК. Аналоговые")}
+    object PageDiagnosticPLCDIDO: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Дискр. входа/выхода")
+    object PageDiagnosticPLCModuleDI: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Модуль. Дискретные входа")
+    object PageDiagnosticPLCModuleDO: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Модуль. Дискретные выходы")
+    object PageDiagnosticPLCModuleAI: NavRoutesDiagnosticPLC("Диагностика. АЛК. Модуль. Аналоговые")
+}
 
 @Preview
 @Composable

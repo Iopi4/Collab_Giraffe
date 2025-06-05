@@ -96,7 +96,7 @@ fun BasicTextFilledGiraffe (
                 // чтобы BasicTextField  мог отправлять события. А затем передаете тот же экземпляр в этот декоративный блок DecorationBox,
                 // чтобы он мог наблюдать за Interactions и настраивать внешний вид / поведение в разных Interactions.
 
-                contentPadding = TextFieldDefaults.textFieldWithoutLabelPadding(start = 5.dp, top = 2.dp, end = 5.dp, bottom = 2.dp),
+                contentPadding = TextFieldDefaults.textFieldWithoutLabelPadding(start = 5.dp, top = 0.dp, end = 5.dp, bottom = 0.dp),
                 // значения интервала для применения внутри между внутренними элементами текстового поля и контейнером декоративных блоков.
                 colors = colors, //Настройка цвета которая будет использоваться для определения цвета текста и содержимого
                 // (включая метку, заполнитель, начальные и конечные значки, границу) для этого текстового поля в разных состояниях.

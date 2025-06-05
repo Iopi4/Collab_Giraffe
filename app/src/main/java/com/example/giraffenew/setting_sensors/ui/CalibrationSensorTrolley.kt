@@ -83,14 +83,14 @@ fun CalibrationSensorTrolley(
             )
 
             // Отображение текущего значения датчика вылета
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "335447445"
                 )
             }
             // Отображение текущего вылета
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "29.9"
@@ -111,7 +111,7 @@ fun CalibrationSensorTrolley(
                 //Поле ввода значения минимального вылета
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -142,7 +142,7 @@ fun CalibrationSensorTrolley(
                 //Поле ввода значения при котором снижается скорость вылета при движении назад
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -166,7 +166,7 @@ fun CalibrationSensorTrolley(
                 //Поле ввода значения при котором снижается скорость тележки вперед
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -189,7 +189,7 @@ fun CalibrationSensorTrolley(
                 //Поле ввода значения минимальной высоты подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
