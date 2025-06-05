@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,9 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
-import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1
 import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1Content
-import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2
 import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2Content
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -94,7 +93,7 @@ fun NavBarCoordinateProtection(navController: NavController) {
                 .clip(shape = RoundedCornerShape(5.dp))
                 .weight(4f)
             ) {
-                Text(product, fontSize = 25.sp, color = DarkGrew)
+                Text(product, fontSize = 25.sp, color = DarkGrew, fontWeight = FontWeight.Bold)
             }
 
             Box(
@@ -134,7 +133,7 @@ fun NavBarCoordinateProtection(navController: NavController) {
                             coroutineScope.launch{
                                 pagerState.animateScrollToPage(pagerState.currentPage +1)
                             }
-                        }
+                        },
                 )
             }
         }

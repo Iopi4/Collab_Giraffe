@@ -120,6 +120,13 @@
 
 
     <!-- Текст экрана CoordinateProtectionScreen' -->
+    <string name="CoordinateProtection_Button_Polygon_1">ПОЛИГОН №1</string>
+    <string name="CoordinateProtection_Button_Polygon_2">ПОЛИГОН №2</string>
+    <string name="CoordinateProtection_Button_Setting">НАСТРОЙКА</string>
+    <string name="CoordinateProtection_Button_Position">ПО ВЫЛЕТУ</string>
+    <string name="CoordinateProtection_Button_Manual">РУЧНОЙ ВВОД</string>
+    <string name="CoordinateProtection_Button_Coordinate">КООРДИНАТЫ</string>
+
     <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
     <string name="CoordinateProtection_Text_Activate_Protection">Зашита [вкл./выкл.]</string>
@@ -164,15 +171,30 @@
 
 
     <!-- Текст экрана DiagnosticsScreen' -->
+    <string name="Diagnostic_Button_System">СИСТЕМА</string>
+    <string name="Diagnostic_Button_PLC">КОНТРОЛЛЕР</string>
+    <string name="Diagnostic_Button_Hoist">ПОДЪЕМ</string>
+    <string name="Diagnostic_Button_Slewing">ПОВОРОТ</string>
+    <string name="Diagnostic_Button_Trolley">ТЕЛЕЖКА</string>
+    <string name="Diagnostic_Button_Crane">ХОД КРАНА</string>
+    <string name="Diagnostic_Button_PLC_DIDO">ПЛК ВХ/ВЫХ. </string>
+    <string name="Diagnostic_Button_PLC_Module_DI">ДИСК.ВХ.</string>
+    <string name="Diagnostic_Button_PLC_Module_DO">ДИСК.ВЫХ.</string>
+    <string name="Diagnostic_Button_PLC_Module_AI">АНАЛОГ.ВХ. </string>
+
     <string name="Diagnostic_Text_Error_Reset">Сброс ошибки</string>
     <string name="Diagnostic_Text_Status">Статус</string>
+    <string name="Diagnostic_Text_PLC">Контроллер</string>
     <string name="Diagnostic_Text_System">Система управления</string>
-    <string name="Diagnostic_Text_PLC">ПЛК</string>
     <string name="Diagnostic_Text_Sensors">Датчики</string>
     <string name="Diagnostic_Text_Hoist">Привод подъема</string>
     <string name="Diagnostic_Text_Trolley">Привод тележки</string>
     <string name="Diagnostic_Text_Slewing">Привод поворота</string>
     <string name="Diagnostic_Text_Crane">Привод хода</string>
+    <string name="Diagnostic_Text_PLC_DIDO">Дискретные входы/выходы</string>
+    <string name="Diagnostic_Text_PLC_Module_DI">Модуль диск.вх. GL20_1600END</string>
+    <string name="Diagnostic_Text_PLC_Module_DO">Модуль диск.вых. GL20_0016ETP</string>
+    <string name="Diagnostic_Text_PLC_Module_AI">Модуль аналог.вх. GL20_4AD</string>
 
     <string name="Diagnostic_Text_System_Status_PLC">Статус. Контроллер</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Статус. Датчик критич момента</string>
@@ -190,6 +212,39 @@
 
     <string name="Diagnostic_Text_Hoist_Last_Fault">Запись. Последняя ошибка</string>
     <string name="Diagnostic_Text_Hoist_Magazine_Fault">Запись. Журнал ошибок</string>
+
+    <string name="Diagnostic_Text_PLC_Status_DI_0">Питание обогрева в тех.помещ.</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_1">Питание тормозов Эл.Дв.</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_2">Питание назависим. вент.</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_3_DI_7">Резерв. c DI-3 по DI-7</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_10_DI_12">Резерв. c DI-10 по DI-12</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_13">Люк ОПУ</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_14">0-е полож. джойстика подъема</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_15">0-е полож. джойстика поворота</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_16">0-е полож. джойстика тележки</string>
+    <string name="Diagnostic_Text_PLC_Status_DI_17">0-е полож. джойстика хода</string>
+
+    <string name="Diagnostic_Text_PLC_Status_DO_0">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_1">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_2">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_3">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_4">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_5">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_6">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_7">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_8">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_9">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_10">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_11">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_12">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_13">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_14">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_DO_15">Контроллер</string>
+
+    <string name="Diagnostic_Text_PLC_Status_AI_0">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_1">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_2">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_3">Контроллер</string>
 
     <!-- Текст экрана DiagnosticsScreen' -->
 

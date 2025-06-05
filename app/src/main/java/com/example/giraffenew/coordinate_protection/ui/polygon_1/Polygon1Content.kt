@@ -17,12 +17,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicTabButtonGiraffe
-import com.example.giraffenew.ui.theme.Black
 import com.example.giraffenew.ui.theme.DarkGrew
-import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import com.example.giraffenew.R
 
 @Composable
 fun Polygon1Content(
@@ -62,7 +60,7 @@ fun NavBarPolygon1(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "НАСТРОЙКА",
+                text = R.string.CoordinateProtection_Button_Setting,
                 onClick = {
                     navController.navigate(NavRoutesPolygon1.PageSettingPolygon1.route)
                 },
@@ -71,7 +69,7 @@ fun NavBarPolygon1(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "ПО ВЫЛЕТУ",
+                text = R.string.CoordinateProtection_Button_Position,
                 onClick = {
                     navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Trolley.route)
                 },
@@ -80,7 +78,7 @@ fun NavBarPolygon1(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier,
-                text = "РУЧНОЙ ВВОД",
+                text = R.string.CoordinateProtection_Button_Manual,
                 onClick = {
                     navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Manual.route)
                 },
@@ -89,7 +87,7 @@ fun NavBarPolygon1(navController: NavController) {
         Box(modifier = Modifier.weight(1f)) {
             BasicTabButtonGiraffe(
                 modifier = Modifier.padding(end = 7.dp),
-                text = "КООРДИНАТЫ",
+                text = R.string.CoordinateProtection_Button_Coordinate,
                 onClick = {
                     navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Coordinate.route)
                 },

@@ -16,7 +16,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticPLC(
+fun DiagnosticPLCModuleDO(
 
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -53,9 +53,9 @@ fun DiagnosticPLC(
 
 @Preview
 @Composable
-fun DiagnosticPLCPreview (){
+fun DiagnosticPLCDOPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        DiagnosticPLC(
+        DiagnosticPLCModuleDO(
         )
     }
 }

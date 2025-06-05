@@ -11,12 +11,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicTabButtonGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -29,9 +31,9 @@ fun DiagnosticContent(
     Column (modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
     { NavBarDiagnostic (navController = navController)
-        NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticSystem.roote){
+        NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticPLC.roote){
             composable(NavRoutesDiagnostic.PageDiagnosticSystem.roote) { DiagnosticSystem() }
-            composable(NavRoutesDiagnostic.PageDiagnosticPLC.roote) { DiagnosticPLC() }
+            composable(NavRoutesDiagnostic.PageDiagnosticPLC.roote) { DiagnosticPLCContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticHoist.roote) { DiagnosticHoist() }
             composable(NavRoutesDiagnostic.PageDiagnosticSlewing.roote) { DiagnosticSlewing() }
             composable(NavRoutesDiagnostic.PageDiagnosticTrolley.roote) { DiagnosticTrolley() }
@@ -46,7 +48,7 @@ fun DiagnosticContent(
 fun NavBarDiagnostic(navController: NavController) {
 
     val myBoxNavBarDiagnosticModifier = Modifier
-        .padding(5.dp)
+        .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
         .fillMaxWidth()
         .border(
@@ -66,7 +68,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier,
-                    text = "СИСТЕМА",
+                    text = R.string.Diagnostic_Button_System,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticSystem.roote) },) {}
             }
@@ -74,7 +76,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier,
-                    text = "КОНТРОЛЛЕР",
+                    text = R.string.Diagnostic_Button_PLC,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticPLC.roote) },) {}
             }
@@ -82,7 +84,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier.padding(end = 7.dp),
-                    text = "ПОДЪЕМ",
+                    text = R.string.Diagnostic_Button_Hoist,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticHoist.roote) },) {}
             }
@@ -94,7 +96,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier,
-                    text = "ПОВОРОТ",
+                    text = R.string.Diagnostic_Button_Slewing,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticSlewing.roote) },) {}
             }
@@ -102,7 +104,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier,
-                    text = "ТЕЛЕЖКА",
+                    text = R.string.Diagnostic_Button_Trolley,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticTrolley.roote) },) {}
             }
@@ -110,7 +112,7 @@ fun NavBarDiagnostic(navController: NavController) {
             Box(modifier = Modifier.weight(1f)) {
                 BasicTabButtonGiraffe(
                     modifier = Modifier.padding(end = 7.dp),
-                    text = "ХОД КРАНА",
+                    text = R.string.Diagnostic_Button_Crane,
                     onClick = {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticCrane.roote) },) {}
             }
