@@ -25,6 +25,7 @@ import com.example.giraffenew.ui.theme.Grew_50_percent
 
 @Composable
 fun BasicSettingParameterLamp(
+    modifier: Modifier = Modifier,
     isLampStatus: Int,
     ) {
     val coroutineScope = rememberCoroutineScope()

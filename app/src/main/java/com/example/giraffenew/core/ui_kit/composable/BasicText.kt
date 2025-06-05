@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,3 +47,9 @@ fun BasicSettingsName (text:String, modifier:Modifier=Modifier){
 fun BasicSettingsText (text:String, modifier:Modifier=Modifier){
     Text(text, modifier.padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()
         , fontSize = 20.sp, textAlign = TextAlign.Start, color = DarkGrew) }
+
+@Composable
+//Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
+fun BasicPLCDIDOName (text: Int, modifier:Modifier=Modifier){
+    Text(text = stringResource(id = text), modifier.padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()
+        , fontSize = 20.sp, textAlign = TextAlign.Center, color = Black, fontWeight = FontWeight.Bold) }

@@ -77,7 +77,7 @@ fun DiagnosticSystem(
                 text = stringResource(R.string.Diagnostic_Text_Status))
 
 // Отображение текущего состояния PLC
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "RUN"
@@ -95,7 +95,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения сигнала от датчика усилия
                 Box(modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(3f)) {
                         BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                             valueParameterId = "1000")
@@ -112,7 +112,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения сигнала от датчика ветра
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f)) {
                     BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                         valueParameterId = "1000")
@@ -129,7 +129,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения датчика высоты Hoist
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f)) {
                     BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                         valueParameterId = "111111111")
@@ -146,7 +146,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения датчика азимута Slewing
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f)) {
                     BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                         valueParameterId = "222222222")
@@ -164,7 +164,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения датчика вылета Trolley
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f)) {
                     BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                         valueParameterId = "333333333")
@@ -182,7 +182,7 @@ fun DiagnosticSystem(
             Row(horizontalArrangement = Arrangement.Start) {
                 // Отображение текущего значения датчика хода Crane
                 Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 7.dp, bottom = 0.dp)
+                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f)) {
                     BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                         valueParameterId = "444444444")
@@ -203,25 +203,25 @@ fun DiagnosticSystem(
             }
 
 // Отображение текущего состояния привода подъема
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "RUN")
             }
 // Отображение текущего состояния привода поворота
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "RDY")
             }
 // Отображение текущего состояния привода тележки
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "RDY")
             }
 // Отображение текущего состояния привода хода крана
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = "Not avalible")

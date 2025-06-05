@@ -184,6 +184,10 @@
 
     <string name="Diagnostic_Text_Error_Reset">Сброс ошибки</string>
     <string name="Diagnostic_Text_Status">Статус</string>
+    <string name="Diagnostic_Text_State_DIDO">№ вх.вых./Статус</string>
+    <string name="Diagnostic_Text_State_DI">№ входа/Статус</string>
+    <string name="Diagnostic_Text_State_DO">№ выхода/Статус</string>
+    <string name="Diagnostic_Text_State_AI">№ входа/Статус</string>
     <string name="Diagnostic_Text_PLC">Контроллер</string>
     <string name="Diagnostic_Text_System">Система управления</string>
     <string name="Diagnostic_Text_Sensors">Датчики</string>
@@ -223,6 +227,15 @@
     <string name="Diagnostic_Text_PLC_DI_6">Вх.Замедл. скорости подъема</string>
     <string name="Diagnostic_Text_PLC_DI_7">Вх.Руч. налож. тормоза поворота</string>
 
+    <string name="Diagnostic_Text_PLC_DI0">DI-0</string>
+    <string name="Diagnostic_Text_PLC_DI1">DI-1</string>
+    <string name="Diagnostic_Text_PLC_DI2">DI-2</string>
+    <string name="Diagnostic_Text_PLC_DI3">DI-3</string>
+    <string name="Diagnostic_Text_PLC_DI4">DI-4</string>
+    <string name="Diagnostic_Text_PLC_DI5">DI-5</string>
+    <string name="Diagnostic_Text_PLC_DI6">DI-6</string>
+    <string name="Diagnostic_Text_PLC_DI7">DI-7</string>
+
     <string name="Diagnostic_Text_PLC_DO_0">Вых.Разреш. вкл. лин. контакт.</string>
     <string name="Diagnostic_Text_PLC_DO_1">Вых.Разреш. работа подъема</string>
     <string name="Diagnostic_Text_PLC_DO_2">Вых.Разреш. работа поворота</string>
@@ -232,38 +245,43 @@
     <string name="Diagnostic_Text_PLC_DO_6">Вых.Ошибка готовности</string>
     <string name="Diagnostic_Text_PLC_DO_7">Вых.Авария / Перегрузка</string>
 
+    <string name="Diagnostic_Text_PLC_DO0">DO-0</string>
+    <string name="Diagnostic_Text_PLC_DO1">DO-1</string>
+    <string name="Diagnostic_Text_PLC_DO2">DO-2</string>
+    <string name="Diagnostic_Text_PLC_DO3">DO-3</string>
+    <string name="Diagnostic_Text_PLC_DO4">DO-4</string>
+    <string name="Diagnostic_Text_PLC_DO5">DO-5</string>
+    <string name="Diagnostic_Text_PLC_DO6">DO-6</string>
+    <string name="Diagnostic_Text_PLC_DO7">DO-7</string>
+
+    <string name="Diagnostic_Text_PLC_DI_DO_Reserve">Резерв</string>
+
     <string name="Diagnostic_Text_PLC_Module_DI_0">Питание обогрева в тех.помещ.</string>
     <string name="Diagnostic_Text_PLC_Module_DI_1">Питание тормозов двигателей</string>
     <string name="Diagnostic_Text_PLC_Module_DI_2">Питание назависим. вентиляции</string>
-    <string name="Diagnostic_Text_PLC_Module_DI_3_DI_7">Резерв. c DI-3 по DI-7</string>
-    <string name="Diagnostic_Text_PLC_Module_DI_10_DI_12">Резерв. c DI-10 по DI-12</string>
+    <string name="Diagnostic_Text_PLC_Module_DI3_DI7">DI-3..DI-7</string>
+    <string name="Diagnostic_Text_PLC_Module_DI10_DI12">DI-10..DI-12</string>
     <string name="Diagnostic_Text_PLC_Module_DI_13">Люк ОПУ</string>
     <string name="Diagnostic_Text_PLC_Module_DI_14">0-е полож. джойстика подъема</string>
     <string name="Diagnostic_Text_PLC_Module_DI_15">0-е полож. джойстика поворота</string>
     <string name="Diagnostic_Text_PLC_Module_DI_16">0-е полож. джойстика тележки</string>
     <string name="Diagnostic_Text_PLC_Module_DI_17">0-е полож. джойстика хода</string>
 
-    <string name="Diagnostic_Text_PLC_Module_DO_0">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_1">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_2">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_3">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_4">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_5">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_6">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_7">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_10">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_11">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_12">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_13">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_14">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_15">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_16">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Module_DO_17">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Module_DI13">DI-13</string>
+    <string name="Diagnostic_Text_PLC_Module_DI14">DI-14</string>
+    <string name="Diagnostic_Text_PLC_Module_DI15">DI-15</string>
+    <string name="Diagnostic_Text_PLC_Module_DI16">DI-16</string>
+    <string name="Diagnostic_Text_PLC_Module_DI17">DI-17</string>
 
-    <string name="Diagnostic_Text_PLC_Status_AI_0">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Status_AI_1">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Status_AI_2">Контроллер</string>
-    <string name="Diagnostic_Text_PLC_Status_AI_3">Контроллер</string>
+    <string name="Diagnostic_Text_PLC_Module_DO_0">Звуковая сигнализация</string>
+    <string name="Diagnostic_Text_PLC_Module_DO1_DO7">DO-1..DO-7</string>
+    <string name="Diagnostic_Text_PLC_Module_DO10_DO16">DO-10..DO-16</string>
+    <string name="Diagnostic_Text_PLC_Module_DO_17">Сброс ошибки АЦСС</string>
+
+    <string name="Diagnostic_Text_PLC_Status_AI_1">Канал-1. Датчик усилия</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_2">Канал-2. Датчик скорости ветра</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_3">Канал-3. Резерв</string>
+    <string name="Diagnostic_Text_PLC_Status_AI_4">Канал-4. Резерв</string>
 
     <!-- Текст экрана DiagnosticsScreen' -->
 

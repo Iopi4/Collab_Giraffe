@@ -39,16 +39,16 @@ fun DiagnosticPLCModuleDI(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
+// Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI))
 
-            //Состояние дискретных входных сигналов от СУ
+//Состояние дискретных входных сигналов от СУ
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_0)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_1)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_2)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_3_DI_7)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_10_DI_12)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_DI_DO_Reserve)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_DI_DO_Reserve)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_13)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_14)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_PLC_Module_DI_15)
@@ -65,7 +65,52 @@ fun DiagnosticPLCModuleDI(
                     shape = RoundedCornerShape(5.dp)
                 ),
             verticalArrangement = Arrangement.Top
-        ) {}
+        ) {
+// Заголовок
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.Diagnostic_Text_State_DIDO))
+// Отображение состояния Питание обогрева в тех.помещ. DI_0
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_DI0,
+                isDIDOStatus = 2)
+// Отображение состояния Питание тормозов двигателей. DI_1
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_DI1,
+                isDIDOStatus = 2)
+// Отображение состояния Питание назависим. вентиляции. DI_2
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_DI2,
+                isDIDOStatus = 2)
+// Резерв
+            BasicSettingsName(modifier = Modifier.padding(5.dp)
+                , text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI3_DI7))
+// Резерв
+            BasicSettingsName(modifier = Modifier.padding(5.dp),
+                text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI10_DI12))
+// Отображение состояния Люк ОПУ. DI_13
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI13,
+                isDIDOStatus = 2)
+// Отображение состояния 0-е полож. джойстика подъема. DI_14
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI14,
+                isDIDOStatus = 2)
+// Отображение состояния 0-е полож. джойстика поворота. DI_15
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI15,
+                isDIDOStatus = 2)
+// Отображение состояния 0-е полож. джойстика тележки. DI_16
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI16,
+                isDIDOStatus = 2)
+// Отображение состояния 0-е полож. джойстика хода. DI_17
+            State(
+                isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI17,
+                isDIDOStatus = 2)
+
+
+
+
+        }
 
 
     }

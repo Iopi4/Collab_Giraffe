@@ -33,7 +33,7 @@ fun DiagnosticPLCContent(
         verticalArrangement = Arrangement.SpaceEvenly)
     {
         NavBarDiagnosticPLC(navController = navController)
-        NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote){
+        NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote){
             composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote) { DiagnosticPLCDIDO() }
             composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote) {DiagnosticPLCModuleDI()}
             composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.roote) {DiagnosticPLCModuleDO()}
