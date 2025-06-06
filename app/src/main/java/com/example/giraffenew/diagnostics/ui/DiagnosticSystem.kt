@@ -24,7 +24,6 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun DiagnosticSystem(
-
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -56,10 +55,10 @@ fun DiagnosticSystem(
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Sensor_Crane)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Sensor_Crane_Reference_Point)
 
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Hoist)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Slewing)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Trolley)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Crane)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Hoist)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Slewing)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Trolley)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Crane)
         }
 
 //№.2 - Правая область для отображения и ввода данных настройки полигона
@@ -94,34 +93,40 @@ fun DiagnosticSystem(
 // Отображение статус датчика усилия
             StateValue(
                 isValueParameter = "1000",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 // Отображение статус датчика ветра
             StateValue(
                 isValueParameter = "1000",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 // Отображение статуса датчика высоты Hoist
             StateValue(
                 isValueParameter = "111111111",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 // Отображение статуса датчика азимута Slewing
             StateValue(
                 isValueParameter = "222222222",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 
 // Отображение статуса датчика вылета Trolley
             StateValue(
                 isValueParameter = "333333333",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 
 // Отображение статуса датчика хода Crane
             StateValue(
                 isValueParameter = "444444444",
-                isValueStatus = 2)
+                isValueStatus = 2
+            )
 
 // Отображение статус датчика реперной точки хода крана
             Box(modifier = Modifier.padding(start = 15.dp)) {

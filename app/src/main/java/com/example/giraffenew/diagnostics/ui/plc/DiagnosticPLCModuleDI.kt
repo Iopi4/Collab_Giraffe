@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.plc
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.diagnostics.ui.StateDIDO
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -71,15 +72,18 @@ fun DiagnosticPLCModuleDI(
 // Отображение состояния Питание обогрева в тех.помещ. DI_0
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI0,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Питание тормозов двигателей. DI_1
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI1,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Питание назависим. вентиляции. DI_2
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI2,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Резерв
             BasicSettingsName(modifier = Modifier.padding(5.dp)
                 , text = stringResource(R.string.Diagnostic_Text_PLC_Module_DI3_DI7))
@@ -89,23 +93,28 @@ fun DiagnosticPLCModuleDI(
 // Отображение состояния Люк ОПУ. DI_13
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI13,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния 0-е полож. джойстика подъема. DI_14
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI14,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния 0-е полож. джойстика поворота. DI_15
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI15,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния 0-е полож. джойстика тележки. DI_16
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI16,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния 0-е полож. джойстика хода. DI_17
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DI17,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 
 
 

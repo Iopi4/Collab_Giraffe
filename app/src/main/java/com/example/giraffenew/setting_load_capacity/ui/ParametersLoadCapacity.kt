@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -81,39 +81,39 @@ fun ParametersLoadCapacity() {
                 text = stringResource(R.string.SettingLoadCapacity_Text_ChoiceType_GH) )
 
             // Отображение кнопок выбора грузовой характеристики
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 0",
+                text = R.string.SettingLoadCapacity_Button_GH_0,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 1",
+                text = R.string.SettingLoadCapacity_Button_GH_1,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 2",
+                text = R.string.SettingLoadCapacity_Button_GH_2,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 3",
+                text = R.string.SettingLoadCapacity_Button_GH_3,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 4",
+                text = R.string.SettingLoadCapacity_Button_GH_4,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 5",
+                text = R.string.SettingLoadCapacity_Button_GH_5,
                 onClick = {},
             ) {}
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "ГХ 6",
+                text = R.string.SettingLoadCapacity_Button_GH_6,
                 onClick = {},
             ) {}
 

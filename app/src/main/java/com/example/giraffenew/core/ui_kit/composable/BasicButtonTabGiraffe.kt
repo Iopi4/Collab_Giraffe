@@ -31,7 +31,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 @Composable
 //Базовая кнопка с заполненным фоном. Ее можно будет использовать в разных частях приложения,
 //например в качестве кнопки сохранения или обновления данных
-fun BasicTabButtonGiraffe(
+fun BasicButtonTabGiraffe(
     modifier: Modifier = Modifier,
     text: Int,
     onClick: () -> Unit,
@@ -67,7 +67,7 @@ fun BasicTabButtonGiraffe(
 @Composable
 fun BasicTabButtonGiraffePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        BasicTabButtonGiraffe(
+        BasicButtonTabGiraffe(
             text = R.string.nul,
             onClick = { },
         ) {}

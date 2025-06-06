@@ -95,83 +95,18 @@ fun ParametersCraneAndSBKB(
             }
 
             //Ввод. Дата регистр. в Ростехнадзоре
-            Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //День
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ДД",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Месяц
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ММ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Год
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(2f)) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ГГГГ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-
-                    )
-                }
-            }
+            FieldDate(
+                isValueDay = "",
+                isValueMonth = "",
+                isValueYear = "",
+            )
 
             //Ввод. Дата ввода крана в эксплуатацию
-            Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //День
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ДД",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Месяц
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ММ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Год
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(2f)) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ГГГГ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-            }
+            FieldDate(
+                isValueDay = "",
+                isValueMonth = "",
+                isValueYear = "",
+            )
 
             //Ввод. Заводской номер СБКБ
             Box(modifier = Modifier
@@ -185,45 +120,11 @@ fun ParametersCraneAndSBKB(
             }
 
             //Ввод. Дата установки СБКБ
-            Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //День
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ДД",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Месяц
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ММ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-
-                    )
-                }
-                //Год
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(2f)) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ГГГГ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-
-                    )
-                }
-            }
+            FieldDate(
+                isValueDay = "",
+                isValueMonth = "",
+                isValueYear = "",
+            )
 
         }
 

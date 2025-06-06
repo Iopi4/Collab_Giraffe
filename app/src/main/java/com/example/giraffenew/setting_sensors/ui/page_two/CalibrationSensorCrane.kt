@@ -1,4 +1,4 @@
-package com.example.giraffenew.setting_sensors.ui
+package com.example.giraffenew.setting_sensors.ui.page_two
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,11 +15,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -28,7 +26,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun CalibrationSensorTrolley(
+fun CalibrationSensorCrane(
 
 ) {
 
@@ -41,7 +39,7 @@ fun CalibrationSensorTrolley(
         //№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).border(
+                .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
                     width = 3.dp,
                     color = Orange,
                     shape = RoundedCornerShape(5.dp)),
@@ -49,21 +47,26 @@ fun CalibrationSensorTrolley(
         ) {
             // Заголовок
             BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Trolley_Calibration))
+                text = stringResource(R.string.SettingSensors_Text_Crane_Calibration))
             //Датчик
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.SettingSensors_Text_Sensor)
-            //Вылет
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Departure)
+            //Путь
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Run)
             //Тест ограничений
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Examination)
-            //Стоп вперед
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Stop_Revers)
-            //Снижение скорости вперед
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Decline_Revers)
-            //Снижение скорости назад
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Decline_Forward)
-            //Стоп назад
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Stop_Forward)
+            //Стоп вправо
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Stop_Right)
+            //Сниж. скор. вправо
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Decline_Right)
+            //Сниж. скор. влево
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Decline_Left)
+            //Стоп влево
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Stop_Left)
+            //Реперная точка
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Reference_Point)
+            //Включение хода крана
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Activate)
+
         }
 
 
@@ -76,37 +79,38 @@ fun CalibrationSensorTrolley(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
+
             // Заголовок
             BasicSettingsName(
                 modifier = Modifier,
                 text = stringResource(R.string.SettingSensors_Text_Parameters)
             )
 
-            // Отображение текущего значения датчика вылета
+            // Отображение текущего значения датчика хода крана
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "335447445"
+                    valueParameterId = "45459012"
                 )
             }
-            // Отображение текущего вылета
+            // Отображение пройденного пути
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "29.9"
+                    valueParameterId = "12.8"
                 )
             }
 
             // Кнопка включения проверки защит
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Включить тест",
+                text = R.string.Button_Turn_ON_Off,
                 onClick = {},
             ) {}
 
             // Отображение кнопок ввода защит и статуса
 
-            // Ограничение движения тележки назад
+            // Ограничение движения хода вправо
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения минимального вылета
                 Box(
@@ -123,9 +127,9 @@ fun CalibrationSensorTrolley(
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Ввод.",
+                        text = R.string.Button_Enter,
                         onClick = {},
                     ) {}
                 }
@@ -137,7 +141,7 @@ fun CalibrationSensorTrolley(
             }
 
 
-            // Замедление вылета назад
+            // Замедление скорости движения крана вправо
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость вылета при движении назад
                 Box(
@@ -161,7 +165,7 @@ fun CalibrationSensorTrolley(
             }
 
 
-            // Замедление движения тележки вперед
+            // Замедление скорости движения крана влево
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость тележки вперед
                 Box(
@@ -184,7 +188,7 @@ fun CalibrationSensorTrolley(
                 }
             }
 
-            // Ограничение движения тележки вперед
+            // Ограничение движения крана влево
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения минимальной высоты подъема
                 Box(
@@ -201,9 +205,9 @@ fun CalibrationSensorTrolley(
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Ввод.",
+                        text = R.string.Button_Enter,
                         onClick = {},
                     ) {}
                 }
@@ -214,6 +218,24 @@ fun CalibrationSensorTrolley(
                 }
             }
 
+            //Ввод. Реперная точка хода крана
+            Box(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                BasicTextFilledGiraffe(
+                    placeholder = "00.0",
+                    value = "",
+                    onValueChange = {""},
+                    modifier = Modifier,
+                )
+            }
+
+            // Кнопка Активации хода крана
+            BasicButtonGiraffe(
+                modifier = Modifier.fillMaxWidth(),
+                text = R.string.Button_Turn_ON_Off,
+                onClick = {},
+            ) {}
+
 
 
         }
@@ -222,9 +244,9 @@ fun CalibrationSensorTrolley(
 
 @Preview
 @Composable
-fun CalibrationSensorTrolleyPreview () {
+fun CalibrationSensorCranePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
-        CalibrationSensorTrolley(
+        CalibrationSensorCrane(
         )
     }
 }

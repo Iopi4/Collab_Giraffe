@@ -1,4 +1,4 @@
-package com.example.giraffenew.setting_sensors.ui
+package com.example.giraffenew.setting_sensors.ui.page_two
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
@@ -62,7 +61,7 @@ fun CalibrationSensorSlewing(
             //Установка угла
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner)
             //Установка максимального угла
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner_Max)
 
         }
 
@@ -102,9 +101,9 @@ fun CalibrationSensorSlewing(
                 )
             }
         // Кнопка установки нуля градусов
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Установить",
+                text = R.string.Button_Enter,
                 onClick = {},
             ) {}
 
@@ -124,9 +123,9 @@ fun CalibrationSensorSlewing(
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Уст. угла",
+                        text = R.string.Button_Enter,
                         onClick = {},
                     ) {}
                 }
@@ -148,9 +147,9 @@ fun CalibrationSensorSlewing(
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Макс. угол",
+                        text = R.string.Button_Enter,
                         onClick = {},
                     ) {}
                 }

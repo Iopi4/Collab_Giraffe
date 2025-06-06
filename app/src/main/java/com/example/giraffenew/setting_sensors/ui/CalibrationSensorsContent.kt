@@ -33,6 +33,8 @@ import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import kotlinx.coroutines.launch
 import com.example.giraffenew.R
+import com.example.giraffenew.setting_sensors.ui.page_one.CalibrationSensorsPageOne
+import com.example.giraffenew.setting_sensors.ui.page_two.CalibrationSensorsPageTwo
 
 
 @Composable

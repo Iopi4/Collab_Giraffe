@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.plc
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.diagnostics.ui.StateValueAI
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -65,12 +66,14 @@ fun DiagnosticPLCModuleAI(
 // Отображение статус датчика усилия
             StateValueAI(
                 isValueParameter = "1000",
-                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI1)
+                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI1
+            )
 
 // Отображение статус датчика ветра
             StateValueAI(
                 isValueParameter = "1000",
-                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI2)
+                isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI2
+            )
 
         }
 

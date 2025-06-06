@@ -21,7 +21,7 @@ import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParamete
 import com.example.giraffenew.ui.theme.Burgundy_violet
 
 @Composable
-fun ParametersDataAndTime(
+fun ParametersDateAndTime(
 
 ) {
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -89,82 +89,19 @@ fun ParametersDataAndTime(
             }
 
             // Ввод времени. Создадим два поля
-            Row (horizontalArrangement = Arrangement.SpaceBetween) {
-
-                //Поле ввода ЧАСЫ
-                Box(modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "Час",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                        )
-                }
-
-                //Поле ввода МИНУТЫ
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "Mин",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                        )
-
-                }
-            }
+            FieldTime(
+                isValueHour = "",
+                isValueMinute = ""
+            )
 
             // Ввод даты
-            Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //День
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ДД",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Месяц
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ММ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-                //Год
-                Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(2f)) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "ГГГГ",
-                        value = "",
-                        onValueChange = { ""},
-                        modifier = Modifier,
-                    )
-                }
-
-            }
-
-
-
+            FieldDate(
+                isValueDay = "",
+                isValueMonth = "",
+                isValueYear = "",
+            )
 
         }
-
-
-
     }
 }
 
@@ -173,7 +110,7 @@ fun ParametersDataAndTime(
 @Composable
 fun ParametersDataAndTimeTextPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
-        ParametersDataAndTime(
+        ParametersDateAndTime(
         )
     }
 }

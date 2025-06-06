@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.giraffenew.core.ui_kit.composable.BasicTabButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonTabGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.R
@@ -32,7 +32,7 @@ fun Polygon1Content(
         verticalArrangement = Arrangement.SpaceEvenly)
     { NavBarPolygon1 (navController = navController)
         NavHost(navController, startDestination = NavRoutesPolygon1.PageSettingPolygon1.route){
-            composable(NavRoutesPolygon1.PageSettingPolygon1.route) { Polygon1() }
+            composable(NavRoutesPolygon1.PageSettingPolygon1.route) { Polygon1Setting() }
             composable(NavRoutesPolygon1.PageSettingPointsPolygon1Trolley.route) { SettingPointsPolygon1Trolley() }
             composable(NavRoutesPolygon1.PageSettingPointsPolygon1Manual.route) { SettingPointsPolygon1Manual() }
             composable(NavRoutesPolygon1.PageSettingPointsPolygon1Coordinate.route) { SettingPointsPolygon1Coordinate()}
@@ -58,7 +58,7 @@ fun NavBarPolygon1(navController: NavController) {
         horizontalArrangement = Arrangement.SpaceBetween) {
 
         Box(modifier = Modifier.weight(1f)) {
-            BasicTabButtonGiraffe(
+            BasicButtonTabGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Setting,
                 onClick = {
@@ -67,7 +67,7 @@ fun NavBarPolygon1(navController: NavController) {
             ) {}
         }
         Box(modifier = Modifier.weight(1f)) {
-            BasicTabButtonGiraffe(
+            BasicButtonTabGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Position,
                 onClick = {
@@ -76,7 +76,7 @@ fun NavBarPolygon1(navController: NavController) {
             ) {}
         }
         Box(modifier = Modifier.weight(1f)) {
-            BasicTabButtonGiraffe(
+            BasicButtonTabGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Manual,
                 onClick = {
@@ -85,7 +85,7 @@ fun NavBarPolygon1(navController: NavController) {
             ) {}
         }
         Box(modifier = Modifier.weight(1f)) {
-            BasicTabButtonGiraffe(
+            BasicButtonTabGiraffe(
                 modifier = Modifier.padding(end = 7.dp),
                 text = R.string.CoordinateProtection_Button_Coordinate,
                 onClick = {

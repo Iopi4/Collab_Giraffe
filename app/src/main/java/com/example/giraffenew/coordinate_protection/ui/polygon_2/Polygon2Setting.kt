@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
@@ -93,13 +93,13 @@ fun Polygon2(
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
-            //Поле активации полигона
+//Поле активации полигона
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Активировать",
+                        text = R.string.Button_Turn_ON_Off,
                         onClick = {},
                     ) {}
                 }
@@ -110,7 +110,7 @@ fun Polygon2(
                 }
             }
 
-            //Ввод. Количество точек полигона
+//Ввод. Количество точек полигона
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
@@ -121,7 +121,7 @@ fun Polygon2(
                 )
             }
 
-            //Ввод. Высота полигона
+//Ввод. Высота полигона
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
@@ -133,13 +133,13 @@ fun Polygon2(
                 )
             }
 
-            //Кнопка. Разрешить работу вверху
+//Кнопка. Разрешить работу вверху
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Разрешить",
+                        text = R.string.Button_Turn_On,
                         onClick = {},
                     ) {}
                 }
@@ -150,13 +150,13 @@ fun Polygon2(
                 }
             }
 
-            //Кнопка. Разрешить работу внизу
+//Кнопка. Разрешить работу внизу
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Разрешить",
+                        text = R.string.Button_Turn_On,
                         onClick = {},
                     ) {}
                 }
@@ -169,7 +169,7 @@ fun Polygon2(
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            // Выбор режима задания точек
+// Выбор режима задания точек
             BasicSettingsName(
                 modifier = Modifier,
                 text = stringResource(R.string.CoordinateProtection_Text_Mode))
@@ -179,9 +179,9 @@ fun Polygon2(
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "Ручной ввод",
+                        text = R.string.Button_Turn_On,
                         onClick = {},
                     ) {}
                 }
@@ -193,13 +193,13 @@ fun Polygon2(
                 }
             }
 
-            //Кнопка. Выбор задание точек по координатам. Состояние
+//Кнопка. Выбор задание точек по координатам. Состояние
             Row(horizontalArrangement = Arrangement.Start) {
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(4f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "По координат.",
+                        text = R.string.Button_Turn_On,
                         onClick = {},
                     ) {}
                 }
@@ -212,7 +212,7 @@ fun Polygon2(
 
             Spacer(modifier = Modifier.size(30.dp))
 
-            //Статус активации/настройки полигона
+//Статус активации/настройки полигона
             //1.Многоугольник активирован – успешная активация)
             //2.Используется мало точек – многоугольник не активирован, если введено менее трех точек многоугольника
             //3.Настройки не завершены – многоугольник не активирован

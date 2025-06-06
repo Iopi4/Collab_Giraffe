@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
@@ -104,9 +104,9 @@ fun ParameterWeightSensor() {
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                BasicFilledButtonGiraffe(
+                BasicButtonGiraffe(
                     modifier = Modifier,
-                    text = "КАЛИБР.",
+                    text = R.string.SettingLoadCapacity_Button_Calibration,
                     onClick = {},
                 ) {}
                 }
@@ -128,9 +128,9 @@ fun ParameterWeightSensor() {
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
-                    BasicFilledButtonGiraffe(
+                    BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = "КАЛИБР.",
+                        text = R.string.SettingLoadCapacity_Button_Calibration,
                         onClick = {},
                     ) {}
                 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.initial_setup.ui.ParametersCraneAndSBKB
-import com.example.giraffenew.initial_setup.ui.ParametersDataAndTime
+import com.example.giraffenew.initial_setup.ui.ParametersDateAndTime
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -24,7 +24,7 @@ fun InitialSetupScreen(
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Box(modifier = Modifier.weight(1f)){
-            ParametersDataAndTime()
+            ParametersDateAndTime()
         }
         Box(modifier = Modifier.weight(1f)){
             ParametersCraneAndSBKB()

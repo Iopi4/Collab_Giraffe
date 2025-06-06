@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.plc
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.diagnostics.ui.StateDIDO
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -66,7 +67,8 @@ fun DiagnosticPLCModuleDO(
 // Отображение состояния Звуковая сигнализация. DO_0
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO0,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Резерв
             BasicSettingsName(modifier = Modifier.padding(5.dp)
                 , text = stringResource(R.string.Diagnostic_Text_PLC_Module_DO1_DO7))
@@ -76,7 +78,8 @@ fun DiagnosticPLCModuleDO(
 // Отображение состояния Сброс ошибки АЦСС. DO_17
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DO17,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 
 
 

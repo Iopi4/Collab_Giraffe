@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
@@ -51,16 +51,16 @@ fun Register(
                 settingParameterId = R.string.ModbusTools_Text_Server_Port)
 
             // Кнгопка Connect
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "Connect",
+                text = R.string.ModbusTools_Button_Connect,
                 onClick = {viewModel.connect()},
             ) {}
 
             // Кнгопка Disconnect
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = "Disconnect",
+                text = R.string.ModbusTools_Button_Disconnect,
                 onClick = {viewModel.disconnect()},
             ) {}
 

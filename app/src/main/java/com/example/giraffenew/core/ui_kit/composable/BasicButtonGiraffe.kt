@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,9 +31,9 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 @Composable
 //Базовая кнопка с заполненным фоном. Ее можно будет использовать в разных частях приложения,
 //например в качестве кнопки сохранения или обновления данных
-fun BasicFilledButtonGiraffe(
+fun BasicButtonGiraffe(
     modifier: Modifier = Modifier,
-    text: String,
+    text: Int,
     onClick: () -> Unit,
     function: () -> Unit,
     ) {
@@ -55,7 +57,7 @@ fun BasicFilledButtonGiraffe(
                 containerColor = colorResource(R.color.Burgundy_violet),
                 contentColor = Color.White),
         ) {
-            Text( text = text, fontSize = 20.sp)
+            Text( text = stringResource(id = text), fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
     }
 
@@ -65,8 +67,8 @@ fun BasicFilledButtonGiraffe(
 @Composable
 fun BasicFilledButtonGiraffePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        BasicFilledButtonGiraffe(
-            text = "Create",
+        BasicButtonGiraffe(
+            text = R.string.nul,
             onClick = { },
         ) {}
     }

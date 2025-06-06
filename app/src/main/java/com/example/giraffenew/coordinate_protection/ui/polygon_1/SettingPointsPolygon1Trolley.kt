@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicFilledButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
@@ -261,63 +261,63 @@ fun SettingPointsPolygon1Trolley(
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
             // Кнопка задать точку №1
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_1),
+                text = R.string.CoordinateProtection_Button_Set_Point_1,
                 onClick = {},
             ) {}
             // Кнопка задать точку №2
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_2),
+                text = R.string.CoordinateProtection_Button_Set_Point_2,
                 onClick = {},
             ) {}
             // Кнопка задать точку №3
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_3),
+                text = R.string.CoordinateProtection_Button_Set_Point_3,
                 onClick = {},
             ) {}
             // Кнопка задать точку №4
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_4),
+                text = R.string.CoordinateProtection_Button_Set_Point_4,
                 onClick = {},
             ) {}
             // Кнопка задать точку №5
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_5),
+                text = R.string.CoordinateProtection_Button_Set_Point_5,
                 onClick = {},
             ) {}
             // Кнопка задать точку №6
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_6),
+                text = R.string.CoordinateProtection_Button_Set_Point_6,
                 onClick = {},
             ) {}
             // Кнопка задать точку №7
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_7),
+                text = R.string.CoordinateProtection_Button_Set_Point_7,
                 onClick = {},
             ) {}
             // Кнопка задать точку №8
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_8),
+                text = R.string.CoordinateProtection_Button_Set_Point_8,
                 onClick = {},
             ) {}
             // Кнопка задать точку №9
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_9),
+                text = R.string.CoordinateProtection_Button_Set_Point_9,
                 onClick = {},
             ) {}
             // Кнопка задать точку №10
-            BasicFilledButtonGiraffe(
+            BasicButtonGiraffe(
                 modifier = Modifier,
-                text = stringResource(R.string.CoordinateProtection_Text_Entering_Points_10),
+                text = R.string.CoordinateProtection_Button_Set_Point_10,
                 onClick = {},
             ) {}
 

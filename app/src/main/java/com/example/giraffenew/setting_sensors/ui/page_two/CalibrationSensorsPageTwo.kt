@@ -1,4 +1,4 @@
-package com.example.giraffenew.setting_sensors.ui
+package com.example.giraffenew.setting_sensors.ui.page_two
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

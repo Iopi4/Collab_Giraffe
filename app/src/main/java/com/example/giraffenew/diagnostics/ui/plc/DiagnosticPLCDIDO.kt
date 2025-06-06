@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.plc
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
+import com.example.giraffenew.diagnostics.ui.StateDIDO
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -80,70 +81,86 @@ fun DiagnosticPLCDIDO(
 // Отображение состояния реле контроля фаз. DI_0
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI0,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Линейный контактор. DI_1
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI1,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Монтажный режим. DI_2
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI2,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Датчик критического момента. DI_3
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI3,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Состояние тормоза подъема. DI_4
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI4,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Износ тормоза подъема. DI_5
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI5,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Замедл. скорости подъема. DI_6
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI6,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Руч. налож. тормоза поворота. DI_7
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DI7,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 
 
 
 // Отображение состояния Разреш. вкл. лин. контакт. DO_0
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO0,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Разреш. работа подъема. DO_1
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO1,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Разреш. работа поворота. DO_2
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO2,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Разреш. работа тележки. DO_3
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO3,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Разреш. работа хода крана. DO_4
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO4,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Вкл. вентилятор подъема. DO_5
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO5,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Ошибка готовности. DO_6
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO6,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 // Отображение состояния Авария / Перегрузка. DO_7
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO7,
-                isDIDOStatus = 2)
+                isDIDOStatus = 2
+            )
 
 
 

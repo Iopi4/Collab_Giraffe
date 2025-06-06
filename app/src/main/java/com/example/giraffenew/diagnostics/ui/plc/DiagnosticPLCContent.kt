@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.plc
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +19,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.BasicTabButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.BasicSettingsText
+import com.example.giraffenew.core.ui_kit.composable.BasicButtonTabGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
@@ -33,11 +33,11 @@ fun DiagnosticPLCContent(
         verticalArrangement = Arrangement.SpaceEvenly)
     {
         NavBarDiagnosticPLC(navController = navController)
-        NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote){
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote) { DiagnosticPLCDIDO() }
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote) {DiagnosticPLCModuleDI()}
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.roote) {DiagnosticPLCModuleDO()}
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.roote) {DiagnosticPLCModuleAI()}
+        NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route){
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route) { DiagnosticPLCDIDO() }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.route) { DiagnosticPLCModuleDI() }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.route) { DiagnosticPLCModuleDO() }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.route) { DiagnosticPLCModuleAI() }
         }
 
     }
@@ -59,7 +59,7 @@ fun NavBarDiagnosticPLC(navController: NavController){
         verticalArrangement = Arrangement.SpaceEvenly)
     {
         // Заголовок
-        BasicSettingsName(modifier = Modifier,
+        BasicSettingsText(modifier = Modifier,
             text = stringResource(R.string.Diagnostic_Text_PLC))
 
         //Код для формирования области в верху с кнопками переходов между страницами
@@ -67,35 +67,35 @@ fun NavBarDiagnosticPLC(navController: NavController){
             horizontalArrangement = Arrangement.SpaceBetween) {
 
             Box(modifier = Modifier.weight(1f)) {
-                BasicTabButtonGiraffe(
+                BasicButtonTabGiraffe(
                     modifier = Modifier,
                     text = R.string.Diagnostic_Button_PLC_DIDO,
                     onClick = {
-                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.roote) },) {}
+                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route) },) {}
             }
 
             Box(modifier = Modifier.weight(1f)) {
-                BasicTabButtonGiraffe(
+                BasicButtonTabGiraffe(
                     modifier = Modifier,
                     text = R.string.Diagnostic_Button_PLC_Module_DI,
                     onClick = {
-                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.roote) },) {}
+                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.route) },) {}
             }
 
             Box(modifier = Modifier.weight(1f)) {
-                BasicTabButtonGiraffe(
+                BasicButtonTabGiraffe(
                     modifier = Modifier,
                     text = R.string.Diagnostic_Button_PLC_Module_DO,
                     onClick = {
-                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.roote) },) {}
+                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.route) },) {}
             }
 
             Box(modifier = Modifier.weight(1f)) {
-                BasicTabButtonGiraffe(
+                BasicButtonTabGiraffe(
                     modifier = Modifier.padding(end = 7.dp),
                     text = R.string.Diagnostic_Button_PLC_Module_AI,
                     onClick = {
-                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.roote) },) {}
+                        navController.navigate(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.route) },) {}
             }
 
 
@@ -108,7 +108,7 @@ fun NavBarDiagnosticPLC(navController: NavController){
 
 
 
-sealed class NavRoutesDiagnosticPLC (val roote: String){
+sealed class NavRoutesDiagnosticPLC (val route: String){
     object PageDiagnosticPLCDIDO: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Дискр. входа/выхода")
     object PageDiagnosticPLCModuleDI: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Модуль. Дискретные входа")
     object PageDiagnosticPLCModuleDO: NavRoutesDiagnosticPLC("Диагностика. ПЛК. Модуль. Дискретные выходы")

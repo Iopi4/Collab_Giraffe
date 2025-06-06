@@ -5,6 +5,14 @@
     <string name="nul">nul</string>
     <string name="spacer"> </string>
 
+    <!-- Универсальный текст -->
+    <string name="Button_Enter">ВВОД</string>
+    <string name="Button_Turn_On">ВКЛ.</string>
+    <string name="Button_Turn_Off">ВЫКЛ.</string>
+    <string name="Button_Turn_ON_Off">ВКЛ./ВЫКЛ.</string>
+    <string name="Button_Switch">ПЕРЕКЛ.</string>
+
+
     <!-- Текст меню навигации -->
     <string name="menu_home">Главный экран</string>
     <string name="menu_initial_setup">Начальные настройки</string>
@@ -56,6 +64,15 @@
 
 
     <!-- Текст экрана SettingLoadCapacity' -->
+    <string name="SettingLoadCapacity_Button_GH_0">ГХ 0</string>
+    <string name="SettingLoadCapacity_Button_GH_1">ГХ 1</string>
+    <string name="SettingLoadCapacity_Button_GH_2">ГХ 2</string>
+    <string name="SettingLoadCapacity_Button_GH_3">ГХ 3</string>
+    <string name="SettingLoadCapacity_Button_GH_4">ГХ 4</string>
+    <string name="SettingLoadCapacity_Button_GH_5">ГХ 5</string>
+    <string name="SettingLoadCapacity_Button_GH_6">ГХ 6</string>
+    <string name="SettingLoadCapacity_Button_Calibration">КАЛИБР.</string>
+
     <string name="SettingLoadCapacity_Text_Type_GH">Тип грузовой характеристики</string>
     <string name="SettingLoadCapacity_Text_ChoiceType_GH">Выбор груз.хар.</string>
 
@@ -83,6 +100,8 @@
     <!-- Текст экрана SettingLoadCapacityScreen' -->
 
     <!-- Текст экрана SettingSensorsScreen' -->
+    <string name="SettingSensors_Button_Test">ВКЛЮЧИТЬ ТЕСТ</string>
+
     <string name="SettingSensors_Text_Sensor">Датчик</string>
     <string name="SettingSensors_Text_Examination">Тест ограничений</string>
     <string name="SettingSensors_Text_Status">статус</string>
@@ -105,8 +124,8 @@
     <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
     <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
     <string name="SettingSensors_Text_Slewing_Installation_Zero">Ввод. Установка 0 [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Ввод. Установка угла [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Ввод. Макс. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Ввод. Уст. текущ. угла [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Ввод. Уст. макс. угла [град]</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Путь</string>
@@ -126,6 +145,17 @@
     <string name="CoordinateProtection_Button_Position">ПО ВЫЛЕТУ</string>
     <string name="CoordinateProtection_Button_Manual">РУЧНОЙ ВВОД</string>
     <string name="CoordinateProtection_Button_Coordinate">КООРДИНАТЫ</string>
+
+    <string name="CoordinateProtection_Button_Set_Point_1">ВВОД ТОЧКА 1</string>
+    <string name="CoordinateProtection_Button_Set_Point_2">ВВОД ТОЧКА 2</string>
+    <string name="CoordinateProtection_Button_Set_Point_3">ВВОД ТОЧКА 3</string>
+    <string name="CoordinateProtection_Button_Set_Point_4">ВВОД ТОЧКА 4</string>
+    <string name="CoordinateProtection_Button_Set_Point_5">ВВОД ТОЧКА 5</string>
+    <string name="CoordinateProtection_Button_Set_Point_6">ВВОД ТОЧКА 6</string>
+    <string name="CoordinateProtection_Button_Set_Point_7">ВВОД ТОЧКА 7</string>
+    <string name="CoordinateProtection_Button_Set_Point_8">ВВОД ТОЧКА 8</string>
+    <string name="CoordinateProtection_Button_Set_Point_9">ВВОД ТОЧКА 9</string>
+    <string name="CoordinateProtection_Button_Set_Point_10">ВВОД ТОЧКА 10</string>
 
     <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
@@ -171,6 +201,7 @@
 
 
     <!-- Текст экрана DiagnosticsScreen' -->
+    <!-- Кнопки. Название вкладок' -->
     <string name="Diagnostic_Button_System">СИСТЕМА</string>
     <string name="Diagnostic_Button_PLC">КОНТРОЛЛЕР</string>
     <string name="Diagnostic_Button_Hoist">ПОДЪЕМ</string>
@@ -181,8 +212,13 @@
     <string name="Diagnostic_Button_PLC_Module_DI">ДИСК. ВХ.</string>
     <string name="Diagnostic_Button_PLC_Module_DO">ДИСК. ВЫХ.</string>
     <string name="Diagnostic_Button_PLC_Module_AI">АНАЛОГ. ВХ. </string>
+    <string name="Diagnostic_Button_Drive">СОСТОЯНИЕ</string>
+    <string name="Diagnostic_Button_Drive_LI_DO">ВХОДЫ/ВЫХОДЫ</string>
+    <!-- Кнопки. Меню диагностики' -->
+    <string name="Diagnostic_Button_Drive_Error_Reset">Сброс ошибок ПЧ</string>
+    <string name="Diagnostic_Button_Error_Reset">Сброс ошибки</string>
 
-    <string name="Diagnostic_Text_Error_Reset">Сброс ошибки</string>
+    <!-- Заголовки во вкладках-->
     <string name="Diagnostic_Text_Status">Статус</string>
     <string name="Diagnostic_Text_State_DIDO">№ вх.вых./Статус</string>
     <string name="Diagnostic_Text_State_DI">№ входа/Статус</string>
@@ -191,33 +227,34 @@
     <string name="Diagnostic_Text_PLC">Контроллер</string>
     <string name="Diagnostic_Text_System">Система управления</string>
     <string name="Diagnostic_Text_Sensors">Датчики</string>
-    <string name="Diagnostic_Text_Hoist">Привод подъема</string>
-    <string name="Diagnostic_Text_Trolley">Привод тележки</string>
-    <string name="Diagnostic_Text_Slewing">Привод поворота</string>
-    <string name="Diagnostic_Text_Crane">Привод хода</string>
     <string name="Diagnostic_Text_PLC_DIDO">Дискретные входы/выходы</string>
     <string name="Diagnostic_Text_PLC_DI_DO">ПЛК. AM320_0808TN</string>
     <string name="Diagnostic_Text_PLC_Module_DI">Диск.вх. Модуль GL20_1600END</string>
     <string name="Diagnostic_Text_PLC_Module_DO">Диск.вых. Модуль GL20_0016ETP</string>
     <string name="Diagnostic_Text_PLC_Module_AI">Аналог.вх. Модуль GL20_4AD</string>
+    <string name="Diagnostic_Text_Drive_Hoist">Привод подъема</string>
+    <string name="Diagnostic_Text_Drive_Slewing">Привод поворота</string>
+    <string name="Diagnostic_Text_Drive_Trolley">Привод тележки</string>
+    <string name="Diagnostic_Text_Drive_Crane">Привод хода крана</string>
+    <string name="Diagnostic_Text_Drive_Parameters">Параметры привода</string>
+    <string name="Diagnostic_Text_Drive_DI_DO">Назначение входов/выходов</string>
 
-    <string name="Diagnostic_Text_System_Status_PLC">Статус. Контроллер</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Статус. Датчик критич момента</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Сargo">Статус. Датчик груза</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Wind">Статус. Датчик ветра</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Hoist">Статус. Датчик подъема</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Trolley">Статус. Датчик вылета</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Slewing">Статус. Датчик поворота</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Crane">Статус. Датчик хода</string>
-    <string name="Diagnostic_Text_System_Status_Sensor_Crane_Reference_Point">Статус. Реперная точка. Ход</string>
-    <string name="Diagnostic_Text_System_Status_Hoist">Статус. Привод подъема</string>
-    <string name="Diagnostic_Text_System_Status_Trolley">Статус. Привод вылета</string>
-    <string name="Diagnostic_Text_System_Status_Slewing">Статус. Привод поворота</string>
-    <string name="Diagnostic_Text_System_Status_Crane">Статус. Привод хода</string>
+    <!-- Диагностика. Вкладка Система -->
+    <string name="Diagnostic_Text_System_Status_PLC">Контроллер</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Critical_Load">Датчик критич момента</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Сargo">Датчик груза</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Wind">Датчик ветра</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Hoist">Датчик подъема</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Trolley">Датчик вылета</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Slewing">Датчик поворота</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Crane">Датчик хода</string>
+    <string name="Diagnostic_Text_System_Status_Sensor_Crane_Reference_Point">Реперная точка хода</string>
+    <string name="Diagnostic_Text_System_Status_Hoist">Привод подъема</string>
+    <string name="Diagnostic_Text_System_Status_Slewing">Привод поворота</string>
+    <string name="Diagnostic_Text_System_Status_Trolley">Привод тележки</string>
+    <string name="Diagnostic_Text_System_Status_Crane">Привод хода</string>
 
-    <string name="Diagnostic_Text_Hoist_Last_Fault">Запись. Последняя ошибка</string>
-    <string name="Diagnostic_Text_Hoist_Magazine_Fault">Запись. Журнал ошибок</string>
-
+    <!-- Диагностика. Вкладка ПЛК -->
     <string name="Diagnostic_Text_PLC_DI_0">Вх.Реле контроля фаз</string>
     <string name="Diagnostic_Text_PLC_DI_1">Вх.Линейный контактор</string>
     <string name="Diagnostic_Text_PLC_DI_2">Вх.Монтажный режим</string>
@@ -290,10 +327,56 @@
     <string name="Diagnostic_Text_PLC_Status_AI3">AI-3</string>
     <string name="Diagnostic_Text_PLC_Status_AI4">AI-4</string>
 
+    <!-- Диагностика. Вкладки приводов Подъем, Поворот, Тележка, Ход крана -->
+    <!-- Параметры привода -->
+    <string name="Diagnostic_Text_Drive_Readiness">Готовность привода к работе</string>
+    <string name="Diagnostic_Text_Drive_Status">Состояние привода</string>
+    <string name="Diagnostic_Text_Drive_Status_Encoder">Состояние энкодера</string>
+    <string name="Diagnostic_Text_Drive_Amperage">Ток, А</string>
+    <string name="Diagnostic_Text_Drive_Speed_Setting">Заданная скорость, Гц</string>
+    <string name="Diagnostic_Text_Drive_Speed_Current">Текущая скорость, Гц</string>
+    <string name="Diagnostic_Text_Drive_Encoder">Энкодер</string>
+    <string name="Diagnostic_Text_Drive_Fault">Ошибка привода</string>
+    <string name="Diagnostic_Text_Drive_Last_Fault">Последняя ошибка</string>
+    <string name="Diagnostic_Text_Drive_Magazine_Fault">Журнал ошибок</string>
+    <!-- Состояние входов выходов -->
+    <string name="Diagnostic_Text_Drive_Hoist_DI_1">Подъем</string>
+    <string name="Diagnostic_Text_Drive_Hoist_DI_2">Спуск</string>
+    <string name="Diagnostic_Text_Drive_Slewing_DI_1">Вправо</string>
+    <string name="Diagnostic_Text_Drive_Slewing_DI_2">Влево</string>
+    <string name="Diagnostic_Text_Drive_Trolley_DI_1">Вперед</string>
+    <string name="Diagnostic_Text_Drive_Trolley_DI_2">Назад</string>
+    <string name="Diagnostic_Text_Drive_Crane_DI_1">Вперед</string>
+    <string name="Diagnostic_Text_Drive_Crane_DI_2">Назад</string>
+    <string name="Diagnostic_Text_Drive_DI_3">2-я скорость</string>
+    <string name="Diagnostic_Text_Drive_DI_4">3-я скорость</string>
+    <string name="Diagnostic_Text_Drive_DI_5">4-я скорость</string>
+    <string name="Diagnostic_Text_Drive_24_OP">Питание дискрет. входов</string>
+    <string name="Diagnostic_Text_Drive_24_STO">Контакт безопасности</string>
+    <string name="Diagnostic_Text_Drive_TA_TC">Выход реле. Тормоз</string>
+    <string name="Diagnostic_Text_Drive_DO_1">Выход дискрет. Резерв</string>
+
+    <string name="Diagnostic_Text_Drive_DI1">DI-1</string>
+    <string name="Diagnostic_Text_Drive_DI2">DI-2</string>
+    <string name="Diagnostic_Text_Drive_DI3">DI-3</string>
+    <string name="Diagnostic_Text_Drive_DI4">DI-4</string>
+    <string name="Diagnostic_Text_Drive_DI5">DI-5</string>
+    <string name="Diagnostic_Text_Drive_24OP">+24_OP (NO)</string>
+    <string name="Diagnostic_Text_Drive_24STO">+24_STO (NO)</string>
+    <string name="Diagnostic_Text_Drive_TATB">TA_TB (NC)</string>
+    <string name="Diagnostic_Text_Drive_TATC">TA_TC (NO)</string>
+    <string name="Diagnostic_Text_Drive_DO1">DO-1</string>
+
     <!-- Текст экрана DiagnosticsScreen' -->
 
 
+
     <!-- Текст экрана ModbusToolsScreen' -->
+    <string name="ModbusTools_Button_Connect">CONNECT</string>
+    <string name="ModbusTools_Button_Disconnect">DISCONNECT</string>
+    <string name="ModbusTools_Button_Read">READ</string>
+    <string name="ModbusTools_Button_Write">WRITE</string>
+
     <string name="ModbusTools_Text_Server_IP">Server IP</string>
     <string name="ModbusTools_Text_Server_Port">Server Port</string>
     <string name="ModbusTools_Text_Status">Status</string>
