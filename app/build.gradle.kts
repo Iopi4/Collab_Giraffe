@@ -42,14 +42,16 @@ android {
 
     packaging {
         resources {
-            excludes += "/META-INF/{" +
-                    "LICENSE.txt" +
-                    "NOTICE.txt" +
-                    "*.kotlin_module" +
-                    "DEPENDENCIES" +
-                    "AL2.0," +
-                    "LGPL2.1" +
-                    "}"
+            excludes.addAll(
+                listOf(
+                    "META-INF/",
+                    "META-INF/INDEX.LIST",
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/*.kotlin_module",
+                    "META-INF/io.netty.versions.properties"
+                )
+            )
+
         }
     }
 }
@@ -78,6 +80,9 @@ dependencies {
     implementation(libs.orbit.core)
     implementation(libs.orbit.viewmodel)
     implementation(libs.orbit.compose)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.network)
 
     testImplementation(libs.junit)
     testImplementation(libs.hilt.android.testing)

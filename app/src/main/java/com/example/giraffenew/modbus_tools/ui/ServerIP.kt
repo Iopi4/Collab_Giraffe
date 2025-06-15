@@ -1,5 +1,6 @@
 package com.example.giraffenew.modbus_tools.ui
 
+import ModbusViewModel
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,17 +18,15 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
-import com.example.giraffenew.modbus_tools.data.ModbusViewModel
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun ServerIP(
-    modifier: Modifier= Modifier,
-    viewModel: ModbusViewModel=androidx.lifecycle.viewmodel.compose.viewModel(),
-){
+    modifier: Modifier = Modifier,
+    viewModel: ModbusViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -37,7 +37,11 @@ fun ServerIP(
         //№.1 - Левая область для отображения Бокса - Данные регистров)
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(2f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Orange,
                     shape = RoundedCornerShape(5.dp)
@@ -47,7 +51,12 @@ fun ServerIP(
             BasicNameSettingParameterGiraffe(
                 settingParameterId = R.string.ModbusTools_Text_Register_Address
             )
-
+            BasicNameSettingParameterGiraffe(
+                settingParameterId = R.string.ModbusTools_Text_Register_Count
+            )
+            BasicNameSettingParameterGiraffe(
+                settingParameterId = R.string.ModbusTools_Text_Registers_Value
+            )
             BasicNameSettingParameterGiraffe(
                 settingParameterId = R.string.ModbusTools_Text_Value_To_Write
             )
@@ -56,14 +65,14 @@ fun ServerIP(
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.ModbusTools_Button_Read,
-                onClick = { viewModel.readRegister() },
+                onClick = { viewModel.startReadingRegisters() },
             ) {}
 
             // Кнгопка Write
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.ModbusTools_Button_Write,
-                onClick = { viewModel.writeRegister() },
+                onClick = { },
             ) {}
 
         }
@@ -72,7 +81,11 @@ fun ServerIP(
 //№.2 - Правая область для настройки порта
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(3f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Burgundy_violet,
                     shape = RoundedCornerShape(5.dp)
@@ -85,36 +98,66 @@ fun ServerIP(
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
+                val startAddress = viewModel.startAddress.collectAsState()
                 BasicTextFilledGiraffe(
                     placeholder = "0",
-                    value = viewModel.registerAddress,
-                    onValueChange = { viewModel.registerAddress = it },
+                    value = startAddress.value.toString(),
+                    onValueChange = { viewModel.updateStartAddress(it.toIntOrNull() ?: 0) },
                     modifier = Modifier,
                 )
             }
-            //Ввод. Value to Write
+            //Ввод. Registers Count
             Box(
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
+                val startAddress = viewModel.registerCount.collectAsState()
                 BasicTextFilledGiraffe(
                     placeholder = "0",
-                    value = viewModel.registerValue,
-                    onValueChange = { viewModel.registerValue = it },
+                    value = startAddress.value.toString(),
+                    onValueChange = { viewModel.updateRegisterCount(it.toIntOrNull() ?: 0) },
                     modifier = Modifier,
                 )
             }
 
-            // Отображение текущих параметров датчика усилия
+            // Данные регистров
             Box(
-                modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+                modifier = Modifier
+                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+            ) {
+                val registerValue = viewModel.registerValues.collectAsState()
+                BasicTextFilledGiraffe(
+                    placeholder = "0",
+                    value = registerValue.value.toString(),
+                    onValueChange = { viewModel.updatePort(it.toIntOrNull() ?: 0) },
+                    modifier = Modifier,
+                )
+            }
+            //Ввод. запись регистра
+            Box(
+                modifier = Modifier
+                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+            ) {
+                val startAddress = viewModel.writeValue.collectAsState()
+                BasicTextFilledGiraffe(
+                    placeholder = "0",
+                    value = startAddress.value.toString(),
+                    onValueChange = { viewModel.updateWriteValue(it.toIntOrNull() ?: 0) },
+                    modifier = Modifier,
+                )
+            }
+            // Отображение текущих параметров датчика усилия
+            /*Box(
+                modifier = Modifier
+                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
                     .fillMaxSize()
             ) {
+                var sensor = viewModel.
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier.fillMaxSize(),
                     valueParameterId = "Read Value:${viewModel.registerValue}"
                 )
-            }
+            }*/
 
         }
     }
@@ -123,7 +166,7 @@ fun ServerIP(
 
 @Preview
 @Composable
-fun ServerIPPreview (){
+fun ServerIPPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServerIP(
         )
