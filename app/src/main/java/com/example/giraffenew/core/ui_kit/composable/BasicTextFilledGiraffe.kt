@@ -64,8 +64,8 @@ fun BasicTextFilledGiraffe (
 
     Box(myBoxVisualTextFieldModifier) {
         BasicTextField(
-            value = value,
-            onValueChange = onValueChange,
+            value = value, //value: представляет введенное в текстовое поле значение в виде строки, объекта String
+            onValueChange = onValueChange, //функция обработки изменения введенного значения. Представляет функцию типа (String) -> Unit
             modifier = Modifier
                 .size(height = 30.dp, width = 500.dp),
 
@@ -78,7 +78,7 @@ fun BasicTextFilledGiraffe (
             // поведение, сделав текстовое поле нередактируемым, нефокусируемым и невыбираемым
             singleLine = singleLine, //указывает, является ли это однострочным или многострочным текстовым полем.
             // Вы должны передать то же значение, что и BasicTextField
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number) //Выбор типа клавиатуры
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) //Выбор типа клавиатуры
         ){
             TextFieldDefaults.DecorationBox(
                 value = value,

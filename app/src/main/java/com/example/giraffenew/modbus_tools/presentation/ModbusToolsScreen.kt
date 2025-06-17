@@ -21,10 +21,10 @@ fun ModbusToolsScreen() {
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Box(modifier = Modifier.weight(1f)){
-            Register()
+            ServerIP ()
         }
         Box(modifier = Modifier.weight(1f)){
-            ServerIP()
+            Register()
         }
     }
 }

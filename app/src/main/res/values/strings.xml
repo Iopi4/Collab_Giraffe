@@ -30,7 +30,7 @@
     <string name="menu_ModbusTools">Настройка Modbus</string>
     <string name="accident_and_warning_log">Журнал Аварий и Предупреждений</string>
 
-<!-- Текст экрана Home' -->
+    <!-- Текст экрана Home' -->
     <!-- Текст экрана с краном' -->
     <string name="Home_LOADING_CAPACITY">ГРУЗОПОДЪЕМНОСТЬ</string>
     <string name="Home_LIFT_HEIGHT">ВЫСОТА ПОДЪЕМА</string>
@@ -45,9 +45,9 @@
     <string name="Home_Wind">ВЕТЕР [М/C]</string>
     <string name="Home_Voltage">ПИТАНИЕ</string>
     <string name="Home_Ready">ГОТОВНОСТЬ</string>
-<!-- Текст экрана Home' -->
+    <!-- Текст экрана Home' -->
 
-<!-- Текст экрана InitialSetup' -->
+    <!-- Текст экрана InitialSetup' -->
     <!-- Текст параметров настройки даты и времени' -->
     <string name="InitialSetup_Text_Current_Time">Текущее время [Час:Мин]</string>
     <string name="InitialSetup_Text_Current_Date">Текущая дата [День.Мес.Год]</string>
@@ -381,8 +381,10 @@
     <string name="ModbusTools_Text_Server_Port">Server Port</string>
     <string name="ModbusTools_Text_Status">Status</string>
     <string name="ModbusTools_Text_Register_Address">Register Address</string>
+    <string name="ModbusTools_Text_Register_Count">Registers Count</string>
     <string name="ModbusTools_Text_Value_To_Write">Value to Write</string>
     <string name="ModbusTools_Text_Read_Value">Read Value</string>
+    <string name="ModbusTools_Text_Registers_Value">Registers Value</string>
     <!-- Текст экрана ModbusToolsScreen' -->
 
 
