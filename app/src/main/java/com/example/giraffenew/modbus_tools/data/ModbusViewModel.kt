@@ -97,6 +97,18 @@ class ModbusViewModel : ViewModel() {
         _writeValue.value = newValue
     }
 
+
+    /**Add commentMore actions
+     * Stop reading Modbus registers
+     */
+    fun stopReadingRegisters() {
+        isReading = false
+    }
+
+    fun stopWriteRegisters() {
+        isWrite = false
+    }
+
     /**Add commentMore actions
      * Connect to the Modbus TCP server
      */
@@ -205,19 +217,15 @@ class ModbusViewModel : ViewModel() {
                     e.printStackTrace()
                     _connectionStatus.value =
                         ConnectionStatus.Error(e.message ?: "Error reading registers")
-                    isReading = false
+                    isWrite = false
                 }
-                delay(1000) // Repeat every second
+                stopWriteRegisters()
             }
         }
+
     }
 
-    /**Add commentMore actions
-     * Stop reading Modbus registers
-     */
-    fun stopReadingRegisters() {
-        isReading = false
-    }
+
 
     /**
      * Создание запроса Modbus TCP для «Чтения регистров хранения»
@@ -333,6 +341,7 @@ class ModbusViewModel : ViewModel() {
 
         //ВОПРОС????????????????
         return mbapHeader + pdu
+
     }
 
     /**
