@@ -60,7 +60,7 @@
     <string name="InitialSetup_TextFilled_Operation">Ввод. Дата ввода в эксплуатацию</string>
     <string name="InitialSetup_TextFilled_Number_SBKB">Ввод. Заводской номер СБКБ</string>
     <string name="InitialSetup_TextFilled_Date_SBKB">Ввод. Дата установки СБКБ</string>
-<!-- Текст экрана InitialSetup' -->
+    <!-- Текст экрана InitialSetup' -->
 
 
     <!-- Текст экрана SettingLoadCapacity' -->
@@ -368,7 +368,6 @@
     <string name="Diagnostic_Text_Drive_DO1">DO-1</string>
 
     <!-- Текст экрана DiagnosticsScreen' -->
-
 
 
     <!-- Текст экрана ModbusToolsScreen' -->
