@@ -2,15 +2,48 @@ import android.util.Log
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import java.nio.ByteBuffer
 
 
+// Serializable data classes for HTTP requests and responses
+@Serializable
+data class RegisterData(
+    val registers: List<Int>,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+@Serializable
+data class ServerResponse(
+    val status: String
+)
+
 class ModbusViewModel : ViewModel() {
+    // HTTP client for making API requests
+    private val httpClient = HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            })
+        }
+    }
+
     //Socket - Это файл в который пишется данные. Имя файла это IP и  Port
     private var socket: Socket? = null
 
@@ -60,6 +93,9 @@ class ModbusViewModel : ViewModel() {
     private val _slaveId = MutableStateFlow(255)// по умолчанию для моего сервера
     val slaveId: StateFlow<Int> = _slaveId.asStateFlow()
 
+    private val _remoteServerUrl = MutableStateFlow("https://monitor.giraffecrane.ru")
+    val remoteServerUrl: StateFlow<String> = _remoteServerUrl.asStateFlow()
+
     private val _startAddress = MutableStateFlow(0)
     val startAddress: StateFlow<Int> = _startAddress.asStateFlow()
 
@@ -95,6 +131,40 @@ class ModbusViewModel : ViewModel() {
 
     fun updateWriteValue(newValue: Int) {
         _writeValue.value = newValue
+    }
+
+    fun updateRemoteServerUrl(newUrl: String) {
+        _remoteServerUrl.value = newUrl
+    }
+
+    /**
+     * Send register data to remote server
+     */
+    private suspend fun sendRegistersToRemoteServer(registers: List<Int>) {
+        _remoteServerStatus.value = RemoteServerStatus.Sending
+        try {
+            val response: HttpResponse = httpClient.post("${remoteServerUrl.value}/api/realtime") {
+                contentType(ContentType.Application.Json)
+                setBody(RegisterData(registers))
+            }
+
+            if (response.status.isSuccess()) {
+                val serverResponse = response.body<ServerResponse>()
+                if (serverResponse.status == "success") {
+                    _remoteServerStatus.value = RemoteServerStatus.Success
+                    Log.d("MODBUS", "Successfully sent ${registers.size} registers to remote server")
+                } else {
+                    _remoteServerStatus.value = RemoteServerStatus.Error("Server returned non-success status: ${serverResponse.status}")
+                    Log.e("MODBUS", "Server returned non-success status: ${serverResponse.status}")
+                }
+            } else {
+                _remoteServerStatus.value = RemoteServerStatus.Error("HTTP error: ${response.status}")
+                Log.e("MODBUS", "HTTP error when sending registers: ${response.status}")
+            }
+        } catch (e: Exception) {
+            _remoteServerStatus.value = RemoteServerStatus.Error(e.message ?: "Unknown error")
+            Log.e("MODBUS", "Error sending registers to remote server: ${e.message}")
+        }
     }
 
 
@@ -374,6 +444,7 @@ class ModbusViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         disconnectServer()
+        httpClient.close() // Close HTTP client to avoid memory leaks
     }
 
     sealed class ConnectionStatus {
@@ -388,9 +459,20 @@ class ModbusViewModel : ViewModel() {
         data class Error(val message: String) : BackgroundServiceStatus()
     }
 
+    sealed class RemoteServerStatus {
+        object NotSent : RemoteServerStatus()
+        object Sending : RemoteServerStatus()
+        object Success : RemoteServerStatus()
+        data class Error(val message: String) : RemoteServerStatus()
+    }
+
     // Background service state
     private val _backgroundServiceStatus = MutableStateFlow<BackgroundServiceStatus>(BackgroundServiceStatus.Stopped)
     val backgroundServiceStatus: StateFlow<BackgroundServiceStatus> = _backgroundServiceStatus.asStateFlow()
+
+    // Remote server status
+    private val _remoteServerStatus = MutableStateFlow<RemoteServerStatus>(RemoteServerStatus.NotSent)
+    val remoteServerStatus: StateFlow<RemoteServerStatus> = _remoteServerStatus.asStateFlow()
 
     // Flag to control background service
     private var isBackgroundServiceRunning = false
@@ -436,6 +518,9 @@ class ModbusViewModel : ViewModel() {
 
                             // Update register values
                             _registerValues.value = registerValues
+
+                            // Send registers to remote server
+                            sendRegistersToRemoteServer(registerValues)
 
                             // Log success
                             Log.d("MODBUS", "Background service read ${registerValues.size} registers from 93 to 174")
