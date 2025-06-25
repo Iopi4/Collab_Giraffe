@@ -382,4 +382,115 @@ class ModbusViewModel : ViewModel() {
         data class Error(val message: String) : ConnectionStatus()
     }
 
+    sealed class BackgroundServiceStatus {
+        object Stopped : BackgroundServiceStatus()
+        object Running : BackgroundServiceStatus()
+        data class Error(val message: String) : BackgroundServiceStatus()
+    }
+
+    // Background service state
+    private val _backgroundServiceStatus = MutableStateFlow<BackgroundServiceStatus>(BackgroundServiceStatus.Stopped)
+    val backgroundServiceStatus: StateFlow<BackgroundServiceStatus> = _backgroundServiceStatus.asStateFlow()
+
+    // Flag to control background service
+    private var isBackgroundServiceRunning = false
+
+    /**
+     * Start background service to read registers from address 93 to 174
+     */
+    fun startBackgroundService() {
+        if (isBackgroundServiceRunning) return
+
+        isBackgroundServiceRunning = true
+        _backgroundServiceStatus.value = BackgroundServiceStatus.Running
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                while (isBackgroundServiceRunning) {
+                    if (_connectionStatus.value == ConnectionStatus.Connected) {
+                        try {
+                            // Read registers from 93 to 174
+                            val registerValues = mutableListOf<Int>()
+
+                            // Read in chunks of 32 registers to avoid overloading
+                            for (startAddr in 93..174 step 32) {
+                                val endAddr = minOf(startAddr + 31, 174)
+                                val count = endAddr - startAddr + 1
+
+                                // Build request for this chunk
+                                val request = buildModbusRequestForRange(startAddr, count)
+                                output?.writeFully(request)
+
+                                // Read response
+                                val response = ByteArray(256)
+                                val bytesRead = input?.readAvailable(response, 0, response.size) ?: 0
+
+                                if (bytesRead > 0) {
+                                    val values = parseRegisterValues(response.copyOfRange(0, bytesRead))
+                                    registerValues.addAll(values)
+                                }
+
+                                // Small delay between chunks
+                                delay(100)
+                            }
+
+                            // Update register values
+                            _registerValues.value = registerValues
+
+                            // Log success
+                            Log.d("MODBUS", "Background service read ${registerValues.size} registers from 93 to 174")
+                        } catch (e: Exception) {
+                            Log.e("MODBUS", "Error in background service: ${e.message}")
+                            _backgroundServiceStatus.value = BackgroundServiceStatus.Error(e.message ?: "Error reading registers from 93 to 174")
+                        }
+                    }
+
+                    // Wait before next read cycle
+                    delay(1000)
+                }
+            } catch (e: Exception) {
+                Log.e("MODBUS", "Background service error: ${e.message}")
+                _backgroundServiceStatus.value = BackgroundServiceStatus.Error(e.message ?: "Background service error")
+            } finally {
+                _backgroundServiceStatus.value = BackgroundServiceStatus.Stopped
+            }
+        }
+    }
+
+    /**
+     * Stop background service
+     */
+    fun stopBackgroundService() {
+        isBackgroundServiceRunning = false
+    }
+
+    /**
+     * Build Modbus request for a specific range of registers
+     */
+    private fun buildModbusRequestForRange(startAddr: Int, count: Int): ByteArray {
+        val transactionId: Short = 1
+        val protocolId: Short = 0
+        val unitId = slaveId.value.toByte()
+        val functionCode: Byte = 3
+        val startAddress = startAddr.toShort()
+        val registerCount = count.toShort()
+
+        // MBAP Header
+        val mbapHeader = ByteBuffer.allocate(7).apply {
+            putShort(transactionId)
+            putShort(protocolId)
+            putShort((1 + 1 + 2 + 2).toShort())
+            put(unitId)
+        }.array()
+
+        // PDU
+        val pdu = ByteBuffer.allocate(5).apply {
+            put(functionCode)
+            putShort(startAddress)
+            putShort(registerCount)
+        }.array()
+
+        return mbapHeader + pdu
+    }
+
 }
