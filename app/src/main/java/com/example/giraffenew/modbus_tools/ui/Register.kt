@@ -91,12 +91,14 @@ fun Register(
             BasicNameSettingParameterGiraffe(
                 settingParameterId = R.string.ModbusTools_Text_Register_Count
             )
-            BasicNameSettingParameterGiraffe(
-                settingParameterId = R.string.ModbusTools_Text_Registers_Value
-            )
+
             BasicNameSettingParameterGiraffe(
                 settingParameterId = R.string.ModbusTools_Text_Value_To_Write
             )
+            BasicNameSettingParameterGiraffe(
+                settingParameterId = R.string.ModbusTools_Text_Registers_Value
+            )
+
 
             // Кнгопка Read
             BasicButtonGiraffe(
@@ -124,6 +126,13 @@ fun Register(
                 modifier = Modifier,
                 text = "Stop Background",
                 onClick = { viewModel.stopBackgroundService() }
+            )
+
+            // Кнопка Start Background Service Write Register
+            CustomButtonGiraffe(
+                modifier = Modifier,
+                text = "Start Background-Wr",
+                onClick = { viewModel.startBackgroundServiceWrite() }
             )
 
         }
@@ -166,8 +175,21 @@ fun Register(
                     modifier = Modifier,
                 )
             }
+            //Ввод. Значение записываемое в регистр
+            Box(
+                modifier = Modifier
+                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+            ) {
+                val writeValue = viewModel.writeValue.collectAsState()
+                BasicTextFilledGiraffe(
+                    placeholder = "0",
+                    value = writeValue.value.toString(),
+                    onValueChange = { viewModel.updateWriteValue(it) },
+                    modifier = Modifier,
+                )
+            }
 
-            // Вывод. Данные регистров. Через
+            // Вывод. Данные регистров.
             Box(
                 modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
@@ -201,30 +223,6 @@ fun Register(
                     valueParameterId = statusText,
                 )
             }
-            //Ввод. запись регистра
-            Box(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
-            ) {
-                val startAddress = viewModel.writeValue.collectAsState()
-                BasicTextFilledGiraffe(
-                    placeholder = "0",
-                    value = startAddress.value.toString(),
-                    onValueChange = { viewModel.updateWriteValue(it.toIntOrNull() ?: 0) },
-                    modifier = Modifier,
-                )
-            }
-            /*Box(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
-                    .fillMaxSize()
-            ) {
-                var sensor = viewModel.
-                BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier.fillMaxSize(),
-                    valueParameterId = "Read Value:${viewModel.registerValue}"
-                )
-            }*/
 
         }
     }

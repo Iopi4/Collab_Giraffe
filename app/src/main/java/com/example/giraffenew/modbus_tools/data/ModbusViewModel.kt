@@ -45,8 +45,8 @@ class ModbusViewModel : ViewModel() {
     private val _registerValues = MutableStateFlow<List<Int>>(emptyList())
     val registerValues: StateFlow<List<Int>> = _registerValues.asStateFlow()
 
-    private val _writeValue = MutableStateFlow(0)
-    val writeValue: StateFlow<Int> = _writeValue.asStateFlow()
+    private val _writeValue = MutableStateFlow("0")
+    val writeValue: StateFlow<String> = _writeValue.asStateFlow()
 
     private val _isPaused = MutableStateFlow(false)
     val isPaused: StateFlow<Boolean> = _isPaused.asStateFlow()
@@ -93,7 +93,7 @@ class ModbusViewModel : ViewModel() {
         _registerCount.value = newRegisterCount
     }
 
-    fun updateWriteValue(newValue: Int) {
+    fun updateWriteValue(newValue: String) {
         _writeValue.value = newValue
     }
 
@@ -113,6 +113,9 @@ class ModbusViewModel : ViewModel() {
      * Connect to the Modbus TCP server
      */
     fun connectToServer() {
+        //viewModelScope в Kotlin — это встроенная область видимости (CoroutineScope) для корутин внутри объекта ViewModel.
+        //Эта область позволяет управлять жизненным циклом корутин, запущенных в рамках ViewModel.
+        //Корутины, созданные в viewModelScope, автоматически отменяются при уничтожении соответствующего объекта ViewModel.
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(
                 "MODBUS",
@@ -183,7 +186,8 @@ class ModbusViewModel : ViewModel() {
                         ConnectionStatus.Error(e.message ?: "Error reading registers")
                     isReading = false
                 }
-            delay(1000) // Repeat every second
+                //delay(1000) // Repeat every second
+                stopReadingRegisters()
         }
         }
     }
@@ -382,6 +386,8 @@ class ModbusViewModel : ViewModel() {
         data class Error(val message: String) : ConnectionStatus()
     }
 
+
+//BackgroundService_ReadRegisters
     sealed class BackgroundServiceStatus {
         object Stopped : BackgroundServiceStatus()
         object Running : BackgroundServiceStatus()
@@ -396,7 +402,7 @@ class ModbusViewModel : ViewModel() {
     private var isBackgroundServiceRunning = false
 
     /**
-     * Start background service to read registers from address 93 to 174
+     * Start background service to read registers from address 90 to 174
      */
     fun startBackgroundService() {
         if (isBackgroundServiceRunning) return
@@ -413,7 +419,7 @@ class ModbusViewModel : ViewModel() {
                             val registerValues = mutableListOf<Int>()
 
                             // Read in chunks of 32 registers to avoid overloading
-                            for (startAddr in 93..174 step 32) {
+                            for (startAddr in 90..174 step 32) {
                                 val endAddr = minOf(startAddr + 31, 174)
                                 val count = endAddr - startAddr + 1
 
@@ -460,9 +466,7 @@ class ModbusViewModel : ViewModel() {
     /**
      * Stop background service
      */
-    fun stopBackgroundService() {
-        isBackgroundServiceRunning = false
-    }
+
 
     /**
      * Build Modbus request for a specific range of registers
@@ -491,6 +495,98 @@ class ModbusViewModel : ViewModel() {
         }.array()
 
         return mbapHeader + pdu
+    }
+
+    //BackgroundService_WriteRegisters
+    fun startBackgroundServiceWrite (){
+        if (isBackgroundServiceRunning) return
+
+        isBackgroundServiceRunning = true
+        _backgroundServiceStatus.value = BackgroundServiceStatus.Running
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                while (isBackgroundServiceRunning) {
+                    if (_connectionStatus.value == ConnectionStatus.Connected){
+                        try {
+                            // запись регистров с 900 по 903
+                            val registerValues = mutableListOf<Int>()
+                            // запись в кусках по 10 регистров, чтобы избежать перегрузки
+                            for (startAddr in 900..901 step 1) {
+                                val endAddr = minOf(startAddr+1, 901)
+                                val count = endAddr - startAddr + 1
+
+
+                                // Запрос сборки для этого куска
+                                val request = buildModbusRequestForRangeWrite(startAddr, count)
+                                output?.writeFully(request)
+
+
+                                //Чтение ответа
+                                val response = ByteArray(256) //256 это выделенный объем памяти для получения ответа
+                                val bytesWrite = input?.readAvailable ( response, 0, response.size)?:0
+
+                                if (bytesWrite >0) {
+                                    val values = parseRegisterValuesWrite(response.copyOfRange(0,bytesWrite))
+                                    registerValues.addAll(values)
+                                }
+                                // Small delay between chunks. Небольшая задержка между фрагментами
+                                delay(100)
+                            }
+                            // Update register values
+                            _registerValues.value = registerValues
+                            // Log success
+                            Log.d("MODBUS", "Background service read ${registerValues.size} registers from 900 to 903")
+                        }
+                        catch (e: Exception){
+                            Log.e("MODBUS", "Error in background service: ${e.message}")
+                            _backgroundServiceStatus.value = BackgroundServiceStatus.Error(e.message ?: "Error reading registers from 900 to 903")
+                        }
+                    }
+                    // Wait before next read cycle
+                    delay(1000)
+                }
+
+            } catch (e: Exception){
+                Log.e("MODBUS", "Background service error: ${e.message}")
+                _backgroundServiceStatus.value = BackgroundServiceStatus.Error(e.message ?: "Background service error")
+            } finally {
+                _backgroundServiceStatus.value = BackgroundServiceStatus.Stopped
+            }
+        }
+    }
+    /**
+     * Build Modbus request for a specific range of registers
+     */
+    private fun buildModbusRequestForRangeWrite(startAddr: Int, count: Int, ): ByteArray {
+        val transactionId: Short = 1
+        val protocolId: Short = 0
+        val unitId = slaveId.value.toByte()
+        val functionCode: Byte = 6
+        val startAddress = startAddr.toShort()
+        val registerValueWrite = this.writeValue.value.toShort()
+
+        // MBAP Header
+        val mbapHeader = ByteBuffer.allocate(7).apply {
+            putShort(transactionId)
+            putShort(protocolId)
+            putShort((1 + 1 + 2 + 2).toShort())
+            put(unitId)
+        }.array()
+
+        // PDU
+        val pdu = ByteBuffer.allocate(5).apply {
+            put(functionCode)
+            putShort(startAddress)
+            putShort(registerValueWrite)
+        }.array()
+
+        return mbapHeader + pdu
+
+    }
+
+    fun stopBackgroundService() {
+        isBackgroundServiceRunning = false
     }
 
 }
