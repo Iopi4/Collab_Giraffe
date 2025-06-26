@@ -378,7 +378,9 @@
 
     <string name="ModbusTools_Text_Server_IP">Server IP</string>
     <string name="ModbusTools_Text_Server_Port">Server Port</string>
+    <string name="ModbusTools_Text_Remote_Server_URL">Remote Server URL</string>
     <string name="ModbusTools_Text_Status">Status</string>
+    <string name="ModbusTools_Text_Remote_Server_Status">Remote Server Status</string>
     <string name="ModbusTools_Text_Register_Address">Register Address</string>
     <string name="ModbusTools_Text_Register_Count">Registers Count</string>
     <string name="ModbusTools_Text_Value_To_Write">Value to Write</string>

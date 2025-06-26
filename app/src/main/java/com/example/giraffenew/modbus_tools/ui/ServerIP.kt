@@ -54,6 +54,10 @@ fun ServerIP(
                 settingParameterId = R.string.ModbusTools_Text_Server_Port
             )
 
+            BasicNameSettingParameterGiraffe(
+                settingParameterId = R.string.ModbusTools_Text_Remote_Server_URL
+            )
+
             // Кнгопка Connect
             BasicButtonGiraffe(
                 modifier = Modifier,
@@ -111,6 +115,20 @@ fun ServerIP(
                 )
             }
 
+            //Ввод. Remote Server URL
+            Box(
+                    modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
+            ) {
+            val remoteServerUrl = viewModel.remoteServerUrl.collectAsState()
+                BasicTextFilledGiraffe(
+                    placeholder = "https://monitor.giraffecrane.ru",
+                    value = remoteServerUrl.value,
+                    onValueChange = { viewModel.updateRemoteServerUrl(it) },
+                    modifier = Modifier,
+
+                )
+            }
+
             // Connection statusAdd commentMore actions
             Box(
                 modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
@@ -125,15 +143,22 @@ fun ServerIP(
 
             }
 
-            // Отображение статуса соединения
+            // Отображение статуса удаленного сервера
             Box(
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
                     .fillMaxSize()
             ) {
+                val remoteServerStatus = viewModel.remoteServerStatus.collectAsState()
+                val displayText = when (remoteServerStatus.value) {
+                    is ModbusViewModel.RemoteServerStatus.NotSent -> "Not Sent"
+                    is ModbusViewModel.RemoteServerStatus.Sending -> "Sending..."
+                    is ModbusViewModel.RemoteServerStatus.Success -> "Success"
+                    is ModbusViewModel.RemoteServerStatus.Error -> "Error: ${(remoteServerStatus.value as ModbusViewModel.RemoteServerStatus.Error).message}"
+                }
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier.fillMaxSize(),
-                    valueParameterId = "Status:status"
+                    valueParameterId = "Remote Server: $displayText"
                 )
             }
 
