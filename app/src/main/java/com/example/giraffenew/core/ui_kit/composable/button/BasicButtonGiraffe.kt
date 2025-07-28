@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable
+package com.example.giraffenew.core.ui_kit.composable.button
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,14 +41,12 @@ fun BasicButtonGiraffe(
     val coroutineScope = rememberCoroutineScope()
     var buttonEnabled by remember { mutableStateOf(true) } // Button state
 
-    val myBoxButtonModifier = Modifier
+    Box(modifier = modifier
         .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
-        .fillMaxWidth()
-
-    Box(myBoxButtonModifier){
+        .fillMaxWidth()){
         Button(
-            modifier = modifier
+            modifier = Modifier
                 .size(width = 350.dp, height = 30.dp),
             onClick = onClick,
             contentPadding = PaddingValues(2.dp),
@@ -57,7 +55,7 @@ fun BasicButtonGiraffe(
                 containerColor = colorResource(R.color.Burgundy_violet),
                 contentColor = Color.White),
         ) {
-            Text( text = stringResource(id = text), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text( text = stringResource(id = text), fontSize = 19.sp, fontWeight = FontWeight.Bold)
         }
     }
 

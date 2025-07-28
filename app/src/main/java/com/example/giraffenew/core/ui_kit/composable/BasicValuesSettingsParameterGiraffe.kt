@@ -41,7 +41,7 @@ fun BasicValuesSettingsParameterGiraffe (
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp, top = 5.dp,bottom = 5.dp),
             text = valueParameterId,
-            fontSize = 20.sp, fontWeight = FontWeight.Bold,
+            fontSize = 19.sp, fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center, color = DarkGrew
         )
     }

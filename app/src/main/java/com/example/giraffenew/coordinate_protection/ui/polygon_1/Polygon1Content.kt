@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.giraffenew.core.ui_kit.composable.BasicButtonTabGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.R

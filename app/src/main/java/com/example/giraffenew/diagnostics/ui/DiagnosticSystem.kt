@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -84,8 +84,8 @@ fun DiagnosticSystem(
             }
 
 // Отображение статус датчика критического момента
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2
                 )
             }
@@ -129,8 +129,8 @@ fun DiagnosticSystem(
             )
 
 // Отображение статус датчика реперной точки хода крана
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2
                 )
             }

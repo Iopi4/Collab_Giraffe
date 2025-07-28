@@ -18,7 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicButtonTabGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.diagnostics.ui.crane.DiagnosticCraneContent
 import com.example.giraffenew.diagnostics.ui.hoist.DiagnosticHoistContent
 import com.example.giraffenew.diagnostics.ui.plc.DiagnosticPLCContent

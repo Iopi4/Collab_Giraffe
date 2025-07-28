@@ -7,10 +7,11 @@
 
     <!-- Универсальный текст -->
     <string name="Button_Enter">ВВОД</string>
-    <string name="Button_Turn_On">ВКЛ.</string>
-    <string name="Button_Turn_Off">ВЫКЛ.</string>
-    <string name="Button_Turn_ON_Off">ВКЛ./ВЫКЛ.</string>
-    <string name="Button_Switch">ПЕРЕКЛ.</string>
+    <string name="Button_Turn_On">ВКЛ</string>
+    <string name="Button_Turn_Off">ВЫКЛ</string>
+    <string name="Button_Turn_Reset">СБРОС</string>
+    <string name="Button_Turn_ON_Off">ВКЛ/ВЫКЛ</string>
+    <string name="Button_Switch">ГРУЗ/СТР</string>
 
 
     <!-- Текст меню навигации -->
@@ -199,6 +200,31 @@
     <string name="CoordinateProtection_Text_Entering_Points_10">Задать точку 10</string>
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
+    <!-- Текст экрана ServiceMenuScreen' -->
+    <string name="ServiceMenu_Text_Hoist_Parameters">Подъем. Параметры привода</string>
+    <string name="ServiceMenu_Text_Hoist_Montage">Монтажный режим</string>
+    <string name="ServiceMenu_Text_Slewing_Parameters">Поворот. Параметры привода</string>
+    <string name="ServiceMenu_Text_Trolley_Parameters">Тележка. Параметры привода</string>
+    <string name="ServiceMenu_Text_Crane_Parameters">Ход крана. Параметры привода</string>
+    <string name="ServiceMenu_Text_Setting">Настройка</string>
+
+    <string name="ServiceMenu_Text_Acc">Разгон, с</string>
+    <string name="ServiceMenu_Text_Dec">Торможение, с</string>
+    <string name="ServiceMenu_Text_Speed_1">Скорость 1, об/мин</string>
+    <string name="ServiceMenu_Text_Speed_2">Скорость 2, об/мин</string>
+    <string name="ServiceMenu_Text_Speed_3">Скорость 3, об/мин</string>
+    <string name="ServiceMenu_Text_Speed_4">Скорость 4, об/мин</string>
+    <string name="ServiceMenu_Text_Max_Speed_SS">Сверх.синхр. скорость, об/мин</string>
+    <string name="ServiceMenu_Text_Stoping_Speed">Остановка от кнопки, об/мин</string>
+
+    <string name="ServiceMenu_Text_Acc_Montage">Разгон, с</string>
+    <string name="ServiceMenu_Text_Dec_Montage">Торможение, с</string>
+    <string name="ServiceMenu_Text_Speed_1_Montage">Скорость 1, об/мин</string>
+    <string name="ServiceMenu_Text_Speed_2_Montage">Скорость 2, об/мин</string>
+
+    <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Запрет сверх.синхр. скор., т</string>
+    <!-- Текст экрана ServiceMenuScreen' -->
+
 
     <!-- Текст экрана DiagnosticsScreen' -->
     <!-- Кнопки. Название вкладок' -->
@@ -340,21 +366,21 @@
     <string name="Diagnostic_Text_Drive_Last_Fault">Последняя ошибка</string>
     <string name="Diagnostic_Text_Drive_Magazine_Fault">Журнал ошибок</string>
     <!-- Состояние входов выходов -->
-    <string name="Diagnostic_Text_Drive_Hoist_DI_1">Подъем</string>
-    <string name="Diagnostic_Text_Drive_Hoist_DI_2">Спуск</string>
-    <string name="Diagnostic_Text_Drive_Slewing_DI_1">Вправо</string>
-    <string name="Diagnostic_Text_Drive_Slewing_DI_2">Влево</string>
-    <string name="Diagnostic_Text_Drive_Trolley_DI_1">Вперед</string>
-    <string name="Diagnostic_Text_Drive_Trolley_DI_2">Назад</string>
-    <string name="Diagnostic_Text_Drive_Crane_DI_1">Вперед</string>
-    <string name="Diagnostic_Text_Drive_Crane_DI_2">Назад</string>
-    <string name="Diagnostic_Text_Drive_DI_3">2-я скорость</string>
-    <string name="Diagnostic_Text_Drive_DI_4">3-я скорость</string>
-    <string name="Diagnostic_Text_Drive_DI_5">4-я скорость</string>
-    <string name="Diagnostic_Text_Drive_24_OP">Питание дискрет. входов</string>
-    <string name="Diagnostic_Text_Drive_24_STO">Контакт безопасности</string>
-    <string name="Diagnostic_Text_Drive_TA_TC">Выход реле. Тормоз</string>
-    <string name="Diagnostic_Text_Drive_DO_1">Выход дискрет. Резерв</string>
+    <string name="Diagnostic_Text_Drive_Hoist_DI_1">Вх.Подъем</string>
+    <string name="Diagnostic_Text_Drive_Hoist_DI_2">Вх.Спуск</string>
+    <string name="Diagnostic_Text_Drive_Slewing_DI_1">Вх.Вправо</string>
+    <string name="Diagnostic_Text_Drive_Slewing_DI_2">Вх.Влево</string>
+    <string name="Diagnostic_Text_Drive_Trolley_DI_1">Вх.Вперед</string>
+    <string name="Diagnostic_Text_Drive_Trolley_DI_2">Вх.Назад</string>
+    <string name="Diagnostic_Text_Drive_Crane_DI_1">Вх.Вперед</string>
+    <string name="Diagnostic_Text_Drive_Crane_DI_2">Вх.Назад</string>
+    <string name="Diagnostic_Text_Drive_DI_3">Вх.2-я скорость</string>
+    <string name="Diagnostic_Text_Drive_DI_4">Вх.3-я скорость</string>
+    <string name="Diagnostic_Text_Drive_DI_5">Вх.4-я скорость</string>
+    <string name="Diagnostic_Text_Drive_24_OP">Питание дискретных входов</string>
+    <string name="Diagnostic_Text_Drive_24_STO">Вх.Контакт безопасности</string>
+    <string name="Diagnostic_Text_Drive_TA_TC">Вых. реле. Тормоз</string>
+    <string name="Diagnostic_Text_Drive_DO_1">Вых. реле. Резерв</string>
 
     <string name="Diagnostic_Text_Drive_DI1">DI-1</string>
     <string name="Diagnostic_Text_Drive_DI2">DI-2</string>
@@ -366,8 +392,15 @@
     <string name="Diagnostic_Text_Drive_TATB">TA_TB (NC)</string>
     <string name="Diagnostic_Text_Drive_TATC">TA_TC (NO)</string>
     <string name="Diagnostic_Text_Drive_DO1">DO-1</string>
-
     <!-- Текст экрана DiagnosticsScreen' -->
+
+
+    <!-- Текст экрана LoginScreen' -->
+    <string name="LoginScreen_Text_Access_Level">Текущий уровень доступа</string>
+    <string name="LoginScreen_Text_Access_Code">Код доступа</string>
+    <string name="LoginScreen_Text_Confirm_Code">Подтвердить код</string>
+    <string name="LoginScreen_Text_Reset_Access_Level">Сброс уровня доступа</string>
+    <!-- Текст экрана LoginScreen' -->
 
 
     <!-- Текст экрана ModbusToolsScreen' -->

@@ -139,13 +139,13 @@
         android:strokeWidth="8"
         android:strokeColor="#fe5000" />
 
-
     <path
-        android:pathData="M300,813 L410,813 L355,813 L355,500"
+        android:pathData="M535,140 L660,140 L620,140 620,400"
         android:strokeWidth="8"
         android:strokeColor="#FFFFFFFF" />
+
     <path
-        android:pathData="M300,180 L460,180 L355,180 L355,400"
+        android:pathData="M535,800 L660,800 L620,800 L620,550"
         android:strokeWidth="8"
         android:strokeColor="#FFFFFFFF" />
 </vector>

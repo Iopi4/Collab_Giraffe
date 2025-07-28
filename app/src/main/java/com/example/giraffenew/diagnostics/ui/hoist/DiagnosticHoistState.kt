@@ -18,7 +18,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 
@@ -72,23 +72,23 @@ fun DiagnosticHoistState (){
                 text = stringResource(R.string.Diagnostic_Text_Status))
 
 // Отображение статус Готовность привода к работе
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2) }
 
 // Отображение статус Состояние привода
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2) }
 
 // Отображение статус Ошибка привода
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2) }
 
 // Отображение статус Состояние энкодера
-            Box(modifier = Modifier.padding(start = 15.dp)) {
-                BasicSettingParameterLamp(
+            Box(modifier = Modifier.padding(start = 8.dp)) {
+                BasicLampSettingParameter(
                     isLampStatus = 2) }
 
 // Отображение текущего Тока, А
@@ -119,11 +119,8 @@ fun DiagnosticHoistState (){
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "Ошибка связи по сети") }
-
-
-
-
+                    valueParameterId = "Ошибка связи по сети")
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe

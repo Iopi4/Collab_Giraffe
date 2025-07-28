@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicPLCDIDOName
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -29,7 +29,7 @@ fun StateDIDO(
         }
         //Состояние
         Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
-            BasicSettingParameterLamp(
+            BasicLampSettingParameter(
                 isLampStatus = isDIDOStatus
             )
         }

@@ -21,24 +21,53 @@ import java.nio.ByteBuffer
 
 
 // Serializable data classes for HTTP requests and responses
+
+/*Аннотация @Serializable в Kotlin отмечает класс данных, который может быть сериализован или десериализован.
+Это указывает библиотеке Kotlinx.serialization, что класс доступен для преобразования в сериализуемые
+форматы (например, JSON) и обратно.
+Используется для:
+Логирование состояния регистров в реальном времени
+Сохранение истории изменений регистров с временными метками
+Сериализация данных для передачи или хранения
+Создание отчетов о работе системы*/
 @Serializable
 data class RegisterData(
+    //Список регистров
     val registers: List<Int>,
-    val timestamp: Long = System.currentTimeMillis()
+    //Хранит временную метку в миллисекундах Имеет значение по умолчанию, равное текущему времени.
+    //Это означает, что если при создании объекта не будет указан timestamp, он автоматически установится на текущее время
+    val timestamp: Long = System.currentTimeMillis(),
 )
-
+//Создаем класс с ответом HTTP сервера
 @Serializable
 data class ServerResponse(
     val status: String
 )
 
 class ModbusViewModel : ViewModel() {
-    // HTTP client for making API requests
+    /* HTTP client for making API requests. Создадим HTTP-клиент для выполнения API-запросов
+    Практическое применение:
+    - Отправка HTTP-запросов (GET, POST, PUT, DELETE)
+    - Работа с REST API
+    - Автоматическая сериализации/десериализации JSON-данных
+    - Асинхронная обработка сетевых операций
+    */
     private val httpClient = HttpClient(CIO) {
+        //CIO Асинхронный движок на основе сопрограмм. Позволяет выполнять сетевые операции неблокирующим образом.
+
+        //Подключим модуль Content Negotiation. Этот модуль отвечает за автоматическую сериализацию и десериализацию данных
         install(ContentNegotiation) {
+            //Настраиваем работу с JSON-форматом. Параметры сериализации/десериализации
             json(Json {
+                //prettyPrint - Включает форматирование JSON с отступами и переносами строк. Делает вывод более читаемым
                 prettyPrint = true
+
+                //isLenient - Включает режим “снисходительности” при парсингe
+                //Позволяет игнорировать некоторые ошибки в JSON-данных
                 isLenient = true
+
+                //ignoreUnknownKeys - Игнорирует неизвестные ключи при десериализации
+                //Полезно, когда структура данных может меняться
                 ignoreUnknownKeys = true
             })
         }
@@ -138,18 +167,27 @@ class ModbusViewModel : ViewModel() {
     }
 
     /**
-     * Send register data to remote server
+     Send register data to remote server. Отправить данные регистра на удаленный сервер
      */
     private suspend fun sendRegistersToRemoteServer(registers: List<Int>) {
-        _remoteServerStatus.value = RemoteServerStatus.Sending
+    //registers: List<Int> — список целочисленных значений регистров, которые нужно отправить
+
+        _remoteServerStatus.value = RemoteServerStatus.Sending //Установка начального статуса - "Отправка"
         try {
+            /* Отправка POST-запроса
+            HttpResponse в Kotlin — это объект, который отправляет POST-запроса
+            Формирует URL из текущего значения remoteServerUrl. т.е. адрес сервера GIRAFFE*/
             val response: HttpResponse = httpClient.post("${remoteServerUrl.value}/api/realtime") {
+                //Устанавливаем тип контента как JSON
                 contentType(ContentType.Application.Json)
+                //Упаковываем данные в объект RegisterData
                 setBody(RegisterData(registers))
             }
-
+            //Определяем успешный HTTP ответ
             if (response.status.isSuccess()) {
+                //Парсим тело ответа в объект ServerResponse
                 val serverResponse = response.body<ServerResponse>()
+                //Проверяем полученный ответ. Записываем статус сервера
                 if (serverResponse.status == "success") {
                     _remoteServerStatus.value = RemoteServerStatus.Success
                     Log.d("MODBUS", "Successfully sent ${registers.size} registers to remote server")
@@ -466,10 +504,10 @@ class ModbusViewModel : ViewModel() {
     }
 
     sealed class RemoteServerStatus {
-        object NotSent : RemoteServerStatus()
-        object Sending : RemoteServerStatus()
-        object Success : RemoteServerStatus()
-        data class Error(val message: String) : RemoteServerStatus()
+        object NotSent : RemoteServerStatus() //Не отправлено
+        object Sending : RemoteServerStatus() //Отправка
+        object Success : RemoteServerStatus() //Успешно
+        data class Error(val message: String) : RemoteServerStatus() //Ошибка
     }
 
     // Background service state

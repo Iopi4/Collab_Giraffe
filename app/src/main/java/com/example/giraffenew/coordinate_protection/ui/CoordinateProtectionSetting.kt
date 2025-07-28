@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -59,15 +59,15 @@ fun CoordinateProtectionSetting(
 
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле состояния и активации коррдинатной защиты
-                Box(modifier = Modifier.weight(5f)
+                Box(modifier = Modifier.weight(4f)
                     .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
-                        valueParameterId = "Выкл."
+                        valueParameterId = "выкл"
                     )
                 }
                 //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
+                Box(modifier = Modifier.weight(6f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.Button_Turn_ON_Off,
@@ -78,15 +78,15 @@ fun CoordinateProtectionSetting(
 //Режим защиты Груз - Стрела
             Row(horizontalArrangement = Arrangement.Start) {
 
-                Box(modifier = Modifier.weight(5f)
+                Box(modifier = Modifier.weight(4f)
                     .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
-                        valueParameterId = "Стрела."
+                        valueParameterId = "стрела"
                     )
                 }
                 //Кнопка выбора
-                Box(modifier = Modifier.weight(4f)) {
+                Box(modifier = Modifier.weight(6f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.Button_Switch,

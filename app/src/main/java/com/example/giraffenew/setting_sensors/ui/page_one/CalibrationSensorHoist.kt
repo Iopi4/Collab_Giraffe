@@ -15,12 +15,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingParameterLamp
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -138,8 +140,8 @@ fun CalibrationSensorHoist(
                     ) {}
                 }
                 Box(modifier = Modifier.weight(1f)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
+                    BasicLampSettingSensorStop(
+                        isLampStatus = 0
                     )
                 }
             }
@@ -162,8 +164,8 @@ fun CalibrationSensorHoist(
                 }
 
                 Box(modifier = Modifier.weight(1f)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
+                    BasicLampSettingSensorDwn(
+                        isLampStatus = 0
                     )
                 }
             }
@@ -186,8 +188,8 @@ fun CalibrationSensorHoist(
                 }
 
                 Box(modifier = Modifier.weight(1f)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
+                    BasicLampSettingSensorDwn(
+                        isLampStatus = 0
                     )
                 }
             }
@@ -216,8 +218,8 @@ fun CalibrationSensorHoist(
                     ) {}
                 }
                 Box(modifier = Modifier.weight(1f)) {
-                    BasicSettingParameterLamp(
-                        isLampStatus = 2
+                    BasicLampSettingSensorStop(
+                        isLampStatus = 0
                     )
                 }
             }
