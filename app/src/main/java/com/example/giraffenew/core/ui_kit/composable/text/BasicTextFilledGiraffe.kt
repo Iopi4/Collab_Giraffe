@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable
+package com.example.giraffenew.core.ui_kit.composable.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.giraffenew.core.ui_kit.composable.BasicParametersText
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 

@@ -12,6 +12,7 @@
     <string name="Button_Turn_Reset">СБРОС</string>
     <string name="Button_Turn_ON_Off">ВКЛ/ВЫКЛ</string>
     <string name="Button_Switch">ГРУЗ/СТР</string>
+    <string name="Button_Calibration">КАЛИБРОВКА</string>
 
 
     <!-- Текст меню навигации -->
@@ -88,16 +89,16 @@
     <string name="SettingLoadCapacity_Text_Parameters_GH">Параметры ГХ</string>
     <string name="SettingLoadCapacity_Text_ValuesParameters_GH">Данные выбр. ГХ</string>
     <string name="SettingLoadCapacity_Text_PulleyBlock">Кратность запасовки</string>
-    <string name="SettingLoadCapacity_Text_NominalLoadCapacity">Макс. грузоподъемность [T]</string>
-    <string name="SettingLoadCapacity_Text_MaxLoadCapacity">Макс. вес на конце стрелы [T]</string>
-    <string name="SettingLoadCapacity_Text_ArrowLength">Длина стрелы [М]</string>
+    <string name="SettingLoadCapacity_Text_NominalLoadCapacity">Макс. грузоподъемность [т]</string>
+    <string name="SettingLoadCapacity_Text_MaxLoadCapacity">Макс. вес на конце стрелы [т]</string>
+    <string name="SettingLoadCapacity_Text_ArrowLength">Длина стрелы [м]</string>
 
     <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика усилия</string>
     <string name="SettingLoadCapacity_Text_SettingSensor">Настройка датчика</string>
     <string name="SettingLoadCapacity_Text_SensorReadings">Показания датчика</string>
     <string name="SettingLoadCapacity_Text_HookWeightReadings">Текущий вес на крюке</string>
-    <string name="SettingLoadCapacity_TextFilled_HookWeightMin">Ввод. Мин. вес груза [Т]</string>
-    <string name="SettingLoadCapacity_TextFilled_HookWeightMax">Ввод. Макс. вес груза [Т]</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMin">Ввод. Мин. вес груза [т]</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMax">Ввод. Макс. вес груза [т]</string>
     <!-- Текст экрана SettingLoadCapacityScreen' -->
 
     <!-- Текст экрана SettingSensorsScreen' -->
@@ -201,28 +202,80 @@
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
     <!-- Текст экрана ServiceMenuScreen' -->
+    <!-- Названия вкладок -->
+    <string name="ServiceMenu_Button_Drive">ПРИВОД</string>
+    <string name="ServiceMenu_Button_Drive_Hoist">ПОДЪЕМ</string>
+    <string name="ServiceMenu_Button_Drive_Slewing">ПОВОРОТ</string>
+    <string name="ServiceMenu_Button_Drive_Trolley">ТЕЛЕЖКА</string>
+    <string name="ServiceMenu_Button_Drive_Crane">ХОД КРАНА</string>
+    <string name="ServiceMenu_Button_Sensors">ДАТЧИКИ</string>
+    <string name="ServiceMenu_Button_Sensors_Wind">ВЕТЕР</string>
+    <string name="ServiceMenu_Button_Sensors_Weight">ГРУЗ</string>
+    <string name="ServiceMenu_Button_Sensors_Position">ПОЛОЖЕНИЕ</string>
+    <string name="ServiceMenu_Button_Sensors_Ref_Point">РЕПЕР.ТОЧКА</string>
+    <string name="ServiceMenu_Button_User">ИНЖЕНЕР</string>
+    <!-- Настройка приводов -->
+    <string name="ServiceMenu_Text_Drive_Parameters">Настройка привода</string>
     <string name="ServiceMenu_Text_Hoist_Parameters">Подъем. Параметры привода</string>
     <string name="ServiceMenu_Text_Hoist_Montage">Монтажный режим</string>
     <string name="ServiceMenu_Text_Slewing_Parameters">Поворот. Параметры привода</string>
     <string name="ServiceMenu_Text_Trolley_Parameters">Тележка. Параметры привода</string>
     <string name="ServiceMenu_Text_Crane_Parameters">Ход крана. Параметры привода</string>
     <string name="ServiceMenu_Text_Setting">Настройка</string>
+    <string name="ServiceMenu_Text_Calibration">Калибровка</string>
+    <string name="ServiceMenu_Text_Sensor_Wind">Датчик ветра</string>
+    <string name="ServiceMenu_Text_Sensor_Weight">Датчик грузоподъемности</string>
+    <string name="ServiceMenu_Text_Sensor_Position">Датчики положения</string>
+    <string name="ServiceMenu_Text_Sensor_Ref_Point">Датчик реперной точки</string>
 
-    <string name="ServiceMenu_Text_Acc">Разгон, с</string>
-    <string name="ServiceMenu_Text_Dec">Торможение, с</string>
-    <string name="ServiceMenu_Text_Speed_1">Скорость 1, об/мин</string>
-    <string name="ServiceMenu_Text_Speed_2">Скорость 2, об/мин</string>
-    <string name="ServiceMenu_Text_Speed_3">Скорость 3, об/мин</string>
-    <string name="ServiceMenu_Text_Speed_4">Скорость 4, об/мин</string>
-    <string name="ServiceMenu_Text_Max_Speed_SS">Сверх.синхр. скорость, об/мин</string>
-    <string name="ServiceMenu_Text_Stoping_Speed">Остановка от кнопки, об/мин</string>
+    <string name="ServiceMenu_Text_Acc">Ввод. Разгон [с]</string>
+    <string name="ServiceMenu_Text_Dec">Ввод. Торможение [с]</string>
+    <string name="ServiceMenu_Text_Speed_1">Ввод. Скорость 1 [об/мин]</string>
+    <string name="ServiceMenu_Text_Speed_2">Ввод. Скорость 2 [об/мин]</string>
+    <string name="ServiceMenu_Text_Speed_3">Ввод. Скорость 3 [об/мин]</string>
+    <string name="ServiceMenu_Text_Speed_4">Ввод. Скорость 4 [об/мин]</string>
+    <string name="ServiceMenu_Text_Max_Speed_SS">Ввод. Сверх.синхр.скор.[об/мин]</string>
+    <string name="ServiceMenu_Text_Stoping_Speed">Ввод. Останов. от кнопки[об/мин]</string>
+    <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Ввод. Запрет сверх.синхр.скор [т]</string>
+    <!-- Настройка датчиков -->
+    <string name="ServiceMenu_Text_Sensors_Parameters">Настройка датчиков</string>
+    <string name="ServiceMenu_Text_Wind_Warning_Signal">Ввод. Предупредит. сигн. [м/c]</string>
+    <string name="ServiceMenu_Text_Wind_Alarm_Signal">Ввод. Аварийная.сигн. [м/c]</string>
+    <string name="ServiceMenu_Text_Wind_Alarm_Signal_Montage">Ввод. Авар.сигн.монтаж. [м/c]</string>
+    <string name="ServiceMenu_Text_Wind_Averaging_Time">Ввод. Время усреднения [с]</string>
+    <string name="ServiceMenu_Text_Wind_Calibration">Ввод. Значение калибровки [м/c]</string>
+    <string name="ServiceMenu_Text_Wind_Value">Значение ветра [м/c]</string>
+    <string name="ServiceMenu_Text_Sensor_Value">Значение датчика</string>
+    <string name="ServiceMenu_Text_Calibration_Factor">Ввод. Коэффициент калибровки</string>
 
-    <string name="ServiceMenu_Text_Acc_Montage">Разгон, с</string>
-    <string name="ServiceMenu_Text_Dec_Montage">Торможение, с</string>
-    <string name="ServiceMenu_Text_Speed_1_Montage">Скорость 1, об/мин</string>
-    <string name="ServiceMenu_Text_Speed_2_Montage">Скорость 2, об/мин</string>
+    <string name="ServiceMenu_Text_Ref_Point_Diagnostic">Датчик репер.точки [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_Ref_Point_Interval">Интервал контроля датчика [м]</string>
 
-    <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Запрет сверх.синхр. скор., т</string>
+    <string name="ServiceMenu_Text_Sensor_Hoist_Coeff">Коэффициент датчика подъема</string>
+    <string name="ServiceMenu_Text_Sensor_Slewing_Coeff">Коэффициент датчика поворота</string>
+    <string name="ServiceMenu_Text_Sensor_Trolley_Coeff">Коэффициент датчика тележки</string>
+    <string name="ServiceMenu_Text_Sensor_Crane_Coeff">Коэффициент датчика хода крана</string>
+    <string name="ServiceMenu_Sensor_Misalignment">Макс. рассогласование</string>
+    <string name="ServiceMenu_Text_Sensor_Hoist">Ввод. Датчик подъема</string>
+    <string name="ServiceMenu_Text_Sensor_Hoist_Activate">Датчик подъема [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_Sensor_Slewing">Ввод. Датчик поворота</string>
+    <string name="ServiceMenu_Text_Sensor_Slewing_Activate">Датчик поворота [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_Sensor_Trolley">Ввод. Датчик тележки</string>
+    <string name="ServiceMenu_Text_Sensor_Crane">Ввод. Датчик хода крана</string>
+    <string name="ServiceMenu_Text_Sensor_Disconnect">!ЗАПРЕЩЕНО ОТКЛЮЧАТЬ ОБА ДАТЧИКА ПОДЪЕМ и ТЕЛЕЖКА</string>
+    <string name="ServiceMenu_Text_Sensors_Control">Контроль датчиков [вкл/выкл]</string>
+
+    <string name="ServiceMenu_Text_Sensor_Weight_Min">Мин. значение измерения</string>
+    <string name="ServiceMenu_Text_Sensor_Weight_Max">Макс. значение измерения</string>
+    <string name="ServiceMenu_Text_Sensor_Weight_Averaging">Глубина сглаживания веса</string>
+    <string name="ServiceMenu_Text_Sensor_Weight_SS_Speed">Огранич. сверхскор. подъема [т]</string>
+    <!-- Настройка пользователя -->
+    <string name="ServiceMenu_Text_User_Registrator">Регистратор параметров</string>
+    <string name="ServiceMenu_Text_User_Work_Ban">Запрет работы подъема на скоростях выше 2-й при ошибках записи файла оперативных данных регистратора параметров [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Naladka">Авторизация [Наладка]</string>
+    <string name="ServiceMenu_Text_User_2_Polygons">2 полигона по 10 точек     [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Current_Collector">Кольцевой токсъемник     [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Setting_Mode_ACC_DEC">Режим настройки ускорений и торможений [вкл/выкл]</string>
     <!-- Текст экрана ServiceMenuScreen' -->
 
 
@@ -394,10 +447,166 @@
     <string name="Diagnostic_Text_Drive_DO1">DO-1</string>
     <!-- Текст экрана DiagnosticsScreen' -->
 
+    <!-- Текст экрана ParameterLoggerScreen' -->
+    <string name="ParameterLogger_Button_Parameters">ПАРАМЕТРЫ КРАНА</string>
+    <string name="ParameterLogger_Button_Cycles">ЦИКЛЫ РАБОТЫ</string>
+    <string name="ParameterLogger_Button_Load">СОХРАНЕНИЕ</string>
+    <string name="ParameterLogger_Button_Parameter">ДАННЫЕ КРАНА</string>
+    <string name="ParameterLogger_Button_Engine_Hours">МОТОЧАСЫ</string>
+
+    <string name="ParameterLogger_Text_Parameters_Crane">Параметры крана</string>
+    <string name="ParameterLogger_Text_Load_Capacity">Ном. грузоподъемность [т]</string>
+    <string name="ParameterLogger_Text_Arrow_Length">Исполнение по стреле [м]</string>
+    <string name="ParameterLogger_Text_Passport_Mode_Group">Режим работы. Паспорт [A..]</string>
+    <string name="ParameterLogger_Text_Actual_Mode_Group">Режим работы. Факт [A..]</string>
+    <string name="ParameterLogger_Text_Actual_Load_Class">Класс нагружения. Факт [Q..]</string>
+    <string name="ParameterLogger_Text_Class_Of_Use">Класс использования [С..]</string>
+    <string name="ParameterLogger_Text_Characteristic_Number">Характеристическое число [N..]</string>
+    <string name="ParameterLogger_Text_Final_Naladka">Время последней наладки</string>
+
+    <string name="ParameterLogger_Text_Engine_Hours">Моточасы</string>
+    <string name="ParameterLogger_Text_Drive_Hoist">Привод подъема [м.ч.]</string>
+    <string name="ParameterLogger_Text_Drive_Slewing">Привод поворота [м.ч.]</string>
+    <string name="ParameterLogger_Text_Drive_Trolley">Привод тележки [м.ч.]</string>
+    <string name="ParameterLogger_Text_Drive_Crane">Привод хода крана [м.ч.]</string>
+    <string name="ParameterLogger_Text_Crane_M_Ch">Кран [м.ч.]</string>
+    <string name="ParameterLogger_Text_SBKB">Прибор безопасности [м.ч.]</string>
+
+
+    <string name="ParameterLogger_Text_Number_SBKB">Заводской номер СБКБ</string>
+    <string name="ParameterLogger_Text_Number_Crane">Заводской номер крана</string>
+    <string name="ParameterLogger_Text_Date_SBKB">Дата установки СБКБ</string>
+    <string name="ParameterLogger_Text_SD_Cart_Status">Cтатус FLASH-карты</string>
+    <string name="ParameterLogger_Text_Data_Transfer">Cтатус копирования данных</string>
+
+    <string name="ParameterLogger_Text_Logger_Save">Сохранение настроек СБКБ</string>
+    <string name="ParameterLogger_Text_Logger_Write">Записать данные на SD-карту</string>
+    <string name="ParameterLogger_Text_Logger_Read">Загрузить данные с SD-карты</string>
+    <string name="ParameterLogger_Text_Logger_Size">Размер файла [байт]</string>
+    <string name="ParameterLogger_Text_Abort_Logger_Read">Отмена загрузки данных</string>
+    <string name="ParameterLogger_Button_Logger_Write">ЗАПИСАТЬ</string>
+    <string name="ParameterLogger_Button_Logger_Read">ЗАГРУЗИТЬ</string>
+    <string name="ParameterLogger_Button_Abort_Logger_Read">!ОТМЕНА!</string>
+
+    <string name="ParameterLogger_Text_Number_Of_Cycles">Количество циклов</string>
+    <string name="ParameterLogger_Text_Cycles_0_10">Нагрузка 0_10%</string>
+    <string name="ParameterLogger_Text_Cycles_10_20">Нагрузка 10_20%</string>
+    <string name="ParameterLogger_Text_Cycles_20_30">Нагрузка 20_30%</string>
+    <string name="ParameterLogger_Text_Cycles_30_40">Нагрузка 30_40%</string>
+    <string name="ParameterLogger_Text_Cycles_40_50">Нагрузка 40_50%</string>
+    <string name="ParameterLogger_Text_Cycles_50_60">Нагрузка 50_60%</string>
+    <string name="ParameterLogger_Text_Cycles_60_70">Нагрузка 60_70%</string>
+    <string name="ParameterLogger_Text_Cycles_70_80">Нагрузка 70_80%</string>
+    <string name="ParameterLogger_Text_Cycles_80_90">Нагрузка 80_90%</string>
+    <string name="ParameterLogger_Text_Cycles_90_100">Нагрузка 90_100%</string>
+    <string name="ParameterLogger_Text_Cycles_100">Нагрузка >100%</string>
+
+    <string name="ParameterLogger_Text_Number_Of_operations">Количество операций</string>
+    <string name="ParameterLogger_Text_Hoist">Подъем</string>
+    <string name="ParameterLogger_Text_Slewing">Поворот</string>
+    <string name="ParameterLogger_Text_Trolley">Тележка</string>
+    <string name="ParameterLogger_Text_Crane_Move">Ход крана</string>
+    <string name="ParameterLogger_Text_Crane">Кран</string>
+    <!-- Текст экрана ParameterLoggersScreen' -->
+
+    <!-- Текст экрана TechnicalMaintenanceScreen' -->
+    <string name="TechnicalMaintenance_Text_Number_Crane">Заводской номер крана</string>
+    <string name="TechnicalMaintenance_Text_Plane_Maintenance">Плановое ТО [м.ч.]</string>
+    <string name="TechnicalMaintenance_Text_Maintenance_Left">До планового ТО [м.ч.]</string>
+    <string name="TechnicalMaintenance_Text_Password">Пароль</string>
+    <string name="TechnicalMaintenance_Text_Work_Permit">Разреш. работы на 3 и 4 скор.</string>
+    <string name="TechnicalMaintenance_Text_Reset_Counter">Сброс счетчика моточасов</string>
+    <string name="TechnicalMaintenance_Text_Maintenance_Not">Плановое ТО не проводилось</string>
+    <!-- Текст экрана TechnicalMaintenanceScreen' -->
+
+
+    <!-- Текст экрана AccidentWarningLogScreen' -->
+    <string name="Alarm_ActiveEvents">Текущие аварии и предупреждения</string>
+    <string name="Alarm_ArchiveEvents">Архивные аварии и предупреждения</string>
+
+    <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError1">Ход.CTT. Неверный закон управления двигателем</string>
+    <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError2">Ход.TUN. Автонастройка не выполнена</string>
+    <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError3">Ход.FR1. Канал задания не CANopen</string>
+    <string name="AlarmGroup1_GVL1.gv_xHoist_ATVConfigError1">Подъем.CTT. Неверный закон управления двигателем</string>
+    <string name="AlarmGroup1_GVL1.gv_xHoist_ATVConfigError2">Подъем.TUN. Автонастройка не выполнена</string>
+    <string name="AlarmGroup1_GVL1.gv_xHoist_ATVConfigError3">Подъем.FR1. Канал задания не CANopen</string>
+    <string name="AlarmGroup1_GVL1.gv_xSlew_ATVConfigError1">Поворот.CTT. Неверный закон управления двигателем</string>
+    <string name="AlarmGroup1_GVL1.gv_xSlew_ATVConfigError2">Поворот.TUN. Автонастройка не выполнена</string>
+    <string name="AlarmGroup1_GVL1.gv_xSlew_ATVConfigError3">Поворот.FR1. Канал задания не CANopen</string>
+    <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError1">Тележка.CTT. Неверный закон управления двигателем</string>
+    <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError2">Тележка.TUN. Автонастройка не выполнена</string>
+    <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError3">Тележка.FR1. Канал задания не CANopen</string>
+
+    <string name="AlarmPLC_PlcStatus">ПЛК. Статус</string>
+    <string name="AlarmPLC_BatStaus">ПЛК. Батарея</string>
+
+    <string name="Warning_HMI_ALARMS.HMI_Crane_Config_Warning">Ход крана не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Hoist_Config_Warning">Подъем не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_LineContZeroPosAlrm">Нулевая блокировка</string>
+    <string name="Warning_HMI_ALARMS.HMI_Luk">Люк открыт</string>
+    <string name="Warning_HMI_ALARMS.HMI_Slew_Config_Warning">Поворот не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Trolley_Config_Warning">Вылет не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Weight_Config_Warning">Грузоподъемность не настроена</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessage0">до ТО осталось меньше 50 м.ч.</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessage1">Проведите ТО</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessageAlrm">Скорости ограничены, проведите ТО</string>
+
+    <string name="Errors_DRIVECONTROLCRANE.x_ATV_ConfigError">ПЧ хода. Ошибка конфигурации</string>
+    <string name="Errors_DRIVECONTROLCRANE.xCrane_Joy_Alarm">Ход крана. Ошибка сигналов джойстика</string>
+    <string name="Errors_Application.DRIVECONTROLHOIST.x_ATV_ConfigError">ПЧ подъема. Ошибка конфигурации</string>
+    <string name="Errors_DRIVECONTROLHOIST.xHoist_Joy_Alarm">Подъем. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLSLEW2.x_ATV_ConfigError">ПЧ поворота. Ошибка конфигурации</string>
+    <string name="Errors_DRIVECONTROLSLEW2.xSlew_Joy_Alarm">Поворот. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLTROLLEY.x_ATV_ConfigError">ПЧ тележки. Ошибка конфигурации</string>
+    <string name="Errors_DRIVECONTROLTROLLEY.xTrolley_Joy_Alarm">Тележка. Ошибка сигналов джойстика</string>
+    <string name="Errors_GVL.gv_xDateTimeError">ПЛК. Неверная дата и время</string>
+    <string name="Errors_GVL1.gv_xHoistBrakeSensor">Подъем. Датчик износа тормоза</string>
+    <string name="Errors_GVL1.gv_xMicroclimatInput">Микроклимат. Автомат</string>
+    <string name="Errors_GVL1.gv_xPLCAnalogInputError">ПЛК. Аналоговый вход</string>
+    <string name="Errors_GVL1.gv_xPLCCANError">ПЛК. CANopen</string>
+    <string name="Errors_GVL1.gv_xPLCExpertIOError">ПЛК. Модуль входов/выходов</string>
+    <string name="Errors_GVL1.gv_xPLCExpertIOStatError">ПЛК. Модуль выходов</string>
+    <string name="Errors_HMI_ALARMS.HMI_AdditionalOGP_SENSOR">КРИТИЧЕСКИЙ МОМЕНТ НАГРУЗКИ</string>
+    <string name="Errors_HMI_ALARMS.HMI_Anemom_Sensor_Err">Сбой датчика ветра</string>
+
+    <string name="Errors_HMI_ALARMS.HMI_Crane_AbsEnc_Err">Сбой датчика хода крана</string>
+    <string name="Errors_HMI_ALARMS.HMI_CraneATV_PWR_Err">ПЧ хода крана PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Hoist_EncFault">Сбой энкодера двигателя подъема</string>
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Slew_EncFault">Сбой энкодера двигателя поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Trolley_EncFault">Сбой энкодера двигателя тележки</string>
+    <string name="Errors_HMI_ALARMS.HMI_HMI_Hoist_AbsEnc_Err">Сбой датчика высоты</string>
+    <string name="Errors_HMI_ALARMS.HMI_Hoist_Drive_Err">Ошибка ПЧ подъема</string>
+    <string name="Errors_HMI_ALARMS.HMI_HoistATV_PWR_Err">ПЧ подъема PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_Luk_MainContactor">Люк открыт, запрет поворота</string>
+
+    <string name="Errors_HMI_ALARMS.HMI_PhaseControl_Relay">Реле контроля фаз</string>
+    <string name="Errors_HMI_ALARMS.HMI_PLC_BatteryError">Батарейка ПЛК разряжена</string>
+    <string name="Errors_HMI_ALARMS.HMI_PowerLine_Fault">Сбой питающей сети</string>
+    <string name="Errors_HMI_ALARMS.HMI_Slew_AbsEnc_Err">Сбой датчика поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_Slew_Drive_Err">Ошибка ПЧ поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_SlewATV_PWR_Err">ПЧ поворота PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_Trolley_AbsEnc_Err">Сбой датчика вылета</string>
+    <string name="Errors_HMI_ALARMS.HMI_Trolley_Drive_Err">Ошибка ПЧ тележки</string>
+    <string name="Errors_HMI_ALARMS.HMI_TrolleyATV_PWR_Err">ПЧ тележки PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_Weight_Sensor_Err">Сбой датчика груза</string>
+
+    <string name="Errors_PERSISTENTVARS.pv_xAlarm_GRUZ_FUN">Не верная ГХ</string>
+    <string name="Errors_PERSISTENTVARS.pv_xAlarm_Zapasovka">ошибка кратности запасовки</string>
+    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxDeltaError">Сбой датчика хода крана 2</string>
+    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxValueError">Сбой датчика хода крана 3</string>
+    <string name="Errors_PERSISTENTVARS.pv_xDataLogError">Ошбка регистратора параметров груза</string>
+    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxDeltaError">Сбой датчика подъема 2</string>
+    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxValueError">Сбой датчика подъема 3</string>
+    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxDeltaError">Сбой датчика поворота 2</string>
+    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxValueError">Сбой датчика поворота 3</string>
+    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxDeltaError">Сбой датчика вылета 2</string>
+    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxValueError">Сбой датчика вылета 3</string>
+    <!-- Текст экрана AccidentWarningLogScreen' -->
+
 
     <!-- Текст экрана LoginScreen' -->
     <string name="LoginScreen_Text_Access_Level">Текущий уровень доступа</string>
-    <string name="LoginScreen_Text_Access_Code">Код доступа</string>
+    <string name="LoginScreen_Text_Access_Code">Ввод. Код доступа</string>
     <string name="LoginScreen_Text_Confirm_Code">Подтвердить код</string>
     <string name="LoginScreen_Text_Reset_Access_Level">Сброс уровня доступа</string>
     <!-- Текст экрана LoginScreen' -->

@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -20,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizon
-import com.example.giraffenew.core.ui_kit.composable.BasicParametersText
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 

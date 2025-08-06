@@ -8,13 +8,9 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun DiagnosticsScreen (){
-
     BasicSettingBackground()
     DiagnosticContent()
-
-
 }
-
 
 @Preview
 @Composable

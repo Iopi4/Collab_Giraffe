@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -38,7 +40,9 @@ fun ParametersCraneAndSBKB(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-
+//Отступ
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.spacer))
             //Бокс 1.2 для отображения текста параметров крана
                     BasicNameSettingParameterGiraffe(
                         settingParameterId = R.string.InitialSetup_TextFilled_Model_Crane
@@ -71,8 +75,10 @@ fun ParametersCraneAndSBKB(
         ) {
 
 //Бокс 2.2 для отображения и ввода параметров. (2-Данные крана и СБКБ)
-
-        //Ввод. Модель крана
+//Отступ
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.spacer))
+//Ввод. Модель крана
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
@@ -80,10 +86,9 @@ fun ParametersCraneAndSBKB(
                     value = "",
                     onValueChange = { ""},
                     modifier = Modifier,
-
                 )
             }
-        //Ввод. Заводской номер крана
+//Ввод. Заводской номер крана
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
@@ -93,22 +98,19 @@ fun ParametersCraneAndSBKB(
                     modifier = Modifier,
                 )
             }
-
-            //Ввод. Дата регистр. в Ростехнадзоре
+//Ввод. Дата регистр. в Ростехнадзоре
             FieldDate(
                 isValueDay = "",
                 isValueMonth = "",
                 isValueYear = "",
             )
-
-            //Ввод. Дата ввода крана в эксплуатацию
+//Ввод. Дата ввода крана в эксплуатацию
             FieldDate(
                 isValueDay = "",
                 isValueMonth = "",
                 isValueYear = "",
             )
-
-            //Ввод. Заводской номер СБКБ
+//Ввод. Заводской номер СБКБ
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
@@ -118,8 +120,7 @@ fun ParametersCraneAndSBKB(
                     modifier = Modifier,
                 )
             }
-
-            //Ввод. Дата установки СБКБ
+//Ввод. Дата установки СБКБ
             FieldDate(
                 isValueDay = "",
                 isValueMonth = "",
@@ -127,7 +128,6 @@ fun ParametersCraneAndSBKB(
             )
 
         }
-
     }
 }
 @Preview

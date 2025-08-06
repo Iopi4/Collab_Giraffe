@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
-import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable

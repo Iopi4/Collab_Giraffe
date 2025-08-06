@@ -35,7 +35,7 @@ fun DiagnosticContent(
     Column (modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
     { NavBarDiagnostic (navController = navController)
-        NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticHoist.roote){
+        NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticSystem.roote){
             composable(NavRoutesDiagnostic.PageDiagnosticSystem.roote) { DiagnosticSystem() }
             composable(NavRoutesDiagnostic.PageDiagnosticPLC.roote) { DiagnosticPLCContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticHoist.roote) { DiagnosticHoistContent() }
@@ -44,8 +44,6 @@ fun DiagnosticContent(
             composable(NavRoutesDiagnostic.PageDiagnosticCrane.roote) { DiagnosticCraneContent() }
         }
     }
-
-
 }
 
 @Composable
@@ -65,7 +63,6 @@ fun NavBarDiagnostic(navController: NavController) {
     Column (myBoxNavBarDiagnosticModifier,
         verticalArrangement = Arrangement.SpaceEvenly)
     {
-
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween) {
 
@@ -121,12 +118,7 @@ fun NavBarDiagnostic(navController: NavController) {
                         navController.navigate(NavRoutesDiagnostic.PageDiagnosticCrane.roote) },) {}
             }
         }
-
-
     }
-
-
-
 }
 
 sealed class NavRoutesDiagnostic (val roote: String){

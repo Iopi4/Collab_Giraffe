@@ -13,10 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
-import com.example.giraffenew.core.ui_kit.composable.BasicTextFilledGiraffe
-import com.example.giraffenew.core.ui_kit.composable.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -83,13 +82,13 @@ fun Authorization(){
                     modifier = Modifier,
                 )
             }
-            //Кнопка. Подтвердить код
+//Кнопка. Подтвердить код
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Enter,
                 onClick = {},
             ) {}
-                //Кнопка. Сброс уровня доступа
+//Кнопка. Сброс уровня доступа
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,

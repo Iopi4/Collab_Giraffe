@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable
+package com.example.giraffenew.core.ui_kit.composable.text
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,7 +11,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.giraffenew.ui.theme.Black
-import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.white
 
@@ -49,7 +48,7 @@ fun BasicSettingsText (text:String, modifier:Modifier=Modifier){
         , fontSize = 20.sp, textAlign = TextAlign.Start, color = Black, fontWeight = FontWeight.Bold) }
 
 @Composable
-//Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
+//Создадим функцию для свойств текста в названии входов, выходов для ПЛК (Область с параметрами Вх.Вых)
 fun BasicPLCDIDOName (text: Int, modifier:Modifier=Modifier){
     Text(text = stringResource(id = text), modifier.padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()
         , fontSize = 20.sp, textAlign = TextAlign.Center, color = Black, fontWeight = FontWeight.Bold) }

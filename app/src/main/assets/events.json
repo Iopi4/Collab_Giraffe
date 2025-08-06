@@ -1,0 +1,12 @@
+[
+  {
+    "registrationNumber": "REG-001",
+    "type": "ACCIDENT",
+    "description": "Утечка масла"
+  },
+  {
+    "registrationNumber": "REG-002",
+    "type": "WARNING",
+    "description": "Высокая температура"
+  }
+]

@@ -51,12 +51,12 @@ import com.example.giraffenew.home.presentanion.HomeScreen
 import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.presentation.LoginScreen
 import com.example.giraffenew.modbus_tools.presentation.ModbusToolsScreen
-import com.example.giraffenew.parameter_logger.ParameterLoggerScreen
+import com.example.giraffenew.parameter_logger.presentation.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.presentation.ServiceMenuScreen
 import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapacityScreen
 import com.example.giraffenew.setting_rotation.SettingRotationScreen
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
-import com.example.giraffenew.technical_maintenance.TechnicalMaintenanceScreen
+import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)

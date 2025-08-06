@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable
+package com.example.giraffenew.core.ui_kit.composable.text
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -26,7 +26,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
         settingParameterId: Int,
     ){
 
-        var myBoxTextModifier = Modifier
+        val myBoxTextModifier = Modifier
             .padding(start = 7.dp, end = 7.dp, top = 5.dp, bottom = 0.dp)
             .clip(shape = RoundedCornerShape(5.dp))
             .fillMaxWidth()

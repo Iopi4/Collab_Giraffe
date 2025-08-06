@@ -3,7 +3,6 @@ package com.example.giraffenew.home.ui
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
-import com.example.giraffenew.core.ui_kit.composable.BasicParametersText
-import com.example.giraffenew.core.ui_kit.composable.BasicParametersValueText
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersValueText
 
 @Composable
 fun ParameterMeaning(

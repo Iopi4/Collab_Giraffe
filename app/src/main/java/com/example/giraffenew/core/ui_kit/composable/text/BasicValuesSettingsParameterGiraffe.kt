@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable
+package com.example.giraffenew.core.ui_kit.composable.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,7 +27,7 @@ fun BasicValuesSettingsParameterGiraffe (
     valueParameterId: String,
 ){
 
-    var myBoxVisualValuesModifier = Modifier
+    val myBoxVisualValuesModifier = Modifier
         .clip(shape = RoundedCornerShape(5.dp))
         .background(colorResource(R.color.Orange_50_percent))
         .fillMaxWidth()

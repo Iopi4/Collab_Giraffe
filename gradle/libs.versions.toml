@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.1"
+agp = "8.12.0"
 kotlin = "2.1.20"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -7,8 +7,11 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 lifecycleLivedataKtx = "2.9.1"
+lifecycleviewmodelcompose = "2.6.2"
 activityCompose = "1.10.1"
 composeBom = "2025.03.01"
+
+gson = "2.10.1"
 
 navigationCompose = "2.8.9"
 navigationTesting = "2.8.9"
@@ -31,8 +34,10 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-compose = {group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleviewmodelcompose"}
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -64,6 +69,8 @@ ktor-network = { group = "io.ktor", name = "ktor-network", version.ref = "ktor" 
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+com-google-code-gson = {group=" com.google.code.gson", name="gson", version.ref = "gson"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
