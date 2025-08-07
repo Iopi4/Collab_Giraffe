@@ -521,9 +521,56 @@
 
 
     <!-- Текст экрана AccidentWarningLogScreen' -->
-    <string name="Alarm_ActiveEvents">Текущие аварии и предупреждения</string>
-    <string name="Alarm_ArchiveEvents">Архивные аварии и предупреждения</string>
+    <string name="Alarm_ActiveEvents">Текущие</string>
+    <string name="Alarm_ArchiveEvents">Архив</string>
 
+    <!-- Перезаписаны в events.JSON -->
+    <string name="Warning_HMI_ALARMS.HMI_Crane_Config_Warning">Ход крана не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Hoist_Config_Warning">Подъем не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Slew_Config_Warning">Поворот не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Trolley_Config_Warning">Вылет не настроен</string>
+    <string name="Warning_HMI_ALARMS.HMI_Weight_Config_Warning">Грузоподъемность не настроена</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessage1">Проведите ТО</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessageAlrm">Скорости ограничены, проведите ТО</string>
+    <string name="Warning_TECHNICAL_REGLAMENT.xMessage0">до ТО осталось меньше 50 м.ч.</string>
+    <string name="Warning_HMI_ALARMS.HMI_LineContZeroPosAlrm">Нулевая блокировка</string>
+    <string name="Warning_HMI_ALARMS.HMI_Luk">Люк открыт</string>
+    <string name="Errors_GVL1.gv_xHoistBrakeSensor">Подъем. Датчик износа тормоза</string>
+    <string name="Errors_GVL1.gv_xMicroclimatInput">Микроклимат. Автомат</string>
+
+    <string name="Errors_DRIVECONTROLHOIST.xHoist_Joy_Alarm">Подъем. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLSLEW2.xSlew_Joy_Alarm">Поворот. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLTROLLEY.xTrolley_Joy_Alarm">Тележка. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLCRANE.xCrane_Joy_Alarm">Ход хода крана. Ошибка сигналов джойстика</string>
+    <string name="Errors_HMI_ALARMS.HMI_AdditionalOGP_SENSOR">КРИТИЧЕСКИЙ МОМЕНТ НАГРУЗКИ</string>
+    <string name="Errors_HMI_ALARMS.HMI_Anemometr_Sensor_Err">Сбой датчика ветра</string>
+    <string name="Errors_HMI_ALARMS.HMI_Weight_Sensor_Err">Сбой датчика груза</string>
+    <string name="Errors_HMI_ALARMS.HMI_Crane_AbsEnc_Err">Сбой датчика хода крана</string>
+    <string name="Errors_HMI_ALARMS.HMI_HMI_Hoist_AbsEnc_Err">Сбой датчика высоты</string>
+    <string name="Errors_HMI_ALARMS.HMI_Slew_AbsEnc_Err">Сбой датчика поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_Trolley_AbsEnc_Err">Сбой датчика вылета</string>
+    <string name="Errors_HMI_ALARMS.HMI_PhaseControl_Relay">Реле контроля фаз</string>
+    <string name="Errors_HMI_ALARMS.HMI_PowerLine_Fault">Сбой питающей сети</string>
+    <string name="Errors_HMI_ALARMS.HMI_Hoist_Drive_Err">Ошибка ПЧ подъема</string>
+    <string name="Errors_HMI_ALARMS.HMI_Slew_Drive_Err">Ошибка ПЧ поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_Trolley_Drive_Err">Ошибка ПЧ тележки</string>
+    <string name="Errors_HMI_ALARMS.HMI_HoistATV_PWR_Err">ПЧ подъема PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_SlewATV_PWR_Err">ПЧ поворота PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_TrolleyATV_PWR_Err">ПЧ тележки PWR</string>
+    <string name="Errors_HMI_ALARMS.HMI_CraneATV_PWR_Err">ПЧ хода крана PWR</string>
+    <string name="Errors_PERSISTENTVARS.pv_xAlarm_GRUZ_FUN">Не верная ГХ</string>
+    <string name="Errors_PERSISTENTVARS.pv_xAlarm_Zapasovka">ошибка кратности запасовки</string>
+    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxDeltaError">Сбой датчика хода крана. Макс. дельта</string>
+    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxValueError">Сбой датчика хода крана. Макс. значение</string>
+    <string name="Errors_PERSISTENTVARS.pv_xDataLogError">Ошбка регистратора параметров груза</string>
+    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxDeltaError">Сбой датчика подъема. Макс. дельта</string>
+    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxValueError">Сбой датчика подъема. Макс. значение</string>
+    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxDeltaError">Сбой датчика поворота. Макс. дельта</string>
+    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxValueError">Сбой датчика поворота. Макс. значение</string>
+    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxDeltaError">Сбой датчика вылета. Макс. дельта</string>
+    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxValueError">Сбой датчика вылета. Макс. значение</string>
+
+    <!-- Не используются -->
     <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError1">Ход.CTT. Неверный закон управления двигателем</string>
     <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError2">Ход.TUN. Автонастройка не выполнена</string>
     <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError3">Ход.FR1. Канал задания не CANopen</string>
@@ -536,71 +583,23 @@
     <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError1">Тележка.CTT. Неверный закон управления двигателем</string>
     <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError2">Тележка.TUN. Автонастройка не выполнена</string>
     <string name="AlarmGroup1_GVL1.gv_xTrolley_ATVConfigError3">Тележка.FR1. Канал задания не CANopen</string>
-
     <string name="AlarmPLC_PlcStatus">ПЛК. Статус</string>
     <string name="AlarmPLC_BatStaus">ПЛК. Батарея</string>
-
-    <string name="Warning_HMI_ALARMS.HMI_Crane_Config_Warning">Ход крана не настроен</string>
-    <string name="Warning_HMI_ALARMS.HMI_Hoist_Config_Warning">Подъем не настроен</string>
-    <string name="Warning_HMI_ALARMS.HMI_LineContZeroPosAlrm">Нулевая блокировка</string>
-    <string name="Warning_HMI_ALARMS.HMI_Luk">Люк открыт</string>
-    <string name="Warning_HMI_ALARMS.HMI_Slew_Config_Warning">Поворот не настроен</string>
-    <string name="Warning_HMI_ALARMS.HMI_Trolley_Config_Warning">Вылет не настроен</string>
-    <string name="Warning_HMI_ALARMS.HMI_Weight_Config_Warning">Грузоподъемность не настроена</string>
-    <string name="Warning_TECHNICAL_REGLAMENT.xMessage0">до ТО осталось меньше 50 м.ч.</string>
-    <string name="Warning_TECHNICAL_REGLAMENT.xMessage1">Проведите ТО</string>
-    <string name="Warning_TECHNICAL_REGLAMENT.xMessageAlrm">Скорости ограничены, проведите ТО</string>
-
-    <string name="Errors_DRIVECONTROLCRANE.x_ATV_ConfigError">ПЧ хода. Ошибка конфигурации</string>
-    <string name="Errors_DRIVECONTROLCRANE.xCrane_Joy_Alarm">Ход крана. Ошибка сигналов джойстика</string>
+    <string name="Errors_DRIVECONTROLCRANE.x_ATV_ConfigError">ПЧ хода крана. Ошибка конфигурации</string>
     <string name="Errors_Application.DRIVECONTROLHOIST.x_ATV_ConfigError">ПЧ подъема. Ошибка конфигурации</string>
-    <string name="Errors_DRIVECONTROLHOIST.xHoist_Joy_Alarm">Подъем. Ошибка сигналов джойстика</string>
     <string name="Errors_DRIVECONTROLSLEW2.x_ATV_ConfigError">ПЧ поворота. Ошибка конфигурации</string>
-    <string name="Errors_DRIVECONTROLSLEW2.xSlew_Joy_Alarm">Поворот. Ошибка сигналов джойстика</string>
     <string name="Errors_DRIVECONTROLTROLLEY.x_ATV_ConfigError">ПЧ тележки. Ошибка конфигурации</string>
-    <string name="Errors_DRIVECONTROLTROLLEY.xTrolley_Joy_Alarm">Тележка. Ошибка сигналов джойстика</string>
     <string name="Errors_GVL.gv_xDateTimeError">ПЛК. Неверная дата и время</string>
-    <string name="Errors_GVL1.gv_xHoistBrakeSensor">Подъем. Датчик износа тормоза</string>
-    <string name="Errors_GVL1.gv_xMicroclimatInput">Микроклимат. Автомат</string>
+
     <string name="Errors_GVL1.gv_xPLCAnalogInputError">ПЛК. Аналоговый вход</string>
     <string name="Errors_GVL1.gv_xPLCCANError">ПЛК. CANopen</string>
     <string name="Errors_GVL1.gv_xPLCExpertIOError">ПЛК. Модуль входов/выходов</string>
     <string name="Errors_GVL1.gv_xPLCExpertIOStatError">ПЛК. Модуль выходов</string>
-    <string name="Errors_HMI_ALARMS.HMI_AdditionalOGP_SENSOR">КРИТИЧЕСКИЙ МОМЕНТ НАГРУЗКИ</string>
-    <string name="Errors_HMI_ALARMS.HMI_Anemom_Sensor_Err">Сбой датчика ветра</string>
 
-    <string name="Errors_HMI_ALARMS.HMI_Crane_AbsEnc_Err">Сбой датчика хода крана</string>
-    <string name="Errors_HMI_ALARMS.HMI_CraneATV_PWR_Err">ПЧ хода крана PWR</string>
     <string name="Errors_HMI_ALARMS.HMI_Drive_Hoist_EncFault">Сбой энкодера двигателя подъема</string>
     <string name="Errors_HMI_ALARMS.HMI_Drive_Slew_EncFault">Сбой энкодера двигателя поворота</string>
     <string name="Errors_HMI_ALARMS.HMI_Drive_Trolley_EncFault">Сбой энкодера двигателя тележки</string>
-    <string name="Errors_HMI_ALARMS.HMI_HMI_Hoist_AbsEnc_Err">Сбой датчика высоты</string>
-    <string name="Errors_HMI_ALARMS.HMI_Hoist_Drive_Err">Ошибка ПЧ подъема</string>
-    <string name="Errors_HMI_ALARMS.HMI_HoistATV_PWR_Err">ПЧ подъема PWR</string>
-    <string name="Errors_HMI_ALARMS.HMI_Luk_MainContactor">Люк открыт, запрет поворота</string>
-
-    <string name="Errors_HMI_ALARMS.HMI_PhaseControl_Relay">Реле контроля фаз</string>
-    <string name="Errors_HMI_ALARMS.HMI_PLC_BatteryError">Батарейка ПЛК разряжена</string>
-    <string name="Errors_HMI_ALARMS.HMI_PowerLine_Fault">Сбой питающей сети</string>
-    <string name="Errors_HMI_ALARMS.HMI_Slew_AbsEnc_Err">Сбой датчика поворота</string>
-    <string name="Errors_HMI_ALARMS.HMI_Slew_Drive_Err">Ошибка ПЧ поворота</string>
-    <string name="Errors_HMI_ALARMS.HMI_SlewATV_PWR_Err">ПЧ поворота PWR</string>
-    <string name="Errors_HMI_ALARMS.HMI_Trolley_AbsEnc_Err">Сбой датчика вылета</string>
-    <string name="Errors_HMI_ALARMS.HMI_Trolley_Drive_Err">Ошибка ПЧ тележки</string>
-    <string name="Errors_HMI_ALARMS.HMI_TrolleyATV_PWR_Err">ПЧ тележки PWR</string>
-    <string name="Errors_HMI_ALARMS.HMI_Weight_Sensor_Err">Сбой датчика груза</string>
-
-    <string name="Errors_PERSISTENTVARS.pv_xAlarm_GRUZ_FUN">Не верная ГХ</string>
-    <string name="Errors_PERSISTENTVARS.pv_xAlarm_Zapasovka">ошибка кратности запасовки</string>
-    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxDeltaError">Сбой датчика хода крана 2</string>
-    <string name="Errors_PERSISTENTVARS.pv_xCraneAbsEnc_MaxValueError">Сбой датчика хода крана 3</string>
-    <string name="Errors_PERSISTENTVARS.pv_xDataLogError">Ошбка регистратора параметров груза</string>
-    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxDeltaError">Сбой датчика подъема 2</string>
-    <string name="Errors_PERSISTENTVARS.pv_xHoistAbsEnc_MaxValueError">Сбой датчика подъема 3</string>
-    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxDeltaError">Сбой датчика поворота 2</string>
-    <string name="Errors_PERSISTENTVARS.pv_xSlewAbsEnc_MaxValueError">Сбой датчика поворота 3</string>
-    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxDeltaError">Сбой датчика вылета 2</string>
-    <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxValueError">Сбой датчика вылета 3</string>
+    <string name="Errors_HMI_ALARMS.HMI_PLC_BatteryError">Батарейка ПЛК разряжена</string>в
     <!-- Текст экрана AccidentWarningLogScreen' -->
 
 

@@ -28,11 +28,11 @@ class MainActivity : ComponentActivity() {
         // Тестовое включение регистра через 3 секунды
         lifecycleScope.launch {
             delay(3000)
-            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("REG-001", true)
+            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", true)
 
             // Тестовое выключение через еще 5 секунд
-            delay(5000)
-            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("REG-001", false)
+            delay(30000)
+            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", false)
         }
 
         enableEdgeToEdge()

@@ -26,15 +26,12 @@ open class JsonDataSource
             val inputStream = context.assets.open("events.json")
 
                 // - Создается буферный ридер для чтения файла
-                // - Используется Gson для парсинга JSON в массив объектов EventDefinition
-                // - Массив преобразуется в список
-                //.bufferedReader().use { reader ->
-                //    val array = Gson().fromJson(reader, Array<EventDefinition>::class.java)
-                //    array.toList() }
-
             val jsonString = inputStream.bufferedReader().use { it.readText() }
+                 // - Используется Gson для парсинга JSON в массив объектов EventDefinition
 
-            val list = Gson().fromJson(jsonString, Array<EventDefinition>::class.java).toList()
+            val list = Gson().fromJson(jsonString,
+                // - Массив преобразуется в список EventDefinition, который далее используется в методе getEventDefinition
+                Array<EventDefinition>::class.java).toList()
             Log.d("JSON_LOAD", "Successfully loaded ${list.size} events from events.json")
             list
         } catch (e: Exception) {
@@ -44,26 +41,26 @@ open class JsonDataSource
         }
     }
 
-    //open fun getEventDefinition(registrationNumber: String): EventDefinition {
-        //return definitions.first { it.registrationNumber == registrationNumber }
-
     open fun getEventDefinition(registrationNumber: String): EventDefinition {
         return definitions.firstOrNull { it.registrationNumber == registrationNumber }
             ?: throw NoSuchElementException("Event definition not found for $registrationNumber")
-    //Метод getEventDefinition
-        //
+    //Метод getEventDefinition:
         //Принимает параметр registrationNumber типа String
-        //
         //Возвращает объект EventDefinition, найденный по номеру регистрации
-        //
         //Использует метод first(), который возвращает первый элемент, удовлетворяющий условию
-        //
         //Условие поиска: совпадение registrationNumber с искомым значением
 
     }
     open fun getAllRegistrationNumbers(): List<String> {
-        return definitions.map { it.registrationNumber }
+        return definitions.map { it.registrationNumber } //извлекает значение этого свойства для каждого элемента
     }
+    //Поэтапное выполнение метода getAllRegistrationNumbers:
+    //1. Метод получает доступ к списку definitions
+    //2. Для каждого объекта в списке:
+    // - Берется текущий объект (через it)
+    // - Извлекается его поле registrationNumber
+    // - Значение добавляется в новый список
+    //Возвращается новый список, содержащий только номера регистрации
 
 }
 //Для активации работы с JSON надо добавить Gson библиотеку implementation("com.google.code.gson:gson:2.10.1") в build.gradle.kts
