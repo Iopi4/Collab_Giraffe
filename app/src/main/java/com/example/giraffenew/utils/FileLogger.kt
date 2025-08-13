@@ -294,7 +294,7 @@ class FileLogger @Inject constructor(
     /**
      * Ротация current файла
      */
-    private suspend fun rotateCurrentFile() {
+    private fun rotateCurrentFile() {
         try {
             _fileLoggerStatus.value = FileLoggerStatus.Rotating
             

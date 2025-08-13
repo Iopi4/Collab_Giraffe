@@ -9,16 +9,18 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
-import io.ktor.client.plugins.compression.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.http.HttpHeaders.ContentEncoding
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.text.SimpleDateFormat
@@ -26,6 +28,7 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.coroutineContext
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -55,6 +58,24 @@ import kotlin.math.pow
  *   ]
  * }
  */
+
+/**
+ * Data classes согласно API specification
+ */
+@Serializable
+data class CloudPayload(
+    val crane_id: String,
+    val readings: List<RegisterReading>,
+    val timestamp: String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).apply {
+        timeZone = TimeZone.getTimeZone("UTC")
+    }.format(Date())
+)
+
+@Serializable
+data class RegisterReading(
+    val timestamp: String,
+    val registers: Map<String, String> // address -> hex value
+)
 @Singleton
 class CloudSynchronizer @Inject constructor(
     private val context: Context
@@ -70,9 +91,9 @@ class CloudSynchronizer @Inject constructor(
             })
         }
         
-        install(ContentEncoding) {
-            gzip() // Автоматическое сжатие
-        }
+        //install(ContentEncoding) {
+            //gzip() // Автоматическое сжатие
+        //}
         
         install(Logging) {
             logger = object : Logger {
@@ -93,7 +114,7 @@ class CloudSynchronizer @Inject constructor(
             exponentialDelay()
         }
     }
-    
+
     // Coroutine scope для sync операций
     private val syncScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
@@ -151,7 +172,7 @@ class CloudSynchronizer @Inject constructor(
     
     /**
      * Data classes согласно API specification
-     */
+     // Вынесем класс наружа за пределы
     @Serializable
     data class CloudPayload(
         val crane_id: String,
@@ -160,12 +181,8 @@ class CloudSynchronizer @Inject constructor(
             timeZone = TimeZone.getTimeZone("UTC")
         }.format(Date())
     )
-    
-    @Serializable
-    data class RegisterReading(
-        val timestamp: String,
-        val registers: Map<String, String> // address -> hex value
-    )
+    */
+
     
     @Serializable
     data class CloudResponse(
@@ -235,7 +252,7 @@ class CloudSynchronizer @Inject constructor(
      * Основной цикл синхронизации
      */
     private suspend fun runSyncLoop() {
-        while (isActive) {
+        while (coroutineContext.isActive) {
             try {
                 // Ждем интервал синхронизации
                 delay(syncIntervalMs)
@@ -411,7 +428,7 @@ class CloudSynchronizer @Inject constructor(
      * Обработать offline queue
      */
     private suspend fun processOfflineQueue() {
-        while (isActive) {
+        while (coroutineContext.isActive) {
             try {
                 if (isNetworkAvailable() && offlineQueue.isNotEmpty()) {
                     _syncStatus.value = SyncStatus.ProcessingOffline
@@ -463,17 +480,17 @@ class CloudSynchronizer @Inject constructor(
     }
     
     /**
-     * Сохранить offline queue в файл
+     * Сохранить offline Queue в файл
      */
     private fun saveOfflineQueue() {
         try {
             if (offlineQueue.isNotEmpty()) {
                 val json = Json { prettyPrint = true }
                 val jsonString = json.encodeToString(
-                    kotlinx.serialization.builtins.ListSerializer(CloudPayload.serializer()),
+                    ListSerializer(CloudPayload.serializer()),
                     offlineQueue.toList()
                 )
-                
+
                 offlineQueueFile.writeText(jsonString)
                 Log.d(TAG, "Offline queue saved (${offlineQueue.size} items)")
             }
@@ -483,7 +500,7 @@ class CloudSynchronizer @Inject constructor(
     }
     
     /**
-     * Загрузить offline queue из файла
+     * Загрузить offline Queue из файла
      */
     private fun loadOfflineQueue() {
         try {
@@ -491,7 +508,7 @@ class CloudSynchronizer @Inject constructor(
                 val jsonString = offlineQueueFile.readText()
                 val json = Json { ignoreUnknownKeys = true }
                 val loadedQueue = json.decodeFromString(
-                    kotlinx.serialization.builtins.ListSerializer(CloudPayload.serializer()),
+                    ListSerializer(CloudPayload.serializer()),
                     jsonString
                 )
                 

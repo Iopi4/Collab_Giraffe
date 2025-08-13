@@ -27,11 +27,11 @@ class MainActivity : ComponentActivity() {
 
         // Тестовое включение регистра через 3 секунды
         lifecycleScope.launch {
-            delay(3000)
+            delay(10000)
             (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", true)
 
             // Тестовое выключение через еще 5 секунд
-            delay(30000)
+            delay(10000)
             (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", false)
         }
 

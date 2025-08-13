@@ -51,14 +51,15 @@ data class RegisterInfo(
 @Serializable
 data class RegistersConfiguration(
     val registers: List<RegisterInfo>
-)
+) {
+    companion object
+}
 
 /**
  * Default конфигурация для системы крана согласно техзаданию
  */
 object DefaultRegisterConfiguration {
-    const val DEFAULT_CONFIG_JSON = """
-    {
+    val DEFAULT_CONFIG_JSON = """{
         "registers": [
             {"address": 90, "name": "hoist_position", "type": "INT16", "description": "Позиция подъема лебедки"},
             {"address": 91, "name": "trolley_position", "type": "INT16", "description": "Позиция тележки"},
@@ -70,10 +71,9 @@ object DefaultRegisterConfiguration {
             {"address": 97, "name": "alarm_flags", "type": "INT16", "description": "Флаги тревог"},
             {"address": 98, "name": "motor_current_hoist", "type": "INT16", "description": "Ток двигателя лебедки"},
             {"address": 99, "name": "motor_current_trolley", "type": "INT16", "description": "Ток двигателя тележки"},
-            {"address": 100, "name": "motor_current_slewing", "type": "INT16", "description": "Ток двигателя поворота"}
-        ]
-    }
-    """.trimIndent()
+            {"address": 100, "name": "motor_current_slewing", "type": "INT16", "description": "Ток двигателя поворота"} 
+            ] 
+            }""".trimIndent()
     
     fun createDefault(): RegisterConfiguration {
         return RegisterConfiguration(

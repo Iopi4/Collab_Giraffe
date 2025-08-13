@@ -4,11 +4,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.example.giraffenew"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.giraffenew"
@@ -68,6 +69,7 @@ dependencies {
     implementation(libs.androidx.material3)
 
     implementation(libs.hilt.android)
+    implementation(libs.firebase.crashlytics.buildtools)
     ksp(libs.hilt.compiler)
 
     implementation(libs.room.ktx)
@@ -87,7 +89,9 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
 
+    implementation(libs.kotlinx.serialization.json)
     implementation("com.google.code.gson:gson:2.13.1")
 
     testImplementation(libs.junit)

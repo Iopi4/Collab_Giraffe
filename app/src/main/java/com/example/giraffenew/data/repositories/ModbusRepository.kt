@@ -10,6 +10,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
+import kotlinx.serialization.builtins.serializer
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -183,7 +185,8 @@ class ModbusRepository @Inject constructor(
     /**
      * Создать новую конфигурацию
      */
-    suspend fun createConfiguration(name: String, registers: List<RegisterInfo>): Result<Long> {
+    // Отключил функцию временно. так как есть ошибка с RegistersConfiguration.serializer().
+    /** suspend fun createConfiguration(name: String, registers: List<RegisterInfo>): Result<Long> {
         return try {
             val config = RegisterConfiguration(
                 name = name,
@@ -202,7 +205,8 @@ class ModbusRepository @Inject constructor(
             Result.failure(e)
         }
     }
-    
+     */
+
     /**
      * Активировать конфигурацию
      */
@@ -267,9 +271,9 @@ class ModbusRepository @Inject constructor(
             for (range in ranges) {
                 try {
                     val batchResult = modbusClient.readRegisters(range.start, range.count)
-                    
-                    // Конвертируем результаты в RegisterValue с метаинформацией
-                    val values = batchResult.results.map { result ->
+                    //  Определяем адрес в зависимости от типа результата.
+                    //  Конвертируем результаты в RegisterValue с метаинформацией
+                    val values = batchResult.results.map { result->
                         val registerInfo = registers.find { it.address == result.address }
                         RegisterValue.fromReadResult(result, registerInfo)
                     }
@@ -393,7 +397,7 @@ class ModbusRepository @Inject constructor(
     /**
      * Обновить параметры подключения Modbus
      */
-    fun updateConnectionParams(ip: String, port: Int = 502, slaveId: Int = 255, timeout: Int = 2000) {
+    suspend fun updateConnectionParams(ip: String, port: Int = 502, slaveId: Int = 255, timeout: Int = 2000) {
         modbusClient.updateConnectionParams(ip, port, slaveId, timeout)
         logInfo("Connection parameters updated", """{"ip": "$ip", "port": $port, "slaveId": $slaveId, "timeout": $timeout}""")
     }

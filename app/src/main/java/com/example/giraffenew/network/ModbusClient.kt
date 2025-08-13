@@ -78,8 +78,18 @@ class ModbusClient @Inject constructor() {
      * Результат операции чтения регистра
      */
     sealed class RegisterReadResult {
-        data class Success(val address: Int, val value: Int, val timestamp: Long = System.currentTimeMillis()) : RegisterReadResult()
-        data class Error(val address: Int, val error: String, val timestamp: Long = System.currentTimeMillis()) : RegisterReadResult()
+        abstract val address: Int // Добавляем абстрактное свойство
+        data class Success(
+            override val address: Int, // Реализуем свойство
+            val value: Int,
+            val timestamp: Long = System.currentTimeMillis()
+        ) : RegisterReadResult()
+
+        data class Error(
+            override val address: Int, // Реализуем свойство
+            val error: String,
+            val timestamp: Long = System.currentTimeMillis()
+        ) : RegisterReadResult()
     }
     
     /**
@@ -522,7 +532,7 @@ class ModbusClient @Inject constructor() {
     /**
      * Получить информацию о текущем соединении
      */
-    fun getConnectionInfo(): Map<String, Any> {
+    fun getConnectionInfo(): Map<String, Any?> {
         return mapOf(
             "ip" to ipAddress,
             "port" to port,

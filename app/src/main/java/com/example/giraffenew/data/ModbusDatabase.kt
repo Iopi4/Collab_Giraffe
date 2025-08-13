@@ -22,26 +22,33 @@ import com.example.giraffenew.data.entities.RegisterConfiguration
  */
 @Database(
     entities = [
-        RegisterConfiguration::class,
-        ModbusLog::class
+        //Список сущностей в базе данных.
+        RegisterConfiguration::class, //конфигурации регистров
+        ModbusLog::class //журнал операций
     ],
     version = 1,
-    exportSchema = true // Для отслеживания изменений схемы
+    exportSchema = true // Для отслеживания изменений схемы. Позволяет Room экспортировать схему базы данных в папку проекта
 )
 @TypeConverters(ModbusDatabaseConverters::class)
+//TypeConverters указывает класс, который содержит конвертеры для нестандартных типов
+//(в данном случае, для enum классов `LogLevel` и `LogCategory`).
 abstract class ModbusDatabase : RoomDatabase() {
+    //Абстрактные методы DAO:
+    //Предоставляем доступ к операциям с таблицами через:
+    abstract fun registerConfigurationDao(): RegisterConfigurationDao //для работы с конфигурациями регистров
+    abstract fun modbusLogDao(): ModbusLogDao //для работы с логами.
     
-    abstract fun registerConfigurationDao(): RegisterConfigurationDao
-    abstract fun modbusLogDao(): ModbusLogDao
-    
-    companion object {
+    companion object { // Он позволяет определить методы и свойства, которые относятся к классу ModbusDatabase, а не к его экземплярам.
         const val DATABASE_NAME = "modbus_database"
         
         @Volatile
         private var INSTANCE: ModbusDatabase? = null
         
         /**
-         * Singleton pattern с thread-safe initialization
+         * Singleton pattern с thread-safe initialization (Паттерн «Одиночка» с потокобезопасной инициализацией)
+         * Реализацию синглтона с двойной проверкой блокировки (`synchronized`) для потокобезопасности.
+         * Если экземпляр уже создан, возвращает его.
+         * Если нет, то синхронизирует блок и создает базу данных с помощью `Room.databaseBuilder`.
          */
         fun getDatabase(context: Context): ModbusDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -49,12 +56,16 @@ abstract class ModbusDatabase : RoomDatabase() {
                     context.applicationContext,
                     ModbusDatabase::class.java,
                     DATABASE_NAME
-                )
-                    .setJournalMode(RoomDatabase.JournalMode.WAL) // WAL режим для concurrent access
-                    .addCallback(DatabaseCallback()) // Callback для инициализации
+                ) /** В билдере настраивается:
+
+                 */
+
+                    .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING) // WAL режим для concurrent access. WAL позволяет читать и записывать данные в базу данных одновременно.
+                    .addCallback(DatabaseCallback()) // Callback для инициализации. Добавляет колбэк для обработки событий создания и открытия БД.
                     .addMigrations(/* будущие миграции */)
-                    .fallbackToDestructiveMigration() // Только для development
+                    .fallbackToDestructiveMigration() // Только для development. В случае отсутствия миграции при обновлении версии, база будет пересоздана
                     .build()
+
                     
                 INSTANCE = instance
                 instance
@@ -62,7 +73,10 @@ abstract class ModbusDatabase : RoomDatabase() {
         }
         
         /**
-         * Callback для инициализации базы данных
+         * Callback для инициализации базы данных.
+         * Внутри DatabaseCallback переопределены методы:
+         * - `onCreate(db)`: вызывается при создании БД (здесь можно вставить начальные данные, но в данном случае инициализация вынесена в `DatabaseInitializer` через репозиторий).
+         * - `onOpen(db)`: вызывается при открытии БД (можно добавить логику при каждом открытии).
          */
         private class DatabaseCallback : RoomDatabase.Callback() {
             
@@ -84,7 +98,8 @@ abstract class ModbusDatabase : RoomDatabase() {
  * Конвертирует enum классы в строки и обратно
  */
 class ModbusDatabaseConverters {
-    
+
+    //TypeConverter помечает методы, которые преобразуют enum в строку (и обратно) для хранения в базе.
     @TypeConverter
     fun fromLogLevel(logLevel: LogLevel): String {
         return logLevel.name
@@ -126,7 +141,9 @@ object DatabaseMigrations {
 object DatabaseInitializer {
     
     /**
-     * Инициализировать БД с default конфигурацией если она пустая
+     * suspend функция initialize, проверяет, пуста ли таблица конфигураций.
+     * Если да, то вставляет дефолтную конфигурацию и логирует это событие.
+     * Затем выполняет ротацию логов (вероятно, удаление старых записей).
      */
     suspend fun initialize(database: ModbusDatabase) {
         val configDao = database.registerConfigurationDao()
@@ -184,3 +201,28 @@ object DatabaseInitializer {
         logDao.insertAll(testLogs)
     }
 }
+
+/**
+ * Опишем, как это работает вместе:
+ *  - При первом запуске приложения, когда вызывается `ModbusDatabase.getDatabase(context)`, создается база данных.
+ *  - Room вызывает `onCreate` колбэка, но в нем ничего не делается, потому что инициализация перенесена в `DatabaseInitializer.initialize`,
+ *  который должен быть вызван явно (например, из репозитория или при старте приложения).
+ *  - После создания экземпляра базы данных, приложение (например, в классе Application или в ViewModel)
+ *  вызывает `DatabaseInitializer.initialize` в корутине.
+ *    - Эта функция проверяет количество записей в таблице конфигураций. Если 0, то вставляет дефолтную конфигурацию
+ *    (созданную фабричным методом `DefaultRegisterConfiguration.createDefault()`).
+ *    - Затем создает лог-запись о инициализации и вставляет ее в таблицу логов.
+ *    - Вызывает `logDao.performLogRotation()` (предположительно, для очистки старых логов).
+ *  - Если нужно добавить тестовые данные, можно вызвать `DatabaseInitializer.insertTestData`.
+ *  - Конвертеры автоматически используются Room, когда в сущностях встречаются поля типов `LogLevel` или `LogCategory`.
+ *  - При обновлении версии базы данных (если изменить version в @Database), Room будет искать соответствующую миграцию в `addMigrations`.
+ *  Если не найдет, то при `fallbackToDestructiveMigration()` база будет уничтожена и создана заново (данные потеряются).
+ *  В продакшене следует убрать этот фалбэк и предоставить миграции.
+ *  Таким образом, данный код обеспечивает:
+ *    - Создание базы данных с двумя таблицами.
+ *    - Потокобезопасный синглтон для доступа к БД.
+ *    - Конвертацию enum в строки.
+ *    - Инициализацию начальными данными.
+ *    - Возможность миграций (пока в зачаточном состоянии).
+ *  Важно: `fallbackToDestructiveMigration` используется только для разработки, в релизе его следует убрать и реализовать миграции.
+ */

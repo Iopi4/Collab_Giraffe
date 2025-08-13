@@ -179,18 +179,20 @@ interface ModbusLogDao {
         DELETE FROM modbus_logs 
         WHERE id NOT IN (
             SELECT id FROM modbus_logs 
-            WHERE level IN ('ERROR', 'FATAL') 
+            WHERE level IN ('ERROR', 'FATAL')
             UNION ALL
-            SELECT id FROM modbus_logs 
-            WHERE level = 'WARN' 
-            ORDER BY timestamp DESC 
-            LIMIT 1000
+            SELECT id FROM (
+                SELECT id FROM modbus_logs 
+                WHERE level = 'WARN' 
+                ORDER BY timestamp DESC 
+                LIMIT 1000 )
             UNION ALL
-            SELECT id FROM modbus_logs 
-            WHERE level = 'INFO' 
-            ORDER BY timestamp DESC 
-            LIMIT 500
-        )
+            SELECT id FROM (
+                SELECT id FROM modbus_logs 
+                WHERE level = 'INFO' 
+                ORDER BY timestamp DESC 
+                LIMIT 500)
+            )
     """)
     suspend fun performEmergencyCleanup(): Int
 }
