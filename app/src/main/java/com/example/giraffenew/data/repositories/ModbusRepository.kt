@@ -10,8 +10,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
-import kotlinx.serialization.builtins.serializer
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,6 +25,11 @@ import javax.inject.Singleton
  * 
  * Реализует Repository pattern для разделения concerns
  * между data layer и business logic
+ *
+ * Класс является Singleton и использует внедрение зависимостей через конструктор:
+    * ModbusDatabase - для работы с локальной базой данных
+    * ModbusClient - для взаимодействия с Modbus-устройствами
+    * Json (опционально) - для парсинга конфигураций
  */
 @Singleton
 class ModbusRepository @Inject constructor(
@@ -34,14 +37,18 @@ class ModbusRepository @Inject constructor(
     private val modbusClient: ModbusClient,
     private val json: Json = Json { ignoreUnknownKeys = true }
 ) {
-    
+
+//Использует CoroutineScope с Dispatchers.IO для фоновых операций и SupervisorJob для независимой обработки ошибок в дочерних корутинах.
     private val repositoryScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
     // DAOs
     private val configDao = database.registerConfigurationDao()
     private val logDao = database.modbusLogDao()
-    
-    // In-memory cache для live данных регистров
+
+/**
+1. Состояния и потоки данных
+ */
+    //кэш значений регистров в памяти (StateFlow)
     private val _registerCache = MutableStateFlow<Map<Int, RegisterValue>>(emptyMap())
     val registerCache: StateFlow<Map<Int, RegisterValue>> = _registerCache.asStateFlow()
     
@@ -107,7 +114,12 @@ class ModbusRepository @Inject constructor(
     }
     
     init {
-        // Инициализация репозитория
+        /**
+         * 2. Инициализация репозитория
+         * При создании:
+         * Запускает инициализацию в отдельной корутине
+         * Настраивает подписку на изменения конфигурации (hot-reload)
+         */
         repositoryScope.launch {
             initializeRepository()
         }
@@ -123,6 +135,9 @@ class ModbusRepository @Inject constructor(
     
     /**
      * Инициализация репозитория
+     * Загружает активную конфигурацию из БД
+     * Инициализирует базу default-данными при необходимости
+     * Обновляет статус репозитория
      */
     private suspend fun initializeRepository() {
         try {
@@ -185,8 +200,7 @@ class ModbusRepository @Inject constructor(
     /**
      * Создать новую конфигурацию
      */
-    // Отключил функцию временно. так как есть ошибка с RegistersConfiguration.serializer().
-    /** suspend fun createConfiguration(name: String, registers: List<RegisterInfo>): Result<Long> {
+     suspend fun createConfiguration(name: String, registers: List<RegisterInfo>): Result<Long> {
         return try {
             val config = RegisterConfiguration(
                 name = name,
@@ -205,7 +219,6 @@ class ModbusRepository @Inject constructor(
             Result.failure(e)
         }
     }
-     */
 
     /**
      * Активировать конфигурацию
@@ -249,7 +262,8 @@ class ModbusRepository @Inject constructor(
     // === Register Data Operations ===
     
     /**
-     * Прочитать все активные регистры
+     * 3. Работа с Modbus
+     * Прочитать все активные регистры и записать их в пакет BatchReadResult
      */
     suspend fun readAllActiveRegisters(): BatchReadResult {
         val registers = _activeRegisters.value
@@ -263,13 +277,13 @@ class ModbusRepository @Inject constructor(
         }
         
         return try {
-            // Группируем регистры по непрерывным диапазонам для batch чтения
+            // Группируем регистры по непрерывным диапазонам для batch пакета
             val ranges = groupRegistersIntoRanges(registers)
             val allValues = mutableListOf<RegisterValue>()
             val errors = mutableListOf<String>()
             
             for (range in ranges) {
-                try {
+                try { //Выполняем batch-чтение через ModbusClient
                     val batchResult = modbusClient.readRegisters(range.start, range.count)
                     //  Определяем адрес в зависимости от типа результата.
                     //  Конвертируем результаты в RegisterValue с метаинформацией
@@ -302,7 +316,8 @@ class ModbusRepository @Inject constructor(
             if (allValues.isNotEmpty()) {
                 logDebug("Registers read successfully", """{"count": ${allValues.size}, "errors": ${errors.size}}""")
             }
-            
+
+            //Возвращаем BatchReadResult с результатами и ошибками
             BatchReadResult(
                 registerValues = allValues,
                 errors = errors,
@@ -323,6 +338,7 @@ class ModbusRepository @Inject constructor(
     
     /**
      * Группировка регистров в непрерывные диапазоны для оптимизации
+     * метод принимает список объектов `RegisterInfo` и возвращает список объектов `AddressRange`.
      */
     private fun groupRegistersIntoRanges(registers: List<RegisterInfo>): List<AddressRange> {
         if (registers.isEmpty()) return emptyList()
@@ -510,16 +526,45 @@ class ModbusRepository @Inject constructor(
     }
     
     // === Data Classes ===
-    
+
+    //результат пакетного чтения
     data class BatchReadResult(
         val registerValues: List<RegisterValue>,
         val errors: List<String>,
         val timestamp: Long,
         val duration: Long = 0
     )
-    
+
+    // список диапазонов адресов
     private data class AddressRange(
         val start: Int,
         val count: Int
     )
 }
+
+/**
+Особенности реализации
+Оптимизация чтения
+Метод groupRegistersIntoRanges группирует регистры в непрерывные диапазоны для минимизации количества Modbus-запросов.
+
+Потоковая архитектура
+Использование StateFlow позволяет:
+
+Автоматически обновлять UI при изменениях
+
+Кэшировать данные в памяти
+
+Обеспечивать реактивность
+
+Обработка ошибок
+Комплексная система обработки ошибок на всех уровнях:
+
+Статус репозитория
+
+Детализированные ошибки в результатах операций
+
+Логирование всех ошибок
+
+Горячая перезагрузка конфигурации
+Подписка на изменения конфигурации в БД позволяет обновлять параметры работы без перезапуска приложения.
+ */

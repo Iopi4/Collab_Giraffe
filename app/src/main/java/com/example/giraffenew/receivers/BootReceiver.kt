@@ -1,10 +1,18 @@
 package com.example.giraffenew.receivers
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
+import android.content.Context.USER_SERVICE
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.UserManager
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.giraffenew.services.ModbusBackgroundService
 
 /**
@@ -17,50 +25,60 @@ import com.example.giraffenew.services.ModbusBackgroundService
  * - Graceful handling различных версий Android
  */
 class BootReceiver : BroadcastReceiver() {
-    
     companion object {
         private const val TAG = "BootReceiver"
+        private const val DELAY_MS = 10000L // 10 секунд
     }
-    
+
     override fun onReceive(context: Context, intent: Intent) {
-        Log.i(TAG, "Boot receiver triggered with action: ${intent.action}")
-        
-        when (intent.action) {
-            Intent.ACTION_BOOT_COMPLETED -> {
-                Log.i(TAG, "System boot completed - starting Modbus service")
+        Log.w(TAG, "Boot event received. Starting delayed service initialization...")
+
+        // Используем Handler с главным Looper
+        Handler(Looper.getMainLooper()).postDelayed({
+            Log.w(TAG, "Executing delayed service start")
+            try {
                 startModbusService(context)
+            } catch (e: Exception) {
+                Log.e(TAG, "Delayed service start failed", e)
             }
-            Intent.ACTION_MY_PACKAGE_REPLACED,
-            Intent.ACTION_PACKAGE_REPLACED -> {
-                Log.i(TAG, "Package updated - restarting Modbus service")
-                startModbusService(context)
-            }
-            else -> {
-                Log.w(TAG, "Unknown action: ${intent.action}")
-            }
-        }
+        }, DELAY_MS)
     }
-    
-    /**
-     * Запустить ModbusBackgroundService с учетом версии Android
-     */
+
     private fun startModbusService(context: Context) {
+        Log.i(TAG, "Starting Modbus service...")
+        val serviceIntent = Intent(context, ModbusBackgroundService::class.java).apply {
+            action = ModbusBackgroundService.ACTION_START
+        }
+
         try {
-            val serviceIntent = Intent(context, ModbusBackgroundService::class.java).apply {
-                action = ModbusBackgroundService.ACTION_START
-            }
-            
-            // Для Android O+ используем startForegroundService
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(serviceIntent)
             } else {
                 context.startService(serviceIntent)
             }
-            
-            Log.i(TAG, "ModbusBackgroundService start requested")
-            
+            Log.i(TAG, "Service start command sent")
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to start ModbusBackgroundService", e)
+            Log.e(TAG, "Service start failed", e)
+            // Для Android 8+ добавляем fallback
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.w(TAG, "Trying fallback to JobScheduler")
+                scheduleServiceViaJobScheduler(context)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun scheduleServiceViaJobScheduler(context: Context) {
+        try {
+            val component = ComponentName(context, ModbusBackgroundService::class.java)
+            val jobInfo = JobInfo.Builder(1, component)
+                .setOverrideDeadline(DELAY_MS)
+                .build()
+
+            context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+            Log.w(TAG, "Service scheduled via JobScheduler")
+        } catch (e: Exception) {
+            Log.e(TAG, "JobScheduler failed", e)
         }
     }
 }

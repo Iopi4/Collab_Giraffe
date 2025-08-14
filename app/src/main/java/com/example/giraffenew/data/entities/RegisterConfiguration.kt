@@ -38,7 +38,7 @@ data class RegisterConfiguration(
  * Data class для представления одного регистра из JSON конфигурации
  */
 @Serializable
-data class RegisterInfo(
+data class RegisterInfo( //
     val address: Int,
     val name: String,
     val type: String, // INT16, UINT16, INT32, UINT32, FLOAT, etc.
@@ -61,17 +61,17 @@ data class RegistersConfiguration(
 object DefaultRegisterConfiguration {
     val DEFAULT_CONFIG_JSON = """{
         "registers": [
-            {"address": 90, "name": "hoist_position", "type": "INT16", "description": "Позиция подъема лебедки"},
-            {"address": 91, "name": "trolley_position", "type": "INT16", "description": "Позиция тележки"},
-            {"address": 92, "name": "slewing_angle", "type": "INT16", "description": "Угол поворота стрелы"},
-            {"address": 93, "name": "load_weight", "type": "INT16", "description": "Вес груза на крюке"},
-            {"address": 94, "name": "boom_angle", "type": "INT16", "description": "Угол наклона стрелы"},
-            {"address": 95, "name": "wind_speed", "type": "INT16", "description": "Скорость ветра"},
-            {"address": 96, "name": "system_status", "type": "INT16", "description": "Статус системы"},
-            {"address": 97, "name": "alarm_flags", "type": "INT16", "description": "Флаги тревог"},
-            {"address": 98, "name": "motor_current_hoist", "type": "INT16", "description": "Ток двигателя лебедки"},
-            {"address": 99, "name": "motor_current_trolley", "type": "INT16", "description": "Ток двигателя тележки"},
-            {"address": 100, "name": "motor_current_slewing", "type": "INT16", "description": "Ток двигателя поворота"} 
+            {"address": 90, "name": "gv_wYear_MW", "type": "INT16", "description": "gv_wYear_MW"},
+            {"address": 91, "name": "gv_wMonth_MW", "type": "INT16", "description": "gv_wMonth_MW"},
+            {"address": 94, "name": "gv_wDay_MW", "type": "INT16", "description": "gv_wDay_MW"},
+            {"address": 95, "name": "gv_wHour_MW", "type": "INT16", "description": "gv_wHour_MW"},
+            {"address": 98, "name": "gv_wMinute_MW", "type": "INT16", "description": "gv_wMinute_MW"},
+            {"address": 99, "name": "gv_wSeconds_MW", "type": "INT16", "description": "gv_wSeconds_MW"},
+            {"address": 100, "name": "Hoist_StatusWord_MW", "type": "INT16", "description": "Слово состояния ПЧ подъема "},
+            {"address": 101, "name": "Hoist_ControlWord_MW", "type": "INT16", "description": "Слово управления ПЧ подъема"},
+            {"address": 102, "name": "Hoist_TargetVelocity_MW", "type": "INT16", "description": "Заданная скорость вращения подъема"},
+            {"address": 103, "name": "Hoist_ControlEffort_MW", "type": "INT16", "description": "Текущая скорость вращения подъема"},
+            {"address": 104, "name": "Hoist_MotorCurrent_MW", "type": "INT16", "description": "Ток двигателя подъема"} 
             ] 
             }""".trimIndent()
     

@@ -1,5 +1,7 @@
 package com.example.giraffenew
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +11,7 @@ import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
 import com.example.giraffenew.accident_and_warning_log.data.remoute.FakeRegisterStatusDataSource
 import com.example.giraffenew.accident_and_warning_log.data.remoute.RegisterStatusDataSource
 import com.example.giraffenew.navigate.SampleAppNavGraph
+import com.example.giraffenew.services.ModbusBackgroundService
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
@@ -33,6 +36,14 @@ class MainActivity : ComponentActivity() {
             // Тестовое выключение через еще 5 секунд
             delay(10000)
             (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", false)
+        }
+
+        // Явный запуск сервиса
+        val serviceIntent = Intent(this, ModbusBackgroundService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent)
+        } else {
+            startService(serviceIntent)
         }
 
         enableEdgeToEdge()

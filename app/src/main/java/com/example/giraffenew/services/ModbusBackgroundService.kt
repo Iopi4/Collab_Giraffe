@@ -9,8 +9,6 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.giraffenew.R
-import com.example.giraffenew.data.entities.LogLevel
-import com.example.giraffenew.data.entities.ModbusLogFactory
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.network.CloudSynchronizer
 import com.example.giraffenew.network.ModbusClient

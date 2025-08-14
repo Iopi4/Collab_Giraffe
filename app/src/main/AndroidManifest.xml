@@ -41,26 +41,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- ModbusBackgroundService для непрерывного опроса регистров -->
-        <service
-            android:name=".services.ModbusBackgroundService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
-
         <!-- Boot receiver для автоматического запуска сервиса -->
         <receiver
             android:name=".receivers.BootReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="1000">
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <!-- BOOT_COMPLETED -->
+            <!-- BOOT_COMPLETED с категорией DEFAULT -->
+            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- MY_PACKAGE_REPLACED -->
+            <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+
+            <!-- PACKAGE_REPLACED с явным указанием пакета -->
+            <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <data android:scheme="package" />
+                <data android:scheme="package"
+                    android:path="com.example.giraffenew" />
             </intent-filter>
         </receiver>
+        <!-- ModbusBackgroundService для непрерывного опроса регистров -->
+        <service
+            android:name=".services.ModbusBackgroundService"
+            android:enabled="true"
+            android:foregroundServiceType="dataSync"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
+
+
     </application>
 
 </manifest>

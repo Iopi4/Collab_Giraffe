@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -51,6 +52,7 @@ import com.example.giraffenew.home.presentanion.HomeScreen
 import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.presentation.LoginScreen
 import com.example.giraffenew.modbus_tools.presentation.ModbusToolsScreen
+import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.parameter_logger.presentation.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.presentation.ServiceMenuScreen
 import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapacityScreen
@@ -67,7 +69,7 @@ fun SampleAppNavGraph(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
 ) {
-
+    val topBarViewModel: TopBarViewModel = viewModel()
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.NAVIGATE_TO_HOME
     val navigationActions = remember (navController) {
@@ -132,9 +134,9 @@ fun SampleAppNavGraph(
                             //В начале определяем данные в виде списке langs. В столбце Column пробегаемся
                             // по этому списку и создаем для каждого свой компонент Text
 
-                            TopBarTextDateTime("Time")
+                            TopBarTextDateTime(topBarViewModel.currentTime.value)
 
-                            TopBarTextDateTime("Data")
+                            TopBarTextDateTime(topBarViewModel.currentDate.value)
 
                         }
                     }
