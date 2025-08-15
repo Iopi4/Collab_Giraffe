@@ -61,6 +61,24 @@ data class RegistersConfiguration(
 object DefaultRegisterConfiguration {
     val DEFAULT_CONFIG_JSON = """{
         "registers": [
+            {"address": 0, "name": "R_N_MD", "type": "WORD32", "description": "текущее характеристическое число"},
+            {"address": 10, "name": "arr_rest_a1_MD", "type": "WORD32", "description": "0-10% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 12, "name": "arr_rest_a2_MD", "type": "WORD32", "description": "11-20% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 14, "name": "arr_rest_a3_MD", "type": "WORD32", "description": "21-30% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 16, "name": "arr_rest_a4_MD", "type": "WORD32", "description": "31-40% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 18, "name": "arr_rest_a5_MD", "type": "WORD32", "description": "41-50% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 20, "name": "arr_rest_a6_MD", "type": "WORD32", "description": "51-60% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 22, "name": "arr_rest_a7_MD", "type": "WORD32", "description": "61-70% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 24, "name": "arr_rest_a8_MD", "type": "WORD32", "description": "71-80% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 26, "name": "arr_rest_a9_MD", "type": "WORD32", "description": "81-90% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 28, "name": "arr_rest_a10_MD", "type": "WORD32", "description": "91-100% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 30, "name": "arr_rest_a11_MD", "type": "WORD32", "description": ">101% Количество циклов подъема в зависимости от веса груза"},
+            {"address": 40, "name": "R_CycleHoist_MD", "type": "WORD32", "description": ">101% рабочие циклы подъема"},
+            {"address": 42, "name": "R_CycleSlew_MD", "type": "WORD32", "description": ">101% рабочие циклы поворота"},
+            {"address": 44, "name": "R_CycleTrolley_MD", "type": "WORD32", "description": ">101% рабочие циклы тележки"},
+            {"address": 46, "name": "R_CycleCrane_MD", "type": "WORD32", "description": ">101% рабочие циклы хода крана"},
+            {"address": 48, "name": "R_CycleHoleCrane_MD", "type": "WORD32", "description": ">101% рабочие циклы крана в целом"},
+
             {"address": 90, "name": "gv_wYear_MW", "type": "WORD16", "description": "Год"},
             {"address": 91, "name": "gv_wMonth_MW", "type": "WORD16", "description": "Месяц"},
             {"address": 94, "name": "gv_wDay_MW", "type": "WORD16", "description": "День"},
