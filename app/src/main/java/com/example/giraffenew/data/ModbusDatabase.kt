@@ -162,7 +162,7 @@ object DatabaseInitializer {
                 level = LogLevel.INFO,
                 category = LogCategory.CONFIG,
                 message = "Database initialized with default configuration",
-                details = """{"config_name": "${defaultConfig.name}", "registers_count": 11}"""
+                details = """{"config_name": "${defaultConfig.name}", "registers_count": 12}"""
             )
             logDao.insert(initLog)
         }

@@ -110,10 +110,14 @@ fun SampleAppNavGraph(
                         Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceBetween ) {
 //Область отображения типа крана
                             Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
-
-                                Box (boxTopBarText) {TopBarText("ModelCrane") }
-                                Box (boxTopBarText) {TopBarText("GV_PulleyBlock") }
-                                Box (boxTopBarText) {TopBarText("LoadCapacity") }
+                                /*
+                                Box (boxTopBarText) {TopBarText("currentModelCrane") }
+                                Box (boxTopBarText) {TopBarText("currentPulleyBlock") }
+                                Box (boxTopBarText) {TopBarText("currentLoadCapacity") }
+                                 */
+                                Box (boxTopBarText) {TopBarText(topBarViewModel.currentModelCrane.value) }
+                                Box (boxTopBarText) {TopBarText(topBarViewModel.currentPulleyBlock.value) }
+                                Box (boxTopBarText) {TopBarText(topBarViewModel.currentLoadCapacity.value) }
                             }
 
 //Область отображения кнопки меню навигации
@@ -215,7 +219,7 @@ fun SampleAppNavGraph(
 @Composable
 //Создадим функцию для свойств текста TopAppBar (Верхняя часть экрана - Информация о кране)
 fun TopBarText (text:String, modifier:Modifier=Modifier){
-    Text(text, modifier, fontSize = 16.sp, textAlign = TextAlign.Start, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
+    Text(text, modifier, fontSize = 18.sp, textAlign = TextAlign.Start, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
 
 @Composable
 //Создадим функцию для свойств текста TopAppBar (Верхняя часть экрана - Дата и время)

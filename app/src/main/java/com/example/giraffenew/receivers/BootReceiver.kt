@@ -5,12 +5,10 @@ import android.app.job.JobScheduler
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
-import android.content.Context.USER_SERVICE
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.os.UserManager
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.giraffenew.services.ModbusBackgroundService
@@ -23,6 +21,7 @@ import com.example.giraffenew.services.ModbusBackgroundService
  * - Автоматический запуск после перезагрузки системы
  * - Запуск после обновления приложения
  * - Graceful handling различных версий Android
+ * C:\Users\User\AppData\Local\Android\Sdk\platform-tools>
  */
 class BootReceiver : BroadcastReceiver() {
     companion object {
