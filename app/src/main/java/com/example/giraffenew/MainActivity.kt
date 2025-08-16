@@ -28,16 +28,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Тестовое включение регистра через 3 секунды
-        lifecycleScope.launch {
-            delay(10000)
-            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", true)
-
-            // Тестовое выключение через еще 5 секунд
-            delay(10000)
-            (registerDataSource as FakeRegisterStatusDataSource).updateStatus("AT%MW300", false)
-        }
-
         // Явный запуск сервиса
         val serviceIntent = Intent(this, ModbusBackgroundService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

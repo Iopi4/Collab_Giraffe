@@ -1,4 +1,4 @@
-package com.example.giraffenew.home.presentanion
+package com.example.giraffenew.home.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.giraffenew.R
 import com.example.giraffenew.home.ui.CraneMechanismsCondition
 import com.example.giraffenew.home.ui.CraneParameterScale
@@ -26,6 +28,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 @Composable
 internal fun HomeScreen (
     modifier: Modifier = Modifier,
+    homeViewModel: HomeScreenViewModel = hiltViewModel() // Получаем ViewModel для HomeScreen
 ){
     Box(
         modifier = Modifier
@@ -35,10 +38,10 @@ internal fun HomeScreen (
     ) {
         Image(
             bitmap = ImageBitmap.imageResource(id = R.drawable.background_home_portrait),
+
             contentDescription = "Фон главного экрана",
             modifier = Modifier.padding(5.dp)
         )
-
     }
 
 //Создаем область в котором вертикально разместим три области №1, №2, №3
@@ -64,18 +67,13 @@ internal fun HomeScreen (
             Box (modifier = Modifier
                 .weight(1f)) { Information() }
 
-
-
-
         }
-
 
 //№.2 - Средняя область для отображения параметров механизмов крана
         Column (modifier = Modifier
             .weight(1f)) {
 
             CraneMechanismsCondition()
-
         }
 
 //№.3 - Левая область для отображения параметров работы крана
@@ -83,11 +81,19 @@ internal fun HomeScreen (
             .fillMaxSize()
             .weight(1f),)
         {
-            СraneOperatingParameters()
+            СraneOperatingParameters(
+                weightQnom = homeViewModel.weightMax.value,
+                weightCurrent = homeViewModel.weightCurrent.value,
+                trolleyCurrent = homeViewModel.trolleyCurrent.value,
+                slewingCurrent = homeViewModel.slewingCurrent.value,
+                heightCurrent = homeViewModel.heightCurrent.value,
+                moveCurrent = homeViewModel.moveCurrent.value,
+                windCurrent = homeViewModel.windCurrent.value,
+                voltageL1L2Current = homeViewModel.voltageL1L2Current.value,
+                voltageL2L3Current = homeViewModel.voltageL2L3Current.value,
+                voltageL1L3Current = homeViewModel.voltageL1L3Current.value,
+            )
         }
-
-
-
     }
 }
 

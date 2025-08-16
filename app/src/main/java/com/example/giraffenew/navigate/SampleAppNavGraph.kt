@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -48,7 +49,7 @@ import com.example.giraffenew.ui.theme.Orange
 import com.example.giraffenew.ui.theme.white
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.example.giraffenew.home.presentanion.HomeScreen
+import com.example.giraffenew.home.presentation.HomeScreen
 import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.presentation.LoginScreen
 import com.example.giraffenew.modbus_tools.presentation.ModbusToolsScreen
@@ -69,7 +70,7 @@ fun SampleAppNavGraph(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
 ) {
-    val topBarViewModel: TopBarViewModel = viewModel()
+    val topBarViewModel: TopBarViewModel = hiltViewModel()
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.NAVIGATE_TO_HOME
     val navigationActions = remember (navController) {

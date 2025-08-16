@@ -12,6 +12,16 @@ import com.example.giraffenew.R
 
 @Composable
 fun СraneOperatingParameters(
+    weightCurrent: Float,
+    weightQnom: Float,
+    trolleyCurrent: Float,
+    slewingCurrent: Float,
+    heightCurrent: Float,
+    moveCurrent: Float,
+    windCurrent: Float,
+    voltageL1L2Current: Float,
+    voltageL2L3Current: Float,
+    voltageL1L3Current: Float,
     modifier: Modifier= Modifier,
 ){
     Column(modifier = Modifier
@@ -25,52 +35,60 @@ fun СraneOperatingParameters(
         Box(myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Weight),
-            valueFirst = "10 /",
-            valueSecond = "5.8"
+            valueFirst = "${formatDecimal(weightQnom)}/",
+            valueSecond = "${formatDecimal(weightCurrent)} "
         ) }
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Trolley),
-            valueFirst = "24.2",
+            valueFirst = formatDecimal(trolleyCurrent),
             valueSecond = ""
         ) }
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Slewing),
-            valueFirst = "133.2",
+            valueFirst = formatDecimal(slewingCurrent),
             valueSecond = ""
         ) }
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Height),
-            valueFirst = "45.2",
+            valueFirst = formatDecimal(heightCurrent),
             valueSecond = ""
         ) }
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_MOVE_CRANE),
-            valueFirst = "12.8",
+            valueFirst = formatDecimal(moveCurrent),
             valueSecond = ""
         ) }
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Wind),
-            valueFirst = "5.2",
+            valueFirst = formatDecimal(windCurrent),
             valueSecond = ""
         ) }
 
         Box (myBoxParametersModifier) { VoltageParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Voltage),
-            valueL1L2 = "380.00 V",
-            valueL2L3 = "380.00 V",
-            valueL1L3 = "380.00 V"
+            valueL1L2 = formatVoltage(voltageL1L2Current),
+            valueL2L3 = formatVoltage(voltageL2L3Current),
+            valueL1L3 = formatVoltage(voltageL1L3Current)
         ) }
     }
+}
 
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%05.1f", value).replace(',', '.')
+}
+
+private fun formatVoltage(value: Float): String {
+    return String.format("%05.1f V", value)
 }
