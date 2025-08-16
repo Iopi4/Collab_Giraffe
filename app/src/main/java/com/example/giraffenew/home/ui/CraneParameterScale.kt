@@ -1,12 +1,15 @@
 package com.example.giraffenew.home.ui
 
+import android.text.Highlights
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,13 +17,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizon
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
+import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import kotlin.Int
 
@@ -72,12 +80,17 @@ fun CraneParameterScale(
             modifier = Modifier.size(width = 200.dp, height = 10.dp)
         )}
 
-//Шкала высоты подъема
+//Шкала высоты подъема. Заголовок
         BasicParametersText(
             stringResource(R.string.Home_LIFT_HEIGHT),
             modifier = Modifier
             .padding(start = 170.dp, end = 50.dp, top = 137.dp))
-
+        //Значение максимальной высоты подъема
+        BasicParametersText(
+            formatDecimal(hoistMaxPosition),
+            modifier = Modifier
+                .padding(start = 135.dp, end = 50.dp, top = 147.dp))
+        //Шкала
         Box(
             modifier = Modifier
                 .padding(start = 260.dp, top = 80.dp,),
@@ -91,11 +104,16 @@ fun CraneParameterScale(
             )
         }
 
-//Шкала хода крана
+//Шкала хода крана. Заголовок
         BasicParametersText(
             stringResource(R.string.Home_MOVE_CRANE),
             modifier = Modifier
             .padding(start = 10.dp, top = 225.dp))
+        //Значение максимальной длины кранового пути
+        BasicParametersText(
+            formatDecimal(craneMaxPosition),
+            modifier = Modifier
+                .padding(start = 150.dp, end = 50.dp, top = 240.dp))
         Box(
             modifier = Modifier
                 .padding(start = 10.dp, top = 245.dp, end = 15.dp),
@@ -114,11 +132,7 @@ fun CraneParameterScale(
 
 private fun formatDecimal(value: Float): String {
     //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%05.1f", value).replace(',', '.')
-}
-
-private fun formatVoltage(value: Float): String {
-    return String.format("%05.1f V", value)
+    return String.format("%04.1f", value).replace(',', '.')
 }
 
 @Preview

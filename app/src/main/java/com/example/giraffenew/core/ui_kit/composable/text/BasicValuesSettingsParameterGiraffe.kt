@@ -37,7 +37,7 @@ fun BasicValuesSettingsParameterGiraffe (
             shape = RoundedCornerShape(5.dp)
         )
     Box (myBoxVisualValuesModifier) {
-        Text(modifier = Modifier
+        Text(modifier = modifier
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp, top = 5.dp,bottom = 5.dp),
             text = valueParameterId,
