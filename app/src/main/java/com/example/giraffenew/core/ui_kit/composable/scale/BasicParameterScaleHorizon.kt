@@ -31,15 +31,19 @@ fun BasicParameterScaleHorizon(
     lineThickness: Float = 12f,
     animationDuration: Int = 100
 ) {
+    // Определяем эффективное значение maxValue
+    val effectiveMaxValue = if (maxValue == 0f) 1f else maxValue
     val lineLength by animateFloatAsState(
-        targetValue = if (maxValue != minValue) {
-            ((currentValue+lineThickness/2) - (minValue+lineThickness/2)) / ((maxValue+lineThickness/2) - (minValue+lineThickness/2)).coerceAtLeast(0.000f)
+        targetValue = if (effectiveMaxValue > minValue) {
+            // Корректный расчет без смещения lineThickness
+            (currentValue - minValue) / (effectiveMaxValue - minValue)
         } else {
-            (lineThickness/2)
-        },
+            0f // Запасной вариант для невалидного диапазона
+        }.coerceIn(0f, 1f), // Гарантируем границы [0, 1]
         animationSpec = tween(durationMillis = animationDuration),
         label = "lineLengthAnimation"
     )
+
 
     Box( modifier = Modifier
         .border(
@@ -49,13 +53,13 @@ fun BasicParameterScaleHorizon(
             drawLine(
                 color = lineColor,
                 start = Offset((lineThickness/2), size.height / 2),
-                end = Offset((size.width * lineLength)-lineThickness/2, size.height/2),
+                end = Offset((size.width - lineThickness) * lineLength + lineThickness /2, size.height/2),
                 strokeWidth = lineThickness,
                 cap = StrokeCap.Square
             )
         }
     }
-    
+
 }
 
 @Preview
@@ -63,9 +67,9 @@ fun BasicParameterScaleHorizon(
 fun BasicParameterScaleHorizonPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
             BasicParameterScaleHorizon(
-                currentValue = 150f,
+                currentValue = 0f,
                 minValue = 0f,
-                maxValue = 200f,
+                maxValue = 0f,
                 modifier = Modifier
                     .size(width = 200.dp, height = 10.dp)
             )

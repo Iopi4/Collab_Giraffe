@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,15 +31,13 @@ class TopBarViewModel
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             modbusRepository.registerCache.collect { cache ->
                 updateTime(cache)
                 updateDate(cache)
                 updateModelCrane(cache)
                 updatePulleyBlock(cache)
                 updateLoadCapacity(cache)
-
-
             }
         }
     }
@@ -85,7 +84,6 @@ class TopBarViewModel
         val loadCapacity = cache[194]?.value ?: return //194
         _currentLoadCapacity.value = String.format("Груз.хар. [%02d]", loadCapacity)
     }
-
 }
 
 /**

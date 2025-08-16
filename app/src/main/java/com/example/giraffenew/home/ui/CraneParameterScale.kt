@@ -22,16 +22,19 @@ import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHo
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import kotlin.Int
 
 @Composable
 fun CraneParameterScale(
+    weightPercent:      Float,
+    hoistPosition:      Float,
+    hoistMaxPosition:   Float,
+    cranePosition:      Float,
+    craneMaxPosition:   Float,
+    weightSensorErr: Int,
     modifier: Modifier= Modifier,
 ){
-    val weightPercent:      Int = 120
-    val hoistPosition:      Int = 60
-    val hoistMaxPosition:   Int = 60
-    val cranePosition:      Int = 40
-    val craneMaxPosition:   Int = 40
+
 
 
     val myBoxMainModifier = Modifier
@@ -63,7 +66,7 @@ fun CraneParameterScale(
             contentAlignment = Alignment.TopStart
         ) {
             BasicParameterScaleHorizon(
-            currentValue = weightPercent.toFloat(),
+            currentValue = weightPercent,
             minValue = 0f,
             maxValue = 120f,
             modifier = Modifier.size(width = 200.dp, height = 10.dp)
@@ -81,9 +84,9 @@ fun CraneParameterScale(
             contentAlignment = Alignment.TopStart
         ) {
             BasicParameterScaleVertical(
-                currentValue = hoistPosition.toFloat(),
+                currentValue = hoistPosition,
                 minValue = 0f,
-                maxValue = hoistMaxPosition.toFloat(),
+                maxValue = hoistMaxPosition,
                 modifier = Modifier.size(width = 10.dp, height = 150.dp)
             )
         }
@@ -99,9 +102,9 @@ fun CraneParameterScale(
             contentAlignment = Alignment.TopStart
         ) {
             BasicParameterScaleHorizon(
-                currentValue = cranePosition.toFloat(),
+                currentValue = cranePosition,
                 minValue = 0f,
-                maxValue = craneMaxPosition.toFloat(),
+                maxValue = craneMaxPosition,
                 modifier = Modifier.size(width = 135.dp, height = 10.dp)
             )}
 
@@ -109,10 +112,26 @@ fun CraneParameterScale(
 
 }
 
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%05.1f", value).replace(',', '.')
+}
+
+private fun formatVoltage(value: Float): String {
+    return String.format("%05.1f V", value)
+}
+
 @Preview
 @Composable
 fun CraneParameterScalePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
-        CraneParameterScale()
+        CraneParameterScale(
+            weightPercent= 80f,
+            hoistPosition = 30f,
+            hoistMaxPosition= 60f,
+            cranePosition = 20f,
+            craneMaxPosition= 40f,
+            weightSensorErr = 0,
+            )
     }
 }

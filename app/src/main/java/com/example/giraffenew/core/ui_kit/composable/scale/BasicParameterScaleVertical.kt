@@ -30,27 +30,42 @@ fun BasicParameterScaleVertical(
     lineThickness: Float = 12f,
     animationDuration: Int = 100
 ) {
+    // Определяем эффективное значение maxValue
+    val effectiveMaxValue = if (maxValue == 0f) 1f else maxValue
+
     val lineLength by animateFloatAsState(
-        targetValue = if (maxValue != minValue) {
-            ((currentValue+lineThickness/2) - (minValue+lineThickness/2)) / ((maxValue+lineThickness/2) - (minValue+lineThickness/2)).coerceAtLeast(0.000f)
+        targetValue = if (effectiveMaxValue > minValue) {
+            // Корректный расчет без смещения lineThickness
+            (currentValue - minValue) / (effectiveMaxValue - minValue)
         } else {
-            (lineThickness/2)
-        },
+            0f // Запасной вариант для невалидного диапазона
+        }.coerceIn(0f, 1f), // Гарантируем границы [0, 1]
         animationSpec = tween(durationMillis = animationDuration),
         label = "lineLengthAnimation"
     )
+
+
 
     Box( modifier = Modifier
         .border(
             width = 1.dp, color = Silver, //рамка
             shape = RoundedCornerShape(1.dp))) {
         Canvas(modifier = modifier) { // Убираем ненужное приведение типов
+            // Рассчитываем доступную высоту с учетом толщины линии
+            val availableHeight = size.height - lineThickness
+
+            // Вычисляем конечную позицию Y с учетом толщины
+            val endY = if (availableHeight > 0) {
+                size.height - lineThickness / 2 - availableHeight * lineLength
+            } else {
+                size.height - lineThickness / 2
+            }
+
             //Отрисовываем шкалу по направлению снизу вверх по вертикали
             drawLine(
                 color = lineColor,
                 start = Offset((size.width/2), size.height-lineThickness/2),
-                //end = Offset((size.width * lineLength)+lineThickness/2, size.height / 2),
-                end = Offset(size.width/2,(size.height-(size.height*lineLength))+lineThickness/2),
+                end = Offset(size.width / 2, endY),
                 strokeWidth = lineThickness,
                 cap = StrokeCap.Square
             )
@@ -64,9 +79,9 @@ fun BasicParameterScaleVertical(
 fun BasicParameterScaleVerticalPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
         BasicParameterScaleVertical(
-                currentValue = 150f,
+                currentValue = 0f,
                 minValue = 0f,
-                maxValue = 200f,
+                maxValue = 0f,
                 modifier = Modifier
                     .size(width = 10.dp, height = 200.dp)
             )

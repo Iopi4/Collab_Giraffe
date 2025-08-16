@@ -59,7 +59,14 @@ internal fun HomeScreen (
         ) {
 
             Box (modifier = Modifier
-                .weight(3f)) { CraneParameterScale() }
+                .weight(3f)) { CraneParameterScale(
+                weightPercent = homeViewModel.weightPercent.value,
+                hoistPosition = homeViewModel.hoistPosition.value,
+                hoistMaxPosition = homeViewModel.hoistMaxPosition.value,
+                cranePosition = homeViewModel.cranePosition.value,
+                craneMaxPosition = homeViewModel.craneMaxPosition.value,
+                weightSensorErr = homeViewModel.weightSensorErr.value
+            ) }
 
             Box (modifier = Modifier
                 .weight(3f)) { CraneSOZR() }
