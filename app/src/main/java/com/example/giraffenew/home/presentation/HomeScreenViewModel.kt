@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -120,11 +121,16 @@ class HomeScreenViewModel @Inject constructor(
     private val _hoistDown = mutableStateOf(0)
     val hoistDown: State<Int> = _hoistDown
 
+    private var dataCollectionJob: Job? = null
 
     init {
-        viewModelScope.launch(Dispatchers.IO){
+        startDataCollection()
+    }
+
+    private fun startDataCollection() {
+        dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
             modbusRepository.registerCache.collect {
-                cache ->
+                    cache ->
                 try {
                     // Crane Operating Parameters UI
                     _weightQnom.value = safeDivideThousands(cache[152]?.value?:0)
