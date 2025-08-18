@@ -33,12 +33,12 @@ fun ParametersDateAndTime(
     setValueDay: String, //AT%MW845 (* Days 1 to 31 *)
     setValueMonth: String, //AT%MW844 (* Mounths 1 to 12 *)
     setValueYear: String, //AT%MW843 (* min 2006 *)
-
     onHourChange: (String) -> Unit,
     onMinuteChange: (String) -> Unit,
     onDayChange: (String) -> Unit,
     onMonthChange: (String) -> Unit,
     onYearChange: (String) -> Unit,
+
     onSetDateTime: () -> Unit,
     errorMessage: String?,
     ) {
@@ -68,6 +68,18 @@ fun ParametersDateAndTime(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_Date)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Time)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Date)
+
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) {
+                errorMessage?.let {
+                    Text(
+                        text = it,
+                        color = Color.Red,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
         }
 
 //№.2 - Правая область для отображения и ввода параметров. (1- Дата и время)
@@ -86,9 +98,9 @@ fun ParametersDateAndTime(
 //Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 // Отображение текущего времени и даты
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp))
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentTime) }
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp))
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentDate) }
 
 // Ввод времени. Создадим два поля
@@ -98,27 +110,20 @@ fun ParametersDateAndTime(
                 onHourChange = onHourChange,
                 onMinuteChange = onMinuteChange,)
             // Ввод даты
-            FieldDate(
+
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp))
+            {FieldDate(
                 isValueDay = setValueDay,
                 isValueMonth = setValueMonth,
                 isValueYear = setValueYear,
                 onDayChange = onDayChange,
                 onMonthChange = onMonthChange,
-                onYearChange = onYearChange,)
+                onYearChange = onYearChange,)}
 
             BasicButtonGiraffe(
                 text = R.string.Button_Enter,
                 onClick = onSetDateTime,
             ) {}
-
-            errorMessage?.let {
-                Text(
-                    text = it,
-                    color = Color.Red,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-            }
-
         }
     }
 }
@@ -129,20 +134,20 @@ fun ParametersDateAndTime(
 fun ParametersDataAndTimeTextPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ParametersDateAndTime(
-            currentTime = TODO(),
-            currentDate = TODO(),
-            setValueHour = TODO(),
-            setValueMinute = TODO(),
-            setValueDay = TODO(),
-            setValueMonth = TODO(),
-            setValueYear = TODO(),
-            onHourChange = TODO(),
-            onMinuteChange = TODO(),
-            onDayChange = TODO(),
-            onMonthChange = TODO(),
-            onYearChange = TODO(),
-            onSetDateTime = TODO(),
-            errorMessage = TODO()
+            currentTime = "123456",
+            currentDate = "123456",
+            setValueHour = "12",
+            setValueMinute = "12",
+            setValueDay = "31",
+            setValueMonth = "12",
+            setValueYear = "2000",
+            onHourChange = {},
+            onMinuteChange= {},
+            onDayChange= {},
+            onMonthChange= {},
+            onYearChange= {},
+            onSetDateTime = { },
+            errorMessage = null
         )
     }
 }

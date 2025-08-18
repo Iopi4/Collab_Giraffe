@@ -23,32 +23,25 @@ fun FieldTime(
 
         //Поле ввода ЧАСЫ
         Box(modifier = Modifier
-            .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+            .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
             .weight(1f)) {
             BasicTextFilledGiraffe(
                 placeholder = "Час",
                 value = isValueHour,
-                onValueChange = {
-                    if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..23 } == true) {
-                        onHourChange(it)
-                    }
-                }, modifier = Modifier,
+                onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..23 } == true) { onHourChange(it) } },
+                modifier = Modifier,
             )
         }
 
         //Поле ввода МИНУТЫ
         Box (modifier = Modifier
-            .padding(start = 5.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
+            .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
             .weight(1f)
         ) {
             BasicTextFilledGiraffe(
                 placeholder = "Mин",
                 value = isValueMinute,
-                onValueChange = {
-                    if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..59 } == true) {
-                        onMinuteChange(it)
-                    }
-                },
+                onValueChange = {if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..59 } == true) { onMinuteChange(it) } },
                 modifier = Modifier,
             )
 
@@ -62,10 +55,10 @@ fun FieldTime(
 fun FieldTimePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         FieldTime(
-            isValueHour = TODO(),
-            isValueMinute = TODO(),
-            onHourChange = TODO(),
-            onMinuteChange = TODO()
+            isValueHour = "TODO()",
+            isValueMinute = "TODO()",
+            onHourChange = {},
+            onMinuteChange = { },
         )
     }
 }

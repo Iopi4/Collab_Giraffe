@@ -31,7 +31,7 @@ class TopBarViewModel
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             modbusRepository.registerCache.collect { cache ->
                 updateTime(cache)
                 updateDate(cache)

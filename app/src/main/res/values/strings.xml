@@ -6,6 +6,7 @@
     <string name="spacer"> </string>
 
     <!-- Универсальный текст -->
+    <string name="Button_ON">Ок</string>
     <string name="Button_Enter">ВВОД</string>
     <string name="Button_Turn_On">ВКЛ</string>
     <string name="Button_Turn_Off">ВЫКЛ</string>

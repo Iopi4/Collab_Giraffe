@@ -199,8 +199,8 @@ fun CraneMechanismsCondition(
 //Датчиик ветра. Состояние
         Box(myBoxMechanismModifier){
             Box(modifier = Modifier
-                .padding(top = 10.dp, start = 10.dp)
-                .size(height = 90.dp, width = 80.dp))
+                .padding(top = 13.dp, start = 17.dp)
+                .size(height = 24.dp, width = 65.dp))
             {BasicLampError(isLampStatus = anemometerSensorErr,) }
 
             Image (

@@ -20,30 +20,27 @@ fun FieldDate(
     onMonthChange: (String) -> Unit,
     onYearChange: (String) -> Unit,
 ) {
-// Ввод времени. Создадим два поля
-    Row  {
-
-// Ввод даты
+// Ввод даты. Создадим три поля
         Row (horizontalArrangement = Arrangement.SpaceBetween) {
             //День
             Box (modifier = Modifier
-                .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                .weight(1f)
+                .padding(start = 0.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                .weight(3f)
             ) {
                 BasicTextFilledGiraffe(
-                    placeholder = "ДД",
+                    modifier = Modifier,
+                    placeholder = "дд",
                     value = isValueDay,
                     onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..31 }== true) {onDayChange(it)} },
-                   
                 )
             }
             //Месяц
             Box (modifier = Modifier
                 .padding(start = 5.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                .weight(1f)
+                .weight(3f)
             ) {
                 BasicTextFilledGiraffe(
-                    placeholder = "ММ",
+                    placeholder = "мм",
                     value = isValueMonth,
                     onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..12 }== true) {onMonthChange(it)} },
                     modifier = Modifier,
@@ -51,19 +48,17 @@ fun FieldDate(
             }
             //Год
             Box (modifier = Modifier
-                .padding(start = 5.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                .weight(2f)) {
+                .padding(start = 5.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                .weight(5f)) {
                 BasicTextFilledGiraffe(
-                    placeholder = "ГГГГ",
+                    placeholder = "гггг",
                     value = isValueYear,
-                    onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 2006..2099 }== true) {onYearChange(it)} },
+                    onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..2099 }== true) {onYearChange(it)} },
                     modifier = Modifier,
                 )
             }
 
         }
-    }
-
 }
 
 @Preview
@@ -71,12 +66,12 @@ fun FieldDate(
 fun FieldDatePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         FieldDate(
-            isValueDay = TODO(),
-            isValueMonth = TODO(),
-            isValueYear = TODO(),
-            onDayChange = TODO(),
-            onMonthChange = TODO(),
-            onYearChange = TODO()
+            isValueDay = "TODO()",
+            isValueMonth = "TODO()",
+            isValueYear = "TODO()",
+            onDayChange = { },
+            onMonthChange = { },
+            onYearChange = { },
         )
     }
 }

@@ -25,7 +25,7 @@ fun InitialSetupScreen(
             .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Box(modifier = Modifier.weight(1f)){
+        Box(modifier = Modifier.weight(2f)){
             ParametersDateAndTime(
                 currentTime = initialSetupViewModel.currentTime.value,
                 currentDate = initialSetupViewModel.currentDate.value,
@@ -40,11 +40,50 @@ fun InitialSetupScreen(
                 onMonthChange = { initialSetupViewModel.updateMonth(it) },
                 onYearChange = { initialSetupViewModel.updateYear(it) },
                 onSetDateTime = { initialSetupViewModel.onSetDateTime() },
-                errorMessage = initialSetupViewModel.errorMessage.value
+                errorMessage = initialSetupViewModel.errorMessage.value,
             )
         }
-//        Box(modifier = Modifier.weight(1f)){
-//            ParametersCraneAndSBKB() }
+        Box(modifier = Modifier.weight(3f)){
+            ParametersCraneAndSBKB(
+                setValueModelCrane = initialSetupViewModel.setValueModelCrane.value,
+                onModelChangeCrane = { initialSetupViewModel.updateValueModelCrane(it) },
+                onSetModelCrane = { initialSetupViewModel.onSetModelCrane() },
+
+                setValueNumberCrane = initialSetupViewModel.setValueNumberCrane.value,
+                onNumberChangeCrane =  { initialSetupViewModel.updateValueNumberCrane(it) },
+                onSetNumberCrane = { initialSetupViewModel.onSetNumberCrane() },
+
+                setValueNumberSBKB = initialSetupViewModel.setValueNumberSBKB.value,
+                onNumberChangeSBKB =  { initialSetupViewModel.updateValueNumberSBKB(it) },
+                onSetNumberSBKB = { initialSetupViewModel.onSetNumberSBKB() },
+
+                setValueDayCrane = initialSetupViewModel.setValueDayCrane.value,
+                setValueMonthCrane = initialSetupViewModel.setValueMonthCrane.value,
+                setValueYearCrane = initialSetupViewModel.setValueYearCrane.value,
+                onSetDateCrane = { initialSetupViewModel.onSetDateCrane() },
+                onDayChangeCrane= { initialSetupViewModel.updateDayCrane(it) },
+                onMonthChangeCrane = { initialSetupViewModel.updateMonthCrane(it) },
+                onYearChangeCrane = { initialSetupViewModel.updateYearCrane(it) },
+                errorMessageCrane = initialSetupViewModel.errorMessageCrane.value,
+
+                setValueDayRTN = initialSetupViewModel.setValueDayRTN.value,
+                setValueMonthRTN = initialSetupViewModel.setValueMonthRTN.value,
+                setValueYearRTN = initialSetupViewModel.setValueYearRTN.value,
+                onSetDateRTN = { initialSetupViewModel.onSetDateRTN() },
+                onDayChangeRTN = { initialSetupViewModel.updateDayRTN(it) },
+                onMonthChangeRTN = { initialSetupViewModel.updateMonthRTN(it) },
+                onYearChangeRTN = { initialSetupViewModel.updateYearRTN(it) },
+                errorMessageRTN = initialSetupViewModel.errorMessageRTN.value,
+
+                setValueDaySBKB = initialSetupViewModel.setValueDaySBKB.value,
+                setValueMonthSBKB = initialSetupViewModel.setValueMonthSBKB.value,
+                setValueYearSBKB = initialSetupViewModel.setValueYearSBKB.value,
+                onSetDateSBKB = { initialSetupViewModel.onSetDateSBKB() },
+                onDayChangeSBKB = { initialSetupViewModel.updateDaySBKB(it) },
+                onMonthChangeSBKB = { initialSetupViewModel.updateMonthSBKB(it) },
+                onYearChangeSBKB = { initialSetupViewModel.updateYearSBKB(it) },
+                errorMessageSBKB = initialSetupViewModel.errorMessageSBKB.value,
+            ) }
     }
 }
 
