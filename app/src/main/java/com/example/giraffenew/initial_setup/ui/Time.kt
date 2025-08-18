@@ -13,9 +13,10 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun FieldTime(
-    modifier: Modifier = Modifier,
     isValueHour: String,
     isValueMinute: String,
+    onHourChange: (String) -> Unit,
+    onMinuteChange: (String) -> Unit
 ) {
 // Ввод времени. Создадим два поля
     Row (horizontalArrangement = Arrangement.SpaceBetween) {
@@ -27,8 +28,11 @@ fun FieldTime(
             BasicTextFilledGiraffe(
                 placeholder = "Час",
                 value = isValueHour,
-                onValueChange = { ""},
-                modifier = Modifier,
+                onValueChange = {
+                    if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..23 } == true) {
+                        onHourChange(it)
+                    }
+                }, modifier = Modifier,
             )
         }
 
@@ -40,7 +44,11 @@ fun FieldTime(
             BasicTextFilledGiraffe(
                 placeholder = "Mин",
                 value = isValueMinute,
-                onValueChange = { ""},
+                onValueChange = {
+                    if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..59 } == true) {
+                        onMinuteChange(it)
+                    }
+                },
                 modifier = Modifier,
             )
 
@@ -54,8 +62,10 @@ fun FieldTime(
 fun FieldTimePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         FieldTime(
-            isValueHour = "",
-            isValueMinute = "",
+            isValueHour = TODO(),
+            isValueMinute = TODO(),
+            onHourChange = TODO(),
+            onMinuteChange = TODO()
         )
     }
 }

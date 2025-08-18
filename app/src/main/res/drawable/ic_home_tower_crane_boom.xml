@@ -8,31 +8,31 @@
   <path
       android:pathData="M250,50 L250,620 L300,620 L300,50z"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
   <path
       android:pathData="M230,380 L320,380 L320,470 L230,470z"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
   <path
       android:pathData="M20,200 L180,200"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
   <path
       android:pathData="M80,160 L 20,200 L 80,240"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
   <path
       android:pathData="M370,200 L530,200"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
   <path
       android:pathData="M470,160 L 530,200 L 470,240"
       android:strokeWidth="20"
-      android:strokeColor="#fe5000" />
+      android:strokeColor="#FFFFFF" />
 
 </vector>

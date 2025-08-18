@@ -25,7 +25,7 @@ fun ParameterMeaning(
     valueSecond: String,
 ){
 
-    Column(modifier = Modifier
+    Column(modifier = modifier
         .fillMaxSize()
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))

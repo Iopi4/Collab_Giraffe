@@ -16,7 +16,6 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.giraffenew.R
 import com.example.giraffenew.home.ui.CraneMechanismsCondition
 import com.example.giraffenew.home.ui.CraneParameterScale
@@ -65,7 +64,6 @@ internal fun HomeScreen (
                 hoistMaxPosition = homeViewModel.hoistMaxPosition.value,
                 cranePosition = homeViewModel.cranePosition.value,
                 craneMaxPosition = homeViewModel.craneMaxPosition.value,
-                weightSensorErr = homeViewModel.weightSensorErr.value
             ) }
 
             Box (modifier = Modifier
@@ -80,7 +78,27 @@ internal fun HomeScreen (
         Column (modifier = Modifier
             .weight(1f)) {
 
-            CraneMechanismsCondition()
+            CraneMechanismsCondition(
+                weightSensorErr = homeViewModel.weightSensorErr.value,
+                anemometerSensorErr= homeViewModel.anemometerSensorErr.value,
+                trolleyFwdStatus = homeViewModel.trolleyFwdStatus.value,
+                trolleyRevStatus = homeViewModel.trolleyRevStatus.value,
+                hoistUpStatus = homeViewModel.hoistUpStatus.value,
+                hoistDownStatus = homeViewModel.hoistDownStatus.value,
+                slewRightStatus = homeViewModel.slewRightStatus.value,
+                slewLeftStatus = homeViewModel.slewLeftStatus.value,
+                cranRightStatus = homeViewModel.cranRightStatus.value,
+                craneLeftStatus = homeViewModel.craneLeftStatus.value,
+                craneRight = homeViewModel.craneRight.value,
+                craneLeft = homeViewModel.craneLeft.value,
+                slewLeft = homeViewModel.slewLeft.value,
+                slewRight = homeViewModel.slewRight.value,
+                trolleyFwd = homeViewModel.trolleyFwd.value,
+                trolleyRev = homeViewModel.trolleyRev.value,
+                hoistUp = homeViewModel.hoistUp.value,
+                hoistDown = homeViewModel.hoistDown.value,
+                alarmLampStatus = homeViewModel.alarmLampStatus.value,
+            )
         }
 
 //№.3 - Левая область для отображения параметров работы крана

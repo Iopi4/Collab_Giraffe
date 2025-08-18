@@ -21,7 +21,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Grew_50_percent
 
 @Composable
-fun BasicLampWarning(
+fun BasicLampWaring(
     isLampStatus: Int,
 ){
     Box(modifier = Modifier
@@ -53,7 +53,7 @@ fun BasicLampWarning(
 @Composable
 fun BasicLampWarningPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
-        BasicLampWarning(
+        BasicLampWaring(
             isLampStatus = 0,
         )
     }

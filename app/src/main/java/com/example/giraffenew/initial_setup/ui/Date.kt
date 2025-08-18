@@ -13,13 +13,15 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun FieldDate(
-    modifier: Modifier = Modifier,
     isValueDay: String,
     isValueMonth: String,
     isValueYear: String,
+    onDayChange: (String) -> Unit,
+    onMonthChange: (String) -> Unit,
+    onYearChange: (String) -> Unit,
 ) {
 // Ввод времени. Создадим два поля
-    Row (horizontalArrangement = Arrangement.SpaceBetween) {
+    Row  {
 
 // Ввод даты
         Row (horizontalArrangement = Arrangement.SpaceBetween) {
@@ -31,8 +33,8 @@ fun FieldDate(
                 BasicTextFilledGiraffe(
                     placeholder = "ДД",
                     value = isValueDay,
-                    onValueChange = { ""},
-                    modifier = Modifier,
+                    onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..31 }== true) {onDayChange(it)} },
+                   
                 )
             }
             //Месяц
@@ -43,7 +45,7 @@ fun FieldDate(
                 BasicTextFilledGiraffe(
                     placeholder = "ММ",
                     value = isValueMonth,
-                    onValueChange = { ""},
+                    onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..12 }== true) {onMonthChange(it)} },
                     modifier = Modifier,
                 )
             }
@@ -54,7 +56,7 @@ fun FieldDate(
                 BasicTextFilledGiraffe(
                     placeholder = "ГГГГ",
                     value = isValueYear,
-                    onValueChange = { ""},
+                    onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 2006..2099 }== true) {onYearChange(it)} },
                     modifier = Modifier,
                 )
             }
@@ -69,9 +71,12 @@ fun FieldDate(
 fun FieldDatePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         FieldDate(
-            isValueDay = "",
-            isValueMonth = "",
-            isValueYear = "",
+            isValueDay = TODO(),
+            isValueMonth = TODO(),
+            isValueYear = TODO(),
+            onDayChange = TODO(),
+            onMonthChange = TODO(),
+            onYearChange = TODO()
         )
     }
 }

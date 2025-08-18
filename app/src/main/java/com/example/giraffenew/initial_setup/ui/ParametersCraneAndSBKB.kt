@@ -103,13 +103,17 @@ fun ParametersCraneAndSBKB(
                 isValueDay = "",
                 isValueMonth = "",
                 isValueYear = "",
-            )
+                onDayChange = TODO(),
+                onMonthChange = TODO(),
+                onYearChange = TODO(),)
 //Ввод. Дата ввода крана в эксплуатацию
             FieldDate(
                 isValueDay = "",
                 isValueMonth = "",
                 isValueYear = "",
-            )
+                onDayChange = TODO(),
+                onMonthChange = TODO(),
+                onYearChange = TODO(),)
 //Ввод. Заводской номер СБКБ
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
@@ -125,6 +129,9 @@ fun ParametersCraneAndSBKB(
                 isValueDay = "",
                 isValueMonth = "",
                 isValueYear = "",
+                onDayChange = TODO(),
+                onMonthChange = TODO(),
+                onYearChange = TODO(),
             )
 
         }

@@ -21,7 +21,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
-import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampWarning
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampWaring
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -93,7 +93,7 @@ fun TechnicalMaintenance(){
             Spacer(modifier = Modifier.size(20.dp))
 // Отображение Разрешение работы на скоростях 3 и 4.
             Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampWarning(
+                BasicLampWaring(
                     isLampStatus = 0
                 )
             }
@@ -101,7 +101,7 @@ fun TechnicalMaintenance(){
 
 // Отображение Плановое ТО не проводилось
             Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampWarning(
+                BasicLampWaring(
                     isLampStatus = 0
                 )
             }

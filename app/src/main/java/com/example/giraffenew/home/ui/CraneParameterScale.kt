@@ -39,7 +39,6 @@ fun CraneParameterScale(
     hoistMaxPosition:   Float,
     cranePosition:      Float,
     craneMaxPosition:   Float,
-    weightSensorErr: Int,
     modifier: Modifier= Modifier,
 ){
 
@@ -145,7 +144,6 @@ fun CraneParameterScalePreview (){
             hoistMaxPosition= 60f,
             cranePosition = 20f,
             craneMaxPosition= 40f,
-            weightSensorErr = 0,
             )
     }
 }
