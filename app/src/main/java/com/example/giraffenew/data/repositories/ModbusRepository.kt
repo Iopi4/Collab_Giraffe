@@ -9,6 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -386,10 +389,12 @@ class ModbusRepository @Inject constructor(
     /**
      * Записать значение в регистр
      */
+
+    private val writeMutex = Mutex() // Для синхронизации записи
     suspend fun writeRegister(address: Int, value: Int): Result<Unit> {
         return try {
             val result = modbusClient.writeRegister(address, value)
-            
+
             when (result) {
                 is ModbusClient.RegisterReadResult.Success -> {
                     logInfo("Register write successful", """{"address": $address, "value": $value}""")
@@ -400,7 +405,7 @@ class ModbusRepository @Inject constructor(
                     Result.failure(Exception(result.error))
                 }
             }
-            
+
         } catch (e: Exception) {
             Log.e(TAG, "Failed to write register $address", e)
             logError("Register write failed", e.message ?: "Unknown error", address)

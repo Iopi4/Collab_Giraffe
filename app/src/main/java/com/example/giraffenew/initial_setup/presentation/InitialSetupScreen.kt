@@ -1,13 +1,18 @@
 package com.example.giraffenew.initial_setup.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.initial_setup.ui.ParametersCraneAndSBKB
 import com.example.giraffenew.initial_setup.ui.ParametersDateAndTime
@@ -18,6 +23,34 @@ fun InitialSetupScreen(
     initialSetupViewModel: InitialSetupViewModel = hiltViewModel() // Получаем ViewModel для InitialSetupScreen
     ) {
     BasicSettingBackground()
+    // 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, initialSetupViewModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
+                    initialSetupViewModel.startDataCollection()
+                }
+                Lifecycle.Event.ON_STOP -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
+                    initialSetupViewModel.pauseDataCollection()
+                }
+                else -> {}
+            }
+        }
+
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("InitialSetupScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
 
 //Создаем поле в котором разделим экраны на горизонтальные области для отображения наших UI
     Column(

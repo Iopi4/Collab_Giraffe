@@ -1,5 +1,6 @@
 package com.example.giraffenew.home.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.colorResource
@@ -16,6 +18,9 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.giraffenew.R
 import com.example.giraffenew.home.ui.CraneMechanismsCondition
 import com.example.giraffenew.home.ui.CraneParameterScale
@@ -29,6 +34,34 @@ internal fun HomeScreen (
     modifier: Modifier = Modifier,
     homeViewModel: HomeScreenViewModel = hiltViewModel() // Получаем ViewModel для HomeScreen
 ){
+    // 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, homeViewModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
+                    homeViewModel.startDataCollection()
+                }
+                Lifecycle.Event.ON_STOP -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
+                    homeViewModel.pauseDataCollection()
+                }
+                else -> {}
+            }
+        }
+
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("HomeScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
     Box(
         modifier = Modifier
             .padding()
@@ -59,11 +92,11 @@ internal fun HomeScreen (
 
             Box (modifier = Modifier
                 .weight(3f)) { CraneParameterScale(
-                weightPercent = homeViewModel.weightPercent.value,
-                hoistPosition = homeViewModel.hoistPosition.value,
-                hoistMaxPosition = homeViewModel.hoistMaxPosition.value,
-                cranePosition = homeViewModel.cranePosition.value,
-                craneMaxPosition = homeViewModel.craneMaxPosition.value,
+                weightPercent = homeViewModel.state.value.weightPercent,
+                hoistPosition = homeViewModel.state.value.hoistPosition,
+                hoistMaxPosition = homeViewModel.state.value.hoistMaxPosition,
+                cranePosition = homeViewModel.state.value.cranePosition,
+                craneMaxPosition = homeViewModel.state.value.craneMaxPosition,
             ) }
 
             Box (modifier = Modifier
@@ -79,25 +112,25 @@ internal fun HomeScreen (
             .weight(1f)) {
 
             CraneMechanismsCondition(
-                weightSensorErr = homeViewModel.weightSensorErr.value,
-                anemometerSensorErr= homeViewModel.anemometerSensorErr.value,
-                trolleyFwdStatus = homeViewModel.trolleyFwdStatus.value,
-                trolleyRevStatus = homeViewModel.trolleyRevStatus.value,
-                hoistUpStatus = homeViewModel.hoistUpStatus.value,
-                hoistDownStatus = homeViewModel.hoistDownStatus.value,
-                slewRightStatus = homeViewModel.slewRightStatus.value,
-                slewLeftStatus = homeViewModel.slewLeftStatus.value,
-                cranRightStatus = homeViewModel.cranRightStatus.value,
-                craneLeftStatus = homeViewModel.craneLeftStatus.value,
-                craneRight = homeViewModel.craneRight.value,
-                craneLeft = homeViewModel.craneLeft.value,
-                slewLeft = homeViewModel.slewLeft.value,
-                slewRight = homeViewModel.slewRight.value,
-                trolleyFwd = homeViewModel.trolleyFwd.value,
-                trolleyRev = homeViewModel.trolleyRev.value,
-                hoistUp = homeViewModel.hoistUp.value,
-                hoistDown = homeViewModel.hoistDown.value,
-                alarmLampStatus = homeViewModel.alarmLampStatus.value,
+                weightSensorErr = homeViewModel.state.value.weightSensorErr,
+                anemometerSensorErr= homeViewModel.state.value.anemometerSensorErr,
+                trolleyFwdStatus = homeViewModel.state.value.trolleyFwdStatus,
+                trolleyRevStatus = homeViewModel.state.value.trolleyRevStatus,
+                hoistUpStatus = homeViewModel.state.value.hoistUpStatus,
+                hoistDownStatus = homeViewModel.state.value.hoistDownStatus,
+                slewRightStatus = homeViewModel.state.value.slewRightStatus,
+                slewLeftStatus = homeViewModel.state.value.slewLeftStatus,
+                cranRightStatus = homeViewModel.state.value.cranRightStatus,
+                craneLeftStatus = homeViewModel.state.value.craneLeftStatus,
+                craneRight = homeViewModel.state.value.craneRight,
+                craneLeft = homeViewModel.state.value.craneLeft,
+                slewLeft = homeViewModel.state.value.slewLeft,
+                slewRight = homeViewModel.state.value.slewRight,
+                trolleyFwd = homeViewModel.state.value.trolleyFwd,
+                trolleyRev = homeViewModel.state.value.trolleyRev,
+                hoistUp = homeViewModel.state.value.hoistUp,
+                hoistDown = homeViewModel.state.value.hoistDown,
+                alarmLampStatus = homeViewModel.state.value.alarmLampStatus,
             )
         }
 
@@ -107,16 +140,16 @@ internal fun HomeScreen (
             .weight(1f),)
         {
             СraneOperatingParameters(
-                weightQnom = homeViewModel.weightMax.value,
-                weightCurrent = homeViewModel.weightCurrent.value,
-                trolleyCurrent = homeViewModel.trolleyCurrent.value,
-                slewingCurrent = homeViewModel.slewingCurrent.value,
-                heightCurrent = homeViewModel.heightCurrent.value,
-                moveCurrent = homeViewModel.moveCurrent.value,
-                windCurrent = homeViewModel.windCurrent.value,
-                voltageL1L2Current = homeViewModel.voltageL1L2Current.value,
-                voltageL2L3Current = homeViewModel.voltageL2L3Current.value,
-                voltageL1L3Current = homeViewModel.voltageL1L3Current.value,
+                weightQnom = homeViewModel.state.value.weightQnom,
+                weightCurrent = homeViewModel.state.value.weightCurrent,
+                trolleyCurrent = homeViewModel.state.value.trolleyCurrent,
+                slewingCurrent = homeViewModel.state.value.slewingCurrent,
+                heightCurrent = homeViewModel.state.value.heightCurrent,
+                moveCurrent = homeViewModel.state.value.moveCurrent,
+                windCurrent = homeViewModel.state.value.windCurrent,
+                voltageL1L2Current = homeViewModel.state.value.voltageL1L2Current,
+                voltageL2L3Current = homeViewModel.state.value.voltageL2L3Current,
+                voltageL1L3Current = homeViewModel.state.value.voltageL1L3Current,
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.example.giraffenew.initial_setup.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -101,18 +103,31 @@ class InitialSetupViewModel
         startDataCollection()
     }
 
-    private fun startDataCollection() {
+    fun startDataCollection() {
+        if (dataCollectionJob?.isActive == true) return
+
+        Log.d("InitialSetupVM", "Starting data collection")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
             modbusRepository.registerCache.collect { cache ->
+                Log.d("InitialSetupViewModel", "Updating from cache, size: ${cache.size}")
                 updateTime(cache)
                 updateDate(cache)
             }
         }
     }
 
+    // Приостановка сбора данных
+    fun pauseDataCollection() {
+        Log.d("InitialSetupVM", "Pausing data collection")
+        dataCollectionJob?.cancel()
+        dataCollectionJob = null
+    }
+
+    // Очистка при уничтожении ViewModel
     override fun onCleared() {
         super.onCleared()
-        dataCollectionJob?.cancel() // Явная отмена корутины
+        Log.d("InitialSetupVM", "ViewModel cleared")
+        dataCollectionJob?.cancel()
     }
 
     private fun resetFields() {
@@ -127,6 +142,7 @@ class InitialSetupViewModel
     fun onSetDateTime() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                if (!isActive) return@launch // Проверка активности ViewModel
                 // Валидация и преобразование значений
                 val hour = validateAndConvert(_setValueHour.value, 0, 23)
                 val minute = validateAndConvert(_setValueMinute.value, 0, 59)
@@ -134,6 +150,7 @@ class InitialSetupViewModel
                 val month = validateAndConvert(_setValueMonth.value, 1, 12)
                 val year = validateAndConvert(_setValueYear.value, 2006, 2099)
                 // Запись в регистры
+                Log.d("InitialSetupViewModel", "Writing registers...")
                 modbusRepository.writeRegister(846, hour)
                 modbusRepository.writeRegister(847, minute)
                 modbusRepository.writeRegister(845, day)
@@ -145,7 +162,10 @@ class InitialSetupViewModel
                 delay(1000)
                 modbusRepository.writeRegister(842, 0)
                 _errorMessage.value = null
+                // Логирование
+                Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
+                Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
                 _errorMessage.value = "Запись не удалась: ${e.message}"
             }
         }
@@ -154,6 +174,7 @@ class InitialSetupViewModel
     fun onSetDateCrane() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                if (!isActive) return@launch // Проверка активности ViewModel
                 // Валидация и преобразование значений
                 val day = validateAndConvert(_setValueDayCrane.value, 1, 31)
                 val month = validateAndConvert(_setValueMonthCrane.value, 1, 12)
@@ -262,8 +283,6 @@ class InitialSetupViewModel
         if (intValue !in min..max) throw IllegalArgumentException("Значение вне диапазона")
         return intValue
     }
-
-
 
     private fun updateTime(cache: Map<Int, ModbusRepository.RegisterValue>){
         val hour = cache[95]?.value ?: return

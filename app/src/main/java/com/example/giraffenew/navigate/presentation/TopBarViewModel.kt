@@ -1,5 +1,6 @@
 package com.example.giraffenew.navigate.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,59 +32,65 @@ class TopBarViewModel
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
+    val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 193, 194 ) // Только нужные регистры
+
+
     init {
         viewModelScope.launch {
-            modbusRepository.registerCache.collect { cache ->
-                updateTime(cache)
-                updateDate(cache)
-                updateModelCrane(cache)
-                updatePulleyBlock(cache)
-                updateLoadCapacity(cache)
-            }
+            modbusRepository.registerCache
+                .map { cache ->
+                    // Фильтруем только нужные регистры
+                    addresses.associate { addr ->
+                        addr to cache[addr]?.value
+                    }
+                }
+                .collect { filteredCache ->
+                    Log.d("TopBarViewModel", "Updating from cache: $filteredCache")
+
+                    // Обновляем данные на основе отфильтрованного кэша
+                    updateTime(filteredCache)
+                    updateDate(filteredCache)
+                    updateModelCrane(filteredCache)
+                    updatePulleyBlock(filteredCache)
+                    updateLoadCapacity(filteredCache)
+                }
         }
     }
     //GV_PulleyBlock
     //LoadCapacity"
-    private fun updateTime(cache: Map<Int, ModbusRepository.RegisterValue>){
-        val hour = cache[95]?.value ?: return
-        val minute = cache[98]?.value ?: return
-        val second = cache[99]?.value ?:return
+    private fun updateTime(cache: Map<Int, Int?>) {
+        val hour = cache[95] ?: return
+        val minute = cache[98] ?: return
+        val second = cache[99] ?: return
 
         _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
     }
 
-    private fun updateDate(cache: Map<Int, ModbusRepository.RegisterValue>) {
-        val year = cache[90]?.value ?: return
-        val month = cache[91]?.value ?: return
-        val day = cache[94]?.value ?: return
+    private fun updateDate(cache: Map<Int, Int?>) {
+        val year = cache[90] ?: return
+        val month = cache[91] ?: return
+        val day = cache[94] ?: return
 
         _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
     }
 
-    private fun updateModelCrane(cache: Map<Int, ModbusRepository.RegisterValue>) {
-        val crane = cache[150]?.value ?: return //150
-        val numberStr = crane.toString().padStart(5, '0') // Гарантируем 5 цифр
-        val formatted = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}"
-        //_currentModelCrane.value = String.format("%05d", crane)
-        _currentModelCrane.value = formatted
+    private fun updateModelCrane(cache: Map<Int, Int?>) {
+        val crane = cache[150] ?: return
+        val numberStr = crane.toString().padStart(5, '0')
+        _currentModelCrane.value = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}"
     }
 
-    private fun updatePulleyBlock(cache: Map<Int, ModbusRepository.RegisterValue>){
-        val pulleyblock = cache[193]?.value ?: return //193
-        val ghFourPolispaste = "Запасовка [4х кр.]"
-        val ghTwoPolispaste = "Запасовка [2х кр.]"
-
-        val ghPolispaste: String = when (pulleyblock) {
-            0 -> ghTwoPolispaste
-            1 -> ghFourPolispaste
-            else -> ghTwoPolispaste
+    private fun updatePulleyBlock(cache: Map<Int, Int?>) {
+        val pulleyblock = cache[193] ?: return
+        _currentPulleyBlock.value = when (pulleyblock) {
+            1 -> "Запасовка [4х кр.]"
+            else -> "Запасовка [2х кр.]"
         }
-        _currentPulleyBlock.value = ghPolispaste
     }
 
-    private fun updateLoadCapacity(cache: Map<Int, ModbusRepository.RegisterValue>){
-        val loadCapacity = cache[194]?.value ?: return //194
-        _currentLoadCapacity.value = String.format("Груз.хар. [%02d]", loadCapacity)
+    private fun updateLoadCapacity(cache: Map<Int, Int?>) {
+        val loadCapacity = cache[194] ?: return
+        _currentLoadCapacity.value = "Груз.хар. [%02d]".format(loadCapacity)
     }
 }
 
