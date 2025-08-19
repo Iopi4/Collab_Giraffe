@@ -12,6 +12,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Затем будем собирать только изменения в этих регистрах. При этом важно, чтобы коллектор срабатывал только когда изменился хотя бы один из нужных регистров.
+ * Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
+ для решения этого мы:
+ В ViewModel сделать фильтрацию: преобразовать поток так, чтобы он эмитил только когда изменился один из нужных регистров.
+ будем запоминать предыдущий отфильтрованный набор значений и сравнивать с новым.
+Если отфильтрованный набор не изменился, то не будем обновлять состояние.
+Однако, в TopBarViewModel этого нет, но мы можем добавить для еще большей оптимизации.
+
+
+ */
 
 //Создание ViewModel для управления временем и датой
 @HiltViewModel
@@ -32,11 +43,15 @@ class TopBarViewModel
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 193, 194 ) // Только нужные регистры
+    val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194 ) // Только нужные регистры
 
-
+        //Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
+        //Но сам коллектор срабатывает при каждом обновлении кэша (даже если обновлен регистр не из нашего списка).
+        //
     init {
         viewModelScope.launch {
+            var previousCache: Map<Int, Int?> = emptyMap()
+
             modbusRepository.registerCache
                 .map { cache ->
                     // Фильтруем только нужные регистры
@@ -45,7 +60,9 @@ class TopBarViewModel
                     }
                 }
                 .collect { filteredCache ->
-                    Log.d("TopBarViewModel", "Updating from cache: $filteredCache")
+                    // Перед вызовом функций обновления проверяется, изменились ли значения в целевых регистрах:
+                    if (filteredCache != previousCache) {
+                        Log.d("TopBarViewModel", "Relevant registers changed: $filteredCache")
 
                     // Обновляем данные на основе отфильтрованного кэша
                     updateTime(filteredCache)
@@ -53,6 +70,7 @@ class TopBarViewModel
                     updateModelCrane(filteredCache)
                     updatePulleyBlock(filteredCache)
                     updateLoadCapacity(filteredCache)
+                    }
                 }
         }
     }
@@ -61,9 +79,7 @@ class TopBarViewModel
     private fun updateTime(cache: Map<Int, Int?>) {
         val hour = cache[95] ?: return
         val minute = cache[98] ?: return
-        val second = cache[99] ?: return
-
-        _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
+        _currentTime.value = String.format("%02d:%02d", hour, minute)
     }
 
     private fun updateDate(cache: Map<Int, Int?>) {
