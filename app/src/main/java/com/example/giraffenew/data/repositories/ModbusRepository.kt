@@ -274,10 +274,11 @@ class ModbusRepository @Inject constructor(
     /**
      * 3. Работа с Modbus
      * Прочитать все активные регистры и записать их в пакет BatchReadResult
+     * 19.08.25 Необходимо модифицировать readAllActiveRegisters() так, чтобы он обновлял кэш только при реальном изменении значений регистров:
      */
     suspend fun readAllActiveRegisters(): BatchReadResult {
         val registers = _activeRegisters.value
-        
+
         if (registers.isEmpty()) {
             return BatchReadResult(
                 registerValues = emptyList(),
@@ -285,59 +286,83 @@ class ModbusRepository @Inject constructor(
                 timestamp = System.currentTimeMillis()
             )
         }
-        
+
         return try {
             // Группируем регистры по непрерывным диапазонам для batch пакета
             val ranges = groupRegistersIntoRanges(registers)
             val allValues = mutableListOf<RegisterValue>()
             val errors = mutableListOf<String>()
-            
+
             for (range in ranges) {
-                try { //Выполняем batch-чтение через ModbusClient
+                try {
+                    // Выполняем batch-чтение через ModbusClient
                     val batchResult = modbusClient.readRegisters(range.start, range.count)
-                    //  Определяем адрес в зависимости от типа результата.
-                    //  Конвертируем результаты в RegisterValue с метаинформацией
-                    val values = batchResult.results.map { result->
+                    // Конвертируем результаты в RegisterValue с метаинформацией
+                    val values = batchResult.results.map { result ->
                         val registerInfo = registers.find { it.address == result.address }
                         RegisterValue.fromReadResult(result, registerInfo)
                     }
-                    
+
                     allValues.addAll(values)
-                    
+
                     // Логируем ошибки чтения
                     batchResult.results.filterIsInstance<ModbusClient.RegisterReadResult.Error>()
                         .forEach { error ->
                             errors.add("Register ${error.address}: ${error.error}")
                             logError("Register read failed", error.error, error.address)
                         }
-                        
+
                 } catch (e: Exception) {
                     val errorMsg = "Failed to read range ${range.start}-${range.start + range.count - 1}: ${e.message}"
                     errors.add(errorMsg)
                     Log.e(TAG, errorMsg)
                 }
             }
-            
-            // Обновляем cache
-            val cacheMap = allValues.associateBy { it.address }
-            _registerCache.value = cacheMap
-            
-            // Логируем успешное чтение
-            if (allValues.isNotEmpty()) {
-                logDebug("Registers read successfully", """{"count": ${allValues.size}, "errors": ${errors.size}}""")
+
+            // Умное обновление кэша
+            val currentCache = _registerCache.value
+            val updatedMap = currentCache.toMutableMap()
+            var hasChanges = false
+
+            for (newValue in allValues) {
+                val currentValue = currentCache[newValue.address]
+
+                // Проверяем, изменилось ли значение или статус ошибки
+                val isChanged = when {
+                    currentValue == null -> true
+                    currentValue.value != newValue.value -> true
+                    currentValue.isValid != newValue.isValid -> true
+                    currentValue.error != newValue.error -> true
+                    else -> false
+                }
+
+                if (isChanged) {
+                    updatedMap[newValue.address] = newValue
+                    hasChanges = true
+                }
             }
 
-            //Возвращаем BatchReadResult с результатами и ошибками
+            // Обновляем кэш только при реальных изменениях
+            if (hasChanges) {
+                _registerCache.value = updatedMap
+            }
+
+            // Логируем успешное чтение
+            if (allValues.isNotEmpty()) {
+                logDebug("Registers read successfully", """{"count": ${allValues.size}, "errors": ${errors.size}, "changes": $hasChanges}""")
+            }
+
+            // Возвращаем BatchReadResult с результатами и ошибками
             BatchReadResult(
                 registerValues = allValues,
                 errors = errors,
                 timestamp = System.currentTimeMillis()
             )
-            
+
         } catch (e: Exception) {
             Log.e(TAG, "Failed to read active registers", e)
             logError("Batch read failed", e.message ?: "Unknown error")
-            
+
             BatchReadResult(
                 registerValues = emptyList(),
                 errors = listOf("Batch read failed: ${e.message}"),
