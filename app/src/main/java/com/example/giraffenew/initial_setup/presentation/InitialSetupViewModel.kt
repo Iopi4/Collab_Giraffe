@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.data.entities.UiInitialSetupRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -96,11 +97,15 @@ class InitialSetupViewModel
     private val _errorMessageSBKB = mutableStateOf<String?>(null)
     val errorMessageSBKB: State<String?> = _errorMessageSBKB
 
+    private var previousValues: Map<Int, Int?> = emptyMap()
 
     private var dataCollectionJob: Job? = null
 
+    private val addresses = listOf(90, 91, 94, 95, 98, 99) // Только нужные регистры
+
     init {
         startDataCollection()
+
     }
 
     fun startDataCollection() {
@@ -108,11 +113,37 @@ class InitialSetupViewModel
 
         Log.d("InitialSetupVM", "Starting data collection")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
-            modbusRepository.registerCache.collect { cache ->
+            modbusRepository.getConfigurationFlow(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP)
+                .collect { cache ->
                 Log.d("InitialSetupViewModel", "Updating from cache, size: ${cache.size}")
-                updateTime(cache)
-                updateDate(cache)
+
+                    // Фильтруем только нужные регистры
+                    val currentValues = addresses.associate { addr ->
+                        addr to cache[addr]?.value
+                    }
+                    // Проверяем, изменились ли значения целевых регистров
+                    if (haveRelevantRegistersChanged(currentValues)) {
+                        Log.d("TopBarViewModel", "Relevant registers changed: $currentValues")
+
+                        // Обновляем данные на основе отфильтрованного кэша
+                        //updateTime(currentValues)
+                        //updateDate(currentValues)
+
+                        // Сохраняем текущие значения для следующего сравнения
+                        previousValues = currentValues
+                    }
+
+                    // Сохраняем текущие значения для следующего сравнения
+                    previousValues = currentValues
             }
+        }
+    }
+
+
+    // Функция для проверки изменений в relevant регистрах
+    private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {
+        return addresses.any { address ->
+            currentValues[address] != previousValues[address]
         }
     }
 
@@ -123,12 +154,7 @@ class InitialSetupViewModel
         dataCollectionJob = null
     }
 
-    // Очистка при уничтожении ViewModel
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("InitialSetupVM", "ViewModel cleared")
-        dataCollectionJob?.cancel()
-    }
+
 
     private fun resetFields() {
         _setValueHour.value = ""
@@ -200,7 +226,7 @@ class InitialSetupViewModel
                 val month = validateAndConvert(_setValueMonthRTN.value, 1, 12)
                 val year = validateAndConvert(_setValueYearRTN.value, 2006, 2099)
 
-                // Запись в регистры даты ввода крана в эксплуатацию
+                // Запись в регистры даты регистрации крана в Ростехнадзоре
                 modbusRepository.writeRegister(851, day)
                 modbusRepository.writeRegister(852, month)
                 modbusRepository.writeRegister(853, year)
@@ -284,17 +310,18 @@ class InitialSetupViewModel
         return intValue
     }
 
-    private fun updateTime(cache: Map<Int, ModbusRepository.RegisterValue>){
-        val hour = cache[95]?.value ?: return
-        val minute = cache[98]?.value ?: return
-        val second = cache[99]?.value ?:return
+    private fun updateTime(cache: Map<Int, Int?>) {
+        val hour = cache[95] ?: return
+        val minute = cache[98] ?: return
+        val second = cache[99] ?: return
         _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
     }
 
-    private fun updateDate(cache: Map<Int, ModbusRepository.RegisterValue>) {
-        val year = cache[90]?.value ?: return
-        val month = cache[91]?.value ?: return
-        val day = cache[94]?.value ?: return
+    private fun updateDate(cache: Map<Int, Int?>) {
+        val year = cache[90] ?: return
+        val month = cache[91] ?: return
+        val day = cache[94] ?: return
+
         _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
     }
 
@@ -399,5 +426,12 @@ class InitialSetupViewModel
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setNumberSBKB.value = value
         }
+    }
+
+    // Очистка при уничтожении ViewModel
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("InitialSetupVM", "ViewModel cleared")
+        dataCollectionJob?.cancel()
     }
 }

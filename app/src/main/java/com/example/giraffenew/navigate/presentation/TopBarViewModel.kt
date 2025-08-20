@@ -5,10 +5,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,8 +25,9 @@ import javax.inject.Inject
 
 //Создание ViewModel для управления временем и датой
 @HiltViewModel
-class TopBarViewModel
-@Inject constructor(modbusRepository: ModbusRepository): ViewModel(){
+class TopBarViewModel @Inject constructor(
+    private val modbusRepository: ModbusRepository
+) : ViewModel() {
     private val _currentTime = mutableStateOf("00:00:00")
     val currentTime: State<String> = _currentTime
 
@@ -43,39 +43,53 @@ class TopBarViewModel
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194 ) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194 ) // Только нужные регистры
+
+    // Для отслеживания предыдущих значений
+    private var previousValues: Map<Int, Int?> = emptyMap()
+
+
 
         //Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
         //Но сам коллектор срабатывает при каждом обновлении кэша (даже если обновлен регистр не из нашего списка).
         //
-    init {
-        viewModelScope.launch {
-            var previousCache: Map<Int, Int?> = emptyMap()
 
-            modbusRepository.registerCache
-                .map { cache ->
+    init {
+        startDataCollection()
+    }
+
+    private fun startDataCollection() {
+        viewModelScope.launch {
+            modbusRepository.getConfigurationFlow(TopBarRegisterConfiguration.NAME_TOP_BAR)
+                .collect { cache ->
                     // Фильтруем только нужные регистры
-                    addresses.associate { addr ->
+                    val currentValues = addresses.associate { addr ->
                         addr to cache[addr]?.value
                     }
-                }
-                .collect { filteredCache ->
-                    // Перед вызовом функций обновления проверяется, изменились ли значения в целевых регистрах:
-                    if (filteredCache != previousCache) {
-                        Log.d("TopBarViewModel", "Relevant registers changed: $filteredCache")
 
-                    // Обновляем данные на основе отфильтрованного кэша
-                    updateTime(filteredCache)
-                    updateDate(filteredCache)
-                    updateModelCrane(filteredCache)
-                    updatePulleyBlock(filteredCache)
-                    updateLoadCapacity(filteredCache)
+                    // Проверяем, изменились ли значения целевых регистров
+                    if (haveRelevantRegistersChanged(currentValues)) {
+                        Log.d("TopBarViewModel", "Relevant registers changed: $currentValues")
+
+                        // Обновляем данные на основе отфильтрованного кэша
+                        updateTime(currentValues)
+                        updateDate(currentValues)
+                        updateModelCrane(currentValues)
+                        updatePulleyBlock(currentValues)
+                        updateLoadCapacity(currentValues)
+
+                        // Сохраняем текущие значения для следующего сравнения
+                        previousValues = currentValues
                     }
                 }
         }
     }
-    //GV_PulleyBlock
-    //LoadCapacity"
+    // Функция для проверки изменений в relevant регистрах
+    private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {
+        return addresses.any { address ->
+            currentValues[address] != previousValues[address]
+        }
+    }
     private fun updateTime(cache: Map<Int, Int?>) {
         val hour = cache[95] ?: return
         val minute = cache[98] ?: return

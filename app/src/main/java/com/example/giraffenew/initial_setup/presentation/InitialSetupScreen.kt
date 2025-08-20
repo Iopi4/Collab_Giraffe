@@ -16,11 +16,13 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.initial_setup.ui.ParametersCraneAndSBKB
 import com.example.giraffenew.initial_setup.ui.ParametersDateAndTime
+import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun InitialSetupScreen(
-    initialSetupViewModel: InitialSetupViewModel = hiltViewModel() // Получаем ViewModel для InitialSetupScreen
+    initialSetupViewModel: InitialSetupViewModel = hiltViewModel(), // Получаем ViewModel для InitialSetupScreenhomeViewModel: Home = hiltViewModel() // Получаем ViewModel для InitialSetupScreen
+    topBarViewModel: TopBarViewModel = hiltViewModel(),
     ) {
     BasicSettingBackground()
     // 1. Получаем текущий LifecycleOwner
@@ -31,7 +33,6 @@ fun InitialSetupScreen(
             when (event) {
                 Lifecycle.Event.ON_START -> {
                     Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
-                    initialSetupViewModel.startDataCollection()
                 }
                 Lifecycle.Event.ON_STOP -> {
                     Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
@@ -60,8 +61,8 @@ fun InitialSetupScreen(
     ) {
         Box(modifier = Modifier.weight(2f)){
             ParametersDateAndTime(
-                currentTime = initialSetupViewModel.currentTime.value,
-                currentDate = initialSetupViewModel.currentDate.value,
+                currentTime = topBarViewModel.currentTime.value,
+                currentDate = topBarViewModel.currentDate.value,
                 setValueHour = initialSetupViewModel.setValueHour.value,
                 setValueMinute = initialSetupViewModel.setValueMinute.value,
                 setValueDay = initialSetupViewModel.setValueDay.value,

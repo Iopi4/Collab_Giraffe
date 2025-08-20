@@ -8,8 +8,10 @@ import com.example.giraffenew.data.dao.ModbusLogDao
 import com.example.giraffenew.data.dao.RegisterConfigurationDao
 import com.example.giraffenew.data.entities.LogCategory
 import com.example.giraffenew.data.entities.LogLevel
+import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.entities.ModbusLog
 import com.example.giraffenew.data.entities.RegisterConfiguration
+import com.example.giraffenew.data.entities.RegistersConfigurations
 
 /**
  * Room Database для хранения конфигурации и логов системы Modbus
@@ -156,7 +158,18 @@ object DatabaseInitializer {
             // Создаем default конфигурацию
             val defaultConfig = com.example.giraffenew.data.entities.DefaultRegisterConfiguration.createDefault()
             configDao.insert(defaultConfig)
-            
+
+            //Cоздаем отдельные конфигурации для UI
+            val configurations = RegistersConfigurations.getAllConfigurations()
+            configurations.forEach { config ->
+                configDao.insert(config)
+                    // Активируем главную конфигурацию
+                    val mainConfig =
+                        configDao.getConfigurationByName(TopBarRegisterConfiguration.NAME_TOP_BAR)
+                    mainConfig?.let {
+                        configDao.setActiveConfiguration(it.id)
+                    }
+            }
             // Логируем инициализацию
             val initLog = ModbusLog(
                 level = LogLevel.INFO,
@@ -200,6 +213,7 @@ object DatabaseInitializer {
         
         logDao.insertAll(testLogs)
     }
+
 }
 
 /**

@@ -6,6 +6,8 @@ import io.ktor.network.sockets.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.nio.ByteBuffer
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,7 +32,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class ModbusClient @Inject constructor() {
-    
+
     // Connection parameters
     private var ipAddress: String = "192.168.1.88"
     private var port: Int = 502
@@ -55,7 +57,15 @@ class ModbusClient @Inject constructor() {
     
     // Coroutine scope для внутренних операций
     private val clientScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    
+
+    /**
+     * !!!!!!!!!!!!!!!НОВОЕ!!!!!!!!!!!!!!!!
+     * Добавление глобальной синхронизации в ModbusClient
+     */
+    private val globalMutex = Mutex() // Добавляем глобальный мьютекс
+    private val readMutex = Mutex()
+    private val writeMutex = Mutex()
+
     companion object {
         private const val TAG = "ModbusClient"
         private const val MAX_REGISTER_BATCH_SIZE = 32 // Максимальный размер batch для чтения
@@ -213,15 +223,20 @@ class ModbusClient @Inject constructor() {
     /**
      * Прочитать один регистр
      */
-    suspend fun readRegister(address: Int): RegisterReadResult = withContext(Dispatchers.IO) {
-        return@withContext readRegisters(address, 1).results.firstOrNull() 
-            ?: RegisterReadResult.Error(address, "No result returned")
-    }
+//    suspend fun readRegister(address: Int): RegisterReadResult = withContext(Dispatchers.IO) {
+//        return@withContext readRegisters(address, 1).results.firstOrNull()
+//            ?: RegisterReadResult.Error(address, "No result returned")
+//    }
     
     /**
      * Прочитать диапазон регистров с автоматическим batch разделением
+     * НОВОЕ. Добавление globalMutex для глобальной синхронизации в ModbusClient
      */
-    suspend fun readRegisters(startAddress: Int, count: Int): BatchReadResult = withContext(Dispatchers.IO) {
+    suspend fun readRegisters(startAddress: Int, count: Int): BatchReadResult =
+        globalMutex.withLock { // Защищаем все операции
+            withContext(Dispatchers.IO) {
+
+
         val startTime = System.currentTimeMillis()
         
         if (_connectionState.value != ConnectionState.Connected) {
@@ -273,10 +288,15 @@ class ModbusClient @Inject constructor() {
                     delay(10)
                 }
             }
-            
+            /**
+             * Улучшение обработки ошибок соединения
+             */
         } catch (e: Exception) {
-            Log.e(TAG, "Unexpected error during register reading: ${e.message}")
-            results.add(RegisterReadResult.Error(startAddress, "Unexpected error: ${e.message}"))
+            if (isConnectionError(e)) {
+                _connectionState.value = ConnectionState.Error("Connection lost", true)
+                startReconnection()
+            }
+            throw e // Перебрасываем исключение для обработки выше
         }
         
         val endTime = System.currentTimeMillis()
@@ -285,7 +305,7 @@ class ModbusClient @Inject constructor() {
             timestamp = startTime,
             duration = endTime - startTime
         )
-    }
+    }}
     
     /**
      * Прочитать batch регистров (внутренний метод)
@@ -312,8 +332,11 @@ class ModbusClient @Inject constructor() {
     
     /**
      * Записать значение в одиночный регистр
+     * НОВОЕ. Добавление globalMutex для глобальной синхронизации в ModbusClient
      */
-    suspend fun writeRegister(address: Int, value: Int): RegisterReadResult = withContext(Dispatchers.IO) {
+    suspend fun writeRegister(address: Int, value: Int): RegisterReadResult =
+        globalMutex.withLock {
+            withContext(Dispatchers.IO) {
         if (_connectionState.value != ConnectionState.Connected) {
             return@withContext RegisterReadResult.Error(address, "Not connected to server")
         }
@@ -352,7 +375,7 @@ class ModbusClient @Inject constructor() {
             
             return@withContext RegisterReadResult.Error(address, "Write failed: ${e.message}")
         }
-    }
+    }}
     
     /**
      * Построить Modbus TCP запрос для чтения регистров

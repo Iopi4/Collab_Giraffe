@@ -6,12 +6,13 @@ import com.example.giraffenew.data.entities.*
 import com.example.giraffenew.network.ModbusClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -61,7 +62,25 @@ class ModbusRepository @Inject constructor(
     //кэш значений регистров в памяти (StateFlow)
     private val _registerCache = MutableStateFlow<Map<Int, RegisterValue>>(emptyMap())
     val registerCache: StateFlow<Map<Int, RegisterValue>> = _registerCache.asStateFlow()
-    
+
+    /** НАЧАЛО
+    1.1 Добавим переменные отслеживания состояния кэш для отдельных конфигураций
+     */
+    // Кэши для каждой конфигурации (Применяется в случае работы с несколькими конфмгурациями)
+    private val _registerCaches = mutableMapOf<String, MutableStateFlow<Map<Int, RegisterValue>>>()
+    private val configurationFlows = mutableMapOf<String, StateFlow<Map<Int, RegisterValue>>>()
+
+    // Активная UI конфигурация
+    private val _activeUiConfiguration = MutableStateFlow<String?>(null)
+
+    // Job для главного потока чтения
+    private var mainReadingJob: Job? = null
+    // Job для UI потока чтения
+    private var uiReadingJob: Job? = null
+    /**
+     * 1.1 КОНЕЦ
+     */
+
     // Parsed конфигурация регистров
     private val _activeRegisters = MutableStateFlow<List<RegisterInfo>>(emptyList())
     val activeRegisters: StateFlow<List<RegisterInfo>> = _activeRegisters.asStateFlow()
@@ -270,7 +289,137 @@ class ModbusRepository @Inject constructor(
     }
     
     // === Register Data Operations ===
-    
+
+
+    /** !!!!!!!!!!!!!!!!!!!!!!!НОВОЕ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * 2.1  Модификация ModbusRepository
+     * Добавим поддержку нескольких конфигураций и потоков чтения:
+     */
+
+    // Инициализация конфигураций
+    init {
+        registerConfiguration(TopBarRegisterConfiguration.NAME_TOP_BAR, TopBarRegisterConfiguration.REGISTERS)
+        registerConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME, UiHomeScreenRegisterConfiguration.REGISTERS)
+        registerConfiguration(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP, UiInitialSetupRegisterConfiguration.REGISTERS)
+
+        // Запуск главного потока чтения
+        startMainConfigurationReading()
+
+        // Запуск UI потока чтения (реагирует на изменения активной конфигурации)
+        startUiConfigurationReading()
+
+
+    }
+
+    private fun registerConfiguration(name: String, registers: List<RegisterInfo>) {
+        _registerCaches[name] = MutableStateFlow(emptyMap())
+        configurationFlows[name] = _registerCaches[name]!!.asStateFlow()
+    }
+
+    // Запуск потока для главной конфигурации
+    private fun startMainConfigurationReading() {
+        mainReadingJob = repositoryScope.launch {
+            while (isActive) {
+                val startTime = System.currentTimeMillis()
+                readConfigurationRegisters(TopBarRegisterConfiguration.NAME_TOP_BAR)
+                val elapsed = System.currentTimeMillis() - startTime
+                delay(maxOf(0, 1000 - elapsed)) // Точный интервал 1 секунда
+            }
+        }
+    }
+
+    // Запуск потока для UI конфигурации
+    private fun startUiConfigurationReading() {
+        repositoryScope.launch {
+            _activeUiConfiguration.collect { configName ->
+                // Останавливаем предыдущее чтение
+                uiReadingJob?.cancel()
+
+                if (configName != null) {
+                    // Запускаем чтение для активной конфигурации
+                    uiReadingJob = repositoryScope.launch {
+                        while (isActive && _activeUiConfiguration.value == configName) {
+                            val startTime = System.currentTimeMillis()
+                            readConfigurationRegisters(configName)
+                            val elapsed = System.currentTimeMillis() - startTime
+                            delay(maxOf(0, 500 - elapsed)) // Читаем 2 раза в секунду
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    // Функция чтения регистров для конкретной конфигурации
+    private suspend fun readConfigurationRegisters(configName: String) {
+        Log.d(TAG, "Reading configuration: $configName")
+        val registers = when (configName) {
+            TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
+            UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
+            UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
+            else -> { Log.w(TAG, "Unknown configuration: $configName")
+                emptyList()}
+        }
+
+        if (registers.isEmpty()) return
+
+        val ranges = groupRegistersIntoRanges(registers)
+        val results = mutableListOf<RegisterValue>()
+
+        for (range in ranges) {
+            try {
+                val batchResult = modbusClient.readRegisters(range.start, range.count)
+                results.addAll(batchResult.results.map { result ->
+                    val registerInfo = registers.find { it.address == result.address }
+                    RegisterValue.fromReadResult(result, registerInfo)
+                })
+            } catch (e: Exception) {
+                Log.e(TAG, "Error reading range ${range.start}-${range.start + range.count - 1}", e)
+            }
+        }
+
+        // Обновляем кэш только при изменениях
+        updateConfigurationCache(configName, results)
+
+    }
+
+    // Обновление кэша конфигурации только при изменениях
+    private fun updateConfigurationCache(configName: String, newValues: List<RegisterValue>) {
+        val currentCache = _registerCaches[configName]!!.value
+        val newCache = currentCache.toMutableMap()
+        var hasChanges = false
+
+        for (newValue in newValues) {
+            val currentValue = currentCache[newValue.address]
+            if (currentValue == null ||
+                currentValue.value != newValue.value ||
+                currentValue.isValid != newValue.isValid) {
+                newCache[newValue.address] = newValue
+                hasChanges = true
+            }
+        }
+
+        if (hasChanges) {
+            _registerCaches[configName]!!.value = newCache
+        }
+    }
+
+    // Метод для получения потока данных конкретной конфигурации
+    fun getConfigurationFlow(configName: String): StateFlow<Map<Int, RegisterValue>> {
+        return configurationFlows[configName] ?: run {
+            Log.w(TAG, "Requested unknown configuration: $configName")
+            // Создаем временный поток для неизвестных конфигураций
+            MutableStateFlow<Map<Int, RegisterValue>>(emptyMap()).asStateFlow()
+        }
+    }
+
+    // Метод для установки активной UI конфигурации
+    fun setActiveUiConfiguration(configName: String?) {
+        _activeUiConfiguration.value = configName
+    }
+
+
     /**
      * 3. Работа с Modbus
      * Прочитать все активные регистры и записать их в пакет BatchReadResult
@@ -577,6 +726,7 @@ class ModbusRepository @Inject constructor(
         val start: Int,
         val count: Int
     )
+
 }
 
 /**

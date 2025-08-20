@@ -5,12 +5,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +25,6 @@ class HomeScreenViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository
 ) : ViewModel() {
 
-
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,162,163,135,136,137,317) // Только нужные регистры
     val addressesCraneParameterScale = listOf(317,159,318,162,319) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711,320,321,322,323,324,325,326,327,328,329,
@@ -40,6 +38,8 @@ class HomeScreenViewModel @Inject constructor(
     private var dataCollectionJob: Job? = null
 
     init {
+        // Активируем UI конфигурацию для этого экрана
+        modbusRepository.setActiveUiConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME)
         startDataCollection()
     }
 
@@ -51,31 +51,26 @@ class HomeScreenViewModel @Inject constructor(
 
 
     // Запуск сбора данных
+    // Запуск сбора данных
     fun startDataCollection() {
         if (dataCollectionJob?.isActive == true) return
 
-
-        Log.d("HomeScreenVM", "Starting data collection")
+        Log.d("HomeScreenVM", "Starting data collection for ${UiHomeScreenRegisterConfiguration.NAME_HOME}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
-            var previousCache: Map<Int, Int?>? = null
-            modbusRepository.registerCache
-                .map { cash ->
-                    // Создаем отфильтрованную карту: адрес -> значение (только для allAddresses)
-                    allAddresses.associate { addr -> addr to cash[addr]?.value
-                    }
-                }
-                .collect { filteredCache ->
-                    if (filteredCache == previousCache) return@collect
-                    previousCache = filteredCache
-
+            modbusRepository.getConfigurationFlow(UiHomeScreenRegisterConfiguration.NAME_HOME)
+                .collect { cache ->
                     try {
+                        // Создаем отфильтрованную карту только для нужных адресов
+                        val filteredCache = allAddresses.associate { addr ->
+                            addr to cache[addr]?.value
+                        }
                         _state.value = createHomeScreenState(filteredCache)
                     } catch (e: Exception) {
                         Log.e("HomeScreenVM", "Data collection error", e)
                     }
                 }
-                }
         }
+    }
 
     //Функция createHomeScreenState() для обработки отфильтрованных данных:
     private fun createHomeScreenState(cache: Map<Int, Int?>): HomeScreenState {
@@ -130,11 +125,7 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     // Очистка при уничтожении ViewModel
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("HomeScreenVM", "ViewModel cleared")
-        dataCollectionJob?.cancel()
-    }
+
 
     private fun safeDivide(value: Int?): Float {
         return (value ?: 0) / 1f
@@ -186,4 +177,12 @@ class HomeScreenViewModel @Inject constructor(
         val hoistUp: Int = 0,
         val hoistDown: Int = 0,
     )
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("HomeScreenVM", "ViewModel cleared")
+        // Деактивируем конфигурацию при уничтожении ViewModel
+        modbusRepository.setActiveUiConfiguration(null)
+        dataCollectionJob?.cancel()
+    }
 }
