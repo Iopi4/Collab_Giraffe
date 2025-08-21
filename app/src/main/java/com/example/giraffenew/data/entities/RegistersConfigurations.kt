@@ -9,7 +9,8 @@ object RegistersConfigurations {
     private val configurations = mapOf(
         TopBarRegisterConfiguration.NAME_TOP_BAR to TopBarRegisterConfiguration.createConfiguration(),
         UiHomeScreenRegisterConfiguration.NAME_HOME to UiHomeScreenRegisterConfiguration.createConfiguration(),
-        UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration()
+        UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration(),
+        UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU to UiServiceMenuRegisterConfiguration.createConfiguration()
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -25,6 +26,7 @@ object RegistersConfigurations {
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
+            UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UiServiceMenuRegisterConfiguration.REGISTERS
             else -> emptyList()
         }
     }
@@ -34,6 +36,7 @@ object RegistersConfigurations {
             in 90..99 -> TopBarRegisterConfiguration.NAME_TOP_BAR
             in 100..104 -> UiHomeScreenRegisterConfiguration.NAME_HOME
             in 105..108 -> UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP
+            in 900..980 ->UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU
             else -> null
         }
     }
@@ -165,6 +168,38 @@ object UiInitialSetupRegisterConfiguration {
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
             name = "ui_configuration_InitialSetup",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+
+/**
+ * Конфигурация UI №7 (ServiceMenuViewModel)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UiServiceMenuRegisterConfiguration {
+    const val NAME_SERVICE_MENU = "ui_configuration_ServiceMenu"
+
+    val REGISTERS = listOf(
+
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
+        RegisterInfo(960, "HMI_Write_Trolley_wSpdRef1_Value_MW", "WORD16", "Скорость 1 тележки"),
+        RegisterInfo(961, "HMI_Write_Trolley_wSpdRef2_Value_MW", "WORD16", "Скорость 2 тележки"),
+        RegisterInfo(962, "HMI_Write_Trolley_wSpdRef3_Value_MW", "WORD16", "Скорость 3 тележки"),
+        RegisterInfo(963, "HMI_Write_Trolley_wSpdRef4_Value_MW", "WORD16", "Скорость 4 тележки"),
+        RegisterInfo(964, "HMI_Write_rTrolley_Acc_MW", "WORD16", "Время разгона тележки, сек"),
+        RegisterInfo(965, "HMI_Write_rTrolley_Dec_MW", "WORD16", "Время торможения тележки, сек"),
+        RegisterInfo(966, "HMI_Write_wTrolleyLsp_MW", "WORD16", "Пониженная скорость тележки"),
+        RegisterInfo(967, "HMI_Write_rTrolleyOverspd_MW", "WORD16", "Значение веса груза при превышении которого запрещена сверхсинхронная работа тележки")
+    )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "ui_configuration_ServiceMenu",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )

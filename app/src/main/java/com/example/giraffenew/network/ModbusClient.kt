@@ -68,7 +68,7 @@ class ModbusClient @Inject constructor() {
 
     companion object {
         private const val TAG = "ModbusClient"
-        private const val MAX_REGISTER_BATCH_SIZE = 32 // Максимальный размер batch для чтения
+        private const val MAX_REGISTER_BATCH_SIZE = 127 // Максимальный размер batch для чтения
         private const val MODBUS_FUNCTION_READ_HOLDING = 3.toByte()
         private const val MODBUS_FUNCTION_WRITE_SINGLE = 6.toByte()
     }

@@ -32,10 +32,10 @@ fun InitialSetupScreen(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_START -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
+                    Log.d("InitialSetupScreen", "Lifecycle: ON_START - resuming data collection")
                 }
                 Lifecycle.Event.ON_STOP -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
+                    Log.d("InitialSetupScreen", "Lifecycle: ON_STOP - pausing data collection")
                     initialSetupViewModel.pauseDataCollection()
                 }
                 else -> {}

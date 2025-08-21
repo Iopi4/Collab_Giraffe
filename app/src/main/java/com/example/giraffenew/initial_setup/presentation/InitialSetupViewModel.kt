@@ -123,7 +123,7 @@ class InitialSetupViewModel
                     }
                     // Проверяем, изменились ли значения целевых регистров
                     if (haveRelevantRegistersChanged(currentValues)) {
-                        Log.d("TopBarViewModel", "Relevant registers changed: $currentValues")
+                        Log.d("InitialSetupViewModel", "Relevant registers changed: $currentValues")
 
                         // Обновляем данные на основе отфильтрованного кэша
                         //updateTime(currentValues)

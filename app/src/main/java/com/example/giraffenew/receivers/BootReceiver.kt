@@ -26,7 +26,7 @@ import com.example.giraffenew.services.ModbusBackgroundService
 class BootReceiver : BroadcastReceiver() {
     companion object {
         private const val TAG = "BootReceiver"
-        private const val DELAY_MS = 1000L // 1 секунда
+        private const val DELAY_MS = 30000L // 30 секунда
     }
 
     override fun onReceive(context: Context, intent: Intent) {

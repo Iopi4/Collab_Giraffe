@@ -1,16 +1,269 @@
 package com.example.giraffenew.service_menu.presentation
 
+import android.util.Log
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
-import com.example.giraffenew.service_menu.ui.ServiceContent
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
+import com.example.giraffenew.service_menu.ui.drive.ServiceCrane
+import com.example.giraffenew.service_menu.ui.drive.ServiceHoist
+import com.example.giraffenew.service_menu.ui.drive.ServiceSlewing
+import com.example.giraffenew.service_menu.ui.drive.ServiceTrolley
+import com.example.giraffenew.service_menu.ui.sensors.SensorsContent
+import com.example.giraffenew.service_menu.ui.user.ServiceUser
+import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
-fun ServiceMenuScreen(){
+fun ServiceMenuScreen(
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel() // Получаем ViewModel для ServiceMenuScreen
+){
     BasicSettingBackground()
-    ServiceContent()
+
+    // 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, serviceMenuViewModel) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> {
+                    Log.d("ServiceMenuScreen", "Lifecycle: ON_START - resuming data collection")
+                }
+                Lifecycle.Event.ON_STOP -> {
+                    Log.d("ServiceMenuScreen", "Lifecycle: ON_STOP - pausing data collection")
+                    serviceMenuViewModel.pauseDataCollection()
+                }
+                else -> {}
+            }
+        }
+
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("ServiceMenuScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+
+    val navController = rememberNavController()
+
+    Column(modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceEvenly)
+    {NavBarServiceContent(navController = navController)
+        NavHost(navController, startDestination = NavRoutesService.PageDrive.route) {
+            composable(NavRoutesService.PageDrive.route){ DriveContent()}
+            composable(NavRoutesService.PageSensors.route) {SensorsContent()}
+            composable(NavRoutesService.PageUser.route) {ServiceUser()}
+        }
+    }
+
 }
+
+@Composable
+fun NavBarServiceContent (navController: NavController){
+    val myBoxNavServiceContentModifier = Modifier
+        .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 0.dp)
+        .clip(shape = RoundedCornerShape(5.dp))
+        .fillMaxWidth()
+        .border(
+            width = 3.dp,
+            color = DarkGrew,
+            shape = RoundedCornerShape(5.dp)
+        )
+//Код для формирования области в верху с кнопками переходов между страницами
+    Column (myBoxNavServiceContentModifier,
+        verticalArrangement = Arrangement.SpaceEvenly)
+    {
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Drive,
+                    onClick = {
+                        navController.navigate(NavRoutesService.PageDrive.route) },) {}
+            }
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Sensors,
+                    onClick = {
+                        navController.navigate(NavRoutesService.PageSensors.route) },) {}
+            }
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier.padding(end = 7.dp),
+                    text = R.string.ServiceMenu_Button_User,
+                    onClick = {
+                        navController.navigate(NavRoutesService.PageUser.route) },) {}
+            }
+        }
+    }
+}
+sealed class NavRoutesService (val route: String){
+    object PageDrive: NavRoutesService("Сервис. ПРИВОД")
+    object PageSensors: NavRoutesService("Сервис. ДАТЧИКИ")
+    object PageUser: NavRoutesService("Сервис. ПОЛЬЗОВАТЕЛЬ")
+}
+
+@Composable
+fun DriveContent(
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel()
+){
+
+    val navController= rememberNavController()
+    Column(modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.SpaceEvenly)
+    {
+        NavBarDriveContent(navController = navController)
+        NavHost(navController, startDestination = NavRoutesDriveContent.PageServiceHoist.route) {
+            composable(NavRoutesDriveContent.PageServiceHoist.route){ServiceHoist()}
+            composable(NavRoutesDriveContent.PageServiceSlewing.route){ServiceSlewing()}
+            composable(NavRoutesDriveContent.PageServiceTrolley.route)
+            {
+                ServiceTrolley(
+                    setValueTrolleyACC = serviceMenuViewModel.setValueTrolleyACC.value,
+                    onModelChangeTrolleyACC = {serviceMenuViewModel.updateTrolleyACC(it) },
+                    onSetTrolleyACC ={ serviceMenuViewModel.onSetTrolleyACC() },
+
+                    setValueTrolleyDEC = serviceMenuViewModel.setValueTrolleyDEC.value,
+                    onModelChangeTrolleyDEC = { serviceMenuViewModel.updateTrolleyDEC(it)},
+                    onSetTrolleyDEC ={ serviceMenuViewModel.onSetTrolleyDEC()},
+
+                    setValueTrolleySpdRef1 = serviceMenuViewModel.setValueTrolleySpdRef1.value,
+                    onModelChangeTrolleySpdRef1 = { serviceMenuViewModel.updateTrolleySpdRef1(it)},
+                    onSetTrolleySpdRef1 ={ serviceMenuViewModel.onSetTrolleySpdRef1()},
+
+                    setValueTrolleySpdRef2 = serviceMenuViewModel.setValueTrolleySpdRef2.value,
+                    onModelChangeTrolleySpdRef2 = {serviceMenuViewModel.updateTrolleySpdRef2(it) },
+                    onSetTrolleySpdRef2 ={ serviceMenuViewModel.onSetTrolleySpdRef2() },
+
+                    setValueTrolleySpdRef3 = serviceMenuViewModel.setValueTrolleySpdRef3.value,
+                    onModelChangeTrolleySpdRef3 = {serviceMenuViewModel.updateTrolleySpdRef3(it) },
+                    onSetTrolleySpdRef3 ={ serviceMenuViewModel.onSetTrolleySpdRef3() },
+
+                    setValueTrolleySpdRef4 = serviceMenuViewModel.setValueTrolleySpdRef4.value,
+                    onModelChangeTrolleySpdRef4 = { serviceMenuViewModel.updateTrolleySpdRef4(it)},
+                    onSetTrolleySpdRef4 ={ serviceMenuViewModel.onSetTrolleySpdRef4()},
+
+                    setValueTrolleyLsp = serviceMenuViewModel.setValueTrolleyTrolleyLsp.value,
+                    onModelChangeTrolleyLsp = { serviceMenuViewModel.updateTrolleyLsp(it)},
+                    onSetTrolleyLsp ={serviceMenuViewModel.onSetTrolleyLsp() },
+
+                    errorMessageTrolley = serviceMenuViewModel.errorMessageTrolley.value,
+                    logMessageTrolley = serviceMenuViewModel.logMessageTrolley.value
+                )
+            }
+            composable(NavRoutesDriveContent.PageServiceCrane.route) {ServiceCrane()}
+        }
+    }
+}
+
+@Composable
+fun NavBarDriveContent(navController: NavController){
+
+    val myBoxNavBarDriveContentModifier = Modifier
+        .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 0.dp)
+        .clip(shape = RoundedCornerShape(5.dp))
+        .fillMaxWidth()
+        .border(
+            width = 3.dp,
+            color = DarkGrew,
+            shape = RoundedCornerShape(5.dp)
+        )
+
+    Column(myBoxNavBarDriveContentModifier,
+        verticalArrangement = Arrangement.SpaceEvenly)
+    {
+// Заголовок
+        BasicSettingsText(modifier = Modifier,
+            text = stringResource(R.string.ServiceMenu_Text_Drive_Parameters))
+
+//Код для формирования области в верху с кнопками переходов между страницами
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Drive_Hoist,
+                    onClick = {
+                        navController.navigate(NavRoutesDriveContent.PageServiceHoist.route) },) {}
+            }
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Drive_Slewing,
+                    onClick = {
+                        navController.navigate(NavRoutesDriveContent.PageServiceSlewing.route) },) {}
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Drive_Trolley,
+                    onClick = {
+                        navController.navigate(NavRoutesDriveContent.PageServiceTrolley.route) },) {}
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.ServiceMenu_Button_Drive_Crane,
+                    onClick = {
+                        navController.navigate(NavRoutesDriveContent.PageServiceCrane.route) },) {}
+            }
+        }
+    }
+}
+
+sealed class NavRoutesDriveContent (val route: String){
+    object PageServiceHoist: NavRoutesDriveContent("Сервис. Привод подъема. Настройка")
+    object PageServiceSlewing: NavRoutesDriveContent("Сервис. Привод поворота. Настройка")
+    object PageServiceTrolley: NavRoutesDriveContent("Сервис. Привод тележки. Настройка")
+    object PageServiceCrane: NavRoutesDriveContent("Сервис. Привод хода крана. Настройка")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @Preview
 @Composable
