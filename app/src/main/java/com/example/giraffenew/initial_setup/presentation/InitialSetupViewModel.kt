@@ -97,6 +97,9 @@ class InitialSetupViewModel
     private val _errorMessageSBKB = mutableStateOf<String?>(null)
     val errorMessageSBKB: State<String?> = _errorMessageSBKB
 
+    private val _logMessage = mutableStateOf<String?>(null)
+    val logMessage: State<String?> = _logMessage
+
     private var previousValues: Map<Int, Int?> = emptyMap()
 
     private var dataCollectionJob: Job? = null
@@ -147,6 +150,18 @@ class InitialSetupViewModel
         }
     }
 
+    private fun validateAndConvert(value: String, min: Int, max: Int): Int {
+        val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
+        if (intValue !in min..max) throw IllegalArgumentException("Значение вне диапазона")
+        return intValue
+    }
+
+    private fun validateAndConvertFloat(value: String, min: Float, max: Float): Int {
+        val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
+        if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
+        return (floatValue * 1000).toInt()
+    }
+
     // Приостановка сбора данных
     fun pauseDataCollection() {
         Log.d("InitialSetupVM", "Pausing data collection")
@@ -154,7 +169,20 @@ class InitialSetupViewModel
         dataCollectionJob = null
     }
 
+    private fun updateTime(cache: Map<Int, Int?>) {
+        val hour = cache[95] ?: return
+        val minute = cache[98] ?: return
+        val second = cache[99] ?: return
+        _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
+    }
 
+    private fun updateDate(cache: Map<Int, Int?>) {
+        val year = cache[90] ?: return
+        val month = cache[91] ?: return
+        val day = cache[94] ?: return
+
+        _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
+    }
 
     private fun resetFields() {
         _setValueHour.value = ""
@@ -188,11 +216,13 @@ class InitialSetupViewModel
                 delay(1000)
                 modbusRepository.writeRegister(842, 0)
                 _errorMessage.value = null
+                _logMessage.value = "Сохранено"
                 // Логирование
                 Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
                 Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
                 _errorMessage.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -212,8 +242,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(856, year)
 
                 _errorMessageCrane.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -232,8 +264,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(853, year)
 
                 _errorMessageRTN.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageRTN.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -253,8 +287,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(860, year)
 
                 _errorMessageSBKB.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -263,12 +299,14 @@ class InitialSetupViewModel
     fun onSetModelCrane() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setModelCrane.value, 0,65535 )
+                val model = validateAndConvertFloat(_setModelCrane.value, 0.00f,65.535f )
                 // Запись в регистры модель крана
                 modbusRepository.writeRegister(848, model)
                 _errorMessageCrane.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -281,8 +319,10 @@ class InitialSetupViewModel
                 // Запись в регистры модель крана
                 modbusRepository.writeRegister(850, number)
                 _errorMessageCrane.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
@@ -297,33 +337,16 @@ class InitialSetupViewModel
                 // Сброс состояний
 
                 _errorMessageSBKB.value = null
+                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
+                _logMessage.value = null
             }
         }
     }
 
 
-    private fun validateAndConvert(value: String, min: Int, max: Int): Int {
-        val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
-        if (intValue !in min..max) throw IllegalArgumentException("Значение вне диапазона")
-        return intValue
-    }
 
-    private fun updateTime(cache: Map<Int, Int?>) {
-        val hour = cache[95] ?: return
-        val minute = cache[98] ?: return
-        val second = cache[99] ?: return
-        _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
-    }
-
-    private fun updateDate(cache: Map<Int, Int?>) {
-        val year = cache[90] ?: return
-        val month = cache[91] ?: return
-        val day = cache[94] ?: return
-
-        _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
-    }
 
     // Обновления для UI
     fun updateHour(value: String) {
@@ -410,13 +433,13 @@ class InitialSetupViewModel
         }
     }
 
-    fun updateValueModelCrane(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
+    fun updateModelCrane(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,3})?$"))) {
             _setModelCrane.value = value
         }
     }
 
-    fun updateValueNumberCrane(value: String) {
+    fun updateNumberCrane(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setNumberCrane.value = value
         }

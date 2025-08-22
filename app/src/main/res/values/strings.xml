@@ -238,6 +238,7 @@
     <string name="ServiceMenu_Text_Max_Speed_SS">Ввод. Сверх.синхр.скор.[об/мин]</string>
     <string name="ServiceMenu_Text_Stoping_Speed">Ввод. Останов. от кнопки[об/мин]</string>
     <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Ввод. Запрет сверх.синхр.скор [т]</string>
+    <string name="ServiceMenu_Text_Hoist_SpdRefButton">Ввод. Скорость при нажатии кнопки [об/мин]</string>
     <!-- Настройка датчиков -->
     <string name="ServiceMenu_Text_Sensors_Parameters">Настройка датчиков</string>
     <string name="ServiceMenu_Text_Wind_Warning_Signal">Ввод. Предупредит. сигн. [м/c]</string>

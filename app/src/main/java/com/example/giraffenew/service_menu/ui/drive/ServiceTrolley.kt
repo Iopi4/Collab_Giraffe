@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
@@ -89,11 +90,11 @@ fun ServiceTrolley(
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp)
             ) {
                 errorMessageTrolley?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageTrolley?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageTrolley?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
             }
         }
 
-        //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
+//№.2 - Правая область для отображения и ввода параметров скорости и ускорений
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
@@ -110,14 +111,16 @@ fun ServiceTrolley(
                 placeholder = "3.0",
                 value = setValueTrolleyACC,
                 onValueChange = onModelChangeTrolleyACC,
-                onClick = onSetTrolleyACC
+                onClick = onSetTrolleyACC,
+                isDecimal = true,
             )
 //Ввод. Торможение. Секунды
             BasicInputRowandTensButton(
                 placeholder = "3.0",
                 value = setValueTrolleyDEC,
                 onValueChange = onModelChangeTrolleyDEC,
-                onClick = onSetTrolleyDEC
+                onClick = onSetTrolleyDEC,
+                isDecimal = true,
             )
 //Ввод. Скорость 1. Об/мин
             BasicInputRowandButton(
@@ -128,7 +131,7 @@ fun ServiceTrolley(
             )
 //Ввод. Скорость 2.Об/мин
             BasicInputRowandButton(
-                placeholder = "700",
+                placeholder = "750",
                 value = setValueTrolleySpdRef2,
                 onValueChange = onModelChangeTrolleySpdRef2,
                 onClick = onSetTrolleySpdRef2

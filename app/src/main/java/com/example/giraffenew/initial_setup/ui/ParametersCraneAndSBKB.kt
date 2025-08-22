@@ -34,6 +34,7 @@ import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeModelCrane
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -152,11 +153,12 @@ fun ParametersCraneAndSBKB(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                     .weight(3f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicTextFilledGiraffeModelCrane(
+                        modifier = Modifier,
                         placeholder = "10.180",
                         value = setValueModelCrane,
-                        onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..65535 }== true) {onModelChangeCrane(it)} },
-                        modifier = Modifier,
+                        onValueChange = onModelChangeCrane,
+                        isDecimal = true
                     )
                 }
                 //Кнопка ввода
@@ -179,7 +181,7 @@ fun ParametersCraneAndSBKB(
                     BasicTextFilledGiraffe(
                         placeholder = "№",
                         value = setValueNumberCrane,
-                        onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..65535 }== true) {onNumberChangeCrane(it)} },
+                        onValueChange = onNumberChangeCrane,
                         modifier = Modifier,
                     )
                 }
@@ -249,7 +251,7 @@ fun ParametersCraneAndSBKB(
                     BasicTextFilledGiraffe(
                         placeholder = "№",
                         value = setValueNumberSBKB,
-                        onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..65535 }== true) {onNumberChangeSBKB(it)} },
+                        onValueChange = onNumberChangeSBKB,
                         modifier = Modifier,
                     )
                 }

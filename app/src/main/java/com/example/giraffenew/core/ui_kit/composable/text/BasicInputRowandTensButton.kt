@@ -12,11 +12,12 @@ import com.example.giraffenew.initial_setup.ui.ButtonOn
 
 @Composable
 fun BasicInputRowandTensButton(
+    modifier: Modifier = Modifier,
     placeholder: String,
     value: String,
     onValueChange: (String) -> Unit,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    isDecimal: Boolean = false,
 ) {
     Row (
         modifier = modifier,
@@ -31,11 +32,8 @@ fun BasicInputRowandTensButton(
             BasicTextFilledGiraffe(
                 placeholder = placeholder,
                 value = value,
-                onValueChange = { newValue ->
-                    if (newValue.isEmpty() || newValue.toIntOrNull()?.let { it in 0..99 } == true) {
-                        onValueChange(newValue)
-                    }
-                },
+                onValueChange = onValueChange,
+                isDecimal = isDecimal,
                 modifier = Modifier
             )
         }

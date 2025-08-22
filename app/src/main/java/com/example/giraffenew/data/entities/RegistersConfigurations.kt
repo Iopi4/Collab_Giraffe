@@ -183,6 +183,21 @@ object UiServiceMenuRegisterConfiguration {
     const val NAME_SERVICE_MENU = "ui_configuration_ServiceMenu"
 
     val REGISTERS = listOf(
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОДЪЕМА
+        RegisterInfo(940, "HMI_Write_Hoist_wSpdRefButton_Value_MW", "WORD16", "Скорость при нажатии кнопки"),
+        RegisterInfo(941, "HMI_Write_Hoist_wSpdRef1_Value_MW", "WORD16", "Скорость 1 подъема"),
+        RegisterInfo(942, "HMI_Write_Hoist_wSpdRef2_Value_MW", "WORD16", "Скорость 2 подъема"),
+        RegisterInfo(943, "HMI_Write_Hoist_wSpdRef3_Value_MW", "WORD16", "Скорость 3 подъема"),
+        RegisterInfo(944, "HMI_Write_Hoist_wSpdRef4_Value_MW", "WORD16", "Скорость 4 подъема"),
+        RegisterInfo(945, "HMI_Write_Hoist_iSpdRef_MAX_Value_MW", "WORD16", "Значение максимальной скорости двигателя подъема"),
+        RegisterInfo(946, "HMI_Write_Hoist_rHoist_Acc_MW", "WORD16", "Время разгона подъема, сек"),
+        RegisterInfo(947, "HMI_Write_Hoist_rHoist_Dec_MW", "WORD16", "Время торможения подъема, сек"),
+
+        RegisterInfo(950, "HMI_Write_Hoist_wSpdRef1Strela_MW", "WORD16", "Скорость подъема 1 в режиме монтаж"),
+        RegisterInfo(951, "HMI_Write_Hoist_wSpdRef2Strela_MW", "WORD16", "Скорость подъема 2 в режиме монтаж"),
+        RegisterInfo(952, "HMI_Write_Hoist_rStrela_Acc_MW", "WORD16", "Время разгона в режиме монтаж, сек"),
+        RegisterInfo(953, "HMI_Write_Hoist_rStrela_Dec_MW", "WORD16", "Время торможения в режиме монтаж, сек"),
+
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
         RegisterInfo(960, "HMI_Write_Trolley_wSpdRef1_Value_MW", "WORD16", "Скорость 1 тележки"),

@@ -37,6 +37,7 @@ fun BasicTextFilledGiraffe (
     placeholder: String,
     value: String,
     onValueChange: (String) -> Unit,
+    isDecimal: Boolean = false,
     modifier: Modifier
 
     ){  val interactionSource = remember { MutableInteractionSource() }
@@ -53,7 +54,7 @@ fun BasicTextFilledGiraffe (
         focusedTextColor = colorResource(R.color.DarkGrew) // цвет при отсутствии фокуса
     )
 
-    var myBoxVisualTextFieldModifier = Modifier
+    val myBoxVisualTextFieldModifier = Modifier
         .clip(shape = RoundedCornerShape(5.dp))
         .background(colorResource(R.color.white))
         .border(
@@ -66,8 +67,14 @@ fun BasicTextFilledGiraffe (
         BasicTextField(
             value = value, //value: представляет введенное в текстовое поле значение в виде строки, объекта String
             onValueChange = { newValue ->
-                if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
-                    onValueChange(newValue)
+                if (isDecimal) {
+                    if (newValue.isEmpty() || newValue.matches(Regex("^\\d{0,2}(\\.\\d{0,2})?$"))) {
+                        onValueChange(newValue)
+                    }
+                } else {
+                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                        onValueChange(newValue)
+                    }
                 }
             }, //функция обработки изменения введенного значения. Представляет функцию типа (String) -> Unit
             modifier = Modifier
@@ -82,7 +89,7 @@ fun BasicTextFilledGiraffe (
             // поведение, сделав текстовое поле нередактируемым, нефокусируемым и невыбираемым
             singleLine = singleLine, //указывает, является ли это однострочным или многострочным текстовым полем.
             // Вы должны передать то же значение, что и BasicTextField
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) //Выбор типа клавиатуры
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal) //Выбор типа клавиатуры
         ){
             TextFieldDefaults.DecorationBox(
                 value = value,
@@ -109,11 +116,6 @@ fun BasicTextFilledGiraffe (
             )
         }
     }
-
-
-
-
-
 }
 
 @Preview

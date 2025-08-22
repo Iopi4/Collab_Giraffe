@@ -80,11 +80,11 @@ fun InitialSetupScreen(
         Box(modifier = Modifier.weight(3f)){
             ParametersCraneAndSBKB(
                 setValueModelCrane = initialSetupViewModel.setValueModelCrane.value,
-                onModelChangeCrane = { initialSetupViewModel.updateValueModelCrane(it) },
+                onModelChangeCrane = { initialSetupViewModel.updateModelCrane(it) },
                 onSetModelCrane = { initialSetupViewModel.onSetModelCrane() },
 
                 setValueNumberCrane = initialSetupViewModel.setValueNumberCrane.value,
-                onNumberChangeCrane =  { initialSetupViewModel.updateValueNumberCrane(it) },
+                onNumberChangeCrane =  { initialSetupViewModel.updateNumberCrane(it) },
                 onSetNumberCrane = { initialSetupViewModel.onSetNumberCrane() },
 
                 setValueNumberSBKB = initialSetupViewModel.setValueNumberSBKB.value,
