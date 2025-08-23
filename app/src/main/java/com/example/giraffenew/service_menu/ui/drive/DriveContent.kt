@@ -30,7 +30,6 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 fun DriveContent(
     serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel()
 ){
-
     val navController= rememberNavController()
     Column(modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)

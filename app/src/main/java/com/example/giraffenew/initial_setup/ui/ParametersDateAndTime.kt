@@ -1,5 +1,6 @@
 package com.example.giraffenew.initial_setup.ui
 
+import android.os.Message
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -41,6 +43,7 @@ fun ParametersDateAndTime(
 
     onSetDateTime: () -> Unit,
     errorMessage: String?,
+    logMessageDateTime: String?,
     ) {
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -71,15 +74,10 @@ fun ParametersDateAndTime(
 
             Box (modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessage?.let {
-                    Text(
-                        text = it,
-                        color = Color.Red,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                }
+            ) { errorMessage?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageDateTime?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
             }
+
         }
 
 //№.2 - Правая область для отображения и ввода параметров. (1- Дата и время)
@@ -124,6 +122,8 @@ fun ParametersDateAndTime(
                 text = R.string.Button_Enter,
                 onClick = onSetDateTime,
             ) {}
+
+
         }
     }
 }
@@ -147,7 +147,8 @@ fun ParametersDataAndTimeTextPreview () {
             onMonthChange= {},
             onYearChange= {},
             onSetDateTime = { },
-            errorMessage = null
+            errorMessage = null,
+            logMessageDateTime = null
         )
     }
 }

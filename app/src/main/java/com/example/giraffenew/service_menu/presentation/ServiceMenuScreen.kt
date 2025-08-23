@@ -27,12 +27,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
-import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
+
 import com.example.giraffenew.service_menu.ui.drive.DriveContent
-import com.example.giraffenew.service_menu.ui.drive.ServiceCrane
-import com.example.giraffenew.service_menu.ui.drive.ServiceHoist
-import com.example.giraffenew.service_menu.ui.drive.ServiceSlewing
-import com.example.giraffenew.service_menu.ui.drive.ServiceTrolley
 import com.example.giraffenew.service_menu.ui.sensors.SensorsContent
 import com.example.giraffenew.service_menu.ui.user.ServiceUser
 import com.example.giraffenew.ui.theme.DarkGrew

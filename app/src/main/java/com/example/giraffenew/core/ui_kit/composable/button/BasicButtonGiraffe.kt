@@ -42,12 +42,12 @@ fun BasicButtonGiraffe(
     var buttonEnabled by remember { mutableStateOf(true) } // Button state
 
     Box(modifier = modifier
-        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
+        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
         .fillMaxWidth()){
         Button(
             modifier = Modifier
-                .size(width = 350.dp, height = 30.dp),
+                .size(width = 400.dp, height = 30.dp),
             onClick = onClick,
             contentPadding = PaddingValues(2.dp),
             shape = RoundedCornerShape(5.dp),

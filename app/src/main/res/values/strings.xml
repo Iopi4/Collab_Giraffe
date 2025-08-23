@@ -203,6 +203,7 @@
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
     <!-- Текст экрана ServiceMenuScreen' -->
+    <string name="ServiceMenu_Register_Save">СОХРАНЕНО</string>
     <!-- Названия вкладок -->
     <string name="ServiceMenu_Button_Drive">ПРИВОД</string>
     <string name="ServiceMenu_Button_Drive_Hoist">ПОДЪЕМ</string>

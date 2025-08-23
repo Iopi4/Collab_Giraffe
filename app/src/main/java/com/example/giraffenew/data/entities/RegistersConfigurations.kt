@@ -183,6 +183,57 @@ object UiServiceMenuRegisterConfiguration {
     const val NAME_SERVICE_MENU = "ui_configuration_ServiceMenu"
 
     val REGISTERS = listOf(
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
+        RegisterInfo(980, "HMI_Write_rWindSpeedLvl1_MW", "WORD16", "Скорость ветра для порога №1, м/с, включение желтой индикации"),
+        RegisterInfo(981, "HMI_Write_rWindSpeedLvl2_MW", "WORD16", "Скорость ветра для порога №2, м/с, включение красной индикации"),
+        RegisterInfo(982, "HMI_Write_rWindSpeedMontageLvl_MW", "WORD16", "Скорость ветра для порога №2, м/с, включение красной индикации/Монтажный режим"),
+        RegisterInfo(983, "HMI_Write_iAnemTimeSmooth_MW", "WORD16", "Время усреднения показаний анемометра, 5 сек"),
+        RegisterInfo(984, "HMI_Write_rWindSpeedLvlClbr_MW", "WORD16", "Значение калибровки скорости ветра"),
+        RegisterInfo(163, "Wind_MW", "WORD16", "Текущие показания ветра *0,1м/с"),
+        RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр"),
+        RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "Статус анемометра"),
+        RegisterInfo(985, "HMI_Write_rK_MW", "WORD16", "Коэффициент калибровки"),
+        RegisterInfo(986, "HMI_Write_xAnemomClbr_MW", "WORD16", "Команда калибровать анемометр"),
+
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
+        RegisterInfo(990, "HMI_Write_rAbsEnc_Ratio_Hoist_MW", "WORD16", "Коэффициент передачи энкодера подъема"),
+        RegisterInfo(991, "HMI_Write_rAbsEnc_Ratio_Slew_MW", "WORD16", "Коэффициент передачи энкодера поворота"),
+        RegisterInfo(992, "HMI_Write_rAbsEnc_Ratio_Trolley_MW", "WORD16", "Коэффициент передачи энкодера тележки"),
+        RegisterInfo(993, "HMI_Write_rAbsEnc_Ratio_Crane_MW", "WORD16", "Коэффициент передачи энкодера крана"),
+
+        RegisterInfo(50, "HMI_Write_udiHoistAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера подъема"),
+        RegisterInfo(52, "HMI_Write_udiSlewAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера поворота"),
+        RegisterInfo(54, "HMI_Write_udiTrolleyAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера тележки"),
+        RegisterInfo(56, "HMI_Write_udiCraneAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера хода крана"),
+
+        RegisterInfo(994, "HMI_Write_xAbsEncDeltaControlEn_MW", "WORD16", "Включить контроль максимального рассогласования абсолютных энкодеров"),
+        RegisterInfo(995, "HMI_Write_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),
+        RegisterInfo(996, "HMI_Write_xDebug_Mode_Slew_MW", "WORD16", "Флаг установки режима наладки механизма поворота при выходе датчика из строя"),
+        RegisterInfo(997, "HMI_xAbsEncDeltaControlEn_MW", "WORD16", "Флаг контроль максимального рассогласования абсолютных энкодеров"),
+        RegisterInfo(998, "HMI_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),
+        RegisterInfo(999, "HMI_xDebug_Mode_Slew_MW", "WORD16", "Флаг установки режима наладки механизма поворота при выходе датчика из строя"),
+
+
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА УСИЛИЯ
+        RegisterInfo(1200, "LoadCell_MinWeight_MW", "WORD16", "Минимальное значение измерения веса"),
+        RegisterInfo(1201, "LoadCell_MaxWeight_MW", "WORD16", "Максимальное значение измерения веса"),
+        RegisterInfo(1202, "LoadCell_SmoothingDepth_MW", "WORD16", "Глубина сглаживания измерения веса"),
+        RegisterInfo(1203, "LoadCell_OverSpeedThreshold_MW", "WORD16", "Уставка массы для разрешения повышенной скорости"),
+
+
+        //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
+        RegisterInfo(1204, "HMI_Write_xDataLogErrStopHoist_MW", "WORD16", "Запрет высоких скоростей при ошибке регистратора"),
+        RegisterInfo(1205, "HMI_Write_xPasswordOrNaladka_MW", "WORD16", "Режим авторизации наладки"),
+        RegisterInfo(1206, "HMI_Write_xFOURpoligonsEn_MW", "WORD16", "Режим работы полигонов (4x20 или 2x10 точек)"),
+        RegisterInfo(1207, "HMI_Write_xWithoutRringCurrentCollector_MW", "WORD16", "Режим ограничения поворота без токосъемника"),
+        RegisterInfo(1208, "HMI_Write_xZoneACC_DEC_Activ_MW", "WORD16", "Активация зон регулирования ускорений/замедлений"),
+
+        RegisterInfo(750, "HMI_xDataLogErrStopHoist_MW", "WORD16", "Флаг. Запрет высоких скоростей при ошибке регистратора"),
+        RegisterInfo(751, "HMI_xPasswordOrNaladka_MW", "WORD16", "Флаг.Режим авторизации наладки"),
+        RegisterInfo(752, "HMI_xFOURpoligonsEn_MW", "WORD16", "Флаг.Режим работы полигонов (4x20 или 2x10 точек)"),
+        RegisterInfo(753, "HMI_xWithoutRringCurrentCollector_MW", "WORD16", "Флаг.Выбор исполнения крана без кольцеового токосъемника, режим ограничения поворота"),
+        RegisterInfo(754, "HMI_xZoneACC_DEC_Activ_MW", "WORD16", "Флаг. Активация зон регулирования ускорений/замедлений"),
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОДЪЕМА
         RegisterInfo(940, "HMI_Write_Hoist_wSpdRefButton_Value_MW", "WORD16", "Скорость при нажатии кнопки"),
         RegisterInfo(941, "HMI_Write_Hoist_wSpdRef1_Value_MW", "WORD16", "Скорость 1 подъема"),
@@ -198,6 +249,14 @@ object UiServiceMenuRegisterConfiguration {
         RegisterInfo(952, "HMI_Write_Hoist_rStrela_Acc_MW", "WORD16", "Время разгона в режиме монтаж, сек"),
         RegisterInfo(953, "HMI_Write_Hoist_rStrela_Dec_MW", "WORD16", "Время торможения в режиме монтаж, сек"),
 
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОВОРОТА
+        RegisterInfo(955, "HMI_Write_Slew_wDrvSpdLSP_MW", "WORD16", "Снижение скорости поворота"),
+        RegisterInfo(956, "HMI_Write_Slew_wSpdRef1_Value_MW", "WORD16", "Скорость 1 поворота"),
+        RegisterInfo(957, "HMI_Write_Slew_wSpdRef2_Value_MW", "WORD16", "Скорость 2 поворота"),
+        RegisterInfo(958, "HMI_Write_Slew_wSpdRef3_Value_MW", "WORD16", "Скорость 3 поворота"),
+        RegisterInfo(959, "HMI_Write_Slew_wSpdRef4_Value_MW", "WORD16", "Скорость 4 поворота"),
+        RegisterInfo(968, "HMI_Write_Slew_wACCnom_MW", "WORD16", "Время разгона поворота"),
+        RegisterInfo(969, "HMI_Write_Slew_wDECnom_MW", "WORD16", "Время торможения поворота"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
         RegisterInfo(960, "HMI_Write_Trolley_wSpdRef1_Value_MW", "WORD16", "Скорость 1 тележки"),

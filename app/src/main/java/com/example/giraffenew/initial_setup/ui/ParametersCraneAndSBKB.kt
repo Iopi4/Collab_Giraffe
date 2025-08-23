@@ -80,6 +80,10 @@ fun ParametersCraneAndSBKB(
     onYearChangeSBKB: (String) -> Unit,
     onSetDateSBKB: () -> Unit,
     errorMessageSBKB: String?,
+    logMessageCrane: String?,
+    logMessageRTN: String?,
+    logMessageSBKB: String?,
+
 ) {
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -114,17 +118,19 @@ fun ParametersCraneAndSBKB(
 
             Box (modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) { errorMessageSBKB?.let {
-                Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
+            ) { errorMessageCrane?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageCrane?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
             }
-                errorMessageCrane?.let {
-                    Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
-                }
-                errorMessageRTN?.let {
-                    Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))
-                }}
-
-
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) { errorMessageSBKB?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageSBKB?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) { errorMessageRTN?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageRTN?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
         }
 
 //№.2 - Правая область для отображения и ввода параметров. ( 2-Тип крана)
@@ -364,7 +370,10 @@ fun ParametersCraneAndSBKBPreview () {
             onMonthChangeSBKB = { },
             onYearChangeSBKB = { },
             onSetDateSBKB = { },
-            errorMessageSBKB = null
+            errorMessageSBKB = null,
+            logMessageCrane = null,
+            logMessageSBKB = null,
+            logMessageRTN = null,
         )
     }
 }

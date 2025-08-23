@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.service_menu.presentation.ServiceMenuViewModel
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun SensorsContent(
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel()
 ){
     val navController= rememberNavController()
     Column(modifier = Modifier.fillMaxWidth(),
@@ -33,7 +36,42 @@ fun SensorsContent(
     {
         NavBarSensorsContent(navController = navController)
         NavHost(navController, startDestination = NavRoutesSensorsContent.PageServiceWind.route) {
-            composable(NavRoutesSensorsContent.PageServiceWind.route){ServiceWind()}
+            composable(NavRoutesSensorsContent.PageServiceWind.route)
+            {ServiceWind(
+                setValueWindSpeedLvl1 = serviceMenuViewModel.setValueWindSpeedLvl1.value,
+                onModelChangeWindSpeedLvl1 = { serviceMenuViewModel.updateWindSpeedLvl1(it) },
+                onSetWindSpeedLvl1 = { serviceMenuViewModel.onSetWindSpeedLvl1() },
+
+                setValueWindSpeedLvl2 = serviceMenuViewModel.setValueWindSpeedLvl2.value,
+                onModelChangeWindSpeedLvl2 = { serviceMenuViewModel.updateWindSpeedLvl2(it) },
+                onSetWindSpeedLvl2 = { serviceMenuViewModel.onSetWindSpeedLvl2() },
+
+                setValueWindSpeedMontageLvl1 = serviceMenuViewModel.setValueWindSpeedMontageLvl.value,
+                onModelChangeWindSpeedMontageLvl1 = { serviceMenuViewModel.updateWindSpeedMontageLvl(it) },
+                onSetWindSpeedMontageLvl1 = { serviceMenuViewModel.onSetWindSpeedMontageLvl() },
+
+                setValueWindTimeSmooth = serviceMenuViewModel.setValueWindTimeSmooth.value,
+                onModelChangeWindTimeSmooth = { serviceMenuViewModel.updateWindTimeSmooth(it) },
+                onSetWindTimeSmooth = { serviceMenuViewModel.onSetWindTimeSmooth() },
+
+                setValueWindSpeedLvlClbr = serviceMenuViewModel.setValueWindSpeedLvlClbr.value,
+                onModelChangeWindSpeedLvlClbr = { serviceMenuViewModel.updateWindSpeedLvlClbr(it) },
+                onSetWindSpeedLvlClbr = { serviceMenuViewModel.onSetWindSpeedLvlClbr() },
+
+                currentWind = serviceMenuViewModel.state.value.currentWind,
+                currentAnemometerSensor = serviceMenuViewModel.state.value.currentAnemometerSensor,
+                currentAnemometerStatus = serviceMenuViewModel.state.value.currentAnemometerStatus,
+
+                setValueWindRK = serviceMenuViewModel.setValueWindRK.value,
+                onModelChangeWindRK = { serviceMenuViewModel.updateWindRK(it) },
+                onSetWindRK = { serviceMenuViewModel.onSetWindRK() },
+
+                onSetAnemometerClbr = { serviceMenuViewModel.onSetAnemometerClbr()},
+
+                errorMessageWind = serviceMenuViewModel.errorMessageWind.value,
+                logMessageWind = serviceMenuViewModel.logMessageWind.value,
+            )
+            }
             composable(NavRoutesSensorsContent.PageServiceWeight.route){ServiceWeight()}
             composable(NavRoutesSensorsContent.PageServicePosition.route){ServicePosition()}
             composable(NavRoutesSensorsContent.PageServiceRefPoint.route) {ServiceRefPoint()}
@@ -108,7 +146,6 @@ sealed class NavRoutesSensorsContent (val route: String){
 @Composable
 fun SensorsContentPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        SensorsContent(
-        )
+
     }
 }

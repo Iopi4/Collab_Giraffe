@@ -22,7 +22,9 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun ServiceWeight(){
+fun ServiceWeight(
+
+){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -103,7 +105,5 @@ fun ServiceWeight(){
 @Composable
 fun ServiceWeightPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
-        ServiceWeight(
-        )
     }
 }

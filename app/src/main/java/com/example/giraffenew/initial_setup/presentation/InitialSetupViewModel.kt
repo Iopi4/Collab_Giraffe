@@ -97,8 +97,17 @@ class InitialSetupViewModel
     private val _errorMessageSBKB = mutableStateOf<String?>(null)
     val errorMessageSBKB: State<String?> = _errorMessageSBKB
 
-    private val _logMessage = mutableStateOf<String?>(null)
-    val logMessage: State<String?> = _logMessage
+    private val _logMessageDateTime = mutableStateOf<String?>(null)
+    val logMessageDateTime: State<String?> = _logMessageDateTime
+
+    private val _logMessageCrane = mutableStateOf<String?>(null)
+    val logMessageCrane: State<String?> = _logMessageCrane
+
+    private val _logMessageRTN = mutableStateOf<String?>(null)
+    val logMessageRTN: State<String?> = _logMessageRTN
+
+    private val _logMessageSBKB = mutableStateOf<String?>(null)
+    val logMessageSBKB: State<String?> = _logMessageSBKB
 
     private var previousValues: Map<Int, Int?> = emptyMap()
 
@@ -216,13 +225,13 @@ class InitialSetupViewModel
                 delay(1000)
                 modbusRepository.writeRegister(842, 0)
                 _errorMessage.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageDateTime.value = "Сохранено"
                 // Логирование
                 Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
                 Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
                 _errorMessage.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageDateTime.value = null
             }
         }
     }
@@ -242,10 +251,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(856, year)
 
                 _errorMessageCrane.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageCrane.value = null
             }
         }
     }
@@ -264,10 +273,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(853, year)
 
                 _errorMessageRTN.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageRTN.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageRTN.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageRTN.value = null
             }
         }
     }
@@ -287,10 +296,10 @@ class InitialSetupViewModel
                 modbusRepository.writeRegister(860, year)
 
                 _errorMessageSBKB.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageSBKB.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageSBKB.value = null
             }
         }
     }
@@ -303,10 +312,10 @@ class InitialSetupViewModel
                 // Запись в регистры модель крана
                 modbusRepository.writeRegister(848, model)
                 _errorMessageCrane.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageCrane.value = null
             }
         }
     }
@@ -319,10 +328,10 @@ class InitialSetupViewModel
                 // Запись в регистры модель крана
                 modbusRepository.writeRegister(850, number)
                 _errorMessageCrane.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageCrane.value = null
             }
         }
     }
@@ -337,10 +346,10 @@ class InitialSetupViewModel
                 // Сброс состояний
 
                 _errorMessageSBKB.value = null
-                _logMessage.value = "Сохранено"
+                _logMessageSBKB.value = "Сохранено"
             } catch (e: Exception) {
                 _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
+                _logMessageSBKB.value = null
             }
         }
     }

@@ -75,6 +75,7 @@ fun InitialSetupScreen(
                 onYearChange = { initialSetupViewModel.updateYear(it) },
                 onSetDateTime = { initialSetupViewModel.onSetDateTime() },
                 errorMessage = initialSetupViewModel.errorMessage.value,
+                logMessageDateTime = initialSetupViewModel.logMessageDateTime.value,
             )
         }
         Box(modifier = Modifier.weight(3f)){
@@ -117,6 +118,10 @@ fun InitialSetupScreen(
                 onMonthChangeSBKB = { initialSetupViewModel.updateMonthSBKB(it) },
                 onYearChangeSBKB = { initialSetupViewModel.updateYearSBKB(it) },
                 errorMessageSBKB = initialSetupViewModel.errorMessageSBKB.value,
+
+                logMessageCrane = initialSetupViewModel.logMessageCrane.value,
+                logMessageRTN = initialSetupViewModel.logMessageRTN.value,
+                logMessageSBKB = initialSetupViewModel.logMessageSBKB.value,
             ) }
     }
 }

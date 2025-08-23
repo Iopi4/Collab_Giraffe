@@ -59,6 +59,7 @@ class HomeScreenViewModel @Inject constructor(
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
             modbusRepository.getConfigurationFlow(UiHomeScreenRegisterConfiguration.NAME_HOME)
                 .collect { cache ->
+                    Log.d("HomeScreenViewModel", "Updating from cache, size: ${cache.size}")
                     try {
                         // Создаем отфильтрованную карту только для нужных адресов
                         val filteredCache = allAddresses.associate { addr ->

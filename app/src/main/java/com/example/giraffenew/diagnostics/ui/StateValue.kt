@@ -22,13 +22,13 @@ fun StateValue(
     Row(horizontalArrangement = Arrangement.Start) {
         // Отображение текущего значения датчика высоты Hoist
         Box(modifier = Modifier
-            .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+            .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
             .weight(3f)) {
             BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                 valueParameterId = isValueParameter)
         }
         //Статус датчика Hoist
-        Box(modifier = Modifier.weight(1f).padding(start = 5.dp)) {
+        Box(modifier = Modifier.weight(1f)) {
             BasicLampSettingParameter(
                 isLampStatus = isValueStatus
             )
@@ -43,7 +43,7 @@ fun StateValuePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         StateValue(
             isValueParameter = "",
-            isValueStatus = 2,
+            isValueStatus = 1,
         )
     }
 }
