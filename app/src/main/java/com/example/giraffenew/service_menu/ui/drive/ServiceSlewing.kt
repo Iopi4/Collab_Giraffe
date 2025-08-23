@@ -126,6 +126,8 @@ fun ServiceSlewing(
             BasicInputRowandButton(
                 placeholder = "150",
                 value = setValueSlewSpdRef1,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeSlewSpdRef1,
                 onClick = onSetSlewSpdRef1
             )
@@ -133,6 +135,8 @@ fun ServiceSlewing(
             BasicInputRowandButton(
                 placeholder = "450",
                 value = setValueSlewSpdRef2,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeSlewSpdRef2,
                 onClick = onSetSlewSpdRef2
             )
@@ -140,6 +144,8 @@ fun ServiceSlewing(
             BasicInputRowandButton(
                 placeholder = "900",
                 value = setValueSlewSpdRef3,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeSlewSpdRef3,
                 onClick = onSetSlewSpdRef3
             )
@@ -147,6 +153,8 @@ fun ServiceSlewing(
             BasicInputRowandButton(
                 placeholder = "1500",
                 value = setValueSlewSpdRef4,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeSlewSpdRef4,
                 onClick = onSetSlewSpdRef4
             )
@@ -154,6 +162,8 @@ fun ServiceSlewing(
             BasicInputRowandButton(
                 placeholder = "150",
                 value = setValueSlewSpdStopButton,
+                valueMin = 0,
+                valueMax = 200,
                 onValueChange = onModelChangeSlewSpdStopButton,
                 onClick = onSetSlewSpdStopButton,
             )

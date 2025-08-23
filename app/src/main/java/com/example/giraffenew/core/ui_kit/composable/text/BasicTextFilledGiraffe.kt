@@ -68,7 +68,7 @@ fun BasicTextFilledGiraffe (
             value = value, //value: представляет введенное в текстовое поле значение в виде строки, объекта String
             onValueChange = { newValue ->
                 if (isDecimal) {
-                    if (newValue.isEmpty() || newValue.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+                    if (newValue.isEmpty() || newValue.matches(Regex("^\\d{0,4}(\\.\\d{0,1})?$"))) {
                         onValueChange(newValue)
                     }
                 } else {

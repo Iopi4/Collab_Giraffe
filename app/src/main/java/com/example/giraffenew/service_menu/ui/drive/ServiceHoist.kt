@@ -167,6 +167,8 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "250",
                 value = setValueHoistSpdRef1,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRef1,
                 onClick = onSetHoistSpdRef1
             )
@@ -174,6 +176,8 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "450",
                 value = setValueHoistSpdRef2,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRef2,
                 onClick = onSetHoistSpdRef2
             )
@@ -181,6 +185,8 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "900",
                 value = setValueHoistSpdRef3,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRef3,
                 onClick = onSetHoistSpdRef3
             )
@@ -188,6 +194,8 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "1500",
                 value = setValueHoistSpdRef4,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRef4,
                 onClick = onSetHoistSpdRef4
             )
@@ -195,15 +203,19 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "3000",
                 value = setValueHoistSpdRefMax,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRefMax,
                 onClick = onSetHoistSpdRefMax
             )
 //Ввод. Медленная скорость при нажатии кнопки, об/мин
             BasicInputRowandButton(
                 placeholder = "90",
+                valueMin = 0,
+                valueMax = 999,
                 value = setValueHoistSpdRefButton,
                 onValueChange = onModelChangeHoistSpdRefButton,
-                onClick = onSetHoistSpdRefButton
+                onClick = onSetHoistSpdRefButton,
             )
 
             Spacer(modifier = Modifier.size(30.dp))
@@ -230,12 +242,16 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "250",
                 value = setValueHoistMontageSpdRef1,
+                valueMin = 0,
+                valueMax = 99,
                 onValueChange = onModelChangeHoistMontageSpdRef1,
                 onClick = onSetHoistMontageSpdRef1
             )
 //Ввод. Скорость 2. об/мин
             BasicInputRowandButton(
                 placeholder = "450",
+                valueMin = 0,
+                valueMax = 99,
                 value = setValueHoistMontageSpdRef2,
                 onValueChange = onModelChangeHoistMontageSpdRef2,
                 onClick = onSetHoistMontageSpdRef2

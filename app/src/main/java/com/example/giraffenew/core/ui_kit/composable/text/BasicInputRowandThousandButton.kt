@@ -29,7 +29,7 @@ fun BasicInputRowandThousandButton(
                 .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                 .weight(3f)
         ) {
-            BasicTextFilledGiraffeWindRK(
+            BasicTextFilledGiraffeThousand(
                 placeholder = placeholder,
                 value = value,
                 onValueChange = onValueChange,

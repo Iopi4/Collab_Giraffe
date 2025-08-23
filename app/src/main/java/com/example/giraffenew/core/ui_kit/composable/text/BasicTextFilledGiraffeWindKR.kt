@@ -33,7 +33,7 @@ import com.example.giraffenew.ui.theme.Grew_50_percent
 //Создаем текстовое поле для ввода переменных
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BasicTextFilledGiraffeWindRK (
+fun BasicTextFilledGiraffeThousand (
     placeholder: String,
     value: String,
     onValueChange: (String) -> Unit,
@@ -125,7 +125,7 @@ fun BasicTextFilledGiraffeWindRK (
 @Composable
 fun BasicTextFilledGiraffeWindRKPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        BasicTextFilledGiraffeWindRK(
+        BasicTextFilledGiraffeThousand(
             placeholder = "Value",
             onValueChange = { },
             modifier = Modifier,

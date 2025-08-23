@@ -20,8 +20,7 @@ import com.example.giraffenew.ui.theme.Silver
 fun BasicLampError(
     isLampStatus: Int,
 ){
-    Box(modifier = Modifier
-        .size(100.dp),
+    Box(modifier = Modifier,
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {

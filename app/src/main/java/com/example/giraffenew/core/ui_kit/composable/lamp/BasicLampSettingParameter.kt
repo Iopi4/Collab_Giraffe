@@ -25,32 +25,28 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Grew_50_percent
-
+import com.example.giraffenew.ui.theme.Silver
 
 
 @Composable
 fun BasicLampSettingParameter(
     isLampStatus: Int,
     ) {
-    Box(modifier = Modifier
-        .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp),
+    Box(modifier = Modifier,
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {
             0 -> Color.Gray
-            1 -> colorResource(R.color.Emerald)
+            1 -> Color.Green
             else -> Color.Gray // default color
         }
 
         Box(
             modifier = Modifier
-                .clip(shape = RoundedCornerShape(5.dp))
-                .size(width = 400.dp, height = 30.dp)
+                .size(100.dp)
                 .border(
-                    width = 2.dp,
-                    color = Grew_50_percent,
-                    shape = RoundedCornerShape(5.dp)
-                )
+                    width = 2.dp, color = Silver, //рамка
+                    shape = RoundedCornerShape(5.dp))
                 .shadow(1.dp, shape = MaterialTheme.shapes.small)
                 .background(lampColor, shape = MaterialTheme.shapes.small)
         )

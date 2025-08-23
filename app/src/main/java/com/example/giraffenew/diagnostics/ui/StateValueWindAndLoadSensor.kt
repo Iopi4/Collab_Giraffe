@@ -16,20 +16,18 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun StateValueWindAndLoadSensor(
-    modifier: Modifier = Modifier,
     isValueParameter: String,
     isValueStatus: Int,
 ) {
     // Отображение значения и состояния параметра
     Row(horizontalArrangement = Arrangement.Start) {
-        // Отображение текущего значения датчика высоты Hoist
+       //Отображение значения и статуса переменной
         Box(modifier = Modifier
             .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
             .weight(3f)) {
             BasicValuesSettingsParameterGiraffe(modifier = Modifier,
                 valueParameterId = isValueParameter)
         }
-        //Статус датчика Hoist
         Box(modifier = Modifier.weight(1f)
             .size(width = 35.dp, height = 35.dp)
             .padding(start = 5.dp, end = 10.dp, top = 5.dp)) {

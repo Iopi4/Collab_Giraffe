@@ -72,8 +72,74 @@ fun SensorsContent(
                 logMessageWind = serviceMenuViewModel.logMessageWind.value,
             )
             }
-            composable(NavRoutesSensorsContent.PageServiceWeight.route){ServiceWeight()}
-            composable(NavRoutesSensorsContent.PageServicePosition.route){ServicePosition()}
+            composable(NavRoutesSensorsContent.PageServiceWeight.route)
+            { ServiceWeight(
+                setValueLoadCellMinWeight = serviceMenuViewModel.setLoadCellMinWeight.value,
+                onModelChangeLoadCellMinWeight = { serviceMenuViewModel.updateLoadCellMinWeight(it) },
+                onSetLoadCellMinWeight = { serviceMenuViewModel.onSetLoadCellMinWeight() },
+
+                setValueLoadCellMaxWeight = serviceMenuViewModel.setLoadCellMaxWeight.value,
+                onModelChangeLoadCellMaxWeight = { serviceMenuViewModel.updateLoadCellMaxWeight(it) },
+                onSetLoadCellMaxWeight = { serviceMenuViewModel.onSetLoadCellMaxWeight() },
+
+                setValueLoadCellSmoothingDepth = serviceMenuViewModel.setLoadCellSmoothingDepth.value,
+                onModelChangeLoadCellSmoothingDepth = { serviceMenuViewModel.updateLoadCellSmoothingDepth(it) },
+                onSetLoadCellSmoothingDepth = { serviceMenuViewModel.onSetLoadCellSmoothingDepth() },
+
+                setValueLoadCellOverSpeedThreshold = serviceMenuViewModel.setLoadCellOverSpeedThreshold.value,
+                onModelChangeLoadCellOverSpeedThreshold = { serviceMenuViewModel.updateLoadCellOverSpeedThreshold(it) },
+                onSetLoadCellOverSpeedThreshold = { serviceMenuViewModel.onSetLoadCellOverSpeedThreshold() },
+
+                errorMessageLoadCell = serviceMenuViewModel.errorMessageLoadCell.value,
+                logMessageLoadCell = serviceMenuViewModel.logMessageLoadCell.value
+            )}
+            composable(NavRoutesSensorsContent.PageServicePosition.route)
+            {ServicePosition(
+                setValueAbsEncRatioHoistGK = serviceMenuViewModel.setValueAbsEncRatioHoistGK.value,
+                onModelChangeAbsEncRatioHoistGK = { serviceMenuViewModel.updateValueAbsEncRatioHoistGK(it) },
+                onSetAbsEncRatioHoistGK = { serviceMenuViewModel.onSetAbsEncRatioHoistGK() },
+
+                setValueAbsEncRatioSlewGK = serviceMenuViewModel.setValueAbsEncRatioSlewGK.value,
+                onModelChangeAbsEncRatioSlewGK = { serviceMenuViewModel.updateValueAbsEncRatioSlewGK(it) },
+                onSetAbsEncRatioSlewGK = { serviceMenuViewModel.onSetAbsEncRatioSlewGK() },
+
+                setValueAbsEncRatioTrolleyGK = serviceMenuViewModel.setValueAbsEncRatioTrolleyGK.value,
+                onModelChangeAbsEncRatioTrolleyGK = { serviceMenuViewModel.updateValueAbsEncRatioTrolleyGK(it) },
+                onSetAbsEncRatioTrolleyGK = { serviceMenuViewModel.onSetAbsEncRatioTrolleyGK() },
+
+                setValueAbsEncRatioCraneGK = serviceMenuViewModel.setValueAbsEncRatioCraneGK.value,
+                onModelChangeAbsEncRatioCraneGK = { serviceMenuViewModel.updateValueAbsEncRatioCraneGK(it) },
+                onSetAbsEncRatioCraneGK = { serviceMenuViewModel.onSetAbsEncRatioCraneGK() },
+
+                onSetAbsEncDeltaControlEn = { serviceMenuViewModel.onSetAbsEncDeltaControlEn() },
+                currentAbsEncDeltaControlEn = serviceMenuViewModel.state.value.currentAbsEncDeltaControlEn,
+
+                setValueUDIHoistAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDIHoistAbsEncMaxDeltaEn.value,
+                onModelChangeUDIHoistAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDIHoistAbsEncMaxDeltaEn(it) },
+                onSetUDIHoistAbsEncMaxDeltaEn ={ serviceMenuViewModel.onSetUDIHoistAbsEncMaxDeltaEn() },
+
+                setValueUDISlewAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDISlewAbsEncMaxDeltaEn.value,
+                onModeChangelUDISlewAbsEncMaxDeltaEn ={ serviceMenuViewModel.updateValueUDISlewAbsEncMaxDeltaEn(it) },
+                onSetUDISlewAbsEncMaxDeltaEn ={ serviceMenuViewModel.onSetUDISlewAbsEncMaxDeltaEn() },
+
+                setValueUDITrolleyAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDITrolleyAbsEncMaxDeltaEn.value,
+                onModelChangeUDITrolleyAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDITrolleyAbsEncMaxDeltaEn(it) },
+                onSetUDITrolleyAbsEncMaxDeltaEn = { serviceMenuViewModel.onSetUDITrolleyAbsEncMaxDeltaEn() },
+
+                setValueUDICraneAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDICraneAbsEncMaxDeltaEn.value,
+                onModelChangeUDICraneAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDICraneAbsEncMaxDeltaEn(it) },
+                onSetUDICraneAbsEncMaxDeltaEn = { serviceMenuViewModel.onSetUDICraneAbsEncMaxDeltaEn() },
+
+                onSetAbsEncDebugModeHoistEn = { serviceMenuViewModel.onSetAbsEncDebugModeHoistEn()},
+                onSetAbsEncDebugModeSlewEn = { serviceMenuViewModel.onSetAbsEncDebugModeSlewEn()},
+
+                errorMessageAbsEnc = serviceMenuViewModel.errorMessageAbsEnc.value,
+                logMessageAbsEnc = serviceMenuViewModel.logMessageAbsEnc.value,
+
+                currentAbsEncDebugModeHoist = serviceMenuViewModel.state.value.currentAbsEncDebugModeHoist,
+                currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.currentAbsEncDebugModeSlew,
+            )
+            }
             composable(NavRoutesSensorsContent.PageServiceRefPoint.route) {ServiceRefPoint()}
         }
     }

@@ -126,7 +126,7 @@ class ServiceMenuViewModel
 
     //значение веса груза при превышении которого запрещена сверхинсхронная работа тележки
     private val _setValueTrolleyTrolleyOverspd = mutableStateOf("")
-    val setValueTrolleyTrolleyOverspd: State<String> = _setValueTrolleyTrolleyOverspd
+    val setValueTrolleyTrolleyOverSpd: State<String> = _setValueTrolleyTrolleyOverspd
 
     private val _errorMessageTrolley = mutableStateOf<String?>(null)
     val errorMessageTrolley: State<String?> = _errorMessageTrolley
@@ -147,8 +147,8 @@ class ServiceMenuViewModel
     private val _setValueWindTimeSmooth = mutableStateOf("")
     val setValueWindTimeSmooth: State<String> = _setValueWindTimeSmooth
 
-    private val _setLoadCellOverSpeedLvlClbr = mutableStateOf("")
-    val setValueWindSpeedLvlClbr: State<String> = _setLoadCellOverSpeedLvlClbr
+    private val _setValueWindSpeedLvlClbr = mutableStateOf("")
+    val setValueWindSpeedLvlClbr: State<String> = _setValueWindSpeedLvlClbr
 
     private val _setValueWindRK = mutableStateOf("")
     val setValueWindRK: State<String> = _setValueWindRK
@@ -222,7 +222,7 @@ class ServiceMenuViewModel
     private var dataCollectionJob: Job? = null
 
     private val addresses = listOf(
-        163, 381, 336, 997, 998, 999, 750, 751, 752, 753, 754 // Регистры для считывания
+        163, 381, 336, 997, 750, 751, 752, 753, 754, 755, 756, 757 // Регистры для считывания
         //940, 941, 942, 943, 944, 945, 946, 947, 950, 951, 952, 953, // Регистры Hoist
         //955, 956, 957, 958, 959, 968, 969,      // Регистры Slew
         //960, 961, 962, 963, 964, 965, 966, 967,  // Регистры Trolley
@@ -264,15 +264,15 @@ class ServiceMenuViewModel
             currentAnemometerSensor = cache[381] ?: 0,
             currentAnemometerStatus = cache[336] ?: 0,
 
-            currentAbsEncDeltaControlEn = cache[997] ?: 0,
-            currentAbsEncDebugModeHoist = cache[998] ?: 0,
-            currentAbsEncDebugModeSlew = cache[999] ?: 0,
-
             currentDataLogErrStopHoist = cache[750] ?: 0,
             currentPasswordOrNaladka = cache[751] ?: 0,
             currentFOURPolygonsEn = cache[752] ?: 0,
             currentWithoutRingCurrentCollector = cache[753] ?: 0,
             currentZoneACCDECActive = cache[754] ?: 0,
+
+            currentAbsEncDeltaControlEn = cache[755] ?: 0,
+            currentAbsEncDebugModeHoist = cache[756] ?: 0,
+            currentAbsEncDebugModeSlew = cache[757] ?: 0,
             )}
 
 
@@ -326,6 +326,13 @@ class ServiceMenuViewModel
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
         if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
         return (floatValue * 10).toInt()
+    }
+
+    //Функция проверки и преобразования тысячных чисел
+    private fun validateAndConvertFloatThousand(value: String, min: Float, max: Float): Int {
+        val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
+        if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
+        return (floatValue * 1000).toInt()
     }
 
 
@@ -764,10 +771,10 @@ class ServiceMenuViewModel
     }
 
     // Trolley. Значение веса груза при превышении которого запрещена сверхсинхронная работа тележки
-    fun onSetTrolleyOverspd() {
+    fun onSetTrolleyOverSpd() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleyTrolleyOverspd.value, 0,99999 )
+                val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,9.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(967, model)
                 _errorMessageTrolley.value = null
@@ -846,7 +853,7 @@ class ServiceMenuViewModel
     fun onSetWindSpeedLvlClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setLoadCellOverSpeedLvlClbr.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindSpeedLvlClbr.value, 0.0f,99.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(984, model)
                 _errorMessageWind.value = null
@@ -902,7 +909,7 @@ class ServiceMenuViewModel
     fun onSetLoadCellMinWeight() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setLoadCellMinWeight.value, 0,4000 )
+                val model = validateAndConvert(_setLoadCellMinWeight.value, 0,10000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(1200, model)
                 _errorMessageLoadCell.value = null
@@ -933,7 +940,7 @@ class ServiceMenuViewModel
     fun onSetLoadCellSmoothingDepth() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setLoadCellSmoothingDepth.value, 0,999 )
+                val model = validateAndConvert(_setLoadCellSmoothingDepth.value, 0,200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(1202, model)
                 _errorMessageLoadCell.value = null
@@ -945,7 +952,7 @@ class ServiceMenuViewModel
         }
     }
 
-    // LoadSensor. Запись глубина сглаживания веса
+    // LoadSensor. Запись ограничение сверхскорости подъема
     fun onSetLoadCellOverSpeedThreshold() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -968,7 +975,7 @@ class ServiceMenuViewModel
     fun onSetAbsEncRatioHoistGK() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueAbsEncRatioHoistGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioHoistGK.value, 0.0000f,1.9999f )
                 // Запись в регистры
                 modbusRepository.writeRegister(990, model)
                 _errorMessageAbsEnc.value = null
@@ -984,7 +991,7 @@ class ServiceMenuViewModel
     fun onSetAbsEncRatioSlewGK() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueAbsEncRatioSlewGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioSlewGK.value, 0.0000f,1.9999f )
                 // Запись в регистры
                 modbusRepository.writeRegister(991, model)
                 _errorMessageAbsEnc.value = null
@@ -1000,7 +1007,7 @@ class ServiceMenuViewModel
     fun onSetAbsEncRatioTrolleyGK() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueAbsEncRatioTrolleyGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioTrolleyGK.value, 0.0000f,1.9999f )
                 // Запись в регистры
                 modbusRepository.writeRegister(992, model)
                 _errorMessageAbsEnc.value = null
@@ -1016,7 +1023,7 @@ class ServiceMenuViewModel
     fun onSetAbsEncRatioCraneGK() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueAbsEncRatioCraneGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioCraneGK.value, 0.0000f,1.9999f )
                 // Запись в регистры
                 modbusRepository.writeRegister(993, model)
                 _errorMessageAbsEnc.value = null
@@ -1091,7 +1098,7 @@ class ServiceMenuViewModel
             }
         }
     }
-
+    //AbsEncoder. Включить контроль максимального рассогласования абсолютных энкодеров
     fun onSetAbsEncDeltaControlEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -1100,8 +1107,27 @@ class ServiceMenuViewModel
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
                 modbusRepository.writeRegister(994, 1)
-                delay(200)
-                modbusRepository.writeRegister(994, 0)
+//                delay(200)
+//                modbusRepository.writeRegister(994, 0)
+                _errorMessageAbsEnc.value = null
+                _logMessageAbsEnc.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _logMessageAbsEnc.value = null
+            }
+        }
+    }
+    // AbsEncoder. Включить установки режима наладки механизма подъема при выходе датчика из строя
+    fun onSetAbsEncDebugModeHoistEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                Log.d("InitialSetupViewModel", "Writing registers...")
+                // Активация калибровки
+                modbusRepository.writeRegister(995, 1)
+//                delay(200)
+//                modbusRepository.writeRegister(995, 0)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1111,21 +1137,20 @@ class ServiceMenuViewModel
         }
     }
 
-    fun onResetAbsEncDeltaControlEn() {
+    fun onSetAbsEncDebugModeSlewEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(994, 0)
+                modbusRepository.writeRegister(996, 1)
+//                delay(200)
+//                modbusRepository.writeRegister(996, 0)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
-                // Логирование
-                Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
-                Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
-                _errorMessageAbsEnc.value = "Калибровка не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
                 _logMessageAbsEnc.value = null
             }
         }
@@ -1152,11 +1177,13 @@ class ServiceMenuViewModel
 
     fun updateWindSpeedLvlClbr(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
-            _setLoadCellOverSpeedLvlClbr.value = value } }
+            _setValueWindSpeedLvlClbr.value = value } }
 
     fun updateWindRK(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,5})?$"))) {
             _setValueWindRK.value = value } }
+
+
 
     //LoadSensor. Обновление для UI
     fun updateLoadCellMinWeight(value: String) {
@@ -1171,9 +1198,9 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setLoadCellSmoothingDepth.value = value } }
 
-    fun updateLoadCellOverSpeedLvlClbr(value: String) {
+    fun updateLoadCellOverSpeedThreshold(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
-            _setLoadCellOverSpeedLvlClbr.value = value } }
+            _setLoadCellOverSpeedThreshold.value = value } }
 
 
     // ДАТЧИКИ ПОЛОЖЕНИЯ. Обновления для UI
@@ -1298,6 +1325,10 @@ class ServiceMenuViewModel
     fun updateTrolleyLsp(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueTrolleyLsp.value = value }}
+
+    fun updateTrolleyOverLsp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueTrolleyTrolleyOverspd.value = value }}
 
 
     // Очистка при уничтожении ViewModel

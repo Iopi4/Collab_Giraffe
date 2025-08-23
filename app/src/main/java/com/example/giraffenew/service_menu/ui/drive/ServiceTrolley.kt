@@ -21,8 +21,6 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
-import com.example.giraffenew.initial_setup.ui.ButtonOn
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -55,7 +53,7 @@ fun ServiceTrolley(
 
     setValueTrolleyLsp: String,
     onModelChangeTrolleyLsp: (String) -> Unit,
-    onSetTrolleyLsp: () -> Unit,
+    onSetTrolleyOverSpd: () -> Unit,
 
     errorMessageTrolley: String?,
     logMessageTrolley: String?,
@@ -126,6 +124,8 @@ fun ServiceTrolley(
             BasicInputRowandButton(
                 placeholder = "150",
                 value = setValueTrolleySpdRef1,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeTrolleySpdRef1,
                 onClick = onSetTrolleySpdRef1
             )
@@ -133,6 +133,8 @@ fun ServiceTrolley(
             BasicInputRowandButton(
                 placeholder = "750",
                 value = setValueTrolleySpdRef2,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeTrolleySpdRef2,
                 onClick = onSetTrolleySpdRef2
             )
@@ -140,6 +142,8 @@ fun ServiceTrolley(
             BasicInputRowandButton(
                 placeholder = "1500",
                 value = setValueTrolleySpdRef3,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeTrolleySpdRef3,
                 onClick = onSetTrolleySpdRef3
             )
@@ -147,16 +151,19 @@ fun ServiceTrolley(
             BasicInputRowandButton(
                 placeholder = "3000",
                 value = setValueTrolleySpdRef4,
+                valueMin = 0,
+                valueMax = 9999,
                 onValueChange = onModelChangeTrolleySpdRef4,
                 onClick = onSetTrolleySpdRef4
             )
 
 //Ввод. Запрет движения на сверхсинхронной скорости, тонны
-            BasicInputRowandButton(
-                placeholder = "1500",
+            BasicInputRowandTensButton(
+                placeholder = "5.0",
                 value = setValueTrolleyLsp,
                 onValueChange = onModelChangeTrolleyLsp,
-                onClick = onSetTrolleyLsp
+                onClick = onSetTrolleyOverSpd,
+                isDecimal = true
             )
         }
 
@@ -196,7 +203,7 @@ fun ServiceTrolleyPreview () {
 
             setValueTrolleyLsp = "1500",
             onModelChangeTrolleyLsp = { },
-            onSetTrolleyLsp ={ },
+            onSetTrolleyOverSpd ={ },
 
             errorMessageTrolley = null,
             logMessageTrolley= null

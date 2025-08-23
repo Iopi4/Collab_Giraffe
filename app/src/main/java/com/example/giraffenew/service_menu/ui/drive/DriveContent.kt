@@ -151,9 +151,9 @@ fun DriveContent(
                     onModelChangeTrolleySpdRef4 = { serviceMenuViewModel.updateTrolleySpdRef4(it)},
                     onSetTrolleySpdRef4 ={ serviceMenuViewModel.onSetTrolleySpdRef4()},
 
-                    setValueTrolleyLsp = serviceMenuViewModel.setValueTrolleyTrolleyLsp.value,
-                    onModelChangeTrolleyLsp = { serviceMenuViewModel.updateTrolleyLsp(it)},
-                    onSetTrolleyLsp ={serviceMenuViewModel.onSetTrolleyLsp() },
+                    setValueTrolleyLsp = serviceMenuViewModel.setValueTrolleyTrolleyOverSpd.value,
+                    onModelChangeTrolleyLsp = { serviceMenuViewModel.updateTrolleyOverLsp(it)},
+                    onSetTrolleyOverSpd ={serviceMenuViewModel.onSetTrolleyOverSpd() },
 
                     errorMessageTrolley = serviceMenuViewModel.errorMessageTrolley.value,
                     logMessageTrolley = serviceMenuViewModel.logMessageTrolley.value

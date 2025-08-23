@@ -14,12 +14,14 @@ import com.example.giraffenew.initial_setup.ui.ButtonOn
 fun BasicInputRowandButton(
     placeholder: String,
     value: String,
+    valueMax: Int,
+    valueMin: Int,
     onValueChange: (String) -> Unit,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+
 ) {
     Row (
-        modifier = modifier,
+        modifier = Modifier,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         // Поле ввода
@@ -32,7 +34,7 @@ fun BasicInputRowandButton(
                 placeholder = placeholder,
                 value = value,
                 onValueChange = { newValue ->
-                    if (newValue.isEmpty() || newValue.toIntOrNull()?.let { it in 0..9999 } == true) {
+                    if (newValue.isEmpty() || newValue.toIntOrNull()?.let { it in valueMin..valueMax } == true) {
                         onValueChange(newValue)
                     }
                 },
