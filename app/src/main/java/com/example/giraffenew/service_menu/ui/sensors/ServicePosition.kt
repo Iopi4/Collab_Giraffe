@@ -217,12 +217,12 @@ fun ServicePosition(
                 onValueChange = onModelChangeUDICraneAbsEncMaxDeltaEn,
                 onClick = onSetUDICraneAbsEncMaxDeltaEn
             )
-//Поле активации датчика подъема
+//Поле деактивации датчика подъема
             BasicButtonOnOffStatus(
                 onClick = onSetAbsEncDebugModeHoistEn,
                 isLampStatus = currentAbsEncDebugModeHoist
             )
-//Поле активации датчика поворота
+//Поле деактивации датчика поворота
             BasicButtonOnOffStatus(
                 onClick = onSetAbsEncDebugModeSlewEn,
                 isLampStatus = currentAbsEncDebugModeSlew

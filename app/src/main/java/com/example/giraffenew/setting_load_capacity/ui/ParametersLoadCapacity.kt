@@ -78,10 +78,10 @@ fun ParametersLoadCapacity(
                 settingParameterId = R.string.SettingLoadCapacity_Text_GH_6)
 
             Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                .padding(start = 10.dp, end = 10.dp, top = 3.dp)
             ) {
-                errorMessageGH?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageGH?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                errorMessageGH?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                logMessageGH?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
             }
         }
 

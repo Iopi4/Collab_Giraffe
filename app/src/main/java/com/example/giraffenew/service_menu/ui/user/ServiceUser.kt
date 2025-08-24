@@ -19,6 +19,7 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -67,90 +68,35 @@ fun ServiceUser(){
 //Отступ
             Spacer(modifier = Modifier.size(70.dp))
 //Поле активации запрета работы подъема выше второй скорости при ошибках регистратора
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Turn_ON_Off,
-                        onClick = {},
-                    ) {}
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = 0
-                    )
-                }
-            }
+            BasicButtonOnOffStatus(
+                onClick = {},
+                isLampStatus = 0
+            )
 //Отступ
             Spacer(modifier = Modifier.size(65.dp))
 //Кнопка. Авторизация [Наладка]
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Turn_ON_Off,
-                        onClick = {},
-                    ) {}
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = 0
-                    )
-                }
-            }
+            BasicButtonOnOffStatus(
+                onClick = {},
+                isLampStatus = 0
+            )
             Spacer(modifier = Modifier.size(10.dp))
 //Поле активации 2 полигона по 10 точек
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Turn_ON_Off,
-                        onClick = {},
-                    ) {}
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = 0
-                    )
-                }
-            }
+            BasicButtonOnOffStatus(
+                onClick = {},
+                isLampStatus = 0
+            )
             Spacer(modifier = Modifier.size(20.dp))
 //Поле. Кольцевой токсъемник     [вкл/выкл]
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Turn_ON_Off,
-                        onClick = {},
-                    ) {}
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = 0
-                    )
-                }
-            }
+            BasicButtonOnOffStatus(
+                onClick = {},
+                isLampStatus = 0
+            )
             Spacer(modifier = Modifier.size(20.dp))
 //Поле. Режим настройки ускорений и торможений [вкл/выкл]
-            Row(horizontalArrangement = Arrangement.Start) {
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(4f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Turn_ON_Off,
-                        onClick = {},
-                    ) {}
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = 0
-                    )
-                }
-            }
+            BasicButtonOnOffStatus(
+                onClick = {},
+                isLampStatus = 0
+            )
         }
     }
 }
