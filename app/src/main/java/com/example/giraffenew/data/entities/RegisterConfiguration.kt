@@ -186,8 +186,6 @@ object DefaultRegisterConfiguration {
             {"address": 193, "name": "Curr_Gruz_Zapas_MW", "type": "WORD16", "description": "выбор кратности запасовки, =TRUE -4х кратная, =FALSE -2х кратная"},
             {"address": 194, "name": "Curr_Gruz_Fun_MW", "type": "WORD16", "description": "Текущая выбранная грузовая характеристика"},
             {"address": 195, "name": "MaxCurrentMaxWeight2_MW", "type": "WORD16", "description": "индикатор -максимальная грузоподъемность для выбранной грузовой характеристики на конце стрелы"},           
-            {"address": 197, "name": "Crane_Lenght_MW", "type": "WORD16", "description": "Длина стрелы крана"},
-            {"address": 198, "name": "HMI_GH_String_MW", "type": "WORD16", "description": "Грузовая характеристика"},           
            
             {"address": 200, "name": "PLCAnalogInputError_MW", "type": "WORD16", "description": "ошибка модуля аналоговых входов"},
             {"address": 201, "name": "PLCExpertIOError_MW", "type": "WORD16", "description": "ошибка модуля дискретных вх/вых"},

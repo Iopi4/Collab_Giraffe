@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
 import com.example.giraffenew.data.entities.UiInitialSetupRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -123,7 +124,8 @@ class InitialSetupViewModel
     fun startDataCollection() {
         if (dataCollectionJob?.isActive == true) return
 
-        Log.d("InitialSetupVM", "Starting data collection")
+        Log.d("HomeScreenVM", "Starting data collection for ${UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP}")
+
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
             modbusRepository.getConfigurationFlow(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP)
                 .collect { cache ->
@@ -464,6 +466,7 @@ class InitialSetupViewModel
     override fun onCleared() {
         super.onCleared()
         Log.d("InitialSetupVM", "ViewModel cleared")
+        modbusRepository.setActiveUiConfiguration(null)
         dataCollectionJob?.cancel()
     }
 }

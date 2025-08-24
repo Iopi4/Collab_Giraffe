@@ -22,7 +22,14 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun ParametersCargoCharacteristics() {
+fun ParametersCargoCharacteristics(
+
+    currentGruzovayZapasovka: Int,
+    currentMaxWeight: Float,
+    currentMaxWeight2: Float,
+    currentCraneLenght: Int,
+
+) {
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -76,24 +83,24 @@ fun ParametersCargoCharacteristics() {
 
             // Отображение текущих параметров ГХ
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "2")
+                    valueParameterId = formatZapasovka(currentGruzovayZapasovka))
             }
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10.0")
+                    valueParameterId = formatDecimal(currentMaxWeight))
             }
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "4.81")
+                    valueParameterId = formatDecimal(currentMaxWeight2))
             }
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "35")
+                    valueParameterId = format(currentCraneLenght))
             }
 
 
@@ -102,11 +109,30 @@ fun ParametersCargoCharacteristics() {
     }
 }
 
+private fun formatZapasovka(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%01d", value)
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%02d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%03.1f", value).replace(',', '.')
+}
+
 @Preview
 @Composable
 fun ParametersCargoCharacteristicsPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ParametersCargoCharacteristics(
+            currentGruzovayZapasovka = 1,
+            currentMaxWeight = 1f,
+            currentMaxWeight2 = 1f,
+            currentCraneLenght = 1
         )
     }
 }

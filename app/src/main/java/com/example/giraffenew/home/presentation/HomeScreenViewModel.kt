@@ -51,7 +51,6 @@ class HomeScreenViewModel @Inject constructor(
 
 
     // Запуск сбора данных
-    // Запуск сбора данных
     fun startDataCollection() {
         if (dataCollectionJob?.isActive == true) return
 

@@ -43,7 +43,7 @@ fun BasicLampSettingParameter(
 
         Box(
             modifier = Modifier
-                .size(100.dp)
+                .size(height = 35.dp, width = 35.dp)
                 .border(
                     width = 2.dp, color = Silver, //рамка
                     shape = RoundedCornerShape(5.dp))

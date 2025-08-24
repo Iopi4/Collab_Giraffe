@@ -5,8 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
-import com.example.giraffenew.data.entities.UiServiceMenuRegisterConfiguration
+import com.example.giraffenew.data.entities.UIServiceMenuRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -212,15 +211,6 @@ class ServiceMenuViewModel
     val logMessageLoadCell: State<String?> = _logMessageLoadCell
 
 
-
-    private val _state = mutableStateOf(ServiceMenuState())
-    val state: State<ServiceMenuState> = _state
-
-
-    private var previousValues: Map<Int, Int?> = emptyMap()
-
-    private var dataCollectionJob: Job? = null
-
     private val addresses = listOf(
         163, 381, 336, 997, 750, 751, 752, 753, 754, 755, 756, 757 // Регистры для считывания
         //940, 941, 942, 943, 944, 945, 946, 947, 950, 951, 952, 953, // Регистры Hoist
@@ -231,14 +221,23 @@ class ServiceMenuViewModel
         // 1200, 1201, 1202, 1203 // Регистры датчики усилия
     )
 
-    init { startDataCollection() }
+    private val _state = mutableStateOf(ServiceMenuState())
+    val state: State<ServiceMenuState> = _state
+
+    private var dataCollectionJob: Job? = null
+
+    init {
+        // Активируем UI конфигурацию для этого экрана
+        modbusRepository.setActiveUiConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU)
+        startDataCollection()
+    }
 
     fun startDataCollection() {
         if (dataCollectionJob?.isActive == true) return
 
-        Log.d("ServiceMenuVM", "Starting data collection for ${UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU}")
+        Log.d("ServiceMenuVM", "Starting data collection for ${UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
-            modbusRepository.getConfigurationFlow(UiHomeScreenRegisterConfiguration.NAME_HOME)
+            modbusRepository.getConfigurationFlow(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU)
                 .collect { cache ->
                     Log.d("ServiceMenuViewModel", "Updating from cache, size: ${cache.size}")
                     try {
@@ -248,7 +247,7 @@ class ServiceMenuViewModel
                         }
                         _state.value = createServiceMenuState(filteredCache)
                     } catch (e: Exception) {
-                        Log.e("HomeScreenVM", "Data collection error", e)
+                        Log.e("ServiceMenuScreenVM", "Data collection error", e)
                     }
                 }
         }
@@ -273,7 +272,8 @@ class ServiceMenuViewModel
             currentAbsEncDeltaControlEn = cache[755] ?: 0,
             currentAbsEncDebugModeHoist = cache[756] ?: 0,
             currentAbsEncDebugModeSlew = cache[757] ?: 0,
-            )}
+            )
+    }
 
 
     private fun safeDivide(value: Int?): Float {
@@ -300,14 +300,6 @@ class ServiceMenuViewModel
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
     )
-
-
-    // Функция для проверки изменений в relevant регистрах
-    private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {
-        return addresses.any { address ->
-            currentValues[address] != previousValues[address]
-        }
-    }
 
     // Приостановка сбора данных
     fun pauseDataCollection() {
@@ -893,10 +885,8 @@ class ServiceMenuViewModel
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
                 // Логирование
-                Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
-                Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
-                _errorMessageWind.value = "Калибровка не удалась: ${e.message}"
+                _errorMessageWind.value = "Запись не удалась: ${e.message}"
                 _logMessageWind.value = null
             }
         }
@@ -1334,8 +1324,9 @@ class ServiceMenuViewModel
     // Очистка при уничтожении ViewModel
     override fun onCleared() {
         super.onCleared()
-        Log.d("InitialSetupVM", "ViewModel cleared")
+        Log.d("ServiceMenuVM", "ViewModel cleared")
+        // Деактивируем конфигурацию при уничтожении ViewModel
+        modbusRepository.setActiveUiConfiguration(null)
         dataCollectionJob?.cancel()
     }
-
 }

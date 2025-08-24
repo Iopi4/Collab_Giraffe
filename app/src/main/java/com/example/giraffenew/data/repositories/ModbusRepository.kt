@@ -301,7 +301,8 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(TopBarRegisterConfiguration.NAME_TOP_BAR, TopBarRegisterConfiguration.REGISTERS)
         registerConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME, UiHomeScreenRegisterConfiguration.REGISTERS)
         registerConfiguration(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP, UiInitialSetupRegisterConfiguration.REGISTERS)
-        registerConfiguration(UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU, UiServiceMenuRegisterConfiguration.REGISTERS)
+        registerConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU, UIServiceMenuRegisterConfiguration.REGISTERS)
+        registerConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY, UISettingLoadCapacityConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
@@ -359,7 +360,8 @@ class ModbusRepository @Inject constructor(
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
-            UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UiServiceMenuRegisterConfiguration.REGISTERS
+            UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
+            UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY ->UISettingLoadCapacityConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }

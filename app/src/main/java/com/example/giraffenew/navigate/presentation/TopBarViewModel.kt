@@ -43,7 +43,7 @@ class TopBarViewModel @Inject constructor(
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194 ) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 755 ) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()

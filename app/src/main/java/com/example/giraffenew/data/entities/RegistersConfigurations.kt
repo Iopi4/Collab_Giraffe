@@ -10,7 +10,8 @@ object RegistersConfigurations {
         TopBarRegisterConfiguration.NAME_TOP_BAR to TopBarRegisterConfiguration.createConfiguration(),
         UiHomeScreenRegisterConfiguration.NAME_HOME to UiHomeScreenRegisterConfiguration.createConfiguration(),
         UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration(),
-        UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU to UiServiceMenuRegisterConfiguration.createConfiguration()
+        UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU to UIServiceMenuRegisterConfiguration.createConfiguration(),
+        UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY to UISettingLoadCapacityConfiguration.createConfiguration()
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -26,20 +27,22 @@ object RegistersConfigurations {
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
-            UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UiServiceMenuRegisterConfiguration.REGISTERS
+            UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
+            UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             else -> emptyList()
         }
     }
 
-    fun getConfigurationNameByAddress(address: Int): String? {
-        return when (address) {
-            in 90..99 -> TopBarRegisterConfiguration.NAME_TOP_BAR
-            in 100..104 -> UiHomeScreenRegisterConfiguration.NAME_HOME
-            in 105..108 -> UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP
-            in 900..980 ->UiServiceMenuRegisterConfiguration.NAME_SERVICE_MENU
-            else -> null
-        }
-    }
+//    fun getConfigurationNameByAddress(address: Int): String? {
+//        return when (address) {
+//            in 90..99 -> TopBarRegisterConfiguration.NAME_TOP_BAR
+//            in 100..104 -> UiHomeScreenRegisterConfiguration.NAME_HOME
+//            in 105..108 -> UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP
+//            in 100..1500 ->UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU
+//
+//            else -> null
+//        }
+//    }
 }
 
 
@@ -95,7 +98,7 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(137, "VoltageL3L1_MW", "WORD16", "Линейное напряжение L3-L1"),
         RegisterInfo(317, "HMI_Weight_Percent_MW", "WORD16", "Текущий вес в процентах"),
         //addressesCraneParameterScale
-        RegisterInfo(318, "HMI_Hoist_Max_Position_MW", "WORD16", "Максимальное положение крюка"),
+        RegisterInfo(318, "HMI_Hoist_Max_Position_MW", "WORD16", "Максимальное положение высоты крюка"),
         RegisterInfo(319, "HMI_Max_Crane_Position_MW", "WORD16", "Максимальное положение крана"),
         //addressesCraneMechanismsCondition
         RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
@@ -162,7 +165,6 @@ object UiInitialSetupRegisterConfiguration {
         RegisterInfo(849, "HMI_Write_rQnom_MW", "WORD16", "Номинальная грузоподъемность"),
         RegisterInfo(850, "HMI_Write_sR_Crane_No_MW", "WORD16", "Заводской номер крана")
     )
-
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
     fun createConfiguration(): RegisterConfiguration {
@@ -174,13 +176,52 @@ object UiInitialSetupRegisterConfiguration {
     }
 }
 
+/**
+ * Конфигурация UI №3 (SettingLoadCapacityScreen UI)
+ * Регистры для работы с UI настройка грузоподъемности
+ * //SettingLoadCapacityViewModel
+ */
+object UISettingLoadCapacityConfiguration {
+    const val NAME_SETTING_LOAD_CAPACITY = "UI_SettingLoadCapacity_configuration"
+
+    val REGISTERS = listOf(
+        //Параметры настройки грузовой характеристики
+        RegisterInfo(195, "MaxWeight2_MW", "WORD16", "Максимальный вес на конце стрелы"),
+
+        RegisterInfo(197, "Crane_Lenght_MW", "WORD16", "Длина стрелы крана"),
+        RegisterInfo(198, "HMI_Curr_AI_MW", "WORD16", "Текущее значение с датчика груза в единицах входа модуля"),
+
+        RegisterInfo(314, "HMI_Weight_MW", "WORD16", "Текущий вес на крюке *0,1т"),
+        RegisterInfo(315, "HMI_Curr_Weight_Predel_MW", "WORD16", "Предел грузоподъемности *0,1т"),
+        RegisterInfo(316, "HMI_Zapasovka_MW", "WORD16", "Значение - текущая запасовка. 2 / 4"),
+
+        RegisterInfo(861, "HMI_Write_xHMI_Curr_Gruz_Blok_MW", "WORD16", "Запись выбора блока, =0 с блоком, =1 без блока"),
+        RegisterInfo(862, "HMI_Write_iHMI_Curr_Gruz_Fun_MW", "WORD16", "Выбор грузовая характеристика"),
+        RegisterInfo(863, "HMI_Write_rMin_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при минимальном грузе"),
+        RegisterInfo(864, "HMI_Write_rMax_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при максимальном грузе"),
+        RegisterInfo(865, "HMI_Write_xMin_Weight_Set_MW", "WORD16", "Калибровать минимальный груз"),
+        RegisterInfo(866, "HMI_Write_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз")
+        )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_SettingLoadCapacity_configuration",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = true
+        )
+    }
+}
+
+
 
 /**
  * Конфигурация UI №7 (ServiceMenuViewModel)
  * Регистры для работы с UI экрана начальные настройки
  */
-object UiServiceMenuRegisterConfiguration {
-    const val NAME_SERVICE_MENU = "ui_configuration_ServiceMenu"
+object UIServiceMenuRegisterConfiguration {
+    const val NAME_SERVICE_MENU = "UI_configuration_ServiceMenu"
 
     val REGISTERS = listOf(
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
@@ -273,7 +314,7 @@ object UiServiceMenuRegisterConfiguration {
 
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
-            name = "ui_configuration_ServiceMenu",
+            name = "UI_configuration_ServiceMenu",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )
