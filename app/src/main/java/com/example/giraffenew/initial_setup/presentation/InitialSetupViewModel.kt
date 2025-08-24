@@ -5,8 +5,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
-import com.example.giraffenew.data.entities.UiInitialSetupRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,13 +19,6 @@ class InitialSetupViewModel
 @Inject constructor(
     private val modbusRepository: ModbusRepository
 ): ViewModel(){
-
-    //ParametersDateAndTime UI
-    private val _currentTime = mutableStateOf("00:00:00")
-    val currentTime: State<String> = _currentTime
-
-    private val _currentDate = mutableStateOf("00:00:0000")
-    val currentDate: State<String> = _currentDate
 
     // Состояния для ввода
     private val _setValueHour = mutableStateOf("")
@@ -110,56 +101,8 @@ class InitialSetupViewModel
     private val _logMessageSBKB = mutableStateOf<String?>(null)
     val logMessageSBKB: State<String?> = _logMessageSBKB
 
-    private var previousValues: Map<Int, Int?> = emptyMap()
 
     private var dataCollectionJob: Job? = null
-
-    private val addresses = listOf(90, 91, 94, 95, 98, 99) // Только нужные регистры
-
-    init {
-        startDataCollection()
-
-    }
-
-    fun startDataCollection() {
-        if (dataCollectionJob?.isActive == true) return
-
-        Log.d("HomeScreenVM", "Starting data collection for ${UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP}")
-
-        dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
-            modbusRepository.getConfigurationFlow(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP)
-                .collect { cache ->
-                Log.d("InitialSetupViewModel", "Updating from cache, size: ${cache.size}")
-
-                    // Фильтруем только нужные регистры
-                    val currentValues = addresses.associate { addr ->
-                        addr to cache[addr]?.value
-                    }
-                    // Проверяем, изменились ли значения целевых регистров
-                    if (haveRelevantRegistersChanged(currentValues)) {
-                        Log.d("InitialSetupViewModel", "Relevant registers changed: $currentValues")
-
-                        // Обновляем данные на основе отфильтрованного кэша
-                        //updateTime(currentValues)
-                        //updateDate(currentValues)
-
-                        // Сохраняем текущие значения для следующего сравнения
-                        previousValues = currentValues
-                    }
-
-                    // Сохраняем текущие значения для следующего сравнения
-                    previousValues = currentValues
-            }
-        }
-    }
-
-
-    // Функция для проверки изменений в relevant регистрах
-    private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {
-        return addresses.any { address ->
-            currentValues[address] != previousValues[address]
-        }
-    }
 
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
         val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -173,35 +116,6 @@ class InitialSetupViewModel
         return (floatValue * 1000).toInt()
     }
 
-    // Приостановка сбора данных
-    fun pauseDataCollection() {
-        Log.d("InitialSetupVM", "Pausing data collection")
-        dataCollectionJob?.cancel()
-        dataCollectionJob = null
-    }
-
-    private fun updateTime(cache: Map<Int, Int?>) {
-        val hour = cache[95] ?: return
-        val minute = cache[98] ?: return
-        val second = cache[99] ?: return
-        _currentTime.value = String.format("%02d:%02d:%02d", hour, minute, second)
-    }
-
-    private fun updateDate(cache: Map<Int, Int?>) {
-        val year = cache[90] ?: return
-        val month = cache[91] ?: return
-        val day = cache[94] ?: return
-
-        _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
-    }
-
-    private fun resetFields() {
-        _setValueHour.value = ""
-        _setValueMinute.value = ""
-        _setValueDay.value = ""
-        _setValueMonth.value = ""
-        _setValueYear.value = ""
-    }
 
     // Запись даты и времени в ПЛК
     fun onSetDateTime() {
@@ -467,6 +381,5 @@ class InitialSetupViewModel
         super.onCleared()
         Log.d("InitialSetupVM", "ViewModel cleared")
         modbusRepository.setActiveUiConfiguration(null)
-        dataCollectionJob?.cancel()
     }
 }

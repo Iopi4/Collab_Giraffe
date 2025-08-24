@@ -27,29 +27,31 @@ fun SettingLoadCapacityScreen (
 
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
+
     // 2. Создаем Lifecycle-aware эффект
     DisposableEffect(lifecycleOwner, settingLoadCapacityViewModel) {
-        val observer = LifecycleEventObserver { _, event ->
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_START -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
-                    settingLoadCapacityViewModel.startDataCollection()
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("LoadCapacityScreen", "Lifecycle: ON_RESUME - resuming data collection")
+                    settingLoadCapacityViewModel.setActiveConfiguration()
                 }
-                Lifecycle.Event.ON_STOP -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
-                    settingLoadCapacityViewModel.pauseDataCollection()
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("LoadCapacityScreen", "Lifecycle: ON_PAUSE - pausing data collection")
+                    settingLoadCapacityViewModel.clearActiveConfiguration()
                 }
-                else -> {}
+                else -> {Log.e("LoadCapacityScreen", "Lifecycle: NOT START")}
             }
         }
 
         // 3. Регистрируем наблюдатель
-        lifecycleOwner.lifecycle.addObserver(observer)
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
         // 4. Очистка при удалении Composable
         onDispose {
             Log.d("LoadCapacityScreen", "Lifecycle: ON_DISPOSE - removing observer")
-            lifecycleOwner.lifecycle.removeObserver(observer)
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            settingLoadCapacityViewModel.clearActiveConfiguration() // Дополнительная очистка
         }
     }
 

@@ -52,14 +52,25 @@ class SettingLoadCapacityViewModel
 
     private var dataCollectionJob: Job? = null
 
-    init {
-        // Активируем UI конфигурацию для этого экрана
+//    init {
+//        // Активируем UI конфигурацию для этого экрана
+//        modbusRepository.setActiveUiConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY)
+//        startDataCollection()
+//    }
+
+    fun setActiveConfiguration() {
         modbusRepository.setActiveUiConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY)
         startDataCollection()
     }
 
+    fun clearActiveConfiguration() {
+        pauseDataCollection()
+        modbusRepository.setActiveUiConfiguration(null)
+    }
+
     fun startDataCollection() {
-        if (dataCollectionJob?.isActive == true) return
+        //if (dataCollectionJob?.isActive == true) return
+        dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
 
         Log.d("SettingLoadCapacityMenuVM", "Starting data collection for ${UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
@@ -79,6 +90,12 @@ class SettingLoadCapacityViewModel
         }
     }
 
+    // Приостановка сбора данных
+    fun pauseDataCollection() {
+        Log.d("SettingLoadCapacityViewModel", "Pausing data collection")
+        dataCollectionJob?.cancel()
+        dataCollectionJob = null
+    }
     /**
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИКИ ОТОБРАЖЕНИЕ ДАННЫХ И СОСТОЯНИЯ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
@@ -116,12 +133,7 @@ class SettingLoadCapacityViewModel
         val currentWeight: Float = 0f,
     )
 
-    // Приостановка сбора данных
-    fun pauseDataCollection() {
-        Log.d("SettingLoadCapacityViewModel", "Pausing data collection")
-        dataCollectionJob?.cancel()
-        dataCollectionJob = null
-    }
+
     //Функция проверки и преобразования целых чисел
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
         val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -129,10 +141,10 @@ class SettingLoadCapacityViewModel
         return intValue
     }
     //Функция проверки и преобразования десятичных чисел
-    private fun validateAndConvertFloatHundreds(value: String, min: Float, max: Float): Int {
+    private fun validateAndConvertFloatTens(value: String, min: Float, max: Float): Int {
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
         if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
-        return (floatValue * 100).toInt()
+        return (floatValue * 10).toInt()
     }
 
     // ВЫБОР ГРУЗОВОЙ ХАРАКТЕРИСТИКИ ГХ_0..6
@@ -257,7 +269,7 @@ class SettingLoadCapacityViewModel
     fun onSetValueMinWeight() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatHundreds(_setValueMinWeight.value, 0.00f, 99.99f )
+                val model = validateAndConvertFloatTens(_setValueMinWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(863, model)
                 _errorMessageWeightSensor.value = null
@@ -272,7 +284,7 @@ class SettingLoadCapacityViewModel
     fun onSetValueMaxWeight() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatHundreds(_setValueMaxWeight.value, 0.00f, 99.99f )
+                val model = validateAndConvertFloatTens(_setValueMaxWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(864, model)
                 _errorMessageWeightSensor.value = null
@@ -327,17 +339,17 @@ class SettingLoadCapacityViewModel
 
     // Калибровка датчика веса. Обновления для UI
     fun updateMinWeight(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,2})?$"))) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueMinWeight.value = value } }
     fun updateMaxWeight(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,2})?$"))) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueMaxWeight.value = value } }
 
     // Очистка при уничтожении ViewModel
     override fun onCleared() {
         super.onCleared()
         Log.d("SettingLoadCapacityVM", "ViewModel cleared")
+        // Деактивируем конфигурацию при уничтожении ViewModel
         modbusRepository.setActiveUiConfiguration(null)
-        dataCollectionJob?.cancel()
     }
 }

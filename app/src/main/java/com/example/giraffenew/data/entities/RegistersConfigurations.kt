@@ -32,17 +32,6 @@ object RegistersConfigurations {
             else -> emptyList()
         }
     }
-
-//    fun getConfigurationNameByAddress(address: Int): String? {
-//        return when (address) {
-//            in 90..99 -> TopBarRegisterConfiguration.NAME_TOP_BAR
-//            in 100..104 -> UiHomeScreenRegisterConfiguration.NAME_HOME
-//            in 105..108 -> UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP
-//            in 100..1500 ->UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU
-//
-//            else -> null
-//        }
-//    }
 }
 
 
@@ -86,13 +75,13 @@ object UiHomeScreenRegisterConfiguration {
 
     val REGISTERS = listOf(
         //addressesCraneOperatingParameters
-        RegisterInfo(152, "Hoist_StatusWord_MW", "WORD16", "Слово состояния ПЧ подъема"),
-        RegisterInfo(153, "Hoist_ControlWord_MW", "WORD16", "Слово управления ПЧ подъема"),
-        RegisterInfo(155, "Hoist_TargetVelocity_MW", "WORD16", "Заданная скорость вращения подъема"),
-        RegisterInfo(158, "Hoist_ControlEffort_MW", "WORD16", "Текущая скорость вращения подъема"),
-        RegisterInfo(159, "Hoist_MotorCurrent_MW", "WORD16", "Ток двигателя подъема"),
+        RegisterInfo(152, "Qnom_MW", "WORD16", "Номинальная грузоподъемность в кг"),
+        RegisterInfo(153, "Weight_MW", "WORD16", "Текущая грузоподъемность в кг"),
+        RegisterInfo(155, "Trolley_Position_MW", "WORD16", "Текущее положение тележки на стреле *0,1м"),
+        RegisterInfo(158, "Rotation_Position_MW", "WORD16", "Текущий угол поворота"),
+        RegisterInfo(159, "Hoist_Position_MW", "WORD16", "Текущее положение подъема *0,1м"),
         RegisterInfo(162,  "Crane_Position_MW",  "WORD16",  "Текущее положение крана *0,1м"),
-        RegisterInfo(163,  "Qnom_MW",  "WORD16",  "Номинальная грузоподъемность в кг"),
+        RegisterInfo(163, "Wind_MW", "WORD16", "Текущие показания ветра *0,1м/с"),
         RegisterInfo(135, "VoltageL1L2_MW", "WORD16", "Линейное напряжение L1-L2"),
         RegisterInfo(136, "VoltageL2L3_MW", "WORD16", "Линейное напряжение L2-L3"),
         RegisterInfo(137, "VoltageL3L1_MW", "WORD16", "Линейное напряжение L3-L1"),

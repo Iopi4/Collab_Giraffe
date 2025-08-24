@@ -6,6 +6,7 @@ import com.example.giraffenew.data.entities.*
 import com.example.giraffenew.network.ModbusClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
@@ -16,6 +17,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.emptyMap
 
 /**
  * Repository для управления данными Modbus системы
@@ -72,6 +74,8 @@ class ModbusRepository @Inject constructor(
 
     // Активная UI конфигурация
     private val _activeUiConfiguration = MutableStateFlow<String?>(null)
+
+
 
     // Job для главного потока чтения
     private var mainReadingJob: Job? = null
@@ -331,23 +335,31 @@ class ModbusRepository @Inject constructor(
     }
 
     // Запуск потока для UI конфигурации
+    @OptIn(FlowPreview::class)
     private fun startUiConfigurationReading() {
         repositoryScope.launch {
-            _activeUiConfiguration.collect { configName ->
+            _activeUiConfiguration
+                .debounce(100) // Добавляем debounce для быстрых переключений.debounce(100) // Добавляем debounce для быстрых переключений
+                .collect { configName ->
+                Log.d(TAG, "Active UI configuration changed to: $configName")
                 // Останавливаем предыдущее чтение
                 uiReadingJob?.cancel()
 
                 if (configName != null) {
+                    Log.d(TAG, "Starting UI reading job for: $configName")
                     // Запускаем чтение для активной конфигурации
                     uiReadingJob = repositoryScope.launch {
+                        Log.d(TAG, "UI reading job started for: $configName")
                         while (isActive && _activeUiConfiguration.value == configName) {
                             val startTime = System.currentTimeMillis()
                             readConfigurationRegisters(configName)
                             val elapsed = System.currentTimeMillis() - startTime
                             delay(maxOf(0, 500 - elapsed)) // Читаем 2 раза в секунду
                         }
+                        Log.d(TAG, "UI reading job stopped for: $configName")
                     }
-                }
+                } else {Log.d(TAG, "No active UI configuration, stopping reading job")}
+
             }
         }
     }
@@ -410,6 +422,7 @@ class ModbusRepository @Inject constructor(
     }
 
     // Метод для получения потока данных конкретной конфигурации
+
     fun getConfigurationFlow(configName: String): StateFlow<Map<Int, RegisterValue>> {
         return configurationFlows[configName] ?: run {
             Log.w(TAG, "Requested unknown configuration: $configName")
@@ -420,7 +433,13 @@ class ModbusRepository @Inject constructor(
 
     // Метод для установки активной UI конфигурации
     fun setActiveUiConfiguration(configName: String?) {
-        _activeUiConfiguration.value = configName
+        Log.d(TAG, "Requested config: $configName, current: ${_activeUiConfiguration.value}")
+        if (_activeUiConfiguration.value != configName) {
+            Log.d(TAG, "Actually changing config to: $configName")
+            _activeUiConfiguration.value = configName
+        } else {
+            Log.d(TAG, "Config already set, skipping")
+        }
     }
 
 

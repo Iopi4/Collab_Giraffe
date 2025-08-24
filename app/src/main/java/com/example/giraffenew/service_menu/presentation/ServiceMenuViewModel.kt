@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.entities.UIServiceMenuRegisterConfiguration
+import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -226,14 +227,25 @@ class ServiceMenuViewModel
 
     private var dataCollectionJob: Job? = null
 
-    init {
-        // Активируем UI конфигурацию для этого экрана
+//    init {
+//        // Активируем UI конфигурацию для этого экрана
+//        modbusRepository.setActiveUiConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU)
+//        startDataCollection()
+//    }
+
+    fun setActiveConfiguration() {
         modbusRepository.setActiveUiConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU)
         startDataCollection()
     }
 
+    fun clearActiveConfiguration() {
+        pauseDataCollection()
+        modbusRepository.setActiveUiConfiguration(null)
+    }
+
     fun startDataCollection() {
-        if (dataCollectionJob?.isActive == true) return
+        //if (dataCollectionJob?.isActive == true) return
+        dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
 
         Log.d("ServiceMenuVM", "Starting data collection for ${UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
@@ -251,6 +263,13 @@ class ServiceMenuViewModel
                     }
                 }
         }
+    }
+
+    // Приостановка сбора данных
+    fun pauseDataCollection() {
+        Log.d("HomeScreenVM", "Pausing data collection")
+        dataCollectionJob?.cancel()
+        dataCollectionJob = null
     }
 
     /**
@@ -301,12 +320,6 @@ class ServiceMenuViewModel
         val currentZoneACCDECActive: Int = 0,
     )
 
-    // Приостановка сбора данных
-    fun pauseDataCollection() {
-        Log.d("ServiceMenuViewModel", "Pausing data collection")
-        dataCollectionJob?.cancel()
-        dataCollectionJob = null
-    }
     //Функция проверки и преобразования целых чисел
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
         val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -1327,6 +1340,5 @@ class ServiceMenuViewModel
         Log.d("ServiceMenuVM", "ViewModel cleared")
         // Деактивируем конфигурацию при уничтожении ViewModel
         modbusRepository.setActiveUiConfiguration(null)
-        dataCollectionJob?.cancel()
     }
 }

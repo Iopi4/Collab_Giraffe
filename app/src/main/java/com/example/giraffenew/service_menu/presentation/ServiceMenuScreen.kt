@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,7 +26,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
-
 import com.example.giraffenew.service_menu.ui.drive.DriveContent
 import com.example.giraffenew.service_menu.ui.sensors.SensorsContent
 import com.example.giraffenew.service_menu.ui.user.ServiceUser
@@ -36,37 +34,11 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun ServiceMenuScreen(
-    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel() // Получаем ViewModel для ServiceMenuScreen
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel(), // Получаем ViewModel для ServiceMenuScreen
+
 ){
+
     BasicSettingBackground()
-
-    // 1. Получаем текущий LifecycleOwner
-    val lifecycleOwner = LocalLifecycleOwner.current
-    // 2. Создаем Lifecycle-aware эффект
-    DisposableEffect(lifecycleOwner, serviceMenuViewModel) {
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_START -> {
-                    Log.d("ServiceMenuScreen", "Lifecycle: ON_START - resuming data collection")
-                }
-                Lifecycle.Event.ON_STOP -> {
-                    Log.d("ServiceMenuScreen", "Lifecycle: ON_STOP - pausing data collection")
-                    serviceMenuViewModel.pauseDataCollection()
-                }
-                else -> {}
-            }
-        }
-
-        // 3. Регистрируем наблюдатель
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        // 4. Очистка при удалении Composable
-        onDispose {
-            Log.d("ServiceMenuScreen", "Lifecycle: ON_DISPOSE - removing observer")
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
 
     val navController = rememberNavController()
 

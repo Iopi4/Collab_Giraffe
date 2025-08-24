@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandThousandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
@@ -125,13 +126,14 @@ fun ParameterWeightSensor(
                 verticalArrangement = Arrangement.Top) {
                 //Поле ввода значения минимального веса груза
                 Box() {
-                    BasicInputRowandThousandButton(
+                    BasicInputRowandTensButton(
                         placeholder = "00.0",
                         value = setValueMinWeight,
                         onValueChange = onModelChangeMinWeight,
                         onClick = onSetValueMinWeight,
                         isDecimal = true,
-                    )}
+                    )
+                }
                 //Кнопка калибровки
                 Box() {
                     BasicButtonGiraffe(
@@ -147,7 +149,7 @@ fun ParameterWeightSensor(
                 verticalArrangement = Arrangement.Top) {
                 //Поле ввода значения минимального веса груза
                 Box() {
-                    BasicInputRowandThousandButton(
+                    BasicInputRowandTensButton(
                         placeholder = "00.0",
                         value = setValueMaxWeight,
                         onValueChange = onModelChangeMaxWeight,
@@ -178,7 +180,7 @@ private fun format(value: Int): String {
 
 private fun formatDecimal(value: Float): String {
     //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%03.1f", value).replace(',', '.')
+    return String.format("%03.2f", value).replace(',', '.')
 }
 
 @Preview

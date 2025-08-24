@@ -37,11 +37,11 @@ class HomeScreenViewModel @Inject constructor(
 
     private var dataCollectionJob: Job? = null
 
-    init {
-        // Активируем UI конфигурацию для этого экрана
-        modbusRepository.setActiveUiConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME)
-        startDataCollection()
-    }
+//    init {
+//        // Активируем UI конфигурацию для этого экрана
+//        modbusRepository.setActiveUiConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME)
+//        startDataCollection()
+//    }
 
     /**
     2. В коллекторе потока registerCache, будем преобразовывать весь кэш в отфильтрованную карту (только наши адреса).
@@ -49,16 +49,29 @@ class HomeScreenViewModel @Inject constructor(
         Если изменилась, то вычисляем новое состояние и обновляем _state.
      */
 
+    fun setActiveConfiguration() {
+        modbusRepository.setActiveUiConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME)
+        startDataCollection()
+    }
+
+    fun clearActiveConfiguration() {
+        pauseDataCollection()
+        modbusRepository.setActiveUiConfiguration(null)
+    }
+
+
 
     // Запуск сбора данных
     fun startDataCollection() {
-        if (dataCollectionJob?.isActive == true) return
+        dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
+        //if (dataCollectionJob?.isActive == true) return
 
         Log.d("HomeScreenVM", "Starting data collection for ${UiHomeScreenRegisterConfiguration.NAME_HOME}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.Default) {
             modbusRepository.getConfigurationFlow(UiHomeScreenRegisterConfiguration.NAME_HOME)
                 .collect { cache ->
                     Log.d("HomeScreenViewModel", "Updating from cache, size: ${cache.size}")
+                    // Обработка данных
                     try {
                         // Создаем отфильтрованную карту только для нужных адресов
                         val filteredCache = allAddresses.associate { addr ->
@@ -70,6 +83,13 @@ class HomeScreenViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    // Приостановка сбора данных
+    fun pauseDataCollection() {
+        Log.d("HomeScreenVM", "Pausing data collection")
+        dataCollectionJob?.cancel()
+        dataCollectionJob = null
     }
 
     //Функция createHomeScreenState() для обработки отфильтрованных данных:
@@ -117,12 +137,7 @@ class HomeScreenViewModel @Inject constructor(
     )
     }
 
-    // Приостановка сбора данных
-    fun pauseDataCollection() {
-        Log.d("HomeScreenVM", "Pausing data collection")
-        dataCollectionJob?.cancel()
-        dataCollectionJob = null
-    }
+
 
     // Очистка при уничтожении ViewModel
 
@@ -178,11 +193,11 @@ class HomeScreenViewModel @Inject constructor(
         val hoistDown: Int = 0,
     )
 
+    // Очистка при уничтожении ViewModel
     override fun onCleared() {
         super.onCleared()
         Log.d("HomeScreenVM", "ViewModel cleared")
         // Деактивируем конфигурацию при уничтожении ViewModel
         modbusRepository.setActiveUiConfiguration(null)
-        dataCollectionJob?.cancel()
     }
 }

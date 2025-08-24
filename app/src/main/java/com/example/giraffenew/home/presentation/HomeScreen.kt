@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.colorResource
@@ -22,6 +23,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.giraffenew.R
+import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
+import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.home.ui.CraneMechanismsCondition
 import com.example.giraffenew.home.ui.CraneParameterScale
 import com.example.giraffenew.home.ui.CraneSOZR
@@ -31,34 +34,35 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 internal fun HomeScreen (
-    modifier: Modifier = Modifier,
     homeViewModel: HomeScreenViewModel = hiltViewModel() // Получаем ViewModel для HomeScreen
 ){
+
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
+
     // 2. Создаем Lifecycle-aware эффект
     DisposableEffect(lifecycleOwner, homeViewModel) {
-        val observer = LifecycleEventObserver { _, event ->
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_START -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_START - resuming data collection")
-                    homeViewModel.startDataCollection()
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_RESUME - resuming data collection")
+                    homeViewModel.setActiveConfiguration()
                 }
-                Lifecycle.Event.ON_STOP -> {
-                    Log.d("HomeScreen", "Lifecycle: ON_STOP - pausing data collection")
-                    homeViewModel.pauseDataCollection()
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("HomeScreen", "Lifecycle: ON_PAUSE    - pausing data collection")
+                    homeViewModel.clearActiveConfiguration()
                 }
-                else -> {}
+                else -> {Log.e("HomeScreen", "Lifecycle: NOT START")}
             }
         }
-
         // 3. Регистрируем наблюдатель
-        lifecycleOwner.lifecycle.addObserver(observer)
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
         // 4. Очистка при удалении Composable
         onDispose {
             Log.d("HomeScreen", "Lifecycle: ON_DISPOSE - removing observer")
-            lifecycleOwner.lifecycle.removeObserver(observer)
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            homeViewModel.clearActiveConfiguration() // Дополнительная очистка
         }
     }
 
@@ -152,15 +156,5 @@ internal fun HomeScreen (
                 voltageL1L3Current = homeViewModel.state.value.voltageL1L3Current,
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview (){
-    GIRAFFEnewTheme(dynamicColor = false) {
-        HomeScreen(
-            modifier = Modifier,
-        )
     }
 }
