@@ -85,8 +85,9 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(135, "VoltageL1L2_MW", "WORD16", "Линейное напряжение L1-L2"),
         RegisterInfo(136, "VoltageL2L3_MW", "WORD16", "Линейное напряжение L2-L3"),
         RegisterInfo(137, "VoltageL3L1_MW", "WORD16", "Линейное напряжение L3-L1"),
-        RegisterInfo(317, "HMI_Weight_Percent_MW", "WORD16", "Текущий вес в процентах"),
+        RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "статус датчика ветра (0-Rd, 1-Yl, 2-Gr) "),
         //addressesCraneParameterScale
+        RegisterInfo(317, "HMI_Weight_Percent_MW", "WORD16", "Текущий вес в процентах"),
         RegisterInfo(318, "HMI_Hoist_Max_Position_MW", "WORD16", "Максимальное положение высоты крюка"),
         RegisterInfo(319, "HMI_Max_Crane_Position_MW", "WORD16", "Максимальное положение крана"),
         //addressesCraneMechanismsCondition
@@ -107,8 +108,8 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(333, "HMI_EM_Vihod_6_Trolley_Rev_MW", "WORD16", "Статус выхода из полигона движением тележки назад"),
         RegisterInfo(334, "HMI_EM_Vihod_7_Hoist_Up_MW", "WORD16", "Статус выхода из полигона подъемом груза"),
         RegisterInfo(335, "HMI_EM_Vihod_8_Hoist_Down_MW", "WORD16", "Статус выхода из полигона опусканием груза"),
-        RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "Статус анемометра"),
-        RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Статус аварийной лампы")
+        RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометра"),
+        RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра")
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -189,7 +190,9 @@ object UISettingLoadCapacityConfiguration {
         RegisterInfo(863, "HMI_Write_rMin_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при минимальном грузе"),
         RegisterInfo(864, "HMI_Write_rMax_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при максимальном грузе"),
         RegisterInfo(865, "HMI_Write_xMin_Weight_Set_MW", "WORD16", "Калибровать минимальный груз"),
-        RegisterInfo(866, "HMI_Write_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз")
+        RegisterInfo(866, "HMI_Write_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз"),
+
+        RegisterInfo(868, "HMI_Write_xUISettingLoadCapacity_Active_MW", "WORD16", "Флаг активности экрана настройки грузоподъемности")
         )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -202,8 +205,6 @@ object UISettingLoadCapacityConfiguration {
         )
     }
 }
-
-
 
 /**
  * Конфигурация UI №7 (ServiceMenuViewModel)

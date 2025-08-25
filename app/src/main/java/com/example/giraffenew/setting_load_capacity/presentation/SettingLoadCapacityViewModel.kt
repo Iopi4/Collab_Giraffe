@@ -61,11 +61,26 @@ class SettingLoadCapacityViewModel
     fun setActiveConfiguration() {
         modbusRepository.setActiveUiConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY)
         startDataCollection()
+        writeUiActiveStatus(37) // Активируем регистр
     }
 
     fun clearActiveConfiguration() {
         pauseDataCollection()
         modbusRepository.setActiveUiConfiguration(null)
+        writeUiActiveStatus(0) // Деактивируем регистр
+    }
+
+    private fun writeUiActiveStatus(value: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            modbusRepository.writeRegister(868, value).fold(
+                onSuccess = {
+                    Log.d("LoadCapacityVM", "Register 868 set to $value")
+                },
+                onFailure = { e ->
+                    Log.e("LoadCapacityVM", "Failed to write register 868", e)
+                }
+            )
+        }
     }
 
     fun startDataCollection() {

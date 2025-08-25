@@ -27,8 +27,8 @@ class HomeScreenViewModel @Inject constructor(
 
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,162,163,135,136,137,317) // Только нужные регистры
     val addressesCraneParameterScale = listOf(317,159,318,162,319) // Только нужные регистры
-    val addressesCraneMechanismsCondition = listOf(711,320,321,322,323,324,325,326,327,328,329,
-        330,331,332,333,334,335,336,337) // Только нужные регистры
+    val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
+        330,331,332,333,334,335,712,337) // Только нужные регистры
     //1. Объединим все адреса в один список
     private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition).distinct()
 
@@ -113,6 +113,7 @@ class HomeScreenViewModel @Inject constructor(
         hoistMaxPosition = safeDivideTens(cache[318] ?: 0),
         cranePosition = safeDivideTens(cache[162] ?: 0),
         craneMaxPosition = safeDivideTens(cache[319] ?: 0),
+        anemometerStatus = cache[336] ?: 0,
 
         // Mechanisms Condition
         weightSensorErr = cache[711] ?: 0,
@@ -132,7 +133,7 @@ class HomeScreenViewModel @Inject constructor(
         trolleyRev = cache[333] ?: 0,
         hoistUp = cache[334] ?: 0,
         hoistDown = cache[335] ?: 0,
-        anemometerSensorErr = cache[336] ?: 0,
+        anemometerSensorErr = cache[712] ?: 0,
         alarmLampStatus = cache[337] ?: 0
     )
     }
@@ -171,6 +172,9 @@ class HomeScreenViewModel @Inject constructor(
         val hoistMaxPosition: Float = 0f,
         val cranePosition: Float = 0f,
         val craneMaxPosition: Float = 0f,
+
+        val anemometerStatus: Int = 0,
+
 //CraneMechanismsCondition UI
         val weightSensorErr: Int = 0,
         val anemometerSensorErr: Int = 0,
