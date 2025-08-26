@@ -85,6 +85,16 @@ class ModbusRepository @Inject constructor(
      * 1.1 КОНЕЦ
      */
 
+    /**
+    НАЧАЛО 1.2 Добавляем переменную для хранения конфигурации по умолчанию (список RegisterInfo из DefaultRegisterConfiguration).
+     */
+    private val _defaultRegisters = MutableStateFlow<List<RegisterInfo>>(emptyList())
+    private val _defaultRegisterCache = MutableStateFlow<Map<Int, RegisterValue>>(emptyMap())
+    val defaultRegisterCache: StateFlow<Map<Int, RegisterValue>> = _defaultRegisterCache.asStateFlow()
+    /**
+    КОНЕЦ 1.2
+     */
+
     // Parsed конфигурация регистров
     private val _activeRegisters = MutableStateFlow<List<RegisterInfo>>(emptyList())
     val activeRegisters: StateFlow<List<RegisterInfo>> = _activeRegisters.asStateFlow()
@@ -165,7 +175,80 @@ class ModbusRepository @Inject constructor(
                 }
         }
     }
-    
+
+    init {// Загрузка default-конфигурации при инициализации
+        loadDefaultConfiguration()
+        startDefaultRegistersReading()
+    }
+
+    private fun loadDefaultConfiguration() {
+        try {
+            val config = json.decodeFromString<RegistersConfiguration>(
+                DefaultRegisterConfiguration.DEFAULT_CONFIG_JSON
+            )
+            _defaultRegisters.value = config.registers
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to load default configuration", e)
+        }
+    }
+
+    private fun startDefaultRegistersReading() {
+        repositoryScope.launch {
+            while (isActive) {
+                try {
+                    readDefaultRegisters()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error reading default registers", e)
+                }
+                    //delay(900) // Чтение раз в секунду
+            }
+        }
+    }
+    private suspend fun readDefaultRegisters() {
+        val registers = _defaultRegisters.value
+        if (registers.isEmpty()) return
+
+        val ranges = groupRegistersIntoRanges(registers)
+        val results = mutableListOf<RegisterValue>()
+
+        for (range in ranges) {
+            try {
+                val batchResult = modbusClient.readRegisters(range.start, range.count)
+                results.addAll(batchResult.results.map { result ->
+                    val registerInfo = registers.find { it.address == result.address }
+                    RegisterValue.fromReadResult(result, registerInfo)
+                })
+            } catch (e: Exception) {
+                Log.e(TAG, "Error reading range ${range.start}-${range.start + range.count - 1}", e)
+            }
+        }
+
+        // Обновление кэша только при изменениях
+        updateDefaultCache(results)
+    }
+
+    private fun updateDefaultCache(newValues: List<RegisterValue>) {
+        val currentCache = _defaultRegisterCache.value
+        val newCache = currentCache.toMutableMap()
+        var hasChanges = false
+
+        for (newValue in newValues) {
+            val currentValue = currentCache[newValue.address]
+            if (currentValue == null ||
+                currentValue.value != newValue.value ||
+                currentValue.isValid != newValue.isValid) {
+                newCache[newValue.address] = newValue
+                hasChanges = true
+            }
+        }
+
+        if (hasChanges) {
+            _defaultRegisterCache.value = newCache
+        }
+    }
+
+
+
     /**
      * Инициализация репозитория
      * Загружает активную конфигурацию из БД
@@ -307,6 +390,7 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP, UiInitialSetupRegisterConfiguration.REGISTERS)
         registerConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU, UIServiceMenuRegisterConfiguration.REGISTERS)
         registerConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY, UISettingLoadCapacityConfiguration.REGISTERS)
+        registerConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS, UISettingSensorsConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
@@ -329,7 +413,7 @@ class ModbusRepository @Inject constructor(
                 val startTime = System.currentTimeMillis()
                 readConfigurationRegisters(TopBarRegisterConfiguration.NAME_TOP_BAR)
                 val elapsed = System.currentTimeMillis() - startTime
-                delay(maxOf(0, 1000 - elapsed)) // Точный интервал 1 секунда
+                delay(maxOf(0, 500 - elapsed)) // Точный интервал 0,5 секунды
             }
         }
     }
@@ -369,11 +453,13 @@ class ModbusRepository @Inject constructor(
     private suspend fun readConfigurationRegisters(configName: String) {
         Log.d(TAG, "Reading configuration: $configName")
         val registers = when (configName) {
+
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
             UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
-            UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY ->UISettingLoadCapacityConfiguration.REGISTERS
+            UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
+            UISettingSensorsConfiguration.NAME_SETTING_SENSORS -> UISettingSensorsConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }

@@ -779,7 +779,7 @@ class ServiceMenuViewModel
     fun onSetTrolleyOverSpd() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,9.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,99.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(967, model)
                 _errorMessageTrolley.value = null

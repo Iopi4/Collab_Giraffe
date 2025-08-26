@@ -154,7 +154,7 @@ fun SampleAppNavGraph(
                 //При вызове в NavHost передается объект NavHostController, компонент, который будет служить
                 // начальным экраном/начальным пунктом назначения, и граф навигации (navigation graph):
                 navController = navController,
-                startDestination = AllDestinations.NAVIGATE_TO_HOME, modifier = modifier.padding(it)
+                startDestination = AllDestinations.NAVIGATE_SETTING_SENSORS, modifier = modifier.padding(it)
                     //startDestination = HOME_SCREEN_ROUTE
                 ) {
 

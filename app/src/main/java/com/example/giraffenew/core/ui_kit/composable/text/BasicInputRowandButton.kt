@@ -28,7 +28,7 @@ fun BasicInputRowandButton(
         Box(
             modifier = Modifier
                 .padding(start = 10.dp, end = 0.dp, top = 5.dp)
-                .weight(3f)
+                .weight(4f)
         ) {
             BasicTextFilledGiraffe(
                 placeholder = placeholder,
@@ -43,7 +43,7 @@ fun BasicInputRowandButton(
         }
 
         // Кнопка
-        Box(modifier = Modifier.weight(1f)) {
+        Box(modifier = Modifier.weight(2f)) {
             ButtonOn (
                 modifier = Modifier,
                 text = R.string.Button_ON,

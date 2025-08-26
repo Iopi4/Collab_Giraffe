@@ -104,11 +104,17 @@
 
     <!-- Текст экрана SettingSensorsScreen' -->
     <string name="SettingSensors_Button_Test">ВКЛЮЧИТЬ ТЕСТ</string>
+    <string name="SettingSensors_Button_HOIST">ВЫСОТА</string>
+    <string name="SettingSensors_Button_SLEW">ПОВОРОТ</string>
+    <string name="SettingSensors_Button_TROLLEY">ВЫЛЕТ</string>
+    <string name="SettingSensors_Button_CRANE">ХОД КРАНА</string>
 
     <string name="SettingSensors_Text_Sensor">Датчик</string>
     <string name="SettingSensors_Text_Examination">Тест ограничений</string>
     <string name="SettingSensors_Text_Status">статус</string>
     <string name="SettingSensors_Text_Parameters">Параметры</string>
+    <string name="SettingSensors_Text_Sensor_Alarm_1">Статус! Контроль показаний</string>
+    <string name="SettingSensors_Text_Sensor_Alarm_2">Статус! Контроль связи</string>
 
     <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
     <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
@@ -116,6 +122,7 @@
     <string name="SettingSensors_Text_Hoist_Stop_Down">Ввод. Стоп вниз [м]</string>
     <string name="SettingSensors_Text_Hoist_Decline_Up">Ввод. Сниж. скор. вверх [м]</string>
     <string name="SettingSensors_Text_Hoist_Decline_Down">Ввод. Сниж. скор. вниз [м]</string>
+
 
     <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
     <string name="SettingSensors_Text_Trolley_Departure">Вылет [м]</string>

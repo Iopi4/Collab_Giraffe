@@ -273,7 +273,7 @@ class CloudSynchronizer @Inject constructor(
                 if (readingsToSync.isNotEmpty()) {
                     val payload = CloudPayload(
                         crane_id = craneId,
-                        readings = readingsToSync
+                        readings = readingsToSync.takeLast(1)
                     )
                     
                     val success = sendToCloud(payload)

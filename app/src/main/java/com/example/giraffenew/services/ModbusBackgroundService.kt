@@ -72,8 +72,8 @@ class ModbusBackgroundService : Service() {
     private val errorCount = AtomicLong(0)
     
     // Configuration
-    private val targetCycleTimeMs = 1000L // 1 секунда согласно техзаданию
-    private val cycleTimeToleranceMs = 50L // ±50ms допуск
+    private val targetCycleTimeMs = 950 // 950, ms для оптимального цикла чтения и отправки регистров
+    private val cycleTimeToleranceMs = 48L // ±48ms допуск
     
     // Notification
     private val notificationId = 1001
@@ -360,14 +360,13 @@ class ModbusBackgroundService : Service() {
     }
     
     /**
-     * Выполнить один цикл чтения регистров
+     * Выполняем цикл чтения Default регистров
      */
     private suspend fun executeReadingCycle() {
-        // Читаем все активные регистры
-        val batchResult = modbusRepository.readAllActiveRegisters()
+        // Получаем актуальные значения default-регистров
+        val registerMap = modbusRepository.defaultRegisterCache.value
         
-        if (batchResult.registerValues.isNotEmpty()) {
-            val registerMap = batchResult.registerValues.associateBy { it.address }
+        if (registerMap.isNotEmpty()) {
             
             // Записываем в файл (async)
             fileLogger.logRegisterValues(registerMap)
@@ -377,14 +376,8 @@ class ModbusBackgroundService : Service() {
             
             // Логируем успешное чтение (только в debug режиме)
             if (cycleCount.get() % 60 == 0L) { // Каждую минуту
-                Log.d(TAG, "Successfully read ${batchResult.registerValues.size} registers")
+                Log.d(TAG, "Successfully read ${registerMap.size} registers")
             }
-        }
-        
-        // Логируем ошибки если есть
-        if (batchResult.errors.isNotEmpty()) {
-            Log.w(TAG, "Reading errors: ${batchResult.errors.joinToString("; ")}")
-            errorCount.addAndGet(batchResult.errors.size.toLong())
         }
     }
     

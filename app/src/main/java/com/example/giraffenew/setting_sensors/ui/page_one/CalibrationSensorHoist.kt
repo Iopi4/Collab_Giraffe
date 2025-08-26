@@ -8,27 +8,59 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
+import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorHoist(
+    currentHoistPosition: Float,
+    currentAbsEncHoistPosition: Int,
 
+    onSetHoistLimitTestEn : () -> Unit,
+
+    setValueHoistPosFwdStop: String,
+    updateValueHoistPosFwdStop: (String) -> Unit,
+    onSetValueHoistPosFvdStop: () -> Unit,
+    currentHoistStopUp1: Int,
+
+    setValueHoistPosRevStop: String,
+    updateValueHoistPosRevStop: (String) -> Unit,
+    onSetValueHoistPosRevStop: () -> Unit,
+    currentHoistStopDwn1: Int,
+
+    setValueHoistPosFwdDwnSp: String,
+    updateValueHoistPosFwdDwnSp: (String) -> Unit,
+    onSetValueHoistPosFwdDwnSp: () -> Unit,
+    currentHoistUpDwnSp1: Int,
+
+    setValueHoistPosRevDwnSp: String,
+    updateValueHoistPosRevDwnSp: (String) -> Unit,
+    onSetValueHoistPosRevDwnSp: () -> Unit,
+    currentHoistDwnDwnSp1: Int,
+
+    errorMessageHoist: String?,
+    logMessageHoist: String?,
 ) {
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -68,6 +100,16 @@ fun CalibrationSensorHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Decline_Down)
             //Стоп вниз
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Stop_Down)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
+
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) {
+                errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
+                logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
+
         }
 
 
@@ -90,19 +132,19 @@ fun CalibrationSensorHoist(
                 modifier = Modifier,
                 text = stringResource(R.string.SettingSensors_Text_Parameters)
             )
-
             // Отображение текущего значения датчика
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier,
-                    valueParameterId = "104350"
+                        modifier = Modifier,
+                        valueParameterId = format(currentAbsEncHoistPosition)
                 )
             }
+
             // Отображение текущей высоты подъема
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "41.8"
+                    valueParameterId = formatDecimal(currentHoistPosition)
                 )
             }
 
@@ -110,7 +152,7 @@ fun CalibrationSensorHoist(
             BasicButtonGiraffe(
                 modifier = Modifier.fillMaxWidth(),
                 text = R.string.Button_Turn_ON_Off,
-                onClick = {},
+                onClick = onSetHoistLimitTestEn,
             ) {}
 
             // Отображение кнопок ввода защит и статуса
@@ -120,14 +162,15 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения максимальной высоты подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        value = "",
-                        onValueChange = { "" },
+                        value = setValueHoistPosFwdStop,
+                        onValueChange = updateValueHoistPosFwdStop,
                         modifier = Modifier,
+                        isDecimal = true,
                     )
                 }
                 //Кнопка ввода
@@ -135,12 +178,12 @@ fun CalibrationSensorHoist(
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.Button_Enter,
-                        onClick = {},
+                        onClick = onSetValueHoistPosFvdStop,
                     ) {}
                 }
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
-                        isLampStatus = 0
+                        isLampStatus = currentHoistStopUp1
                     )
                 }
             }
@@ -149,22 +192,20 @@ fun CalibrationSensorHoist(
             // Замедление подъема крюка в верх
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость подъема
-                Box(
-                    modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                        .weight(4f)
+                Box(modifier = Modifier.weight(4f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicInputRowandTensButton(
                         placeholder = "000.0",
-                        value = "",
-                        onValueChange = { "" },
-                        modifier = Modifier,
+                        value = setValueHoistPosFwdDwnSp,
+                        onValueChange = updateValueHoistPosFwdDwnSp,
+                        onClick = onSetValueHoistPosFwdDwnSp,
+                        isDecimal = true,
                     )
                 }
 
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
-                        isLampStatus = 0
+                        isLampStatus = currentHoistUpDwnSp1
                     )
                 }
             }
@@ -175,36 +216,36 @@ fun CalibrationSensorHoist(
                 //Поле ввода значения при котором снижается скорость опускания
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
                         .weight(4f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicInputRowandTensButton(
                         placeholder = "000.0",
-                        value = "",
-                        onValueChange = { "" },
-                        modifier = Modifier,
+                        value = setValueHoistPosRevDwnSp,
+                        onValueChange = updateValueHoistPosRevDwnSp,
+                        onClick = onSetValueHoistPosRevDwnSp,
+                        isDecimal = true,
                     )
                 }
 
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
-                        isLampStatus = 0
+                        isLampStatus = currentHoistDwnDwnSp1
                     )
                 }
             }
 
-            // Ограничение оаускание крюка в низ
+            // Ограничение опускание крюка в низ
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения минимальной высоты подъема
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
-                        placeholder = "0.0",
-                        value = "",
-                        onValueChange = { "" },
+                        placeholder = "000.0",
+                        value = setValueHoistPosRevStop,
+                        onValueChange = updateValueHoistPosRevStop,
                         modifier = Modifier,
                     )
                 }
@@ -213,16 +254,36 @@ fun CalibrationSensorHoist(
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.Button_Enter,
-                        onClick = {},
+                        onClick = onSetValueHoistPosRevStop,
                     ) {}
                 }
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
-                        isLampStatus = 0
+                        isLampStatus = currentHoistStopDwn1
                     )
                 }
             }
+            Row(horizontalArrangement = Arrangement.Start) {
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                BasicLampError(
+                    isLampStatus = 0
+                )
+            }}
 
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(height = 35.dp, width = 50.dp)
+                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = 0
+                    )
+                }}
 
 
 
@@ -230,10 +291,50 @@ fun CalibrationSensorHoist(
     }
 }
 
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%10d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+
+
 @Preview
 @Composable
 fun CalibrationSensorHoistPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
-        CalibrationSensorHoist()
+        CalibrationSensorHoist(
+            currentHoistPosition = 1f,
+            currentAbsEncHoistPosition = 1,
+            onSetHoistLimitTestEn = { },
+
+            setValueHoistPosFwdStop = "1",
+            updateValueHoistPosFwdStop = { },
+            onSetValueHoistPosFvdStop = {},
+            currentHoistStopUp1 = 1,
+
+            setValueHoistPosRevStop = "`1",
+            updateValueHoistPosRevStop = {},
+            onSetValueHoistPosRevStop = {},
+            currentHoistStopDwn1 = 1,
+
+            setValueHoistPosFwdDwnSp = "1",
+            updateValueHoistPosFwdDwnSp = {},
+            onSetValueHoistPosFwdDwnSp = {},
+            currentHoistUpDwnSp1 = 1,
+
+            setValueHoistPosRevDwnSp = "1",
+            updateValueHoistPosRevDwnSp = { },
+            onSetValueHoistPosRevDwnSp = {},
+            currentHoistDwnDwnSp1 = 1,
+
+            errorMessageHoist = null,
+            logMessageHoist = null,
+        )
     }
 }

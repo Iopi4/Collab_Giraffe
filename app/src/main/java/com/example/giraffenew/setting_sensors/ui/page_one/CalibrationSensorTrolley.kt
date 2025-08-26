@@ -40,7 +40,9 @@ fun CalibrationSensorTrolley(
         //№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).border(
+                .fillMaxSize().weight(3f)
+                .padding(5.dp)
+                .border(
                     width = 3.dp,
                     color = Orange,
                     shape = RoundedCornerShape(5.dp)),
@@ -69,7 +71,9 @@ fun CalibrationSensorTrolley(
         //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize().weight(2f)
+                .padding(5.dp)
+                .fillMaxSize().border(
                     width = 3.dp,
                     color = Burgundy_violet,
                     shape = RoundedCornerShape(5.dp)),

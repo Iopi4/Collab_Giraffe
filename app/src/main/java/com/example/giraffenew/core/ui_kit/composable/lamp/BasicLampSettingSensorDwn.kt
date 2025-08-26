@@ -27,7 +27,7 @@ fun BasicLampSettingSensorDwn(
     isLampStatus: Int,
 ){
     Box(modifier = Modifier
-        .padding(start = 7.dp, end = 15.dp, top = 5.dp, bottom = 0.dp),
+        .padding(start = 0.dp, end = 10.dp, top = 5.dp, bottom = 0.dp),
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {

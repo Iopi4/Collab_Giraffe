@@ -51,8 +51,8 @@ fun ServiceTrolley(
     onModelChangeTrolleySpdRef4: (String) -> Unit,
     onSetTrolleySpdRef4: () -> Unit,
 
-    setValueTrolleyLsp: String,
-    onModelChangeTrolleyLsp: (String) -> Unit,
+    setValueTrolleyOverSpd: String,
+    onModelChangeTrolleyOverSpd: (String) -> Unit,
     onSetTrolleyOverSpd: () -> Unit,
 
     errorMessageTrolley: String?,
@@ -160,8 +160,8 @@ fun ServiceTrolley(
 //Ввод. Запрет движения на сверхсинхронной скорости, тонны
             BasicInputRowandTensButton(
                 placeholder = "5.0",
-                value = setValueTrolleyLsp,
-                onValueChange = onModelChangeTrolleyLsp,
+                value = setValueTrolleyOverSpd,
+                onValueChange = onModelChangeTrolleyOverSpd,
                 onClick = onSetTrolleyOverSpd,
                 isDecimal = true
             )
@@ -201,8 +201,8 @@ fun ServiceTrolleyPreview () {
             onModelChangeTrolleySpdRef4 = { },
             onSetTrolleySpdRef4 ={ },
 
-            setValueTrolleyLsp = "1500",
-            onModelChangeTrolleyLsp = { },
+            setValueTrolleyOverSpd = "1500",
+            onModelChangeTrolleyOverSpd = { },
             onSetTrolleyOverSpd ={ },
 
             errorMessageTrolley = null,
