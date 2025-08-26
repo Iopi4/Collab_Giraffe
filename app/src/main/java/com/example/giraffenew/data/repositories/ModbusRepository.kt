@@ -200,7 +200,7 @@ class ModbusRepository @Inject constructor(
                 } catch (e: Exception) {
                     Log.e(TAG, "Error reading default registers", e)
                 }
-                    //delay(900) // Чтение раз в секунду
+                    delay(900) // Чтение раз в секунду
             }
         }
     }
