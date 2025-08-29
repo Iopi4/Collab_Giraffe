@@ -34,7 +34,8 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorHoist(
-    currentAbsEncHoistPosition: Int,
+    currentAbsEncHoistPositionWord1: Int,
+    currentAbsEncHoistPositionWord2: Int,
     currentHoistPosition: Float,
 
     onSetHoistLimitTestEn : () -> Unit,
@@ -59,8 +60,13 @@ fun CalibrationSensorHoist(
     onSetValueHoistPosRevDwnSp: () -> Unit,
     currentHoistDwnDwnSp1: Int,
 
+    currentHoistEncoderMaxDeltaError: Int,
+    currentHoistEncoderMaxValueError: Int,
+    currentHoistAbsEncErrCanOpen: Int,
+
     errorMessageHoist: String?,
     logMessageHoist: String?,
+
 ) {
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -110,9 +116,7 @@ fun CalibrationSensorHoist(
                 errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
                 logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
             }
-
         }
-
 
         //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
         Column(
@@ -137,7 +141,7 @@ fun CalibrationSensorHoist(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
-                        valueParameterId = format(currentAbsEncHoistPosition)
+                        valueParameterId = formatAbsEncPositionPosition(currentAbsEncHoistPositionWord1,currentAbsEncHoistPositionWord2)
                 )
             }
 
@@ -268,14 +272,18 @@ fun CalibrationSensorHoist(
             }
             //Статус датчика. Контроль показаний
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
+                    BasicLampError(isLampStatus = currentHoistEncoderMaxDeltaError)
+                }
                 Box(modifier = Modifier
                         .weight(1f)
                         .size(height = 35.dp, width = 50.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                    BasicLampError(
-                        isLampStatus = 0
-                    )
+                    BasicLampError(isLampStatus = currentHoistEncoderMaxValueError)
             }
             }
             //Статус датчика. Контроль связи
@@ -286,7 +294,7 @@ fun CalibrationSensorHoist(
                         .size(height = 35.dp, width = 50.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicLampError(
-                        isLampStatus = 0
+                        isLampStatus = currentHoistAbsEncErrCanOpen
                     )
                 }
             }
@@ -308,6 +316,12 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
+private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+
+
+
 
 
 @Preview
@@ -316,7 +330,8 @@ fun CalibrationSensorHoistPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorHoist(
             currentHoistPosition = 1f,
-            currentAbsEncHoistPosition = 1,
+            currentAbsEncHoistPositionWord1 = 1,
+            currentAbsEncHoistPositionWord2 = 1,
             onSetHoistLimitTestEn = { },
 
             setValueHoistPosFwdStop = "1",
@@ -338,6 +353,10 @@ fun CalibrationSensorHoistPreview () {
             updateValueHoistPosRevDwnSp = { },
             onSetValueHoistPosRevDwnSp = {},
             currentHoistDwnDwnSp1 = 1,
+
+            currentHoistEncoderMaxDeltaError= 1,
+            currentHoistEncoderMaxValueError= 1,
+            currentHoistAbsEncErrCanOpen= 1,
 
             errorMessageHoist = null,
             logMessageHoist = null,

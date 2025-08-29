@@ -34,7 +34,9 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorTrolley(
-    currentAbsEncTrolleyPosition: Int,
+    currentAbsEncTrolleyPositionWord1: Int,
+    currentAbsEncTrolleyPositionWord2: Int,
+
     currentTrolleyPosition: Float,
 
     onSetTrolleyLimitTestEn : () -> Unit,
@@ -58,6 +60,10 @@ fun CalibrationSensorTrolley(
     updateValueTrolleyPosRevDwnSp: (String) -> Unit,
     onSetValueTrolleyPosRevDwnSp: () -> Unit,
     currentTrolleyRevDwnSp1: Int,
+
+    currentTrolleyEncoderMaxDeltaError: Int,
+    currentTrolleyEncoderMaxValueError: Int,
+    currentTrolleyAbsEncErrCanOpen: Int,
 
     errorMessageTrolley: String?,
     logMessageTrolley: String?,
@@ -135,7 +141,7 @@ fun CalibrationSensorTrolley(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = format(currentAbsEncTrolleyPosition)
+                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncTrolleyPositionWord1, currentAbsEncTrolleyPositionWord2)
                 )
             }
             // Отображение текущего вылета
@@ -264,15 +270,19 @@ fun CalibrationSensorTrolley(
             }
             //Статус датчика. Контроль показаний
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
+                    BasicLampError(isLampStatus = currentTrolleyEncoderMaxDeltaError)
+                }
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .size(height = 35.dp, width = 50.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                    BasicLampError(
-                        isLampStatus = 0
-                    )
+                    BasicLampError(isLampStatus = currentTrolleyEncoderMaxValueError)
                 }}
             //Статус датчика. Контроль связи
             Row(horizontalArrangement = Arrangement.Start) {
@@ -283,7 +293,7 @@ fun CalibrationSensorTrolley(
                         .size(height = 35.dp, width = 50.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicLampError(
-                        isLampStatus = 0
+                        isLampStatus = currentTrolleyAbsEncErrCanOpen
                     )
                 }
             }
@@ -301,13 +311,19 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
+private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+
 @Preview
 @Composable
 fun CalibrationSensorTrolleyPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorTrolley(
             currentTrolleyPosition = 1f,
-            currentAbsEncTrolleyPosition = 1,
+            currentAbsEncTrolleyPositionWord1 = 1,
+            currentAbsEncTrolleyPositionWord2 = 1,
+
             onSetTrolleyLimitTestEn = { },
 
             setValueTrolleyPosFwdStop = "1",
@@ -329,6 +345,10 @@ fun CalibrationSensorTrolleyPreview () {
             updateValueTrolleyPosRevDwnSp = { },
             onSetValueTrolleyPosRevDwnSp = {},
             currentTrolleyRevDwnSp1 = 1,
+
+            currentTrolleyEncoderMaxDeltaError= 1,
+            currentTrolleyEncoderMaxValueError= 1,
+            currentTrolleyAbsEncErrCanOpen= 1,
 
             errorMessageTrolley = null,
             logMessageTrolley = null,

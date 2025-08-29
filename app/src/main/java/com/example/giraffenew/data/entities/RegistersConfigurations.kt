@@ -224,15 +224,15 @@ object UISettingSensorsConfiguration {
         RegisterInfo(159, "Hoist_Position_MW", "WORD16", "Текущее положение подъема *0,1м"),
         RegisterInfo(162,  "Crane_Position_MW",  "WORD16",  "Текущее положение крана *0,1м"),
         //Параметры датчиков
-        RegisterInfo(60, "udi_AbsEncFenac_Hoist_Position_MW", "UINT32", "Данные датчика высоты подъема"),
-        RegisterInfo(62, "udi_AbsEncFenac_Slew_Position_MW", "UINT32", "Данные датчика поворота"),
-        RegisterInfo(64, "udi_AbsEncFenac_Trolley_Position_MW", "UINT32", "Данные датчика грузовой тележки"),
-        RegisterInfo(66, "udi_AbsEncFenac_Crane_Position_MW", "UINT32", "Данные датчика хода крана"),
-        //Регистры контроля открытых окно
-        RegisterInfo(283, "HMI_Write_Setting_Hoist_Position_Active_MW", "WORD16", "Флаг активности экрана настройки датчика высоты"),
-        RegisterInfo(284, "HMI_Write_Setting_Hoist_Position_Active_MW", "WORD16", "Флаг активности экрана настройки датчика поворота"),
-        RegisterInfo(285, "HMI_Write_Setting_Hoist_Position_Active_MW", "WORD16", "Флаг активности экрана настройки датчика тележки"),
-        RegisterInfo(286, "HMI_Write_Setting_Hoist_Position_Active_MW", "WORD16", "Флаг активности экрана настройки датчика хода крана"),
+        RegisterInfo(382, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 1"),
+        RegisterInfo(383, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 2"),
+        RegisterInfo(386, "udi_AbsEncFenac_Slew_Position_MW", "WORD16", "Данные датчика поворота. Слово 1"),
+        RegisterInfo(387, "udi_AbsEncFenac_Slew_Position_MW", "WORD16", "Данные датчика поворота. Слово 2"),
+        RegisterInfo(390, "udi_AbsEncFenac_Trolley_Position_MW", "WORD16", "Данные датчика грузовой тележки. Слово 1"),
+        RegisterInfo(391, "udi_AbsEncFenac_Trolley_Position_MW", "WORD16", "Данные датчика грузовой тележки. Слово 2"),
+        RegisterInfo(394, "udi_AbsEncFenac_Crane_Position_MW", "WORD16", "Данные датчика хода крана"),
+        RegisterInfo(395, "udi_AbsEncFenac_Crane_Position_MW", "WORD16", "Данные датчика хода крана"),
+
         //Параметры настройки датчика подъема
         RegisterInfo(803, "HMI_Write_xHoist_Limit_En_MW", "WORD16", "Включить проверку ограничения подъемного мех. крюка"),
         RegisterInfo(804, "HMI_Write_xHoist_Fwd_Mem_MW", "WORD16", "Запомнить положение по высоте при движении вверх"),
@@ -280,6 +280,8 @@ object UISettingSensorsConfiguration {
         RegisterInfo(839, "HMI_Write_rCrane_Pos_Rev_Stop_MW", "WORD16", "Значение при котором останавливаем движение крана назад"),
         RegisterInfo(840, "HMI_Write_rCrane_Pos_Fwd_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость при движении крана вперед"),
         RegisterInfo(841, "HMI_Write_rCrane_Pos_Rev_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость при движении крана назад"),
+        //Регистры состояний активности экрана настройки датчиков
+        RegisterInfo(868, "HMI_Current_Picture_MW", "WORD16", "Значение при котором снижаем скорость при движении крана назад"),
         //Регистры состояний. Проверка датчиков во время настройки
         RegisterInfo(341, "HMI_xHoist_Stop_Dwn1_MW", "WORD16", "Проверка датчика подъема. Стоп вниз"),
         RegisterInfo(342, "HMI_xHoist_Stop_Up1_MW", "WORD16", "Проверка датчика подъема. Стоп вверх"),
@@ -296,7 +298,22 @@ object UISettingSensorsConfiguration {
         RegisterInfo(351, "HMI_xCrane_Fwd_DwnSp1_MW", "WORD16", "Проверка датчика хода. Снижение 1 ск. вперед"),
         RegisterInfo(352, "HMI_xCrane_Rev_DwnSp1_MW", "WORD16", "Проверка датчика хода. Снижение 1 ск. назад"),
         RegisterInfo(353, "HMI_xCraneReperPoint_MW", "WORD16", "Реперная точка хода крана"),
-    )
+
+        //-----ошибки выхода за рабочий диапазон показаний энкодера
+        RegisterInfo(730, "HMI_HoistEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера подъема"),
+        RegisterInfo(731, "HMI_SlewEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера поворота"),
+        RegisterInfo(732, "HMI_TrolleyEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера тележки"),
+        RegisterInfo(733, "HMI_TravelEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера передвижения"),
+        RegisterInfo(734, "HMI_HoistEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера подъема"),
+        RegisterInfo(735, "HMI_SlewEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера поворота"),
+        RegisterInfo(736, "HMI_TrolleyEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера тележки"),
+        RegisterInfo(737, "HMI_TravelEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера передвижения"),
+        //-----ошибка связи энкодеров
+        RegisterInfo(204, "Hoist_AbsEnc_Err_MW", "WORD16", "Сбой датчика подъема"),
+        RegisterInfo(205, "Slew_AbsEnc_Err_MW", "WORD16", "Сбой датчика поворота"),
+        RegisterInfo(206, "Trolley_AbsEnc_Err_MW", "WORD16", "Сбой датчика вылета"),
+        RegisterInfo(207, "Crane_AbsEnc_Err_MW", "WORD16", "Сбой датчика перемещения крана")
+        )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -337,14 +354,14 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(992, "HMI_Write_rAbsEnc_Ratio_Trolley_MW", "WORD16", "Коэффициент передачи энкодера тележки"),
         RegisterInfo(993, "HMI_Write_rAbsEnc_Ratio_Crane_MW", "WORD16", "Коэффициент передачи энкодера крана"),
 
-        RegisterInfo(50, "HMI_Write_udiHoistAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера подъема"),
-        RegisterInfo(52, "HMI_Write_udiSlewAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера поворота"),
-        RegisterInfo(54, "HMI_Write_udiTrolleyAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера тележки"),
-        RegisterInfo(56, "HMI_Write_udiCraneAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера хода крана"),
-
         RegisterInfo(994, "HMI_Write_xAbsEncDeltaControlEn_MW", "WORD16", "Включить контроль максимального рассогласования абсолютных энкодеров"),
         RegisterInfo(995, "HMI_Write_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),
         RegisterInfo(996, "HMI_Write_xDebug_Mode_Slew_MW", "WORD16", "Флаг установки режима наладки механизма поворота при выходе датчика из строя"),
+
+        RegisterInfo(997, "HMI_Write_udiHoistAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера подъема"),
+        RegisterInfo(998, "HMI_Write_udiSlewAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера поворота"),
+        RegisterInfo(999, "HMI_Write_udiTrolleyAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера тележки"),
+        RegisterInfo(989, "HMI_Write_udiCraneAbsEncMaxDeltaEn_MD", "WORD32", "Максимальное рассогласование абс. энкодера хода крана"),
 
         RegisterInfo(755, "HMI_xAbsEncDeltaControlEn_MW", "WORD16", "Флаг контроль максимального рассогласования абсолютных энкодеров"),
         RegisterInfo(756, "HMI_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),

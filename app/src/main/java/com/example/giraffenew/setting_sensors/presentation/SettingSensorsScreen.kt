@@ -82,7 +82,8 @@ fun SettingSensorsScreen (
             { 
                 CalibrationSensorHoist(
                     currentHoistPosition = settingSensorsViewModule.state.value.currentHoistPosition,
-                    currentAbsEncHoistPosition = settingSensorsViewModule.state.value.currentAbsEncHoistPosition,
+                    currentAbsEncHoistPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord1,
+                    currentAbsEncHoistPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord2,
                     onSetHoistLimitTestEn = { settingSensorsViewModule.onSetHoistLimitTestEn()},
 
                     setValueHoistPosFwdStop = settingSensorsViewModule.setValueHoistPosFwdStop.value,
@@ -105,15 +106,42 @@ fun SettingSensorsScreen (
                     onSetValueHoistPosRevDwnSp = {settingSensorsViewModule.onSetValueHoistPosRevDwnSp()},
                     currentHoistDwnDwnSp1 = settingSensorsViewModule.state.value.currentHoistDwnDwnSp1,
 
+                    currentHoistEncoderMaxDeltaError= settingSensorsViewModule.state.value.currentHoistEncoderMaxDeltaError,
+                    currentHoistEncoderMaxValueError= settingSensorsViewModule.state.value.currentHoistEncoderMaxValueError,
+                    currentHoistAbsEncErrCanOpen= settingSensorsViewModule.state.value.currentHoistAbsEncErrCanOpen,
+
                     errorMessageHoist = settingSensorsViewModule.errorMessageHoist.value,
                     logMessageHoist = settingSensorsViewModule.logMessageHoist.value,
                 )}
-            composable(NavRoutesDriveContent.PageSensorSlewing.route) { CalibrationSensorSlewing() }
+            composable(NavRoutesDriveContent.PageSensorSlewing.route)
+            { CalibrationSensorSlewing(
+                currentAbsEncSlewPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncSlewPositionWord1,
+                currentAbsEncSlewPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncSlewPositionWord2,
+                currentSlewPosition = settingSensorsViewModule.state.value.currentSlewPosition,
+
+                onSetSlewZeroMemEn = {settingSensorsViewModule.onSetSlewZeroMemEn()},
+
+                setValueSlewCalcAngle = settingSensorsViewModule.setValueSlewCalcAngle.value,
+                updateValueSlewCalcAngle = {settingSensorsViewModule.updateValueSlewCalcAngle(it) },
+                onSetValueSlewCalcAngle = { settingSensorsViewModule.onSetValueSlewCalcAngle()},
+
+                setValueSlewMaxAngle = settingSensorsViewModule.setValueSlewMaxAngle.value,
+                updateValueSlewMaxAngle = {settingSensorsViewModule.updateValueValueSlewMaxAngle(it) },
+                onSetValueSlewMaxAngle = { settingSensorsViewModule.onSetValueSlewMaxAngle()},
+
+                currentSlewEncoderMaxDeltaError = settingSensorsViewModule.state.value.currentSlewEncoderMaxDeltaError,
+                currentSlewEncoderMaxValueError = settingSensorsViewModule.state.value.currentSlewEncoderMaxValueError,
+                currentSlewAbsEncErrCanOpen = settingSensorsViewModule.state.value.currentSlewAbsEncErrCanOpen,
+
+                errorMessageSlew = settingSensorsViewModule.errorMessageSlew.value,
+                logMessageSlew = settingSensorsViewModule.logMessageSlew.value
+            ) }
 
             composable(NavRoutesDriveContent.PageSensorTrolley.route) {
                 CalibrationSensorTrolley(
                     currentTrolleyPosition = settingSensorsViewModule.state.value.currentTrolleyPosition,
-                    currentAbsEncTrolleyPosition = settingSensorsViewModule.state.value.currentAbsEncTrolleyPosition,
+                    currentAbsEncTrolleyPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncTrolleyPositionWord1,
+                    currentAbsEncTrolleyPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncTrolleyPositionWord2,
                     onSetTrolleyLimitTestEn = { settingSensorsViewModule.onSetTrolleyLimitTestEn()},
 
                     setValueTrolleyPosFwdStop = settingSensorsViewModule.setValueTrolleyPosFwdStop.value,
@@ -135,6 +163,10 @@ fun SettingSensorsScreen (
                     updateValueTrolleyPosRevDwnSp = { settingSensorsViewModule.updateValueTrolleyPosRevDwnSp(it)},
                     onSetValueTrolleyPosRevDwnSp = {settingSensorsViewModule.onSetValueTrolleyPosRevDwnSp()},
                     currentTrolleyRevDwnSp1 = settingSensorsViewModule.state.value.currentTrolleyRevDwnSp1,
+
+                    currentTrolleyEncoderMaxDeltaError= settingSensorsViewModule.state.value.currentTrolleyEncoderMaxDeltaError,
+                    currentTrolleyEncoderMaxValueError= settingSensorsViewModule.state.value.currentTrolleyEncoderMaxValueError,
+                    currentTrolleyAbsEncErrCanOpen= settingSensorsViewModule.state.value.currentTrolleyAbsEncErrCanOpen,
 
                     errorMessageTrolley = settingSensorsViewModule.errorMessageTrolley.value,
                     logMessageTrolley = settingSensorsViewModule.logMessageTrolley.value,

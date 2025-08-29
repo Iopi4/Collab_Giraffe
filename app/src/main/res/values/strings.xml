@@ -134,9 +134,9 @@
 
     <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
     <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
-    <string name="SettingSensors_Text_Slewing_Installation_Zero">Ввод. Установка 0 [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Ввод. Уст. текущ. угла [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Ввод. Уст. макс. угла [град]</string>
+    <string name="SettingSensors_Text_Slewing_Installation_Zero">Запомнить. Установка 0 [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Запомнить. Tекущий угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Запомнить. Макс. угол [град]</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>

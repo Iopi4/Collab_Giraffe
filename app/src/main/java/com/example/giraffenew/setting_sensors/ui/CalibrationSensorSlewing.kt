@@ -8,14 +8,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
@@ -26,7 +31,26 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorSlewing(
+    currentAbsEncSlewPositionWord1: Int,
+    currentAbsEncSlewPositionWord2: Int,
+    currentSlewPosition: Float,
 
+    onSetSlewZeroMemEn: () -> Unit,
+
+    setValueSlewCalcAngle: String,
+    updateValueSlewCalcAngle: (String) -> Unit,
+    onSetValueSlewCalcAngle: () -> Unit,
+
+    setValueSlewMaxAngle: String,
+    updateValueSlewMaxAngle: (String) -> Unit,
+    onSetValueSlewMaxAngle: () -> Unit,
+
+    currentSlewEncoderMaxDeltaError: Int,
+    currentSlewEncoderMaxValueError: Int,
+    currentSlewAbsEncErrCanOpen: Int,
+
+    errorMessageSlew: String?,
+    logMessageSlew: String?,
 ) {
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -63,8 +87,16 @@ fun CalibrationSensorSlewing(
             //Установка максимального угла
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner_Max)
 
-        }
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) {
+                errorMessageSlew?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
+                logMessageSlew?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
+        }
 
         //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
         Column(
@@ -90,21 +122,21 @@ fun CalibrationSensorSlewing(
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "145598"
+                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncSlewPositionWord1, currentAbsEncSlewPositionWord2)
                 )
             }
             // Отображение текущего угла поворота
             Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "106"
+                    valueParameterId = formatDecimal(currentSlewPosition)
                 )
             }
         // Кнопка установки нуля градусов
             BasicButtonGiraffe(
                 modifier = Modifier.fillMaxWidth(),
-                text = R.string.Button_Enter,
-                onClick = {},
+                text = R.string.Button_Memory,
+                onClick = onSetSlewZeroMemEn,
             ) {}
 
             //Ввод. Установка угла в градусах
@@ -116,17 +148,17 @@ fun CalibrationSensorSlewing(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        value = "",
-                        onValueChange = { ""},
+                        value = setValueSlewCalcAngle,
+                        onValueChange = updateValueSlewCalcAngle,
                         modifier = Modifier,
                     )
                 }
                 //Кнопка ввода
-                Box(modifier = Modifier.weight(2f)) {
+                Box(modifier = Modifier.weight(1f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
-                        onClick = {},
+                        text = R.string.Button_Memory,
+                        onClick = onSetValueSlewCalcAngle,
                     ) {}
                 }
             }
@@ -140,21 +172,50 @@ fun CalibrationSensorSlewing(
                 ) {
                     BasicTextFilledGiraffe(
                         placeholder = "000.0",
-                        value = "",
-                        onValueChange = { ""},
+                        value = setValueSlewMaxAngle,
+                        onValueChange = { updateValueSlewMaxAngle},
                         modifier = Modifier,
                     )
                 }
                 //Кнопка ввода
-                Box(modifier = Modifier.weight(2f)) {
+                Box(modifier = Modifier.weight(1f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.Button_Enter,
-                        onClick = {},
+                        onClick = onSetValueSlewMaxAngle,
                     ) {}
                 }
             }
 
+            //Статус датчика. Контроль показаний
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
+                    BasicLampError(isLampStatus = currentSlewEncoderMaxDeltaError)
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(height = 35.dp, width = 50.dp)
+                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(isLampStatus = currentSlewEncoderMaxValueError)
+                }}
+            //Статус датчика. Контроль связи
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(height = 35.dp, width = 50.dp)
+                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentSlewAbsEncErrCanOpen
+                    )
+                }
+            }
 
 
 
@@ -163,11 +224,38 @@ fun CalibrationSensorSlewing(
     }
 }
 
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+
 @Preview
 @Composable
 fun CalibrationSensorSlewingPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorSlewing(
+            currentAbsEncSlewPositionWord1 = 1,
+            currentAbsEncSlewPositionWord2 = 1,
+            currentSlewPosition = 1f,
+            onSetSlewZeroMemEn = { },
+            setValueSlewCalcAngle = "`1",
+            updateValueSlewCalcAngle = { },
+            onSetValueSlewCalcAngle = { },
+            setValueSlewMaxAngle = "`1",
+            updateValueSlewMaxAngle = { },
+            onSetValueSlewMaxAngle = { },
+
+            currentSlewEncoderMaxDeltaError = 1,
+            currentSlewEncoderMaxValueError = 1,
+            currentSlewAbsEncErrCanOpen = 1,
+
+            errorMessageSlew = null,
+            logMessageSlew = null
         )
     }
 }

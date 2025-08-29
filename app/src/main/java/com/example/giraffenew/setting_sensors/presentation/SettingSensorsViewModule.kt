@@ -14,6 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.Int
 
 @HiltViewModel
 class SettingSensorsViewModule
@@ -22,6 +23,7 @@ class SettingSensorsViewModule
 ): ViewModel(
 
 ){
+    //Параметры настройки датчика высоты крюка
     private val _setValueHoistPosFwdStop = mutableStateOf("")
     val setValueHoistPosFwdStop: State<String> = _setValueHoistPosFwdStop
 
@@ -34,7 +36,7 @@ class SettingSensorsViewModule
     private val _setValueHoistPosRevDwnSp = mutableStateOf("")
     val setValueHoistPosRevDwnSp: State<String> = _setValueHoistPosRevDwnSp
 
-
+    // Параметры настройки датчика вылета
     private val _setValueTrolleyPosFwdStop = mutableStateOf("")
     val setValueTrolleyPosFwdStop: State<String> = _setValueTrolleyPosFwdStop
 
@@ -48,11 +50,27 @@ class SettingSensorsViewModule
     val setValueTrolleyPosRevDwnSp: State<String> = _setValueTrolleyPosRevDwnSp
 
 
+    // Параметры настройки датчика угла поворота
+    private val _setValueSlewMaxAngle = mutableStateOf("")
+    val setValueSlewMaxAngle: State<String> = _setValueSlewMaxAngle
+
+    private val _setValueSlewCalcAngle = mutableStateOf("")
+    val setValueSlewCalcAngle: State<String> = _setValueSlewCalcAngle
+
+
+
     private val _errorMessageHoist = mutableStateOf<String?>(null)
     val errorMessageHoist: State<String?> = _errorMessageHoist
 
     private val _logMessageHoist = mutableStateOf<String?>(null)
     val logMessageHoist: State<String?> = _logMessageHoist
+
+    private val _errorMessageSlew = mutableStateOf<String?>(null)
+    val errorMessageSlew: State<String?> = _errorMessageSlew
+
+    private val _logMessageSlew = mutableStateOf<String?>(null)
+    val logMessageSlew: State<String?> = _logMessageSlew
+
 
     private val _errorMessageTrolley = mutableStateOf<String?>(null)
     val errorMessageTrolley: State<String?> = _errorMessageTrolley
@@ -63,10 +81,14 @@ class SettingSensorsViewModule
 
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
     private val addresses = listOf(
-        155, 158, 159, 162, 60, 62, 64, 66, 803, 804,
-        805, 806, 807, 808, 809, 810, 811, 812, 813,
-        341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353 // Регистры для считывания
+        155, 158, 159, 162, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
+        341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
+        730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
+        382, 383, 386, 387, 390, 391, 394, 395
+        // Регистры для считывания
     )
+
+    private var previousValuesAbs: Map<Int, Int?> = emptyMap()
 
     private val _state = mutableStateOf(SettingSensorsState())
     val state: State<SettingSensorsState> = _state
@@ -93,7 +115,7 @@ class SettingSensorsViewModule
 
     private fun writeUiActiveStatus(value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            modbusRepository.writeRegister(283, value).fold(
+            modbusRepository.writeRegister(868, value).fold(
                 onSuccess = {
                     Log.d("SettingSensorsVM", "Register 283 set to $value")
                 },
@@ -119,12 +141,35 @@ class SettingSensorsViewModule
                             addr to cache[addr]?.value
                         }
                         _state.value = createSettingSensorsState(filteredCache)
+
                     } catch (e: Exception) {
                         Log.e("SettingSensorsVM", "Data collection error", e)
                     }
                 }
         }
     }
+
+
+//    private fun updateAbsHoist(cache: Map<Int, Int?>) {
+//        val word1 = cache[382] ?: return
+//        val word2 = cache[383] ?: return
+//        _currentAbsEncHoistPosition.value = String.format("%05d%05d", word2, word1)
+//    }
+//    private fun updateAbsSlew(cache: Map<Int, Int?>) {
+//        val word1 = cache[386] ?: return
+//        val word2 = cache[387] ?: return
+//        _currentAbsEncSlewPosition.value = String.format("%05d%05d", word2, word1)
+//    }
+//    private fun updateAbsTrolley(cache: Map<Int, Int?>) {
+//        val word1 = cache[390] ?: return
+//        val word2 = cache[392] ?: return
+//        _currentAbsEncTrolleyPosition.value = String.format("%05d%05d", word2, word1)
+//    }
+//    private fun updateAbsCrane(cache: Map<Int, Int?>) {
+//        val word1 = cache[394] ?: return
+//        val word2 = cache[395] ?: return
+//        _currentAbsEncCranePosition.value = String.format("%05d%05d", word2, word1)
+//    }
 
     // Приостановка сбора данных
     fun pauseDataCollection() {
@@ -143,11 +188,6 @@ class SettingSensorsViewModule
             currentSlewPosition = safeDivideTens(cache[158] ?: 0),
             currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
             currentCranePosition = safeDivideTens(cache[162] ?: 0),
-            //Параметры датчиков
-            currentAbsEncHoistPosition = cache[60] ?: 0,
-            currentAbsEncSlewPosition = cache[62] ?: 0,
-            currentAbsEncTrolleyPosition = cache[64] ?: 0,
-            currentAbsEncCranePosition = cache[66] ?: 0,
             //Статус теста ограничений подъема
             currentHoistStopDwn1 = cache[341] ?: 0,
             currentHoistStopUp1 = cache[342] ?: 0,
@@ -158,7 +198,36 @@ class SettingSensorsViewModule
             currentTrolleyStopRev1 = cache[346] ?: 0,
             currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
             currentTrolleyRevDwnSp1 = cache[348] ?: 0,
-        )
+            //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+            currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
+            currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
+            currentTrolleyEncoderMaxDeltaError  = cache[732] ?: 0,
+            currentCraneEncoderMaxDeltaError = cache[733] ?: 0,
+            currentHoistEncoderMaxValueError = cache[734] ?: 0,
+            currentSlewEncoderMaxValueError  = cache[735] ?: 0,
+            currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
+            currentCraneEncoderMaxValueError  = cache[737] ?: 0,
+            //-----ошибка связи энкодеров
+            currentHoistAbsEncErrCanOpen    = cache[204] ?: 0,
+            currentSlewAbsEncErrCanOpen     = cache[205] ?: 0,
+            currentTrolleyAbsEncErrCanOpen  = cache[206] ?: 0,
+            currentCraneAbsEncErrCanOpen    = cache[207] ?: 0,
+
+            currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
+            currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
+
+            currentAbsEncSlewPositionWord1 = cache[386] ?: 0,
+            currentAbsEncSlewPositionWord2 = cache[387] ?: 0,
+
+            currentAbsEncTrolleyPositionWord1 = cache[390] ?: 0,
+            currentAbsEncTrolleyPositionWord2 = cache[391] ?: 0,
+
+            currentAbsEncCranePositionWord1 = cache[394] ?: 0,
+            currentAbsEncCranePositionWord2 = cache[395] ?: 0,
+
+
+
+            )
     }
 
 
@@ -177,10 +246,6 @@ class SettingSensorsViewModule
         val currentTrolleyPosition: Float = 0f,
         val currentCranePosition: Float = 0f,
         //ЗНАЧЕНИЕ ДАТЧИКОВ
-        val currentAbsEncHoistPosition: Int = 0,
-        val currentAbsEncSlewPosition: Int = 0,
-        val currentAbsEncTrolleyPosition: Int = 0,
-        val currentAbsEncCranePosition: Int = 0,
         //Статус теста ограничений подъема
         val currentHoistStopDwn1: Int = 0,
         val currentHoistStopUp1: Int = 0,
@@ -191,6 +256,30 @@ class SettingSensorsViewModule
         val currentTrolleyStopRev1: Int = 0,
         val currentTrolleyFwdDwnSp1: Int = 0,
         val currentTrolleyRevDwnSp1: Int = 0,
+
+//-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+        val currentHoistEncoderMaxDeltaError: Int = 0,
+        val currentSlewEncoderMaxDeltaError: Int = 0,
+        val currentTrolleyEncoderMaxDeltaError: Int = 0,
+        val currentCraneEncoderMaxDeltaError: Int = 0,
+        val currentHoistEncoderMaxValueError: Int = 0,
+        val currentSlewEncoderMaxValueError: Int = 0,
+        val currentTrolleyEncoderMaxValueError: Int = 0,
+        val currentCraneEncoderMaxValueError: Int = 0,
+//Лампа. Ошибка связи по  CANopen
+        val currentHoistAbsEncErrCanOpen: Int = 0,
+        val currentSlewAbsEncErrCanOpen: Int = 0,
+        val currentTrolleyAbsEncErrCanOpen: Int = 0,
+        val currentCraneAbsEncErrCanOpen: Int = 0,
+
+        val currentAbsEncHoistPositionWord1: Int = 0,
+        val currentAbsEncHoistPositionWord2: Int = 0,
+        val currentAbsEncSlewPositionWord1: Int = 0,
+        val currentAbsEncSlewPositionWord2: Int = 0,
+        val currentAbsEncTrolleyPositionWord1: Int = 0,
+        val currentAbsEncTrolleyPositionWord2: Int = 0,
+        val currentAbsEncCranePositionWord1: Int = 0,
+        val currentAbsEncCranePositionWord2: Int = 0,
     )
 
 
@@ -459,6 +548,79 @@ class SettingSensorsViewModule
 
 
 
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИК УГЛА ПОВОРОТА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // SLEW. Запомнить положение стрелы при угле [0] гр.
+    fun onSetSlewZeroMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(817, 1)
+                delay(200)
+                modbusRepository.writeRegister(817, 0)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _logMessageSlew.value = null
+            }
+        }
+    }
+
+    // SLEW. Запомнить положение стрелы при заданном угле
+    fun onSetSlewCalcAngleMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(818, 1)
+                delay(200)
+                modbusRepository.writeRegister(818, 0)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _logMessageSlew.value = null
+            }
+        }
+    }
+
+    // SLEW. Установить [текущий] угол гр.
+    fun onSetValueSlewCalcAngle() {
+        onSetSlewCalcAngleMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueSlewCalcAngle.value, 0.0f, 360.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(816, model)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageSlew.value = null
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // SLEW. Установить [максимальный] угол гр.
+    fun onSetValueSlewMaxAngle() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueSlewMaxAngle.value, 0.0f, 9999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(815, model)
+                _errorMessageHoist.value = null
+                _logMessageHoist.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoist.value = null
+                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+
 
 
 
@@ -499,7 +661,14 @@ class SettingSensorsViewModule
 
 
 
+    //ДАТЧИК ПОВОРОТА. Обновление для UI
+    fun updateValueSlewCalcAngle(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueSlewCalcAngle.value = value } }
 
+    fun updateValueValueSlewMaxAngle(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,4}(\\.\\d{0,1})?$"))) {
+            _setValueSlewMaxAngle.value = value } }
 
 
 

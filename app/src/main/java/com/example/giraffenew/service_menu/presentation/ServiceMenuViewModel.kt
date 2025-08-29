@@ -1044,7 +1044,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDIHoistAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(50, model)
+                modbusRepository.writeRegister(997, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1060,7 +1060,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDISlewAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(52, model)
+                modbusRepository.writeRegister(998, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1076,7 +1076,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDITrolleyAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(54, model)
+                modbusRepository.writeRegister(999, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1092,7 +1092,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDICraneAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(56, model)
+                modbusRepository.writeRegister(989, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
