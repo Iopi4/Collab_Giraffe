@@ -1,4 +1,4 @@
-package com.example.giraffenew.setting_sensors.ui.page_one
+package com.example.giraffenew.setting_sensors.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,8 +34,8 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorHoist(
-    currentHoistPosition: Float,
     currentAbsEncHoistPosition: Int,
+    currentHoistPosition: Float,
 
     onSetHoistLimitTestEn : () -> Unit,
 
@@ -100,6 +100,7 @@ fun CalibrationSensorHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Decline_Down)
             //Стоп вниз
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Stop_Down)
+            //Статус энкодера
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
@@ -133,7 +134,7 @@ fun CalibrationSensorHoist(
                 text = stringResource(R.string.SettingSensors_Text_Parameters)
             )
             // Отображение текущего значения датчика
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = format(currentAbsEncHoistPosition)
@@ -141,7 +142,7 @@ fun CalibrationSensorHoist(
             }
 
             // Отображение текущей высоты подъема
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatDecimal(currentHoistPosition)
@@ -177,10 +178,11 @@ fun CalibrationSensorHoist(
                 Box(modifier = Modifier.weight(2f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
+                        text = R.string.Button_Memory,
                         onClick = onSetValueHoistPosFvdStop,
                     ) {}
                 }
+                //Статус. Индикация срабатывания остановки
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
                         isLampStatus = currentHoistStopUp1
@@ -202,7 +204,7 @@ fun CalibrationSensorHoist(
                         isDecimal = true,
                     )
                 }
-
+                //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
                         isLampStatus = currentHoistUpDwnSp1
@@ -226,7 +228,7 @@ fun CalibrationSensorHoist(
                         isDecimal = true,
                     )
                 }
-
+                //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
                         isLampStatus = currentHoistDwnDwnSp1
@@ -253,37 +255,41 @@ fun CalibrationSensorHoist(
                 Box(modifier = Modifier.weight(2f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
+                        text = R.string.Button_Memory,
                         onClick = onSetValueHoistPosRevStop,
                     ) {}
                 }
+                //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
                         isLampStatus = currentHoistStopDwn1
                     )
                 }
             }
+            //Статус датчика. Контроль показаний
             Row(horizontalArrangement = Arrangement.Start) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .size(height = 35.dp, width = 50.dp)
-                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicLampError(
-                    isLampStatus = 0
-                )
-            }}
-
-            Row(horizontalArrangement = Arrangement.Start) {
-                Box(
-                    modifier = Modifier
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
                         .weight(1f)
                         .size(height = 35.dp, width = 50.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                     BasicLampError(
                         isLampStatus = 0
                     )
-                }}
+            }
+            }
+            //Статус датчика. Контроль связи
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
+                        .weight(1f)
+                        .size(height = 35.dp, width = 50.dp)
+                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = 0
+                    )
+                }
+            }
 
 
 

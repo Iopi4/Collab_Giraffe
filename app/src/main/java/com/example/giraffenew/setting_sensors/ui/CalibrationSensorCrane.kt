@@ -1,4 +1,4 @@
-package com.example.giraffenew.setting_sensors.ui.page_two
+package com.example.giraffenew.setting_sensors.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

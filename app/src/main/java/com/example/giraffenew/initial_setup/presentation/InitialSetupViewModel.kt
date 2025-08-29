@@ -224,7 +224,7 @@ class InitialSetupViewModel
     fun onSetModelCrane() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setModelCrane.value, 0.00f,65.535f )
+                val model = validateAndConvertFloat(_setModelCrane.value, 0.00f,99.999f )
                 // Запись в регистры модель крана
                 modbusRepository.writeRegister(848, model)
                 _errorMessageCrane.value = null

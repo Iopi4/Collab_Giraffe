@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import com.example.giraffenew.ui.theme.Grew
+import com.example.giraffenew.ui.theme.Grew_50_percent
 import com.example.giraffenew.ui.theme.Silver
 
 @Composable
@@ -33,7 +35,7 @@ fun BasicLampError(
             modifier = Modifier
                 .size(100.dp)
                 .border(
-                    width = 2.dp, color = Silver, //рамка
+                    width = 2.dp, color = Grew_50_percent, //рамка
                     shape = RoundedCornerShape(5.dp))
                 .shadow(1.dp, shape = MaterialTheme.shapes.small)
                 .background(lampColor, shape = MaterialTheme.shapes.small)

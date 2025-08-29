@@ -7,6 +7,7 @@
 
     <!-- Универсальный текст -->
     <string name="Button_ON">Ок</string>
+    <string name="Button_Memory">ЗАП.</string>
     <string name="Button_Enter">ВВОД</string>
     <string name="Button_Turn_On">ВКЛ</string>
     <string name="Button_Turn_Off">ВЫКЛ</string>
@@ -109,25 +110,25 @@
     <string name="SettingSensors_Button_TROLLEY">ВЫЛЕТ</string>
     <string name="SettingSensors_Button_CRANE">ХОД КРАНА</string>
 
-    <string name="SettingSensors_Text_Sensor">Датчик</string>
-    <string name="SettingSensors_Text_Examination">Тест ограничений</string>
-    <string name="SettingSensors_Text_Status">статус</string>
+    <string name="SettingSensors_Text_Sensor">Показания датчика</string>
+    <string name="SettingSensors_Text_Examination">Режим.Тест ограничений</string>
+    <string name="SettingSensors_Text_Status">Статус</string>
     <string name="SettingSensors_Text_Parameters">Параметры</string>
     <string name="SettingSensors_Text_Sensor_Alarm_1">Статус! Контроль показаний</string>
     <string name="SettingSensors_Text_Sensor_Alarm_2">Статус! Контроль связи</string>
 
     <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
     <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Up">Ввод. Стоп вверх [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Down">Ввод. Стоп вниз [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Up">Запомнить. Стоп вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Down">Запомнить. Стоп вниз [м]</string>
     <string name="SettingSensors_Text_Hoist_Decline_Up">Ввод. Сниж. скор. вверх [м]</string>
     <string name="SettingSensors_Text_Hoist_Decline_Down">Ввод. Сниж. скор. вниз [м]</string>
 
 
     <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
-    <string name="SettingSensors_Text_Trolley_Departure">Вылет [м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Forward">Ввод. Стоп вперед [м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Revers">Ввод. Стоп назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Departure">Вылет тележки[м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Forward">Запомнить. Стоп вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Revers">Запомнить. Стоп назад [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Forward">Ввод. Сниж. скор. вперед [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Revers">Ввод. Сниж. скор. назад [м]</string>
 
@@ -138,9 +139,9 @@
     <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Ввод. Уст. макс. угла [град]</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
-    <string name="SettingSensors_Text_Crane_Run">Путь</string>
-    <string name="SettingSensors_Text_Crane_Stop_Right">Ввод. Стоп вправо [м]</string>
-    <string name="SettingSensors_Text_Crane_Stop_Left">Ввод. Стоп влево [м]</string>
+    <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>
+    <string name="SettingSensors_Text_Crane_Stop_Right">Запомнить. Стоп вправо [м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Left">Запомнить. Стоп влево [м]</string>
     <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вправо [м]</string>
     <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. влево [м]</string>
     <string name="SettingSensors_Text_Crane_Reference_Point">Реперная точка [м]</string>

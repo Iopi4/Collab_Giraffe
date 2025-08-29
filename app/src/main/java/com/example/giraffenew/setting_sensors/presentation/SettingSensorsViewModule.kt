@@ -34,11 +34,31 @@ class SettingSensorsViewModule
     private val _setValueHoistPosRevDwnSp = mutableStateOf("")
     val setValueHoistPosRevDwnSp: State<String> = _setValueHoistPosRevDwnSp
 
+
+    private val _setValueTrolleyPosFwdStop = mutableStateOf("")
+    val setValueTrolleyPosFwdStop: State<String> = _setValueTrolleyPosFwdStop
+
+    private val _setValueTrolleyPosRevStop = mutableStateOf("")
+    val setValueTrolleyPosRevStop: State<String> = _setValueTrolleyPosRevStop
+
+    private val _setValueTrolleyPosFwdDwnSp = mutableStateOf("")
+    val setValueTrolleyPosFwdDwnSp: State<String> = _setValueTrolleyPosFwdDwnSp
+
+    private val _setValueTrolleyPosRevDwnSp = mutableStateOf("")
+    val setValueTrolleyPosRevDwnSp: State<String> = _setValueTrolleyPosRevDwnSp
+
+
     private val _errorMessageHoist = mutableStateOf<String?>(null)
     val errorMessageHoist: State<String?> = _errorMessageHoist
 
     private val _logMessageHoist = mutableStateOf<String?>(null)
     val logMessageHoist: State<String?> = _logMessageHoist
+
+    private val _errorMessageTrolley = mutableStateOf<String?>(null)
+    val errorMessageTrolley: State<String?> = _errorMessageTrolley
+
+    private val _logMessageTrolley = mutableStateOf<String?>(null)
+    val logMessageTrolley: State<String?> = _logMessageTrolley
 
 
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
@@ -133,6 +153,11 @@ class SettingSensorsViewModule
             currentHoistStopUp1 = cache[342] ?: 0,
             currentHoistDwnDwnSp1 = cache[342] ?: 0,
             currentHoistUpDwnSp1 = cache[344] ?: 0,
+            //Статус теста ограничений Тележки
+            currentTrolleyStopFwd1 = cache[345] ?: 0,
+            currentTrolleyStopRev1 = cache[346] ?: 0,
+            currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
+            currentTrolleyRevDwnSp1 = cache[348] ?: 0,
         )
     }
 
@@ -156,10 +181,16 @@ class SettingSensorsViewModule
         val currentAbsEncSlewPosition: Int = 0,
         val currentAbsEncTrolleyPosition: Int = 0,
         val currentAbsEncCranePosition: Int = 0,
+        //Статус теста ограничений подъема
         val currentHoistStopDwn1: Int = 0,
         val currentHoistStopUp1: Int = 0,
         val currentHoistDwnDwnSp1: Int = 0,
         val currentHoistUpDwnSp1: Int = 0,
+        //Статус теста ограничений Тележки
+        val currentTrolleyStopFwd1: Int = 0,
+        val currentTrolleyStopRev1: Int = 0,
+        val currentTrolleyFwdDwnSp1: Int = 0,
+        val currentTrolleyRevDwnSp1: Int = 0,
     )
 
 
@@ -301,6 +332,136 @@ class SettingSensorsViewModule
         }
     }
 
+
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИК ВЫЛЕТА ТЕЛЕЖКИ ГРУЗОВОЙ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // Trolley. ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ ТЕСТ ОГРАНИЧЕНИЙ
+    fun onSetTrolleyLimitTestEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(823, 1)
+                delay(200)
+                modbusRepository.writeRegister(823, 0)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _logMessageTrolley.value = null
+            }
+        }
+    }
+
+    // Trolley. ЗАПОМНИТЬ положение по вылету при движении вперед
+    fun onSetTrolleyFwdMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(824, 1)
+                delay(200)
+                modbusRepository.writeRegister(824, 0)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _logMessageTrolley.value = null
+            }
+        }
+    }
+
+
+    // Trolley. ЗАПОМНИТЬ положение по вылету при движении назад
+    fun onSetTrolleyRevMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(825, 1)
+                delay(200)
+                modbusRepository.writeRegister(825, 0)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _logMessageTrolley.value = null
+            }
+        }
+    }
+
+    // Trolley. Запись Стоп вперед [м]
+    fun onSetValueTrolleyPosFvdStop() {
+        onSetTrolleyFwdMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueTrolleyPosFwdStop.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(827, model)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageTrolley.value = null
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Trolley. Запись Стоп назад [м]
+    fun onSetValueTrolleyPosRevStop() {
+        onSetTrolleyRevMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueTrolleyPosRevStop.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(826, model)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageTrolley.value = null
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Trolley. Запись снижение скорости вперед [м]
+    fun onSetValueTrolleyPosFwdDwnSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueTrolleyPosFwdDwnSp.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(828, model)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageTrolley.value = null
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Trolley. Запись снижение скорости Назад [м]
+    fun onSetValueTrolleyPosRevDwnSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueTrolleyPosRevDwnSp.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(829, model)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageTrolley.value = null
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+
+
+
+
+
     //ДАТЧИК ВЫСОТЫ. Обновление для UI
     fun updateValueHoistPosFwdStop(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
@@ -319,7 +480,22 @@ class SettingSensorsViewModule
             _setValueHoistPosRevDwnSp.value = value } }
 
 
+    //ДАТЧИК ВЫЛЕТА. Обновление для UI
+    fun updateValueTrolleyPosFwdStop(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueTrolleyPosFwdStop.value = value } }
 
+    fun updateValueTrolleyPosRevStop(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueTrolleyPosRevStop.value = value } }
+
+    fun updateValueTrolleyPosFwdDwnSp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueTrolleyPosFwdDwnSp.value = value } }
+
+    fun updateValueTrolleyPosRevDwnSp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueTrolleyPosRevDwnSp.value = value } }
 
 
 

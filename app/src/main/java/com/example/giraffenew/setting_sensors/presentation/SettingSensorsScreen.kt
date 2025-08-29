@@ -27,10 +27,10 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
-import com.example.giraffenew.setting_sensors.ui.page_one.CalibrationSensorHoist
-import com.example.giraffenew.setting_sensors.ui.page_one.CalibrationSensorTrolley
-import com.example.giraffenew.setting_sensors.ui.page_two.CalibrationSensorCrane
-import com.example.giraffenew.setting_sensors.ui.page_two.CalibrationSensorSlewing
+import com.example.giraffenew.setting_sensors.ui.CalibrationSensorHoist
+import com.example.giraffenew.setting_sensors.ui.CalibrationSensorTrolley
+import com.example.giraffenew.setting_sensors.ui.CalibrationSensorCrane
+import com.example.giraffenew.setting_sensors.ui.CalibrationSensorSlewing
 import com.example.giraffenew.ui.theme.DarkGrew
 
 @Composable
@@ -109,7 +109,36 @@ fun SettingSensorsScreen (
                     logMessageHoist = settingSensorsViewModule.logMessageHoist.value,
                 )}
             composable(NavRoutesDriveContent.PageSensorSlewing.route) { CalibrationSensorSlewing() }
-            composable(NavRoutesDriveContent.PageSensorTrolley.route) { CalibrationSensorTrolley() }
+
+            composable(NavRoutesDriveContent.PageSensorTrolley.route) {
+                CalibrationSensorTrolley(
+                    currentTrolleyPosition = settingSensorsViewModule.state.value.currentTrolleyPosition,
+                    currentAbsEncTrolleyPosition = settingSensorsViewModule.state.value.currentAbsEncTrolleyPosition,
+                    onSetTrolleyLimitTestEn = { settingSensorsViewModule.onSetTrolleyLimitTestEn()},
+
+                    setValueTrolleyPosFwdStop = settingSensorsViewModule.setValueTrolleyPosFwdStop.value,
+                    updateValueTrolleyPosFwdStop = { settingSensorsViewModule.updateValueTrolleyPosFwdStop(it)},
+                    onSetValueTrolleyPosFvdStop = {settingSensorsViewModule.onSetValueTrolleyPosFvdStop()},
+                    currentTrolleyStopFwd1 = settingSensorsViewModule.state.value.currentTrolleyStopFwd1,
+
+                    setValueTrolleyPosRevStop = settingSensorsViewModule.setValueTrolleyPosRevStop.value,
+                    updateValueTrolleyPosRevStop = {settingSensorsViewModule.updateValueTrolleyPosRevStop(it)},
+                    onSetValueTrolleyPosRevStop = {settingSensorsViewModule.onSetValueTrolleyPosRevStop()},
+                    currentTrolleyStopRev1 = settingSensorsViewModule.state.value.currentTrolleyStopRev1,
+
+                    setValueTrolleyPosFwdDwnSp = settingSensorsViewModule.setValueTrolleyPosFwdDwnSp.value,
+                    updateValueTrolleyPosFwdDwnSp = {settingSensorsViewModule.updateValueTrolleyPosFwdDwnSp(it)},
+                    onSetValueTrolleyPosFwdDwnSp = {settingSensorsViewModule.onSetValueTrolleyPosFwdDwnSp()},
+                    currentTrolleyFwdDwnSp1 = settingSensorsViewModule.state.value.currentTrolleyFwdDwnSp1,
+
+                    setValueTrolleyPosRevDwnSp = settingSensorsViewModule.setValueTrolleyPosRevDwnSp.value,
+                    updateValueTrolleyPosRevDwnSp = { settingSensorsViewModule.updateValueTrolleyPosRevDwnSp(it)},
+                    onSetValueTrolleyPosRevDwnSp = {settingSensorsViewModule.onSetValueTrolleyPosRevDwnSp()},
+                    currentTrolleyRevDwnSp1 = settingSensorsViewModule.state.value.currentTrolleyRevDwnSp1,
+
+                    errorMessageTrolley = settingSensorsViewModule.errorMessageTrolley.value,
+                    logMessageTrolley = settingSensorsViewModule.logMessageTrolley.value,
+                ) }
             composable(NavRoutesDriveContent.PageSensorCrane.route) { CalibrationSensorCrane() }
         }
     }

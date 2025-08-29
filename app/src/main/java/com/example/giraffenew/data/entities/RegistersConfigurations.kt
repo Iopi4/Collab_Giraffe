@@ -261,10 +261,12 @@ object UISettingSensorsConfiguration {
         RegisterInfo(823, "HMI_Write_xTrolley_Limit_En_MW", "WORD16", "Включить ограничения перемещения тележки"),
         RegisterInfo(824, "HMI_Write_xTrolley_Fwd_Mem_MW", "WORD16", "Запомнить положение тележки при движении вперед"),
         RegisterInfo(825, "HMI_Write_xTrolley_Rev_Mem_MW", "WORD16", "Запомнить положение тележки при движении назад"),
+
         RegisterInfo(826, "HMI_Write_rTrolley_Min_Position_MW", "WORD16", "Минимальное положение тележки"),
         RegisterInfo(827, "HMI_Write_rTrolley_Max_Position_MW", "WORD16", "Максимальное положение тележки"),
         RegisterInfo(828, "HMI_Write_rTrolley_Pos_Fwd_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость двигая тележку вперед"),
         RegisterInfo(829, "HMI_Write_rTrolley_Pos_Rev_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость двигая тележку назад"),
+
         RegisterInfo(830, "HMI_Write_xTrolley_LSP_Auto_MW", "WORD16", "Включить адаптивное снижение скорости"),
         RegisterInfo(831, "HMI_Write_rTrolley_LSP_Dist3_MW", "WORD16", "дистанция снижение до 3-й скорости"),
         RegisterInfo(832, "HMI_Write_rTrolley_LSP_Dist2_MW", "WORD16", "дистанция снижение до 2-й скорости"),
@@ -283,10 +285,12 @@ object UISettingSensorsConfiguration {
         RegisterInfo(342, "HMI_xHoist_Stop_Up1_MW", "WORD16", "Проверка датчика подъема. Стоп вверх"),
         RegisterInfo(343, "HMI_xHoist_Dwn_DwnSp1_MW", "WORD16", "Проверка датчика подъема. Снижение 1 ск. вниз"),
         RegisterInfo(344, "HMI_xHoist_Up_DwnSp1_MW", "WORD16", "Проверка датчика подъема. Снижение 1 ск. вверх"),
+
         RegisterInfo(345, "HMI_xTrolley_Stop_Fwd1_MW", "WORD16", "Проверка датчика тележки. Стоп вперед"),
         RegisterInfo(346, "HMI_xTrolley_Stop_Rev1_MW", "WORD16", "Проверка датчика тележки. Стоп назад"),
         RegisterInfo(347, "HMI_xTrolley_Fwd_DwnSp1_MW", "WORD16", "Проверка датчика тележки. Снижение 1 ск. вперед"),
         RegisterInfo(348, "HMI_xTrolley_Rev_DwnSp1_MW", "WORD16", "Проверка датчика тележки. Снижение 1 ск. назад"),
+
         RegisterInfo(349, "HMI_xCrane_Stop_Fwd1_MW", "WORD16", "Проверка датчика хода. Стоп вперед"),
         RegisterInfo(350, "HMI_xCrane_Stop_Rev1_MW", "WORD16", "Проверка датчика хода. Стоп назад"),
         RegisterInfo(351, "HMI_xCrane_Fwd_DwnSp1_MW", "WORD16", "Проверка датчика хода. Снижение 1 ск. вперед"),
