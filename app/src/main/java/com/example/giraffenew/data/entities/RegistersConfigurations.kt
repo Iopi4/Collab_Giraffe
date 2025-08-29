@@ -329,6 +329,182 @@ object UISettingSensorsConfiguration {
 
 
 /**
+ * Конфигурация UI №5 (SettingLoadCapacityScreen UI)
+ * Регистры для работы с UI настройка грузоподъемности
+ * //SettingLoadCapacityViewModel
+ */
+object UICoordinateProtectionConfiguration {
+    const val NAME_COORDINATE_PROTECTION = "UI_CoordinateProtection_configuration"
+
+    val REGISTERS = listOf(
+        //НАСТРОЙКА КООРДИНАТНОЙ ЗАЩИТЫ
+        RegisterInfo(891, "HMI_Write_Pos_Prot_En_MW", "WORD16", "Активировать координатую защиту. (Тумблер по входному биту)"),
+        RegisterInfo(892, "HMI_Write_Mode_Pos_Prot", "WORD16", "Выбор. тип коорд. защиты 0-защита груза; 1-защита стрелы (Тумблер по входному биту)"),
+
+        RegisterInfo(870, "HMI_Write_xP1_En_MW", "WORD16", "Активировать первый полигон"),
+        RegisterInfo(871, "HMI_Write_xP1_Up_MW", "WORD16", "Разрешить работу сверху полигона 1"),
+        RegisterInfo(872, "HMI_Write_xP1_Down_MW", "WORD16", "Разрешить работу снизу полигона 1"),
+        RegisterInfo(873, "HMI_Write_rP1_Height_MW", "WORD16", "высота полигона 1"),
+        RegisterInfo(874, "HMI_Write_iP1_Point_Num_MW", "WORD16", "количество точек полигона 1"),
+
+        RegisterInfo(875, "HMI_Write_xP2_En_MW", "WORD16", "Активировать второй полигон"),
+        RegisterInfo(876, "HMI_Write_xP2_Up_MW", "WORD16", "Разрешить работу сверху полигона 2"),
+        RegisterInfo(877, "HMI_Write_xP2_Down_MW", "WORD16", "Разрешить работу снизу полигона 2"),
+        RegisterInfo(878, "HMI_Write_rP2_Height_MW", "WORD16", "высота полигона 2"),
+        RegisterInfo(879, "HMI_Write_iP2_Point_Num_MW", "WORD16", "количество точек полигона 2"),
+
+        RegisterInfo(880, "HMI_Write_xP3_En_MW", "WORD16", "Активировать третий полигон"),
+        RegisterInfo(881, "HMI_Write_xP3_Up_MW", "WORD16", "Разрешить работу сверху полигона 3"),
+        RegisterInfo(882, "HMI_Write_xP3_Down_MW", "WORD16", "Разрешить работу снизу полигона 3"),
+        RegisterInfo(883, "HMI_Write_rP3_Height_MW", "WORD16", "высота полигона 3"),
+        RegisterInfo(884, "HMI_Write_iP3_Point_Num_MW", "WORD16", "количество точек полигона 3"),
+
+        RegisterInfo(885, "HMI_Write_xP4_En_MW", "WORD16", "Активировать четвертый полигон"),
+        RegisterInfo(886, "HMI_Write_xP4_Up_MW", "WORD16", "Разрешить работу сверху полигона 4"),
+        RegisterInfo(887, "HMI_Write_xP4_Down_MW", "WORD16", "Разрешить работу снизу полигона 4"),
+        RegisterInfo(888, "HMI_Write_rP4_Height_MW", "WORD16", "высота полигона 4"),
+        RegisterInfo(889, "HMI_Write_iP4_Point_Num_MW", "WORD16", "количество точек полигона 4"),
+
+        RegisterInfo(890, "HMI_Write_xFltRst_MW", "WORD16", "сброс ошибок приводов"),
+
+        RegisterInfo(900, "HMI_Write_xP1_Reset_MW", "WORD16", "Сбросить первый полигон"),
+        RegisterInfo(901, "HMI_Write_iP1_Point_Cmd_MW", "WORD16", "команды для заполнения точек полигона 1"),
+        RegisterInfo(902, "HMI_Write_xP1_Set_Type1_MW", "WORD16", "установка режима задания точек 1 (по координатам)"),
+        RegisterInfo(903, "HMI_Write_xP1_Set_Type2_MW", "WORD16", "установка режима задания точек 2 (по вылету)"),
+        RegisterInfo(904, "HMI_Write_rP1_Type1_Px_MW", "WORD16", "при типе ввода 1 - координата x"),
+        RegisterInfo(905, "HMI_Write_rP1_Type1_Py_MW", "WORD16", "при типе ввода 1 - координата y"),
+        RegisterInfo(906, "HMI_Write_rP1_Type2_Trolley_Pos_MW", "WORD16", "при типе ввода 2 - позиция телеги"),
+        RegisterInfo(907, "HMI_Write_rP1_Type2_Slew_Pos_MW", "WORD16", "при типе ввода 2 - положение стрелы"),
+        RegisterInfo(908, "HMI_Write_rP1_Type2_Crane_Pos_MW", "WORD16", "при типе ввода 2 - положение крана"),
+
+        RegisterInfo(910, "HMI_Write_xP2_Reset_MW", "WORD16", "Сбросить второй полигон"),
+        RegisterInfo(911, "HMI_Write_iP2_Point_Cmd_MW", "WORD16", "команды для заполнения точек полигона 2"),
+        RegisterInfo(912, "HMI_Write_xP2_Set_Type1_MW", "WORD16", "установка режима задания точек 1 (по координатам)"),
+        RegisterInfo(913, "HMI_Write_xP2_Set_Type2_MW", "WORD16", "установка режима задания точек 2 (по вылету)"),
+        RegisterInfo(914, "HMI_Write_rP2_Type1_Px_MW", "WORD16", "при типе ввода 1 - координата x"),
+        RegisterInfo(915, "HMI_Write_rP2_Type1_Py_MW", "WORD16", "при типе ввода 1 - координата y"),
+        RegisterInfo(916, "HMI_Write_rP2_Type2_Trolley_Pos_MW", "WORD16", "при типе ввода 2 - позиция телеги"),
+        RegisterInfo(917, "HMI_Write_rP2_Type2_Slew_Pos_MW", "WORD16", "при типе ввода 2 - положение стрелы"),
+        RegisterInfo(918, "HMI_Write_rP2_Type2_Crane_Pos_MW", "WORD16", "при типе ввода 2 - положение крана"),
+
+        RegisterInfo(920, "HMI_Write_xP3_Reset_MW", "WORD16", "Сбросить третий полигон"),
+        RegisterInfo(921, "HMI_Write_iP3_Point_Cmd_MW", "WORD16", "команды для заполнения точек полигона 3"),
+        RegisterInfo(922, "HMI_Write_xP3_Set_Type1_MW", "WORD16", "установка режима задания точек 1 (по координатам)"),
+        RegisterInfo(923, "HMI_Write_xP3_Set_Type2_MW", "WORD16", "установка режима задания точек 2 (по вылету)"),
+        RegisterInfo(924, "HMI_Write_rP3_Type1_Px_MW", "WORD16", "при типе ввода 1 - координата x"),
+        RegisterInfo(925, "HMI_Write_rP3_Type1_Py_MW", "WORD16", "при типе ввода 1 - координата y"),
+        RegisterInfo(926, "HMI_Write_rP3_Type2_Trolley_Pos_MW", "WORD16", "при типе ввода 2 - позиция телеги"),
+        RegisterInfo(927, "HMI_Write_rP3_Type2_Slew_Pos_MW", "WORD16", "при типе ввода 2 - положение стрелы"),
+        RegisterInfo(928, "HMI_Write_rP3_Type2_Crane_Pos_MW", "WORD16", "при типе ввода 2 - положение крана"),
+
+        RegisterInfo(930, "HMI_Write_xP4_Reset_MW", "WORD16", "Сбросить четвертый полигон"),
+        RegisterInfo(931, "HMI_Write_iP4_Point_Cmd_MW", "WORD16", "Команды для заполнения точек полигона 4"),
+        RegisterInfo(932, "HMI_Write_xP4_Set_Type1_MW", "WORD16", "Установка режима задания точек 1 (по координатам)"),
+        RegisterInfo(933, "HMI_Write_xP4_Set_Type2_MW", "WORD16", "Установка режима задания точек 2 (по вылету)"),
+        RegisterInfo(934, "HMI_Write_rP4_Type1_Px_MW", "WORD16", "При типе ввода 1 - координата X"),
+        RegisterInfo(935, "HMI_Write_rP4_Type1_Py_MW", "WORD16", "При типе ввода 1 - координата Y"),
+        RegisterInfo(936, "HMI_Write_rP4_Type2_Trolley_Pos_MW", "WORD16", "При типе ввода 2 - позиция тележки"),
+        RegisterInfo(937, "HMI_Write_rP4_Type2_Slew_Pos_MW", "WORD16", "При типе ввода 2 - положение стрелы"),
+        RegisterInfo(938, "HMI_Write_rP4_Type2_Crane_Pos_MW", "WORD16", "При типе ввода 2 - положение крана"),
+
+        //Задание точек полигонов с HMI
+        RegisterInfo(1000, "HMI_Points_P1_00_Config_MW", "WORD16", "Точка 1X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1001, "HMI_Points_P1_01_Config_MW", "WORD16", "Точка 1Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1002, "HMI_Points_P1_10_Config_MW", "WORD16", "Точка 2X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1003, "HMI_Points_P1_11_Config_MW", "WORD16", "Точка 2Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1004, "HMI_Points_P1_20_Config_MW", "WORD16", "Точка 3X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1005, "HMI_Points_P1_21_Config_MW", "WORD16", "Точка 3Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1006, "HMI_Points_P1_30_Config_MW", "WORD16", "Точка 4X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1007, "HMI_Points_P1_31_Config_MW", "WORD16", "Точка 4Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1008, "HMI_Points_P1_40_Config_MW", "WORD16", "Точка 5X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1009, "HMI_Points_P1_41_Config_MW", "WORD16", "Точка 5Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1010, "HMI_Points_P1_50_Config_MW", "WORD16", "Точка 6X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1011, "HMI_Points_P1_51_Config_MW", "WORD16", "Точка 6Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1012, "HMI_Points_P1_60_Config_MW", "WORD16", "Точка 7X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1013, "HMI_Points_P1_61_Config_MW", "WORD16", "Точка 7Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1014, "HMI_Points_P1_70_Config_MW", "WORD16", "Точка 8X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1015, "HMI_Points_P1_71_Config_MW", "WORD16", "Точка 8Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1016, "HMI_Points_P1_80_Config_MW", "WORD16", "Точка 9X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1017, "HMI_Points_P1_81_Config_MW", "WORD16", "Точка 9Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1018, "HMI_Points_P1_90_Config_MW", "WORD16", "Точка 10X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1019, "HMI_Points_P1_91_Config_MW", "WORD16", "Точка 10Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1020, "HMI_Points_P1_10_0_Config_MW", "WORD16", "Точка 11X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1021, "HMI_Points_P1_10_1_Config_MW", "WORD16", "Точка 11Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1022, "HMI_Points_P1_11_0_Config_MW", "WORD16", "Точка 12X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1023, "HMI_Points_P1_11_1_Config_MW", "WORD16", "Точка 12Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1024, "HMI_Points_P1_12_0_Config_MW", "WORD16", "Точка 13X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1025, "HMI_Points_P1_12_1_Config_MW", "WORD16", "Точка 13Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1026, "HMI_Points_P1_13_0_Config_MW", "WORD16", "Точка 14X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1027, "HMI_Points_P1_13_1_Config_MW", "WORD16", "Точка 14Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1028, "HMI_Points_P1_14_0_Config_MW", "WORD16", "Точка 15X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1029, "HMI_Points_P1_14_1_Config_MW", "WORD16", "Точка 15Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1030, "HMI_Points_P1_15_0_Config_MW", "WORD16", "Точка 16X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1031, "HMI_Points_P1_15_1_Config_MW", "WORD16", "Точка 16Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1032, "HMI_Points_P1_16_0_Config_MW", "WORD16", "Точка 17X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1033, "HMI_Points_P1_16_1_Config_MW", "WORD16", "Точка 17Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1034, "HMI_Points_P1_17_0_Config_MW", "WORD16", "Точка 18X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1035, "HMI_Points_P1_17_1_Config_MW", "WORD16", "Точка 18Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1036, "HMI_Points_P1_18_0_Config_MW", "WORD16", "Точка 19X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1037, "HMI_Points_P1_18_1_Config_MW", "WORD16", "Точка 19Y многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1038, "HMI_Points_P1_19_0_Config_MW", "WORD16", "Точка 20X многоугольника внутри блока конфигурации полигона 1"),
+        RegisterInfo(1039, "HMI_Points_P1_19_1_Config_MW", "WORD16", "Точка 20Y многоугольника внутри блока конфигурации полигона 1"),
+
+        RegisterInfo(1040, "HMI_Points_P2_00_Config_MW", "WORD16", "Точка 1X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1041, "HMI_Points_P2_01_Config_MW", "WORD16", "Точка 1Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1042, "HMI_Points_P2_10_Config_MW", "WORD16", "Точка 2X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1043, "HMI_Points_P2_11_Config_MW", "WORD16", "Точка 2Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1044, "HMI_Points_P2_20_Config_MW", "WORD16", "Точка 3X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1045, "HMI_Points_P2_21_Config_MW", "WORD16", "Точка 3Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1046, "HMI_Points_P2_30_Config_MW", "WORD16", "Точка 4X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1047, "HMI_Points_P2_31_Config_MW", "WORD16", "Точка 4Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1048, "HMI_Points_P2_40_Config_MW", "WORD16", "Точка 5X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1049, "HMI_Points_P2_41_Config_MW", "WORD16", "Точка 5Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1050, "HMI_Points_P2_50_Config_MW", "WORD16", "Точка 6X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1051, "HMI_Points_P2_51_Config_MW", "WORD16", "Точка 6Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1052, "HMI_Points_P2_60_Config_MW", "WORD16", "Точка 7X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1053, "HMI_Points_P2_61_Config_MW", "WORD16", "Точка 7Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1054, "HMI_Points_P2_70_Config_MW", "WORD16", "Точка 8X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1055, "HMI_Points_P2_71_Config_MW", "WORD16", "Точка 8Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1056, "HMI_Points_P2_80_Config_MW", "WORD16", "Точка 9X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1057, "HMI_Points_P2_81_Config_MW", "WORD16", "Точка 9Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1058, "HMI_Points_P2_90_Config_MW", "WORD16", "Точка 10X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1059, "HMI_Points_P2_91_Config_MW", "WORD16", "Точка 10Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1060, "HMI_Points_P2_10_0_Config_MW", "WORD16", "Точка 11X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1061, "HMI_Points_P2_10_1_Config_MW", "WORD16", "Точка 11Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1062, "HMI_Points_P2_11_0_Config_MW", "WORD16", "Точка 12X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1063, "HMI_Points_P2_11_1_Config_MW", "WORD16", "Точка 12Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1064, "HMI_Points_P2_12_0_Config_MW", "WORD16", "Точка 13X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1065, "HMI_Points_P2_12_1_Config_MW", "WORD16", "Точка 13Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1066, "HMI_Points_P2_13_0_Config_MW", "WORD16", "Точка 14X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1067, "HMI_Points_P2_13_1_Config_MW", "WORD16", "Точка 14Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1068, "HMI_Points_P2_14_0_Config_MW", "WORD16", "Точка 15X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1069, "HMI_Points_P2_14_1_Config_MW", "WORD16", "Точка 15Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1070, "HMI_Points_P2_15_0_Config_MW", "WORD16", "Точка 16X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1071, "HMI_Points_P2_15_1_Config_MW", "WORD16", "Точка 16Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1072, "HMI_Points_P2_16_0_Config_MW", "WORD16", "Точка 17X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1073, "HMI_Points_P2_16_1_Config_MW", "WORD16", "Точка 17Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1074, "HMI_Points_P2_17_0_Config_MW", "WORD16", "Точка 18X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1075, "HMI_Points_P2_17_1_Config_MW", "WORD16", "Точка 18Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1076, "HMI_Points_P2_18_0_Config_MW", "WORD16", "Точка 19X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1077, "HMI_Points_P2_18_1_Config_MW", "WORD16", "Точка 19Y многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1078, "HMI_Points_P2_19_0_Config_MW", "WORD16", "Точка 20X многоугольника внутри блока конфигурации полигона 2"),
+        RegisterInfo(1079, "HMI_Points_P2_19_1_Config_MW", "WORD16", "Точка 20Y многоугольника внутри блока конфигурации полигона 2"),
+    )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_CoordinateProtection_configuration",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = true
+        )
+    }
+}
+
+
+
+/**
  * Конфигурация UI №7 (ServiceMenuViewModel)
  * Регистры для работы с UI экрана начальные настройки
  */

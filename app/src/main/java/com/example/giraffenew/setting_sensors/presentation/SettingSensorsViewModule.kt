@@ -224,9 +224,6 @@ class SettingSensorsViewModule
 
             currentAbsEncCranePositionWord1 = cache[394] ?: 0,
             currentAbsEncCranePositionWord2 = cache[395] ?: 0,
-
-
-
             )
     }
 
