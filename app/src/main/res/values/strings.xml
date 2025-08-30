@@ -153,20 +153,20 @@
     <string name="CoordinateProtection_Button_Polygon_1">ПОЛИГОН №1</string>
     <string name="CoordinateProtection_Button_Polygon_2">ПОЛИГОН №2</string>
     <string name="CoordinateProtection_Button_Setting">НАСТРОЙКА</string>
-    <string name="CoordinateProtection_Button_Position">ПО ВЫЛЕТУ</string>
+    <string name="CoordinateProtection_Button_Position">ПО КРЮКУ</string>
     <string name="CoordinateProtection_Button_Manual">РУЧНОЙ ВВОД</string>
     <string name="CoordinateProtection_Button_Coordinate">КООРДИНАТЫ</string>
 
-    <string name="CoordinateProtection_Button_Set_Point_1">ВВОД ТОЧКА 1</string>
-    <string name="CoordinateProtection_Button_Set_Point_2">ВВОД ТОЧКА 2</string>
-    <string name="CoordinateProtection_Button_Set_Point_3">ВВОД ТОЧКА 3</string>
-    <string name="CoordinateProtection_Button_Set_Point_4">ВВОД ТОЧКА 4</string>
-    <string name="CoordinateProtection_Button_Set_Point_5">ВВОД ТОЧКА 5</string>
-    <string name="CoordinateProtection_Button_Set_Point_6">ВВОД ТОЧКА 6</string>
-    <string name="CoordinateProtection_Button_Set_Point_7">ВВОД ТОЧКА 7</string>
-    <string name="CoordinateProtection_Button_Set_Point_8">ВВОД ТОЧКА 8</string>
-    <string name="CoordinateProtection_Button_Set_Point_9">ВВОД ТОЧКА 9</string>
-    <string name="CoordinateProtection_Button_Set_Point_10">ВВОД ТОЧКА 10</string>
+    <string name="CoordinateProtection_Button_Set_Point_1">ЗАДАТЬ ТОЧКУ 1</string>
+    <string name="CoordinateProtection_Button_Set_Point_2">ЗАДАТЬ ТОЧКУ 2</string>
+    <string name="CoordinateProtection_Button_Set_Point_3">ЗАДАТЬ ТОЧКУ 3</string>
+    <string name="CoordinateProtection_Button_Set_Point_4">ЗАДАТЬ ТОЧКУ 4</string>
+    <string name="CoordinateProtection_Button_Set_Point_5">ЗАДАТЬ ТОЧКУ 5</string>
+    <string name="CoordinateProtection_Button_Set_Point_6">ЗАДАТЬ ТОЧКУ 6</string>
+    <string name="CoordinateProtection_Button_Set_Point_7">ЗАДАТЬ ТОЧКУ 7</string>
+    <string name="CoordinateProtection_Button_Set_Point_8">ЗАДАТЬ ТОЧКУ 8</string>
+    <string name="CoordinateProtection_Button_Set_Point_9">ЗАДАТЬ ТОЧКУ 9</string>
+    <string name="CoordinateProtection_Button_Set_Point_10">ЗАДАТЬ ТОЧКУ 10</string>
 
     <string name="CoordinateProtection_Text_Polygon_1">Полигон №1</string>
     <string name="CoordinateProtection_Text_Polygon_2">Полигон №2</string>
@@ -182,7 +182,7 @@
     <string name="CoordinateProtection_Text_Allow_Work_At_Up">Разрешение. Работа вверху</string>
     <string name="CoordinateProtection_Text_Allow_Work_At_Down">Разрешение. Работа внизу</string>
 
-    <string name="CoordinateProtection_Text_Point_Setting_Mode">Выбор режима задания точек</string>
+    <string name="CoordinateProtection_Text_Point_Setting_Mode">Выбор режима задания точек.</string>
     <string name="CoordinateProtection_Text_Entering_Points_Coordinate">По координатам X - Y</string>
     <string name="CoordinateProtection_Text_Entering_Points_Trolley">Ручной ввод</string>
     <string name="CoordinateProtection_Text_Coordinate">Настройка точек полигона</string>

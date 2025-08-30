@@ -342,6 +342,82 @@ object UICoordinateProtectionConfiguration {
 
     val REGISTERS = listOf(
         //НАСТРОЙКА КООРДИНАТНОЙ ЗАЩИТЫ
+        //Данные механизмов
+        RegisterInfo(155, "Trolley_Position_MW", "WORD16", "Текущее положение тележки на стреле *0,1м"),
+        RegisterInfo(158, "Rotation_Position_MW", "WORD16", "Текущий угол поворота *0,1м"),
+        RegisterInfo(162,  "Crane_Position_MW",  "WORD16",  "Текущее положение крана *0,1м"),
+
+        //Данные состояний настройки полигонов
+        RegisterInfo(610, "HMI_Pos_Prot_En_MW", "WORD16", "Активация координатной защиты. 1 - Активна. 0 - Не активна"),
+        RegisterInfo(611, "HMI_Mode_Pos_Prot_MW", "WORD16", "Выбор. тип коорд. защиты: 0-защита груза; 1-защита стрелы"),
+
+        RegisterInfo(612, "HMI_xP1_Up_MW", "WORD16", "Разрешение работы сверху полигона 1"),
+        RegisterInfo(613, "HMI_xP1_Down_MW", "WORD16", "Разрешение работы снизу полигона 1"),
+        RegisterInfo(614, "HMI_P1_Height_MW", "WORD16", "Высота полигона 1"),
+        RegisterInfo(615, "HMI_P1_Point_Num_MW", "WORD16", "Кол-во точек полигона 1"),
+
+        RegisterInfo(616, "HMI_xP2_Up_MW", "WORD16", "Разрешение работы сверху полигона 2"),
+        RegisterInfo(617, "HMI_xP2_Down_MW", "WORD16", "Разрешение работы снизу полигона 2"),
+        RegisterInfo(618, "HMI_P2_Height_MW", "WORD16", "Высота полигона 2"),
+        RegisterInfo(619, "HMI_P2_Point_Num_MW", "WORD16", "Кол-во точек полигона 2"),
+
+        RegisterInfo(620, "HMI_xP3_Up_MW", "WORD16", "Разрешение работы сверху полигона 3"),
+        RegisterInfo(621, "HMI_xP3_Down_MW", "WORD16", "Разрешение работы снизу полигона 3"),
+        RegisterInfo(622, "HMI_P3_Height_MW", "WORD16", "Высота полигона 3"),
+        RegisterInfo(623, "HMI_P3_Point_Num_MW", "WORD16", "Кол-во точек полигона 3"),
+
+        RegisterInfo(624, "HMI_xP4_Up_MW", "WORD16", "Разрешение работы сверху полигона 4"),
+        RegisterInfo(625, "HMI_xP4_Down_MW", "WORD16", "Разрешение работы снизу полигона 4"),
+        RegisterInfo(626, "HMI_P4_Height_MW", "WORD16", "Высота полигона 4"),
+        RegisterInfo(627, "HMI_P4_Point_Num_MW", "WORD16", "Кол-во точек полигона 4"),
+
+        RegisterInfo(628, "HMI_Pol_En_Status_MW", "WORD16", "Статус активации полигонов 1 и 2"),
+        RegisterInfo(629, "HMI_Pol_En_Status_3_4_MW", "WORD16", "Статус активации полигонов 3 и 4"),
+
+        //ДАННЫЕ ТОЧЕК ПО КООРДИНАТАМ ПОЛИГОН №1
+        RegisterInfo(430, "HMI_PointPositionY_00_MW", "WORD16", "Координата Y точки №00"),
+        RegisterInfo(431, "HMI_PointPositionY_01_MW", "WORD16", "Координата Y точки №01"),
+        RegisterInfo(432, "HMI_PointPositionY_02_MW", "WORD16", "Координата Y точки №02"),
+        RegisterInfo(433, "HMI_PointPositionY_03_MW", "WORD16", "Координата Y точки №03"),
+        RegisterInfo(434, "HMI_PointPositionY_04_MW", "WORD16", "Координата Y точки №04"),
+        RegisterInfo(435, "HMI_PointPositionY_05_MW", "WORD16", "Координата Y точки №05"),
+        RegisterInfo(436, "HMI_PointPositionY_06_MW", "WORD16", "Координата Y точки №06"),
+        RegisterInfo(437, "HMI_PointPositionY_07_MW", "WORD16", "Координата Y точки №07"),
+        RegisterInfo(438, "HMI_PointPositionY_08_MW", "WORD16", "Координата Y точки №08"),
+        RegisterInfo(439, "HMI_PointPositionY_09_MW", "WORD16", "Координата Y точки №09"),
+        RegisterInfo(440, "HMI_PointPositionY_10_MW", "WORD16", "Координата Y точки №10"),
+        RegisterInfo(441, "HMI_PointPositionY_11_MW", "WORD16", "Координата Y точки №11"),
+        RegisterInfo(442, "HMI_PointPositionY_12_MW", "WORD16", "Координата Y точки №12"),
+        RegisterInfo(443, "HMI_PointPositionY_13_MW", "WORD16", "Координата Y точки №13"),
+        RegisterInfo(444, "HMI_PointPositionY_14_MW", "WORD16", "Координата Y точки №14"),
+        RegisterInfo(445, "HMI_PointPositionY_15_MW", "WORD16", "Координата Y точки №15"),
+        RegisterInfo(446, "HMI_PointPositionY_16_MW", "WORD16", "Координата Y точки №16"),
+        RegisterInfo(447, "HMI_PointPositionY_17_MW", "WORD16", "Координата Y точки №17"),
+        RegisterInfo(448, "HMI_PointPositionY_18_MW", "WORD16", "Координата Y точки №18"),
+        RegisterInfo(449, "HMI_PointPositionY_19_MW", "WORD16", "Координата Y точки №19"),
+
+        RegisterInfo(450, "HMI_PointPositionX_00_MW", "WORD16", "Координата X точки №00"),
+        RegisterInfo(451, "HMI_PointPositionX_01_MW", "WORD16", "Координата X точки №01"),
+        RegisterInfo(452, "HMI_PointPositionX_02_MW", "WORD16", "Координата X точки №02"),
+        RegisterInfo(453, "HMI_PointPositionX_03_MW", "WORD16", "Координата X точки №03"),
+        RegisterInfo(454, "HMI_PointPositionX_04_MW", "WORD16", "Координата X точки №04"),
+        RegisterInfo(455, "HMI_PointPositionX_05_MW", "WORD16", "Координата X точки №05"),
+        RegisterInfo(456, "HMI_PointPositionX_06_MW", "WORD16", "Координата X точки №06"),
+        RegisterInfo(457, "HMI_PointPositionX_07_MW", "WORD16", "Координата X точки №07"),
+        RegisterInfo(458, "HMI_PointPositionX_08_MW", "WORD16", "Координата X точки №08"),
+        RegisterInfo(459, "HMI_PointPositionX_09_MW", "WORD16", "Координата X точки №09"),
+        RegisterInfo(460, "HMI_PointPositionX_10_MW", "WORD16", "Координата X точки №10"),
+        RegisterInfo(461, "HMI_PointPositionX_11_MW", "WORD16", "Координата X точки №11"),
+        RegisterInfo(462, "HMI_PointPositionX_12_MW", "WORD16", "Координата X точки №12"),
+        RegisterInfo(463, "HMI_PointPositionX_13_MW", "WORD16", "Координата X точки №13"),
+        RegisterInfo(464, "HMI_PointPositionX_14_MW", "WORD16", "Координата X точки №14"),
+        RegisterInfo(465, "HMI_PointPositionX_15_MW", "WORD16", "Координата X точки №15"),
+        RegisterInfo(466, "HMI_PointPositionX_16_MW", "WORD16", "Координата X точки №16"),
+        RegisterInfo(467, "HMI_PointPositionX_17_MW", "WORD16", "Координата X точки №17"),
+        RegisterInfo(468, "HMI_PointPositionX_18_MW", "WORD16", "Координата X точки №18"),
+        RegisterInfo(469, "HMI_PointPositionX_19_MW", "WORD16", "Координата X точки №19"),
+
+        //Данные параметров настройки полигонов.
         RegisterInfo(891, "HMI_Write_Pos_Prot_En_MW", "WORD16", "Активировать координатую защиту. (Тумблер по входному биту)"),
         RegisterInfo(892, "HMI_Write_Mode_Pos_Prot", "WORD16", "Выбор. тип коорд. защиты 0-защита груза; 1-защита стрелы (Тумблер по входному биту)"),
 
@@ -372,7 +448,7 @@ object UICoordinateProtectionConfiguration {
         RegisterInfo(900, "HMI_Write_xP1_Reset_MW", "WORD16", "Сбросить первый полигон"),
         RegisterInfo(901, "HMI_Write_iP1_Point_Cmd_MW", "WORD16", "команды для заполнения точек полигона 1"),
         RegisterInfo(902, "HMI_Write_xP1_Set_Type1_MW", "WORD16", "установка режима задания точек 1 (по координатам)"),
-        RegisterInfo(903, "HMI_Write_xP1_Set_Type2_MW", "WORD16", "установка режима задания точек 2 (по вылету)"),
+        RegisterInfo(903, "HMI_Write_xP1_Set_Type2_MW", "WORD16", "установка режима задания точек 2 (ручной ввод)"),
         RegisterInfo(904, "HMI_Write_rP1_Type1_Px_MW", "WORD16", "при типе ввода 1 - координата x"),
         RegisterInfo(905, "HMI_Write_rP1_Type1_Py_MW", "WORD16", "при типе ввода 1 - координата y"),
         RegisterInfo(906, "HMI_Write_rP1_Type2_Trolley_Pos_MW", "WORD16", "при типе ввода 2 - позиция телеги"),
