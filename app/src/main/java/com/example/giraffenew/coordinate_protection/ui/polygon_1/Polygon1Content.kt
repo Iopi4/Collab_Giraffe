@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -21,6 +22,7 @@ import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraff
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 
 @Composable
 fun Polygon1Content(
@@ -53,45 +55,53 @@ fun NavBarPolygon1(navController: NavController) {
             shape = RoundedCornerShape(5.dp)
         )
 
-    //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
-    Row (myBoxNavBarPolygon1Modifier,
-        horizontalArrangement = Arrangement.SpaceBetween) {
+    Column(myBoxNavBarPolygon1Modifier,
+        verticalArrangement = Arrangement.SpaceEvenly)
+    {
+// Заголовок
+        BasicSettingsText(modifier = Modifier,
+            text = stringResource(R.string.CoordinateProtection_Text_Polygon_1))
 
-        Box(modifier = Modifier.weight(1f)) {
-            BasicButtonTabGiraffe(
-                modifier = Modifier,
-                text = R.string.CoordinateProtection_Button_Setting,
-                onClick = {
-                    navController.navigate(NavRoutesPolygon1.PageSettingPolygon1.route)
-                },
-            ) {}
-        }
-        Box(modifier = Modifier.weight(1f)) {
-            BasicButtonTabGiraffe(
-                modifier = Modifier,
-                text = R.string.CoordinateProtection_Button_Position,
-                onClick = {
-                    navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Trolley.route)
-                },
-            ) {}
-        }
-        Box(modifier = Modifier.weight(1f)) {
-            BasicButtonTabGiraffe(
-                modifier = Modifier,
-                text = R.string.CoordinateProtection_Button_Manual,
-                onClick = {
-                    navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Manual.route)
-                },
-            ) {}
-        }
-        Box(modifier = Modifier.weight(1f)) {
-            BasicButtonTabGiraffe(
-                modifier = Modifier.padding(end = 7.dp),
-                text = R.string.CoordinateProtection_Button_Coordinate,
-                onClick = {
-                    navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Coordinate.route)
-                },
-            ) {}
+        //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
+        Row (modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.CoordinateProtection_Button_Setting,
+                    onClick = {
+                        navController.navigate(NavRoutesPolygon1.PageSettingPolygon1.route)
+                    },
+                ) {}
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.CoordinateProtection_Button_Position,
+                    onClick = {
+                        navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Trolley.route)
+                    },
+                ) {}
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.CoordinateProtection_Button_Manual,
+                    onClick = {
+                        navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Manual.route)
+                    },
+                ) {}
+            }
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier.padding(end = 7.dp),
+                    text = R.string.CoordinateProtection_Button_Coordinate,
+                    onClick = {
+                        navController.navigate(NavRoutesPolygon1.PageSettingPointsPolygon1Coordinate.route)
+                    },
+                ) {}
+            }
         }
     }
 

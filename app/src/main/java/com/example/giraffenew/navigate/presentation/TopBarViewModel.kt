@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
+import com.example.giraffenew.network.CraneIdRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +27,8 @@ import javax.inject.Inject
 //Создание ViewModel для управления временем и датой
 @HiltViewModel
 class TopBarViewModel @Inject constructor(
-    private val modbusRepository: ModbusRepository
+    private val modbusRepository: ModbusRepository,
+    private val craneIdRepository: CraneIdRepository // Добавим репозиторий хранения craneId
 ) : ViewModel() {
     private val _currentTime = mutableStateOf("00:00:00")
     val currentTime: State<String> = _currentTime
@@ -43,12 +45,13 @@ class TopBarViewModel @Inject constructor(
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 755 ) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367 ) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
 
-
+    private val _craneId = mutableStateOf("CRANE_ID")
+    val craneId: State<String> = _craneId
 
         //Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
         //Но сам коллектор срабатывает при каждом обновлении кэша (даже если обновлен регистр не из нашего списка).
@@ -77,6 +80,7 @@ class TopBarViewModel @Inject constructor(
                         updateModelCrane(currentValues)
                         updatePulleyBlock(currentValues)
                         updateLoadCapacity(currentValues)
+                        updateCraneID(currentValues)
 
                         // Сохраняем текущие значения для следующего сравнения
                         previousValues = currentValues
@@ -121,6 +125,16 @@ class TopBarViewModel @Inject constructor(
     private fun updateLoadCapacity(cache: Map<Int, Int?>) {
         val loadCapacity = cache[194] ?: return
         _currentLoadCapacity.value = "Груз.хар. [%02d]".format(loadCapacity)
+    }
+
+    private fun updateCraneID(cache: Map<Int, Int?>) {
+        val crane = cache[150] ?: return
+        val serialNumber = cache[367] ?: return
+        val numberStr = crane.toString().padStart(5, '0')
+        val newCraneId = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}.2кз_${serialNumber}"
+
+        _craneId.value = newCraneId
+        craneIdRepository.updateCraneId(newCraneId) // Обновляем значение в репозитории
     }
 }
 

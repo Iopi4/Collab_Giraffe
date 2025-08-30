@@ -168,6 +168,9 @@
     <string name="CoordinateProtection_Button_Set_Point_9">ВВОД ТОЧКА 9</string>
     <string name="CoordinateProtection_Button_Set_Point_10">ВВОД ТОЧКА 10</string>
 
+    <string name="CoordinateProtection_Text_Polygon_1">Полигон №1</string>
+    <string name="CoordinateProtection_Text_Polygon_2">Полигон №2</string>
+
     <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
     <string name="CoordinateProtection_Text_Activate_Protection">Зашита [вкл./выкл.]</string>

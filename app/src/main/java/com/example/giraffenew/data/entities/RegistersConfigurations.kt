@@ -55,7 +55,9 @@ object TopBarRegisterConfiguration {
         RegisterInfo(99, "gv_wSeconds_MW", "WORD16", "Секунды"),
         RegisterInfo(150, "Crane_No_MW", "WORD16", "Заводской номер крана"),
         RegisterInfo(193, "Curr_Gruz_Zapas_MW", "WORD16", "выбор кратности запасовки, =TRUE -4х кратная, =FALSE -2х кратная"),
-        RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика")
+        RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
+        RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
+        RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана")
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -366,8 +368,6 @@ object UICoordinateProtectionConfiguration {
         RegisterInfo(887, "HMI_Write_xP4_Down_MW", "WORD16", "Разрешить работу снизу полигона 4"),
         RegisterInfo(888, "HMI_Write_rP4_Height_MW", "WORD16", "высота полигона 4"),
         RegisterInfo(889, "HMI_Write_iP4_Point_Num_MW", "WORD16", "количество точек полигона 4"),
-
-        RegisterInfo(890, "HMI_Write_xFltRst_MW", "WORD16", "сброс ошибок приводов"),
 
         RegisterInfo(900, "HMI_Write_xP1_Reset_MW", "WORD16", "Сбросить первый полигон"),
         RegisterInfo(901, "HMI_Write_iP1_Point_Cmd_MW", "WORD16", "команды для заполнения точек полигона 1"),

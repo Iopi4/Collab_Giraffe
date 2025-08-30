@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.giraffenew.data.ModbusDatabase
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.network.CloudSynchronizer
+import com.example.giraffenew.network.CraneIdRepository
 import com.example.giraffenew.network.ModbusClient
 import com.example.giraffenew.utils.FileLogger
 import dagger.Module
@@ -65,8 +66,16 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideCloudSynchronizer(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        craneIdRepository: CraneIdRepository
     ): CloudSynchronizer {
-        return CloudSynchronizer(context)
+        return CloudSynchronizer(context, craneIdRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideCraneIdRepository(): CraneIdRepository {
+        return CraneIdRepository()
+    }
+
 }

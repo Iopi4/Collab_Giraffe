@@ -111,11 +111,7 @@ fun SampleAppNavGraph(
                         Column (modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.SpaceBetween ) {
 //Область отображения типа крана
                             Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
-                                /*
-                                Box (boxTopBarText) {TopBarText("currentModelCrane") }
-                                Box (boxTopBarText) {TopBarText("currentPulleyBlock") }
-                                Box (boxTopBarText) {TopBarText("currentLoadCapacity") }
-                                 */
+
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentModelCrane.value) }
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentPulleyBlock.value) }
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentLoadCapacity.value) }

@@ -41,7 +41,6 @@ fun ServiceMenuScreen(
     BasicSettingBackground()
 
     val navController = rememberNavController()
-
     Column(modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
     {NavBarServiceContent(navController = navController)

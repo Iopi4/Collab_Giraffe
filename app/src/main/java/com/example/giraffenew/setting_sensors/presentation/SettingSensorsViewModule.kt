@@ -88,18 +88,10 @@ class SettingSensorsViewModule
         // Регистры для считывания
     )
 
-    private var previousValuesAbs: Map<Int, Int?> = emptyMap()
-
     private val _state = mutableStateOf(SettingSensorsState())
     val state: State<SettingSensorsState> = _state
 
     private var dataCollectionJob: Job? = null
-
-//    init {
-//        // Активируем UI конфигурацию для этого экрана
-//        modbusRepository.setActiveUiConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY)
-//        startDataCollection()
-//    }
 
     fun setActiveConfiguration() {
         modbusRepository.setActiveUiConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS)
@@ -127,7 +119,6 @@ class SettingSensorsViewModule
     }
 
     fun startDataCollection() {
-        //if (dataCollectionJob?.isActive == true) return
         dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
 
         Log.d("SSettingSensorsVM", "Starting data collection for ${UISettingSensorsConfiguration.NAME_SETTING_SENSORS}")
@@ -148,28 +139,6 @@ class SettingSensorsViewModule
                 }
         }
     }
-
-
-//    private fun updateAbsHoist(cache: Map<Int, Int?>) {
-//        val word1 = cache[382] ?: return
-//        val word2 = cache[383] ?: return
-//        _currentAbsEncHoistPosition.value = String.format("%05d%05d", word2, word1)
-//    }
-//    private fun updateAbsSlew(cache: Map<Int, Int?>) {
-//        val word1 = cache[386] ?: return
-//        val word2 = cache[387] ?: return
-//        _currentAbsEncSlewPosition.value = String.format("%05d%05d", word2, word1)
-//    }
-//    private fun updateAbsTrolley(cache: Map<Int, Int?>) {
-//        val word1 = cache[390] ?: return
-//        val word2 = cache[392] ?: return
-//        _currentAbsEncTrolleyPosition.value = String.format("%05d%05d", word2, word1)
-//    }
-//    private fun updateAbsCrane(cache: Map<Int, Int?>) {
-//        val word1 = cache[394] ?: return
-//        val word2 = cache[395] ?: return
-//        _currentAbsEncCranePosition.value = String.format("%05d%05d", word2, word1)
-//    }
 
     // Приостановка сбора данных
     fun pauseDataCollection() {

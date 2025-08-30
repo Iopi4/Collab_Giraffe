@@ -28,8 +28,12 @@ import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.coroutineContext
-import kotlin.math.min
 import kotlin.math.pow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Job
 
 /**
  * CloudSynchronizer для отправки данных регистров в облачный сервис каждые 30 секунд
@@ -75,11 +79,23 @@ data class RegisterReading(
     val timestamp: String,
     val registers: Map<String, String> // address -> hex value
 )
+
+//Создадим отдельный репозиторий для управления craneID
+@Singleton
+class CraneIdRepository @Inject constructor() {
+    private val _craneId = MutableStateFlow("CRANE_ID")
+    val craneId: StateFlow<String> = _craneId.asStateFlow()
+
+    fun updateCraneId(newCraneId: String) {
+        _craneId.value = newCraneId
+    }
+}
+
 @Singleton
 class CloudSynchronizer @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val craneIdRepository: CraneIdRepository //Добавим отдельный репозиторий для управления craneID
 ) {
-    
     // HTTP client для облачных запросов
     private val httpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -119,7 +135,13 @@ class CloudSynchronizer @Inject constructor(
     
     // Конфигурация
     private var cloudEndpoint = "https://monitor.giraffecrane.ru/api/crane/registers"
-    private var craneId = "GIRAFFE_001"
+
+    //Присваиваем значение craneId  из репозитория
+    private var craneId: String = craneIdRepository.craneId.value
+
+    // Добавляем подписку на изменения craneId
+    private var craneIdJob: Job? = null
+
     private val syncIntervalMs = 30_000L // 30 секунд
     
     // Состояние синхронизации
@@ -156,6 +178,10 @@ class CloudSynchronizer @Inject constructor(
         private const val MAX_OFFLINE_QUEUE_SIZE = 1000 // Максимальный размер offline queue
         private const val MAX_PAYLOAD_SIZE = 1024 * 1024 // 1MB максимальный размер payload
     }
+
+
+
+
     
     /**
      * Статусы синхронизации
@@ -315,7 +341,21 @@ class CloudSynchronizer @Inject constructor(
             accumulatedReadings.add(reading)
         }
     }
-    
+
+    /**
+     * Синхронизировать ID крана
+     */
+    init { startListeningForCraneIdChanges() }
+    private fun startListeningForCraneIdChanges() {
+        craneIdJob = syncScope.launch {
+            craneIdRepository.craneId.collect { newCraneId ->
+                craneId = newCraneId
+                Log.d(TAG, "Crane ID updated to: $craneId")
+            }
+        }
+    }
+
+
     /**
      * Отправить payload в облако
      */
@@ -530,10 +570,10 @@ class CloudSynchronizer @Inject constructor(
      */
     fun updateConfiguration(
         newEndpoint: String? = null,
-        newCraneId: String? = null
+        //newCraneId: String? = null //Уберем  параметр newCraneId из updateConfiguration
     ) {
         newEndpoint?.let { cloudEndpoint = it }
-        newCraneId?.let { craneId = it }
+        //newCraneId?.let { craneId = it } //Уберем  параметр newCraneId из updateConfiguration
         
         Log.i(TAG, "Configuration updated - endpoint: $cloudEndpoint, craneId: $craneId")
     }
@@ -612,5 +652,6 @@ class CloudSynchronizer @Inject constructor(
         saveOfflineQueue()
         httpClient.close()
         syncScope.cancel()
+        craneIdJob?.cancel()
     }
 }
