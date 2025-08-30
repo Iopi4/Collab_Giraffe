@@ -391,6 +391,7 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU, UIServiceMenuRegisterConfiguration.REGISTERS)
         registerConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY, UISettingLoadCapacityConfiguration.REGISTERS)
         registerConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS, UISettingSensorsConfiguration.REGISTERS)
+        registerConfiguration(UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION, UICoordinateProtectionConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
@@ -460,6 +461,7 @@ class ModbusRepository @Inject constructor(
             UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
             UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS -> UISettingSensorsConfiguration.REGISTERS
+            UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }
