@@ -26,13 +26,7 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun ParametersLoadCapacity(
-    onSetCargoCharacteristic0: () -> Unit,
-    onSetCargoCharacteristic1: () -> Unit,
-    onSetCargoCharacteristic2: () -> Unit,
-    onSetCargoCharacteristic3: () -> Unit,
-    onSetCargoCharacteristic4: () -> Unit,
-    onSetCargoCharacteristic5: () -> Unit,
-    onSetCargoCharacteristic6: () -> Unit,
+    onSetCargoCharacteristic: (Int) -> Unit,
 
     errorMessageGH: String?,
     logMessageGH: String?,
@@ -106,37 +100,37 @@ fun ParametersLoadCapacity(
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_0,
-                onClick = onSetCargoCharacteristic0
+                onClick = { onSetCargoCharacteristic(0)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_1,
-                onClick = onSetCargoCharacteristic1,
+                onClick = { onSetCargoCharacteristic(1)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_2,
-                onClick = onSetCargoCharacteristic2,
+                onClick = { onSetCargoCharacteristic(2)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_3,
-                onClick = onSetCargoCharacteristic3,
+                onClick = { onSetCargoCharacteristic(3)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_4,
-                onClick = onSetCargoCharacteristic4,
+                onClick = { onSetCargoCharacteristic(4)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_5,
-                onClick = onSetCargoCharacteristic5,
+                onClick = { onSetCargoCharacteristic(5)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.SettingLoadCapacity_Button_GH_6,
-                onClick = onSetCargoCharacteristic6,
+                onClick = { onSetCargoCharacteristic(6)}
             ) {}
 
 
@@ -149,13 +143,7 @@ fun ParametersLoadCapacity(
 fun ParametersLoadCapacityPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ParametersLoadCapacity(
-            onSetCargoCharacteristic0 = { } ,
-            onSetCargoCharacteristic1 = { } ,
-            onSetCargoCharacteristic2 = { } ,
-            onSetCargoCharacteristic3 = { } ,
-            onSetCargoCharacteristic4 = { } ,
-            onSetCargoCharacteristic5 = { } ,
-            onSetCargoCharacteristic6 = { } ,
+            onSetCargoCharacteristic = { _ -> },
             errorMessageGH = null,
             logMessageGH = null
         )

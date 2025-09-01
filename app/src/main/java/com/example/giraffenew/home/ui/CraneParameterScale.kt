@@ -37,6 +37,7 @@ fun CraneParameterScale(
     weightPercent:      Float,
     hoistPosition:      Float,
     hoistMaxPosition:   Float,
+    hoistMinPosition:   Float,
     cranePosition:      Float,
     craneMaxPosition:   Float,
     modifier: Modifier= Modifier,
@@ -97,7 +98,7 @@ fun CraneParameterScale(
         ) {
             BasicParameterScaleVertical(
                 currentValue = hoistPosition,
-                minValue = 0f,
+                minValue = hoistMinPosition,
                 maxValue = hoistMaxPosition,
                 modifier = Modifier.size(width = 10.dp, height = 150.dp)
             )
@@ -142,6 +143,7 @@ fun CraneParameterScalePreview (){
             weightPercent= 80f,
             hoistPosition = 30f,
             hoistMaxPosition= 60f,
+            hoistMinPosition= -5f,
             cranePosition = 20f,
             craneMaxPosition= 40f,
             )

@@ -25,8 +25,8 @@ class HomeScreenViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository
 ) : ViewModel() {
 
-    val addressesCraneOperatingParameters = listOf(152,153,155,158,159,162,163,135,136,137,317) // Только нужные регистры
-    val addressesCraneParameterScale = listOf(317,159,318,162,319) // Только нужные регистры
+    val addressesCraneOperatingParameters = listOf(152,153,155,158,159,160,161,162,163,135,136,137,317) // Только нужные регистры
+    val addressesCraneParameterScale = listOf(317,159,162,319) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
     //1. Объединим все адреса в один список
@@ -58,8 +58,6 @@ class HomeScreenViewModel @Inject constructor(
         pauseDataCollection()
         modbusRepository.setActiveUiConfiguration(null)
     }
-
-
 
     // Запуск сбора данных
     fun startDataCollection() {
@@ -101,6 +99,7 @@ class HomeScreenViewModel @Inject constructor(
         trolleyCurrent = safeDivideTens(cache[155] ?: 0),
         slewingCurrent = safeDivideTens(cache[158] ?: 0),
         heightCurrent = safeDivideTens(cache[159] ?: 0),
+
         moveCurrent = safeDivideTens(cache[162] ?: 0),
         windCurrent = safeDivideTens(cache[163] ?: 0),
         voltageL1L2Current = safeDivideTens(cache[135] ?: 0),
@@ -110,7 +109,8 @@ class HomeScreenViewModel @Inject constructor(
         // Crane Parameter Scale
         weightPercent = safeDivide(cache[317] ?: 0),
         hoistPosition = safeDivideTens(cache[159] ?: 0),
-        hoistMaxPosition = safeDivideTens(cache[318] ?: 0),
+        hoistMaxPosition = safeDivideTens(cache[160] ?: 0),
+        hoistMinPosition = safeDivideTens(cache[161] ?: 0),
         cranePosition = safeDivideTens(cache[162] ?: 0),
         craneMaxPosition = safeDivideTens(cache[319] ?: 0),
         anemometerStatus = cache[336] ?: 0,
@@ -160,7 +160,7 @@ class HomeScreenViewModel @Inject constructor(
         val weightCurrent: Float = 0f,
         val trolleyCurrent: Float = 0f,
         val slewingCurrent:Float = 0f,
-        val heightCurrent: Float = 0f,
+        val heightCurrent: Float = -0f,
         val moveCurrent: Float = 0f,
         val windCurrent: Float = 0f,
         val voltageL1L2Current: Float = 0f,
@@ -170,6 +170,7 @@ class HomeScreenViewModel @Inject constructor(
         val weightPercent: Float = 0f,
         val hoistPosition: Float = 0f,
         val hoistMaxPosition: Float = 0f,
+        val hoistMinPosition: Float = -0f,
         val cranePosition: Float = 0f,
         val craneMaxPosition: Float = 0f,
 

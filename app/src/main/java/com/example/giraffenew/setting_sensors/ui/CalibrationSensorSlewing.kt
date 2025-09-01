@@ -147,7 +147,7 @@ fun CalibrationSensorSlewing(
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
-                        placeholder = "000.0",
+                        placeholder = "000",
                         value = setValueSlewCalcAngle,
                         onValueChange = updateValueSlewCalcAngle,
                         modifier = Modifier,
@@ -171,9 +171,9 @@ fun CalibrationSensorSlewing(
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
-                        placeholder = "000.0",
+                        placeholder = "0000",
                         value = setValueSlewMaxAngle,
-                        onValueChange = { updateValueSlewMaxAngle},
+                        onValueChange = updateValueSlewMaxAngle,
                         modifier = Modifier,
                     )
                 }
@@ -181,7 +181,7 @@ fun CalibrationSensorSlewing(
                 Box(modifier = Modifier.weight(1f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
+                        text = R.string.Button_Memory,
                         onClick = onSetValueSlewMaxAngle,
                     ) {}
                 }

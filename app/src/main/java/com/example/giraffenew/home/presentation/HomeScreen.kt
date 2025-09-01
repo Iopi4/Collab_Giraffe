@@ -99,6 +99,7 @@ internal fun HomeScreen (
                 weightPercent = homeViewModel.state.value.weightPercent,
                 hoistPosition = homeViewModel.state.value.hoistPosition,
                 hoistMaxPosition = homeViewModel.state.value.hoistMaxPosition,
+                hoistMinPosition = homeViewModel.state.value.hoistMinPosition,
                 cranePosition = homeViewModel.state.value.cranePosition,
                 craneMaxPosition = homeViewModel.state.value.craneMaxPosition,
             ) }

@@ -126,7 +126,7 @@ fun SettingSensorsScreen (
                 onSetValueSlewCalcAngle = { settingSensorsViewModule.onSetValueSlewCalcAngle()},
 
                 setValueSlewMaxAngle = settingSensorsViewModule.setValueSlewMaxAngle.value,
-                updateValueSlewMaxAngle = {settingSensorsViewModule.updateValueValueSlewMaxAngle(it) },
+                updateValueSlewMaxAngle = {settingSensorsViewModule.updateValueSlewMaxAngle(it) },
                 onSetValueSlewMaxAngle = { settingSensorsViewModule.onSetValueSlewMaxAngle()},
 
                 currentSlewEncoderMaxDeltaError = settingSensorsViewModule.state.value.currentSlewEncoderMaxDeltaError,

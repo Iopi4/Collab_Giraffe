@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.entities.UICoordinateProtectionConfiguration
-import com.example.giraffenew.data.entities.UISettingSensorsConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -74,7 +73,7 @@ class CoordinateProtectionViewModule
 
 
     private val _errorMessage = mutableStateOf<String?>(null)
-    val errorMessag: State<String?> = _errorMessage
+    val errorMessage: State<String?> = _errorMessage
 
     private val _logMessage = mutableStateOf<String?>(null)
     val logMessage: State<String?> = _logMessage
@@ -85,19 +84,49 @@ class CoordinateProtectionViewModule
     private val _logMessagePolygon1 = mutableStateOf<String?>(null)
     val logMessagePolygon1: State<String?> = _logMessagePolygon1
 
+    private val _errorMessagePolygon1Manual = mutableStateOf<String?>(null)
+    val errorMessagePolygon1Manual: State<String?> = _errorMessagePolygon1Manual
+    private val _logMessagePolygon1Manual = mutableStateOf<String?>(null)
+    val logMessagePolygon1Manual: State<String?> = _logMessagePolygon1Manual
+
+    private val _logMessagePolygon1Coordinate = mutableStateOf<String?>(null)
+    val logMessagePolygon1Coordinate: State<String?> = _logMessagePolygon1Coordinate
+
+    private val _errorMessagePolygon1Coordinate = mutableStateOf<String?>(null)
+    val errorMessagePolygon1Coordinate: State<String?> = _errorMessagePolygon1Coordinate
+
+    private val _logMessagePolygon1Reset = mutableStateOf<String?>(null)
+    val logMessagePolygon1Reset: State<String?> = _logMessagePolygon1Reset
+
     private val _errorMessagePolygon2 = mutableStateOf<String?>(null)
     val errorMessagePolygon2: State<String?> = _errorMessagePolygon2
 
     private val _logMessagePolygon2 = mutableStateOf<String?>(null)
     val logMessagePolygon2: State<String?> = _logMessagePolygon2
 
+    private val _errorMessagePolygon2Manual = mutableStateOf<String?>(null)
+    val errorMessagePolygon2Manual: State<String?> = _errorMessagePolygon2Manual
+    private val _logMessagePolygon2Manual = mutableStateOf<String?>(null)
+    val logMessagePolygon2Manual: State<String?> = _logMessagePolygon2Manual
+
+    private val _logMessagePolygon2Coordinate = mutableStateOf<String?>(null)
+    val logMessagePolygon2Coordinate: State<String?> = _logMessagePolygon2Coordinate
+
+    private val _errorMessagePolygon2Coordinate = mutableStateOf<String?>(null)
+    val errorMessagePolygon2Coordinate: State<String?> = _errorMessagePolygon2Coordinate
+
+    private val _logMessagePolygon2Reset = mutableStateOf<String?>(null)
+    val logMessagePolygon2Reset: State<String?> = _logMessagePolygon2Reset
+
 
     // Регистры для считывания. Те на которые подписываемся
     private val addresses = listOf(
         610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629,
-        155, 158, 162,
-        430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449,
-        450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469
+        630, 631, 632, 633, 155, 158, 162,
+        1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019,
+        1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039,
+        1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059,
+        1060, 1061, 1062, 1063, 1064, 1065, 1066, 1067, 1068, 1069, 1070, 1071, 1072, 1073, 1074, 1075, 1076, 1077, 1078, 1079
     )
 
     private val _state = mutableStateOf(CoordinateProtectionState())
@@ -106,7 +135,7 @@ class CoordinateProtectionViewModule
     private var dataCollectionJob: Job? = null
 
     fun setActiveConfiguration() {
-        modbusRepository.setActiveUiConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS)
+        modbusRepository.setActiveUiConfiguration(UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION)
         startDataCollection()
     }
 
@@ -162,67 +191,114 @@ class CoordinateProtectionViewModule
             currentP1Down   = cache[613] ?: 0,
             currentP1Height    = safeDivideTens(cache[614] ?: 0),
             currentP1PointNum = cache[615] ?: 0,
+            currentP1PointType = cache[630] ?: 0,
 
             currentP2Up     = cache[616] ?: 0,
             currentP2Down   = cache[617] ?: 0,
             currentP2Height    = safeDivideTens(cache[618] ?: 0),
             currentP2PointNum = cache[619] ?: 0,
+            currentP2PointType = cache[631] ?: 0,
 
             currentP3Up     = cache[620] ?: 0,
             currentP3Down   = cache[621] ?: 0,
             currentP3Height    = safeDivideTens(cache[622] ?: 0),
             currentP3PointNum = cache[623] ?: 0,
+            currentP3PointType = cache[632] ?: 0,
 
             currentP4Up     = cache[624] ?: 0,
             currentP4Down   = cache[625] ?: 0,
             currentP4Height    = safeDivideTens(cache[626] ?: 0),
             currentP4PointNum = cache[627] ?: 0,
+            currentP4PointType = cache[633] ?: 0,
 
             currentPol12EnStatus = cache[628] ?: 0,
             currentPol34EnStatus = cache[629] ?: 0,
 
-            //Статус теста ограничений подъема
-            Polygon1PointY00 = safeDivideTens(cache[430] ?: 0),
-            Polygon1PointY01 = safeDivideTens(cache[431] ?: 0),
-            Polygon1PointY02 = safeDivideTens(cache[432] ?: 0),
-            Polygon1PointY03 = safeDivideTens(cache[433] ?: 0),
-            Polygon1PointY04 = safeDivideTens(cache[434] ?: 0),
-            Polygon1PointY05 = safeDivideTens(cache[435] ?: 0),
-            Polygon1PointY06 = safeDivideTens(cache[436] ?: 0),
-            Polygon1PointY07 = safeDivideTens(cache[437] ?: 0),
-            Polygon1PointY08 = safeDivideTens(cache[438] ?: 0),
-            Polygon1PointY09 = safeDivideTens(cache[439] ?: 0),
-            Polygon1PointY10 = safeDivideTens(cache[440] ?: 0),
-            Polygon1PointY11 = safeDivideTens(cache[441] ?: 0),
-            Polygon1PointY12 = safeDivideTens(cache[442] ?: 0),
-            Polygon1PointY13 = safeDivideTens(cache[443] ?: 0),
-            Polygon1PointY14 = safeDivideTens(cache[444] ?: 0),
-            Polygon1PointY15 = safeDivideTens(cache[445] ?: 0),
-            Polygon1PointY16 = safeDivideTens(cache[446] ?: 0),
-            Polygon1PointY17 = safeDivideTens(cache[447] ?: 0),
-            Polygon1PointY18 = safeDivideTens(cache[448] ?: 0),
-            Polygon1PointY19 = safeDivideTens(cache[449] ?: 0),
+            //Координаты точек. ПОЛИГОН №1
+            Polygon1PointX01 = safeDivideTens(cache[1000] ?: 0),
+            Polygon1PointX02 = safeDivideTens(cache[1002] ?: 0),
+            Polygon1PointX03 = safeDivideTens(cache[1004] ?: 0),
+            Polygon1PointX04 = safeDivideTens(cache[1006] ?: 0),
+            Polygon1PointX05 = safeDivideTens(cache[1008] ?: 0),
+            Polygon1PointX06 = safeDivideTens(cache[1010] ?: 0),
+            Polygon1PointX07 = safeDivideTens(cache[1012] ?: 0),
+            Polygon1PointX08 = safeDivideTens(cache[1014] ?: 0),
+            Polygon1PointX09 = safeDivideTens(cache[1016] ?: 0),
+            Polygon1PointX10 = safeDivideTens(cache[1018] ?: 0),
+            Polygon1PointX11 = safeDivideTens(cache[1020] ?: 0),
+            Polygon1PointX12 = safeDivideTens(cache[1022] ?: 0),
+            Polygon1PointX13 = safeDivideTens(cache[1024] ?: 0),
+            Polygon1PointX14 = safeDivideTens(cache[1026] ?: 0),
+            Polygon1PointX15 = safeDivideTens(cache[1028] ?: 0),
+            Polygon1PointX16 = safeDivideTens(cache[1030] ?: 0),
+            Polygon1PointX17 = safeDivideTens(cache[1032] ?: 0),
+            Polygon1PointX18 = safeDivideTens(cache[1034] ?: 0),
+            Polygon1PointX19 = safeDivideTens(cache[1036] ?: 0),
+            Polygon1PointX20 = safeDivideTens(cache[1038] ?: 0),
 
-            Polygon1PointX00 = safeDivideTens(cache[450] ?: 0),
-            Polygon1PointX01 = safeDivideTens(cache[451] ?: 0),
-            Polygon1PointX02 = safeDivideTens(cache[452] ?: 0),
-            Polygon1PointX03 = safeDivideTens(cache[453] ?: 0),
-            Polygon1PointX04 = safeDivideTens(cache[454] ?: 0),
-            Polygon1PointX05 = safeDivideTens(cache[455] ?: 0),
-            Polygon1PointX06 = safeDivideTens(cache[456] ?: 0),
-            Polygon1PointX07 = safeDivideTens(cache[457] ?: 0),
-            Polygon1PointX08 = safeDivideTens(cache[458] ?: 0),
-            Polygon1PointX09 = safeDivideTens(cache[459] ?: 0),
-            Polygon1PointX10 = safeDivideTens(cache[460] ?: 0),
-            Polygon1PointX11 = safeDivideTens(cache[461] ?: 0),
-            Polygon1PointX12 = safeDivideTens(cache[462] ?: 0),
-            Polygon1PointX13 = safeDivideTens(cache[463] ?: 0),
-            Polygon1PointX14 = safeDivideTens(cache[464] ?: 0),
-            Polygon1PointX15 = safeDivideTens(cache[465] ?: 0),
-            Polygon1PointX16 = safeDivideTens(cache[466] ?: 0),
-            Polygon1PointX17 = safeDivideTens(cache[467] ?: 0),
-            Polygon1PointX18 = safeDivideTens(cache[468] ?: 0),
-            Polygon1PointX19 = safeDivideTens(cache[469] ?: 0),
+            Polygon1PointY01 = safeDivideTens(cache[1001] ?: 0),
+            Polygon1PointY02 = safeDivideTens(cache[1003] ?: 0),
+            Polygon1PointY03 = safeDivideTens(cache[1005] ?: 0),
+            Polygon1PointY04 = safeDivideTens(cache[1007] ?: 0),
+            Polygon1PointY05 = safeDivideTens(cache[1009] ?: 0),
+            Polygon1PointY06 = safeDivideTens(cache[1011] ?: 0),
+            Polygon1PointY07 = safeDivideTens(cache[1013] ?: 0),
+            Polygon1PointY08 = safeDivideTens(cache[1015] ?: 0),
+            Polygon1PointY09 = safeDivideTens(cache[1017] ?: 0),
+            Polygon1PointY10 = safeDivideTens(cache[1019] ?: 0),
+            Polygon1PointY11 = safeDivideTens(cache[1021] ?: 0),
+            Polygon1PointY12 = safeDivideTens(cache[1023] ?: 0),
+            Polygon1PointY13 = safeDivideTens(cache[1025] ?: 0),
+            Polygon1PointY14 = safeDivideTens(cache[1027] ?: 0),
+            Polygon1PointY15 = safeDivideTens(cache[1029] ?: 0),
+            Polygon1PointY16 = safeDivideTens(cache[1031] ?: 0),
+            Polygon1PointY17 = safeDivideTens(cache[1033] ?: 0),
+            Polygon1PointY18 = safeDivideTens(cache[1035] ?: 0),
+            Polygon1PointY19 = safeDivideTens(cache[1037] ?: 0),
+            Polygon1PointY20 = safeDivideTens(cache[1039] ?: 0),
+
+            //Координаты точек. ПОЛИГОН №1
+            Polygon2PointX01 = safeDivideTens(cache[1040] ?: 0),
+            Polygon2PointX02 = safeDivideTens(cache[1042] ?: 0),
+            Polygon2PointX03 = safeDivideTens(cache[1044] ?: 0),
+            Polygon2PointX04 = safeDivideTens(cache[1046] ?: 0),
+            Polygon2PointX05 = safeDivideTens(cache[1048] ?: 0),
+            Polygon2PointX06 = safeDivideTens(cache[1050] ?: 0),
+            Polygon2PointX07 = safeDivideTens(cache[1052] ?: 0),
+            Polygon2PointX08 = safeDivideTens(cache[1054] ?: 0),
+            Polygon2PointX09 = safeDivideTens(cache[1056] ?: 0),
+            Polygon2PointX10 = safeDivideTens(cache[1058] ?: 0),
+            Polygon2PointX11 = safeDivideTens(cache[1060] ?: 0),
+            Polygon2PointX12 = safeDivideTens(cache[1062] ?: 0),
+            Polygon2PointX13 = safeDivideTens(cache[1064] ?: 0),
+            Polygon2PointX14 = safeDivideTens(cache[1066] ?: 0),
+            Polygon2PointX15 = safeDivideTens(cache[1068] ?: 0),
+            Polygon2PointX16 = safeDivideTens(cache[1070] ?: 0),
+            Polygon2PointX17 = safeDivideTens(cache[1072] ?: 0),
+            Polygon2PointX18 = safeDivideTens(cache[1074] ?: 0),
+            Polygon2PointX19 = safeDivideTens(cache[1076] ?: 0),
+            Polygon2PointX20 = safeDivideTens(cache[1078] ?: 0),
+
+            Polygon2PointY01 = safeDivideTens(cache[1041] ?: 0),
+            Polygon2PointY02 = safeDivideTens(cache[1043] ?: 0),
+            Polygon2PointY03 = safeDivideTens(cache[1045] ?: 0),
+            Polygon2PointY04 = safeDivideTens(cache[1047] ?: 0),
+            Polygon2PointY05 = safeDivideTens(cache[1049] ?: 0),
+            Polygon2PointY06 = safeDivideTens(cache[1051] ?: 0),
+            Polygon2PointY07 = safeDivideTens(cache[1053] ?: 0),
+            Polygon2PointY08 = safeDivideTens(cache[1055] ?: 0),
+            Polygon2PointY09 = safeDivideTens(cache[1057] ?: 0),
+            Polygon2PointY10 = safeDivideTens(cache[1059] ?: 0),
+            Polygon2PointY11 = safeDivideTens(cache[1061] ?: 0),
+            Polygon2PointY12 = safeDivideTens(cache[1063] ?: 0),
+            Polygon2PointY13 = safeDivideTens(cache[1065] ?: 0),
+            Polygon2PointY14 = safeDivideTens(cache[1067] ?: 0),
+            Polygon2PointY15 = safeDivideTens(cache[1069] ?: 0),
+            Polygon2PointY16 = safeDivideTens(cache[1071] ?: 0),
+            Polygon2PointY17 = safeDivideTens(cache[1073] ?: 0),
+            Polygon2PointY18 = safeDivideTens(cache[1075] ?: 0),
+            Polygon2PointY19 = safeDivideTens(cache[1077] ?: 0),
+            Polygon2PointY20 = safeDivideTens(cache[1079] ?: 0),
         )
     }
 
@@ -244,52 +320,33 @@ class CoordinateProtectionViewModule
         val currentPosProtEn: Int = 0,
         val currentModePosProt: Int = 0,
 
-
         val currentP1Up: Int = 0,
         val currentP1Down: Int = 0,
         val currentP1Height: Float = 0f,
         val currentP1PointNum: Int = 0,
+        val currentP1PointType: Int = 0,
 
         val currentP2Up: Int = 0,
         val currentP2Down: Int = 0,
         val currentP2Height: Float = 0f,
         val currentP2PointNum: Int = 0,
+        val currentP2PointType: Int = 0,
 
         val currentP3Up: Int = 0,
         val currentP3Down: Int = 0,
         val currentP3Height: Float = 0f,
         val currentP3PointNum: Int = 0,
+        val currentP3PointType: Int = 0,
 
         val currentP4Up: Int = 0,
         val currentP4Down: Int = 0,
         val currentP4Height: Float = 0f,
         val currentP4PointNum: Int = 0,
+        val currentP4PointType: Int = 0,
 
         val currentPol12EnStatus: Int = 0,
         val currentPol34EnStatus: Int = 0,
         //ПЕРЕМЕННЫЕ КООРДИНАТЫ ТОЧЕК ПОЛИГОНА №1
-        val Polygon1PointY00: Float = 0f,
-        val Polygon1PointY01: Float = 0f,
-        val Polygon1PointY02: Float = 0f,
-        val Polygon1PointY03: Float = 0f,
-        val Polygon1PointY04: Float = 0f,
-        val Polygon1PointY05: Float = 0f,
-        val Polygon1PointY06: Float = 0f,
-        val Polygon1PointY07: Float = 0f,
-        val Polygon1PointY08: Float = 0f,
-        val Polygon1PointY09: Float = 0f,
-        val Polygon1PointY10: Float = 0f,
-        val Polygon1PointY11: Float = 0f,
-        val Polygon1PointY12: Float = 0f,
-        val Polygon1PointY13: Float = 0f,
-        val Polygon1PointY14: Float = 0f,
-        val Polygon1PointY15: Float = 0f,
-        val Polygon1PointY16: Float = 0f,
-        val Polygon1PointY17: Float = 0f,
-        val Polygon1PointY18: Float = 0f,
-        val Polygon1PointY19: Float = 0f,
-
-        val Polygon1PointX00: Float = 0f,
         val Polygon1PointX01: Float = 0f,
         val Polygon1PointX02: Float = 0f,
         val Polygon1PointX03: Float = 0f,
@@ -309,6 +366,71 @@ class CoordinateProtectionViewModule
         val Polygon1PointX17: Float = 0f,
         val Polygon1PointX18: Float = 0f,
         val Polygon1PointX19: Float = 0f,
+        val Polygon1PointX20: Float = 0f,
+
+        val Polygon1PointY01: Float = 0f,
+        val Polygon1PointY02: Float = 0f,
+        val Polygon1PointY03: Float = 0f,
+        val Polygon1PointY04: Float = 0f,
+        val Polygon1PointY05: Float = 0f,
+        val Polygon1PointY06: Float = 0f,
+        val Polygon1PointY07: Float = 0f,
+        val Polygon1PointY08: Float = 0f,
+        val Polygon1PointY09: Float = 0f,
+        val Polygon1PointY10: Float = 0f,
+        val Polygon1PointY11: Float = 0f,
+        val Polygon1PointY12: Float = 0f,
+        val Polygon1PointY13: Float = 0f,
+        val Polygon1PointY14: Float = 0f,
+        val Polygon1PointY15: Float = 0f,
+        val Polygon1PointY16: Float = 0f,
+        val Polygon1PointY17: Float = 0f,
+        val Polygon1PointY18: Float = 0f,
+        val Polygon1PointY19: Float = 0f,
+        val Polygon1PointY20: Float = 0f,
+
+        //ПЕРЕМЕННЫЕ КООРДИНАТЫ ТОЧЕК ПОЛИГОНА №2
+        val Polygon2PointX01: Float = 0f,
+        val Polygon2PointX02: Float = 0f,
+        val Polygon2PointX03: Float = 0f,
+        val Polygon2PointX04: Float = 0f,
+        val Polygon2PointX05: Float = 0f,
+        val Polygon2PointX06: Float = 0f,
+        val Polygon2PointX07: Float = 0f,
+        val Polygon2PointX08: Float = 0f,
+        val Polygon2PointX09: Float = 0f,
+        val Polygon2PointX10: Float = 0f,
+        val Polygon2PointX11: Float = 0f,
+        val Polygon2PointX12: Float = 0f,
+        val Polygon2PointX13: Float = 0f,
+        val Polygon2PointX14: Float = 0f,
+        val Polygon2PointX15: Float = 0f,
+        val Polygon2PointX16: Float = 0f,
+        val Polygon2PointX17: Float = 0f,
+        val Polygon2PointX18: Float = 0f,
+        val Polygon2PointX19: Float = 0f,
+        val Polygon2PointX20: Float = 0f,
+
+        val Polygon2PointY01: Float = 0f,
+        val Polygon2PointY02: Float = 0f,
+        val Polygon2PointY03: Float = 0f,
+        val Polygon2PointY04: Float = 0f,
+        val Polygon2PointY05: Float = 0f,
+        val Polygon2PointY06: Float = 0f,
+        val Polygon2PointY07: Float = 0f,
+        val Polygon2PointY08: Float = 0f,
+        val Polygon2PointY09: Float = 0f,
+        val Polygon2PointY10: Float = 0f,
+        val Polygon2PointY11: Float = 0f,
+        val Polygon2PointY12: Float = 0f,
+        val Polygon2PointY13: Float = 0f,
+        val Polygon2PointY14: Float = 0f,
+        val Polygon2PointY15: Float = 0f,
+        val Polygon2PointY16: Float = 0f,
+        val Polygon2PointY17: Float = 0f,
+        val Polygon2PointY18: Float = 0f,
+        val Polygon2PointY19: Float = 0f,
+        val Polygon2PointY20: Float = 0f,
     )
 
 
@@ -338,11 +460,7 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(891, 1)
                 delay(200)
                 modbusRepository.writeRegister(891, 0)
-                _errorMessage.value = null
-                _logMessage.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessage.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
             }
         }
     }
@@ -356,17 +474,9 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(892, 1)
                 delay(200)
                 modbusRepository.writeRegister(892, 0)
-                _errorMessage.value = null
-                _logMessage.value = "Сохранено"
-            } catch (e: Exception) {
-                _errorMessage.value = "Запись не удалась: ${e.message}"
-                _logMessage.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
-
-
-
 
     /**
     !!!!!!!!!!!!!!!!!!!!!!ПОЛИГОН №1. - НАСТРОЙКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -380,16 +490,11 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(870, 1)
                 delay(200)
                 modbusRepository.writeRegister(870, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "АКТИВИРОВАН"
-            } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Активировать не удалась: ${e.message}"
-                _logMessagePolygon1.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
     // Настройка. Разрешить работу вверху полигона №1
-    fun onSetP1Up() {
+    fun onSetP1UpEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -397,16 +502,11 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(871, 1)
                 delay(200)
                 modbusRepository.writeRegister(871, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "РАБОТА ВВЕРХУ"
-            } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Включить не удалось: ${e.message}"
-                _logMessagePolygon1.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
     // Настройка. Разрешить работу внизу полигона №1
-    fun onSetP1Down() {
+    fun onSetP1DownEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -414,12 +514,7 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(872, 1)
                 delay(200)
                 modbusRepository.writeRegister(872, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "РАБОТА ВНИЗУ"
-            } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Включить не удалось: ${e.message}"
-                _logMessagePolygon1.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
     // Настройка. Ввод количество точек полигона №1
@@ -428,7 +523,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvert(_setValuePolygon1PointNum.value, 0, 20 )
                 // Запись в регистры
-                modbusRepository.writeRegister(806, model)
+                modbusRepository.writeRegister(874, model)
                 _errorMessagePolygon1.value = null
                 _logMessagePolygon1.value = "Сохранено"
             } catch (e: Exception) {
@@ -452,8 +547,8 @@ class CoordinateProtectionViewModule
             }
         }
     }
-    // Настройка. Выбор режима задания точек полигона №1. По координатам
-    fun onSetP1Type1() {
+    // Настройка. Выбор режима задания точек полигона №1. По координатам X - Y
+    fun onSetP1Type1En() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -461,16 +556,12 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(902, 1)
                 delay(200)
                 modbusRepository.writeRegister(902, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "По координатам"
             } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Не удалось: ${e.message}"
-                _logMessagePolygon1.value = null
             }
         }
     }
     // Настройка. Выбор режима задания точек полигона №1. Ручной ввод
-    fun onSetP1Type2() {
+    fun onSetP1Type2En() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -478,19 +569,151 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(903, 1)
                 delay(200)
                 modbusRepository.writeRegister(903, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "Ручной ввод"
             } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Не удалось: ${e.message}"
-                _logMessagePolygon1.value = null
             }
         }
     }
-    /**
-    !!!!!!!!!!!!!!!!!!!!!!ПОЛИГОН №1. - ЗАДЕНИЕ ТОЧЕК ПО КРЮКУ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     */
+    // ПОЛИГОН №1. - КНОПКА ЗАПОМНИТЬ ТОЧКУ  с 1 по 20
+    fun onSetP1PointCmd(index: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистр
+                modbusRepository.writeRegister(901, index)
+                delay(200)
+                modbusRepository.writeRegister(901, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
 
+    // ПОЛИГОН №1. Настройка точек. При типе ввода 2 (Вручную) - позиция телеги
+    fun onSetValuePolygon1TrolleyPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon1TrolleyPos.value, 0.0f, 100.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(906, model)
+                _errorMessagePolygon1Manual.value = null
+                _logMessagePolygon1Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Manual.value = null
+                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №1. Настройка точек. При типе ввода 2 (Вручную) - позиция поворота
+    fun onSetValuePolygon1SlewPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon1SlewPos.value, 0.0f, 720.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(907, model)
+                _errorMessagePolygon1Manual.value = null
+                _logMessagePolygon1Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Manual.value = null
+                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №1. Настройка точек. При типе ввода 2 (Вручную) - позиция хода крана
+    fun onSetValuePolygon1CranePos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon1CranePos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(908, model)
+                _errorMessagePolygon1Manual.value = null
+                _logMessagePolygon1Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Manual.value = null
+                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
 
+    // ПОЛИГОН №1. Настройка точек. При типе ввода 1 (По Координатам) - позиция по оси Х
+    fun onsetValuePolygon1PxPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon1PxPos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(904, model)
+                _errorMessagePolygon1Coordinate.value = null
+                _logMessagePolygon1Coordinate.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Coordinate.value = null
+                _errorMessagePolygon1Coordinate.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №1. Настройка точек. При типе ввода 1 (По Координатам) - позиция по оси Y
+    fun onsetValuePolygon1PyPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon1PyPos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(905, model)
+                _errorMessagePolygon1Coordinate.value = null
+                _logMessagePolygon1Coordinate.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Coordinate.value = null
+                _errorMessagePolygon1Coordinate.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // НАСТРОЙКА. ПОЛИГОН №1.  СБРОСИТЬ ПЕРВЫЙ ПОЛИГОН
+    private var resetJobPolygon1: Job? = null
+    fun startResetPolygon1() {
+        resetJobPolygon1 = viewModelScope.launch (Dispatchers.IO) {
+            delay(3000) // Ждем 3 секунды
+            try {
+                //if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(900, 1)
+                delay(200)
+                modbusRepository.writeRegister(900, 0)
+                _logMessagePolygon1Reset.value = "Сброшено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Reset.value = "Не удалось"
+            }
+        }
+    }
+    fun cancelResetPolygon1() {
+        resetJobPolygon1?.cancel()
+        resetJobPolygon1 = null
+    }
+
+    //ПОЛИГОН №1. Обновление для UI
+    fun updateValuePolygon1Height(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1Height.value = value } }
+
+    fun updateValuePolygon1PointNum(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValuePolygon1PointNum.value = value } }
+
+    fun updateValuePolygon1TrolleyPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1TrolleyPos.value = value } }
+
+    fun updateValuePolygon1SlewPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1SlewPos.value = value } }
+
+    fun updateValuePolygon1CranePos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1CranePos.value = value } }
+
+    fun updateValuePolygon1PxPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1PxPos.value = value } }
+
+    fun updateValuePolygon1PyPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon1PyPos.value = value } }
 
 
 
@@ -507,16 +730,11 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(875, 1)
                 delay(200)
                 modbusRepository.writeRegister(875, 0)
-                _errorMessagePolygon2.value = null
-                _logMessagePolygon2.value = "АКТИВИРОВАН"
-            } catch (e: Exception) {
-                _errorMessagePolygon2.value = "Активировать не удалась: ${e.message}"
-                _logMessagePolygon2.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
-    // Настройка. Разрешить работу вверху полигона №1
-    fun onSetP2Up() {
+    // Настройка. Разрешить работу вверху полигона №2
+    fun onSetP2UpEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -524,16 +742,11 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(876, 1)
                 delay(200)
                 modbusRepository.writeRegister(876, 0)
-                _errorMessagePolygon2.value = null
-                _logMessagePolygon2.value = "РАБОТА ВВЕРХУ"
-            } catch (e: Exception) {
-                _errorMessagePolygon2.value = "Включить не удалось: ${e.message}"
-                _logMessagePolygon2.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
-    // Настройка. Разрешить работу внизу полигона №1
-    fun onSetP2Down() {
+    // Настройка. Разрешить работу внизу полигона №2
+    fun onSetP2DownEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -541,12 +754,7 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(877, 1)
                 delay(200)
                 modbusRepository.writeRegister(877, 0)
-                _errorMessagePolygon2.value = null
-                _logMessagePolygon2.value = "РАБОТА ВНИЗУ"
-            } catch (e: Exception) {
-                _errorMessagePolygon2.value = "Включить не удалось: ${e.message}"
-                _logMessagePolygon2.value = null
-            }
+            } catch (e: Exception) { }
         }
     }
     // Настройка. Ввод количество точек полигона №2
@@ -564,7 +772,7 @@ class CoordinateProtectionViewModule
             }
         }
     }
-    // Настройка. Ввод высота полигона №2
+    // Настройка. Ввод высоты полигона №2
     fun onSetValueP2Height() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -579,8 +787,8 @@ class CoordinateProtectionViewModule
             }
         }
     }
-    // Настройка. Выбор режима задания точек полигона №2. По координатам
-    fun onSetP2Type1() {
+    // Настройка. Выбор режима задания точек полигона №2. По координатам X - Y
+    fun onSetP2Type1En() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -588,16 +796,12 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(912, 1)
                 delay(200)
                 modbusRepository.writeRegister(912, 0)
-                _errorMessagePolygon2.value = null
-                _logMessagePolygon2.value = "По координатам"
             } catch (e: Exception) {
-                _errorMessagePolygon2.value = "Не удалось: ${e.message}"
-                _logMessagePolygon2.value = null
             }
         }
     }
     // Настройка. Выбор режима задания точек полигона №2. Ручной ввод
-    fun onSetP2Type2() {
+    fun onSetP2Type2En() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -605,19 +809,156 @@ class CoordinateProtectionViewModule
                 modbusRepository.writeRegister(913, 1)
                 delay(200)
                 modbusRepository.writeRegister(913, 0)
-                _errorMessagePolygon1.value = null
-                _logMessagePolygon1.value = "Ручной ввод"
             } catch (e: Exception) {
-                _errorMessagePolygon1.value = "Не удалось: ${e.message}"
-                _logMessagePolygon1.value = null
+            }
+        }
+    }
+    // ПОЛИГОН №1. - КНОПКА ЗАПОМНИТЬ ТОЧКУ  с 1 по 20
+    fun onSetP2PointCmd(index: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистр
+                modbusRepository.writeRegister(911, index)
+                delay(200)
+                modbusRepository.writeRegister(911, 0)
+            } catch (e: Exception) {
             }
         }
     }
 
+    // ПОЛИГОН №2. Настройка точек. При типе ввода 2 (Вручную) - позиция телеги
+    fun onSetValuePolygon2TrolleyPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon2TrolleyPos.value, 0.0f, 100.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(916, model)
+                _errorMessagePolygon2Manual.value = null
+                _logMessagePolygon2Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon2Manual.value = null
+                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №2. Настройка точек. При типе ввода 2 (Вручную) - позиция поворота
+    fun onSetValuePolygon2SlewPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon2SlewPos.value, 0.0f, 720.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(917, model)
+                _errorMessagePolygon2Manual.value = null
+                _logMessagePolygon2Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon2Manual.value = null
+                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №2. Настройка точек. При типе ввода 2 (Вручную) - позиция хода крана
+    fun onSetValuePolygon2CranePos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon2CranePos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(918, model)
+                _errorMessagePolygon2Manual.value = null
+                _logMessagePolygon2Manual.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon2Manual.value = null
+                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // ПОЛИГОН №2. Настройка точек. При типе ввода 1 (По Координатам) - позиция по оси Х
+    fun onsetValuePolygon2PxPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon2PxPos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(914, model)
+                _errorMessagePolygon2Coordinate.value = null
+                _logMessagePolygon2Coordinate.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon2Coordinate.value = null
+                _errorMessagePolygon2Coordinate.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // ПОЛИГОН №2. Настройка точек. При типе ввода 1 (По Координатам) - позиция по оси Y
+    fun onsetValuePolygon2PyPos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValuePolygon2PyPos.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(915, model)
+                _errorMessagePolygon2Coordinate.value = null
+                _logMessagePolygon2Coordinate.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessagePolygon2Coordinate.value = null
+                _errorMessagePolygon2Coordinate.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // НАСТРОЙКА. ПОЛИГОН №2.  СБРОСИТЬ ВТОРОЙ ПОЛИГОН
+    private var resetJobPolygon2: Job? = null
+    fun startResetPolygon2() {
+        resetJobPolygon2 = viewModelScope.launch (Dispatchers.IO) {
+            delay(3000) // Ждем 3 секунды
+            try {
+                //if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(900, 1)
+                delay(200)
+                modbusRepository.writeRegister(900, 0)
+                _logMessagePolygon1Reset.value = "Сброшено"
+            } catch (e: Exception) {
+                _logMessagePolygon1Reset.value = "Не удалось"
+            }
+        }
+    }
+    fun cancelResetPolygon2() {
+        resetJobPolygon2?.cancel()
+        resetJobPolygon2 = null
+    }
+
+    //ПОЛИГОН №2. Обновление для UI
+    fun updateValuePolygon2Height(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2Height.value = value } }
+
+    fun updateValuePolygon2PointNum(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValuePolygon2PointNum.value = value } }
+
+    fun updateValuePolygon2TrolleyPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2TrolleyPos.value = value } }
+
+    fun updateValuePolygon2SlewPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2SlewPos.value = value } }
+
+    fun updateValuePolygon2CranePos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2CranePos.value = value } }
+
+    fun updateValuePolygon2PxPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2PxPos.value = value } }
+
+    fun updateValuePolygon2PyPos(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValuePolygon2PyPos.value = value } }
 
 
-
-
-
-
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("CoordinateProtectionVM", "ViewModel cleared")
+        modbusRepository.setActiveUiConfiguration(null)
+    }
 }

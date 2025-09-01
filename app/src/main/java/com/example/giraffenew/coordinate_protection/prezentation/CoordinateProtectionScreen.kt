@@ -1,31 +1,24 @@
 package com.example.giraffenew.coordinate_protection.prezentation
 
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,14 +29,44 @@ import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1Content
 import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2Content
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
-import com.example.giraffenew.service_menu.presentation.NavRoutesService
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
-import kotlinx.coroutines.launch
-
 @Composable
-fun CoordinateProtectionScreen (){
+fun CoordinateProtectionScreen (
+    coordinateProtectionViewModule: CoordinateProtectionViewModule = hiltViewModel()
+){
+    // 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, coordinateProtectionViewModule) {
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("CoordinateProtectionScreen", "Lifecycle: ON_RESUME- resuming data collection")
+                    coordinateProtectionViewModule.setActiveConfiguration()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("CoordinateProtectionScreen", "Lifecycle: ON_PAUSE - pausing data collection")
+                    coordinateProtectionViewModule.clearActiveConfiguration()
+                }
+                else -> {Log.e("CoordinateProtectionScreen", "Lifecycle: NOT START")}
+            }
+        }
+
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("CoordinateProtectionScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            coordinateProtectionViewModule.clearActiveConfiguration() // Дополнительная очистка
+        }
+    }
+
+
     BasicSettingBackground()
 
     Column(
@@ -52,7 +75,12 @@ fun CoordinateProtectionScreen (){
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Box(modifier = Modifier.weight(1f)) {
-            CoordinateProtectionSetting()
+            CoordinateProtectionSetting(
+                onSetPosProtEn = {coordinateProtectionViewModule.onSetPosProtEn()},
+                currentPosProtEn = coordinateProtectionViewModule.state.value.currentPosProtEn,
+                onSetModePosProt = {coordinateProtectionViewModule.onSetModePosProt()},
+                currentModePosProt = coordinateProtectionViewModule.state.value.currentModePosProt
+            )
         }
         Box(modifier = Modifier.weight(7f)) {
             val navController = rememberNavController()

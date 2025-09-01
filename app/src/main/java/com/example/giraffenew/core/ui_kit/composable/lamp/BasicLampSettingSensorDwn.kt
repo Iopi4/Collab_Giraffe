@@ -31,10 +31,9 @@ fun BasicLampSettingSensorDwn(
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {
-            0 -> Color.Yellow
-            1 -> Color.Yellow
-            2 -> Color.Red
-            else -> colorResource(R.color.Emerald) // default color
+            0 -> colorResource(R.color.Lemon)
+            1 -> colorResource(R.color.Emerald)
+            else -> colorResource(R.color.Grey) // default color
         }
 
         Box(

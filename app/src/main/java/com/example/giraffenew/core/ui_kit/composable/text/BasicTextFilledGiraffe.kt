@@ -49,7 +49,7 @@ fun BasicTextFilledGiraffe (
 
     val colors = TextFieldDefaults.colors(
         unfocusedContainerColor = colorResource(R.color.Lavanda),
-        unfocusedTextColor = colorResource(R.color.Grew),
+        unfocusedTextColor = colorResource(R.color.Grey),
         focusedContainerColor  = colorResource(R.color.white),// цвет при получении фокуса
         focusedTextColor = colorResource(R.color.DarkGrew) // цвет при отсутствии фокуса
     )

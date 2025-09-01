@@ -160,7 +160,7 @@ class SettingSensorsViewModule
             //Статус теста ограничений подъема
             currentHoistStopDwn1 = cache[341] ?: 0,
             currentHoistStopUp1 = cache[342] ?: 0,
-            currentHoistDwnDwnSp1 = cache[342] ?: 0,
+            currentHoistDwnDwnSp1 = cache[343] ?: 0,
             currentHoistUpDwnSp1 = cache[344] ?: 0,
             //Статус теста ограничений Тележки
             currentTrolleyStopFwd1 = cache[345] ?: 0,
@@ -343,7 +343,7 @@ class SettingSensorsViewModule
         onSetHoistRevMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosRevStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueHoistPosRevStop.value, -99.0f, 999.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(807, model)
                 _errorMessageHoist.value = null
@@ -375,7 +375,7 @@ class SettingSensorsViewModule
     fun onSetValueHoistPosRevDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosRevDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueHoistPosRevDwnSp.value, -99.0f, 999.9f )
                 // Запись в регистры
                 modbusRepository.writeRegister(809, model)
                 _errorMessageHoist.value = null
@@ -558,7 +558,7 @@ class SettingSensorsViewModule
         onSetSlewCalcAngleMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewCalcAngle.value, 0.0f, 360.0f )
+                val model = validateAndConvert(_setValueSlewCalcAngle.value, 0, 360 )
                 // Запись в регистры
                 modbusRepository.writeRegister(816, model)
                 _errorMessageSlew.value = null
@@ -574,7 +574,7 @@ class SettingSensorsViewModule
     fun onSetValueSlewMaxAngle() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewMaxAngle.value, 0.0f, 9999.9f )
+                val model = validateAndConvert(_setValueSlewMaxAngle.value, 0, 1024 )
                 // Запись в регистры
                 modbusRepository.writeRegister(815, model)
                 _errorMessageHoist.value = null
@@ -629,11 +629,11 @@ class SettingSensorsViewModule
 
     //ДАТЧИК ПОВОРОТА. Обновление для UI
     fun updateValueSlewCalcAngle(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewCalcAngle.value = value } }
 
-    fun updateValueValueSlewMaxAngle(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,4}(\\.\\d{0,1})?$"))) {
+    fun updateValueSlewMaxAngle(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewMaxAngle.value = value } }
 
 

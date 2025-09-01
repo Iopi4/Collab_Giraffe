@@ -44,7 +44,7 @@ class SettingLoadCapacityViewModel
 
 
     private val addresses = listOf(
-        195, 197, 198, 314, 315, 316 // Регистры для считывания
+        195, 197, 198, 314, 199, 316 // Регистры для считывания
     )
 
     private val _state = mutableStateOf(LoadCapacityState())
@@ -119,7 +119,7 @@ class SettingLoadCapacityViewModel
         return LoadCapacityState(
             //ПАРАМЕТРЫ ГРУЗОВОЙ ХАРАКТЕРИСТИКИ
             currentGruzovayZapasovka = cache[316] ?: 0,
-            currentMaxWeight = safeDivideTens(cache[315] ?: 0),
+            currentMaxWeight = safeDivideTens(cache[199] ?: 0),
             currentMaxWeight2 = safeDivideTens(cache[195] ?: 0),
             currentCraneLenght = cache[197] ?: 0,
             //КАЛИБРОВКА ДАТЧИКА УСИЛИЯ
@@ -163,14 +163,14 @@ class SettingLoadCapacityViewModel
     }
 
     // ВЫБОР ГРУЗОВОЙ ХАРАКТЕРИСТИКИ ГХ_0..6
-    fun onSetCargoCharacteristic0() {
+    fun onSetCargoCharacteristic(index: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 Log.d("LoadCapacityViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(862, 0)
+                modbusRepository.writeRegister(862, index)
                 _errorMessageGH.value = null
                 _logMessageGH.value = "СОХРАНЕНО"
             } catch (e: Exception) {
@@ -179,102 +179,7 @@ class SettingLoadCapacityViewModel
             }
         }
     }
-    fun onSetCargoCharacteristic1() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 1)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
-    fun onSetCargoCharacteristic2() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 2)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
-    fun onSetCargoCharacteristic3() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 3)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
-    fun onSetCargoCharacteristic4() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 4)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
-    fun onSetCargoCharacteristic5() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 5)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
-    fun onSetCargoCharacteristic6() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(862, 6)
-                _errorMessageGH.value = null
-                _logMessageGH.value = "СОХРАНЕНО"
-            } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
-                _logMessageGH.value = null
-            }
-        }
-    }
+
 
 
     /**

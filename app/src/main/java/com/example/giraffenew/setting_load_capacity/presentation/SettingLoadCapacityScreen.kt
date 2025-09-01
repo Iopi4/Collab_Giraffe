@@ -64,13 +64,7 @@ fun SettingLoadCapacityScreen (
     ) {
         Box(modifier = Modifier.weight(5f)){
             ParametersLoadCapacity(
-                onSetCargoCharacteristic0 = { settingLoadCapacityViewModel.onSetCargoCharacteristic0()},
-                onSetCargoCharacteristic1 = { settingLoadCapacityViewModel.onSetCargoCharacteristic1()},
-                onSetCargoCharacteristic2 = { settingLoadCapacityViewModel.onSetCargoCharacteristic2()},
-                onSetCargoCharacteristic3 = { settingLoadCapacityViewModel.onSetCargoCharacteristic3()},
-                onSetCargoCharacteristic4 = { settingLoadCapacityViewModel.onSetCargoCharacteristic4()},
-                onSetCargoCharacteristic5 = { settingLoadCapacityViewModel.onSetCargoCharacteristic5()},
-                onSetCargoCharacteristic6 = { settingLoadCapacityViewModel.onSetCargoCharacteristic6()},
+                onSetCargoCharacteristic = { index -> settingLoadCapacityViewModel.onSetCargoCharacteristic(index)},
                 errorMessageGH = settingLoadCapacityViewModel.errorMessageGH.value,
                 logMessageGH = settingLoadCapacityViewModel.logMessageGH.value
             )

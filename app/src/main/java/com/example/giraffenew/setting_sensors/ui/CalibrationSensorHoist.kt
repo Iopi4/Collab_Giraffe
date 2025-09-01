@@ -28,6 +28,8 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsPar
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
+import com.example.giraffenew.setting_sensors.ui.text.BasicInputRowandTensButtonBelowZero
+import com.example.giraffenew.setting_sensors.ui.text.BasicTextFilledBelowZero
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -224,7 +226,7 @@ fun CalibrationSensorHoist(
                     modifier = Modifier
                         .weight(4f)
                 ) {
-                    BasicInputRowandTensButton(
+                    BasicInputRowandTensButtonBelowZero(
                         placeholder = "000.0",
                         value = setValueHoistPosRevDwnSp,
                         onValueChange = updateValueHoistPosRevDwnSp,
@@ -248,7 +250,7 @@ fun CalibrationSensorHoist(
                         .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicTextFilledBelowZero(
                         placeholder = "000.0",
                         value = setValueHoistPosRevStop,
                         onValueChange = updateValueHoistPosRevStop,
@@ -307,12 +309,10 @@ fun CalibrationSensorHoist(
 
 
 private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%10d", value)
 }
 
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%04.1f", value).replace(',', '.')
 }
 

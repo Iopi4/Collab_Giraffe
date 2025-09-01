@@ -119,24 +119,24 @@
 
     <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
     <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Up">Запомнить. Стоп вверх [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Down">Запомнить. Стоп вниз [м]</string>
-    <string name="SettingSensors_Text_Hoist_Decline_Up">Ввод. Сниж. скор. вверх [м]</string>
-    <string name="SettingSensors_Text_Hoist_Decline_Down">Ввод. Сниж. скор. вниз [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Up">(1) Запомн. Стоп вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Down">(2) Запомн. Стоп вниз [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Up">(3) Ввод. Сниж. скор. вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Down">(4) Ввод. Сниж. скор. вниз [м]</string>
 
 
     <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
     <string name="SettingSensors_Text_Trolley_Departure">Вылет тележки[м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Forward">Запомнить. Стоп вперед [м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Revers">Запомнить. Стоп назад [м]</string>
-    <string name="SettingSensors_Text_Trolley_Decline_Forward">Ввод. Сниж. скор. вперед [м]</string>
-    <string name="SettingSensors_Text_Trolley_Decline_Revers">Ввод. Сниж. скор. назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Forward">(1) Запомнить. Стоп вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Revers">(2) Запомнить. Стоп назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Decline_Forward">(4) Ввод. Сниж. скор. вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Decline_Revers">(3) Ввод. Сниж. скор. назад [м]</string>
 
     <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
     <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
-    <string name="SettingSensors_Text_Slewing_Installation_Zero">Запомнить. Установка 0 [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner">Запомнить. Tекущий угол [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">Запомнить. Макс. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Installation_Zero">(1) Запомн. Ноль [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner">(2) Запомн. Настр. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(3) Запомн. Макс. угол [град]</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>
@@ -174,21 +174,32 @@
     <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
     <string name="CoordinateProtection_Text_Activate_Protection">Зашита [вкл./выкл.]</string>
+    <string name="CoordinateProtection_Text_Protection_Status_On">вкл</string>
+    <string name="CoordinateProtection_Text_Protection_Status_Off">выкл</string>
+
     <string name="CoordinateProtection_Text_Protection_Mode">Режим защиты [груз/стрела]</string>
+    <string name="CoordinateProtection_Text_Protection_Mode_Boom">стрела</string>
+    <string name="CoordinateProtection_Text_Protection_Mode_Cargo">груз</string>
 
     <string name="CoordinateProtection_Text_Polygon_Activate">Активация полигона</string>
+    <string name="CoordinateProtection_Text_Polygon_Reset">Сбросить полигон (удерж. 3сек) </string>
     <string name="CoordinateProtection_Text_Number_Of_Points">Ввод. Количество точек [шт]</string>
     <string name="CoordinateProtection_Text_Height_Of_Polygon">Ввод. Высота полигона [м]</string>
     <string name="CoordinateProtection_Text_Allow_Work_At_Up">Разрешение. Работа вверху</string>
     <string name="CoordinateProtection_Text_Allow_Work_At_Down">Разрешение. Работа внизу</string>
 
     <string name="CoordinateProtection_Text_Point_Setting_Mode">Выбор режима задания точек.</string>
+    <string name="CoordinateProtection_Text_Point_Setting_Mode_HOOK">По умолчанию режим [ПО КРЮКУ]</string>
     <string name="CoordinateProtection_Text_Entering_Points_Coordinate">По координатам X - Y</string>
     <string name="CoordinateProtection_Text_Entering_Points_Trolley">Ручной ввод</string>
     <string name="CoordinateProtection_Text_Coordinate">Настройка точек полигона</string>
     <string name="CoordinateProtection_Text_Mode">Режим</string>
 
-    <string name="CoordinateProtection_Text_Status">Статус активации полигона</string>
+    <string name="CoordinateProtection_Text_Polygon_Status">Статус активации полигона</string>
+    <string name="CoordinateProtection_Text_Polygon_Status_Not_Select">Не выбран</string>
+    <string name="CoordinateProtection_Text_Polygon_Status_Activate">Активен</string>
+    <string name="CoordinateProtection_Text_Polygon_Status_Few_Points">Используется мало точек</string>
+    <string name="CoordinateProtection_Text_Polygon_Status_Settings_Not_Completed">Настройки не завершены</string>
 
     <string name="CoordinateProtection_Text_Setting_Points_Polygon_Position">Задание точек по вылету</string>
     <string name="CoordinateProtection_Text_Setting_Points_Polygon_Coordinate">Задание точек по координатам</string>
@@ -200,6 +211,8 @@
     <string name="CoordinateProtection_Text_Crane">Ход крана [м]</string>
     <string name="CoordinateProtection_Coordinate_Point_X">Координата точки X [м]</string>
     <string name="CoordinateProtection_Coordinate_Point_Y">Координата точки Y [м]</string>
+    <string name="CoordinateProtection_Coordinate_X">X</string>
+    <string name="CoordinateProtection_Coordinate_Y">Y</string>
 
     <string name="CoordinateProtection_Text_Entering_Points_1">Задать точку 1</string>
     <string name="CoordinateProtection_Text_Entering_Points_2">Задать точку 2</string>

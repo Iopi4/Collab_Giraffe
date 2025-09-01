@@ -80,7 +80,7 @@ fun BasicParameterScaleVerticalPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
         BasicParameterScaleVertical(
                 currentValue = 0f,
-                minValue = 0f,
+                minValue = -0f,
                 maxValue = 0f,
                 modifier = Modifier
                     .size(width = 10.dp, height = 200.dp)

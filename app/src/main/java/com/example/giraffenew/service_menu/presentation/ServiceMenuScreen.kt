@@ -34,8 +34,6 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun ServiceMenuScreen(
-    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel(), // Получаем ViewModel для ServiceMenuScreen
-
 ){
 
     BasicSettingBackground()

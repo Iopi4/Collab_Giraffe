@@ -11,8 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.giraffenew.R
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Grew
 import com.example.giraffenew.ui.theme.Grew_50_percent
@@ -26,9 +28,9 @@ fun BasicLampError(
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {
-            0 -> Color.Green
-            1 -> Color.Red
-            else -> Color.Green // default color
+            0 -> colorResource(R.color.Emerald)
+            1 -> colorResource(R.color.Red)
+            else -> colorResource(R.color.Emerald) // default color
         }
 
         Box(
