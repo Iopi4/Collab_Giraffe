@@ -38,7 +38,6 @@ fun BasicTextFilledBelowZero (
     value: String,
     onValueChange: (String) -> Unit,
     isDecimal: Boolean = false,
-    modifier: Modifier
 
     ){  val interactionSource = remember { MutableInteractionSource() }
 
@@ -68,7 +67,7 @@ fun BasicTextFilledBelowZero (
             value = value, //value: представляет введенное в текстовое поле значение в виде строки, объекта String
             onValueChange = { newValue ->
                 if (isDecimal) {
-                    if (newValue.isEmpty() || newValue.matches(Regex("^\\d{0,4}(\\.\\d{0,1})?$"))) {
+                    if (newValue.isEmpty() || newValue.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
                         onValueChange(newValue)
                     }
                 } else {
@@ -125,7 +124,6 @@ fun BasicTextFilledBelowZeroPreview (){
         BasicTextFilledBelowZero(
             placeholder = "Value",
             onValueChange = { },
-            modifier = Modifier,
             value = ""
         )
     }

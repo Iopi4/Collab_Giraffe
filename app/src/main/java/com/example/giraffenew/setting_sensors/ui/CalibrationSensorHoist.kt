@@ -151,7 +151,7 @@ fun CalibrationSensorHoist(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = formatDecimal(currentHoistPosition)
+                    valueParameterId = formatDecimalMinus(currentHoistPosition)
                 )
             }
 
@@ -254,7 +254,7 @@ fun CalibrationSensorHoist(
                         placeholder = "000.0",
                         value = setValueHoistPosRevStop,
                         onValueChange = updateValueHoistPosRevStop,
-                        modifier = Modifier,
+                        isDecimal = true
                     )
                 }
                 //Кнопка ввода
@@ -307,6 +307,7 @@ fun CalibrationSensorHoist(
     }
 }
 
+private val VIRTUAL_ZERO: Float = 32250f //Константа для виртуального нуля. Необходимо для корретной высоты подъема
 
 private fun format(value: Int): String {
     return String.format("%10d", value)
@@ -314,6 +315,14 @@ private fun format(value: Int): String {
 
 private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
+}
+private fun formatDecimalMinus(value: Float): String {
+    val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
+    return if (realValue < 0) {
+        String.format("%05.1f", realValue).replace(',', '.')
+    } else {
+        String.format("%04.1f", realValue).replace(',', '.')
+    }
 }
 
 private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {

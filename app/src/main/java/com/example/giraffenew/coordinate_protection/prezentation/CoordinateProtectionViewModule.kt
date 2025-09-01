@@ -71,13 +71,6 @@ class CoordinateProtectionViewModule
     private val _setValuePolygon2PyPos = mutableStateOf("")
     val setValuePolygon2PyPos: State<String> = _setValuePolygon2PyPos
 
-
-    private val _errorMessage = mutableStateOf<String?>(null)
-    val errorMessage: State<String?> = _errorMessage
-
-    private val _logMessage = mutableStateOf<String?>(null)
-    val logMessage: State<String?> = _logMessage
-
     private val _errorMessagePolygon1 = mutableStateOf<String?>(null)
     val errorMessagePolygon1: State<String?> = _errorMessagePolygon1
 
@@ -122,7 +115,7 @@ class CoordinateProtectionViewModule
     // Регистры для считывания. Те на которые подписываемся
     private val addresses = listOf(
         610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629,
-        630, 631, 632, 633, 155, 158, 162,
+        630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 155, 158, 162,
         1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019,
         1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039,
         1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059,
@@ -211,8 +204,15 @@ class CoordinateProtectionViewModule
             currentP4PointNum = cache[627] ?: 0,
             currentP4PointType = cache[633] ?: 0,
 
-            currentPol12EnStatus = cache[628] ?: 0,
-            currentPol34EnStatus = cache[629] ?: 0,
+            currentP1FewPoint       = cache[628] ?: 0,
+            currentP1ActiveStatus    = cache[629] ?: 0,
+            currentP2FewPoint       = cache[634] ?: 0,
+            currentP2ActiveStatus    = cache[335] ?: 0,
+            currentP3FewPoint       = cache[636] ?: 0,
+            currentP3ActiveStatus    = cache[637] ?: 0,
+            currentP4FewPoint       = cache[638] ?: 0,
+            currentP4ActiveStatus     = cache[639] ?: 0,
+            currentStatsCalibration = cache[640] ?: 0,
 
             //Координаты точек. ПОЛИГОН №1
             Polygon1PointX01 = safeDivideTens(cache[1000] ?: 0),
@@ -344,8 +344,18 @@ class CoordinateProtectionViewModule
         val currentP4PointNum: Int = 0,
         val currentP4PointType: Int = 0,
 
-        val currentPol12EnStatus: Int = 0,
-        val currentPol34EnStatus: Int = 0,
+        val currentP1FewPoint: Int = 0,
+        val currentP1ActiveStatus: Int = 0,
+        val currentP2FewPoint: Int = 0,
+        val currentP2ActiveStatus: Int = 0,
+        val currentP3FewPoint: Int = 0,
+        val currentP3ActiveStatus: Int = 0,
+        val currentP4FewPoint: Int = 0,
+        val currentP4ActiveStatus: Int = 0,
+        val currentStatsCalibration: Int = 0,
+
+
+
         //ПЕРЕМЕННЫЕ КООРДИНАТЫ ТОЧЕК ПОЛИГОНА №1
         val Polygon1PointX01: Float = 0f,
         val Polygon1PointX02: Float = 0f,

@@ -1,15 +1,12 @@
 package com.example.giraffenew.home.ui
 
-import android.text.Highlights
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,20 +14,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizon
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
-import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
-import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
-import kotlin.Int
 
 @Composable
 fun CraneParameterScale(
@@ -87,7 +78,7 @@ fun CraneParameterScale(
             .padding(start = 170.dp, end = 50.dp, top = 137.dp))
         //Значение максимальной высоты подъема
         BasicParametersText(
-            formatDecimal(hoistMaxPosition),
+            formatDecimalMinus(hoistMaxPosition),
             modifier = Modifier
                 .padding(start = 135.dp, end = 50.dp, top = 147.dp))
         //Шкала
@@ -129,10 +120,19 @@ fun CraneParameterScale(
     }
 
 }
+private val VIRTUAL_ZERO: Float = 32250f //Константа для виртуального нуля. Необходимо для корретной высоты подъема
 
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatDecimalMinus(value: Float): String {
+    val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
+    return if (realValue < 0) {
+        String.format("%05.1f", realValue).replace(',', '.')
+    } else {
+        String.format("%04.1f", realValue).replace(',', '.')
+    }
 }
 
 @Preview
@@ -142,7 +142,7 @@ fun CraneParameterScalePreview (){
         CraneParameterScale(
             weightPercent= 80f,
             hoistPosition = 30f,
-            hoistMaxPosition= 60f,
+            hoistMaxPosition= 32850f,
             hoistMinPosition= -5f,
             cranePosition = 20f,
             craneMaxPosition= 40f,

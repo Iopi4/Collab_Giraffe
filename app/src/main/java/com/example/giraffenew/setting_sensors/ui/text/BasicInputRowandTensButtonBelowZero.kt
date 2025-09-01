@@ -35,7 +35,6 @@ fun BasicInputRowandTensButtonBelowZero(
                 value = value,
                 onValueChange = onValueChange,
                 isDecimal = isDecimal,
-                modifier = Modifier
             )
         }
 

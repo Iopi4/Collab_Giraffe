@@ -56,7 +56,7 @@ fun СraneOperatingParameters(
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
             title = stringResource(R.string.Home_Height),
-            valueFirst = formatDecimal(heightCurrent),
+            valueFirst = formatDecimalMinus(heightCurrent),
             valueSecond = ""
         ) }
 
@@ -84,9 +84,18 @@ fun СraneOperatingParameters(
     }
 }
 
-private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
+private val VIRTUAL_ZERO: Float = 32250f //Константа для виртуального нуля. Необходимо для корретной высоты подъема
+private fun formatDecimal(value: Float): String {//return String.format("%.1f", value).padStart(5, '0')
     return String.format("%05.1f", value).replace(',', '.')
+}
+
+private fun formatDecimalMinus(value: Float): String {
+    val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
+    return if (realValue < 0) {
+        String.format("%05.1f", realValue).replace(',', '.')
+    } else {
+        String.format("%04.1f", realValue).replace(',', '.')
+    }
 }
 
 private fun formatVoltage(value: Float): String {

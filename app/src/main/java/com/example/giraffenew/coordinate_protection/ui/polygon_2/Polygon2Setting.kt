@@ -24,16 +24,14 @@ import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonOnOffSt
 import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonPolygonReset
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType1Status
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType2Status
-import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatus
+import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusCalibration
+import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusFewPoint
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
-import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -64,7 +62,9 @@ fun Polygon2Setting(
     onSetP2Type2En: () -> Unit,
     currentP2PointType: Int,
 
-    currentPol12EnStatus: Int,
+    currentP2FewPoint: Int,
+    currentP2ActiveStatus: Int,
+    currentStatsCalibration: Int,
 
     errorMessagePolygon2: String?,
     logMessagePolygon2: String?,
@@ -152,7 +152,7 @@ fun Polygon2Setting(
 //Поле активации полигона
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetP2En,
-                isLampStatus = currentPol12EnStatus
+                isLampStatus = currentP2ActiveStatus
             )
 
 //Ввод. Количество точек полигона
@@ -237,12 +237,21 @@ fun Polygon2Setting(
             //3.Настройки не завершены – многоугольник не активирован
             Box(modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicTextPolygonSettingStatus(
-                    modifier = Modifier,
-                    valueParameterId = currentPol12EnStatus
-                )
+                Box(){
+                    BasicTextPolygonSettingStatusFewPoint(
+                        modifier = Modifier,
+                        valueParameterId = currentP2FewPoint,
+                        isVisibility = currentStatsCalibration
+                    )
+                }
+                Box(){
+                    BasicTextPolygonSettingStatusCalibration(
+                        modifier = Modifier,
+                        isVisibility = currentStatsCalibration
+                    )
+                }
             }
-            Spacer(modifier = Modifier.size(30.dp))
+            Spacer(modifier = Modifier.size(10.dp))
 
             BasicButtonPolygonReset (
                 modifier = Modifier,
@@ -297,7 +306,9 @@ fun Polygon2Preview (){
             onSetP2Type2En = {},
             currentP2PointType = 1,
 
-            currentPol12EnStatus = 1,
+            currentP2FewPoint = 1,
+            currentP2ActiveStatus  = 1,
+            currentStatsCalibration  = 1,
 
             errorMessagePolygon2 = null,
             logMessagePolygon2 = null,

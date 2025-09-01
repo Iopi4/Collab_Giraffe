@@ -98,7 +98,10 @@ fun Polygon2Content(
                 onSetP2Type2En = {coordinateProtectionViewModule.onSetP2Type2En()},
                 currentP2PointType = coordinateProtectionViewModule.state.value.currentP2PointType,
 
-                currentPol12EnStatus = coordinateProtectionViewModule.state.value.currentPol12EnStatus,
+                currentP2FewPoint = coordinateProtectionViewModule.state.value.currentP2FewPoint,
+                currentP2ActiveStatus = coordinateProtectionViewModule.state.value.currentP2ActiveStatus,
+                currentStatsCalibration = coordinateProtectionViewModule.state.value.currentStatsCalibration,
+
                 errorMessagePolygon2 = coordinateProtectionViewModule.errorMessagePolygon2.value,
                 logMessagePolygon2 = coordinateProtectionViewModule.logMessagePolygon2.value,
                 logMessagePolygon2Reset = coordinateProtectionViewModule.logMessagePolygon2Reset.value

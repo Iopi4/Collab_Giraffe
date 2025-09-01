@@ -23,6 +23,8 @@ class SettingSensorsViewModule
 ): ViewModel(
 
 ){
+    private val VIRTUAL_ZERO = 32250 //Константа для виртуального нуля. Необходимо для корретной высоты подъема
+
     //Параметры настройки датчика высоты крюка
     private val _setValueHoistPosFwdStop = mutableStateOf("")
     val setValueHoistPosFwdStop: State<String> = _setValueHoistPosFwdStop
@@ -77,6 +79,7 @@ class SettingSensorsViewModule
 
     private val _logMessageTrolley = mutableStateOf<String?>(null)
     val logMessageTrolley: State<String?> = _logMessageTrolley
+
 
 
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
@@ -343,8 +346,11 @@ class SettingSensorsViewModule
         onSetHoistRevMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosRevStop.value, -99.0f, 999.9f )
-                // Запись в регистры
+                val floatValue = _setValueHoistPosRevStop.value.toFloatOrNull()
+                    ?: throw NumberFormatException("Некорректное число")
+                if (floatValue < -5.0f || floatValue > 999.9f) throw IllegalArgumentException("Значение вне диапазона")
+
+                val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
                 modbusRepository.writeRegister(807, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
@@ -375,8 +381,11 @@ class SettingSensorsViewModule
     fun onSetValueHoistPosRevDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosRevDwnSp.value, -99.0f, 999.9f )
-                // Запись в регистры
+                val floatValue = _setValueHoistPosRevDwnSp.value.toFloatOrNull()
+                    ?: throw NumberFormatException("Некорректное число")
+                if (floatValue < -5.0f || floatValue > 999.9f) throw IllegalArgumentException("Значение вне диапазона")
+
+                val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
                 modbusRepository.writeRegister(809, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
@@ -596,7 +605,7 @@ class SettingSensorsViewModule
             _setValueHoistPosFwdStop.value = value } }
 
     fun updateValueHoistPosRevStop(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+        if (value.isEmpty() || value.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueHoistPosRevStop.value = value } }
 
     fun updateValueHoistPosFwdDwnSp(value: String) {
@@ -604,7 +613,7 @@ class SettingSensorsViewModule
             _setValueHoistPosFwdDwnSp.value = value } }
 
     fun updateValueHoistPosRevDwnSp(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+        if (value.isEmpty() || value.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueHoistPosRevDwnSp.value = value } }
 
 

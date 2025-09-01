@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -24,37 +25,31 @@ import com.example.giraffenew.R
 
 
 @Composable
-fun BasicTextPolygonSettingStatus(
+fun BasicTextPolygonSettingStatusFewPoint(
     modifier: Modifier,
     valueParameterId: Int,
+    isVisibility: Int,
 ){
     val textStatus: String = when (valueParameterId) {
         0 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Settings_Not_Completed)
-        64 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Few_Points)
-        256 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Activate)
-        512 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Activate)
-        else -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Not_Select)
+        1 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Few_Points)
+        else -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Settings_Not_Completed)
     }
 
     val backgroundColor = when (valueParameterId) {
-        0 -> colorResource(R.color.Orange_50_percent)
-        32 -> Color.Red.copy(alpha = 0.8f)
-        64 -> Color.Yellow.copy(alpha = 0.8f)
-        256 -> colorResource(R.color.Emerald)
-        512 -> colorResource(R.color.Emerald)
-        else -> colorResource(R.color.Orange_50_percent) // default color
+        0 -> Color.Red.copy(alpha = 0.8f)
+        1 -> Color.Yellow.copy(alpha = 0.8f)
+        else -> Color.Red.copy(alpha = 0.8f) // default color
     }
 
     val textColor = when (valueParameterId) {
-        0 -> colorResource(R.color.DarkGrew)
-        32 -> Color.White
-        64 -> colorResource(R.color.DarkGrew)
-        256 -> colorResource(R.color.DarkGrew)
-        512 -> colorResource(R.color.DarkGrew)
-        else -> colorResource(R.color.DarkGrew) // default color
+        0 -> Color.White
+        1 -> colorResource(R.color.DarkGrew)
+        else -> Color.White // default color
     }
 
     val myBoxVisualValuesModifier = Modifier
+        .alpha(if (isVisibility == 1) 0f else 1f)
         .clip(shape = RoundedCornerShape(5.dp))
         .background(backgroundColor)
         .fillMaxWidth()
@@ -83,10 +78,11 @@ fun BasicTextPolygonSettingStatus(
 
 @Preview
 @Composable
-fun BasicTextPolygonSettingStatusPreview (){
+fun BasicTextPolygonSettingStatusFewPointPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
-        BasicTextPolygonSettingStatus(
-            valueParameterId = 512,
+        BasicTextPolygonSettingStatusFewPoint(
+            valueParameterId = 1,
+            isVisibility = 0,
             modifier = Modifier
         )
     }

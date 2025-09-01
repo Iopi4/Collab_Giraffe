@@ -24,7 +24,8 @@ import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonOnOffSt
 import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonPolygonReset
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType1Status
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType2Status
-import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatus
+import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusFewPoint
+import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusCalibration
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -61,7 +62,9 @@ fun Polygon1Setting(
     onSetP1Type2En: () -> Unit,
     currentP1PointType: Int,
 
-    currentPol12EnStatus: Int,
+    currentP1FewPoint: Int,
+    currentP1ActiveStatus: Int,
+    currentStatsCalibration: Int,
 
     errorMessagePolygon1: String?,
     logMessagePolygon1: String?,
@@ -154,7 +157,7 @@ fun Polygon1Setting(
 //Поле активации полигона
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetP1En,
-                isLampStatus = currentPol12EnStatus
+                isLampStatus = currentP1ActiveStatus
             )
 
 //Ввод. Количество точек полигона
@@ -240,12 +243,21 @@ fun Polygon1Setting(
             //3.Настройки не завершены – многоугольник не активирован
             Box(modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicTextPolygonSettingStatus(
-                    modifier = Modifier,
-                    valueParameterId = currentPol12EnStatus
-                )
+                Box(){
+                    BasicTextPolygonSettingStatusFewPoint(
+                        modifier = Modifier,
+                        valueParameterId = currentP1FewPoint,
+                        isVisibility = currentStatsCalibration
+                    )
+                }
+                Box(){
+                    BasicTextPolygonSettingStatusCalibration(
+                        modifier = Modifier,
+                        isVisibility = currentStatsCalibration
+                    )
+                }
             }
-            Spacer(modifier = Modifier.size(30.dp))
+            Spacer(modifier = Modifier.size(10.dp))
 
             BasicButtonPolygonReset (
                 modifier = Modifier,
@@ -299,7 +311,9 @@ fun Polygon1Preview (){
             onSetP1Type2En = {},
             currentP1PointType = 1,
 
-            currentPol12EnStatus = 1,
+            currentP1FewPoint = 1,
+            currentP1ActiveStatus  = 1,
+            currentStatsCalibration  = 1,
 
             errorMessagePolygon1 = null,
             logMessagePolygon1 = null,

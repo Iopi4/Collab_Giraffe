@@ -372,13 +372,21 @@ object UICoordinateProtectionConfiguration {
         RegisterInfo(626, "HMI_P4_Height_MW", "WORD16", "Высота полигона 4"),
         RegisterInfo(627, "HMI_P4_Point_Num_MW", "WORD16", "Кол-во точек полигона 4"),
 
-        RegisterInfo(628, "HMI_Pol_En_Status_MW", "WORD16", "Статус активации полигонов 1 и 2"),
-        RegisterInfo(629, "HMI_Pol_En_Status_3_4_MW", "WORD16", "Статус активации полигонов 3 и 4"),
-
         RegisterInfo(630, "HMI_P1_Curr_Type_MW", "WORD16", "Тип ввода точек полигона 1"),
         RegisterInfo(631, "HMI_P2_Curr_Type_MW", "WORD16", "Тип ввода точек полигона 2"),
         RegisterInfo(632, "HMI_P3_Curr_Type_MW", "WORD16", "Тип ввода точек полигона 3"),
         RegisterInfo(633, "HMI_P4_Curr_Type_MW", "WORD16", "Тип ввода точек полигона 4"),
+
+        RegisterInfo(628, "HMI_P1_Few_Point_MW", "WORD16", "Статус 1 полигона. 0-ок. 1-Мало точек"),
+        RegisterInfo(629, "HMI_P1_Activ_Stat_MW", "WORD16", "Статус 1 полигона. О-не актив. 1 - Актив."),
+        RegisterInfo(634, "HMI_P2_Few_Point_MW", "WORD16", "Статус 2 полигона. 0-ок 1-Мало точек."),
+        RegisterInfo(635, "HMI_P2_Activ_Stat_MW", "WORD16", "Статус 2 полигона. О-не актив. 1 - Актив."),
+        RegisterInfo(636, "HMI_P3_Few_Point_MW", "WORD16", "Статус 3 полигона. 0-ок 1-Мало точек"),
+        RegisterInfo(637, "HMI_P3_Activ_Stat_MW", "WORD16", "Статус 3 полигона. О-не актив. 1 - Актив."),
+        RegisterInfo(638, "HMI_P4_Few_Point_MW", "WORD16", "Статус 4 полигона. 0-ок 1-Мало точек."),
+        RegisterInfo(639, "HMI_P4_Activ_Stat_MW", "WORD16", "Статус 4 полигона. О-не актив. 1 - Актив."),
+        RegisterInfo(640, "HMI_Stats_Calibration_MW", "WORD16", "Статус калибровки полигонов. 1-Откалиброваны. 0- Нет."),
+
 
         //Данные параметров настройки полигонов.
         RegisterInfo(891, "HMI_Write_Pos_Prot_En_MW", "WORD16", "Активировать координатую защиту. (Тумблер по входному биту)"),
