@@ -675,26 +675,19 @@ class CoordinateProtectionViewModule
     }
 
     // НАСТРОЙКА. ПОЛИГОН №1.  СБРОСИТЬ ПЕРВЫЙ ПОЛИГОН
-    private var resetJobPolygon1: Job? = null
     fun startResetPolygon1() {
-        resetJobPolygon1 = viewModelScope.launch (Dispatchers.IO) {
-            delay(3000) // Ждем 3 секунды
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                //if (!isActive) return@launch // Проверка активности ViewModel
+                if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 modbusRepository.writeRegister(900, 1)
                 delay(200)
                 modbusRepository.writeRegister(900, 0)
-                _logMessagePolygon1Reset.value = "Сброшено"
             } catch (e: Exception) {
-                _logMessagePolygon1Reset.value = "Не удалось"
             }
         }
     }
-    fun cancelResetPolygon1() {
-        resetJobPolygon1?.cancel()
-        resetJobPolygon1 = null
-    }
+
 
     //ПОЛИГОН №1. Обновление для UI
     fun updateValuePolygon1Height(value: String) {
@@ -915,25 +908,17 @@ class CoordinateProtectionViewModule
     }
 
     // НАСТРОЙКА. ПОЛИГОН №2.  СБРОСИТЬ ВТОРОЙ ПОЛИГОН
-    private var resetJobPolygon2: Job? = null
     fun startResetPolygon2() {
-        resetJobPolygon2 = viewModelScope.launch (Dispatchers.IO) {
-            delay(3000) // Ждем 3 секунды
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                //if (!isActive) return@launch // Проверка активности ViewModel
+                if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(900, 1)
+                modbusRepository.writeRegister(910, 1)
                 delay(200)
-                modbusRepository.writeRegister(900, 0)
-                _logMessagePolygon1Reset.value = "Сброшено"
+                modbusRepository.writeRegister(910, 0)
             } catch (e: Exception) {
-                _logMessagePolygon1Reset.value = "Не удалось"
             }
         }
-    }
-    fun cancelResetPolygon2() {
-        resetJobPolygon2?.cancel()
-        resetJobPolygon2 = null
     }
 
     //ПОЛИГОН №2. Обновление для UI

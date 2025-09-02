@@ -40,7 +40,6 @@ import com.example.giraffenew.ui.theme.Orange
 fun Polygon2Setting(
     onSetP2En: () -> Unit,
     onStartResetPolygon2: () -> Unit, // Новый параметр
-    onCancelResetPolygon2: () -> Unit, // Новый параметр
 
     setValuePolygon2PointNum: String,
     updateValuePolygon2PointNum: (String) -> Unit,
@@ -237,27 +236,18 @@ fun Polygon2Setting(
             //3.Настройки не завершены – многоугольник не активирован
             Box(modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                Box(){
-                    BasicTextPolygonSettingStatusFewPoint(
-                        modifier = Modifier,
-                        valueParameterId = currentP2FewPoint,
-                        isVisibility = currentStatsCalibration
-                    )
-                }
-                Box(){
-                    BasicTextPolygonSettingStatusCalibration(
-                        modifier = Modifier,
-                        isVisibility = currentStatsCalibration
-                    )
-                }
+                BasicTextPolygonSettingStatusCalibration(
+                    modifier = Modifier,
+                    valueParameterId = currentStatsCalibration
+                )
+
             }
             Spacer(modifier = Modifier.size(10.dp))
 
             BasicButtonPolygonReset (
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,
-                onStartReset = onStartResetPolygon2,
-                onCancelReset = onCancelResetPolygon2
+                onClick = onStartResetPolygon2,
             )
             // Отступ  и Статус записи данных вылета, поворота и хода
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -284,7 +274,6 @@ fun Polygon2Preview (){
         Polygon2Setting(
             onSetP2En = { },
             onStartResetPolygon2 = { },
-            onCancelResetPolygon2 = { },
 
             setValuePolygon2PointNum = "1",
             updateValuePolygon2PointNum = { },

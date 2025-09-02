@@ -14,13 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,36 +34,38 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 fun BasicButtonPolygonReset(
     modifier: Modifier = Modifier,
     text: Int,
-    onStartReset: () -> Unit,
-    onCancelReset: () -> Unit,
-    ) {
+    onClick: () -> Unit,
+) {
+    var isPressed by remember { mutableStateOf(false) }
+
     Box(modifier = modifier
         .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
         .fillMaxWidth()
         .pointerInput(Unit) {
-            detectTapGestures(
-                onPress = {
-                    onStartReset()
-                    tryAwaitRelease()
-                    onCancelReset()
-                }
-            )
-        }){
+        detectTapGestures(
+            onPress = {
+                isPressed = true
+                onClick()
+                tryAwaitRelease()
+                isPressed = false
+                // НЕ вызываем onCancelReset() здесь!
+            }
+        )
+    }){
         Button(
             modifier = Modifier
                 .size(width = 400.dp, height = 30.dp),
-            onClick = {},
+            onClick = onClick,
             contentPadding = PaddingValues(2.dp),
             shape = RoundedCornerShape(5.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Red.copy(alpha = 0.5f),
+                containerColor = if (isPressed) Color.Red else Color.Red.copy(alpha = 0.5f),
                 contentColor = Color.White),
         ) {
             Text( text = stringResource(id = text), fontSize = 19.sp, fontWeight = FontWeight.Bold)
         }
     }
-
 }
 
 @Preview
@@ -74,8 +74,7 @@ fun BasicButtonPolygonResetPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         BasicButtonPolygonReset(
             text = R.string.nul,
-            onStartReset={},
-            onCancelReset = {},
+            onClick = { },
         )
     }
 }

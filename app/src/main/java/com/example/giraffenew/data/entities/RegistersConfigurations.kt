@@ -385,7 +385,7 @@ object UICoordinateProtectionConfiguration {
         RegisterInfo(637, "HMI_P3_Activ_Stat_MW", "WORD16", "Статус 3 полигона. О-не актив. 1 - Актив."),
         RegisterInfo(638, "HMI_P4_Few_Point_MW", "WORD16", "Статус 4 полигона. 0-ок 1-Мало точек."),
         RegisterInfo(639, "HMI_P4_Activ_Stat_MW", "WORD16", "Статус 4 полигона. О-не актив. 1 - Актив."),
-        RegisterInfo(640, "HMI_Stats_Calibration_MW", "WORD16", "Статус калибровки полигонов. 1-Откалиброваны. 0- Нет."),
+        RegisterInfo(640, "HMI_Stats_Calibration_MW", "WORD16", "Статус настройки полигонов. 1-Настроен. 0- Нет."),
 
 
         //Данные параметров настройки полигонов.

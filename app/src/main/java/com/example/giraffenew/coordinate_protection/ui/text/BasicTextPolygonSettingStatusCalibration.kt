@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,12 +27,29 @@ import com.example.giraffenew.R
 @Composable
 fun BasicTextPolygonSettingStatusCalibration(
     modifier: Modifier,
-    isVisibility: Int,
+    valueParameterId: Int,
 ){
+    val textStatus: String = when (valueParameterId) {
+        0 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Sensors_Not_Configured)
+        1 -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Sensors_Configured)
+        else -> stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Sensors_Not_Configured)
+    }
+
+    val backgroundColor = when (valueParameterId) {
+        0 -> Color.Red.copy(alpha = 0.8f)
+        1 -> colorResource(R.color.Emerald)
+        else -> Color.Red.copy(alpha = 0.8f) // default color
+    }
+
+    val textColor = when (valueParameterId) {
+        0 -> Color.White
+        1 -> colorResource(R.color.DarkGrew)
+        else -> Color.White // default color
+    }
+
     val myBoxVisualValuesModifier = Modifier
-        .alpha(if (isVisibility == 1) 1f else 0f)
         .clip(shape = RoundedCornerShape(5.dp))
-        .background(colorResource(R.color.Emerald))
+        .background(backgroundColor)
         .fillMaxWidth()
         .border(
             width = 2.dp,
@@ -43,9 +61,9 @@ fun BasicTextPolygonSettingStatusCalibration(
         Text(modifier = modifier
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp, top = 5.dp,bottom = 5.dp),
-            text = stringResource(R.string.CoordinateProtection_Text_Polygon_Status_Activate),
+            text = textStatus,
             fontSize = 19.sp, fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center, color = colorResource(R.color.DarkGrew)
+            textAlign = TextAlign.Center, color = textColor
         )
     }
 
@@ -60,7 +78,7 @@ fun BasicTextPolygonSettingStatusActivatePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         BasicTextPolygonSettingStatusCalibration(
             modifier = Modifier,
-            isVisibility = 1,
+            valueParameterId = 1,
         )
     }
 }

@@ -76,7 +76,6 @@ fun Polygon1Content(
             { Polygon1Setting(
                 onSetP1En = { coordinateProtectionViewModule.onSetP1En() },
                 onStartResetPolygon1 = {coordinateProtectionViewModule.startResetPolygon1()},
-                onCancelResetPolygon1 = {coordinateProtectionViewModule.cancelResetPolygon1()},
 
                 setValuePolygon1PointNum = coordinateProtectionViewModule.setValuePolygon1PointNum.value,
                 updateValuePolygon1PointNum = { coordinateProtectionViewModule.updateValuePolygon1PointNum(it) },

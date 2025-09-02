@@ -40,7 +40,6 @@ import com.example.giraffenew.ui.theme.Orange
 fun Polygon1Setting(
     onSetP1En: () -> Unit,
     onStartResetPolygon1: () -> Unit, // Новый параметр
-    onCancelResetPolygon1: () -> Unit, // Новый параметр
 
     setValuePolygon1PointNum: String,
     updateValuePolygon1PointNum: (String) -> Unit,
@@ -238,32 +237,22 @@ fun Polygon1Setting(
             Spacer(modifier = Modifier.size(25.dp))
 
 //Статус активации/настройки полигона
-            //1.Многоугольник активирован – успешная активация)
-            //2.Используется мало точек – многоугольник не активирован, если введено менее трех точек многоугольника
-            //3.Настройки не завершены – многоугольник не активирован
+            //0.Датчики положения не настроены
+            //1.Датчики положения настроены
             Box(modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                Box(){
-                    BasicTextPolygonSettingStatusFewPoint(
-                        modifier = Modifier,
-                        valueParameterId = currentP1FewPoint,
-                        isVisibility = currentStatsCalibration
-                    )
-                }
-                Box(){
-                    BasicTextPolygonSettingStatusCalibration(
-                        modifier = Modifier,
-                        isVisibility = currentStatsCalibration
-                    )
-                }
+                BasicTextPolygonSettingStatusCalibration(
+                    modifier = Modifier,
+                    valueParameterId = currentStatsCalibration
+                )
+
             }
             Spacer(modifier = Modifier.size(10.dp))
 
             BasicButtonPolygonReset (
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,
-                onStartReset = onStartResetPolygon1,
-                onCancelReset = onCancelResetPolygon1
+                onClick = onStartResetPolygon1,
             )
             // Отступ  и Статус записи данных вылета, поворота и хода
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -289,7 +278,6 @@ fun Polygon1Preview (){
         Polygon1Setting(
             onSetP1En = { },
             onStartResetPolygon1 = { },
-            onCancelResetPolygon1 = { },
 
             setValuePolygon1PointNum = "1",
             updateValuePolygon1PointNum = { },
