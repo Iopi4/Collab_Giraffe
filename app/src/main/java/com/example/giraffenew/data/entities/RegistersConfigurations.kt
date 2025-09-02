@@ -45,7 +45,6 @@ object RegistersConfigurations {
  */
 object TopBarRegisterConfiguration {
     const val NAME_TOP_BAR = "TopBar_configuration"
-
     val REGISTERS = listOf(
         RegisterInfo(90, "gv_wYear_MW", "WORD16", "Год"),
         RegisterInfo(91, "gv_wMonth_MW", "WORD16", "Месяц"),
@@ -78,7 +77,6 @@ object TopBarRegisterConfiguration {
  */
 object UiHomeScreenRegisterConfiguration {
     const val NAME_HOME = "ui_configuration_HomeScreen"
-
     val REGISTERS = listOf(
         //addressesCraneOperatingParameters
         RegisterInfo(152, "Qnom_MW", "WORD16", "Номинальная грузоподъемность в кг"),
@@ -117,7 +115,10 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(334, "HMI_EM_Vihod_7_Hoist_Up_MW", "WORD16", "Статус выхода из полигона подъемом груза"),
         RegisterInfo(335, "HMI_EM_Vihod_8_Hoist_Down_MW", "WORD16", "Статус выхода из полигона опусканием груза"),
         RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометра"),
-        RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра")
+        RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
+
+        //Crane SOZR
+        RegisterInfo(650, "HMI_Circle_Size_MW", "WORD16", "Радиус круга отражающего траекторию тележки на HMI. Радиус равен вылету тележки. Min=7 pix, Max =160pix")
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

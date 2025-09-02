@@ -29,8 +29,10 @@ class HomeScreenViewModel @Inject constructor(
     val addressesCraneParameterScale = listOf(317,159,162,319) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
+
+    val addressesCraneSOZR = listOf(650,)
     //1. Объединим все адреса в один список
-    private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition).distinct()
+    private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition+addressesCraneSOZR).distinct()
 
     private val _state = mutableStateOf(HomeScreenState())
     val state: State<HomeScreenState> = _state
@@ -134,7 +136,10 @@ class HomeScreenViewModel @Inject constructor(
         hoistUp = cache[334] ?: 0,
         hoistDown = cache[335] ?: 0,
         anemometerSensorErr = cache[712] ?: 0,
-        alarmLampStatus = cache[337] ?: 0
+        alarmLampStatus = cache[337] ?: 0,
+
+        //Crane SOZR
+        CircleSizeTrolley = cache[650] ?: 0,
     )
     }
 
@@ -196,6 +201,9 @@ class HomeScreenViewModel @Inject constructor(
         val trolleyRev: Int = 0,
         val hoistUp: Int = 0,
         val hoistDown: Int = 0,
+
+        //Crane SOZR
+        val CircleSizeTrolley: Int = 0,
     )
 
     // Очистка при уничтожении ViewModel

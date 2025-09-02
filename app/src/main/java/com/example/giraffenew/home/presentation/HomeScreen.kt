@@ -105,7 +105,9 @@ internal fun HomeScreen (
             ) }
 
             Box (modifier = Modifier
-                .weight(3f)) { CraneSOZR() }
+                .weight(3f)) { CraneSOZR(
+                circleSizeTrolley = homeViewModel.state.value.CircleSizeTrolley
+            ) }
 
             Box (modifier = Modifier
                 .weight(1f)) { Information() }
