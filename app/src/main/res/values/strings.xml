@@ -49,6 +49,12 @@
     <string name="Home_Wind">ВЕТЕР [М/C]</string>
     <string name="Home_Voltage">ПИТАНИЕ</string>
     <string name="Home_Ready">ГОТОВНОСТЬ</string>
+    <!-- Текст СОЗР' -->
+    <string name="Home_Slewing_Angle_Right">360</string>
+    <string name="Home_Slewing_Angle_Bottom">90</string>
+    <string name="Home_Slewing_Angle_Left">180</string>
+    <string name="Home_Slewing_Angle_Top">270</string>
+
     <!-- Текст экрана Home' -->
 
     <!-- Текст экрана InitialSetup' -->

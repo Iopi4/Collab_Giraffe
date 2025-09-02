@@ -11,26 +11,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.giraffenew.R
-import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
-import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.home.ui.CraneMechanismsCondition
 import com.example.giraffenew.home.ui.CraneParameterScale
 import com.example.giraffenew.home.ui.CraneSOZR
 import com.example.giraffenew.home.ui.Information
 import com.example.giraffenew.home.ui.СraneOperatingParameters
-import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 internal fun HomeScreen (
@@ -105,8 +100,14 @@ internal fun HomeScreen (
             ) }
 
             Box (modifier = Modifier
-                .weight(3f)) { CraneSOZR(
-                circleSizeTrolley = homeViewModel.state.value.CircleSizeTrolley
+                .weight(3f))
+            { CraneSOZR(
+                hmiCircleSizeTrolley = homeViewModel.state.value.hmiCircleSizeTrolley,
+                hmiLineAngle = homeViewModel.state.value.hmiLineAngle,
+                hmiTrolleyCoordinateY= 1f,
+                hmiTrolleyCoordinateX= 1f,
+                hmiStrelaLenght= 1f,
+
             ) }
 
             Box (modifier = Modifier

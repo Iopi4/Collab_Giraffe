@@ -30,7 +30,7 @@ class HomeScreenViewModel @Inject constructor(
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
 
-    val addressesCraneSOZR = listOf(650,)
+    val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405,)
     //1. Объединим все адреса в один список
     private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition+addressesCraneSOZR).distinct()
 
@@ -139,8 +139,13 @@ class HomeScreenViewModel @Inject constructor(
         alarmLampStatus = cache[337] ?: 0,
 
         //Crane SOZR
-        CircleSizeTrolley = cache[650] ?: 0,
-    )
+        hmiLineAngle = safeDivideTens(cache[400] ?: 0),
+        hmiTrolleyCoordinateY = safeDivideTens(cache[401] ?: 0),
+        hmiTrolleyCoordinateX = safeDivideTens(cache[402] ?: 0),
+        hmiCircleSizeTrolley = cache[403] ?: 0,
+        hmiStrelaLenght = safeDivideTens(cache[404] ?: 0),
+        hmiP1_Color = cache[405] ?: 0,
+            )
     }
 
 
@@ -203,7 +208,16 @@ class HomeScreenViewModel @Inject constructor(
         val hoistDown: Int = 0,
 
         //Crane SOZR
-        val CircleSizeTrolley: Int = 0,
+        val hmiLineAngle: Float = 0f,
+        val hmiTrolleyCoordinateY: Float = 0f,
+        val hmiTrolleyCoordinateX: Float = 0f,
+        val hmiCircleSizeTrolley: Int = 0,
+        val hmiStrelaLenght: Float = 0f,
+        val hmiP1_Color: Int = 0,
+        val hmiP2_Color: Int = 0,
+        val hmiP3_Color: Int = 0,
+        val hmiP4_Color: Int = 0,
+
     )
 
     // Очистка при уничтожении ViewModel

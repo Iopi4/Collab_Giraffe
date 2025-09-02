@@ -118,7 +118,12 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
 
         //Crane SOZR
-        RegisterInfo(650, "HMI_Circle_Size_MW", "WORD16", "Радиус круга отражающего траекторию тележки на HMI. Радиус равен вылету тележки. Min=7 pix, Max =160pix")
+        RegisterInfo(400, "HMI_Line_Angle_MW", "WORD16", "Угол поворота стрелы на HMI"),
+        RegisterInfo(401, "HMI_Trolley_Y_MW", "WORD16", "Координаты точки тележки для HMI по оси Y"),
+        RegisterInfo(402, "HMI_Trolley_X_MW", "WORD16", "Координаты точки тележки для HMI по оси X"),
+        RegisterInfo(403, "HMI_Circle_Size_MW", "WORD16", "Радиус круга отражающего траекторию тележки на HMI"),
+        RegisterInfo(404, "HMI_Strela_Lenght_MW", "WORD16", "Длина отрезка стрелы для панели (имеет значение при наклоне стрелы)"),
+        RegisterInfo(405, "HMI_P1_Color_MW", "WORD16", "Анимация цвета полигона ( 0-Синий (задан но не активен), 1-Зеленый (задан и активен), 2-желтый (приближение к границе), 3-красный (касание границы полигона))"),
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
