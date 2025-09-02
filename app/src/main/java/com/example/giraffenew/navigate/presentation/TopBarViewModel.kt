@@ -121,7 +121,6 @@ class TopBarViewModel @Inject constructor(
             else -> "Запасовка [2х кр.]"
         }
     }
-
     private fun updateLoadCapacity(cache: Map<Int, Int?>) {
         val loadCapacity = cache[194] ?: return
         _currentLoadCapacity.value = "Груз.хар. [%02d]".format(loadCapacity)

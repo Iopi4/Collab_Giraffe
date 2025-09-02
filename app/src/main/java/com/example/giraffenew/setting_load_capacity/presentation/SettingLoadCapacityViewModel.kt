@@ -21,6 +21,7 @@ class SettingLoadCapacityViewModel
     private val modbusRepository: ModbusRepository
 ): ViewModel(){
 
+
     private val _setValueMinWeight = mutableStateOf("")
     val setValueMinWeight: State<String> = _setValueMinWeight
 
@@ -84,7 +85,6 @@ class SettingLoadCapacityViewModel
     }
 
     fun startDataCollection() {
-        //if (dataCollectionJob?.isActive == true) return
         dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
 
         Log.d("SettingLoadCapacityMenuVM", "Starting data collection for ${UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY}")
@@ -162,7 +162,8 @@ class SettingLoadCapacityViewModel
         return (floatValue * 10).toInt()
     }
 
-    // ВЫБОР ГРУЗОВОЙ ХАРАКТЕРИСТИКИ ГХ_0..6
+    private val VIRTUAL_ZERO = 1 //Константа для того, что бы в ПЛК была возможность передать ГХ-0
+    // ВЫБОР ГРУЗОВОЙ ХАРАКТЕРИСТИКИ ГХ_0..6. Используем константу для корректной передачи ГХ-0
     fun onSetCargoCharacteristic(index: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -170,7 +171,7 @@ class SettingLoadCapacityViewModel
                 // Запись в регистры
                 Log.d("LoadCapacityViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(862, index)
+                modbusRepository.writeRegister(862, index+VIRTUAL_ZERO)
                 _errorMessageGH.value = null
                 _logMessageGH.value = "СОХРАНЕНО"
             } catch (e: Exception) {
