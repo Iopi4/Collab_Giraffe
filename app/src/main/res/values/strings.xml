@@ -52,8 +52,10 @@
     <!-- Текст СОЗР' -->
     <string name="Home_Slewing_Angle_Right">180</string>
     <string name="Home_Slewing_Angle_Bottom">270</string>
-    <string name="Home_Slewing_Angle_Left">0 гр</string>
+    <string name="Home_Slewing_Angle_Left">0</string>
     <string name="Home_Slewing_Angle_Top">90</string>
+    <string name="Home_Slewing_Coordinate_X">X</string>
+    <string name="Home_Slewing_Coordinate_Y">Y</string>
 
     <!-- Текст экрана Home' -->
 

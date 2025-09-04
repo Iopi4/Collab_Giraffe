@@ -7,23 +7,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Burgundy_violet
+import com.example.giraffenew.ui.theme.white
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -156,23 +162,36 @@ fun CraneSOZR(
         )
     val colorSrtela = colorResource(R.color.Orange)
     val colorTrolley = colorResource(R.color.Burgundy_violet)
+    val colorCoordinate = colorResource(R.color.Silver)
 
-
+    val hmiSegmentCoordinateLengthX: Int = 270 // Длина координаты X
+    val hmiSegmentCoordinateLengthY: Int = 270 // Длина координаты Y
+    val pointCoordinateX0 = 10 // Начало координат X
+    val pointCoordinateY0 = 290 // Начало координат Y
+    val pointCoordinateX1 = 10 // Начало координат X
+    val pointCoordinateY1 = 290 // Начало координат Y
+    val CoordinateAngleX = 0 //Угол координаты X
+    val CoordinateAngleY = 270 //Угол координаты Y
+    val CoordinateVisibilityX = 1 //Видимость оси координат
+    val CoordinateVisibilityY = 1 //Видимость оси координат
 
     //Бокс 1 - для крана с ГХ
     Box(myBoxMainModifier){
-        BasicParametersText(stringResource(R.string.Home_Slewing_Angle_Right),
-            modifier = Modifier
-                .padding(start = 280.dp, end = 2.dp, top = 145.dp))
-        BasicParametersText(stringResource(R.string.Home_Slewing_Angle_Left),
-            modifier = Modifier
-                .padding(start = 5.dp, end = 2.dp, top = 145.dp))
-        BasicParametersText(stringResource(R.string.Home_Slewing_Angle_Top),
-            modifier = Modifier
-                .padding(start = 145.dp, end = 2.dp, top = 10.dp))
-        BasicParametersText(stringResource(R.string.Home_Slewing_Angle_Bottom),
-            modifier = Modifier
-                .padding(start = 148.dp, end = 2.dp, top = 280.dp))
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Angle_Right),
+            modifier = Modifier.padding(start = 280.dp, end = 2.dp, top = 145.dp))
+
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Angle_Left),
+            modifier = Modifier.padding(start = 25.dp, end = 2.dp, top = 145.dp))
+
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Angle_Top),
+            modifier = Modifier.padding(start = 145.dp, end = 2.dp, top = 10.dp))
+
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Angle_Bottom),
+            modifier = Modifier.padding(start = 148.dp, end = 2.dp, top = 275.dp))
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Coordinate_X),
+            modifier = Modifier.padding(start = 295.dp, end = 2.dp, top = 285.dp))
+        BasicParametersTextSOZR(stringResource(R.string.Home_Slewing_Coordinate_Y),
+            modifier = Modifier.padding(start = 12.dp, end = 2.dp, top = 5.dp))
 
 // Окружность рабочей области.
         Canvas (
@@ -186,6 +205,50 @@ fun CraneSOZR(
                 center = center,
                 radius = 120.dp.toPx(),
             )
+
+            val squareSize = 300.dp.toPx()
+            val boxSize = 314.dp.toPx()
+            val squareOffset = (boxSize - squareSize) / 2
+            val scale = squareSize / 300f
+
+            // Создаем массивы данных для удобства обработки
+            val lengths = listOf(hmiSegmentCoordinateLengthX, hmiSegmentCoordinateLengthY)
+            val positionsX = listOf(pointCoordinateX0, pointCoordinateX1)
+            val positionsY = listOf(pointCoordinateY0, pointCoordinateY1)
+            val angles = listOf(CoordinateAngleX, CoordinateAngleY)
+            val visibilities = listOf(CoordinateVisibilityX, CoordinateVisibilityY)
+
+
+            // Рисуем все отрезки. Примечание. Начало оси Y с нижнего левого угла squareSize
+            for (i in 0 until 2) {
+                if (visibilities[i] == 1) {
+                    val startX = squareOffset + positionsX[i] * scale
+                    val startY = squareOffset + positionsY[i] * scale
+
+                    // Конвертируем угол в радианы с учетом ориентации
+                    val angleRad = Math.toRadians(angles[i].toDouble())
+
+                    // Вычисляем конечные координаты
+                    val endX = startX + lengths[i] * scale * cos(angleRad).toFloat()
+                    val endY = startY + lengths[i] * scale * sin(angleRad).toFloat()
+
+                    // Выбираем цвет в зависимости от параметра
+                    val color = colorCoordinate.copy(alpha = 0.9f)
+
+
+                    // Рисуем отрезок
+                    drawLine(
+                        color = color,
+                        start = Offset(startX, startY),
+                        end = Offset(endX, endY),
+                        strokeWidth = 3.dp.toPx(),
+                        cap = StrokeCap.Round
+                    )
+                }
+            }
+
+
+
         }
 
 
@@ -200,8 +263,6 @@ fun CraneSOZR(
             val center = Offset(size.width / 2, size.height / 2)
             val length = 120.dp.toPx()
 
-            // Конвертируем угол в радианы, делаем поправку на 90 градусов.
-            //val actualAngle = hmiLineAngle - correctedAngle
             val angleRad = Math.toRadians(hmiLineAngle+180.toDouble())
 
             // Вычисляем конечную точку отрезка
@@ -214,7 +275,32 @@ fun CraneSOZR(
                 color = colorSrtela, // Можно изменить цвет
                 start = center,
                 end = endPoint,
-                strokeWidth = 3.dp.toPx(),
+                strokeWidth = 4.dp.toPx(),
+                cap = StrokeCap.Round
+            )
+        }
+        // Контр-стрела крана
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center)
+        ) {
+            val center = Offset(size.width / 2, size.height / 2)
+            val length = 35.dp.toPx()
+
+            val angleRad = Math.toRadians(hmiLineAngle.toDouble())
+
+            // Вычисляем конечную точку отрезка
+            val endX = center.x + length * cos(angleRad).toFloat()
+            val endY = center.y + length * sin(angleRad).toFloat()
+            val endPoint = Offset(endX, endY)
+
+            // Рисуем отрезок
+            drawLine(
+                color = colorSrtela, // Можно изменить цвет
+                start = center,
+                end = endPoint,
+                strokeWidth = 4.dp.toPx(),
                 cap = StrokeCap.Round
             )
         }
@@ -326,11 +412,11 @@ fun CraneSOZR(
 
                     // Выбираем цвет в зависимости от параметра
                     val color = when (hmiP1Color) {
-                        0 -> Color.Blue
+                        0 -> Color.Cyan.copy(alpha = 0.6f)
                         1 -> Color.Green
                         2 -> Color.Yellow
                         3 -> Color.Red
-                        else -> Color.Blue
+                        else -> Color.Cyan.copy(alpha = 0.6f)
                     }
 
                     // Рисуем отрезок
@@ -353,15 +439,26 @@ fun CraneSOZR(
                 .fillMaxSize()
                 .align(Alignment.Center)
         ) {
-            drawCircle(
-                color = Color.DarkGray, // Замените на нужный цвет
-                center = center,
-                radius = 5.dp.toPx(),
+            val squareSize = 10.dp.toPx() // Размер квадрата
+            val topLeft = Offset(
+                (size.width - squareSize) / 2, // Центрирование по горизонтали
+                (size.height - squareSize) / 2 // Центрирование по вертикали
+            )
+
+            drawRect(
+                color = colorSrtela,
+                topLeft = topLeft,
+                size = Size(squareSize, squareSize),
+                style = Stroke(width = 3.dp.toPx()),
             )
         }
     }
 }
 
+@Composable
+//Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
+fun BasicParametersTextSOZR (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier, fontSize = 16.sp, textAlign = TextAlign.Center, color = white, fontWeight = FontWeight.Bold ) }
 
 
 
@@ -372,7 +469,7 @@ fun CraneSOZRPreview (){
         CraneSOZR(
             hmiLineAngle = 90f,
             hmiCircleSizeTrolley = 60,
-            hmiP1Color = 1,
+            hmiP1Color = 4,
             hmiP2Color = 1,
             hmiP3Color = 1,
             hmiP4Color = 1,
