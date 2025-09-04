@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.Int
 
 
 /**
@@ -30,7 +31,12 @@ class HomeScreenViewModel @Inject constructor(
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
 
-    val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405,)
+    val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405, 406, 407, 408, 410,
+        411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430,
+        431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450,
+        451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470,
+        471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490,
+        491, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509)
     //1. Объединим все адреса в один список
     private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition+addressesCraneSOZR).distinct()
 
@@ -144,11 +150,118 @@ class HomeScreenViewModel @Inject constructor(
         hmiTrolleyCoordinateX = safeDivideTens(cache[402] ?: 0),
         hmiCircleSizeTrolley = cache[403] ?: 0,
         hmiStrelaLenght = safeDivideTens(cache[404] ?: 0),
-        hmiP1_Color = cache[405] ?: 0,
-            )
-    }
+        hmiP1Color = cache[405] ?: 0,
+        hmiP2Color = cache[406] ?: 0,
+        hmiP3Color = cache[407] ?: 0,
+        hmiP4Color = cache[409] ?: 0,
 
+        hmiSegmentP1Length00 = cache[410] ?: 0, // Длина сегмента №00
+        hmiSegmentP1Length01 = cache[411] ?: 0, // Длина сегмента №01
+        hmiSegmentP1Length02 = cache[412] ?: 0, // Длина сегмента №02
+        hmiSegmentP1Length03 = cache[413] ?: 0, // Длина сегмента №03
+        hmiSegmentP1Length04 = cache[414] ?: 0, // Длина сегмента №04
+        hmiSegmentP1Length05 = cache[415] ?: 0, // Длина сегмента №05
+        hmiSegmentP1Length06 = cache[416] ?: 0, // Длина сегмента №06
+        hmiSegmentP1Length07 = cache[417] ?: 0, // Длина сегмента №07
+        hmiSegmentP1Length08 = cache[418] ?: 0, // Длина сегмента №08
+        hmiSegmentP1Length09 = cache[419] ?: 0, // Длина сегмента №09
+        hmiSegmentP1Length10 = cache[420] ?: 0, // Длина сегмента №10
+        hmiSegmentP1Length11 = cache[421] ?: 0, // Длина сегмента №11
+        hmiSegmentP1Length12 = cache[422] ?: 0, // Длина сегмента №12
+        hmiSegmentP1Length13 = cache[423] ?: 0, // Длина сегмента №13
+        hmiSegmentP1Length14 = cache[424] ?: 0, // Длина сегмента №14
+        hmiSegmentP1Length15 = cache[425] ?: 0, // Длина сегмента №15
+        hmiSegmentP1Length16 = cache[426] ?: 0, // Длина сегмента №16
+        hmiSegmentP1Length17 = cache[427] ?: 0, // Длина сегмента №17
+        hmiSegmentP1Length18 = cache[428] ?: 0, // Длина сегмента №18
+        hmiSegmentP1Length19 = cache[429] ?: 0, // Длина сегмента №19
 
+        pointP1PositionY00 = cache[430] ?: 0, // Координата Y точки №00
+        pointP1PositionY01 = cache[431] ?: 0, // Координата Y точки №00
+        pointP1PositionY02 = cache[432] ?: 0, // Координата Y точки №00
+        pointP1PositionY03 = cache[433] ?: 0, // Координата Y точки №00
+        pointP1PositionY04 = cache[434] ?: 0, // Координата Y точки №00
+        pointP1PositionY05 = cache[435] ?: 0, // Координата Y точки №00
+        pointP1PositionY06 = cache[436] ?: 0, // Координата Y точки №00
+        pointP1PositionY07 = cache[437] ?: 0, // Координата Y точки №00
+        pointP1PositionY08 = cache[438] ?: 0, // Координата Y точки №00
+        pointP1PositionY09 = cache[439] ?: 0, // Координата Y точки №00
+        pointP1PositionY10 = cache[440] ?: 0, // Координата Y точки №00
+        pointP1PositionY11 = cache[441] ?: 0, // Координата Y точки №00
+        pointP1PositionY12 = cache[442] ?: 0, // Координата Y точки №00
+        pointP1PositionY13 = cache[443] ?: 0, // Координата Y точки №00
+        pointP1PositionY14 = cache[444] ?: 0, // Координата Y точки №00
+        pointP1PositionY15 = cache[445] ?: 0, // Координата Y точки №00
+        pointP1PositionY16 = cache[446] ?: 0, // Координата Y точки №00
+        pointP1PositionY17 = cache[447] ?: 0, // Координата Y точки №00
+        pointP1PositionY18 = cache[448] ?: 0, // Координата Y точки №00
+        pointP1PositionY19 = cache[449] ?: 0, // Координата Y точки №00
+
+        pointP1PositionX00 = cache[450] ?: 0, // Координата X точки №00
+        pointP1PositionX01 = cache[451] ?: 0, // Координата X точки №00
+        pointP1PositionX02 = cache[452] ?: 0, // Координата X точки №00
+        pointP1PositionX03 = cache[453] ?: 0, // Координата X точки №00
+        pointP1PositionX04 = cache[454] ?: 0, // Координата X точки №00
+        pointP1PositionX05 = cache[455] ?: 0, // Координата X точки №00
+        pointP1PositionX06 = cache[456] ?: 0, // Координата X точки №00
+        pointP1PositionX07 = cache[457] ?: 0, // Координата X точки №00
+        pointP1PositionX08 = cache[458] ?: 0, // Координата X точки №00
+        pointP1PositionX09 = cache[459] ?: 0, // Координата X точки №00
+        pointP1PositionX10 = cache[460] ?: 0, // Координата X точки №00
+        pointP1PositionX11 = cache[461] ?: 0, // Координата X точки №00
+        pointP1PositionX12 = cache[462] ?: 0, // Координата X точки №00
+        pointP1PositionX13 = cache[463] ?: 0, // Координата X точки №00
+        pointP1PositionX14 = cache[464] ?: 0, // Координата X точки №00
+        pointP1PositionX15 = cache[465] ?: 0, // Координата X точки №00
+        pointP1PositionX16 = cache[466] ?: 0, // Координата X точки №00
+        pointP1PositionX17 = cache[467] ?: 0, // Координата X точки №00
+        pointP1PositionX18 = cache[468] ?: 0, // Координата X точки №00
+        pointP1PositionX19 = cache[469] ?: 0, // Координата X точки №00
+
+        segmentP1Angle00_01 = cache[470] ?: 0, //Угол между сегментами 00-01
+        segmentP1Angle01_02 = cache[471] ?: 0, //Угол между сегментами 01-02
+        segmentP1Angle02_03 = cache[472] ?: 0, //Угол между сегментами 02-03
+        segmentP1Angle03_04 = cache[473] ?: 0, //Угол между сегментами 03-04
+        segmentP1Angle04_05 = cache[474] ?: 0, //Угол между сегментами 04-05
+        segmentP1Angle05_06 = cache[475] ?: 0, //Угол между сегментами 05-06
+        segmentP1Angle06_07 = cache[476] ?: 0, //Угол между сегментами 06-07
+        segmentP1Angle07_08 = cache[477] ?: 0, //Угол между сегментами 07-08
+        segmentP1Angle08_09 = cache[478] ?: 0, //Угол между сегментами 08-09
+        segmentP1Angle09_10 = cache[479] ?: 0, //Угол между сегментами 09-10
+        segmentP1Angle10_11 = cache[480] ?: 0, //Угол между сегментами 10-11
+        segmentP1Angle11_12 = cache[481] ?: 0, //Угол между сегментами 11-12
+        segmentP1Angle12_13 = cache[482] ?: 0, //Угол между сегментами 12-13
+        segmentP1Angle13_14 = cache[483] ?: 0, //Угол между сегментами 13-14
+        segmentP1Angle14_15 = cache[484] ?: 0, //Угол между сегментами 14-15
+        segmentP1Angle15_16 = cache[485] ?: 0, //Угол между сегментами 15-16
+        segmentP1Angle16_17 = cache[486] ?: 0, //Угол между сегментами 16-17
+        segmentP1Angle17_18 = cache[487] ?: 0, //Угол между сегментами 17-18
+        segmentP1Angle18_19 = cache[488] ?: 0, //Угол между сегментами 18-19
+        segmentP1Angle19_00 = cache[489] ?: 0, //Угол между сегментами 19-00
+
+        segmentP1Visibility00 = cache[490] ?: 0, //Видимость сегмента №00
+        segmentP1Visibility01 = cache[491] ?: 0, //Видимость сегмента №01
+        segmentP1Visibility02 = cache[492] ?: 0, //Видимость сегмента №02
+        segmentP1Visibility03 = cache[493] ?: 0, //Видимость сегмента №03
+        segmentP1Visibility04 = cache[494] ?: 0, //Видимость сегмента №04
+        segmentP1Visibility05 = cache[495] ?: 0, //Видимость сегмента №05
+        segmentP1Visibility06 = cache[496] ?: 0, //Видимость сегмента №06
+        segmentP1Visibility07 = cache[497] ?: 0, //Видимость сегмента №07
+        segmentP1Visibility08 = cache[498] ?: 0, //Видимость сегмента №08
+        segmentP1Visibility09 = cache[499] ?: 0, //Видимость сегмента №09
+        segmentP1Visibility10 = cache[500] ?: 0, //Видимость сегмента №10
+        segmentP1Visibility11 = cache[501] ?: 0, //Видимость сегмента №11
+        segmentP1Visibility12 = cache[502] ?: 0, //Видимость сегмента №12
+        segmentP1Visibility13 = cache[503] ?: 0, //Видимость сегмента №13
+        segmentP1Visibility14 = cache[504] ?: 0, //Видимость сегмента №14
+        segmentP1Visibility15 = cache[505] ?: 0, //Видимость сегмента №15
+        segmentP1Visibility16 = cache[506] ?: 0, //Видимость сегмента №16
+        segmentP1Visibility17 = cache[507] ?: 0, //Видимость сегмента №17
+        segmentP1Visibility18 = cache[508] ?: 0, //Видимость сегмента №18
+        segmentP1Visibility19 = cache[509] ?: 0, //Видимость сегмента №19
+
+    )
+        }
 
     // Очистка при уничтожении ViewModel
 
@@ -213,10 +326,116 @@ class HomeScreenViewModel @Inject constructor(
         val hmiTrolleyCoordinateX: Float = 0f,
         val hmiCircleSizeTrolley: Int = 0,
         val hmiStrelaLenght: Float = 0f,
-        val hmiP1_Color: Int = 0,
-        val hmiP2_Color: Int = 0,
-        val hmiP3_Color: Int = 0,
-        val hmiP4_Color: Int = 0,
+        val hmiP1Color: Int = 0,
+        val hmiP2Color: Int = 0,
+        val hmiP3Color: Int = 0,
+        val hmiP4Color: Int = 0,
+
+        //точки и отрезки полигона №1
+        val hmiSegmentP1Length00: Int = 0, //Длина сегмента №00
+        val hmiSegmentP1Length01: Int = 0, //Длина сегмента №01
+        val hmiSegmentP1Length02: Int = 0, //Длина сегмента №02
+        val hmiSegmentP1Length03: Int = 0, //Длина сегмента №03
+        val hmiSegmentP1Length04: Int = 0, //Длина сегмента №04
+        val hmiSegmentP1Length05: Int = 0, //Длина сегмента №05
+        val hmiSegmentP1Length06: Int = 0, //Длина сегмента №06
+        val hmiSegmentP1Length07: Int = 0, //Длина сегмента №07
+        val hmiSegmentP1Length08: Int = 0, //Длина сегмента №08
+        val hmiSegmentP1Length09: Int = 0, //Длина сегмента №09
+        val hmiSegmentP1Length10: Int = 0, //Длина сегмента №10
+        val hmiSegmentP1Length11: Int = 0, //Длина сегмента №11
+        val hmiSegmentP1Length12: Int = 0, //Длина сегмента №12
+        val hmiSegmentP1Length13: Int = 0, //Длина сегмента №13
+        val hmiSegmentP1Length14: Int = 0, //Длина сегмента №14
+        val hmiSegmentP1Length15: Int = 0, //Длина сегмента №15
+        val hmiSegmentP1Length16: Int = 0, //Длина сегмента №16
+        val hmiSegmentP1Length17: Int = 0, //Длина сегмента №17
+        val hmiSegmentP1Length18: Int = 0, //Длина сегмента №18
+        val hmiSegmentP1Length19: Int = 0, //Длина сегмента №19
+
+        val pointP1PositionY00: Int = 0, //Координата Y точки №00
+        val pointP1PositionY01: Int = 0, //Координата Y точки №01
+        val pointP1PositionY02: Int = 0, //Координата Y точки №02
+        val pointP1PositionY03: Int = 0, //Координата Y точки №03
+        val pointP1PositionY04: Int = 0, //Координата Y точки №04
+        val pointP1PositionY05: Int = 0, //Координата Y точки №05
+        val pointP1PositionY06: Int = 0, //Координата Y точки №06
+        val pointP1PositionY07: Int = 0, //Координата Y точки №07
+        val pointP1PositionY08: Int = 0, //Координата Y точки №08
+        val pointP1PositionY09: Int = 0, //Координата Y точки №09
+        val pointP1PositionY10: Int = 0, //Координата Y точки №10
+        val pointP1PositionY11: Int = 0, //Координата Y точки №11
+        val pointP1PositionY12: Int = 0, //Координата Y точки №12
+        val pointP1PositionY13: Int = 0, //Координата Y точки №13
+        val pointP1PositionY14: Int = 0, //Координата Y точки №14
+        val pointP1PositionY15: Int = 0, //Координата Y точки №15
+        val pointP1PositionY16: Int = 0, //Координата Y точки №16
+        val pointP1PositionY17: Int = 0, //Координата Y точки №17
+        val pointP1PositionY18: Int = 0, //Координата Y точки №18
+        val pointP1PositionY19: Int = 0, //Координата Y точки №19
+
+        val pointP1PositionX00: Int = 0, //Координата X точки №00
+        val pointP1PositionX01: Int = 0, //Координата X точки №01
+        val pointP1PositionX02: Int = 0, //Координата X точки №02
+        val pointP1PositionX03: Int = 0, //Координата X точки №03
+        val pointP1PositionX04: Int = 0, //Координата X точки №04
+        val pointP1PositionX05: Int = 0, //Координата X точки №05
+        val pointP1PositionX06: Int = 0, //Координата X точки №06
+        val pointP1PositionX07: Int = 0, //Координата X точки №07
+        val pointP1PositionX08: Int = 0, //Координата X точки №08
+        val pointP1PositionX09: Int = 0, //Координата X точки №09
+        val pointP1PositionX10: Int = 0, //Координата X точки №10
+        val pointP1PositionX11: Int = 0, //Координата X точки №11
+        val pointP1PositionX12: Int = 0, //Координата X точки №12
+        val pointP1PositionX13: Int = 0, //Координата X точки №13
+        val pointP1PositionX14: Int = 0, //Координата X точки №14
+        val pointP1PositionX15: Int = 0, //Координата X точки №15
+        val pointP1PositionX16: Int = 0, //Координата X точки №16
+        val pointP1PositionX17: Int = 0, //Координата X точки №17
+        val pointP1PositionX18: Int = 0, //Координата X точки №18
+        val pointP1PositionX19: Int = 0, //Координата X точки №19
+
+        val segmentP1Angle00_01: Int = 0, //Угол между сегментами 00-01
+        val segmentP1Angle01_02: Int = 0, //Угол между сегментами 01-02
+        val segmentP1Angle02_03: Int = 0, //Угол между сегментами 02-03
+        val segmentP1Angle03_04: Int = 0, //Угол между сегментами 03-04
+        val segmentP1Angle04_05: Int = 0, //Угол между сегментами 04-05
+        val segmentP1Angle05_06: Int = 0, //Угол между сегментами 05-06
+        val segmentP1Angle06_07: Int = 0, //Угол между сегментами 06-07
+        val segmentP1Angle07_08: Int = 0, //Угол между сегментами 07-08
+        val segmentP1Angle08_09: Int = 0, //Угол между сегментами 08-09
+        val segmentP1Angle09_10: Int = 0, //Угол между сегментами 09-10
+        val segmentP1Angle10_11: Int = 0, //Угол между сегментами 10-11
+        val segmentP1Angle11_12: Int = 0, //Угол между сегментами 11-12
+        val segmentP1Angle12_13: Int = 0, //Угол между сегментами 12-13
+        val segmentP1Angle13_14: Int = 0, //Угол между сегментами 13-14
+        val segmentP1Angle14_15: Int = 0, //Угол между сегментами 14-15
+        val segmentP1Angle15_16: Int = 0, //Угол между сегментами 15-16
+        val segmentP1Angle16_17: Int = 0, //Угол между сегментами 16-17
+        val segmentP1Angle17_18: Int = 0, //Угол между сегментами 17-18
+        val segmentP1Angle18_19: Int = 0, //Угол между сегментами 18-19
+        val segmentP1Angle19_00: Int = 0, //Угол между сегментами 19-00
+
+        val segmentP1Visibility00: Int = 0, //Видимость сегмента №00
+        val segmentP1Visibility01: Int = 0, //Видимость сегмента №01
+        val segmentP1Visibility02: Int = 0, //Видимость сегмента №02
+        val segmentP1Visibility03: Int = 0, //Видимость сегмента №03
+        val segmentP1Visibility04: Int = 0, //Видимость сегмента №04
+        val segmentP1Visibility05: Int = 0, //Видимость сегмента №05
+        val segmentP1Visibility06: Int = 0, //Видимость сегмента №06
+        val segmentP1Visibility07: Int = 0, //Видимость сегмента №07
+        val segmentP1Visibility08: Int = 0, //Видимость сегмента №08
+        val segmentP1Visibility09: Int = 0, //Видимость сегмента №09
+        val segmentP1Visibility10: Int = 0, //Видимость сегмента №10
+        val segmentP1Visibility11: Int = 0, //Видимость сегмента №11
+        val segmentP1Visibility12: Int = 0, //Видимость сегмента №12
+        val segmentP1Visibility13: Int = 0, //Видимость сегмента №13
+        val segmentP1Visibility14: Int = 0, //Видимость сегмента №14
+        val segmentP1Visibility15: Int = 0, //Видимость сегмента №15
+        val segmentP1Visibility16: Int = 0, //Видимость сегмента №16
+        val segmentP1Visibility17: Int = 0, //Видимость сегмента №17
+        val segmentP1Visibility18: Int = 0, //Видимость сегмента №18
+        val segmentP1Visibility19: Int = 0, //Видимость сегмента №19
 
     )
 

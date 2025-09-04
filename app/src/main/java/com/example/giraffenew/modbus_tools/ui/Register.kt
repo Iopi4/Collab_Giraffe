@@ -197,7 +197,7 @@ fun Register(
                 val registerValue = viewModel.registerValues.collectAsState()
 
                 BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     valueParameterId = registerValue.value.toString(),
                 )
             }
@@ -219,7 +219,7 @@ fun Register(
                 }
 
                 BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     valueParameterId = statusText,
                 )
             }

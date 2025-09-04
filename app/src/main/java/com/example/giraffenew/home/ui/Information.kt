@@ -35,7 +35,7 @@ fun Information (
     Box(myBoxMainModifier){
 
         BasicParametersText(
-            "ЗДЕСБ БУДЕТ ТАБЛО ИНФОРМАЦИИ"
+            ""
         )
 
     }

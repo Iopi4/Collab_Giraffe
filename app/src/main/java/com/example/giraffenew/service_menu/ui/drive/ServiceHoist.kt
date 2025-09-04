@@ -243,7 +243,7 @@ fun ServiceHoist(
                 placeholder = "250",
                 value = setValueHoistMontageSpdRef1,
                 valueMin = 0,
-                valueMax = 99,
+                valueMax = 9999,
                 onValueChange = onModelChangeHoistMontageSpdRef1,
                 onClick = onSetHoistMontageSpdRef1
             )
@@ -251,7 +251,7 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = "450",
                 valueMin = 0,
-                valueMax = 99,
+                valueMax = 9999,
                 value = setValueHoistMontageSpdRef2,
                 onValueChange = onModelChangeHoistMontageSpdRef2,
                 onClick = onSetHoistMontageSpdRef2

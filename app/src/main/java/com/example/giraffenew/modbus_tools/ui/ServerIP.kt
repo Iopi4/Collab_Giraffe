@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -137,7 +138,7 @@ fun ServerIP(
                 val displayText =
                     if (connectionStatus.value == ModbusViewModel.ConnectionStatus.Connected) "Connected" else "Disconnected"
                 BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     valueParameterId = displayText
                 )
 
@@ -147,7 +148,7 @@ fun ServerIP(
             Box(
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
-                    .fillMaxSize()
+                    .fillMaxWidth()
             ) {
                 val remoteServerStatus = viewModel.remoteServerStatus.collectAsState()
                 val displayText = when (remoteServerStatus.value) {
@@ -157,7 +158,7 @@ fun ServerIP(
                     is ModbusViewModel.RemoteServerStatus.Error -> "Error: ${(remoteServerStatus.value as ModbusViewModel.RemoteServerStatus.Error).message}"
                 }
                 BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     valueParameterId = "Remote Server: $displayText"
                 )
             }

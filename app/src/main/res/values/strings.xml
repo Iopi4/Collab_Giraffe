@@ -50,10 +50,10 @@
     <string name="Home_Voltage">ПИТАНИЕ</string>
     <string name="Home_Ready">ГОТОВНОСТЬ</string>
     <!-- Текст СОЗР' -->
-    <string name="Home_Slewing_Angle_Right">360</string>
-    <string name="Home_Slewing_Angle_Bottom">90</string>
-    <string name="Home_Slewing_Angle_Left">180</string>
-    <string name="Home_Slewing_Angle_Top">270</string>
+    <string name="Home_Slewing_Angle_Right">180</string>
+    <string name="Home_Slewing_Angle_Bottom">270</string>
+    <string name="Home_Slewing_Angle_Left">0 гр</string>
+    <string name="Home_Slewing_Angle_Top">90</string>
 
     <!-- Текст экрана Home' -->
 
@@ -191,8 +191,8 @@
     <string name="CoordinateProtection_Text_Polygon_Reset">Сбросить точки полигона </string>
     <string name="CoordinateProtection_Text_Number_Of_Points">Ввод. Количество точек [шт]</string>
     <string name="CoordinateProtection_Text_Height_Of_Polygon">Ввод. Высота полигона [м]</string>
-    <string name="CoordinateProtection_Text_Allow_Work_At_Up">Разрешение. Работа вверху</string>
-    <string name="CoordinateProtection_Text_Allow_Work_At_Down">Разрешение. Работа внизу</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_Up">Запрет. Работа выше полиг.</string>
+    <string name="CoordinateProtection_Text_Allow_Work_At_Down">Запрет. Работа ниже полиг.</string>
 
     <string name="CoordinateProtection_Text_Point_Setting_Mode">Выбор режима задания точек.</string>
     <string name="CoordinateProtection_Text_Point_Setting_Mode_HOOK">По умолчанию режим [ПО КРЮКУ]</string>
