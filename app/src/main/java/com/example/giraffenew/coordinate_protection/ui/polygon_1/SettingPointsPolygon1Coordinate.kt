@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,8 +24,6 @@ import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
-import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -55,17 +55,20 @@ fun SettingPointsPolygon1Coordinate (
     Polygon1PointY08: Float, Polygon1PointX08: Float,
     Polygon1PointY09: Float, Polygon1PointX09: Float,
     Polygon1PointY10: Float, Polygon1PointX10: Float,
-//    Polygon1PointY11: Float, Polygon1PointX11: Float,
-//    Polygon1PointY12: Float, Polygon1PointX12: Float,
-//    Polygon1PointY13: Float, Polygon1PointX13: Float,
-//    Polygon1PointY14: Float, Polygon1PointX14: Float,
-//    Polygon1PointY15: Float, Polygon1PointX15: Float,
-//    Polygon1PointY16: Float, Polygon1PointX16: Float,
-//    Polygon1PointY17: Float, Polygon1PointX17: Float,
-//    Polygon1PointY18: Float, Polygon1PointX18: Float,
-//    Polygon1PointY19: Float, Polygon1PointX19: Float,
-//    Polygon1PointY20: Float, Polygon1PointX20: Float,
+    Polygon1PointY11: Float, Polygon1PointX11: Float,
+    Polygon1PointY12: Float, Polygon1PointX12: Float,
+    Polygon1PointY13: Float, Polygon1PointX13: Float,
+    Polygon1PointY14: Float, Polygon1PointX14: Float,
+    Polygon1PointY15: Float, Polygon1PointX15: Float,
+    Polygon1PointY16: Float, Polygon1PointX16: Float,
+    Polygon1PointY17: Float, Polygon1PointX17: Float,
+    Polygon1PointY18: Float, Polygon1PointX18: Float,
+    Polygon1PointY19: Float, Polygon1PointX19: Float,
+    Polygon1PointY20: Float, Polygon1PointX20: Float,
 ) {
+    // Общее состояние прокрутки
+    val scrollState = rememberScrollState()
+
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -75,6 +78,7 @@ fun SettingPointsPolygon1Coordinate (
 //№.1 - Левая область для отображения параметров настройки точек полигона)
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize()
                 .weight(3f)
                 .padding(5.dp)
@@ -150,12 +154,65 @@ fun SettingPointsPolygon1Coordinate (
                 pointX = formatDecimal(Polygon1PointX10),
                 pointY = formatDecimal(Polygon1PointY10)
             )
+            //Координаты точки №11
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX11),
+                pointY = formatDecimal(Polygon1PointY11)
+            )
+            //Координаты точки №12
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX12),
+                pointY = formatDecimal(Polygon1PointY12)
+            )
+            //Координаты точки №13
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX13),
+                pointY = formatDecimal(Polygon1PointY13)
+            )
+            //Координаты точки №14
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX14),
+                pointY = formatDecimal(Polygon1PointY14)
+            )
+            //Координаты точки №15
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX15),
+                pointY = formatDecimal(Polygon1PointY15)
+            )
+            //Координаты точки №16
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX16),
+                pointY = formatDecimal(Polygon1PointY16)
+            )
+            //Координаты точки №17
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX17),
+                pointY = formatDecimal(Polygon1PointY17)
+            )
+            //Координаты точки №18
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX18),
+                pointY = formatDecimal(Polygon1PointY18)
+            )
+            //Координаты точки №19
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX19),
+                pointY = formatDecimal(Polygon1PointY19)
+            )
+            //Координаты точки №20
+            PolygonPoint(
+                pointX = formatDecimal(Polygon1PointX20),
+                pointY = formatDecimal(Polygon1PointY20)
+            )
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
         }
 
 
         //№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize()
                 .border(
                     width = 3.dp,
@@ -256,6 +313,67 @@ fun SettingPointsPolygon1Coordinate (
                 onClick = {onSetP1PointCmd(40)},
             ) {}
 
+            // Кнопка задать точку №11
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_11,
+                onClick = {onSetP1PointCmd(41)},
+            ) {}
+            // Кнопка задать точку №12
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_12,
+                onClick = {onSetP1PointCmd(42)},
+            ) {}
+            // Кнопка задать точку №13
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_13,
+                onClick = {onSetP1PointCmd(43)},
+            ) {}
+            // Кнопка задать точку №14
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_14,
+                onClick = {onSetP1PointCmd(44)},
+            ) {}
+            // Кнопка задать точку №15
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_15,
+                onClick = {onSetP1PointCmd(45)},
+            ) {}
+            // Кнопка задать точку №16
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_16,
+                onClick = {onSetP1PointCmd(46)},
+            ) {}
+            // Кнопка задать точку №17
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_17,
+                onClick = {onSetP1PointCmd(47)},
+            ) {}
+            // Кнопка задать точку №18
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_18,
+                onClick = {onSetP1PointCmd(48)},
+            ) {}
+            // Кнопка задать точку №19
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_19,
+                onClick = {onSetP1PointCmd(49)},
+            ) {}
+            // Кнопка задать точку №20
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_20,
+                onClick = {onSetP1PointCmd(50)},
+            ) {}
+
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
         }
@@ -305,6 +423,27 @@ fun SettingPointsPolygon1CoordinatePreview (){
             Polygon1PointX09 = 1f,
             Polygon1PointY10 = 1f,
             Polygon1PointX10 = 1f,
+
+            Polygon1PointY11 = 1f,
+            Polygon1PointX11 = 1f,
+            Polygon1PointY12 = 1f,
+            Polygon1PointX12 = 1f,
+            Polygon1PointY13 = 1f,
+            Polygon1PointX13 = 1f,
+            Polygon1PointY14 = 1f,
+            Polygon1PointX14 = 1f,
+            Polygon1PointY15 = 1f,
+            Polygon1PointX15 = 1f,
+            Polygon1PointY16 = 1f,
+            Polygon1PointX16 = 1f,
+            Polygon1PointY17 = 1f,
+            Polygon1PointX17 = 1f,
+            Polygon1PointY18 = 1f,
+            Polygon1PointX18 = 1f,
+            Polygon1PointY19 = 1f,
+            Polygon1PointX19 = 1f,
+            Polygon1PointY20 = 1f,
+            Polygon1PointX20 = 1f,
         )
     }
 }

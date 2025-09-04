@@ -339,6 +339,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(158, "Rotation_Position_MW", "WORD16", "Текущий угол поворота"),
         RegisterInfo(159, "Hoist_Position_MW", "WORD16", "Текущее положение подъема *0,1м"),
         RegisterInfo(162,  "Crane_Position_MW",  "WORD16",  "Текущее положение крана *0,1м"),
+        RegisterInfo(212,  "Crane_Rails_En_MW",  "WORD16",  "Флаг включения перемещения крана. 1 - Ход крана активирован"),
         //Параметры датчиков
         RegisterInfo(382, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 1"),
         RegisterInfo(383, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 2"),
@@ -388,6 +389,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(832, "HMI_Write_rTrolley_LSP_Dist2_MW", "WORD16", "дистанция снижение до 2-й скорости"),
         RegisterInfo(833, "HMI_Write_rTrolley_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
         //Параметры настройки датчика хода крана
+        RegisterInfo(869, "HMI_Write_xCrane_Rails_En_MW", "WORD16", "Активация хода крана. 1 - Ход крана активирован"),
         RegisterInfo(834, "HMI_Write_xCrane_Limit_En_MW", "WORD16", "Включить ограничения перемещения хода крана"),
         RegisterInfo(835, "HMI_Write_rCrane_Pos_CTRL_Point_MW", "WORD16", "Значение передвижения крана в контрольной точке"),
         RegisterInfo(836, "HMI_Write_xCrane_Fwd_Mem_MW", "WORD16", "Запомнить положение крана при движении вправо"),
@@ -413,7 +415,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(350, "HMI_xCrane_Stop_Rev1_MW", "WORD16", "Проверка датчика хода. Стоп назад"),
         RegisterInfo(351, "HMI_xCrane_Fwd_DwnSp1_MW", "WORD16", "Проверка датчика хода. Снижение 1 ск. вперед"),
         RegisterInfo(352, "HMI_xCrane_Rev_DwnSp1_MW", "WORD16", "Проверка датчика хода. Снижение 1 ск. назад"),
-        RegisterInfo(353, "HMI_xCraneReperPoint_MW", "WORD16", "Реперная точка хода крана"),
+        RegisterInfo(353, "HMI_xCraneRepPoint_MW", "WORD16", "Реперная точка хода крана"),
 
         //-----ошибки выхода за рабочий диапазон показаний энкодера
         RegisterInfo(730, "HMI_HoistEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера подъема"),

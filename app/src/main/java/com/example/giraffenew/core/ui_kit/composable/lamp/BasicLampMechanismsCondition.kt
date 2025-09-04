@@ -31,7 +31,7 @@ fun BasicLampMechanismsCondition(
     ) {
         val lampColor = when (isLampStatus) {
             0 -> colorResource(R.color.Red)
-            1 -> colorResource(R.color.DarkLemon)
+            1 -> colorResource(R.color.Lemon)
             2 -> colorResource(R.color.Emerald)
             //2 -> Color.Green
             3 -> Color.Blue

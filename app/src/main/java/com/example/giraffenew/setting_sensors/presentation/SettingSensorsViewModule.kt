@@ -60,6 +60,23 @@ class SettingSensorsViewModule
     val setValueSlewCalcAngle: State<String> = _setValueSlewCalcAngle
 
 
+    // Параметры настройки датчика хода крана
+    private val _setValueCranePosFwdStop = mutableStateOf("")
+    val setValueCranePosFwdStop: State<String> = _setValueCranePosFwdStop
+
+    private val _setValueCranePosRevStop = mutableStateOf("")
+    val setValueCranePosRevStop: State<String> = _setValueCranePosRevStop
+
+    private val _setValueCranePosFwdDwnSp = mutableStateOf("")
+    val setValueCranePosFwdDwnSp: State<String> = _setValueCranePosFwdDwnSp
+
+    private val _setValueCranePosRevDwnSp = mutableStateOf("")
+    val setValueCranePosRevDwnSp: State<String> = _setValueCranePosRevDwnSp
+
+    private val _setValueCranePosRepPoint = mutableStateOf("")
+    val setValueCranePosRepPoint: State<String> = _setValueCranePosRepPoint
+
+
 
     private val _errorMessageHoist = mutableStateOf<String?>(null)
     val errorMessageHoist: State<String?> = _errorMessageHoist
@@ -80,11 +97,17 @@ class SettingSensorsViewModule
     private val _logMessageTrolley = mutableStateOf<String?>(null)
     val logMessageTrolley: State<String?> = _logMessageTrolley
 
+    private val _errorMessageCrane = mutableStateOf<String?>(null)
+    val errorMessageCrane: State<String?> = _errorMessageCrane
+
+    private val _logMessageCrane = mutableStateOf<String?>(null)
+    val logMessageCrane: State<String?> = _logMessageCrane
+
 
 
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
     private val addresses = listOf(
-        155, 158, 159, 162, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
+        155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
         341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
         730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
         382, 383, 386, 387, 390, 391, 394, 395
@@ -160,6 +183,7 @@ class SettingSensorsViewModule
             currentSlewPosition = safeDivideTens(cache[158] ?: 0),
             currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
             currentCranePosition = safeDivideTens(cache[162] ?: 0),
+            currentCraneRailsEn = cache[212] ?: 0,
             //Статус теста ограничений подъема
             currentHoistStopDwn1 = cache[341] ?: 0,
             currentHoistStopUp1 = cache[342] ?: 0,
@@ -170,6 +194,13 @@ class SettingSensorsViewModule
             currentTrolleyStopRev1 = cache[346] ?: 0,
             currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
             currentTrolleyRevDwnSp1 = cache[348] ?: 0,
+            //Статус теста ограничений Хода крана
+            currentCraneStopFwd1 = cache[349] ?: 0,
+            currentCraneStopRev1 = cache[350] ?: 0,
+            currentCraneFwdDwnSp1 = cache[351] ?: 0,
+            currentCraneRevDwnSp1 = cache[352] ?: 0,
+            currentCraneRepPoint= cache[353] ?: 0,
+
             //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
             currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
             currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
@@ -214,6 +245,7 @@ class SettingSensorsViewModule
         val currentSlewPosition: Float = 0f,
         val currentTrolleyPosition: Float = 0f,
         val currentCranePosition: Float = 0f,
+        val currentCraneRailsEn: Int = 0,
         //ЗНАЧЕНИЕ ДАТЧИКОВ
         //Статус теста ограничений подъема
         val currentHoistStopDwn1: Int = 0,
@@ -225,7 +257,12 @@ class SettingSensorsViewModule
         val currentTrolleyStopRev1: Int = 0,
         val currentTrolleyFwdDwnSp1: Int = 0,
         val currentTrolleyRevDwnSp1: Int = 0,
-
+        //Статус теста ограничений Хода крана
+        val currentCraneStopFwd1: Int = 0,
+        val currentCraneStopRev1: Int = 0,
+        val currentCraneFwdDwnSp1: Int = 0,
+        val currentCraneRevDwnSp1: Int = 0,
+        val currentCraneRepPoint: Int = 0,
 //-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
         val currentHoistEncoderMaxDeltaError: Int = 0,
         val currentSlewEncoderMaxDeltaError: Int = 0,
@@ -240,7 +277,7 @@ class SettingSensorsViewModule
         val currentSlewAbsEncErrCanOpen: Int = 0,
         val currentTrolleyAbsEncErrCanOpen: Int = 0,
         val currentCraneAbsEncErrCanOpen: Int = 0,
-
+//Данные с датчиков
         val currentAbsEncHoistPositionWord1: Int = 0,
         val currentAbsEncHoistPositionWord2: Int = 0,
         val currentAbsEncSlewPositionWord1: Int = 0,
@@ -249,7 +286,9 @@ class SettingSensorsViewModule
         val currentAbsEncTrolleyPositionWord2: Int = 0,
         val currentAbsEncCranePositionWord1: Int = 0,
         val currentAbsEncCranePositionWord2: Int = 0,
-    )
+
+
+        )
 
 
     //Функция проверки и преобразования целых чисел
@@ -278,11 +317,7 @@ class SettingSensorsViewModule
                 modbusRepository.writeRegister(803, 1)
                 delay(200)
                 modbusRepository.writeRegister(803, 0)
-                _errorMessageHoist.value = null
-                _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
-                _logMessageHoist.value = null
             }
         }
     }
@@ -409,11 +444,7 @@ class SettingSensorsViewModule
                 modbusRepository.writeRegister(823, 1)
                 delay(200)
                 modbusRepository.writeRegister(823, 0)
-                _errorMessageTrolley.value = null
-                _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
-                _logMessageTrolley.value = null
             }
         }
     }
@@ -595,7 +626,143 @@ class SettingSensorsViewModule
         }
     }
 
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИК ХОДА КРАНА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // Crane. ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ ХОД КРАНА
+    fun onSetCraneRailsEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(869, 1)
+                delay(200)
+                modbusRepository.writeRegister(869, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
 
+    // Crane. ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ ТЕСТ ОГРАНИЧЕНИЙ
+    fun onSetCraneLimitTestEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(834, 1)
+                delay(200)
+                modbusRepository.writeRegister(834, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // Crane. ЗАПОМНИТЬ положение стоп вперед (вправо)
+    fun onSetCraneFwdMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(836, 1)
+                delay(200)
+                modbusRepository.writeRegister(836, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Crane. ЗАПОМНИТЬ положение стоп назад (влево)
+    fun onSetCraneRevMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(837, 1)
+                delay(200)
+                modbusRepository.writeRegister(837, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Crane. Запись Стоп вперед [м]
+    fun onSetValueCranePosFwdStop() {
+        onSetCraneFwdMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCranePosFwdStop.value, 0.0f, 999.9f )
+                // Запись в регистр
+                modbusRepository.writeRegister(838, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись Стоп назад [м]
+    fun onSetValueCranePosRevStop() {
+        onSetCraneRevMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCranePosRevStop.value, 0.0f, 999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(839, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись снижение скорости вперед [м]
+    fun onSetValueCranePosFwdDwnSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCranePosFwdDwnSp.value, 0.0f, 999.9f )
+                // Запись в регистр
+                modbusRepository.writeRegister(840, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись снижение скорости Назад [м]
+    fun onSetValueCranePosRevDwnSp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCranePosRevDwnSp.value, 0.0f, 999.9f )
+                // Запись в регистр
+                modbusRepository.writeRegister(841, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // Crane. Запись положения реперной точки [м]
+    fun onSetValueCranePosRepPoint() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCranePosRepPoint.value, 0.0f, 999.9f )
+                // Запись в регистр
+                modbusRepository.writeRegister(835, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
 
 
 
@@ -646,6 +813,28 @@ class SettingSensorsViewModule
             _setValueSlewMaxAngle.value = value } }
 
 
+
+
+    //ДАТЧИК Хода крана. Обновление для UI
+    fun updateValueCranePosFwdStop(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCranePosFwdStop.value = value } }
+
+    fun updateValueCranePosRevStop(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCranePosRevStop.value = value } }
+
+    fun updateValueCranePosFwdDwnSp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCranePosFwdDwnSp.value = value } }
+
+    fun updateValueCranePosRevDwnSp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCranePosRevDwnSp.value = value } }
+
+    fun updateValueCranePosRepPoint(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCranePosRepPoint.value = value } }
 
 
     // Очистка при уничтожении ViewModel

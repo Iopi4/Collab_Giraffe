@@ -87,15 +87,17 @@ fun CalibrationSensorSlewing(
             //Установка максимального угла
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner_Max)
 
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Sensor_Status))
+
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageSlew?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageSlew?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+            // Информация!
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.SettingSensors_Text_Slewing_Information))
+
         }
 
         //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
@@ -112,21 +114,27 @@ fun CalibrationSensorSlewing(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
-            BasicSettingsName(
-                modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Parameters)
-            )
+            // Отступ  и Статус записи данных настройки датчика
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageSlew?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageSlew?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 
             // Отображение текущего значения датчика хода крана
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(currentAbsEncSlewPositionWord1, currentAbsEncSlewPositionWord2)
                 )
             }
             // Отображение текущего угла поворота
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatDecimal(currentSlewPosition)
@@ -143,7 +151,7 @@ fun CalibrationSensorSlewing(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения текущего угла поворота стрелы
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                    .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -167,7 +175,7 @@ fun CalibrationSensorSlewing(
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения максимального угла поворота стрелы
                 Box (modifier = Modifier
-                    .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                    .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
                     BasicTextFilledGiraffe(
@@ -187,22 +195,33 @@ fun CalibrationSensorSlewing(
                 }
             }
 
-            //Статус датчика. Контроль показаний
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+            //Статус датчика. Контроль максимального рассогласования
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 50.dp)
-                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
-                    BasicLampError(isLampStatus = currentSlewEncoderMaxDeltaError)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentSlewEncoderMaxDeltaError
+                    )
                 }
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .size(height = 35.dp, width = 50.dp)
-                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                    BasicLampError(isLampStatus = currentSlewEncoderMaxValueError)
-                }}
+            }
+            //Статус датчика. Контроль максимального значения
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentSlewEncoderMaxValueError
+                    )
+                }
+            }
             //Статус датчика. Контроль связи
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))

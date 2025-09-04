@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonOnOffStatusPolygon
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -104,16 +105,14 @@ fun CalibrationSensorTrolley(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Decline_Forward)
             //Стоп назад
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Trolley_Stop_Forward)
-            //Статус энкодера
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageTrolley?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageTrolley?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Sensor_Status))
+
+            //Ошибки и статус энкодера
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_2)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
         }
 
@@ -129,13 +128,19 @@ fun CalibrationSensorTrolley(
                     width = 3.dp,
                     color = Burgundy_violet,
                     shape = RoundedCornerShape(5.dp)),
-            verticalArrangement = Arrangement.Top
+                verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
-            BasicSettingsName(
-                modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Parameters)
-            )
+            // Отступ  и Статус записи данных настройки датчика
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageTrolley?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageTrolley?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 
             // Отображение текущего значения датчика вылета
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
@@ -145,7 +150,7 @@ fun CalibrationSensorTrolley(
                 )
             }
             // Отображение текущего вылета
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatDecimal(currentTrolleyPosition)
@@ -153,11 +158,10 @@ fun CalibrationSensorTrolley(
             }
 
             // Кнопка включения проверки защит
-            BasicButtonGiraffe(
-                modifier = Modifier.fillMaxWidth(),
-                text = R.string.Button_Turn_ON_Off,
+            BasicButtonOnOffStatusPolygon(
                 onClick = onSetTrolleyLimitTestEn,
-            ) {}
+                isLampStatus = 0
+            )
 
             // Отображение кнопок ввода защит и статуса
 
@@ -268,22 +272,34 @@ fun CalibrationSensorTrolley(
                     )
                 }
             }
-            //Статус датчика. Контроль показаний
+
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+            //Статус датчика. Контроль максимального рассогласования
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 50.dp)
-                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
-                    BasicLampError(isLampStatus = currentTrolleyEncoderMaxDeltaError)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentTrolleyEncoderMaxDeltaError
+                    )
                 }
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .size(height = 35.dp, width = 50.dp)
-                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                    BasicLampError(isLampStatus = currentTrolleyEncoderMaxValueError)
-                }}
+            }
+            //Статус датчика. Контроль максимального значения
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentTrolleyEncoderMaxValueError
+                    )
+                }
+            }
             //Статус датчика. Контроль связи
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))

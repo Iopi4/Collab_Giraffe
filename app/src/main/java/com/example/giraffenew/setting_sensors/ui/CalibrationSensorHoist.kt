@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonOnOffStatusPolygon
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -108,16 +109,16 @@ fun CalibrationSensorHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Decline_Down)
             //Стоп вниз
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Stop_Down)
+
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Sensor_Status))
+
             //Статус энкодера
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+
         }
 
         //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
@@ -134,11 +135,17 @@ fun CalibrationSensorHoist(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
-            BasicSettingsName(
-                modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Parameters)
-            )
+            // Отступ  и Статус записи данных настройки датчика
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
             // Отображение текущего значения датчика
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
@@ -156,11 +163,10 @@ fun CalibrationSensorHoist(
             }
 
             // Кнопка включения проверки защит
-            BasicButtonGiraffe(
-                modifier = Modifier.fillMaxWidth(),
-                text = R.string.Button_Turn_ON_Off,
+            BasicButtonOnOffStatusPolygon(
                 onClick = onSetHoistLimitTestEn,
-            ) {}
+                isLampStatus = 0
+            )
 
             // Отображение кнопок ввода защит и статуса
 
@@ -272,23 +278,35 @@ fun CalibrationSensorHoist(
                     )
                 }
             }
-            //Статус датчика. Контроль показаний
+
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+            //Статус датчика. Контроль максимального рассогласования
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.weight(2f))
+                Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 50.dp)
-                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)){
-                    BasicLampError(isLampStatus = currentHoistEncoderMaxDeltaError)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentHoistEncoderMaxDeltaError
+                    )
                 }
+            }
+            //Статус датчика. Контроль максимального значения
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
-                        .weight(1f)
-                        .size(height = 35.dp, width = 50.dp)
-                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                    BasicLampError(isLampStatus = currentHoistEncoderMaxValueError)
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentHoistEncoderMaxValueError
+                    )
+                }
             }
-            }
-            //Статус датчика. Контроль связи
+            //Статус датчика. Контроль связи по CanOPEN
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
@@ -300,8 +318,6 @@ fun CalibrationSensorHoist(
                     )
                 }
             }
-
-
 
         }
     }

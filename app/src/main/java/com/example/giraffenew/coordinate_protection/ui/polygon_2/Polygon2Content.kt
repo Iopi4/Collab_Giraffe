@@ -132,7 +132,28 @@ fun Polygon2Content(
                 Polygon2PointY09 = coordinateProtectionViewModule.state.value.Polygon2PointY09,
                 Polygon2PointX09 = coordinateProtectionViewModule.state.value.Polygon2PointX09,
                 Polygon2PointY10 = coordinateProtectionViewModule.state.value.Polygon2PointY10,
-                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10
+                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10,
+
+                Polygon2PointY11 = coordinateProtectionViewModule.state.value.Polygon2PointY11,
+                Polygon2PointX11 = coordinateProtectionViewModule.state.value.Polygon2PointX11,
+                Polygon2PointY12 = coordinateProtectionViewModule.state.value.Polygon2PointY12,
+                Polygon2PointX12 = coordinateProtectionViewModule.state.value.Polygon2PointX12,
+                Polygon2PointY13 = coordinateProtectionViewModule.state.value.Polygon2PointY13,
+                Polygon2PointX13 = coordinateProtectionViewModule.state.value.Polygon2PointX13,
+                Polygon2PointY14 = coordinateProtectionViewModule.state.value.Polygon2PointY14,
+                Polygon2PointX14 = coordinateProtectionViewModule.state.value.Polygon2PointX14,
+                Polygon2PointY15 = coordinateProtectionViewModule.state.value.Polygon2PointY15,
+                Polygon2PointX15 = coordinateProtectionViewModule.state.value.Polygon2PointX15,
+                Polygon2PointY16 = coordinateProtectionViewModule.state.value.Polygon2PointY16,
+                Polygon2PointX16 = coordinateProtectionViewModule.state.value.Polygon2PointX16,
+                Polygon2PointY17 = coordinateProtectionViewModule.state.value.Polygon2PointY17,
+                Polygon2PointX17 = coordinateProtectionViewModule.state.value.Polygon2PointX17,
+                Polygon2PointY18 = coordinateProtectionViewModule.state.value.Polygon2PointY18,
+                Polygon2PointX18 = coordinateProtectionViewModule.state.value.Polygon2PointX18,
+                Polygon2PointY19 = coordinateProtectionViewModule.state.value.Polygon2PointY19,
+                Polygon2PointX19 = coordinateProtectionViewModule.state.value.Polygon2PointX19,
+                Polygon2PointY20 = coordinateProtectionViewModule.state.value.Polygon2PointY20,
+                Polygon2PointX20 = coordinateProtectionViewModule.state.value.Polygon2PointX20,
             ) }
             composable(NavRoutesPolygon2.PageSettingPointsPolygon2Manual.route)
             { SettingPointsPolygon2Manual(
@@ -172,7 +193,28 @@ fun Polygon2Content(
                 Polygon2PointY09 = coordinateProtectionViewModule.state.value.Polygon2PointY09,
                 Polygon2PointX09 = coordinateProtectionViewModule.state.value.Polygon2PointX09,
                 Polygon2PointY10 = coordinateProtectionViewModule.state.value.Polygon2PointY10,
-                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10
+                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10,
+
+                Polygon2PointY11 = coordinateProtectionViewModule.state.value.Polygon2PointY11,
+                Polygon2PointX11 = coordinateProtectionViewModule.state.value.Polygon2PointX11,
+                Polygon2PointY12 = coordinateProtectionViewModule.state.value.Polygon2PointY12,
+                Polygon2PointX12 = coordinateProtectionViewModule.state.value.Polygon2PointX12,
+                Polygon2PointY13 = coordinateProtectionViewModule.state.value.Polygon2PointY13,
+                Polygon2PointX13 = coordinateProtectionViewModule.state.value.Polygon2PointX13,
+                Polygon2PointY14 = coordinateProtectionViewModule.state.value.Polygon2PointY14,
+                Polygon2PointX14 = coordinateProtectionViewModule.state.value.Polygon2PointX14,
+                Polygon2PointY15 = coordinateProtectionViewModule.state.value.Polygon2PointY15,
+                Polygon2PointX15 = coordinateProtectionViewModule.state.value.Polygon2PointX15,
+                Polygon2PointY16 = coordinateProtectionViewModule.state.value.Polygon2PointY16,
+                Polygon2PointX16 = coordinateProtectionViewModule.state.value.Polygon2PointX16,
+                Polygon2PointY17 = coordinateProtectionViewModule.state.value.Polygon2PointY17,
+                Polygon2PointX17 = coordinateProtectionViewModule.state.value.Polygon2PointX17,
+                Polygon2PointY18 = coordinateProtectionViewModule.state.value.Polygon2PointY18,
+                Polygon2PointX18 = coordinateProtectionViewModule.state.value.Polygon2PointX18,
+                Polygon2PointY19 = coordinateProtectionViewModule.state.value.Polygon2PointY19,
+                Polygon2PointX19 = coordinateProtectionViewModule.state.value.Polygon2PointX19,
+                Polygon2PointY20 = coordinateProtectionViewModule.state.value.Polygon2PointY20,
+                Polygon2PointX20 = coordinateProtectionViewModule.state.value.Polygon2PointX20,
             ) }
             composable(NavRoutesPolygon2.PageSettingPointsPolygon2Coordinate.route)
             { SettingPointsPolygon2Coordinate(
@@ -208,7 +250,28 @@ fun Polygon2Content(
                 Polygon2PointY09 = coordinateProtectionViewModule.state.value.Polygon2PointY09,
                 Polygon2PointX09 = coordinateProtectionViewModule.state.value.Polygon2PointX09,
                 Polygon2PointY10 = coordinateProtectionViewModule.state.value.Polygon2PointY10,
-                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10
+                Polygon2PointX10 = coordinateProtectionViewModule.state.value.Polygon2PointX10,
+
+                Polygon2PointY11 = coordinateProtectionViewModule.state.value.Polygon2PointY11,
+                Polygon2PointX11 = coordinateProtectionViewModule.state.value.Polygon2PointX11,
+                Polygon2PointY12 = coordinateProtectionViewModule.state.value.Polygon2PointY12,
+                Polygon2PointX12 = coordinateProtectionViewModule.state.value.Polygon2PointX12,
+                Polygon2PointY13 = coordinateProtectionViewModule.state.value.Polygon2PointY13,
+                Polygon2PointX13 = coordinateProtectionViewModule.state.value.Polygon2PointX13,
+                Polygon2PointY14 = coordinateProtectionViewModule.state.value.Polygon2PointY14,
+                Polygon2PointX14 = coordinateProtectionViewModule.state.value.Polygon2PointX14,
+                Polygon2PointY15 = coordinateProtectionViewModule.state.value.Polygon2PointY15,
+                Polygon2PointX15 = coordinateProtectionViewModule.state.value.Polygon2PointX15,
+                Polygon2PointY16 = coordinateProtectionViewModule.state.value.Polygon2PointY16,
+                Polygon2PointX16 = coordinateProtectionViewModule.state.value.Polygon2PointX16,
+                Polygon2PointY17 = coordinateProtectionViewModule.state.value.Polygon2PointY17,
+                Polygon2PointX17 = coordinateProtectionViewModule.state.value.Polygon2PointX17,
+                Polygon2PointY18 = coordinateProtectionViewModule.state.value.Polygon2PointY18,
+                Polygon2PointX18 = coordinateProtectionViewModule.state.value.Polygon2PointX18,
+                Polygon2PointY19 = coordinateProtectionViewModule.state.value.Polygon2PointY19,
+                Polygon2PointX19 = coordinateProtectionViewModule.state.value.Polygon2PointX19,
+                Polygon2PointY20 = coordinateProtectionViewModule.state.value.Polygon2PointY20,
+                Polygon2PointX20 = coordinateProtectionViewModule.state.value.Polygon2PointX20,
             ) }
         }
     }

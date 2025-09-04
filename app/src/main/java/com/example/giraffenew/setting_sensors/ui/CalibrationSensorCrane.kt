@@ -8,27 +8,75 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonOnOffStatusPolygon
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
+import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorCrane(
+    currentAbsEncCranePositionWord1: Int,
+    currentAbsEncCranePositionWord2: Int,
 
+    currentCranePosition: Float,
+
+    onSetCraneLimitTestEn : () -> Unit,
+    onSetCraneRailsEn : () -> Unit,
+    currentCraneRailsEn: Int,
+
+    setValueCranePosFwdStop: String,
+    updateValueCranePosFwdStop: (String) -> Unit,
+    onSetValueCranePosFwdStop: () -> Unit,
+    currentCraneStopFwd1: Int,
+
+    setValueCranePosRevStop: String,
+    updateValueCranePosRevStop: (String) -> Unit,
+    onSetValueCranePosRevStop: () -> Unit,
+    currentCraneStopRev1: Int,
+
+    setValueCranePosFwdDwnSp: String,
+    updateValueCranePosFwdDwnSp: (String) -> Unit,
+    onSetValueCranePosFwdDwnSp: () -> Unit,
+    currentCraneFwdDwnSp1: Int,
+
+    setValueCranePosRevDwnSp: String,
+    updateValueCranePosRevDwnSp: (String) -> Unit,
+    onSetValueCranePosRevDwnSp: () -> Unit,
+    currentCraneRevDwnSp1: Int,
+
+
+    setValueCranePosRepPoint: String,
+    updateValueCranePosRepPoint: (String) -> Unit,
+    onSetValueCranePosRepPoint: () -> Unit,
+    currentCraneRepPoint: Int,
+
+    currentCraneEncoderMaxDeltaError: Int,
+    currentCraneEncoderMaxValueError: Int,
+    currentCraneAbsEncErrCanOpen: Int,
+
+    errorMessageCrane: String?,
+    logMessageCrane: String?,
 ) {
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -70,10 +118,17 @@ fun CalibrationSensorCrane(
             //Включение хода крана
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Crane_Activate)
 
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Sensor_Status))
+
+            //Ошибки и статус энкодера
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_1)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_1_2)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
         }
 
 
-        //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
+        //№.2 - Правая область для отображения и ввода данных датчика хода крана
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f)
@@ -82,169 +137,231 @@ fun CalibrationSensorCrane(
                     width = 3.dp,
                     color = Burgundy_violet,
                     shape = RoundedCornerShape(5.dp)),
-            verticalArrangement = Arrangement.Top
+                verticalArrangement = Arrangement.Top
         ) {
 
-            // Заголовок
-            BasicSettingsName(
-                modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Parameters)
-            )
+            // Отступ  и Статус записи данных настройки датчика
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageCrane?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageCrane?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 
             // Отображение текущего значения датчика хода крана
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "45459012"
+                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncCranePositionWord1, currentAbsEncCranePositionWord2)
                 )
             }
             // Отображение пройденного пути
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "12.8"
+                    valueParameterId = formatDecimal(currentCranePosition)
                 )
             }
 
             // Кнопка включения проверки защит
-            BasicButtonGiraffe(
-                modifier = Modifier.fillMaxWidth(),
-                text = R.string.Button_Turn_ON_Off,
-                onClick = {},
-            ) {}
+            BasicButtonOnOffStatusPolygon(
+                onClick = onSetCraneLimitTestEn,
+                isLampStatus = 0
+            )
 
             // Отображение кнопок ввода защит и статуса
 
-            // Ограничение движения хода вправо
+            // Ограничение движения хода вперед (вправо)
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения минимального вылета
+                //Поле ввода значения остановка вперед (вправо)
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
-                        placeholder = "0.0",
-                        value = "",
-                        onValueChange = { "" },
+                        placeholder = "000.0",
+                        value = setValueCranePosFwdStop,
+                        onValueChange = updateValueCranePosFwdStop,
                         modifier = Modifier,
+                        isDecimal = true,
                     )
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
-                        onClick = {},
+                        text = R.string.Button_Memory,
+                        onClick = onSetValueCranePosFwdStop,
                     ) {}
                 }
+                //Статус. Индикация срабатывания остановки
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
-                        isLampStatus = 0
+                        isLampStatus = currentCraneStopFwd1
                     )
                 }
             }
 
 
-            // Замедление скорости движения крана вправо
+            // Замедление скорости движения крана вперед (вправо)
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения при котором снижается скорость вылета при движении назад
-                Box(
-                    modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                        .weight(4f)
+                //Поле ввода значения при котором снижается скорость подъема
+                Box(modifier = Modifier.weight(4f)
                 ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "00.0",
-                        value = "",
-                        onValueChange = { "" },
-                        modifier = Modifier,
+                    BasicInputRowandTensButton(
+                        placeholder = "000.0",
+                        value = setValueCranePosFwdDwnSp,
+                        onValueChange = updateValueCranePosFwdDwnSp,
+                        onClick = onSetValueCranePosFwdDwnSp,
+                        isDecimal = true,
                     )
                 }
-
+                //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
-                        isLampStatus = 0
+                        isLampStatus = currentCraneFwdDwnSp1
                     )
                 }
             }
 
 
-            // Замедление скорости движения крана влево
+            // Замедление скорости движения крана назад (влево)
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения при котором снижается скорость тележки вперед
-                Box(
-                    modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
-                        .weight(4f)
+                //Поле ввода значения при котором снижается скорость подъема
+                Box(modifier = Modifier.weight(4f)
                 ) {
-                    BasicTextFilledGiraffe(
-                        placeholder = "00.0",
-                        value = "",
-                        onValueChange = { "" },
-                        modifier = Modifier,
+                    BasicInputRowandTensButton(
+                        placeholder = "000.0",
+                        value = setValueCranePosRevDwnSp,
+                        onValueChange = updateValueCranePosRevDwnSp,
+                        onClick = onSetValueCranePosRevDwnSp,
+                        isDecimal = true,
                     )
                 }
-
+                //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
-                        isLampStatus = 0
+                        isLampStatus = currentCraneRevDwnSp1
                     )
                 }
             }
 
             // Ограничение движения крана влево
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения минимальной высоты подъема
+                //Поле ввода значения остановка назад (влево)
                 Box(
                     modifier = Modifier
-                        .padding(start = 15.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffe(
-                        placeholder = "00.0",
-                        value = "",
-                        onValueChange = { "" },
+                        placeholder = "000.0",
+                        value = setValueCranePosRevStop,
+                        onValueChange = updateValueCranePosRevStop,
                         modifier = Modifier,
+                        isDecimal = true,
                     )
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
-                        text = R.string.Button_Enter,
-                        onClick = {},
+                        text = R.string.Button_Memory,
+                        onClick = onSetValueCranePosRevStop,
                     ) {}
                 }
+                //Статус. Индикация срабатывания остановки
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
-                        isLampStatus = 0
+                        isLampStatus = currentCraneStopRev1
                     )
                 }
             }
 
             //Ввод. Реперная точка хода крана
-            Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicTextFilledGiraffe(
-                    placeholder = "00.0",
-                    value = "",
-                    onValueChange = {""},
-                    modifier = Modifier,
-                )
+            Row(horizontalArrangement = Arrangement.Start) {
+                //Поле ввода значения при котором срабатывает реперная точка
+                Box(modifier = Modifier.weight(4f)
+                ) {
+                    BasicInputRowandTensButton(
+                        placeholder = "000.0",
+                        value = setValueCranePosRepPoint,
+                        onValueChange = updateValueCranePosRepPoint,
+                        onClick = onSetValueCranePosRepPoint,
+                        isDecimal = true,
+                    )
+                }
+                //Статус. Индикация срабатывания точки
+                Box(modifier = Modifier.weight(1f)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = currentCraneRepPoint
+                    )
+                }
             }
 
             // Кнопка Активации хода крана
-            BasicButtonGiraffe(
-                modifier = Modifier.fillMaxWidth(),
-                text = R.string.Button_Turn_ON_Off,
-                onClick = {},
-            ) {}
+            BasicButtonOnOffStatusPolygon(
+                onClick = onSetCraneRailsEn,
+                isLampStatus = currentCraneRailsEn
+            )
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
-
+            //Статус датчика. Контроль максимального рассогласования
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentCraneEncoderMaxDeltaError
+                    )
+                }
+            }
+            //Статус датчика. Контроль максимального значения
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 50.dp)
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentCraneEncoderMaxValueError
+                    )
+                }
+            }
+            //Статус датчика. Контроль связи
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.weight(3f))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .size(height = 35.dp, width = 50.dp)
+                        .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = currentCraneAbsEncErrCanOpen
+                    )
+                }
+            }
 
         }
     }
+}
+
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
 }
 
 @Preview
@@ -252,6 +369,45 @@ fun CalibrationSensorCrane(
 fun CalibrationSensorCranePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorCrane(
+            currentAbsEncCranePositionWord1 = 1,
+            currentAbsEncCranePositionWord2 = 1,
+            currentCranePosition = 1f,
+
+            onSetCraneLimitTestEn = { },
+            onSetCraneRailsEn = { },
+            currentCraneRailsEn = 1,
+
+            setValueCranePosFwdStop = "1",
+            updateValueCranePosFwdStop = { },
+            onSetValueCranePosFwdStop = { },
+            currentCraneStopFwd1 = 1,
+
+            setValueCranePosRevStop = "1",
+            updateValueCranePosRevStop = { },
+            onSetValueCranePosRevStop = { },
+            currentCraneStopRev1 = 1,
+
+            setValueCranePosFwdDwnSp = "1",
+            updateValueCranePosFwdDwnSp = { },
+            onSetValueCranePosFwdDwnSp = { },
+            currentCraneFwdDwnSp1 = 1,
+
+            setValueCranePosRevDwnSp = "1",
+            updateValueCranePosRevDwnSp = { },
+            onSetValueCranePosRevDwnSp = { },
+            currentCraneRevDwnSp1 = 1,
+
+            setValueCranePosRepPoint = "1",
+            updateValueCranePosRepPoint = { },
+            onSetValueCranePosRepPoint = { },
+            currentCraneRepPoint = 1,
+
+            currentCraneEncoderMaxDeltaError = 1,
+            currentCraneEncoderMaxValueError = 1,
+            currentCraneAbsEncErrCanOpen = 1,
+
+            errorMessageCrane = null,
+            logMessageCrane = null,
         )
     }
 }

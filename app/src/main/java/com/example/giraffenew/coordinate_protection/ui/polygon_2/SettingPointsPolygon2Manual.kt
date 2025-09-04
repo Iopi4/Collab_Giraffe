@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,17 +59,20 @@ fun SettingPointsPolygon2Manual (
     Polygon2PointY08: Float, Polygon2PointX08: Float,
     Polygon2PointY09: Float, Polygon2PointX09: Float,
     Polygon2PointY10: Float, Polygon2PointX10: Float,
-//    Polygon2PointY11: Float, Polygon2PointX11: Float,
-//    Polygon2PointY12: Float, Polygon2PointX12: Float,
-//    Polygon2PointY13: Float, Polygon2PointX13: Float,
-//    Polygon2PointY14: Float, Polygon2PointX14: Float,
-//    Polygon2PointY15: Float, Polygon2PointX15: Float,
-//    Polygon2PointY16: Float, Polygon2PointX16: Float,
-//    Polygon2PointY17: Float, Polygon2PointX17: Float,
-//    Polygon2PointY18: Float, Polygon2PointX18: Float,
-//    Polygon2PointY19: Float, Polygon2PointX19: Float,
-//    Polygon2PointY20: Float, Polygon2PointX20: Float,
+    Polygon2PointY11: Float, Polygon2PointX11: Float,
+    Polygon2PointY12: Float, Polygon2PointX12: Float,
+    Polygon2PointY13: Float, Polygon2PointX13: Float,
+    Polygon2PointY14: Float, Polygon2PointX14: Float,
+    Polygon2PointY15: Float, Polygon2PointX15: Float,
+    Polygon2PointY16: Float, Polygon2PointX16: Float,
+    Polygon2PointY17: Float, Polygon2PointX17: Float,
+    Polygon2PointY18: Float, Polygon2PointX18: Float,
+    Polygon2PointY19: Float, Polygon2PointX19: Float,
+    Polygon2PointY20: Float, Polygon2PointX20: Float,
 ) {
+    // Общее состояние прокрутки
+    val scrollState = rememberScrollState()
+
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -76,6 +81,7 @@ fun SettingPointsPolygon2Manual (
 //№.1 - Левая область для отображения параметров настройки точек полигона)
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
                     width = 3.dp,
                     color = Orange,
@@ -147,6 +153,58 @@ fun SettingPointsPolygon2Manual (
                 pointX = formatDecimal(Polygon2PointX10),
                 pointY = formatDecimal(Polygon2PointY10)
             )
+            //Координаты точки №11
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX11),
+                pointY = formatDecimal(Polygon2PointY11)
+            )
+            //Координаты точки №12
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX12),
+                pointY = formatDecimal(Polygon2PointY12)
+            )
+            //Координаты точки №13
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX13),
+                pointY = formatDecimal(Polygon2PointY13)
+            )
+            //Координаты точки №14
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX14),
+                pointY = formatDecimal(Polygon2PointY14)
+            )
+            //Координаты точки №15
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX15),
+                pointY = formatDecimal(Polygon2PointY15)
+            )
+            //Координаты точки №16
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX16),
+                pointY = formatDecimal(Polygon2PointY16)
+            )
+            //Координаты точки №17
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX17),
+                pointY = formatDecimal(Polygon2PointY17)
+            )
+            //Координаты точки №18
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX18),
+                pointY = formatDecimal(Polygon2PointY18)
+            )
+            //Координаты точки №19
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX19),
+                pointY = formatDecimal(Polygon2PointY19)
+            )
+            //Координаты точки №20
+            PolygonPoint(
+                pointX = formatDecimal(Polygon2PointX20),
+                pointY = formatDecimal(Polygon2PointY20)
+            )
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
         }
 
 
@@ -154,6 +212,7 @@ fun SettingPointsPolygon2Manual (
 //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
                     width = 3.dp,
                     color = Burgundy_violet,
@@ -204,61 +263,122 @@ fun SettingPointsPolygon2Manual (
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_1,
-                onClick = {onSetP2PointCmd(1)},
+                onClick = {onSetP2PointCmd(61)},
             ) {}
             // Кнопка задать точку №2
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_2,
-                onClick = {onSetP2PointCmd(2)},
+                onClick = {onSetP2PointCmd(62)},
             ) {}
             // Кнопка задать точку №3
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_3,
-                onClick = {onSetP2PointCmd(3)},
+                onClick = {onSetP2PointCmd(63)},
             ) {}
             // Кнопка задать точку №4
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_4,
-                onClick = {onSetP2PointCmd(4)},
+                onClick = {onSetP2PointCmd(64)},
             ) {}
             // Кнопка задать точку №5
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_5,
-                onClick = {onSetP2PointCmd(5)},
+                onClick = {onSetP2PointCmd(65)},
             ) {}
             // Кнопка задать точку №6
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_6,
-                onClick = {onSetP2PointCmd(6)},
+                onClick = {onSetP2PointCmd(66)},
             ) {}
             // Кнопка задать точку №7
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_7,
-                onClick = {onSetP2PointCmd(7)},
+                onClick = {onSetP2PointCmd(67)},
             ) {}
             // Кнопка задать точку №8
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_8,
-                onClick = {onSetP2PointCmd(8)},
+                onClick = {onSetP2PointCmd(68)},
             ) {}
             // Кнопка задать точку №9
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_9,
-                onClick = {onSetP2PointCmd(9)},
+                onClick = {onSetP2PointCmd(69)},
             ) {}
             // Кнопка задать точку №10
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_10,
-                onClick = {onSetP2PointCmd(10)},
+                onClick = {onSetP2PointCmd(70)},
+            ) {}
+
+            // Кнопка задать точку №11
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_11,
+                onClick = {onSetP2PointCmd(71)},
+            ) {}
+            // Кнопка задать точку №12
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_12,
+                onClick = {onSetP2PointCmd(72)},
+            ) {}
+            // Кнопка задать точку №13
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_13,
+                onClick = {onSetP2PointCmd(73)},
+            ) {}
+            // Кнопка задать точку №14
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_14,
+                onClick = {onSetP2PointCmd(74)},
+            ) {}
+            // Кнопка задать точку №15
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_15,
+                onClick = {onSetP2PointCmd(75)},
+            ) {}
+            // Кнопка задать точку №16
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_16,
+                onClick = {onSetP2PointCmd(76)},
+            ) {}
+            // Кнопка задать точку №17
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_17,
+                onClick = {onSetP2PointCmd(77)},
+            ) {}
+            // Кнопка задать точку №18
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_18,
+                onClick = {onSetP2PointCmd(78)},
+            ) {}
+            // Кнопка задать точку №19
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_19,
+                onClick = {onSetP2PointCmd(79)},
+            ) {}
+            // Кнопка задать точку №20
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.CoordinateProtection_Button_Set_Point_20,
+                onClick = {onSetP2PointCmd(80)},
             ) {}
 
             // Отступ
@@ -315,26 +435,26 @@ fun SettingPointsPolygon2ManualPreview (){
             Polygon2PointY10 = 1f,
             Polygon2PointX10 = 1f,
 
-//            Polygon2PointY11 = 1f,
-//            Polygon2PointX11 = 1f,
-//            Polygon2PointY12 = 1f,
-//            Polygon2PointX12 = 1f,
-//            Polygon2PointY13 = 1f,
-//            Polygon2PointX13 = 1f,
-//            Polygon2PointY14 = 1f,
-//            Polygon2PointX14 = 1f,
-//            Polygon2PointY15 = 1f,
-//            Polygon2PointX15 = 1f,
-//            Polygon2PointY16 = 1f,
-//            Polygon2PointX16 = 1f,
-//            Polygon2PointY17 = 1f,
-//            Polygon2PointX17 = 1f,
-//            Polygon2PointY18 = 1f,
-//            Polygon2PointX18 = 1f,
-//            Polygon2PointY19 = 1f,
-//            Polygon2PointX19 = 1f,
-//            Polygon2PointY20 = 1f,
-//            Polygon2PointX20 = 1f,
+            Polygon2PointY11 = 1f,
+            Polygon2PointX11 = 1f,
+            Polygon2PointY12 = 1f,
+            Polygon2PointX12 = 1f,
+            Polygon2PointY13 = 1f,
+            Polygon2PointX13 = 1f,
+            Polygon2PointY14 = 1f,
+            Polygon2PointX14 = 1f,
+            Polygon2PointY15 = 1f,
+            Polygon2PointX15 = 1f,
+            Polygon2PointY16 = 1f,
+            Polygon2PointX16 = 1f,
+            Polygon2PointY17 = 1f,
+            Polygon2PointX17 = 1f,
+            Polygon2PointY18 = 1f,
+            Polygon2PointX18 = 1f,
+            Polygon2PointY19 = 1f,
+            Polygon2PointX19 = 1f,
+            Polygon2PointY20 = 1f,
+            Polygon2PointX20 = 1f,
         )
     }
 }

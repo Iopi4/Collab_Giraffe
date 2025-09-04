@@ -122,8 +122,10 @@
     <string name="SettingSensors_Text_Examination">Режим.Тест ограничений</string>
     <string name="SettingSensors_Text_Status">Статус</string>
     <string name="SettingSensors_Text_Parameters">Параметры</string>
-    <string name="SettingSensors_Text_Sensor_Alarm_1">Статус! Контроль показаний</string>
+    <string name="SettingSensors_Text_Sensor_Alarm_1">Сбой! Максимальная дельта</string>
     <string name="SettingSensors_Text_Sensor_Alarm_2">Статус! Контроль связи</string>
+    <string name="SettingSensors_Text_Sensor_Alarm_1_1">Сбой! Максимальная дельта</string>
+    <string name="SettingSensors_Text_Sensor_Alarm_1_2">Сбой! Максимальное значение</string>
 
     <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
     <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
@@ -135,8 +137,8 @@
 
     <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
     <string name="SettingSensors_Text_Trolley_Departure">Вылет тележки[м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Forward">(1) Запомнить. Стоп вперед [м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Revers">(2) Запомнить. Стоп назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Forward">(2) Запомнить. Стоп вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Revers">(1) Запомнить. Стоп назад [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Forward">(4) Ввод. Сниж. скор. вперед [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Revers">(3) Ввод. Сниж. скор. назад [м]</string>
 
@@ -145,15 +147,18 @@
     <string name="SettingSensors_Text_Slewing_Installation_Zero">(1) Запомн. Ноль [град]</string>
     <string name="SettingSensors_Text_Slewing_Calibration_Corner">(2) Запомн. Настр. угол [град]</string>
     <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(3) Запомн. Макс. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Information">Настройку угла производить по часовой стрелке!</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>
-    <string name="SettingSensors_Text_Crane_Stop_Right">Запомнить. Стоп вправо [м]</string>
-    <string name="SettingSensors_Text_Crane_Stop_Left">Запомнить. Стоп влево [м]</string>
-    <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вправо [м]</string>
-    <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. влево [м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Right">Запомн. Стоп вперед(вправо)[м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Left">Запомн. Стоп назад(влево) [м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вперед [м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. назад [м]</string>
     <string name="SettingSensors_Text_Crane_Reference_Point">Реперная точка [м]</string>
     <string name="SettingSensors_Text_Crane_Activate">Активация хода крана</string>
+
+    <string name="SettingSensors_Text_Sensor_Status">Состояние датчика</string>
     <!-- Текст экрана SettingSensorsScreen' -->
 
 
@@ -175,6 +180,16 @@
     <string name="CoordinateProtection_Button_Set_Point_8">ЗАДАТЬ ТОЧКУ 8</string>
     <string name="CoordinateProtection_Button_Set_Point_9">ЗАДАТЬ ТОЧКУ 9</string>
     <string name="CoordinateProtection_Button_Set_Point_10">ЗАДАТЬ ТОЧКУ 10</string>
+    <string name="CoordinateProtection_Button_Set_Point_11">ЗАДАТЬ ТОЧКУ 11</string>
+    <string name="CoordinateProtection_Button_Set_Point_12">ЗАДАТЬ ТОЧКУ 12</string>
+    <string name="CoordinateProtection_Button_Set_Point_13">ЗАДАТЬ ТОЧКУ 13</string>
+    <string name="CoordinateProtection_Button_Set_Point_14">ЗАДАТЬ ТОЧКУ 14</string>
+    <string name="CoordinateProtection_Button_Set_Point_15">ЗАДАТЬ ТОЧКУ 15</string>
+    <string name="CoordinateProtection_Button_Set_Point_16">ЗАДАТЬ ТОЧКУ 16</string>
+    <string name="CoordinateProtection_Button_Set_Point_17">ЗАДАТЬ ТОЧКУ 17</string>
+    <string name="CoordinateProtection_Button_Set_Point_18">ЗАДАТЬ ТОЧКУ 18</string>
+    <string name="CoordinateProtection_Button_Set_Point_19">ЗАДАТЬ ТОЧКУ 19</string>
+    <string name="CoordinateProtection_Button_Set_Point_20">ЗАДАТЬ ТОЧКУ 20</string>
 
     <string name="CoordinateProtection_Text_Polygon_1">Полигон №1</string>
     <string name="CoordinateProtection_Text_Polygon_2">Полигон №2</string>
