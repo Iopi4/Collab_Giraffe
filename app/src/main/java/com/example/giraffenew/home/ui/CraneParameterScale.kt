@@ -18,7 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizon
+import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonHi
+import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonHiHi
+import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -64,12 +66,23 @@ fun CraneParameterScale(
                 .padding(start = 130.dp, top = 35.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart
         ) {
-            BasicParameterScaleHorizon(
-            currentValue = weightPercent,
-            minValue = 0f,
-            maxValue = 120f,
-            modifier = Modifier.size(width = 200.dp, height = 10.dp)
-        )}
+            BasicParameterScaleHorizonMax(
+                currentValue = weightPercent,
+                minValue = 0f,
+                maxValue = 120f,
+                modifier = Modifier.size(width = 170.dp, height = 10.dp))
+            BasicParameterScaleHorizonHiHi(
+                currentValue = weightPercent,
+                minValue = 0f,
+                maxValue = 105f,
+                modifier = Modifier.size(width = 150.dp, height = 10.dp))
+            BasicParameterScaleHorizonHi(
+                currentValue = weightPercent,
+                minValue = 0f,
+                maxValue = 90f,
+                modifier = Modifier.size(width = 130.dp, height = 10.dp))
+
+        }
 
 //Шкала высоты подъема. Заголовок
         BasicParametersText(
@@ -110,7 +123,7 @@ fun CraneParameterScale(
                 .padding(start = 10.dp, top = 245.dp, end = 15.dp),
             contentAlignment = Alignment.TopStart
         ) {
-            BasicParameterScaleHorizon(
+            BasicParameterScaleHorizonHi(
                 currentValue = cranePosition,
                 minValue = 0f,
                 maxValue = craneMaxPosition,
@@ -140,7 +153,7 @@ private fun formatDecimalMinus(value: Float): String {
 fun CraneParameterScalePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         CraneParameterScale(
-            weightPercent= 80f,
+            weightPercent= 105f,
             hoistPosition = 30f,
             hoistMaxPosition= 32850f,
             hoistMinPosition= -5f,

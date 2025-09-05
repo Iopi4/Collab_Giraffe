@@ -21,7 +21,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizon
+import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonHi
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -88,7 +88,7 @@ fun Load(){
 //Шкала записи на SD-карту
             Box(modifier = Modifier
                 .padding(start = 15.dp)) {
-                BasicParameterScaleHorizon(
+                BasicParameterScaleHorizonHi(
                 currentValue = 50f,
                 minValue = 0f,
                 maxValue = 100f,
@@ -116,7 +116,7 @@ fun Load(){
 //Шкала зугрузки с SD-карты
             Box(modifier = Modifier
                 .padding(start = 15.dp)) {
-                BasicParameterScaleHorizon(
+                BasicParameterScaleHorizonHi(
                     currentValue = 50f,
                     minValue = 0f,
                     maxValue = 100f,

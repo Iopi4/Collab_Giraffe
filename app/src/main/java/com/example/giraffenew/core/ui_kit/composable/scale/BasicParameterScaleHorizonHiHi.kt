@@ -22,12 +22,12 @@ import com.example.giraffenew.ui.theme.Silver
 
 @Composable
 
-fun BasicParameterScaleHorizon(
+fun BasicParameterScaleHorizonHiHi(
     currentValue: Float,
     minValue: Float,
     maxValue: Float,
     modifier: Modifier, // Делаем параметр необязательным
-    lineColor: Color = colorResource(R.color.Blue),
+    lineColor: Color = colorResource(R.color.Lemon),
     lineThickness: Float = 12f,
     animationDuration: Int = 100
 ) {
@@ -47,7 +47,7 @@ fun BasicParameterScaleHorizon(
 
     Box( modifier = Modifier
         .border(
-            width = 1.dp, color = Silver, //рамка
+            width = 1.dp, colorResource(R.color.Lemon), //рамка
             shape = RoundedCornerShape(1.dp))) {
         Canvas(modifier = modifier) { // Убираем ненужное приведение типов
             drawLine(
@@ -64,9 +64,9 @@ fun BasicParameterScaleHorizon(
 
 @Preview
 @Composable
-fun BasicParameterScaleHorizonPreview() {
+fun BasicParameterScaleHorizonHiHiPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
-            BasicParameterScaleHorizon(
+        BasicParameterScaleHorizonHiHi(
                 currentValue = 0f,
                 minValue = 0f,
                 maxValue = 0f,
