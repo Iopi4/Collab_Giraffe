@@ -94,8 +94,10 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "статус датчика ветра (0-Rd, 1-Yl, 2-Gr) "),
         //addressesCraneParameterScale
         RegisterInfo(317, "HMI_Weight_Percent_MW", "WORD16", "Текущий вес в процентах"),
-        RegisterInfo(318, "HMI_Hoist_Max_Position_MW", "WORD16", "Максимальное положение высоты крюка"),
         RegisterInfo(319, "HMI_Max_Crane_Position_MW", "WORD16", "Максимальное положение крана"),
+        RegisterInfo(154, "WindSpeedLvl2", "WORD16", "Предельный ветер нерабочего состояния в м/с"),
+        RegisterInfo(175, "WindSpeedLvl1", "WORD16", "Предупредительный ветер рабочего состояния в м/с"),
+        RegisterInfo(176, "WindSpeedMontageLv1_MW", "WORD16", "Предупредительный ветер в режиме монтаж в м/с"),
         //addressesCraneMechanismsCondition
         RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
         RegisterInfo(320, "HMI_Trolley_Fwd_Status_MW", "WORD16", "Статус движения тележки вперед на HMI"),
@@ -114,7 +116,7 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(333, "HMI_EM_Vihod_6_Trolley_Rev_MW", "WORD16", "Статус выхода из полигона движением тележки назад"),
         RegisterInfo(334, "HMI_EM_Vihod_7_Hoist_Up_MW", "WORD16", "Статус выхода из полигона подъемом груза"),
         RegisterInfo(335, "HMI_EM_Vihod_8_Hoist_Down_MW", "WORD16", "Статус выхода из полигона опусканием груза"),
-        RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометра"),
+        RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометраю Ошибка датчика"),
         RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
 
         //Crane SOZR

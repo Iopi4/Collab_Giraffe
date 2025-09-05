@@ -97,6 +97,7 @@ internal fun HomeScreen (
                 hoistMinPosition = homeViewModel.state.value.hoistMinPosition,
                 cranePosition = homeViewModel.state.value.cranePosition,
                 craneMaxPosition = homeViewModel.state.value.craneMaxPosition,
+                anemometerStatus = homeViewModel.state.value.anemometerStatus,
             ) }
 
             Box (modifier = Modifier

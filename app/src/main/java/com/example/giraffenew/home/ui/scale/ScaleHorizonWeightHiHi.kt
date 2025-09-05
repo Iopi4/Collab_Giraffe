@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable.scale
+package com.example.giraffenew.home.ui.scale
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -18,17 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.R
-import com.example.giraffenew.ui.theme.Blue
-import com.example.giraffenew.ui.theme.Silver
 
 @Composable
 
-fun BasicParameterScaleHorizonHi(
+fun ScaleHorizonWeightHiHi(
     currentValue: Float,
     minValue: Float,
     maxValue: Float,
     modifier: Modifier, // Делаем параметр необязательным
-    lineColor: Color = colorResource(R.color.Blue),
+    lineColor: Color = colorResource(R.color.Lemon),
     lineThickness: Float = 12f,
     animationDuration: Int = 100
 ) {
@@ -48,7 +46,7 @@ fun BasicParameterScaleHorizonHi(
 
     Box( modifier = Modifier
         .border(
-            width = 1.dp, color = Blue, //рамка
+            width = 1.dp, colorResource(R.color.Lemon), //рамка
             shape = RoundedCornerShape(1.dp))) {
         Canvas(modifier = modifier) { // Убираем ненужное приведение типов
             drawLine(
@@ -65,12 +63,12 @@ fun BasicParameterScaleHorizonHi(
 
 @Preview
 @Composable
-fun BasicParameterScaleHorizonHiPreview() {
+fun BasicParameterScaleHorizonHiHiPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
-            BasicParameterScaleHorizonHi(
-                currentValue = 80f,
-                minValue = 75f,
-                maxValue = 90f,
+        ScaleHorizonWeightHiHi(
+                currentValue = 0f,
+                minValue = 0f,
+                maxValue = 0f,
                 modifier = Modifier
                     .size(width = 200.dp, height = 10.dp)
             )

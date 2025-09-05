@@ -1,4 +1,4 @@
-package com.example.giraffenew.core.ui_kit.composable.scale
+package com.example.giraffenew.home.ui.scale
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -21,18 +21,18 @@ import com.example.giraffenew.R
 import com.example.giraffenew.ui.theme.Silver
 
 @Composable
-
-fun BasicParameterScaleHorizonMax(
+fun ScaleVerticalHoist(
     currentValue: Float,
     minValue: Float,
     maxValue: Float,
     modifier: Modifier, // Делаем параметр необязательным
-    lineColor: Color = colorResource(R.color.Red),
+    lineColor: Color = colorResource(R.color.Blue),
     lineThickness: Float = 12f,
     animationDuration: Int = 100
 ) {
     // Определяем эффективное значение maxValue
     val effectiveMaxValue = if (maxValue == 0f) 1f else maxValue
+
     val lineLength by animateFloatAsState(
         targetValue = if (effectiveMaxValue > minValue) {
             // Корректный расчет без смещения lineThickness
@@ -45,33 +45,45 @@ fun BasicParameterScaleHorizonMax(
     )
 
 
+
     Box( modifier = Modifier
         .border(
-            width = 1.dp, colorResource(R.color.Red), //рамка
+            width = 1.dp, color = Silver, //рамка
             shape = RoundedCornerShape(1.dp))) {
         Canvas(modifier = modifier) { // Убираем ненужное приведение типов
+            // Рассчитываем доступную высоту с учетом толщины линии
+            val availableHeight = size.height - lineThickness
+
+            // Вычисляем конечную позицию Y с учетом толщины
+            val endY = if (availableHeight > 0) {
+                size.height - lineThickness / 2 - availableHeight * lineLength
+            } else {
+                size.height - lineThickness / 2
+            }
+
+            //Отрисовываем шкалу по направлению снизу вверх по вертикали
             drawLine(
                 color = lineColor,
-                start = Offset((lineThickness/2), size.height / 2),
-                end = Offset((size.width - lineThickness) * lineLength + lineThickness /2, size.height/2),
+                start = Offset((size.width/2), size.height-lineThickness/2),
+                end = Offset(size.width / 2, endY),
                 strokeWidth = lineThickness,
                 cap = StrokeCap.Square
             )
         }
     }
-
+    
 }
 
 @Preview
 @Composable
-fun BasicParameterScaleHorizonMaxPreview() {
+fun ScaleVerticalHoistPreview() {
     GIRAFFEnewTheme(dynamicColor = false) {
-        BasicParameterScaleHorizonMax(
+        ScaleVerticalHoist(
                 currentValue = 0f,
-                minValue = 0f,
+                minValue = -0f,
                 maxValue = 0f,
                 modifier = Modifier
-                    .size(width = 200.dp, height = 10.dp)
+                    .size(width = 10.dp, height = 200.dp)
             )
 
     }

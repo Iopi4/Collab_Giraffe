@@ -107,7 +107,6 @@ class HomeScreenViewModel @Inject constructor(
         trolleyCurrent = safeDivideTens(cache[155] ?: 0),
         slewingCurrent = safeDivideTens(cache[158] ?: 0),
         heightCurrent = safeDivideTens(cache[159] ?: 0),
-
         moveCurrent = safeDivideTens(cache[162] ?: 0),
         windCurrent = safeDivideTens(cache[163] ?: 0),
         voltageL1L2Current = safeDivideTens(cache[135] ?: 0),
@@ -122,6 +121,9 @@ class HomeScreenViewModel @Inject constructor(
         cranePosition = safeDivideTens(cache[162] ?: 0),
         craneMaxPosition = safeDivideTens(cache[319] ?: 0),
         anemometerStatus = cache[336] ?: 0,
+        windSpeedLvl1 = safeDivideTens (cache[175] ?: 0),
+        windSpeedLvl2 = safeDivideTens (cache[154] ?: 0),
+        windSpeedMontage = safeDivideTens (cache[176] ?: 0),
 
         // Mechanisms Condition
         weightSensorErr = cache[711] ?: 0,
@@ -286,6 +288,7 @@ class HomeScreenViewModel @Inject constructor(
         val heightCurrent: Float = -0f,
         val moveCurrent: Float = 0f,
         val windCurrent: Float = 0f,
+        val anemometerStatus: Int = 0,
         val voltageL1L2Current: Float = 0f,
         val voltageL2L3Current: Float = 0f,
         val voltageL1L3Current: Float = 0f,
@@ -297,7 +300,9 @@ class HomeScreenViewModel @Inject constructor(
         val cranePosition: Float = 0f,
         val craneMaxPosition: Float = 0f,
 
-        val anemometerStatus: Int = 0,
+        val windSpeedLvl1 : Float = 0f,
+        val windSpeedLvl2 : Float = 0f,
+        val windSpeedMontage : Float = 0f,
 
 //CraneMechanismsCondition UI
         val weightSensorErr: Int = 0,

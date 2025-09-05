@@ -12,17 +12,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonHi
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonHiHi
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleHorizonMax
+import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHi
+import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
+import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
-import com.example.giraffenew.core.ui_kit.composable.scale.BasicParameterScaleVertical
+import com.example.giraffenew.home.ui.lamp.LampWindStatus
+import com.example.giraffenew.home.ui.scale.ScaleVerticalHoist
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -33,6 +35,7 @@ fun CraneParameterScale(
     hoistMinPosition:   Float,
     cranePosition:      Float,
     craneMaxPosition:   Float,
+    anemometerStatus: Int,
     modifier: Modifier= Modifier,
 ){
 
@@ -66,21 +69,55 @@ fun CraneParameterScale(
                 .padding(start = 130.dp, top = 35.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart
         ) {
-            BasicParameterScaleHorizonMax(
+            ScaleHorizonWeightMax(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 120f,
                 modifier = Modifier.size(width = 170.dp, height = 10.dp))
-            BasicParameterScaleHorizonHiHi(
+            ScaleHorizonWeightHiHi(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 105f,
                 modifier = Modifier.size(width = 150.dp, height = 10.dp))
-            BasicParameterScaleHorizonHi(
+            ScaleHorizonWeightHi(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 90f,
                 modifier = Modifier.size(width = 130.dp, height = 10.dp))
+        }
+//Отрисуем лампу с вентилятором. Уровень ветра
+        Box(modifier = Modifier
+            .padding(start = 10.dp, top =7.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
+            LampWindStatus(
+                isLampStatus = anemometerStatus
+            )
+        }
+        val imageVector = when (anemometerStatus) {
+            0 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
+            1 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48_dark_gray)
+            2 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
+            else -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
+        }
+        Box(modifier = Modifier
+            .padding(start = 10.dp, top =7.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
+            Image(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
+            )
+        }
+
+//Отрисуем лампу со звуковой сигнализацией
+        Box(modifier = Modifier
+            .padding(start = 10.dp, top =50.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
+
+        }
+        Box(modifier = Modifier
+            .padding(start = 10.dp, top =50.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
 
         }
 
@@ -100,7 +137,7 @@ fun CraneParameterScale(
                 .padding(start = 260.dp, top = 80.dp,),
             contentAlignment = Alignment.TopStart
         ) {
-            BasicParameterScaleVertical(
+            ScaleVerticalHoist(
                 currentValue = hoistPosition,
                 minValue = hoistMinPosition,
                 maxValue = hoistMaxPosition,
@@ -123,7 +160,7 @@ fun CraneParameterScale(
                 .padding(start = 10.dp, top = 245.dp, end = 15.dp),
             contentAlignment = Alignment.TopStart
         ) {
-            BasicParameterScaleHorizonHi(
+            ScaleHorizonWeightHi(
                 currentValue = cranePosition,
                 minValue = 0f,
                 maxValue = craneMaxPosition,
@@ -153,12 +190,13 @@ private fun formatDecimalMinus(value: Float): String {
 fun CraneParameterScalePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         CraneParameterScale(
-            weightPercent= 105f,
+            weightPercent= 90f,
             hoistPosition = 30f,
-            hoistMaxPosition= 32850f,
+            hoistMaxPosition= 3225+60f,
             hoistMinPosition= -5f,
             cranePosition = 20f,
             craneMaxPosition= 40f,
+            anemometerStatus = 1,
             )
     }
 }
