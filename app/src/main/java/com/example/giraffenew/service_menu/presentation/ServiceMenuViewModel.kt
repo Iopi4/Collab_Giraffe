@@ -1111,17 +1111,13 @@ class ServiceMenuViewModel
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
                 modbusRepository.writeRegister(994, 1)
-//                delay(200)
-//                modbusRepository.writeRegister(994, 0)
-                _errorMessageAbsEnc.value = null
-                _logMessageAbsEnc.value = "Сохранено"
+                delay(200)
+                modbusRepository.writeRegister(994, 0)
             } catch (e: Exception) {
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
-                _logMessageAbsEnc.value = null
             }
         }
     }
-    // AbsEncoder. Включить установки режима наладки механизма подъема при выходе датчика из строя
+    // AbsEncoder. Флаг установки режима наладки механизма подъема при выходе датчика из строя
     fun onSetAbsEncDebugModeHoistEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -1130,17 +1126,13 @@ class ServiceMenuViewModel
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
                 modbusRepository.writeRegister(995, 1)
-//                delay(200)
-//                modbusRepository.writeRegister(995, 0)
-                _errorMessageAbsEnc.value = null
-                _logMessageAbsEnc.value = "Сохранено"
+                delay(200)
+                modbusRepository.writeRegister(995, 0)
             } catch (e: Exception) {
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
-                _logMessageAbsEnc.value = null
             }
         }
     }
-
+    //Флаг установки режима наладки механизма поворота при выходе датчика из строя"
     fun onSetAbsEncDebugModeSlewEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -1149,16 +1141,16 @@ class ServiceMenuViewModel
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
                 modbusRepository.writeRegister(996, 1)
-//                delay(200)
-//                modbusRepository.writeRegister(996, 0)
-                _errorMessageAbsEnc.value = null
-                _logMessageAbsEnc.value = "Сохранено"
+                delay(200)
+                modbusRepository.writeRegister(996, 0)
             } catch (e: Exception) {
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
-                _logMessageAbsEnc.value = null
             }
         }
     }
+
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!СЕРВИСНЫЙ ИНЖЕНЕР!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
 
 // Ingener. Включить запрет работы на скоростях выше второй при ошибке записи файла регистратора
     fun onSetDataLogErrStopHoist() {
@@ -1212,9 +1204,24 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1206, 1)
+                modbusRepository.writeRegister(1207, 1)
                 delay(200)
-                modbusRepository.writeRegister(1206, 0)
+                modbusRepository.writeRegister(1207, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Ingener. Активация плавной регулирования ускорений/замедлений
+    fun onSetZoneACCDECActiveEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1208, 1)
+                delay(200)
+                modbusRepository.writeRegister(1208, 0)
                 // Логирование
             } catch (e: Exception) {
             }

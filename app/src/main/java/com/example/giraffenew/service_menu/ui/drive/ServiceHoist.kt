@@ -112,13 +112,6 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Max_Speed_SS)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_SpdRefButton)
 
-            //Spacer(modifier = Modifier.size(30.dp))
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
 // Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Hoist_Montage))

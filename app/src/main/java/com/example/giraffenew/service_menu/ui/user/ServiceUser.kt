@@ -27,7 +27,20 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun ServiceUser(
+    onSetDataLogErrStopHoist: () -> Unit,
+    currentDataLogErrStopHoist: Int,
 
+    onSetPasswordNaladka: () -> Unit,
+    currentPasswordOrNaladka: Int,
+
+    onSetFOURpoligonsEn: () -> Unit,
+    currentFOURPolygonsEn: Int,
+
+    onSetWithoutRingCurrentCollectorEn: () -> Unit,
+    currentWithoutRingCurrentCollector: Int,
+
+    onSetZoneACCDECActiveEn: () -> Unit,
+    currentZoneACCDECActive: Int,
 ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -37,10 +50,15 @@ fun ServiceUser(
         //№.1 - Левая область для отображения параметров скорости и ускорений
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(3f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Orange,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
 // Заголовок
@@ -61,43 +79,48 @@ fun ServiceUser(
 //№.2 - Правая область для отображения и ввода параметров сервисного инженера
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(2f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Burgundy_violet,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
 //Отступ
             Spacer(modifier = Modifier.size(70.dp))
 //Поле активации запрета работы подъема выше второй скорости при ошибках регистратора
             BasicButtonOnOffStatus(
-                onClick = {},
-                isLampStatus = 0
+                onClick = onSetDataLogErrStopHoist,
+                isLampStatus = currentDataLogErrStopHoist
             )
 //Отступ
             Spacer(modifier = Modifier.size(65.dp))
 //Кнопка. Авторизация [Наладка]
             BasicButtonOnOffStatus(
-                onClick = {},
-                isLampStatus = 0
+                onClick = onSetPasswordNaladka,
+                isLampStatus = currentPasswordOrNaladka
             )
             Spacer(modifier = Modifier.size(10.dp))
-//Поле активации 2 полигона по 10 точек
+//Поле активации 4 полигона по 20 точек
             BasicButtonOnOffStatus(
-                onClick = {},
-                isLampStatus = 0
+                onClick = onSetFOURpoligonsEn,
+                isLampStatus = currentFOURPolygonsEn
             )
             Spacer(modifier = Modifier.size(20.dp))
-//Поле. Кольцевой токсъемник     [вкл/выкл]
+//Поле. Исполнение крана без токосъемника
             BasicButtonOnOffStatus(
-                onClick = {},
-                isLampStatus = 0
+                onClick = onSetWithoutRingCurrentCollectorEn,
+                isLampStatus = currentWithoutRingCurrentCollector
             )
             Spacer(modifier = Modifier.size(20.dp))
-//Поле. Режим настройки ускорений и торможений [вкл/выкл]
+//Поле. Режим плавной настройки расгона и торможения [вкл/выкл]
             BasicButtonOnOffStatus(
-                onClick = {},
-                isLampStatus = 0
+                onClick = onSetZoneACCDECActiveEn,
+                isLampStatus = currentZoneACCDECActive
             )
         }
     }
@@ -108,6 +131,21 @@ fun ServiceUser(
 fun ServiceUserPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServiceUser(
+            onSetDataLogErrStopHoist = { },
+            currentDataLogErrStopHoist = 1,
+
+            onSetPasswordNaladka = { },
+            currentPasswordOrNaladka =1,
+
+            onSetFOURpoligonsEn = { },
+            currentFOURPolygonsEn =1,
+
+            onSetWithoutRingCurrentCollectorEn = { },
+            currentWithoutRingCurrentCollector = 1,
+
+            onSetZoneACCDECActiveEn = { },
+            currentZoneACCDECActive =1,
+
         )
     }
 }

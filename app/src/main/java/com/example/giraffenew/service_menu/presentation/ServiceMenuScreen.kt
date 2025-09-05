@@ -34,7 +34,37 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun ServiceMenuScreen(
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel()
 ){
+    // 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, serviceMenuViewModel) {
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("ServiceMenuScreen", "Lifecycle: ON_RESUME- resuming data collection")
+                    serviceMenuViewModel.setActiveConfiguration()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("ServiceMenuScreen", "Lifecycle: ON_PAUSE - pausing data collection")
+                    serviceMenuViewModel.clearActiveConfiguration()
+                }
+                else -> {Log.e("ServiceMenuScreen", "Lifecycle: NOT START")}
+            }
+        }
+
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("ServiceMenuScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            serviceMenuViewModel.clearActiveConfiguration() // Дополнительная очистка
+        }
+    }
 
     BasicSettingBackground()
 
@@ -45,7 +75,22 @@ fun ServiceMenuScreen(
         NavHost(navController, startDestination = NavRoutesService.PageDrive.route) {
             composable(NavRoutesService.PageDrive.route){ DriveContent()}
             composable(NavRoutesService.PageSensors.route) {SensorsContent()}
-            composable(NavRoutesService.PageUser.route) {ServiceUser()}
+            composable(NavRoutesService.PageUser.route)
+            {ServiceUser(
+                onSetDataLogErrStopHoist = { serviceMenuViewModel.onSetDataLogErrStopHoist() },
+                onSetPasswordNaladka = { serviceMenuViewModel.onSetPasswordNaladka()},
+                onSetFOURpoligonsEn = { serviceMenuViewModel.onSetFOURpoligonsEn()},
+                onSetWithoutRingCurrentCollectorEn = { serviceMenuViewModel.onSetWithoutRingCurrentCollectorEn()},
+                onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
+
+                currentDataLogErrStopHoist = serviceMenuViewModel.state.value.currentDataLogErrStopHoist,
+                currentPasswordOrNaladka = serviceMenuViewModel.state.value.currentPasswordOrNaladka,
+                currentFOURPolygonsEn = serviceMenuViewModel.state.value.currentFOURPolygonsEn,
+                currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.currentWithoutRingCurrentCollector,
+                currentZoneACCDECActive = serviceMenuViewModel.state.value.currentZoneACCDECActive,
+
+
+            )}
         }
     }
 
