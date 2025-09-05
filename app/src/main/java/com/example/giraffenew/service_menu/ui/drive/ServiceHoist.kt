@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -127,12 +128,6 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageHoistMontage?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageHoistMontage?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -144,9 +139,17 @@ fun ServiceHoist(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-// Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.ServiceMenu_Text_Setting))
+// Отступ  и Статус записи данных настройки подъема
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 //Ввод. Разгон. сек
             BasicInputRowandTensButton(
                 placeholder = "3.0",

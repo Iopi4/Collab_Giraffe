@@ -99,38 +99,38 @@ fun ParametersLoadCapacity(
             // Отображение кнопок выбора грузовой характеристики
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_0,
-                onClick = { onSetCargoCharacteristic(0)}
+                text = R.string.SettingLoadCapacity_Button_GH_16,
+                onClick = { onSetCargoCharacteristic(16)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_1,
-                onClick = { onSetCargoCharacteristic(1)}
+                text = R.string.SettingLoadCapacity_Button_GH_17,
+                onClick = { onSetCargoCharacteristic(17)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_2,
-                onClick = { onSetCargoCharacteristic(2)}
+                text = R.string.SettingLoadCapacity_Button_GH_18,
+                onClick = { onSetCargoCharacteristic(18)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_3,
-                onClick = { onSetCargoCharacteristic(3)}
+                text = R.string.SettingLoadCapacity_Button_GH_19,
+                onClick = { onSetCargoCharacteristic(19)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_4,
-                onClick = { onSetCargoCharacteristic(4)}
+                text = R.string.SettingLoadCapacity_Button_GH_20,
+                onClick = { onSetCargoCharacteristic(20)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_5,
-                onClick = { onSetCargoCharacteristic(5)}
+                text = R.string.SettingLoadCapacity_Button_GH_21,
+                onClick = { onSetCargoCharacteristic(21)}
             ) {}
             BasicButtonGiraffe(
                 modifier = Modifier,
-                text = R.string.SettingLoadCapacity_Button_GH_6,
-                onClick = { onSetCargoCharacteristic(6)}
+                text = R.string.SettingLoadCapacity_Button_GH_22,
+                onClick = { onSetCargoCharacteristic(22)}
             ) {}
 
 

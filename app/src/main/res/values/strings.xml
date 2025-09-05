@@ -76,13 +76,13 @@
 
 
     <!-- Текст экрана SettingLoadCapacity' -->
-    <string name="SettingLoadCapacity_Button_GH_0">ГХ 0</string>
-    <string name="SettingLoadCapacity_Button_GH_1">ГХ 1</string>
-    <string name="SettingLoadCapacity_Button_GH_2">ГХ 2</string>
-    <string name="SettingLoadCapacity_Button_GH_3">ГХ 3</string>
-    <string name="SettingLoadCapacity_Button_GH_4">ГХ 4</string>
-    <string name="SettingLoadCapacity_Button_GH_5">ГХ 5</string>
-    <string name="SettingLoadCapacity_Button_GH_6">ГХ 6</string>
+    <string name="SettingLoadCapacity_Button_GH_16">ГХ 16</string>
+    <string name="SettingLoadCapacity_Button_GH_17">ГХ 17</string>
+    <string name="SettingLoadCapacity_Button_GH_18">ГХ 18</string>
+    <string name="SettingLoadCapacity_Button_GH_19">ГХ 19</string>
+    <string name="SettingLoadCapacity_Button_GH_20">ГХ 20</string>
+    <string name="SettingLoadCapacity_Button_GH_21">ГХ 21</string>
+    <string name="SettingLoadCapacity_Button_GH_22">ГХ 22</string>
     <string name="SettingLoadCapacity_Button_Calibration">КАЛИБР.</string>
 
     <string name="SettingLoadCapacity_Text_Type_GH">Тип грузовой характеристики</string>

@@ -278,16 +278,17 @@ class ServiceMenuViewModel
     // //Функция createServiceMenuState() для обработки отфильтрованных данных:
     private fun createServiceMenuState(cache: Map<Int, Int?>): ServiceMenuState {
         return ServiceMenuState(
+            //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
             currentWind = safeDivideTens(cache[163] ?: 0),
             currentAnemometerSensor = cache[381] ?: 0,
             currentAnemometerStatus = cache[336] ?: 0,
-
+            //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
             currentDataLogErrStopHoist = cache[750] ?: 0,
             currentPasswordOrNaladka = cache[751] ?: 0,
             currentFOURPolygonsEn = cache[752] ?: 0,
             currentWithoutRingCurrentCollector = cache[753] ?: 0,
             currentZoneACCDECActive = cache[754] ?: 0,
-
+            //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
             currentAbsEncDeltaControlEn = cache[755] ?: 0,
             currentAbsEncDebugModeHoist = cache[756] ?: 0,
             currentAbsEncDebugModeSlew = cache[757] ?: 0,
@@ -1159,6 +1160,66 @@ class ServiceMenuViewModel
         }
     }
 
+// Ingener. Включить запрет работы на скоростях выше второй при ошибке записи файла регистратора
+    fun onSetDataLogErrStopHoist() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1204, 1)
+                delay(200)
+                modbusRepository.writeRegister(1204, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Ingener. Включить режим авторизации по паролю "naladka"
+    fun onSetPasswordNaladka() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1205, 1)
+                delay(200)
+                modbusRepository.writeRegister(1205, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Ingener. Включить режим работы полигонов (1- активизация 4 полигона 20 точек, 0- 2 полигона по 10 точек )
+    fun onSetFOURpoligonsEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1206, 1)
+                delay(200)
+                modbusRepository.writeRegister(1206, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Ingener. Включить исполнение крана без кольцевого токосъемника. (по молчанию с токосъемником)
+    fun onSetWithoutRingCurrentCollectorEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1206, 1)
+                delay(200)
+                modbusRepository.writeRegister(1206, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
 
 
     //Wind. Обновление для UI
