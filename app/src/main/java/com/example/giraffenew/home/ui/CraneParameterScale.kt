@@ -1,5 +1,9 @@
 package com.example.giraffenew.home.ui
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -7,12 +11,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,8 +33,10 @@ import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
+import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampWindStatus
 import com.example.giraffenew.home.ui.scale.ScaleVerticalHoist
+import com.example.giraffenew.home.ui.scale.ScaleVerticalWind
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -36,11 +48,11 @@ fun CraneParameterScale(
     cranePosition:      Float,
     craneMaxPosition:   Float,
     anemometerStatus: Int,
-    modifier: Modifier= Modifier,
+    windCurrent:      Float,
+    windSpeedLvl2: Float,
+    windSpeedMontage: Float,
+    montageMode: Int,
 ){
-
-
-
     val myBoxMainModifier = Modifier
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
@@ -66,28 +78,28 @@ fun CraneParameterScale(
 
         Box(
             modifier = Modifier
-                .padding(start = 130.dp, top = 35.dp, end = 10.dp),
+                .padding(start = 130.dp, top = 29.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart
         ) {
             ScaleHorizonWeightMax(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 120f,
-                modifier = Modifier.size(width = 170.dp, height = 10.dp))
+                modifier = Modifier.size(width = 170.dp, height = 16.dp))
             ScaleHorizonWeightHiHi(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 105f,
-                modifier = Modifier.size(width = 150.dp, height = 10.dp))
+                modifier = Modifier.size(width = 150.dp, height = 16.dp))
             ScaleHorizonWeightHi(
                 currentValue = weightPercent,
                 minValue = 0f,
                 maxValue = 90f,
-                modifier = Modifier.size(width = 130.dp, height = 10.dp))
+                modifier = Modifier.size(width = 130.dp, height = 16.dp))
         }
-//Отрисуем лампу с вентилятором. Уровень ветра
+//Отрисуем лампу с вентилятором. Уровень ветра.
         Box(modifier = Modifier
-            .padding(start = 10.dp, top =7.dp, end = 10.dp),
+            .padding(start = 10.dp, top =10.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             LampWindStatus(
                 isLampStatus = anemometerStatus
@@ -100,14 +112,33 @@ fun CraneParameterScale(
             else -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
         }
         Box(modifier = Modifier
-            .padding(start = 10.dp, top =7.dp, end = 10.dp),
+            .padding(start = 10.dp, top =10.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             Image(
                 imageVector = imageVector,
                 contentDescription = null,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(40.dp),
             )
         }
+        val maxValue = when (montageMode) {
+            0 -> windSpeedLvl2
+            1 -> windSpeedMontage
+            else -> windSpeedLvl2
+        }
+        Box(modifier = Modifier
+            .padding(start = 55.dp, top =10.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
+            ScaleVerticalWind(
+                currentValue = windCurrent,
+                minValue = 0f,
+                maxValue = maxValue,
+                anemometerStatus = anemometerStatus,
+                modifier = Modifier.size(width = 12.dp, height = 40.dp)
+            )
+        }
+
+
+
 
 //Отрисуем лампу со звуковой сигнализацией
         Box(modifier = Modifier
@@ -141,7 +172,7 @@ fun CraneParameterScale(
                 currentValue = hoistPosition,
                 minValue = hoistMinPosition,
                 maxValue = hoistMaxPosition,
-                modifier = Modifier.size(width = 10.dp, height = 150.dp)
+                modifier = Modifier.size(width = 16.dp, height = 150.dp)
             )
         }
 
@@ -154,7 +185,7 @@ fun CraneParameterScale(
         BasicParametersText(
             formatDecimal(craneMaxPosition),
             modifier = Modifier
-                .padding(start = 150.dp, end = 50.dp, top = 240.dp))
+                .padding(start = 150.dp, end = 50.dp, top = 244.dp))
         Box(
             modifier = Modifier
                 .padding(start = 10.dp, top = 245.dp, end = 15.dp),
@@ -164,7 +195,7 @@ fun CraneParameterScale(
                 currentValue = cranePosition,
                 minValue = 0f,
                 maxValue = craneMaxPosition,
-                modifier = Modifier.size(width = 135.dp, height = 10.dp)
+                modifier = Modifier.size(width = 135.dp, height = 16.dp)
             )}
 
     }
@@ -196,7 +227,11 @@ fun CraneParameterScalePreview (){
             hoistMinPosition= -5f,
             cranePosition = 20f,
             craneMaxPosition= 40f,
+            windCurrent = 10f,
             anemometerStatus = 1,
+            windSpeedMontage = 10f,
+            windSpeedLvl2 = 10f,
+            montageMode = 0,
             )
     }
 }

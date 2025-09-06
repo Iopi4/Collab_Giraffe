@@ -27,7 +27,9 @@ class HomeScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,160,161,162,163,135,136,137,317) // Только нужные регистры
-    val addressesCraneParameterScale = listOf(317,159,162,319) // Только нужные регистры
+    val addressesCraneParameterScale = listOf(317,159,162,319,336,154,175,176,) // Только нужные регистры
+
+    val addressesInformation = listOf(190, 191, 192, 177) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
 
@@ -38,7 +40,8 @@ class HomeScreenViewModel @Inject constructor(
         471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490,
         491, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509)
     //1. Объединим все адреса в один список
-    private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale + addressesCraneMechanismsCondition+addressesCraneSOZR).distinct()
+    private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale
+            + addressesCraneMechanismsCondition+addressesCraneSOZR+addressesInformation).distinct()
 
     private val _state = mutableStateOf(HomeScreenState())
     val state: State<HomeScreenState> = _state
@@ -145,6 +148,12 @@ class HomeScreenViewModel @Inject constructor(
         hoistDown = cache[335] ?: 0,
         anemometerSensorErr = cache[712] ?: 0,
         alarmLampStatus = cache[337] ?: 0,
+
+        //Information
+        buildMode   = cache[190] ?: 0,
+        serviceMode = cache[191] ?: 0,
+        montageMode = cache[192] ?: 0,
+        beeper = cache[177] ?: 0,
 
         //Crane SOZR
         hmiLineAngle = safeDivideTens(cache[400] ?: 0),
@@ -304,6 +313,11 @@ class HomeScreenViewModel @Inject constructor(
         val windSpeedLvl2 : Float = 0f,
         val windSpeedMontage : Float = 0f,
 
+//Information
+        val buildMode: Int = 0,
+        val serviceMode: Int = 0,
+        val montageMode: Int = 0,
+        val beeper: Int = 0,
 //CraneMechanismsCondition UI
         val weightSensorErr: Int = 0,
         val anemometerSensorErr: Int = 0,

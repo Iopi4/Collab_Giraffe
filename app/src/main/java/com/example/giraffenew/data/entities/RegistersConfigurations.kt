@@ -1,5 +1,6 @@
 package com.example.giraffenew.data.entities
 
+import com.example.giraffenew.data.entities.RegisterInfo
 import kotlinx.serialization.json.Json
 
 /**
@@ -7,6 +8,7 @@ import kotlinx.serialization.json.Json
  */
 object RegistersConfigurations {
     private val configurations = mapOf(
+        BeepSoundRegisterConfiguration.NAME_BEEP_SOUND to BeepSoundRegisterConfiguration.createConfiguration(),
         TopBarRegisterConfiguration.NAME_TOP_BAR to TopBarRegisterConfiguration.createConfiguration(),
         UiHomeScreenRegisterConfiguration.NAME_HOME to UiHomeScreenRegisterConfiguration.createConfiguration(),
         UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration(),
@@ -43,6 +45,28 @@ object RegistersConfigurations {
  * Главная конфигурация регистров (адреса 90-99)
  * Эти регистры считываются всегда, один раз в секунду
  */
+object BeepSoundRegisterConfiguration {
+    const val NAME_BEEP_SOUND = "BeepSound_configuration"
+    val REGISTERS = listOf(
+        RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI")
+    )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "BeepSound_configuration",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = true
+        )
+    }
+}
+
+
+/**
+ * Главная конфигурация регистров (адреса 90-99)
+ * Эти регистры считываются всегда, один раз в секунду
+ */
 object TopBarRegisterConfiguration {
     const val NAME_TOP_BAR = "TopBar_configuration"
     val REGISTERS = listOf(
@@ -57,6 +81,7 @@ object TopBarRegisterConfiguration {
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана")
+
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -98,6 +123,8 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(154, "WindSpeedLvl2", "WORD16", "Предельный ветер нерабочего состояния в м/с"),
         RegisterInfo(175, "WindSpeedLvl1", "WORD16", "Предупредительный ветер рабочего состояния в м/с"),
         RegisterInfo(176, "WindSpeedMontageLv1_MW", "WORD16", "Предупредительный ветер в режиме монтаж в м/с"),
+        RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI"),
+
         //addressesCraneMechanismsCondition
         RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
         RegisterInfo(320, "HMI_Trolley_Fwd_Status_MW", "WORD16", "Статус движения тележки вперед на HMI"),
@@ -118,6 +145,11 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(335, "HMI_EM_Vihod_8_Hoist_Down_MW", "WORD16", "Статус выхода из полигона опусканием груза"),
         RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометраю Ошибка датчика"),
         RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
+
+        //Information
+        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
+        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
+        RegisterInfo(192, "MontageMode_MW", "WORD16", "Флаг монтажного режима"),
 
         //Crane SOZR
         RegisterInfo(400, "HMI_Line_Angle_MW", "WORD16", "Угол поворота стрелы на HMI"),

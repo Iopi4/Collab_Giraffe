@@ -28,15 +28,15 @@ fun LampWindStatus(
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {
-            0 -> colorResource(R.color.Emerald)
+            2 -> colorResource(R.color.Emerald)
             1 -> colorResource(R.color.Lemon)
-            2 -> colorResource(R.color.Red)
+            0 -> colorResource(R.color.Red)
             else -> colorResource(R.color.Grey) // default color
         }
 
         Box(
             modifier = Modifier
-                .size(48.dp)
+                .size(40.dp)
                 .border(
                     width = 2.dp, color = Grew_50_percent, //рамка
                     shape = RoundedCornerShape(5.dp))
@@ -51,7 +51,7 @@ fun LampWindStatus(
 fun LampWindStatusPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         LampWindStatus(
-            isLampStatus = 1,
+            isLampStatus = 2,
         )
     }
 }

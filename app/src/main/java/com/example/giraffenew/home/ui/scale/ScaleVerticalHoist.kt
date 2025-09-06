@@ -27,7 +27,7 @@ fun ScaleVerticalHoist(
     maxValue: Float,
     modifier: Modifier, // Делаем параметр необязательным
     lineColor: Color = colorResource(R.color.Blue),
-    lineThickness: Float = 12f,
+    lineThickness: Float = 20f,
     animationDuration: Int = 100
 ) {
     // Определяем эффективное значение maxValue
@@ -48,7 +48,7 @@ fun ScaleVerticalHoist(
 
     Box( modifier = Modifier
         .border(
-            width = 1.dp, color = Silver, //рамка
+            width = 1.dp, color = colorResource(R.color.Blue), //рамка
             shape = RoundedCornerShape(1.dp))) {
         Canvas(modifier = modifier) { // Убираем ненужное приведение типов
             // Рассчитываем доступную высоту с учетом толщины линии

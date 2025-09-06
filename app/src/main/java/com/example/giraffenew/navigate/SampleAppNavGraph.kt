@@ -35,7 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,6 +42,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
 import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionScreen
+import com.example.giraffenew.core.sound.SoundViewModel
 import com.example.giraffenew.diagnostics.prezentation.DiagnosticsScreen
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.Orange
@@ -74,8 +74,7 @@ fun SampleAppNavGraph(
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.NAVIGATE_TO_HOME
     val navigationActions = remember (navController) {
-        AppNavigationActions(navController)
-    }
+        AppNavigationActions(navController) }
 
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(

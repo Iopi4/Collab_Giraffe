@@ -90,7 +90,8 @@ internal fun HomeScreen (
         ) {
 
             Box (modifier = Modifier
-                .weight(3f)) { CraneParameterScale(
+                .weight(3f))
+            { CraneParameterScale(
                 weightPercent = homeViewModel.state.value.weightPercent,
                 hoistPosition = homeViewModel.state.value.hoistPosition,
                 hoistMaxPosition = homeViewModel.state.value.hoistMaxPosition,
@@ -98,6 +99,10 @@ internal fun HomeScreen (
                 cranePosition = homeViewModel.state.value.cranePosition,
                 craneMaxPosition = homeViewModel.state.value.craneMaxPosition,
                 anemometerStatus = homeViewModel.state.value.anemometerStatus,
+                windCurrent = homeViewModel.state.value.windCurrent,
+                windSpeedLvl2 = homeViewModel.state.value.windSpeedLvl2,
+                windSpeedMontage = homeViewModel.state.value.windSpeedMontage,
+                montageMode = homeViewModel.state.value.montageMode,
             ) }
 
             Box (modifier = Modifier
@@ -221,7 +226,10 @@ internal fun HomeScreen (
             ) }
 
             Box (modifier = Modifier
-                .weight(1f)) { Information() }
+                .weight(1f))
+            { Information(
+                    beeper = homeViewModel.state.value.beeper,
+                ) }
 
         }
 

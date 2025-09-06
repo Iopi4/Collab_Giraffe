@@ -28,7 +28,7 @@ fun ScaleHorizonWeightHi(
     maxValue: Float,
     modifier: Modifier, // Делаем параметр необязательным
     lineColor: Color = colorResource(R.color.Blue),
-    lineThickness: Float = 12f,
+    lineThickness: Float = 20f,
     animationDuration: Int = 100
 ) {
     // Определяем эффективное значение maxValue

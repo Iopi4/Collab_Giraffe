@@ -53,10 +53,6 @@ class TopBarViewModel @Inject constructor(
     private val _craneId = mutableStateOf("CRANE_ID")
     val craneId: State<String> = _craneId
 
-        //Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
-        //Но сам коллектор срабатывает при каждом обновлении кэша (даже если обновлен регистр не из нашего списка).
-        //
-
     init {
         startDataCollection()
     }
