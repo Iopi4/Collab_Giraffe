@@ -39,7 +39,7 @@ fun LampIconInformationBrakeHoist(
 // Анимируем цвет с периодичностью 500 мс
         val animatedColor by animateColorAsState(
             targetValue = targetColor,
-            animationSpec = if (isLampIconStatus == 1) {
+            animationSpec = if (isLampIconStatus == 0) {
                 infiniteRepeatable(
                     animation = tween(durationMillis = 500),
                     repeatMode = RepeatMode.Reverse
@@ -67,7 +67,7 @@ fun LampIconInformationBrakeHoist(
 fun LampIconInformationBrakeHoistPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         LampIconInformationBrakeHoist(
-            isLampIconStatus = 1,
+            isLampIconStatus = 0,
             isIcon = painterResource(R.drawable.ic_home_info_campaign),
         )
     }

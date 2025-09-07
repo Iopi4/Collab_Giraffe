@@ -22,7 +22,8 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun LampIconInformationACSS(
-    isLampIconStatus: Int,
+    isACSSPWR: Int,
+    isACSSFault: Int,
     isIcon: Painter,
 
 ){
@@ -30,16 +31,16 @@ fun LampIconInformationACSS(
         contentAlignment = Alignment.Center)
     {
         // Анимируем цвет с периодичностью 500 мс
-        val targetColor = when (isLampIconStatus) {
-            0 -> Color.DarkGray
-            1 -> Color.Green
+        val targetColor = when {
+            isACSSFault == 1 -> Color.Red
+            isACSSPWR == 1 -> Color.Green
             else -> Color.DarkGray
         }
 
 // Анимируем цвет с периодичностью 500 мс
         val animatedColor by animateColorAsState(
             targetValue = targetColor,
-            animationSpec = if (isLampIconStatus == 1) {
+            animationSpec = if (isACSSFault == 1) {
                 infiniteRepeatable(
                     animation = tween(durationMillis = 500),
                     repeatMode = RepeatMode.Reverse
@@ -67,7 +68,8 @@ fun LampIconInformationACSS(
 fun LampIconInformationACSSPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         LampIconInformationACSS(
-            isLampIconStatus = 0,
+            isACSSPWR = 0,
+            isACSSFault =1,
             isIcon = painterResource(R.drawable.ic_home_info_campaign),
         )
     }

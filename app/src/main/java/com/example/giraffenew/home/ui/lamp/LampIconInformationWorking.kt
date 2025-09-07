@@ -56,7 +56,7 @@ fun LampIconInformationWorking(
                 painter = isIcon,
                 contentDescription = null,
                 modifier = Modifier.size(40.dp),
-                tint = animatedColor
+                tint = targetColor
             )
         }
     }
@@ -67,7 +67,7 @@ fun LampIconInformationWorking(
 fun LampIconInformationWorkingPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         LampIconInformationWorking(
-            isLampIconStatus = 0,
+            isLampIconStatus = 1,
             isIcon = painterResource(R.drawable.ic_home_info_campaign),
         )
     }

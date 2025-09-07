@@ -20,6 +20,7 @@ import com.example.giraffenew.R
 import com.example.giraffenew.home.ui.lamp.LampIconInformationACSS
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakePowerSupplyFault
+import com.example.giraffenew.home.ui.lamp.LampIconInformationCanOpen
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
 import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
 import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
@@ -74,6 +75,18 @@ fun Information (
             width = 2.dp, color = Silver, //рамка
             shape = RoundedCornerShape(10.dp)
         )
+    val debugMode = if (listOf(icBuildMode, icServiceMode)
+            .any { it == 1 }) 1 else 0
+
+    val encoderFault = if (listOf(icHoistEncoderFault, icSlewEncoderFault, icTrolleyEncoderFault, icCraneEncoderFault)
+        .any { it == 1 }) 1 else 0
+
+    val joystickFault = if (listOf(icHoistJoystickError, icSlewJoystickError, icTrolleyJoystickError, icCraneJoystickError)
+            .any { it == 1 }) 1 else 0
+    val driveError = if (listOf(icHoistDriveError, icSlewDriveError, icTrolleyDriveError, icCraneDriveError,
+            icHoistDrivePowerError,icSlewDrivePowerError,icTrolleyDrivePowerError,icCraneDrivePowerError)
+            .any { it == 1 }) 1 else 0
+
 
     //Иконки аварий и предупреждений
     Box(myBoxMainModifier){
@@ -108,11 +121,11 @@ fun Information (
                     isIcon = painterResource(R.drawable.ic_home_info_ventilation_power_supply_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = icHoistEncoderFault,
+                    isLampIconStatus = encoderFault,
                     isIcon = painterResource(R.drawable.ic_home_info_abs_encoder_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = icHoistDriveError,
+                    isLampIconStatus = driveError,
                     isIcon = painterResource(R.drawable.ic_home_info_drive_error),
                 )
 
@@ -126,30 +139,31 @@ fun Information (
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 LampIconInformationDebugMode(
-                    isLampIconStatus = icServiceMode,
+                    isLampIconStatus = debugMode,
                     isIcon = painterResource(R.drawable.ic_home_info_build_mode),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = icServiceMode,
+                    isLampIconStatus = icBrakePowerSupplyFault,
                     isIcon = painterResource(R.drawable.ic_brake),
                 )
                 LampIconInformationFault(
-                    isLampIconStatus = icBrakePowerSupplyFault,
+                    isLampIconStatus = icLukStatus,
                     isIcon = painterResource(R.drawable.ic_home_info_luk_status),
                 )
                 LampIconInformationACSS(
-                    isLampIconStatus = icACSSPWR,
+                    isACSSPWR = icACSSPWR,
+                    isACSSFault = icACSSFault,
                     isIcon = painterResource(R.drawable.ic_home_info_acss),
                 )
                 LampIconInformationFault(
-                    isLampIconStatus = icHoistJoystickError,
+                    isLampIconStatus = joystickFault,
                     isIcon = painterResource(R.drawable.ic_home_info_joystick_error),
                 )
-                LampIconInformationAlarm(
+                LampIconInformationCanOpen(
                     isLampIconStatus = icCANOpenSensorsError,
                     isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
                 )
-                LampIconInformationAlarm(
+                LampIconInformationCanOpen(
                     isLampIconStatus = icCANOpenDrivesError,
                     isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
                 )
