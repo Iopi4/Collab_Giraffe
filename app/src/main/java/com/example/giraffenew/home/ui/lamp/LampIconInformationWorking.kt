@@ -21,7 +21,7 @@ import com.example.giraffenew.R
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
-fun LampIconInformationWarning(
+fun LampIconInformationWorking(
     isLampIconStatus: Int,
     isIcon: Painter,
 
@@ -31,9 +31,9 @@ fun LampIconInformationWarning(
     {
         // Анимируем цвет с периодичностью 500 мс
         val targetColor = when (isLampIconStatus) {
-            0 -> Color.LightGray
-            1 -> Color.Yellow
-            else -> Color.LightGray
+            0 -> Color.DarkGray
+            1 -> Color.Green
+            else -> Color.DarkGray
         }
 
 // Анимируем цвет с периодичностью 500 мс
@@ -50,12 +50,12 @@ fun LampIconInformationWarning(
             label = "beeperColorAnimation"
         )
         Box(modifier = Modifier
-            .padding(start = 2.dp, top =2.dp),
+            .padding(start = 5.dp, top =5.dp),
             contentAlignment = Alignment.TopStart) {
             Icon(
                 painter = isIcon,
                 contentDescription = null,
-                modifier = Modifier.size(30.dp),
+                modifier = Modifier.size(40.dp),
                 tint = animatedColor
             )
         }
@@ -64,10 +64,10 @@ fun LampIconInformationWarning(
 
 @Preview
 @Composable
-fun LampIconInformationWarningPreview (){
+fun LampIconInformationWorkingPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
-        LampIconInformationWarning(
-            isLampIconStatus = 1,
+        LampIconInformationWorking(
+            isLampIconStatus = 0,
             isIcon = painterResource(R.drawable.ic_home_info_campaign),
         )
     }

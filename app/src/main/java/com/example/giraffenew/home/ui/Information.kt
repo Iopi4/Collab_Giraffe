@@ -17,7 +17,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.home.ui.lamp.LampIconInformationACSS
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
+import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakePowerSupplyFault
+import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
+import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
+import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.ui.theme.Black
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Silver
@@ -83,32 +88,32 @@ fun Information (
             horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icPhaseControlRelayFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_phase_control_relay_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icPowerSupplyNetworkFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_power_supply_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icLineContactorZeroPosAlarm,
+                    isIcon = painterResource(R.drawable.ic_home_info_line_contactor_zero_pos_alarm),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icMicroclimateHeaterFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_microclimate_heater_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icVentilationPowerSupplyFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_ventilation_power_supply_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icHoistEncoderFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_abs_encoder_fault),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icHoistDriveError,
+                    isIcon = painterResource(R.drawable.ic_home_info_drive_error),
                 )
 
 
@@ -120,33 +125,33 @@ fun Information (
                     .fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                LampIconInformationDebugMode(
+                    isLampIconStatus = icServiceMode,
+                    isIcon = painterResource(R.drawable.ic_home_info_build_mode),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icServiceMode,
+                    isIcon = painterResource(R.drawable.ic_brake),
+                )
+                LampIconInformationFault(
+                    isLampIconStatus = icBrakePowerSupplyFault,
+                    isIcon = painterResource(R.drawable.ic_home_info_luk_status),
+                )
+                LampIconInformationACSS(
+                    isLampIconStatus = icACSSPWR,
+                    isIcon = painterResource(R.drawable.ic_home_info_acss),
+                )
+                LampIconInformationFault(
+                    isLampIconStatus = icHoistJoystickError,
+                    isIcon = painterResource(R.drawable.ic_home_info_joystick_error),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icCANOpenSensorsError,
+                    isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
-                )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
-                )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
-                )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icCANOpenDrivesError,
+                    isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
                 )
             }
         }

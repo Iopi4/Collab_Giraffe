@@ -26,6 +26,10 @@ import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
+import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
+import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
+import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
+import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.home.ui.lamp.LampWindStatus
 import com.example.giraffenew.home.ui.scale.ScaleVerticalHoist
 import com.example.giraffenew.home.ui.scale.ScaleVerticalWind
@@ -205,29 +209,34 @@ fun CraneParameterScale(
                     .fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                //Лампа включения монтажного режима
+                LampIconInformationDebugMode(
+                    isLampIconStatus = icMontageMode,
+                    isIcon = painterResource(R.drawable.ic_home_scale_montage_mode),
                 )
+                //Лампа срабатывания датчика критического момента
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                    isLampIconStatus = icLoadMomentSensorAlarm,
+                    isIcon = painterResource(R.drawable.ic_home_scale_load_moment_sensor_alarm),
                 )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                //Контроль износа тормоза подъема. 1-норма. 0-Авария
+                LampIconInformationBrakeHoist(
+                    isLampIconStatus = icHoistBrakeSensor,
+                    isIcon = painterResource(R.drawable.ic_home_scale_hoist_brake_sensor),
                 )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                //Лампа активации хода крана
+                LampIconInformationWorking(
+                    isLampIconStatus = icCraneRailsEn,
+                    isIcon = painterResource(R.drawable.ic_home_scale_crane_rails_en),
                 )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                //Лампа срабатывания ошибки реперной точки
+                LampIconInformationFault(
+                    isLampIconStatus = icCraneRepPointFault,
+                    isIcon = painterResource(R.drawable.ic_home_scale_crane_rep_point_trigger),
                 )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                LampIconInformationWorking(
+                    isLampIconStatus = 0,
+                    isIcon = painterResource(R.drawable.ic_home_scale_giraffe_power),
                 )
                 LampIconInformationAlarm(
                     isLampIconStatus = beeperWeightLimit,
