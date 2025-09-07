@@ -272,7 +272,6 @@ internal fun HomeScreen (
 //№.2 - Средняя область для отображения параметров механизмов крана
         Column (modifier = Modifier
             .weight(1f)) {
-
             CraneMechanismsCondition(
                 weightSensorErr = homeViewModel.state.value.weightSensorErr,
                 anemometerSensorErr= homeViewModel.state.value.anemometerSensorErr,

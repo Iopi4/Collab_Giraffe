@@ -287,6 +287,7 @@ class ServiceMenuViewModel
             currentFOURPolygonsEn = cache[752] ?: 0,
             currentWithoutRingCurrentCollector = cache[753] ?: 0,
             currentZoneACCDECActive = cache[754] ?: 0,
+            currentLukModeActiveEn = cache[755] ?: 0,
             //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
             currentAbsEncDeltaControlEn = cache[755] ?: 0,
             currentAbsEncDebugModeHoist = cache[756] ?: 0,
@@ -318,6 +319,7 @@ class ServiceMenuViewModel
         val currentFOURPolygonsEn: Int = 0,
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
+        val currentLukModeActiveEn: Int = 0,
     )
 
     //Функция проверки и преобразования целых чисел
@@ -1221,6 +1223,21 @@ class ServiceMenuViewModel
                 modbusRepository.writeRegister(1208, 1)
                 delay(200)
                 modbusRepository.writeRegister(1208, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Ingener. Включение функции контроля люка в ОПУ
+    fun onSetLukModeActiveEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(1209, 1)
+                delay(200)
+                modbusRepository.writeRegister(1209, 0)
                 // Логирование
             } catch (e: Exception) {
             }

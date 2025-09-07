@@ -786,12 +786,15 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(1206, "HMI_Write_xFOURpoligonsEn_MW", "WORD16", "Режим работы 4 полигона, 20 точек. (По умолчанию 2 пол. 10 точек)"),
         RegisterInfo(1207, "HMI_Write_xWithoutRringCurrentCollector_MW", "WORD16", "Исполнение крана без токосъемника. (По умолчанию с токосъемником)"),
         RegisterInfo(1208, "HMI_Write_xZoneACC_DEC_Activ_MW", "WORD16", "Активация плавной регулировки разгона/торможения"),
+        RegisterInfo(1209, "HMI_Write_xLukMode_Deactive_MW", "WORD16", "Активация плавной регулировки разгона/торможения"),
+
 
         RegisterInfo(750, "HMI_xDataLogErrStopHoist_MW", "WORD16", "Флаг. Запрет высоких скоростей при ошибке регистратора"),
         RegisterInfo(751, "HMI_xPasswordOrNaladka_MW", "WORD16", "Флаг.Режим авторизации наладки"),
         RegisterInfo(752, "HMI_xFOURpoligonsEn_MW", "WORD16", "Флаг.Режим работы полигонов (4x20 или 2x10 точек)"),
         RegisterInfo(753, "HMI_xWithoutRringCurrentCollector_MW", "WORD16", "Флаг.Выбор исполнения крана без кольцеового токосъемника, режим ограничения поворота"),
         RegisterInfo(754, "HMI_xZoneACC_DEC_Activ_MW", "WORD16", "Флаг. Активация зон регулирования ускорений/замедлений"),
+        RegisterInfo(755, "HMI_xLukMode_Active_MW", "WORD16", "Флаг. Включения контроля люка в ОПУ"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОДЪЕМА
         RegisterInfo(940, "HMI_Write_Hoist_wSpdRefButton_Value_MW", "WORD16", "Скорость при нажатии кнопки"),

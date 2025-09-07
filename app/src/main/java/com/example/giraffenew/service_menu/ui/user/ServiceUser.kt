@@ -41,6 +41,9 @@ fun ServiceUser(
 
     onSetZoneACCDECActiveEn: () -> Unit,
     currentZoneACCDECActive: Int,
+
+    onSetLukModeActiveEn: () -> Unit,
+    currentLukModeActiveEn: Int,
 ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -74,6 +77,7 @@ fun ServiceUser(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_2_Polygons)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Current_Collector)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Mode_ACC_DEC)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Luk_Mode)
         }
 
 //№.2 - Правая область для отображения и ввода параметров сервисного инженера
@@ -122,6 +126,12 @@ fun ServiceUser(
                 onClick = onSetZoneACCDECActiveEn,
                 isLampStatus = currentZoneACCDECActive
             )
+            Spacer(modifier = Modifier.size(40.dp))
+//Поле. Включение контроля люка в ОПУ [вкл/выкл]
+            BasicButtonOnOffStatus(
+                onClick = onSetLukModeActiveEn,
+                isLampStatus = currentLukModeActiveEn
+            )
         }
     }
 }
@@ -145,6 +155,9 @@ fun ServiceUserPreview () {
 
             onSetZoneACCDECActiveEn = { },
             currentZoneACCDECActive =1,
+
+            onSetLukModeActiveEn= { },
+            currentLukModeActiveEn=1,
 
         )
     }

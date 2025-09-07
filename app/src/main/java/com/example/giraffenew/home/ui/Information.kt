@@ -19,11 +19,9 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.home.ui.lamp.LampIconInformationACSS
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
-import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakePowerSupplyFault
 import com.example.giraffenew.home.ui.lamp.LampIconInformationCanOpen
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
 import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
-import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.ui.theme.Black
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Silver
@@ -161,11 +159,11 @@ fun Information (
                 )
                 LampIconInformationCanOpen(
                     isLampIconStatus = icCANOpenSensorsError,
-                    isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
+                    isIcon = painterResource(R.drawable.ic_home_info_canopen_sensor_error),
                 )
                 LampIconInformationCanOpen(
                     isLampIconStatus = icCANOpenDrivesError,
-                    isIcon = painterResource(R.drawable.ic_home_info_canopen_error),
+                    isIcon = painterResource(R.drawable.ic_home_info_canopen_drive_error),
                 )
             }
         }

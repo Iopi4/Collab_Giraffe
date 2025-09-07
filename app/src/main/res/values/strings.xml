@@ -323,10 +323,12 @@
     <!-- Настройка пользователя -->
     <string name="ServiceMenu_Text_User_Registrator">Регистратор параметров</string>
     <string name="ServiceMenu_Text_User_Work_Ban">Запрет работы подъема на скоростях выше 2-й при ошибках записи файла оперативных данных регистратора параметров [вкл/выкл]</string>
-    <string name="ServiceMenu_Text_User_Naladka">Авторизация [Наладка]</string>
-    <string name="ServiceMenu_Text_User_2_Polygons">2 полигона по 10 точек     [вкл/выкл]</string>
-    <string name="ServiceMenu_Text_User_Current_Collector">Кольцевой токсъемник     [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Naladka">Авторизация по паролю "naladka" [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_2_Polygons">Режим 2 полигона по 10 точек [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Current_Collector">Исполнение без кольцевого токсъемника [вкл/выкл]</string>
     <string name="ServiceMenu_Text_User_Setting_Mode_ACC_DEC">Режим настройки ускорений и торможений [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Setting_Luk_Mode">Отключить контроль датчика люка в ОПУ. [вкл/выкл]</string>
+
     <!-- Текст экрана ServiceMenuScreen' -->
 
 

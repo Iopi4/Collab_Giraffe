@@ -82,12 +82,14 @@ fun ServiceMenuScreen(
                 onSetFOURpoligonsEn = { serviceMenuViewModel.onSetFOURpoligonsEn()},
                 onSetWithoutRingCurrentCollectorEn = { serviceMenuViewModel.onSetWithoutRingCurrentCollectorEn()},
                 onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
+                onSetLukModeActiveEn= { serviceMenuViewModel.onSetLukModeActiveEn()},
 
                 currentDataLogErrStopHoist = serviceMenuViewModel.state.value.currentDataLogErrStopHoist,
                 currentPasswordOrNaladka = serviceMenuViewModel.state.value.currentPasswordOrNaladka,
                 currentFOURPolygonsEn = serviceMenuViewModel.state.value.currentFOURPolygonsEn,
                 currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.currentWithoutRingCurrentCollector,
                 currentZoneACCDECActive = serviceMenuViewModel.state.value.currentZoneACCDECActive,
+                currentLukModeActiveEn  = serviceMenuViewModel.state.value.currentLukModeActiveEn,
 
 
             )}
