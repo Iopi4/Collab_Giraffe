@@ -1,29 +1,18 @@
 package com.example.giraffenew.home.ui
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,8 +43,15 @@ fun CraneParameterScale(
     windCurrent:      Float,
     windSpeedLvl2: Float,
     windSpeedMontage: Float,
-    montageMode: Int,
-    beeper: Int,
+    beeperWeightLimit: Int,
+    //Иконки предупреждений
+    icMontageMode: Int,
+    icCraneRepPointFault: Int,
+    icCraneRepPoint: Int,
+    icLoadMomentSensorAlarm: Int,
+    icHoistBrakeSensor: Int,
+    icCraneRailsEn: Int,
+
 ){
     val myBoxMainModifier = Modifier
         .padding(5.dp)
@@ -124,7 +120,7 @@ fun CraneParameterScale(
                 modifier = Modifier.size(40.dp),
             )
         }
-        val maxValue = when (montageMode) {
+        val maxValue = when (icMontageMode) {
             0 -> windSpeedLvl2
             1 -> windSpeedMontage
             else -> windSpeedLvl2
@@ -210,31 +206,31 @@ fun CraneParameterScale(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
                 LampIconInformationAlarm(
-                    isLampIconStatus = beeper,
+                    isLampIconStatus = beeperWeightLimit,
                     isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
 
@@ -277,8 +273,14 @@ fun CraneParameterScalePreview (){
             anemometerStatus = 1,
             windSpeedMontage = 10f,
             windSpeedLvl2 = 10f,
-            montageMode = 0,
-            beeper = 1,
+            beeperWeightLimit = 1,
+
+            icMontageMode = 1,
+            icCraneRepPointFault= 1,
+            icCraneRepPoint= 1,
+            icLoadMomentSensorAlarm= 1,
+            icHoistBrakeSensor= 1,
+            icCraneRailsEn= 1,
             )
     }
 }

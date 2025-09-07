@@ -29,7 +29,8 @@ class HomeScreenViewModel @Inject constructor(
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,160,161,162,163,135,136,137,317) // Только нужные регистры
     val addressesCraneParameterScale = listOf(317,159,162,319,336,154,175,176,192, 710, 353, 709, 229, 212) // Только нужные регистры
 
-    val addressesInformation = listOf(190, 191, 177,) // Только нужные регистры
+    val addressesInformation = listOf(190, 191, 177, 239, 288, 700, 700, 701, 702, 703, 704, 705, 706, 707, 708,
+        713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729 ) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337) // Только нужные регистры
 
@@ -127,13 +128,14 @@ class HomeScreenViewModel @Inject constructor(
         windSpeedLvl1 = safeDivideTens (cache[175] ?: 0),
         windSpeedLvl2 = safeDivideTens (cache[154] ?: 0),
         windSpeedMontage = safeDivideTens (cache[176] ?: 0),
-        montageMode = cache[192] ?: 0,
+        beeperWeightLimit = cache[177] ?: 0,
 
-        craneRepPointFault  = cache[710] ?: 0, //Сбой датчика реперной точки хода крана
-        craneRepPoint       = cache[353] ?: 0, //Реперная точка хода крана. Индикатор срабатывания
-        loadMomentSensorAlarm= cache[709] ?: 0, //Авария датчика критического грузового момента.
-        hoistBrakeSensor    = cache[229] ?: 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
-        craneRailsEn        = cache[212] ?: 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
+        icMontageMode         = cache[192] ?: 0, //Флаг установки режима Монтаж.
+        icCraneRepPointFault  = cache[710] ?: 0, //Сбой датчика реперной точки хода крана
+        icCraneRepPoint       = cache[353] ?: 0, //Реперная точка хода крана. Индикатор срабатывания
+        icLoadMomentSensorAlarm= cache[709] ?: 0, //Авария датчика критического грузового момента.
+        icHoistBrakeSensor    = cache[229] ?: 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
+        icCraneRailsEn        = cache[212] ?: 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
 
 
         // Mechanisms Condition
@@ -158,38 +160,38 @@ class HomeScreenViewModel @Inject constructor(
         alarmLampStatus = cache[337] ?: 0,
 
         //Information
-        buildMode   = cache[190] ?: 0,
-        serviceMode = cache[191] ?: 0,
+        icBuildMode   = cache[190] ?: 0,
+        icServiceMode = cache[191] ?: 0,
 
-        acssPWR                 = cache[239] ?: 0,      //АЦСС питание в норме
-        acssFault               = cache[288] ?: 0,     //АЦСС в ошибке
-        lukStatus               = cache[700] ?: 0,     //Состояние конечного выключателя люка ОПУ
-        lineContactorZeroPosAlarm   = cache[701] ?: 0, //Авария нулевой блокировки линейного контактора
-        microclimateHeaterFault     = cache[702] ?: 0,   //вария обогрева технического помещения
-        brakePowerSupplyFault       = cache[703] ?: 0,    //Авария питания тормозов
-        ventilationPowerSupplyFault = cache[704] ?: 0, //Авария питания вентиляции электродвигателей
-        hoistJoystickError      = cache[705] ?: 0,    //Ошибка джойстика механизма подъема
-        slewJoystickError       = cache[706] ?: 0,     //Ошибка джойстика механизма поворота
-        trolleyJoystickError    = cache[707] ?: 0,  //Ошибка джойстика механизма тележки
-        craneJoystickError      = cache[708] ?: 0,    //Ошибка джойстика механизма хода крана
-        craneEncoderFault       = cache[713] ?: 0,     //Сбой энкодера механизма хода крана
-        hoistEncoderFault       = cache[714] ?: 0,     //Сбой энкодера механизма хода крана
-        slewEncoderFault        = cache[715] ?: 0,      //Сбой энкодера механизма поворота
-        trolleyEncoderFault     = cache[716] ?: 0,   //Сбой энкодера механизма тележки
-        phaseControlRelayFault  = cache[717] ?: 0, //Авария реле контроля фаз
-        powerSupplyNetworkFault = cache[718] ?: 0, //Авария питающей сети
-        hoistDriveError         = cache[720] ?: 0, //Ошибка частотного преобразователя подъема
-        slewDriveError          = cache[721] ?: 0, //Ошибка частотного преобразователя поворота
-        trolleyDriveError       = cache[722] ?: 0, //Ошибка частотного преобразователя тележки
-        craneDriveError         = cache[723] ?: 0, //Ошибка частотного преобразователя хода крана
-        hoistDrivePowerError    = cache[724] ?: 0, //Отключение питания частотного преобразователя подъема
-        slewDrivePowerError     = cache[725] ?: 0, //Отключение питания частотного преобразователя поворота
-        trolleyDrivePowerError  = cache[726] ?: 0, //Отключение питания частотного преобразователя тележки
-        craneDrivePowerError    = cache[727] ?: 0, //Отключение питания частотного преобразователя хода крана
-        canOpenSensorsError     = cache[728] ?: 0, //Авария сети CANopen (датчики)
-        canOpenDrivesError      = cache[729] ?: 0, //Авария сети CANopen (частотные преобразователи)
+        icACSSPWR                 = cache[239] ?: 0,      //АЦСС питание в норме
+        icACSSFault               = cache[288] ?: 0,     //АЦСС в ошибке
+        icLukStatus               = cache[700] ?: 0,     //Состояние конечного выключателя люка ОПУ
+        icLineContactorZeroPosAlarm   = cache[701] ?: 0, //Авария нулевой блокировки линейного контактора
+        icMicroclimateHeaterFault     = cache[702] ?: 0,   //вария обогрева технического помещения
+        icBrakePowerSupplyFault       = cache[703] ?: 0,    //Авария питания тормозов
+        icVentilationPowerSupplyFault = cache[704] ?: 0, //Авария питания вентиляции электродвигателей
+        icHoistJoystickError      = cache[705] ?: 0,    //Ошибка джойстика механизма подъема
+        icSlewJoystickError       = cache[706] ?: 0,     //Ошибка джойстика механизма поворота
+        icTrolleyJoystickError    = cache[707] ?: 0,  //Ошибка джойстика механизма тележки
+        icCraneJoystickError      = cache[708] ?: 0,    //Ошибка джойстика механизма хода крана
+        icCraneEncoderFault       = cache[713] ?: 0,     //Сбой энкодера механизма хода крана
+        icHoistEncoderFault       = cache[714] ?: 0,     //Сбой энкодера механизма хода крана
+        icSlewEncoderFault        = cache[715] ?: 0,      //Сбой энкодера механизма поворота
+        icTrolleyEncoderFault     = cache[716] ?: 0,   //Сбой энкодера механизма тележки
+        icPhaseControlRelayFault  = cache[717] ?: 0, //Авария реле контроля фаз
+        icPowerSupplyNetworkFault = cache[718] ?: 0, //Авария питающей сети
+        icHoistDriveError         = cache[720] ?: 0, //Ошибка частотного преобразователя подъема
+        icSlewDriveError          = cache[721] ?: 0, //Ошибка частотного преобразователя поворота
+        icTrolleyDriveError       = cache[722] ?: 0, //Ошибка частотного преобразователя тележки
+        icCraneDriveError         = cache[723] ?: 0, //Ошибка частотного преобразователя хода крана
+        icHoistDrivePowerError    = cache[724] ?: 0, //Отключение питания частотного преобразователя подъема
+        icSlewDrivePowerError     = cache[725] ?: 0, //Отключение питания частотного преобразователя поворота
+        icTrolleyDrivePowerError  = cache[726] ?: 0, //Отключение питания частотного преобразователя тележки
+        icCraneDrivePowerError    = cache[727] ?: 0, //Отключение питания частотного преобразователя хода крана
+        icCANOpenSensorsError     = cache[728] ?: 0, //Авария сети CANopen (датчики)
+        icCANOpenDrivesError      = cache[729] ?: 0, //Авария сети CANopen (частотные преобразователи)
 
-        beeper = cache[177] ?: 0,
+
 
         //Crane SOZR
         hmiLineAngle = safeDivideTens(cache[400] ?: 0),
@@ -348,46 +350,46 @@ class HomeScreenViewModel @Inject constructor(
         val windSpeedLvl1 : Float = 0f,
         val windSpeedLvl2 : Float = 0f,
         val windSpeedMontage : Float = 0f,
-        val montageMode: Int = 0,
 
-        val craneRepPointFault: Int = 0, //Сбой датчика реперной точки хода крана
-        val craneRepPoint: Int = 0, //Реперная точка хода крана. Индикатор срабатывания
-        val loadMomentSensorAlarm: Int = 0, //Авария датчика критического грузового момента.
-        val hoistBrakeSensor: Int = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
-        val craneRailsEn : Int = 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
+        val icMontageMode: Int = 0,
+        val icCraneRepPointFault: Int = 0, //Сбой датчика реперной точки хода крана
+        val icCraneRepPoint: Int = 0, //Реперная точка хода крана. Индикатор срабатывания
+        val icLoadMomentSensorAlarm: Int = 0, //Авария датчика критического грузового момента.
+        val icHoistBrakeSensor: Int = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
+        val icCraneRailsEn : Int = 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
 
 //Information
-        val buildMode: Int = 0,     //Флаг режима наладки
-        val serviceMode: Int = 0,   //Флаг режима сервис
-        val acssPWR: Int = 0,       //АЦСС питание в норме
-        val acssFault: Int = 0,     //АЦСС в ошибке
-        val lukStatus: Int = 0,     //Состояние конечного выключателя люка ОПУ
-        val lineContactorZeroPosAlarm : Int = 0, //Авария нулевой блокировки линейного контактора
-        val microclimateHeaterFault: Int = 0,   //вария обогрева технического помещения
-        val brakePowerSupplyFault : Int = 0,    //Авария питания тормозов
-        val ventilationPowerSupplyFault: Int = 0, //Авария питания вентиляции электродвигателей
-        val hoistJoystickError: Int = 0,    //Ошибка джойстика механизма подъема
-        val slewJoystickError: Int = 0,     //Ошибка джойстика механизма поворота
-        val trolleyJoystickError: Int = 0,  //Ошибка джойстика механизма тележки
-        val craneJoystickError: Int = 0,    //Ошибка джойстика механизма хода крана
-        val craneEncoderFault: Int = 0,     //Сбой энкодера механизма хода крана
-        val hoistEncoderFault: Int = 0,     //Сбой энкодера механизма хода крана
-        val slewEncoderFault: Int = 0,      //Сбой энкодера механизма поворота
-        val trolleyEncoderFault: Int = 0,   //Сбой энкодера механизма тележки
-        val phaseControlRelayFault: Int = 0, //Авария реле контроля фаз
-        val powerSupplyNetworkFault: Int = 0, //Авария питающей сети
-        val hoistDriveError : Int = 0, //Ошибка частотного преобразователя подъема
-        val slewDriveError : Int = 0, //Ошибка частотного преобразователя поворота
-        val trolleyDriveError : Int = 0, //Ошибка частотного преобразователя тележки
-        val craneDriveError : Int = 0, //Ошибка частотного преобразователя хода крана
-        val hoistDrivePowerError : Int = 0, //Отключение питания частотного преобразователя подъема
-        val slewDrivePowerError : Int = 0, //Отключение питания частотного преобразователя поворота
-        val trolleyDrivePowerError : Int = 0, //Отключение питания частотного преобразователя тележки
-        val craneDrivePowerError : Int = 0, //Отключение питания частотного преобразователя хода крана
-        val canOpenSensorsError : Int = 0, //Авария сети CANopen (датчики)
-        val canOpenDrivesError : Int = 0, //Авария сети CANopen (частотные преобразователи)
+        val icBuildMode: Int = 0,     //Флаг режима наладки
+        val icServiceMode: Int = 0,   //Флаг режима сервис
+        val icACSSPWR: Int = 0,       //АЦСС питание в норме
+        val icACSSFault: Int = 0,     //АЦСС в ошибке
+        val icLukStatus: Int = 0,     //Состояние конечного выключателя люка ОПУ
+        val icLineContactorZeroPosAlarm : Int = 0, //Авария нулевой блокировки линейного контактора
+        val icMicroclimateHeaterFault: Int = 0,   //вария обогрева технического помещения
+        val icBrakePowerSupplyFault : Int = 0,    //Авария питания тормозов
+        val icVentilationPowerSupplyFault: Int = 0, //Авария питания вентиляции электродвигателей
+        val icHoistJoystickError: Int = 0,    //Ошибка джойстика механизма подъема
+        val icSlewJoystickError: Int = 0,     //Ошибка джойстика механизма поворота
+        val icTrolleyJoystickError: Int = 0,  //Ошибка джойстика механизма тележки
+        val icCraneJoystickError: Int = 0,    //Ошибка джойстика механизма хода крана
+        val icCraneEncoderFault: Int = 0,     //Сбой энкодера механизма хода крана
+        val icHoistEncoderFault: Int = 0,     //Сбой энкодера механизма хода крана
+        val icSlewEncoderFault: Int = 0,      //Сбой энкодера механизма поворота
+        val icTrolleyEncoderFault: Int = 0,   //Сбой энкодера механизма тележки
+        val icPhaseControlRelayFault: Int = 0, //Авария реле контроля фаз
+        val icPowerSupplyNetworkFault: Int = 0, //Авария питающей сети
+        val icHoistDriveError : Int = 0, //Ошибка частотного преобразователя подъема
+        val icSlewDriveError : Int = 0, //Ошибка частотного преобразователя поворота
+        val icTrolleyDriveError : Int = 0, //Ошибка частотного преобразователя тележки
+        val icCraneDriveError : Int = 0, //Ошибка частотного преобразователя хода крана
+        val icHoistDrivePowerError : Int = 0, //Отключение питания частотного преобразователя подъема
+        val icSlewDrivePowerError : Int = 0, //Отключение питания частотного преобразователя поворота
+        val icTrolleyDrivePowerError : Int = 0, //Отключение питания частотного преобразователя тележки
+        val icCraneDrivePowerError : Int = 0, //Отключение питания частотного преобразователя хода крана
+        val icCANOpenSensorsError : Int = 0, //Авария сети CANopen (датчики)
+        val icCANOpenDrivesError : Int = 0, //Авария сети CANopen (частотные преобразователи)
 
-        val beeper: Int = 0,
+        val beeperWeightLimit: Int = 0,
 //CraneMechanismsCondition UI
         val weightSensorErr: Int = 0,
         val anemometerSensorErr: Int = 0,

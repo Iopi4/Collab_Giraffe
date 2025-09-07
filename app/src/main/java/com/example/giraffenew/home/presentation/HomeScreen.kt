@@ -102,8 +102,14 @@ internal fun HomeScreen (
                 windCurrent = homeViewModel.state.value.windCurrent,
                 windSpeedLvl2 = homeViewModel.state.value.windSpeedLvl2,
                 windSpeedMontage = homeViewModel.state.value.windSpeedMontage,
-                montageMode = homeViewModel.state.value.montageMode,
-                beeper = homeViewModel.state.value.beeper,
+                beeperWeightLimit = homeViewModel.state.value.beeperWeightLimit,
+
+                icMontageMode = homeViewModel.state.value.icMontageMode,
+                icCraneRepPointFault= homeViewModel.state.value.icCraneRepPointFault,
+                icCraneRepPoint= homeViewModel.state.value.icCraneRepPoint,
+                icLoadMomentSensorAlarm= homeViewModel.state.value.icLoadMomentSensorAlarm,
+                icHoistBrakeSensor= homeViewModel.state.value.icHoistBrakeSensor,
+                icCraneRailsEn= homeViewModel.state.value.icCraneRailsEn,
             ) }
 
             Box (modifier = Modifier
@@ -229,7 +235,36 @@ internal fun HomeScreen (
             Box (modifier = Modifier
                 .weight(1f))
             { Information(
-                    beeper = homeViewModel.state.value.beeper,
+                beeper = homeViewModel.state.value.beeperWeightLimit,
+                icBuildMode = homeViewModel.state.value.icBuildMode,
+                icServiceMode = homeViewModel.state.value.icServiceMode,
+                icACSSPWR = homeViewModel.state.value.icACSSPWR,
+                icACSSFault = homeViewModel.state.value.icACSSFault,
+                icLukStatus = homeViewModel.state.value.icLukStatus,
+                icLineContactorZeroPosAlarm = homeViewModel.state.value.icLineContactorZeroPosAlarm,
+                icMicroclimateHeaterFault = homeViewModel.state.value.icMicroclimateHeaterFault,
+                icBrakePowerSupplyFault = homeViewModel.state.value.icBrakePowerSupplyFault,
+                icVentilationPowerSupplyFault = homeViewModel.state.value.icVentilationPowerSupplyFault,
+                icHoistJoystickError = homeViewModel.state.value.icHoistJoystickError,
+                icSlewJoystickError = homeViewModel.state.value.icSlewJoystickError,
+                icTrolleyJoystickError = homeViewModel.state.value.icTrolleyJoystickError,
+                icCraneJoystickError = homeViewModel.state.value.icCraneJoystickError,
+                icCraneEncoderFault = homeViewModel.state.value.icCraneEncoderFault,
+                icHoistEncoderFault = homeViewModel.state.value.icHoistEncoderFault,
+                icSlewEncoderFault = homeViewModel.state.value.icSlewEncoderFault,
+                icTrolleyEncoderFault = homeViewModel.state.value.icTrolleyEncoderFault,
+                icPhaseControlRelayFault = homeViewModel.state.value.icPhaseControlRelayFault,
+                icPowerSupplyNetworkFault = homeViewModel.state.value.icPowerSupplyNetworkFault,
+                icHoistDriveError = homeViewModel.state.value.icHoistDriveError,
+                icSlewDriveError = homeViewModel.state.value.icSlewDriveError,
+                icTrolleyDriveError = homeViewModel.state.value.icTrolleyDriveError,
+                icCraneDriveError = homeViewModel.state.value.icCraneDriveError,
+                icHoistDrivePowerError = homeViewModel.state.value.icHoistDrivePowerError,
+                icSlewDrivePowerError = homeViewModel.state.value.icSlewDrivePowerError,
+                icTrolleyDrivePowerError = homeViewModel.state.value.icTrolleyDrivePowerError,
+                icCraneDrivePowerError = homeViewModel.state.value.icCraneDrivePowerError,
+                icCANOpenSensorsError = homeViewModel.state.value.icCANOpenSensorsError,
+                icCANOpenDrivesError = homeViewModel.state.value.icCANOpenDrivesError,
                 ) }
 
         }
