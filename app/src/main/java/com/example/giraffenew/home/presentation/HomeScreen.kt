@@ -103,6 +103,7 @@ internal fun HomeScreen (
                 windSpeedLvl2 = homeViewModel.state.value.windSpeedLvl2,
                 windSpeedMontage = homeViewModel.state.value.windSpeedMontage,
                 montageMode = homeViewModel.state.value.montageMode,
+                beeper = homeViewModel.state.value.beeper,
             ) }
 
             Box (modifier = Modifier

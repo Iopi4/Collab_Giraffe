@@ -80,8 +80,8 @@ object TopBarRegisterConfiguration {
         RegisterInfo(193, "Curr_Gruz_Zapas_MW", "WORD16", "выбор кратности запасовки, =TRUE -4х кратная, =FALSE -2х кратная"),
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
-        RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана")
-
+        RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана"),
+        RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI")
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -117,6 +117,7 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(136, "VoltageL2L3_MW", "WORD16", "Линейное напряжение L2-L3"),
         RegisterInfo(137, "VoltageL3L1_MW", "WORD16", "Линейное напряжение L3-L1"),
         RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "статус датчика ветра (0-Rd, 1-Yl, 2-Gr) "),
+
         //addressesCraneParameterScale
         RegisterInfo(317, "HMI_Weight_Percent_MW", "WORD16", "Текущий вес в процентах"),
         RegisterInfo(319, "HMI_Max_Crane_Position_MW", "WORD16", "Максимальное положение крана"),
@@ -124,6 +125,12 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(175, "WindSpeedLvl1", "WORD16", "Предупредительный ветер рабочего состояния в м/с"),
         RegisterInfo(176, "WindSpeedMontageLv1_MW", "WORD16", "Предупредительный ветер в режиме монтаж в м/с"),
         RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI"),
+        RegisterInfo(192, "MontageMode_MW", "WORD16", "Флаг монтажного режима"),
+        RegisterInfo(710, "HMI_CraneReferencePointSensor_Fault_MW", "WORD16", "Сбой датчика реперной точки хода крана"),
+        RegisterInfo(709, "HMI_LoadMomentSensor_Alarm_MW", "WORD16", "Авария датчика критического грузового момента"),
+        RegisterInfo(229, "PLC_DI0_0_5_HoistBrakeSensor_MW", "WORD16", "Контроль износа тормоза подъема"),
+        RegisterInfo(212, "Crane_Rails_En_MW", "WORD16", "Флаг включения перемещения крана. 1 - Ход крана активирован"),
+        RegisterInfo(353, "HMI_xCraneRepPoint_MW", "WORD16", "Реперная точка хода крана"),
 
         //addressesCraneMechanismsCondition
         RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
@@ -149,7 +156,33 @@ object UiHomeScreenRegisterConfiguration {
         //Information
         RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
         RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
-        RegisterInfo(192, "MontageMode_MW", "WORD16", "Флаг монтажного режима"),
+        RegisterInfo(239, "PLC_DI1_0_7_ACSS_PWR_MW", "WORD16", "АЦСС питание в норме"),
+        RegisterInfo(288, "PLC_DI1_1_0_ACSS_Fault_MW", "WORD16", "АЦСС в ошибке"),
+        RegisterInfo(700, "HMI_HatchLimitSwitch_Status_MW", "WORD16", "Состояние конечного выключателя люка ОПУ"),
+        RegisterInfo(701, "HMI_LineContactorZeroPos_Alarm_MW", "WORD16", "Авария нулевой блокировки линейного контактора"),
+        RegisterInfo(702, "HMI_MicroclimateHeater_Fault_MW", "WORD16", "Авария обогрева технического помещения"),
+        RegisterInfo(703, "HMI_BrakePowerSupply_Fault_MW", "WORD16", "Авария питания тормозов"),
+        RegisterInfo(704, "HMI_VentilationPowerSupply_Fault_MW", "WORD16", "Авария питания вентиляции электродвигателей"),
+        RegisterInfo(705, "HMI_HoistJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма подъема"),
+        RegisterInfo(706, "HMI_SlewJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма поворота"),
+        RegisterInfo(707, "HMI_TrolleyJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма тележки"),
+        RegisterInfo(708, "HMI_TravelJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма передвижения"),
+        RegisterInfo(713, "HMI_CraneEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма передвижения"),
+        RegisterInfo(714, "HMI_HoistEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма подъема"),
+        RegisterInfo(715, "HMI_SlewEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма поворота"),
+        RegisterInfo(716, "HMI_TrolleyEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма тележки"),
+        RegisterInfo(717, "HMI_PhaseControlRelay_Fault_MW", "WORD16", "Авария реле контроля фаз"),
+        RegisterInfo(718, "HMI_PowerSupplyNetwork_Fault_MW", "WORD16", "Авария питающей сети"),
+        RegisterInfo(720, "HMI_HoistDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя подъема"),
+        RegisterInfo(721, "HMI_SlewDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя поворота"),
+        RegisterInfo(722, "HMI_TrolleyDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя тележки"),
+        RegisterInfo(723, "HMI_TravelDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя передвижения"),
+        RegisterInfo(724, "HMI_HoistDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ подъема"),
+        RegisterInfo(725, "HMI_SlewDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ поворота"),
+        RegisterInfo(726, "HMI_TrolleyDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ тележки"),
+        RegisterInfo(727, "HMI_TravelDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ передвижения"),
+        RegisterInfo(728, "HMI_CANopenSensors_Error_MW", "WORD16", "Авария сети CANopen (датчики)"),
+        RegisterInfo(729, "HMI_CANopenDrives_Error_MW", "WORD16", "Авария сети CANopen (частотные преобразователи)"),
 
         //Crane SOZR
         RegisterInfo(400, "HMI_Line_Angle_MW", "WORD16", "Угол поворота стрелы на HMI"),
@@ -262,7 +295,8 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(506, "HMI_SegmentVisibility_16_MW", "WORD16", "Видимость сегмента №16"),
         RegisterInfo(507, "HMI_SegmentVisibility_17_MW", "WORD16", "Видимость сегмента №17"),
         RegisterInfo(508, "HMI_SegmentVisibility_18_MW", "WORD16", "Видимость сегмента №18"),
-        RegisterInfo(509, "HMI_SegmentVisibility_19_MW", "WORD16", "Видимость сегмента №19")
+        RegisterInfo(509, "HMI_SegmentVisibility_19_MW", "WORD16", "Видимость сегмента №19"),
+
         )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

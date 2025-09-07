@@ -42,7 +42,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
 import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionScreen
-import com.example.giraffenew.core.sound.SoundViewModel
 import com.example.giraffenew.diagnostics.prezentation.DiagnosticsScreen
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.Orange

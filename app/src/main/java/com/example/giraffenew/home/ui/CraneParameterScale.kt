@@ -6,7 +6,10 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -52,11 +55,12 @@ fun CraneParameterScale(
     windSpeedLvl2: Float,
     windSpeedMontage: Float,
     montageMode: Int,
+    beeper: Int,
 ){
     val myBoxMainModifier = Modifier
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
-        .fillMaxSize()
+        .size(324.dp)
         .border(
             width = 2.dp,
             color = DarkLemon,
@@ -198,6 +202,48 @@ fun CraneParameterScale(
                 modifier = Modifier.size(width = 135.dp, height = 16.dp)
             )}
 
+        Box(modifier = Modifier
+            .padding(start = 0.dp, top = 260.dp,)){
+            Row (
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+
+
+            }
+        }
+
+
+
     }
 
 }
@@ -232,6 +278,7 @@ fun CraneParameterScalePreview (){
             windSpeedMontage = 10f,
             windSpeedLvl2 = 10f,
             montageMode = 0,
+            beeper = 1,
             )
     }
 }

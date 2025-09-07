@@ -1,6 +1,5 @@
 package com.example.giraffenew.home.ui.lamp
 
-import android.graphics.drawable.Icon
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -69,7 +68,7 @@ fun LampIconInformationAlarmPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         LampIconInformationAlarm(
             isLampIconStatus = 0,
-            isIcon = painterResource(R.drawable.ic_home_info_campaign_white),
+            isIcon = painterResource(R.drawable.ic_home_info_campaign),
         )
     }
 }

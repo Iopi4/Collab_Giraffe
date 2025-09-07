@@ -5,6 +5,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.R
+import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.network.CraneIdRepository
@@ -28,7 +30,10 @@ import javax.inject.Inject
 @HiltViewModel
 class TopBarViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository,
-    private val craneIdRepository: CraneIdRepository // Добавим репозиторий хранения craneId
+    private val craneIdRepository: CraneIdRepository,
+    private val soundController: SoundController
+
+    // Добавим репозиторий хранения craneId
 ) : ViewModel() {
     private val _currentTime = mutableStateOf("00:00:00")
     val currentTime: State<String> = _currentTime
@@ -45,7 +50,7 @@ class TopBarViewModel @Inject constructor(
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367 ) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367, 177, 178, 179, 180 ) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
@@ -65,7 +70,6 @@ class TopBarViewModel @Inject constructor(
                     val currentValues = addresses.associate { addr ->
                         addr to cache[addr]?.value
                     }
-
                     // Проверяем, изменились ли значения целевых регистров
                     if (haveRelevantRegistersChanged(currentValues)) {
                         Log.d("TopBarViewModel", "Relevant registers changed: $currentValues")
@@ -78,11 +82,27 @@ class TopBarViewModel @Inject constructor(
                         updateLoadCapacity(currentValues)
                         updateCraneID(currentValues)
 
+                        // Обработка звуковых регистров
+                        for (register in 177..180) {
+                            val currentValue = currentValues[register] ?: 0
+                            val previousValue = previousValues[register] ?: 0
+                            if (currentValue != previousValue) {
+                                soundController.setRegisterState(register, currentValue == 1)
+                            }
+                        }
+
+
+
                         // Сохраняем текущие значения для следующего сравнения
                         previousValues = currentValues
                     }
                 }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        soundController.release()
     }
     // Функция для проверки изменений в relevant регистрах
     private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {

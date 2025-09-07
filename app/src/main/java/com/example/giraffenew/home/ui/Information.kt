@@ -37,7 +37,7 @@ fun Information (
             shape = RoundedCornerShape(10.dp)
         )
 
-    //Бокс 1 - для крана с ГХ
+    //Иконки аварий и предупреждений
     Box(myBoxMainModifier){
         Column(
             modifier = Modifier
@@ -49,10 +49,35 @@ fun Information (
                     .fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-            LampIconInformationAlarm(
-                isLampIconStatus = beeper,
-                isIcon = painterResource(R.drawable.ic_home_info_campaign_white),
-            )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+
 
             }
 
@@ -64,7 +89,31 @@ fun Information (
             ) {
                 LampIconInformationAlarm(
                     isLampIconStatus = beeper,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign_white),
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                )
+                LampIconInformationAlarm(
+                    isLampIconStatus = beeper,
+                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
                 )
 
             }

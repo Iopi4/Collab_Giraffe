@@ -94,6 +94,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation("com.google.code.gson:gson:2.13.1")
 
+    implementation(libs.androidx.media)
+
     testImplementation(libs.junit)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.room.testing)
