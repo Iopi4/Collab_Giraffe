@@ -28,8 +28,6 @@ import com.example.giraffenew.ui.theme.Silver
 
 @Composable
 fun Information (
-    beeper: Int,
-
     icBuildMode   : Int,
     icServiceMode : Int,
 
@@ -175,7 +173,6 @@ fun Information (
 fun InformationPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         Information(
-            beeper = 1,
             icBuildMode = 1,
             icServiceMode = 1,
             icACSSPWR = 1,

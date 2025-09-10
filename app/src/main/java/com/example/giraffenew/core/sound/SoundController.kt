@@ -25,11 +25,11 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
     private val soundPool = SoundPool.Builder().setMaxStreams(4).build()
 
     private val soundConfigs = mapOf(
-        278 to SoundConfigRepeat(R.raw.beep_sound_weight, 500, 3500),
-        279 to SoundConfigRepeat(R.raw.beep_sound_warning, 500, 1500),
-        280 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 500, 4500),
-        281 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 5000),
-        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 5000)
+        278 to SoundConfigRepeat(R.raw.beep_sound_weight, 500, 4500),
+        279 to SoundConfigRepeat(R.raw.beep_sound_warning, 500, 4500),
+        280 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 500, 500),
+        281 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 500),
+        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 500)
     )
 
     private data class SoundConfigRepeat(
@@ -48,6 +48,14 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
             soundIds[id] = soundPool.load(context, config.resourceId, 1)
         }
     }
+    /* Метод play класса SoundPool воспроизводит звук из ранее загруженного в SoundPool звука.
+      - soundID: идентификатор звука, загруженного посредством метода load. Это значение, возвращенное load.
+      - leftVolume: громкость для левого канала (диапазон от 0.0 до 1.0).
+      - rightVolume: громкость для правого канала (диапазон от 0.0 до 1.0).
+      - priority: приоритет воспроизведения (0 - самый низкий). Если одновременно должно воспроизводиться больше звуков, чем возможно, то SoundPool остановит воспроизведение звуков с низким приоритетом.
+      - loop: режим повтора (0 - без повтора, -1 - вечный повтор, положительное число - количество повторов (например, 1 означает, что звук сыграет дважды: первый раз и один повтор)).
+      - rate: скорость воспроизведения (1.0 - нормальная скорость, диапазон от 0.5 до 2.0).
+                         */
 
     private fun disableSilentMode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -68,7 +68,7 @@ class ModbusClient @Inject constructor() {
 
     companion object {
         private const val TAG = "ModbusClient"
-        private const val MAX_REGISTER_BATCH_SIZE = 127 // Максимальный размер batch для чтения
+        private const val MAX_REGISTER_BATCH_SIZE = 120 // Максимальный размер batch для чтения
         private const val MODBUS_FUNCTION_READ_HOLDING = 3.toByte()
         private const val MODBUS_FUNCTION_WRITE_SINGLE = 6.toByte()
     }
@@ -312,7 +312,7 @@ class ModbusClient @Inject constructor() {
      */
     private suspend fun readRegisterBatch(startAddress: Int, count: Int): List<RegisterReadResult> {
         val request = buildModbusReadRequest(startAddress, count)
-        
+        //Log.d(TAG, "Request: ${request.joinToString(separator = " ") { "%02x".format(it) }}")
         // Отправляем запрос
         output?.writeFully(request) ?: throw Exception("Output channel is null")
         
@@ -328,6 +328,8 @@ class ModbusClient @Inject constructor() {
         
         // Парсим ответ
         return parseModbusResponse(response.copyOfRange(0, bytesRead), startAddress)
+        val responseData = response.copyOfRange(0, bytesRead)
+        //Log.d(TAG, "Response: ${responseData.joinToString(separator = " ") { "%02x".format(it) }}")
     }
     
     /**
@@ -441,7 +443,22 @@ class ModbusClient @Inject constructor() {
             if (response.size < 9) {
                 throw Exception("Response too short: ${response.size} bytes")
             }
-            
+
+            // Проверяем наличие ошибки в ответе (старший бит функции установлен)
+            val functionCode = response[7].toInt() and 0xFF
+            if (functionCode and 0x80 != 0) {
+                val errorCode = response[8].toInt() and 0xFF
+                val errorMsg = when (errorCode) {
+                    1 -> "Illegal Function"
+                    2 -> "Illegal Data Address"
+                    3 -> "Illegal Data Value"
+                    4 -> "Server Device Failure"
+                    else -> "Unknown error"
+                }
+
+                throw Exception("Modbus exception: $errorMsg (code $errorCode)")
+            }
+
             val byteCount = response[8].toInt() and 0xFF
             
             if (response.size < 9 + byteCount) {

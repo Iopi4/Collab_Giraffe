@@ -149,6 +149,114 @@ fun CraneSOZR(
     segmentP1Visibility17: Int, //Видимость сегмента №17
     segmentP1Visibility18: Int, //Видимость сегмента №18
     segmentP1Visibility19: Int, //Видимость сегмента №19
+
+
+    hmiSegmentP2Length00: Int, // Длина сегмента №00
+    hmiSegmentP2Length01: Int, // Длина сегмента №01
+    hmiSegmentP2Length02: Int, // Длина сегмента №02
+    hmiSegmentP2Length03: Int, // Длина сегмента №03
+    hmiSegmentP2Length04: Int, // Длина сегмента №04
+    hmiSegmentP2Length05: Int, // Длина сегмента №05
+    hmiSegmentP2Length06: Int, // Длина сегмента №06
+    hmiSegmentP2Length07: Int, // Длина сегмента №07
+    hmiSegmentP2Length08: Int, // Длина сегмента №08
+    hmiSegmentP2Length09: Int, // Длина сегмента №09
+    hmiSegmentP2Length10: Int, // Длина сегмента №10
+    hmiSegmentP2Length11: Int, // Длина сегмента №11
+    hmiSegmentP2Length12: Int, // Длина сегмента №12
+    hmiSegmentP2Length13: Int, // Длина сегмента №13
+    hmiSegmentP2Length14: Int, // Длина сегмента №14
+    hmiSegmentP2Length15: Int, // Длина сегмента №15
+    hmiSegmentP2Length16: Int, // Длина сегмента №16
+    hmiSegmentP2Length17: Int, // Длина сегмента №17
+    hmiSegmentP2Length18: Int, // Длина сегмента №18
+    hmiSegmentP2Length19: Int, // Длина сегмента №19
+
+    pointP2PositionY00: Int, // Координата Y точки №00
+    pointP2PositionY01: Int, // Координата Y точки №01
+    pointP2PositionY02: Int, // Координата Y точки №02
+    pointP2PositionY03: Int, // Координата Y точки №03
+    pointP2PositionY04: Int, // Координата Y точки №04
+    pointP2PositionY05: Int, // Координата Y точки №05
+    pointP2PositionY06: Int, // Координата Y точки №06
+    pointP2PositionY07: Int, // Координата Y точки №07
+    pointP2PositionY08: Int, // Координата Y точки №08
+    pointP2PositionY09: Int, // Координата Y точки №09
+    pointP2PositionY10: Int, // Координата Y точки №10
+    pointP2PositionY11: Int, // Координата Y точки №11
+    pointP2PositionY12: Int, // Координата Y точки №12
+    pointP2PositionY13: Int, // Координата Y точки №13
+    pointP2PositionY14: Int, // Координата Y точки №14
+    pointP2PositionY15: Int, // Координата Y точки №15
+    pointP2PositionY16: Int, // Координата Y точки №16
+    pointP2PositionY17: Int, // Координата Y точки №17
+    pointP2PositionY18: Int, // Координата Y точки №18
+    pointP2PositionY19: Int, // Координата Y точки №19
+
+    pointP2PositionX00: Int, // Координата X точки №00
+    pointP2PositionX01: Int, // Координата X точки №01
+    pointP2PositionX02: Int, // Координата X точки №02
+    pointP2PositionX03: Int, // Координата X точки №03
+    pointP2PositionX04: Int, // Координата X точки №04
+    pointP2PositionX05: Int, // Координата X точки №05
+    pointP2PositionX06: Int, // Координата X точки №06
+    pointP2PositionX07: Int, // Координата X точки №07
+    pointP2PositionX08: Int, // Координата X точки №08
+    pointP2PositionX09: Int, // Координата X точки №09
+    pointP2PositionX10: Int, // Координата X точки №10
+    pointP2PositionX11: Int, // Координата X точки №11
+    pointP2PositionX12: Int, // Координата X точки №12
+    pointP2PositionX13: Int, // Координата X точки №13
+    pointP2PositionX14: Int, // Координата X точки №14
+    pointP2PositionX15: Int, // Координата X точки №15
+    pointP2PositionX16: Int, // Координата X точки №16
+    pointP2PositionX17: Int, // Координата X точки №17
+    pointP2PositionX18: Int, // Координата X точки №18
+    pointP2PositionX19: Int, // Координата X точки №19
+
+    segmentP2Angle00_01: Int, //Угол между сегментами 00-01
+    segmentP2Angle01_02: Int, //Угол между сегментами 01-02
+    segmentP2Angle02_03: Int, //Угол между сегментами 02-03
+    segmentP2Angle03_04: Int, //Угол между сегментами 03-04
+    segmentP2Angle04_05: Int, //Угол между сегментами 04-05
+    segmentP2Angle05_06: Int, //Угол между сегментами 05-06
+    segmentP2Angle06_07: Int, //Угол между сегментами 06-07
+    segmentP2Angle07_08: Int, //Угол между сегментами 07-08
+    segmentP2Angle08_09: Int, //Угол между сегментами 08-09
+    segmentP2Angle09_10: Int, //Угол между сегментами 09-10
+    segmentP2Angle10_11: Int, //Угол между сегментами 10-11
+    segmentP2Angle11_12: Int, //Угол между сегментами 11-12
+    segmentP2Angle12_13: Int, //Угол между сегментами 12-13
+    segmentP2Angle13_14: Int, //Угол между сегментами 13-14
+    segmentP2Angle14_15: Int, //Угол между сегментами 14-15
+    segmentP2Angle15_16: Int, //Угол между сегментами 15-16
+    segmentP2Angle16_17: Int, //Угол между сегментами 16-17
+    segmentP2Angle17_18: Int, //Угол между сегментами 17-18
+    segmentP2Angle18_19: Int, //Угол между сегментами 18-19
+    segmentP2Angle19_00: Int, //Угол между сегментами 19-00
+
+    segmentP2Visibility00: Int, //Видимость сегмента №00
+    segmentP2Visibility01: Int, //Видимость сегмента №01
+    segmentP2Visibility02: Int, //Видимость сегмента №02
+    segmentP2Visibility03: Int, //Видимость сегмента №03
+    segmentP2Visibility04: Int, //Видимость сегмента №04
+    segmentP2Visibility05: Int, //Видимость сегмента №05
+    segmentP2Visibility06: Int, //Видимость сегмента №06
+    segmentP2Visibility07: Int, //Видимость сегмента №07
+    segmentP2Visibility08: Int, //Видимость сегмента №08
+    segmentP2Visibility09: Int, //Видимость сегмента №09
+    segmentP2Visibility10: Int, //Видимость сегмента №10
+    segmentP2Visibility11: Int, //Видимость сегмента №11
+    segmentP2Visibility12: Int, //Видимость сегмента №12
+    segmentP2Visibility13: Int, //Видимость сегмента №13
+    segmentP2Visibility14: Int, //Видимость сегмента №14
+    segmentP2Visibility15: Int, //Видимость сегмента №15
+    segmentP2Visibility16: Int, //Видимость сегмента №16
+    segmentP2Visibility17: Int, //Видимость сегмента №17
+    segmentP2Visibility18: Int, //Видимость сегмента №18
+    segmentP2Visibility19: Int, //Видимость сегмента №19
+
+
 ){
     val myBoxMainModifier = Modifier
         .padding(5.dp)
@@ -431,6 +539,88 @@ fun CraneSOZR(
             }
         }
 
+        // Canvas для отрисовки полигона №2 из 20 отрезков
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center)
+        ) {
+            val squareSize = 240.dp.toPx()
+            val boxSize = 314.dp.toPx()
+            val squareOffset = (boxSize - squareSize) / 2
+            val scale = squareSize / 240f
+
+            // Создаем массивы данных для удобства обработки
+            val lengths = listOf(
+                hmiSegmentP2Length00, hmiSegmentP2Length01, hmiSegmentP2Length02, hmiSegmentP2Length03, hmiSegmentP2Length04,
+                hmiSegmentP2Length05, hmiSegmentP2Length06, hmiSegmentP2Length07, hmiSegmentP2Length08, hmiSegmentP2Length09,
+                hmiSegmentP2Length10, hmiSegmentP2Length11, hmiSegmentP2Length12, hmiSegmentP2Length13, hmiSegmentP2Length14,
+                hmiSegmentP2Length15, hmiSegmentP2Length16, hmiSegmentP2Length17, hmiSegmentP2Length18, hmiSegmentP2Length19,
+            )
+
+            val positionsX = listOf(
+                pointP2PositionX00, pointP2PositionX01, pointP2PositionX02, pointP2PositionX03, pointP2PositionX04,
+                pointP2PositionX05, pointP2PositionX06, pointP2PositionX07, pointP2PositionX08, pointP2PositionX09,
+                pointP2PositionX10, pointP2PositionX11, pointP2PositionX12, pointP2PositionX13, pointP2PositionX14,
+                pointP2PositionX15, pointP2PositionX16, pointP2PositionX17, pointP2PositionX18, pointP2PositionX19,
+            )
+
+            val positionsY = listOf(
+                pointP2PositionY00, pointP2PositionY01, pointP2PositionY02, pointP2PositionY03, pointP2PositionY04,
+                pointP2PositionY05, pointP2PositionY06, pointP2PositionY07, pointP2PositionY08, pointP2PositionY09,
+                pointP2PositionY10, pointP2PositionY11, pointP2PositionY12, pointP2PositionY13, pointP2PositionY14,
+                pointP2PositionY15, pointP2PositionY16, pointP2PositionY17, pointP2PositionY18, pointP2PositionY19,
+            )
+
+            val angles = listOf(
+                segmentP2Angle00_01, segmentP2Angle01_02, segmentP2Angle02_03, segmentP2Angle03_04, segmentP2Angle04_05,
+                segmentP2Angle05_06, segmentP2Angle06_07, segmentP2Angle07_08, segmentP2Angle08_09, segmentP2Angle09_10,
+                segmentP2Angle10_11, segmentP2Angle11_12, segmentP2Angle12_13, segmentP2Angle13_14, segmentP2Angle14_15,
+                segmentP2Angle15_16, segmentP2Angle16_17, segmentP2Angle17_18, segmentP2Angle18_19, segmentP2Angle19_00,
+            )
+
+            val visibilities = listOf(
+                segmentP2Visibility00, segmentP2Visibility01, segmentP2Visibility02, segmentP2Visibility03, segmentP2Visibility04,
+                segmentP2Visibility05, segmentP2Visibility06, segmentP2Visibility07, segmentP2Visibility08, segmentP2Visibility09,
+                segmentP2Visibility10, segmentP2Visibility11, segmentP2Visibility12, segmentP2Visibility13, segmentP2Visibility14,
+                segmentP2Visibility15, segmentP2Visibility16, segmentP2Visibility17, segmentP2Visibility18, segmentP2Visibility19,
+            )
+
+
+            // Рисуем все отрезки. Примечание. Начало оси Y с нижнего левого угла squareSize
+            for (i in 0 until 20) {
+                if (visibilities[i] == 1) {
+                    val startX = squareOffset + positionsX[i] * scale
+                    val startY = squareOffset + positionsY[i] * scale
+
+                    // Конвертируем угол в радианы с учетом ориентации
+                    val angleRad = Math.toRadians(angles[i].toDouble())
+
+                    // Вычисляем конечные координаты
+                    val endX = startX + lengths[i] * scale * cos(angleRad).toFloat()
+                    val endY = startY + lengths[i] * scale * sin(angleRad).toFloat()
+
+                    // Выбираем цвет в зависимости от параметра
+                    val color = when (hmiP2Color) {
+                        0 -> Color.Cyan.copy(alpha = 0.6f)
+                        1 -> Color.Green
+                        2 -> Color.Yellow
+                        3 -> Color.Red
+                        else -> Color.Cyan.copy(alpha = 0.6f)
+                    }
+
+                    // Рисуем отрезок
+                    drawLine(
+                        color = color,
+                        start = Offset(startX, startY),
+                        end = Offset(endX, endY),
+                        strokeWidth = 3.dp.toPx(),
+                        cap = StrokeCap.Round
+                    )
+                }
+            }
+        }
+
 
 
         //Создадим центр крана с радиусом 5.dp. Черный цвет.
@@ -583,6 +773,113 @@ fun CraneSOZRPreview (){
             segmentP1Visibility17 = 1,
             segmentP1Visibility18 = 1,
             segmentP1Visibility19 = 1,
+
+            hmiSegmentP2Length00 = 153,
+            hmiSegmentP2Length01 = 140,
+            hmiSegmentP2Length02 = 159,
+            hmiSegmentP2Length03 = 139,
+            hmiSegmentP2Length04 = 0,
+            hmiSegmentP2Length05 = 1,
+            hmiSegmentP2Length06 = 1,
+            hmiSegmentP2Length07 = 1,
+            hmiSegmentP2Length08 = 1,
+            hmiSegmentP2Length09 = 1,
+            hmiSegmentP2Length10 = 1,
+            hmiSegmentP2Length11 = 1,
+            hmiSegmentP2Length12 = 1,
+            hmiSegmentP2Length13 = 1,
+            hmiSegmentP2Length14 = 1,
+            hmiSegmentP2Length15 = 1,
+            hmiSegmentP2Length16 = 1,
+            hmiSegmentP2Length17 = 1,
+            hmiSegmentP2Length18 = 1,
+            hmiSegmentP2Length19 = 1,
+
+            pointP2PositionX00 = 113,
+            pointP2PositionX01 = 111,
+            pointP2PositionX02 = 111,
+            pointP2PositionX03 = 167,
+            pointP2PositionX04 = 140,
+            pointP2PositionX05 = 1,
+            pointP2PositionX06 = 1,
+            pointP2PositionX07 = 1,
+            pointP2PositionX08 = 1,
+            pointP2PositionX09 = 1,
+            pointP2PositionX10 = 1,
+            pointP2PositionX11 = 1,
+            pointP2PositionX12 = 1,
+            pointP2PositionX13 = 1,
+            pointP2PositionX14 = 1,
+            pointP2PositionX15 = 1,
+            pointP2PositionX16 = 1,
+            pointP2PositionX17 = 1,
+            pointP2PositionX18 = 1,
+            pointP2PositionX19 = 1,
+
+            pointP2PositionY00 = 180,
+            pointP2PositionY01 = 140,
+            pointP2PositionY02 = 140,
+            pointP2PositionY03 = 180,
+            pointP2PositionY04 = 180,
+            pointP2PositionY05 = 1,
+            pointP2PositionY06 = 1,
+            pointP2PositionY07 = 1,
+            pointP2PositionY08 = 1,
+            pointP2PositionY09 = 1,
+            pointP2PositionY10 = 1,
+            pointP2PositionY11 = 1,
+            pointP2PositionY12 = 1,
+            pointP2PositionY13 = 1,
+            pointP2PositionY14 = 1,
+            pointP2PositionY15 = 1,
+            pointP2PositionY16 = 1,
+            pointP2PositionY17 = 1,
+            pointP2PositionY18 = 1,
+            pointP2PositionY19 = 1,
+
+
+
+            segmentP2Angle00_01 = 10,
+            segmentP2Angle01_02 = 186,
+            segmentP2Angle02_03 = 11,
+            segmentP2Angle03_04 = 274,
+            segmentP2Angle04_05 = 270,
+            segmentP2Angle05_06 = 1,
+            segmentP2Angle06_07 = 1,
+            segmentP2Angle07_08 = 1,
+            segmentP2Angle08_09 = 1,
+            segmentP2Angle09_10 = 1,
+            segmentP2Angle10_11 = 1,
+            segmentP2Angle11_12 = 1,
+            segmentP2Angle12_13 = 1,
+            segmentP2Angle13_14 = 1,
+            segmentP2Angle14_15 = 1,
+            segmentP2Angle15_16 = 1,
+            segmentP2Angle16_17 = 1,
+            segmentP2Angle17_18 = 1,
+            segmentP2Angle18_19 = 1,
+            segmentP2Angle19_00 = 1,
+
+            segmentP2Visibility00 = 1,
+            segmentP2Visibility01 = 1,
+            segmentP2Visibility02 = 1,
+            segmentP2Visibility03 = 1,
+            segmentP2Visibility04 = 1,
+            segmentP2Visibility05 = 1,
+            segmentP2Visibility06 = 1,
+            segmentP2Visibility07 = 1,
+            segmentP2Visibility08 = 1,
+            segmentP2Visibility09 = 1,
+            segmentP2Visibility10 = 1,
+            segmentP2Visibility11 = 1,
+            segmentP2Visibility12 = 1,
+            segmentP2Visibility13 = 1,
+            segmentP2Visibility14 = 1,
+            segmentP2Visibility15 = 1,
+            segmentP2Visibility16 = 1,
+            segmentP2Visibility17 = 1,
+            segmentP2Visibility18 = 1,
+            segmentP2Visibility19 = 1,
         )
     }
 }
