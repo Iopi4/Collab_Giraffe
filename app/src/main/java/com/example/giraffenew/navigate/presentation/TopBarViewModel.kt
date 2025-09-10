@@ -5,7 +5,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.giraffenew.R
 import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
@@ -17,9 +16,9 @@ import javax.inject.Inject
 /**
  * Затем будем собирать только изменения в этих регистрах. При этом важно, чтобы коллектор срабатывал только когда изменился хотя бы один из нужных регистров.
  * Однако, в текущей реализации TopBarViewModel, коллектор срабатывает при каждом обновлении кэша (даже если обновлены регистры не из списка).
- для решения этого мы:
- В ViewModel сделать фильтрацию: преобразовать поток так, чтобы он эмитил только когда изменился один из нужных регистров.
- будем запоминать предыдущий отфильтрованный набор значений и сравнивать с новым.
+для решения этого мы:
+В ViewModel сделать фильтрацию: преобразовать поток так, чтобы он эмитил только когда изменился один из нужных регистров.
+будем запоминать предыдущий отфильтрованный набор значений и сравнивать с новым.
 Если отфильтрованный набор не изменился, то не будем обновлять состояние.
 Однако, в TopBarViewModel этого нет, но мы можем добавить для еще большей оптимизации.
 
@@ -50,7 +49,7 @@ class TopBarViewModel @Inject constructor(
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367, 177, 178, 179, 180 ) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367, 278, 279, 280, 281, 282, ) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
@@ -83,7 +82,7 @@ class TopBarViewModel @Inject constructor(
                         updateCraneID(currentValues)
 
                         // Обработка звуковых регистров
-                        for (register in 177..180) {
+                        for (register in 278..282) {
                             val currentValue = currentValues[register] ?: 0
                             val previousValue = previousValues[register] ?: 0
                             if (currentValue != previousValue) {

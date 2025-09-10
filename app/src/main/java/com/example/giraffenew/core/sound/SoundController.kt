@@ -1,9 +1,11 @@
 package com.example.giraffenew.core.sound
 
+import android.app.NotificationManager
 import com.example.giraffenew.R
 import android.content.Context
-import android.media.MediaPlayer
-import android.util.Log
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,62 +18,92 @@ import javax.inject.Singleton
 
 @Singleton
 class SoundController @Inject constructor(@ApplicationContext private val context: Context) {
+    private val audioManager: AudioManager by lazy {
+        context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    }
+
+    private val soundPool = SoundPool.Builder().setMaxStreams(4).build()
+
     private val soundConfigs = mapOf(
-        177 to SoundConfig(R.raw.beep_sound_attention, 500, 2000),
-        178 to SoundConfig(R.raw.beep_sound_dwn, 500, 2000),
-        179 to SoundConfig(R.raw.beep_sound_stop, 5000, 2000),
-        180 to SoundConfig(R.raw.beep_sound_weight, 5000, 2000)
+        278 to SoundConfigRepeat(R.raw.beep_sound_weight, 500, 3500),
+        279 to SoundConfigRepeat(R.raw.beep_sound_warning, 500, 1500),
+        280 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 500, 4500),
+        281 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 5000),
+        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 5000)
     )
 
-        private data class SoundConfig(
-            val resourceId: Int,
-            val duration: Long,
-            val pause: Long
-        )
+    private data class SoundConfigRepeat(
+        val resourceId: Int,
+        val duration: Long,
+        val pause: Long
+    )
 
-        private val mediaPlayers = soundConfigs.mapValues { (_, config) ->
-            MediaPlayer.create(context, config.resourceId).apply {
-                setOnErrorListener { mp, what, extra ->
-                    Log.e("SoundController", "Error playing sound: what=$what, extra=$extra")
-                    true
-                }
+    private val soundIds = mutableMapOf<Int, Int>()
+    private val jobs = mutableMapOf<Int, Job?>()
+    private val singlePlayRegisters = setOf(280, 281, 282)
+    private val lastState = mutableMapOf<Int, Boolean>()
+
+    init {
+        soundConfigs.forEach { (id, config) ->
+            soundIds[id] = soundPool.load(context, config.resourceId, 1)
+        }
+    }
+
+    private fun disableSilentMode() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (notificationManager.isNotificationPolicyAccessGranted) {
+                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
             }
         }
+    }
 
-        private val jobs = mutableMapOf<Int, Job?>()
+    private fun setMaxVolume() {
+        audioManager.setStreamVolume(
+            AudioManager.STREAM_NOTIFICATION,
+            audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+            0
+        )
+        audioManager.setStreamVolume(
+            AudioManager.STREAM_MUSIC,
+            audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+            0
+        )
+    }
 
-        fun setRegisterState(register: Int, active: Boolean) {
+    fun setRegisterState(register: Int, active: Boolean) {
+        setMaxVolume()
+        disableSilentMode()
+
+        val config = soundConfigs[register] ?: return
+        val soundId = soundIds[register] ?: return
+
+        val wasActive = lastState[register] ?: false
+
+        if (register in singlePlayRegisters) {
+            if (active && !wasActive) {
+                soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
+            }
+        } else {
             val job = jobs[register]
-            val mediaPlayer = mediaPlayers[register] ?: return
-            val config = soundConfigs[register] ?: return
-
             if (active) {
                 if (job != null && job.isActive) return
-
                 jobs[register] = CoroutineScope(Dispatchers.Main).launch {
                     while (isActive) {
-                        mediaPlayer.start()
+                        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
                         delay(config.duration + config.pause)
                     }
                 }
             } else {
                 job?.cancel()
                 jobs[register] = null
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                }
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        mediaPlayer.prepare()
-                    } catch (e: Exception) {
-                        Log.e("SoundController", "Prepare error: ${e.message}")
-                    }
-                }
             }
         }
+        lastState[register] = active
+    }
 
-        fun release() {
-            jobs.values.forEach { it?.cancel() }
-            mediaPlayers.values.forEach { it.release() }
-        }
+    fun release() {
+        jobs.values.forEach { it?.cancel() }
+        soundPool.release()
+    }
 }

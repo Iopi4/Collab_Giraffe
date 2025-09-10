@@ -81,7 +81,11 @@ object TopBarRegisterConfiguration {
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана"),
-        RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI")
+        RegisterInfo(278, "Beeper_Weight_MW", "WORD16", "Пищалка HMI.Превышение ГП больше 90%"),
+        RegisterInfo(279, "Beeper_Warning_MW", "WORD16", "Пищалка HMI. Предупреждение"),
+        RegisterInfo(280, "Beeper_Alarm_Fault_MW", "WORD16", "Пищалка HMI. Авария "),
+        RegisterInfo(281, "Beeper_OGP_MW", "WORD16", "Пищалка HMI. ОГП "),
+        RegisterInfo(282, "Beeper_STOP_MW", "WORD16", "Пищалка HMI.Стой ")
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

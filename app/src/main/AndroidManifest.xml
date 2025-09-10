@@ -19,6 +19,13 @@
 
     <!-- Boot receiver для auto-start -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Разрешение MODIFY_AUDIO_SETTINGS для управления звуком независимот от настроек пользователя Андроид-->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Разрешение ACCESS_NOTIFICATION_POLICY для игнорирования редима "Не беспокоить" выставленное пользователя Андроид-->
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+
     <application
         android:name=".GiraffeApplication"
         android:allowBackup="true"
