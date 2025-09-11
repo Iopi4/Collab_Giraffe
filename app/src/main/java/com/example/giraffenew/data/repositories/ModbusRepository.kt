@@ -385,7 +385,6 @@ class ModbusRepository @Inject constructor(
 
     // Инициализация конфигураций
     init {
-        registerConfiguration(BeepSoundRegisterConfiguration.NAME_BEEP_SOUND, BeepSoundRegisterConfiguration.REGISTERS)
         registerConfiguration(TopBarRegisterConfiguration.NAME_TOP_BAR, TopBarRegisterConfiguration.REGISTERS)
         registerConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME, UiHomeScreenRegisterConfiguration.REGISTERS)
         registerConfiguration(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP, UiInitialSetupRegisterConfiguration.REGISTERS)
@@ -393,6 +392,7 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY, UISettingLoadCapacityConfiguration.REGISTERS)
         registerConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS, UISettingSensorsConfiguration.REGISTERS)
         registerConfiguration(UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION, UICoordinateProtectionConfiguration.REGISTERS)
+        registerConfiguration(UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC, UIDiagnosticRegisterConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
@@ -455,7 +455,6 @@ class ModbusRepository @Inject constructor(
     private suspend fun readConfigurationRegisters(configName: String) {
         Log.d(TAG, "Reading configuration: $configName")
         val registers = when (configName) {
-            BeepSoundRegisterConfiguration.NAME_BEEP_SOUND -> BeepSoundRegisterConfiguration.REGISTERS
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
@@ -463,6 +462,7 @@ class ModbusRepository @Inject constructor(
             UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS -> UISettingSensorsConfiguration.REGISTERS
             UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
+            UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }

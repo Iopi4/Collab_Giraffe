@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +24,17 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticTrolleyState (){
+fun DiagnosticTrolleyState (
+    trolleyDrivePowerError: Int,
+    trolleyControlWord: Int,
+    trolleyDriveError: Int,
+    trolleyFault:Int,
+    trolleyDriveErrorCode:Int,
+    trolleyTargetVelocity: Float,
+    trolleyControlEffort: Float,
+    trolleyMotorCurrent: Float,
+    trolleyEncoder:Int,
+){
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -48,7 +59,6 @@ fun DiagnosticTrolleyState (){
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Readiness)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Fault)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status_Encoder)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Amperage)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Setting)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Current)
@@ -70,56 +80,98 @@ fun DiagnosticTrolleyState (){
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.Diagnostic_Text_Status))
 // Отображение статус Готовность привода к работе
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = trolleyDrivePowerError
+                    )
+                }
+            }
 
 // Отображение статус Состояние привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = trolleyControlWord
+                    )
+                }
+            }
 
 // Отображение статус Ошибка привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
-
-// Отображение статус Состояние энкодера
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = trolleyDriveError
+                    )
+                }
+            }
 
 // Отображение текущего Тока, А
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(trolleyMotorCurrent)
+                )
+            }
 
 // Отображение  Заданная скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(trolleyTargetVelocity)
+                )
+            }
 
 // Отображение  Текущая скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(trolleyControlEffort)
+                )
+            }
 
 // Отображение  Текущее значения энкодера
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "65535") }
+                    valueParameterId = format(trolleyEncoder)
+                )
+            }
 
 // Отображение  Последняя ошибка
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "Ошибка связи по сети") }
+                    valueParameterId = format(trolleyDriveErrorCode)
+                )
+            }
         }
     }
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%10d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
 }
 
 @Preview
@@ -127,6 +179,15 @@ fun DiagnosticTrolleyState (){
 fun DiagnosticTrolleyStatePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticTrolleyState(
+            trolleyDrivePowerError = 1,
+            trolleyControlWord = 1,
+            trolleyDriveError = 1,
+            trolleyFault = 1,
+            trolleyDriveErrorCode = 1,
+            trolleyTargetVelocity = 1f,
+            trolleyControlEffort = 1f,
+            trolleyMotorCurrent = 1f,
+            trolleyEncoder = 1
         )
     }
 }

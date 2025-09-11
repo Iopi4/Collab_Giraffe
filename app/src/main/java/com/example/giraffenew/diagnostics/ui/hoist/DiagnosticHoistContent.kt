@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun DiagnosticHoistContent(
+    diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
 ) {
     val navController = rememberNavController()
 
@@ -34,8 +37,27 @@ fun DiagnosticHoistContent(
     {
         NavBarDiagnosticHoist(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticHoist.PageDiagnosticHoistState.route) {
-            composable(NavRoutesDiagnosticHoist.PageDiagnosticHoistState.route) {DiagnosticHoistState()}
-            composable(NavRoutesDiagnosticHoist.PageDiagnosticHoistDIDO.route) {DiagnosticHoistDIDO() }
+            composable(NavRoutesDiagnosticHoist.PageDiagnosticHoistState.route)
+            {
+                DiagnosticHoistState(
+                    hoistDrivePowerError = diagnosticViewModule.state.value.drivesParameters.hoistDrivePowerError,
+                    hoistControlWord = diagnosticViewModule.state.value.drivesParameters.hoistControlWord,
+                    hoistDriveError = diagnosticViewModule.state.value.drivesParameters.hoistDriveError,
+                    hoistFault = diagnosticViewModule.state.value.drivesParameters.hoistFault,
+                    hoistDriveErrorCode = diagnosticViewModule.state.value.drivesParameters.hoistDriveErrorCode,
+                    hoistTargetVelocity = diagnosticViewModule.state.value.drivesParameters.hoistTargetVelocity,
+                    hoistControlEffort = diagnosticViewModule.state.value.drivesParameters.hoistControlEffort,
+                    hoistMotorCurrent = diagnosticViewModule.state.value.drivesParameters.hoistMotorCurrent,
+                    hoistEncoder = diagnosticViewModule.state.value.drivesParameters.hoistEncoder,
+                )
+            }
+            composable(NavRoutesDiagnosticHoist.PageDiagnosticHoistDIDO.route)
+            {
+                DiagnosticHoistDIDO(
+                    hoistIL1R = diagnosticViewModule.state.value.drivesParameters.hoistIL1R,
+                    hoistOL1R = diagnosticViewModule.state.value.drivesParameters.hoistOL1R,
+                )
+            }
         }
     }
 }

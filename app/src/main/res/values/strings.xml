@@ -280,6 +280,10 @@
 
     <string name="ServiceMenu_Text_Acc">Ввод. Разгон [с]</string>
     <string name="ServiceMenu_Text_Dec">Ввод. Торможение [с]</string>
+    <string name="ServiceMenu_Text_Dec_Revers">Ввод. Торможение противоход.[с]</string>
+    <string name="ServiceMenu_Text_Delay_Time">Ввод. Время налож. тормоза [с] </string>
+    <string name="ServiceMenu_Text_Brake_Close_Frq">Ввод. Частота удержания [Гц]</string>
+
     <string name="ServiceMenu_Text_Speed_1">Ввод. Скорость 1 [об/мин]</string>
     <string name="ServiceMenu_Text_Speed_2">Ввод. Скорость 2 [об/мин]</string>
     <string name="ServiceMenu_Text_Speed_3">Ввод. Скорость 3 [об/мин]</string>
@@ -385,6 +389,29 @@
     <string name="Diagnostic_Text_System_Status_Slewing">Привод поворота</string>
     <string name="Diagnostic_Text_System_Status_Trolley">Привод тележки</string>
     <string name="Diagnostic_Text_System_Status_Crane">Привод хода</string>
+
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_Not_Available">Не подключен</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit0">Торможение</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit1">Выбег</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit2">Работает. Вперед</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit3">Работает. Назад</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit4">Быстрый останов</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit5">Управление моментом</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit6">Сброс ошибок</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit7">Готов</string>
+
+
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_Not_Available">Не подключен</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit0_0">Не подключен</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit0_1">Готовность</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_0">Работает. Вперед</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_1">Работает. Назад</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit2_0">Неисправен</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit2_1">Исправен</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_0">Раб. част. не достигнута</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_1">Раб. част. достигнута</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit8_15">Неисправен</string>
+
 
     <!-- Диагностика. Вкладка ПЛК -->
     <string name="Diagnostic_Text_PLC_DI_0">Вх.Реле контроля фаз</string>

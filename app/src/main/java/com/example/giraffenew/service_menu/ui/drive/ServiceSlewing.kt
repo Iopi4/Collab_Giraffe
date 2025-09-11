@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
+import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandThousandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
@@ -57,15 +58,28 @@ fun ServiceSlewing(
     onModelChangeSlewSpdStopButton: (String) -> Unit,
     onSetSlewSpdStopButton: () -> Unit,
 
+    setValueSlewDECRevers: String,
+    updateSlewDECRevers: (String) -> Unit,
+    onSetSlewDECRevers: () -> Unit,
+
+    setValueSlewDelayTime: String,
+    updateSlewDelayTime: (String) -> Unit,
+    onSetSlewDelayTime: () -> Unit,
+
+    setValueSlewBrakeCloseFrq: String,
+    updateSlewBrakeCloseFrq: (String) -> Unit,
+    onSetSlewBrakeCloseFrq: () -> Unit,
+
+
     errorMessageSlew: String?,
     logMessageSlew: String?,
 ){
-    //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
+//Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        //№.1 - Левая область для отображения параметров скорости и ускорений
+//№.1 - Левая область для отображения параметров скорости и ускорений
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
@@ -78,16 +92,19 @@ fun ServiceSlewing(
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Slewing_Parameters))
 //Отображения текста рабочих параметров привода подъема
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Acc)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_3)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_4)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Stoping_Speed)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Acc)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec_Revers)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Delay_Time)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Brake_Close_Frq)
         }
 
-        //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
+//№.2 - Правая область для отображения и ввода параметров скорости и ускорений
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
@@ -107,28 +124,13 @@ fun ServiceSlewing(
                     logMessageSlew?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
-//Ввод. Разгон. Секунды
-            BasicInputRowandTensButton(
-                placeholder = "8.0",
-                value = setValueSlewACC,
-                onValueChange = onModelChangeSlewACC,
-                onClick = onSetSlewACC,
-                isDecimal = true,
-            )
-//Ввод. Торможение. Секунды
-            BasicInputRowandTensButton(
-                placeholder = "12.0",
-                value = setValueSlewDEC,
-                onValueChange = onModelChangeSlewDEC,
-                onClick = onSetSlewDEC,
-                isDecimal = true,
-            )
+
 //Ввод. Скорость 1. Об/мин
             BasicInputRowandButton(
                 placeholder = "150",
                 value = setValueSlewSpdRef1,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 500,
                 onValueChange = onModelChangeSlewSpdRef1,
                 onClick = onSetSlewSpdRef1
             )
@@ -137,7 +139,7 @@ fun ServiceSlewing(
                 placeholder = "450",
                 value = setValueSlewSpdRef2,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1000,
                 onValueChange = onModelChangeSlewSpdRef2,
                 onClick = onSetSlewSpdRef2
             )
@@ -146,7 +148,7 @@ fun ServiceSlewing(
                 placeholder = "900",
                 value = setValueSlewSpdRef3,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1500,
                 onValueChange = onModelChangeSlewSpdRef3,
                 onClick = onSetSlewSpdRef3
             )
@@ -155,18 +157,58 @@ fun ServiceSlewing(
                 placeholder = "1500",
                 value = setValueSlewSpdRef4,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 3000,
                 onValueChange = onModelChangeSlewSpdRef4,
                 onClick = onSetSlewSpdRef4
             )
 //Ввод. Остановка от кнопки, об/мин
             BasicInputRowandButton(
-                placeholder = "150",
+                placeholder = "100",
                 value = setValueSlewSpdStopButton,
                 valueMin = 0,
                 valueMax = 200,
                 onValueChange = onModelChangeSlewSpdStopButton,
                 onClick = onSetSlewSpdStopButton,
+            )
+//Ввод. Разгон. Секунды
+            BasicInputRowandTensButton(
+                placeholder = "15.0",
+                value = setValueSlewACC,
+                onValueChange = onModelChangeSlewACC,
+                onClick = onSetSlewACC,
+                isDecimal = true,
+            )
+//Ввод. Торможение. Секунды
+            BasicInputRowandTensButton(
+                placeholder = "15.0",
+                value = setValueSlewDEC,
+                onValueChange = onModelChangeSlewDEC,
+                onClick = onSetSlewDEC,
+                isDecimal = true,
+            )
+//Ввод. Торможение противоходом. Секунды
+            BasicInputRowandTensButton(
+                placeholder = "10.0",
+                value = setValueSlewDECRevers,
+                onValueChange = updateSlewDECRevers,
+                onClick = onSetSlewDECRevers,
+                isDecimal = true,
+            )
+//Ввод. Задержка наложения тормоза. Секунды
+            BasicInputRowandTensButton(
+                placeholder = "15...25",
+                value = setValueSlewDelayTime,
+                onValueChange = updateSlewDelayTime,
+                onClick = onSetSlewDelayTime,
+                isDecimal = true,
+            )
+//Ввод. Частота удержания. Секунды
+            BasicInputRowandThousandButton(
+                placeholder = "0.01...0.20",
+                value = setValueSlewBrakeCloseFrq,
+                onValueChange = updateSlewBrakeCloseFrq,
+                onClick = onSetSlewBrakeCloseFrq,
+                isDecimal = true,
             )
         }
     }
@@ -205,8 +247,20 @@ fun ServiceSlewingPreview () {
             onModelChangeSlewSpdStopButton = { },
             onSetSlewSpdStopButton ={ },
 
+            setValueSlewDECRevers= "15",
+            updateSlewDECRevers= { },
+            onSetSlewDECRevers={ },
+
+            setValueSlewDelayTime= "25",
+            updateSlewDelayTime= { },
+            onSetSlewDelayTime={ },
+
+            setValueSlewBrakeCloseFrq= "0.01",
+            updateSlewBrakeCloseFrq= { },
+            onSetSlewBrakeCloseFrq={ },
+
             errorMessageSlew = null,
-            logMessageSlew = null
+            logMessageSlew = null,
         )
     }
 }

@@ -90,6 +90,16 @@ class ServiceMenuViewModel
     private val _setValueSlewDEC = mutableStateOf("")
     val setValueSlewDEC: State<String> = _setValueSlewDEC
 
+    private val _setValueSlewDECRevers = mutableStateOf("")
+    val setValueSlewDECRevers: State<String> = _setValueSlewDECRevers
+
+    private val _setValueSlewDelayTime = mutableStateOf("")
+    val setValueSlewDelayTime: State<String> = _setValueSlewDelayTime
+
+    private val _setValueSlewBrakeCloseFrq = mutableStateOf("")
+    val setValueSlewBrakeCloseFrq: State<String> = _setValueSlewBrakeCloseFrq
+
+
     //Снижение скорости поворота
     private val _setValueSlewSpdStopButton = mutableStateOf("")
     val setValueSlewSpdStopButton: State<String> = _setValueSlewSpdStopButton
@@ -335,6 +345,12 @@ class ServiceMenuViewModel
         return (floatValue * 10).toInt()
     }
 
+    private fun validateAndConvertFloatHundred(value: String, min: Float, max: Float): Int {
+        val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
+        if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
+        return (floatValue * 100).toInt()
+    }
+
     //Функция проверки и преобразования тысячных чисел
     private fun validateAndConvertFloatThousand(value: String, min: Float, max: Float): Int {
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -551,7 +567,7 @@ class ServiceMenuViewModel
     fun onSetSlewACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewACC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueSlewACC.value, 0.0f,50.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(968, model)
                 _errorMessageSlew.value = null
@@ -567,7 +583,7 @@ class ServiceMenuViewModel
     fun onSetSlewDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewDEC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueSlewDEC.value, 0.0f,50.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(969, model)
                 _errorMessageSlew.value = null
@@ -575,10 +591,57 @@ class ServiceMenuViewModel
             } catch (e: Exception) {
                 _logMessageSlew.value = null
                 _errorMessageSlew.value = "Запись не удалась: ${e.message}"
-
             }
         }
     }
+
+    // Slew. Запись времени торможения противоходом поворота [сек]
+    fun onSetSlewDECRevers() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueSlewDECRevers.value, 0.0f,50.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(987, model)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageSlew.value = null
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // Slew. Запись времени задержки наложения торможения поворота [сек]
+    fun onSetSlewDelayTime() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueSlewDelayTime.value, 0.0f,50.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(988, model)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageSlew.value = null
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // Slew. Запись частоты удержания привода стрелы [Гц]
+    fun onSetSlewBrakeCloseFrq() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloatHundred(_setValueSlewBrakeCloseFrq.value, 0.00f,0.50f )
+                // Запись в регистры
+                modbusRepository.writeRegister(989, model)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageSlew.value = null
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+
 
     // Slew. Запись скорости 1.
     fun onSetSlewSpdRef1() {
@@ -1365,6 +1428,8 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueHoistMontageSpdRef2.value = value }}
 
+
+
     // Поворот. Обновления для UI
     fun updateSlewACC(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
@@ -1372,6 +1437,16 @@ class ServiceMenuViewModel
     fun updateSlewDEC(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueSlewDEC.value = value } }
+    fun updateSlewDECRevers(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueSlewDECRevers.value = value } }
+    fun updateSlewDelayTime(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueSlewDelayTime.value = value } }
+    fun updateSlewBrakeCloseFrq(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,3})?$"))) {
+            _setValueSlewBrakeCloseFrq.value = value } }
+
     fun updateSlewSpdRef1(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewSpdRef1.value = value } }

@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
-fun DiagnosticTrolleyContent()
+fun DiagnosticTrolleyContent(
+    diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
+)
 {
     val navController = rememberNavController()
 
@@ -34,8 +38,27 @@ fun DiagnosticTrolleyContent()
     {
         NavBarDiagnosticTrolley(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyState.route) {
-            composable(NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyState.route) {DiagnosticTrolleyState()}
-            composable(NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyDIDO.route) {DiagnosticTrolleyDIDO() }
+            composable(NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyState.route)
+            {
+                DiagnosticTrolleyState(
+                    trolleyDrivePowerError = diagnosticViewModule.state.value.drivesParameters.trolleyDrivePowerError,
+                    trolleyControlWord = diagnosticViewModule.state.value.drivesParameters.trolleyControlWord,
+                    trolleyDriveError = diagnosticViewModule.state.value.drivesParameters.trolleyDriveError,
+                    trolleyFault = diagnosticViewModule.state.value.drivesParameters.trolleyFault,
+                    trolleyDriveErrorCode = diagnosticViewModule.state.value.drivesParameters.trolleyDriveErrorCode,
+                    trolleyTargetVelocity = diagnosticViewModule.state.value.drivesParameters.trolleyTargetVelocity,
+                    trolleyControlEffort = diagnosticViewModule.state.value.drivesParameters.trolleyControlEffort,
+                    trolleyMotorCurrent = diagnosticViewModule.state.value.drivesParameters.trolleyMotorCurrent,
+                    trolleyEncoder = diagnosticViewModule.state.value.drivesParameters.trolleyEncoder,
+                )
+            }
+            composable(NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyDIDO.route)
+            {
+                DiagnosticTrolleyDIDO(
+                    hoistIL1R = diagnosticViewModule.state.value.drivesParameters.hoistIL1R,
+                    hoistOL1R = diagnosticViewModule.state.value.drivesParameters.hoistOL1R,
+                )
+            }
         }
     }
 }

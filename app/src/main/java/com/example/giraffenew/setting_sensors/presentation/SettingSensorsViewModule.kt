@@ -286,8 +286,6 @@ class SettingSensorsViewModule
         val currentAbsEncTrolleyPositionWord2: Int = 0,
         val currentAbsEncCranePositionWord1: Int = 0,
         val currentAbsEncCranePositionWord2: Int = 0,
-
-
         )
 
 

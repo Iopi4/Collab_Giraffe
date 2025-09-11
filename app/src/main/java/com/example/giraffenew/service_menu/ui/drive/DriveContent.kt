@@ -123,6 +123,18 @@ fun DriveContent(
                 onModelChangeSlewSpdStopButton = { serviceMenuViewModel.updateSlewSpdStopButton(it) },
                 onSetSlewSpdStopButton = { serviceMenuViewModel.onSetSlewSpdStopButton()},
 
+                setValueSlewDECRevers= serviceMenuViewModel.setValueSlewDECRevers.value,
+                updateSlewDECRevers = { serviceMenuViewModel.updateSlewDECRevers(it) },
+                onSetSlewDECRevers = { serviceMenuViewModel.onSetSlewDECRevers()},
+
+                setValueSlewDelayTime= serviceMenuViewModel.setValueSlewDelayTime.value,
+                updateSlewDelayTime= { serviceMenuViewModel.updateSlewDelayTime(it) },
+                onSetSlewDelayTime = { serviceMenuViewModel.onSetSlewDelayTime()},
+
+                setValueSlewBrakeCloseFrq = serviceMenuViewModel.setValueSlewBrakeCloseFrq.value,
+                updateSlewBrakeCloseFrq = { serviceMenuViewModel.updateSlewBrakeCloseFrq(it) },
+                onSetSlewBrakeCloseFrq ={ serviceMenuViewModel.onSetSlewBrakeCloseFrq()},
+
                 errorMessageSlew = serviceMenuViewModel.errorMessageSlew.value,
                 logMessageSlew = serviceMenuViewModel.logMessageSlew.value
             )}

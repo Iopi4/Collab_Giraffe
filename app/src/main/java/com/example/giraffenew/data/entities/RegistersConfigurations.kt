@@ -8,14 +8,14 @@ import kotlinx.serialization.json.Json
  */
 object RegistersConfigurations {
     private val configurations = mapOf(
-        BeepSoundRegisterConfiguration.NAME_BEEP_SOUND to BeepSoundRegisterConfiguration.createConfiguration(),
         TopBarRegisterConfiguration.NAME_TOP_BAR to TopBarRegisterConfiguration.createConfiguration(),
         UiHomeScreenRegisterConfiguration.NAME_HOME to UiHomeScreenRegisterConfiguration.createConfiguration(),
         UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration(),
         UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU to UIServiceMenuRegisterConfiguration.createConfiguration(),
         UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY to UISettingLoadCapacityConfiguration.createConfiguration(),
         UISettingSensorsConfiguration.NAME_SETTING_SENSORS to UISettingSensorsConfiguration.createConfiguration(),
-        UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION to UICoordinateProtectionConfiguration.createConfiguration()
+        UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION to UICoordinateProtectionConfiguration.createConfiguration(),
+        UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC to UIDiagnosticRegisterConfiguration.createConfiguration(),
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -35,30 +35,9 @@ object RegistersConfigurations {
             UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS->UISettingSensorsConfiguration.REGISTERS
             UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
+            UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
             else -> emptyList()
         }
-    }
-}
-
-
-/**
- * Главная конфигурация регистров (адреса 90-99)
- * Эти регистры считываются всегда, один раз в секунду
- */
-object BeepSoundRegisterConfiguration {
-    const val NAME_BEEP_SOUND = "BeepSound_configuration"
-    val REGISTERS = listOf(
-        RegisterInfo(177, "Beeper_Weight_MW", "WORD16", "Пищалка HMI")
-    )
-
-    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
-
-    fun createConfiguration(): RegisterConfiguration {
-        return RegisterConfiguration(
-            name = "BeepSound_configuration",
-            jsonConfiguration = JSON_CONFIG,
-            isActive = true
-        )
     }
 }
 
@@ -193,6 +172,7 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(401, "HMI_Trolley_Y_MW", "WORD16", "Координаты точки тележки для HMI по оси Y"),
         RegisterInfo(402, "HMI_Trolley_X_MW", "WORD16", "Координаты точки тележки для HMI по оси X"),
         RegisterInfo(403, "HMI_Circle_Size_MW", "WORD16", "Радиус круга отражающего траекторию тележки на HMI"),
+        RegisterInfo(404, "HMI_Strela_Lenght_MW", "WORD16", "Длина отрезка стрелы для панели (имеет значение при наклоне стрелы)"),
         RegisterInfo(404, "HMI_Strela_Lenght_MW", "WORD16", "Длина отрезка стрелы для панели (имеет значение при наклоне стрелы)"),
         RegisterInfo(405, "HMI_P1_Color_MW", "WORD16", "Анимация цвета полигона ( 0-Синий (задан но не активен), 1-Зеленый (задан и активен), 2-желтый (приближение к границе), 3-красный (касание границы полигона))"),
 
@@ -1146,6 +1126,11 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(968, "HMI_Write_Slew_wACCnom_MW", "WORD16", "Время разгона поворота"),
         RegisterInfo(969, "HMI_Write_Slew_wDECnom_MW", "WORD16", "Время торможения поворота"),
 
+        RegisterInfo(987, "HMI_Write_Slew_wDecRevers_MW", "WORD16", "Время торможения поворота противоходом"),
+        RegisterInfo(988, "HMI_Write_Slew_wDelay_Time_MW", "WORD16", "Задержка наложения тормоза"),
+        RegisterInfo(989, "HMI_Write_Slew_wBrake_Close_Frq", "WORD16", "Частота удержания"),
+
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
         RegisterInfo(960, "HMI_Write_Trolley_wSpdRef1_Value_MW", "WORD16", "Скорость 1 тележки"),
         RegisterInfo(961, "HMI_Write_Trolley_wSpdRef2_Value_MW", "WORD16", "Скорость 2 тележки"),
@@ -1162,6 +1147,146 @@ object UIServiceMenuRegisterConfiguration {
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
             name = "UI_configuration_ServiceMenu",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+
+/**
+ * Конфигурация UI №8 (ServiceMenuViewModel)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UIDiagnosticRegisterConfiguration {
+    const val NAME_DIAGNOSTIC = "UI_configuration_Diagnostic"
+
+    val REGISTERS = listOf(
+        //ДИАГНОСТИКА.  СИСТЕМА УПРАВЛЕНИЯ.
+        //Датчики ветра и усилия
+        RegisterInfo(188, "OGPLimSw_MW", "WORD16", "Датчик критического момента. 1-Норма (грузоподъемность не превышена). 0- превышение грузоподъемности"),
+        RegisterInfo(198, "HMI_Curr_AI_MW", "WORD16", "Текущее значение с датчика груза в единицах входа модуля"),
+        RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
+        RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр"),
+        RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "Статус анемометра"),
+        //-----Данные с энкодеров
+        RegisterInfo(382, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 1"),
+        RegisterInfo(383, "udi_AbsEncFenac_Hoist_Position_MW", "WORD16", "Данные датчика высоты подъема. Слово 2"),
+        RegisterInfo(386, "udi_AbsEncFenac_Slew_Position_MW", "WORD16", "Данные датчика поворота. Слово 1"),
+        RegisterInfo(387, "udi_AbsEncFenac_Slew_Position_MW", "WORD16", "Данные датчика поворота. Слово 2"),
+        RegisterInfo(390, "udi_AbsEncFenac_Trolley_Position_MW", "WORD16", "Данные датчика грузовой тележки. Слово 1"),
+        RegisterInfo(391, "udi_AbsEncFenac_Trolley_Position_MW", "WORD16", "Данные датчика грузовой тележки. Слово 2"),
+        RegisterInfo(394, "udi_AbsEncFenac_Crane_Position_MW", "WORD16", "Данные датчика хода крана"),
+        RegisterInfo(395, "udi_AbsEncFenac_Crane_Position_MW", "WORD16", "Данные датчика хода крана"),
+        //-----ошибка связи энкодеров
+        RegisterInfo(204, "Hoist_AbsEnc_Err_MW", "WORD16", "Сбой датчика подъема"),
+        RegisterInfo(205, "Slew_AbsEnc_Err_MW", "WORD16", "Сбой датчика поворота"),
+        RegisterInfo(206, "Trolley_AbsEnc_Err_MW", "WORD16", "Сбой датчика вылета"),
+        RegisterInfo(207, "Crane_AbsEnc_Err_MW", "WORD16", "Сбой датчика перемещения крана"),
+        RegisterInfo(728, "HMI_CANopenSensors_Error_MW", "WORD16", "Авария сети CANopen (датчики)"),
+        //-----Статус приводов
+        RegisterInfo(100, "Hoist_StatusWord_MW", "WORD16", "Слово состояния ПЧ подъема"),
+        RegisterInfo(109, "Slew_StatusWord_MW", "WORD16", "Слово состояния ПЧ поворота"),
+        RegisterInfo(118, "Trolley_StatusWord_MW", "WORD16", "Слово состояния ПЧ тележки"),
+        RegisterInfo(127, "Crane_StatusWord_MW", "WORD16", "Слово состояния ПЧ хода крана"),
+
+
+        //ДИАГНОСТИКА.  ПРИВОД ПОДЪЕМА
+        RegisterInfo(724, "HMI_HoistDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ подъема"),
+        RegisterInfo(101, "Hoist_ControlWord_MW", "WORD16", "Слово управления ПЧ подъема"),
+        RegisterInfo(720, "HMI_HoistDrive_Error_MW", "WORD16", "Статус. Ошибка частотного преобразователя подъема"),
+        RegisterInfo(108, "Hoist_Fault_MW", "WORD16", "Код ошибки ПЧ"),
+        RegisterInfo(738, "HMI_HoistDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя подъема"),
+
+        RegisterInfo(102, "Hoist_TargetVelocity_MW", "WORD16", "Заданная скорость вращения подъема"),
+        RegisterInfo(103, "Hoist_ControlEffort_MW", "WORD16", "Текущая скорость вращения подъема"),
+        RegisterInfo(104, "Hoist_MotorCurrent_MW", "WORD16", "Ток двигателя подъема"),
+        RegisterInfo(177, "Hoist_Encoder_MW", "WORD16", "Количество импульсов энкодера"),
+        RegisterInfo(106, "Hoist_IL1R_MW", "WORD16", "Состояние дискретных входов ПЧ"),
+        RegisterInfo(107, "Hoist_OL1R_MW", "WORD16", "Состояние дискретных выходов ПЧ"),
+
+
+        //ДИАГНОСТИКА.  ПРИВОД ПОВОРОТА
+        RegisterInfo(725, "HMI_SlewDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ поворота"),
+        RegisterInfo(110, "Slew_ControlWord_MW", "WORD16", "Слово управления ПЧ поворота"),
+        RegisterInfo(721, "HMI_SlewDrive_Error_MW", "WORD16", "Статус. Ошибка частотного преобразователя поворота"),
+        RegisterInfo(117, "Slew_Fault_MW", "WORD16", "Код ошибки ПЧ"),
+        RegisterInfo(739, "HMI_SlewDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя поворота"),
+
+        RegisterInfo(111, "Slew_TargetVelocity_MW", "WORD16", "Заданная скорость вращения"),
+        RegisterInfo(112, "Slew_ControlEffort_MW", "WORD16", "Текущая скорость вращения"),
+        RegisterInfo(113, "Slew_MotorCurrent_MW", "WORD16", "Ток двигателя поворота"),
+        RegisterInfo(178, "Slew_Encoder_MW", "WORD16", "Количество импульсов энкодера"),
+        RegisterInfo(115, "Slew_IL1R_MW", "WORD16", "Состояние дискретных входов ПЧ"),
+        RegisterInfo(116, "Slew_OL1R_MW", "WORD16", "Состояние дискретных выходов ПЧ"),
+
+
+        //ДИАГНОСТИКА.  ПРИВОД ТЕЛЕЖКИ
+        RegisterInfo(726, "HMI_TrolleyDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ тележки"),
+        RegisterInfo(119, "Trolley_ControlWord_MW", "WORD16", "Слово управления ПЧ тележки"),
+        RegisterInfo(722, "HMI_TrolleyDrive_Error_MW", "WORD16", "Статус. Ошибка частотного преобразователя тележки"),
+        RegisterInfo(126, "Trolley_Fault_MW", "WORD16", "Код ошибки ПЧ"),
+        RegisterInfo(740, "HMI_TrolleyDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя тележки"),
+
+        RegisterInfo(120, "Trolley_TargetVelocity_MW", "WORD16", "Заданная скорость вращения"),
+        RegisterInfo(121, "Trolley_ControlEffort_MW", "WORD16", "Текущая скорость вращения"),
+        RegisterInfo(122, "Trolley_MotorCurrent_MW", "WORD16", "Ток двигателя тележки"),
+        RegisterInfo(179, "Trolley_Encoder_MW", "WORD16", "Количество импульсов энкодера"),
+        RegisterInfo(124, "Trolley_IL1R_MW", "WORD16", "Состояние дискретных входов ПЧ"),
+        RegisterInfo(125, "Trolley_OL1R_MW", "WORD16", "Состояние дискретных выходов ПЧ"),
+
+        //ДИАГНОСТИКА.  ПРИВОД ХОДА КРАНА
+        RegisterInfo(727, "HMI_TravelDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ передвижения"),
+        RegisterInfo(128, "Crane_ControlWord_MW", "WORD16", "Слово управления ПЧ хода крана"),
+        RegisterInfo(723, "HMI_TravelDrive_Error_MW", "WORD16", "Статус. Ошибка частотного преобразователя передвижения"),
+        RegisterInfo(134, "Crane_Fault_MW", "WORD16", "Код ошибки ПЧ"),
+        RegisterInfo(741, "HMI_TravelDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя передвижения"),
+
+        RegisterInfo(129, "Crane_TargetVelocity_MW", "WORD16", "Заданная скорость вращения"),
+        RegisterInfo(130, "Crane_ControlEffort_MW", "WORD16", "Текущая скорость вращения"),
+        RegisterInfo(131, "Crane_MotorCurrent_MW", "WORD16", "Ток двигателя хода крана"),
+        RegisterInfo(132, "Crane_IL1R_MW", "WORD16", "Состояние дискретных входов ПЧ"),
+        RegisterInfo(133, "Crane_OL1R_MW", "WORD16", "Состояние дискретных выходов ПЧ"),
+        RegisterInfo(353, "HMI_xCraneRepPoint_MW", "WORD16", "Реперная точка хода крана"),
+
+        RegisterInfo(729, "HMI_CANopenDrives_Error_MW", "WORD16", "Авария сети CANopen (частотные преобразователи)"),
+
+        //ДИАГНОСТИКА.  ПЛК
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_configuration_Diagnostic",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )

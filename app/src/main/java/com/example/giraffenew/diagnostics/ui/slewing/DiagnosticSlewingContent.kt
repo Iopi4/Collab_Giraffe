@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
-fun DiagnosticSlewingContent()
+fun DiagnosticSlewingContent(
+    diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
+)
 {
 val navController = rememberNavController()
 
@@ -34,8 +38,27 @@ val navController = rememberNavController()
     {
         NavBarDiagnosticSlewing(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticSlewing.PageDiagnosticSlewingState.route) {
-            composable(NavRoutesDiagnosticSlewing.PageDiagnosticSlewingState.route) {DiagnosticSlewingState()}
-            composable(NavRoutesDiagnosticSlewing.PageDiagnosticSlewingDIDO.route) {DiagnosticSlewingDIDO() }
+            composable(NavRoutesDiagnosticSlewing.PageDiagnosticSlewingState.route)
+            {
+                DiagnosticSlewingState(
+                    slewDrivePowerError = diagnosticViewModule.state.value.drivesParameters.slewDrivePowerError,
+                    slewControlWord = diagnosticViewModule.state.value.drivesParameters.slewControlWord,
+                    slewDriveError = diagnosticViewModule.state.value.drivesParameters.slewDriveError,
+                    slewFault = diagnosticViewModule.state.value.drivesParameters.slewFault,
+                    slewDriveErrorCode = diagnosticViewModule.state.value.drivesParameters.slewDriveErrorCode,
+                    slewTargetVelocity = diagnosticViewModule.state.value.drivesParameters.slewTargetVelocity,
+                    slewControlEffort = diagnosticViewModule.state.value.drivesParameters.slewControlEffort,
+                    slewMotorCurrent = diagnosticViewModule.state.value.drivesParameters.slewMotorCurrent,
+                    slewEncoder = diagnosticViewModule.state.value.drivesParameters.slewEncoder,
+                )
+            }
+            composable(NavRoutesDiagnosticSlewing.PageDiagnosticSlewingDIDO.route)
+            {
+                DiagnosticSlewingDIDO(
+                    hoistIL1R = diagnosticViewModule.state.value.drivesParameters.hoistIL1R,
+                    hoistOL1R = diagnosticViewModule.state.value.drivesParameters.hoistOL1R,
+                )
+            }
         }
     }
 }

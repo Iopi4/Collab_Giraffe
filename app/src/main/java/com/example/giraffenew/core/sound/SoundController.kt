@@ -90,7 +90,8 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
 
         if (register in singlePlayRegisters) {
             if (active && !wasActive) {
-                soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
+                //Volume 0.1f - это 74dB. 0.5f - это 85dB. 1.0f - это 91dB. Оставляем 0.3f
+                soundPool.play(soundId, 0.1f, 0.1f, 1, 0, 1.0f)
             }
         } else {
             val job = jobs[register]
@@ -98,7 +99,7 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
                 if (job != null && job.isActive) return
                 jobs[register] = CoroutineScope(Dispatchers.Main).launch {
                     while (isActive) {
-                        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
+                        soundPool.play(soundId, 0.1f, 0.1f, 1, 0, 1.0f)
                         delay(config.duration + config.pause)
                     }
                 }

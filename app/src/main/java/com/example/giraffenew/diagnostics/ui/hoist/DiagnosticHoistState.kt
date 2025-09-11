@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +24,17 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 
 @Composable
-fun DiagnosticHoistState (){
+fun DiagnosticHoistState (
+    hoistDrivePowerError: Int,
+    hoistControlWord: Int,
+    hoistDriveError: Int,
+    hoistFault:Int,
+    hoistDriveErrorCode:Int,
+    hoistTargetVelocity: Float,
+    hoistControlEffort: Float,
+    hoistMotorCurrent: Float,
+    hoistEncoder:Int,
+){
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -49,7 +60,6 @@ fun DiagnosticHoistState (){
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Readiness)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Fault)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status_Encoder)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Amperage)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Setting)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Current)
@@ -72,57 +82,98 @@ fun DiagnosticHoistState (){
                 text = stringResource(R.string.Diagnostic_Text_Status))
 
 // Отображение статус Готовность привода к работе
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = hoistDrivePowerError
+                    )
+                }
+            }
 
 // Отображение статус Состояние привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = hoistControlWord
+                    )
+                }
+            }
 
 // Отображение статус Ошибка привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
-
-// Отображение статус Состояние энкодера
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = hoistDriveError
+                    )
+                }
+            }
 
 // Отображение текущего Тока, А
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(hoistMotorCurrent)
+                )
+            }
 
 // Отображение  Заданная скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(hoistTargetVelocity)
+                )
+            }
 
 // Отображение  Текущая скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(hoistControlEffort)
+                )
+            }
 
 // Отображение  Текущее значения энкодера
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "65535") }
+                    valueParameterId = format(hoistEncoder)
+                )
+            }
 
 // Отображение  Последняя ошибка
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "Ошибка связи по сети")
+                    valueParameterId = format(hoistDriveErrorCode)
+                )
             }
         }
     }
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%10d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
 }
 
 @Preview
@@ -130,6 +181,15 @@ fun DiagnosticHoistState (){
 fun DiagnosticHoistStatePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticHoistState(
+            hoistDrivePowerError = 1,
+            hoistControlWord = 1,
+            hoistDriveError = 1,
+            hoistFault = 1,
+            hoistDriveErrorCode = 1,
+            hoistTargetVelocity = 1f,
+            hoistControlEffort = 1f,
+            hoistMotorCurrent = 1f,
+            hoistEncoder = 1,
         )
     }
 }
