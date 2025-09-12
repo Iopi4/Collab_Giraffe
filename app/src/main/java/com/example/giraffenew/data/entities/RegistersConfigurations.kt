@@ -1293,29 +1293,7 @@ object UIDiagnosticRegisterConfiguration {
 
         // Аналоговые входы Модуля
         RegisterInfo(380, "HMI_LoadCellSensor_MW", "WORD16", "Датчик нагрузки"),
-        RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр"),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр")
         )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -1323,6 +1301,95 @@ object UIDiagnosticRegisterConfiguration {
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
             name = "UI_configuration_Diagnostic",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+
+/**
+ * Конфигурация UI №9 (ParameterLoggerScreen)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UIParameterLoggerConfiguration {
+    const val NAME_PARAMETER_LOGGER = "UI_Parameter_Logger"
+
+    val REGISTERS = listOf(
+        //РЕГИСТРАТОР ПАРАМЕТРОВ
+        //Параметры крана.
+        RegisterInfo(152, "Qnom_MW", "WORD16", "Номинальная грузоподъемность в кг"),
+        RegisterInfo(197, "Crane_Lenght_MW", "WORD16", "Длина стрелы крана"),
+        RegisterInfo(171, "R_AP_MW", "WORD16", "Паспортная группа режима работы"),
+        RegisterInfo(172, "AF_Iso_MW", "WORD16", "Фактическая группа режима работы по ИСО"),
+        RegisterInfo(173, "R_Q_MW", "WORD16", "Фактический класс нагружения"),
+        RegisterInfo(174, "Kp_MW", "WORD16", "Коэффициент нагружения Кр"),
+        RegisterInfo(175, "C_MW", "WORD16", "Класс использования С"),
+        RegisterInfo(0, "R_N_MW_1", "WORD16", "текущее характеристическое число"),
+        RegisterInfo(1, "R_N_MW_2", "WORD16", "текущее характеристическое число"),
+
+        RegisterInfo(165, "SettingModeYear_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(166, "SettingModeMonth_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(167, "SettingModeDay_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(168, "SettingModeHour_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(169, "SettingModeMinute_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(170, "SettingModeSecons_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+
+        RegisterInfo(367, "HMI_sR_SBKB_No_MW", "WORD16", "Заводской номер СБКБ"),
+        RegisterInfo(368, "HMI_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),
+
+        RegisterInfo(369, "HMI_SBKB_InstallationDay_MW", "WORD16", "День установки системы безопасности"),
+        RegisterInfo(370, "HMI_SBKB_InstallationMonth_MW", "WORD16", "Месяц установки системы безопасности"),
+        RegisterInfo(371, "HMI_SBKB_InstallationYear_MW", "WORD16", "Год установки системы безопасности"),
+        //Моточасы
+        RegisterInfo(360, "HMI_HoistOperatingHours_MW", "WORD16", "Моточасы механизма подъема"),
+        RegisterInfo(361, "HMI_SlewOperatingHours_MW", "WORD16", "Моточасы механизма поворота"),
+        RegisterInfo(362, "HMI_TrolleyOperatingHours_MW", "WORD16", "Моточасы механизма тележки"),
+        RegisterInfo(363, "HMI_TravelOperatingHours_MW", "WORD16", "Моточасы механизма передвижения крана"),
+        RegisterInfo(364, "HMI_TotalCraneOperatingHours_MW", "WORD16", "Общие моточасы крана"),
+        RegisterInfo(365, "HMI_SBKB_OperatingHours_MW", "WORD16", "Моточасы системы безопасности"),
+        RegisterInfo(366, "HMI_TotalCraneOperatingHours_Maintenance_MW", "WORD16", "Моточасы крана для технического обслуживания"),
+
+        //ЦИКЛЫ РАБОТЫ
+        RegisterInfo(20, "arr_rest_a1_MW_1", "WORD32", "0-10% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(21, "arr_rest_a1_MW_2", "WORD32", "0-10% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(24, "arr_rest_a2_MW_1", "WORD32", "11-20% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(25, "arr_rest_a2_MW_2", "WORD32", "11-20% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(28, "arr_rest_a3_MW_1", "WORD32", "21-30% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(29, "arr_rest_a3_MW_2", "WORD32", "21-30% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(32, "arr_rest_a4_MW_1", "WORD32", "31-40% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(33, "arr_rest_a4_MW_2", "WORD32", "31-40% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(36, "arr_rest_a5_MW_1", "WORD32", "41-50% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(37, "arr_rest_a5_MW_2", "WORD32", "41-50% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(40, "arr_rest_a6_MW_1", "WORD32", "51-60% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(41, "arr_rest_a6_MW_2", "WORD32", "51-60% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(44, "arr_rest_a7_MW_1", "WORD32", "61-70% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(45, "arr_rest_a7_MW_2", "WORD32", "61-70% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(48, "arr_rest_a8_MW_1", "WORD32", "71-80% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(49, "arr_rest_a8_MW_2", "WORD32", "71-80% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(52, "arr_rest_a9_MW_1", "WORD32", "81-90% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(53, "arr_rest_a9_MW_2", "WORD32", "81-90% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(56, "arr_rest_a10_MW_1", "WORD32", "91-100% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(57, "arr_rest_a10_MW_2", "WORD32", "91-100% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(60, "arr_rest_a11_MW_1", "WORD32", ">101% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(61, "arr_rest_a11_MW_2", "WORD32", ">101% Количество циклов подъема в зависимости от веса груза"),
+        RegisterInfo(80, "R_CycleHoist_MW_1", "WORD32", "Рабочие циклы подъема"),
+        RegisterInfo(81, "R_CycleHoist_MW_2", "WORD32", "Рабочие циклы подъема"),
+        RegisterInfo(84, "R_CycleSlew_MW_1", "WORD32", "Рабочие циклы поворота"),
+        RegisterInfo(85, "R_CycleSlew_MW_1", "WORD32", "Рабочие циклы поворота"),
+        RegisterInfo(88, "R_CycleTrolley_MW_1", "WORD32", "Рабочие циклы тележки"),
+        RegisterInfo(89, "R_CycleTrolley_MW_1", "WORD32", "Рабочие циклы тележки"),
+        RegisterInfo(92, "R_CycleCrane_MW_1", "WORD32", "Рабочие циклы хода крана"),
+        RegisterInfo(93, "R_CycleCrane_MW_2", "WORD32", "Рабочие циклы хода крана"),
+        RegisterInfo(96, "R_CycleHoleCrane_MW_1", "WORD32", "Рабочие циклы крана в целом"),
+        RegisterInfo(97, "R_CycleHoleCrane_MW_2", "WORD32", "Рабочие циклы крана в целом"),
+        )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_configuration_ParameterLogger",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )
