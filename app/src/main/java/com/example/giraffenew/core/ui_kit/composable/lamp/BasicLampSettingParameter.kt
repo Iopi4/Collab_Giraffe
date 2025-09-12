@@ -25,7 +25,7 @@ fun BasicLampSettingParameter(
     isLampStatus: Int,
     ) {
     Box(modifier = Modifier
-        .padding(start = 0.dp, end = 10.dp, top = 5.dp, bottom = 0.dp),
+        .padding(start = 0.dp, end = 0.dp, top = 0.dp, bottom = 0.dp),
         contentAlignment = Alignment.Center)
     {
         val lampColor = when (isLampStatus) {

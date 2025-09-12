@@ -55,8 +55,8 @@ fun DiagnosticTrolleyContent(
             composable(NavRoutesDiagnosticTrolley.PageDiagnosticTrolleyDIDO.route)
             {
                 DiagnosticTrolleyDIDO(
-                    hoistIL1R = diagnosticViewModule.state.value.drivesParameters.hoistIL1R,
-                    hoistOL1R = diagnosticViewModule.state.value.drivesParameters.hoistOL1R,
+                    trolleyIL1R = diagnosticViewModule.state.value.drivesParameters.trolleyIL1R,
+                    trolleyOL1R = diagnosticViewModule.state.value.drivesParameters.trolleyOL1R,
                 )
             }
         }

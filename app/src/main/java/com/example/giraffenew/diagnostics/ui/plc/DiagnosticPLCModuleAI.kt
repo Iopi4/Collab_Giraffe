@@ -22,7 +22,8 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun DiagnosticPLCModuleAI(
-
+    plcAI0AnemometerSensor: Int,
+    plcAI1LoadCellSensor: Int
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -65,20 +66,22 @@ fun DiagnosticPLCModuleAI(
 
 // Отображение статус датчика усилия
             StateValueAI(
-                isValueParameter = "1000",
+                isValueParameter = format(plcAI1LoadCellSensor),
                 isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI1
             )
 
 // Отображение статус датчика ветра
             StateValueAI(
-                isValueParameter = "1000",
+                isValueParameter = format(plcAI0AnemometerSensor),
                 isValueNumber = R.string.Diagnostic_Text_PLC_Status_AI2
             )
-
         }
-
-
     }
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%10d", value)
 }
 
 @Preview
@@ -86,6 +89,8 @@ fun DiagnosticPLCModuleAI(
 fun DiagnosticPLCAIPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticPLCModuleAI(
+            plcAI0AnemometerSensor = 1,
+            plcAI1LoadCellSensor = 1,
         )
     }
 }

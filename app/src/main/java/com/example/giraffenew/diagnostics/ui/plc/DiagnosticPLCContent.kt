@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun DiagnosticPLCContent(
+    diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
 ) {
     val navController = rememberNavController()
 
@@ -34,10 +37,59 @@ fun DiagnosticPLCContent(
     {
         NavBarDiagnosticPLC(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route){
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route) { DiagnosticPLCDIDO() }
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.route) { DiagnosticPLCModuleDI() }
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.route) { DiagnosticPLCModuleDO() }
-            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.route) { DiagnosticPLCModuleAI() }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCDIDO.route)
+            {
+                DiagnosticPLCDIDO(
+                    plcDI000PhaseControlRelay = diagnosticViewModule.state.value.plcParameters.plcDI000PhaseControlRelay,
+                    plcDI001LineContactor = diagnosticViewModule.state.value.plcParameters.plcDI001LineContactor,
+                    plcDI002MontageMode = diagnosticViewModule.state.value.plcParameters.plcDI002MontageMode,
+                    plcDI003OGPLimSw = diagnosticViewModule.state.value.plcParameters.plcDI003OGPLimSw,
+                    plcDI004HoistBrakeStatus = diagnosticViewModule.state.value.plcParameters.plcDI004HoistBrakeStatus,
+                    plcDI005HoistBrakeSensor = diagnosticViewModule.state.value.plcParameters.plcDI005HoistBrakeSensor,
+                    plcDI006HoistLowSpdButton = diagnosticViewModule.state.value.plcParameters.plcDI006HoistLowSpdButton,
+                    plcDI007SlewBrake = diagnosticViewModule.state.value.plcParameters.plcDI007SlewBrake,
+
+                    plcDQ000LineContactorEn = diagnosticViewModule.state.value.plcParameters.plcDQ000LineContactorEn,
+                    plcDQ001HoistPWREn = diagnosticViewModule.state.value.plcParameters.plcDQ001HoistPWREn,
+                    plcDQ002SlewPWREn = diagnosticViewModule.state.value.plcParameters.plcDQ002SlewPWREn,
+                    plcDQ003TrolleyPWREn = diagnosticViewModule.state.value.plcParameters.plcDQ003TrolleyPWREn,
+                    plcDQ004CranePWREn = diagnosticViewModule.state.value.plcParameters.plcDQ004CranePWREn,
+                    plcDQ005HoistVentilation = diagnosticViewModule.state.value.plcParameters.plcDQ005HoistVentilation,
+                    plcDQ006GlobalReady = diagnosticViewModule.state.value.plcParameters.plcDQ006GlobalReady,
+                    plcDQ007HoistOverloadStop = diagnosticViewModule.state.value.plcParameters.plcDQ007HoistOverloadStop,
+                )
+            }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDI.route)
+            {
+                DiagnosticPLCModuleDI(
+                    plcDI100MicroclimatInput = diagnosticViewModule.state.value.plcParameters.plcDI100MicroclimatInput,
+                    plcDI101BrakePowerControl = diagnosticViewModule.state.value.plcParameters.plcDI101BrakePowerControl,
+                    plcDI102VentilationPowerControl = diagnosticViewModule.state.value.plcParameters.plcDI102VentilationPowerControl,
+                    plcDI107ACSSPowerControl = diagnosticViewModule.state.value.plcParameters.plcDI107ACSSPowerControl,
+                    plcDI110ACSSFault = diagnosticViewModule.state.value.plcParameters.plcDI110ACSSFault,
+                    plcDI111ACSSReady = diagnosticViewModule.state.value.plcParameters.plcDI111ACSSReady,
+                    plcDI112Zapasovka = diagnosticViewModule.state.value.plcParameters.plcDI112Zapasovka,
+                    plcDI113Luk = diagnosticViewModule.state.value.plcParameters.plcDI113Luk,
+                    plcDI114HoistZeroPos = diagnosticViewModule.state.value.plcParameters.plcDI114HoistZeroPos,
+                    plcDI115SlewZeroPos = diagnosticViewModule.state.value.plcParameters.plcDI115SlewZeroPos,
+                    plcDI116TrolleyZeroPos = diagnosticViewModule.state.value.plcParameters.plcDI116TrolleyZeroPos,
+                    plcDI117CraneZeroPos = diagnosticViewModule.state.value.plcParameters.plcDI117CraneZeroPos,
+                )
+            }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleDO.route)
+            {
+                DiagnosticPLCModuleDO(
+                    plcDQ100Sound =diagnosticViewModule.state.value.plcParameters.plcDQ100Sound,
+                    plcDQ117ACSSReset = diagnosticViewModule.state.value.plcParameters.plcDQ117ACSSReset,
+                )
+            }
+            composable(NavRoutesDiagnosticPLC.PageDiagnosticPLCModuleAI.route)
+            {
+                DiagnosticPLCModuleAI(
+                    plcAI0AnemometerSensor = diagnosticViewModule.state.value.plcParameters.plcAI0AnemometerSensor,
+                    plcAI1LoadCellSensor = diagnosticViewModule.state.value.plcParameters.plcAI1LoadCellSensor,
+                )
+            }
         }
 
     }

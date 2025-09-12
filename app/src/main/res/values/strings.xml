@@ -432,6 +432,7 @@
     <string name="Diagnostic_Text_PLC_DI6">DI-6</string>
     <string name="Diagnostic_Text_PLC_DI7">DI-7</string>
 
+
     <string name="Diagnostic_Text_PLC_DO_0">Вых.Разреш. вкл. лин. контакт.</string>
     <string name="Diagnostic_Text_PLC_DO_1">Вых.Разреш. работа подъема</string>
     <string name="Diagnostic_Text_PLC_DO_2">Вых.Разреш. работа поворота</string>
@@ -455,14 +456,20 @@
     <string name="Diagnostic_Text_PLC_Module_DI_0">Питание обогрева в тех.помещ.</string>
     <string name="Diagnostic_Text_PLC_Module_DI_1">Питание тормозов двигателей</string>
     <string name="Diagnostic_Text_PLC_Module_DI_2">Питание назависим. вентиляции</string>
-    <string name="Diagnostic_Text_PLC_Module_DI3_DI7">DI-3..DI-7</string>
-    <string name="Diagnostic_Text_PLC_Module_DI10_DI12">DI-10..DI-12</string>
-    <string name="Diagnostic_Text_PLC_Module_DI_13">Люк ОПУ</string>
+    <string name="Diagnostic_Text_PLC_Module_DI3_DI6">DI-3..DI-6</string>
+    <string name="Diagnostic_Text_PLC_Module_DI_7">АЦСС. Питание в норме</string>
+    <string name="Diagnostic_Text_PLC_Module_DI_10">АЦСС в ошибке</string>
+    <string name="Diagnostic_Text_PLC_Module_DI_11">АЦСС ошибок нет</string>
+    <string name="Diagnostic_Text_PLC_Module_DI_12">Выбрана 4-х кр. запасовка</string>
+    <string name="Diagnostic_Text_PLC_Module_DI_13">Люк ОПУ. Закр.Откр.</string>
     <string name="Diagnostic_Text_PLC_Module_DI_14">0-е полож. джойстика подъема</string>
     <string name="Diagnostic_Text_PLC_Module_DI_15">0-е полож. джойстика поворота</string>
     <string name="Diagnostic_Text_PLC_Module_DI_16">0-е полож. джойстика тележки</string>
     <string name="Diagnostic_Text_PLC_Module_DI_17">0-е полож. джойстика хода</string>
 
+    <string name="Diagnostic_Text_PLC_Module_DI10">DI-10</string>
+    <string name="Diagnostic_Text_PLC_Module_DI11">DI-11</string>
+    <string name="Diagnostic_Text_PLC_Module_DI12">DI-12</string>
     <string name="Diagnostic_Text_PLC_Module_DI13">DI-13</string>
     <string name="Diagnostic_Text_PLC_Module_DI14">DI-14</string>
     <string name="Diagnostic_Text_PLC_Module_DI15">DI-15</string>

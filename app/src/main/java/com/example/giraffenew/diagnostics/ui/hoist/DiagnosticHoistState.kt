@@ -83,7 +83,7 @@ fun DiagnosticHoistState (
 
 // Отображение статус Готовность привода к работе
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                Box(modifier = Modifier.padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)
@@ -97,7 +97,7 @@ fun DiagnosticHoistState (
 
 // Отображение статус Состояние привода
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                Box(modifier = Modifier.padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)
@@ -111,7 +111,7 @@ fun DiagnosticHoistState (
 
 // Отображение статус Ошибка привода
             Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                Box(modifier = Modifier.padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(3f))
                 Box(modifier = Modifier
                     .weight(1f)

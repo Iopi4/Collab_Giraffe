@@ -1251,13 +1251,49 @@ object UIDiagnosticRegisterConfiguration {
 
         RegisterInfo(729, "HMI_CANopenDrives_Error_MW", "WORD16", "Авария сети CANopen (частотные преобразователи)"),
 
-        //ДИАГНОСТИКА.  ПЛК
+        //ДИАГНОСТИКА.  ПЛК.
+        // Дискретные входы ПЛК
+        RegisterInfo(221, "PLC_DI0_0_0_PhaseControlRelay_MW", "WORD16", "Реле контроля фаз"),
+        RegisterInfo(225, "PLC_DI0_0_1_LineContactor_MW", "WORD16", "Состояние линейного контактора"),
+        RegisterInfo(226, "PLC_DI0_0_2_MontageMode_MW", "WORD16", "Монтажный режим"),
+        RegisterInfo(227, "PLC_DI0_0_3_OGPLimSw_MW", "WORD16", "Датчик критического момента"),
+        RegisterInfo(228, "PLC_DI0_0_4_HoistBrakeStatus_MW", "WORD16", "Состояние тормоза подъема"),
+        RegisterInfo(229, "PLC_DI0_0_5_HoistBrakeSensor_MW", "WORD16", "Контроль износа тормоза подъема"),
+        RegisterInfo(230, "PLC_DI0_0_6_HoistLowSpdButton_MW", "WORD16", "Замедление скорости подъема"),
+        RegisterInfo(231, "PLC_DI0_0_7_SlewBrake_MW", "WORD16", "Ручное наложение тормоза поворота"),
 
+        // Дискретные выходы ПЛК
+        RegisterInfo(382, "PLC_DQ0_0_LineContactorEn_MW", "WORD16", "Разрешение включения линейного контактора"),
+        RegisterInfo(383, "PLC_DQ0_1_HoistPWREn_MW", "WORD16", "Разрешение работы подъема"),
+        RegisterInfo(384, "PLC_DQ0_2_SlewPWREn_MW", "WORD16", "Разрешение работы поворота"),
+        RegisterInfo(385, "PLC_DQ0_3_TrolleyPWREn_MW", "WORD16", "Разрешение работы тележки"),
+        RegisterInfo(386, "PLC_DQ0_4_CranePWREn_MW", "WORD16", "Разрешение работы хода крана"),
+        RegisterInfo(387, "PLC_DQ0_5_Hoist_Ventilation_MW", "WORD16", "Вентиляция подъема"),
+        RegisterInfo(388, "PLC_DQ0_6_GlobalReady_MW", "WORD16", "Ошибка. Глобальная готовность"),
+        RegisterInfo(389, "PLC_DQ0_7_HoistOverloadStop_MW", "WORD16", "Авария/перегрузка"),
 
+        // Дискретные входы Модуля
+        RegisterInfo(232, "PLC_DI1_0_0_MicroclimatInput_MW", "WORD16", "Контроль питания обогрева"),
+        RegisterInfo(233, "PLC_DI1_0_1_gv_xBrakePowerControl_MW", "WORD16", "Контроль состояния питания тормозов"),
+        RegisterInfo(234, "PLC_DI1_0_2_gv_xVentilationPowerControl_MW", "WORD16", "Контроль состояния питания независимой вентиляции"),
+        RegisterInfo(239, "PLC_DI1_0_7_ACSS_PWR_MW", "WORD16", "АЦСС питание в норме"),
 
+        RegisterInfo(288, "PLC_DI1_1_0_ACSS_Fault_MW", "WORD16", "АЦСС в ошибке"),
+        RegisterInfo(289, "PLC_DI1_1_1_ACSS_Ready_MW", "WORD16", "АЦСС ошибок нет"),
+        RegisterInfo(290, "PLC_DI1_1_2_Zapasovka_MW", "WORD16", "Выбор кратности запасовки, =1 -4х кратная, =0 -2х кратная"),
+        RegisterInfo(291, "PLC_DI1_1_3_Luk_MW", "WORD16", "Люк ОПУ"),
+        RegisterInfo(292, "PLC_DI1_1_4_Hoist_Zero_Pos_MW", "WORD16", "0-положение джойстика подъема"),
+        RegisterInfo(293, "PLC_DI1_1_5_Slew_Zero_Pos_MW", "WORD16", "0-положение джойстика поворота"),
+        RegisterInfo(294, "PLC_DI1_1_6_Trolley_Zero_Pos_MW", "WORD16", "0-положение джойстика тележки"),
+        RegisterInfo(295, "PLC_DI1_1_7_Crane_Zero_Pos_MW", "WORD16", "0-положение джойстика хода крана"),
 
+        // Дискретные выходы Модуля
+        RegisterInfo(390, "PLC_DQ1_0_0_Sound_MW", "WORD16", "Звуковая сигнализация"),
+        RegisterInfo(399, "PLC_DQ1_1_7_ACSS_Reset_MW", "WORD16", "Сброс ошибки АЦСС"),
 
-
+        // Аналоговые входы Модуля
+        RegisterInfo(380, "HMI_LoadCellSensor_MW", "WORD16", "Датчик нагрузки"),
+        RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр"),
 
 
 

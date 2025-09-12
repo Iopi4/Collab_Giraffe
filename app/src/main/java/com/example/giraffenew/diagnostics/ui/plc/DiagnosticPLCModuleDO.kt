@@ -22,7 +22,8 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun DiagnosticPLCModuleDO(
-
+    plcDQ100Sound: Int,
+    plcDQ117ACSSReset: Int,
 ) {
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -67,7 +68,7 @@ fun DiagnosticPLCModuleDO(
 // Отображение состояния Звуковая сигнализация. DO_0
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_DO0,
-                isDIDOStatus = 2
+                isDIDOStatus = plcDQ100Sound
             )
 // Резерв
             BasicSettingsName(modifier = Modifier.padding(5.dp)
@@ -78,7 +79,7 @@ fun DiagnosticPLCModuleDO(
 // Отображение состояния Сброс ошибки АЦСС. DO_17
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_PLC_Module_DO17,
-                isDIDOStatus = 2
+                isDIDOStatus = plcDQ117ACSSReset
             )
 
 
@@ -94,6 +95,8 @@ fun DiagnosticPLCModuleDO(
 fun DiagnosticPLCDOPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticPLCModuleDO(
+            plcDQ100Sound =1,
+            plcDQ117ACSSReset = 1,
         )
     }
 }

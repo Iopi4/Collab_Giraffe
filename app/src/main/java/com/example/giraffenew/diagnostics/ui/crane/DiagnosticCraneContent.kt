@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,12 +22,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun DiagnosticCraneContent(
-
+    diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
 ) {val navController = rememberNavController()
 
     Column(modifier = Modifier.fillMaxWidth(),
@@ -34,8 +36,26 @@ fun DiagnosticCraneContent(
     {
         NavBarDiagnosticCrane(navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnosticCrane.PageDiagnosticCraneState.route) {
-            composable(NavRoutesDiagnosticCrane.PageDiagnosticCraneState.route) {DiagnosticCraneState()}
-            composable(NavRoutesDiagnosticCrane.PageDiagnosticCraneDIDO.route) {DiagnosticCraneDIDO() }
+            composable(NavRoutesDiagnosticCrane.PageDiagnosticCraneState.route)
+            {
+                DiagnosticCraneState(
+                    craneDrivePowerError = diagnosticViewModule.state.value.drivesParameters.craneDrivePowerError,
+                    craneControlWord = diagnosticViewModule.state.value.drivesParameters.craneControlWord,
+                    craneDriveError = diagnosticViewModule.state.value.drivesParameters.craneDriveError,
+                    craneFault = diagnosticViewModule.state.value.drivesParameters.craneFault,
+                    craneDriveErrorCode = diagnosticViewModule.state.value.drivesParameters.craneDriveErrorCode,
+                    craneTargetVelocity = diagnosticViewModule.state.value.drivesParameters.craneTargetVelocity,
+                    craneControlEffort = diagnosticViewModule.state.value.drivesParameters.craneControlEffort,
+                    craneMotorCurrent = diagnosticViewModule.state.value.drivesParameters.craneMotorCurrent,
+                )
+            }
+            composable(NavRoutesDiagnosticCrane.PageDiagnosticCraneDIDO.route)
+            {
+                DiagnosticCraneDIDO(
+                    craneIL1R = diagnosticViewModule.state.value.drivesParameters.craneIL1R,
+                    craneOL1R = diagnosticViewModule.state.value.drivesParameters.craneOL1R,
+                )
+            }
         }
     }
 }

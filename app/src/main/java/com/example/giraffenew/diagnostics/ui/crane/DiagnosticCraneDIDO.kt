@@ -21,8 +21,29 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticCraneDIDO (){
+fun DiagnosticCraneDIDO (
+    craneIL1R: Int,
+    craneOL1R: Int,
+){
 
+    val inDI1 = when (craneIL1R) {
+        1 -> 1
+        else -> 0 }
+    val inDI2 = when (craneIL1R) {
+        2 -> 1
+        else -> 0 }
+    val inDI3 = when (craneIL1R) {
+        5 -> 1
+        6 -> 1
+        else -> 0 }
+    val inDI4 = when (craneIL1R) {
+        13 -> 1
+        14 -> 1
+        else -> 0 }
+    val inDI5 = when (craneIL1R) {
+        29 -> 1
+        30 -> 1
+        else -> 0 }
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -48,8 +69,6 @@ fun DiagnosticCraneDIDO (){
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_DI_3)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_DI_4)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_DI_5)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_24_OP)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_24_STO)
 //Состояние дискретных выходных сигналов от ПЧ
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_TA_TC)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_DO_1)
@@ -71,37 +90,28 @@ fun DiagnosticCraneDIDO (){
 // Отображение состояния. DI_0...DI_5
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DI1,
-                isDIDOStatus = 1
+                isDIDOStatus = inDI1
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DI2,
-                isDIDOStatus = 1
+                isDIDOStatus = inDI2
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DI3,
-                isDIDOStatus = 1
+                isDIDOStatus = inDI3
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DI4,
-                isDIDOStatus = 1
+                isDIDOStatus = inDI4
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DI5,
-                isDIDOStatus = 1
-            )
-// Отображение состояния. +24V
-            StateDIDO(
-                isDIDONumber = R.string.Diagnostic_Text_Drive_24OP,
-                isDIDOStatus = 1
-            )
-            StateDIDO(
-                isDIDONumber = R.string.Diagnostic_Text_Drive_24STO,
-                isDIDOStatus = 1
+                isDIDOStatus = inDI5
             )
 // Отображение состояния выхода TA_TC (NO) и DO1
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_TATC,
-                isDIDOStatus = 1
+                isDIDOStatus = craneOL1R
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DO1,
@@ -116,6 +126,8 @@ fun DiagnosticCraneDIDO (){
 fun DiagnosticCraneDIDOPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticCraneDIDO(
+            craneIL1R = 1,
+            craneOL1R = 1,
         )
     }
 }

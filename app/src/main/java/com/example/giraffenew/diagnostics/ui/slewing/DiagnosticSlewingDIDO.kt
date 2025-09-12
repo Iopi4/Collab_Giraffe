@@ -22,24 +22,24 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun DiagnosticSlewingDIDO (
-    hoistIL1R: Int,
-    hoistOL1R: Int,
+    slewIL1R: Int,
+    slewOL1R: Int,
 ){
-    val inDI1 = when (hoistIL1R) {
+    val inDI1 = when (slewIL1R) {
         1 -> 1
         else -> 0 }
-    val inDI2 = when (hoistIL1R) {
+    val inDI2 = when (slewIL1R) {
         2 -> 1
         else -> 0 }
-    val inDI3 = when (hoistIL1R) {
+    val inDI3 = when (slewIL1R) {
         5 -> 1
         6 -> 1
         else -> 0 }
-    val inDI4 = when (hoistIL1R) {
+    val inDI4 = when (slewIL1R) {
         13 -> 1
         14 -> 1
         else -> 0 }
-    val inDI5 = when (hoistIL1R) {
+    val inDI5 = when (slewIL1R) {
         29 -> 1
         30 -> 1
         else -> 0 }
@@ -111,7 +111,7 @@ fun DiagnosticSlewingDIDO (
 // Отображение состояния выхода TA_TC (NO) и DO1
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_TATC,
-                isDIDOStatus = hoistOL1R
+                isDIDOStatus = slewOL1R
             )
             StateDIDO(
                 isDIDONumber = R.string.Diagnostic_Text_Drive_DO1,
@@ -126,8 +126,8 @@ fun DiagnosticSlewingDIDO (
 fun DiagnosticSlewingDIDOPreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticSlewingDIDO(
-            hoistIL1R = 1,
-            hoistOL1R = 1,
+            slewIL1R = 1,
+            slewOL1R = 1,
         )
     }
 }

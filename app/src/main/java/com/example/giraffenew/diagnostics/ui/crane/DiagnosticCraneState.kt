@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +24,16 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun DiagnosticCraneState (){
+fun DiagnosticCraneState (
+    craneDrivePowerError: Int,
+    craneControlWord: Int,
+    craneDriveError: Int,
+    craneFault:Int,
+    craneDriveErrorCode:Int,
+    craneTargetVelocity: Float,
+    craneControlEffort: Float,
+    craneMotorCurrent: Float,
+){
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -48,11 +58,9 @@ fun DiagnosticCraneState (){
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Readiness)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Fault)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status_Encoder)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Amperage)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Setting)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Current)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Encoder)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Last_Fault)
         }
 
@@ -70,58 +78,89 @@ fun DiagnosticCraneState (){
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.Diagnostic_Text_Status))
 // Отображение статус Готовность привода к работе
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = craneDrivePowerError
+                    )
+                }
+            }
 
 // Отображение статус Состояние привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = craneControlWord
+                    )
+                }
+            }
 
 // Отображение статус Ошибка привода
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
-
-// Отображение статус Состояние энкодера
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampSettingParameter(
-                    isLampStatus = 2) }
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampSettingParameter(
+                        isLampStatus = craneDriveError
+                    )
+                }
+            }
 
 // Отображение текущего Тока, А
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(craneMotorCurrent)
+                )
+            }
 
 // Отображение  Заданная скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
+                    valueParameterId = formatDecimal(craneTargetVelocity)
+                )
+            }
 
 // Отображение  Текущая скорость, Гц
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = "00.0") }
-
-// Отображение  Текущее значения энкодера
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier,
-                    valueParameterId = "65535") }
-
-// Отображение  Последняя ошибка
-            Box(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicValuesSettingsParameterGiraffe(
-                    modifier = Modifier,
-                    valueParameterId = "Ошибка связи по сети")
+                    valueParameterId = formatDecimal(craneControlEffort)
+                )
             }
-        
+// Отображение  Последняя ошибка
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                BasicValuesSettingsParameterGiraffe(
+                    modifier = Modifier,
+                    valueParameterId = format(craneDriveErrorCode)
+                )
+            }
         }
     }
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%10d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%04.1f", value).replace(',', '.')
 }
 
 @Preview
@@ -129,6 +168,14 @@ fun DiagnosticCraneState (){
 fun DiagnosticCraneStatePreview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         DiagnosticCraneState(
+            craneDrivePowerError = 1,
+            craneControlWord = 1,
+            craneDriveError = 1,
+            craneFault = 1,
+            craneDriveErrorCode = 1,
+            craneTargetVelocity = 1f,
+            craneControlEffort = 1f,
+            craneMotorCurrent = 1f,
         )
     }
 }

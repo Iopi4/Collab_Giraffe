@@ -26,8 +26,9 @@ class DiagnosticViewModule @Inject constructor(
         726, 119, 722, 1126, 740, 120, 121, 122, 179, 124, 125,
         727, 128, 723, 134, 741, 129, 130, 131, 132, 133, 729, 353) // Только нужные регистры Вкладки Система управления
 
-
-    private val allAddresses = (addressesSystemParameters+addressesDrivesParameters).distinct()
+    val addressesPLCParameters = listOf(221, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 239, 288,
+        289, 290, 291, 292, 293, 294, 295, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 399)
+    private val allAddresses = (addressesSystemParameters+addressesDrivesParameters+addressesPLCParameters).distinct()
 
     private val _state = mutableStateOf(DiagnosticState())
     val state: State<DiagnosticState> = _state
@@ -164,9 +165,47 @@ class DiagnosticViewModule @Inject constructor(
                 craneOL1R = cache[133] ?: 0,
 
                 canOpenDrivesError = cache[729] ?: 0,
+            ),
+            plcParameters = PLCParametersState(
+                // Дискретные входы ПЛК
+                plcDI000PhaseControlRelay = cache[221] ?: 0,
+                plcDI001LineContactor = cache[225] ?: 0,
+                plcDI002MontageMode = cache[226] ?: 0,
+                plcDI003OGPLimSw = cache[227] ?: 0,
+                plcDI004HoistBrakeStatus = cache[228] ?: 0,
+                plcDI005HoistBrakeSensor = cache[229] ?: 0,
+                plcDI006HoistLowSpdButton = cache[230] ?: 0,
+                plcDI007SlewBrake = cache[231] ?: 0,
+                // Дискретные выходы ПЛК
+                plcDQ000LineContactorEn = cache[382] ?: 0,
+                plcDQ001HoistPWREn = cache[383] ?: 0,
+                plcDQ002SlewPWREn = cache[384] ?: 0,
+                plcDQ003TrolleyPWREn = cache[385] ?: 0,
+                plcDQ004CranePWREn = cache[386] ?: 0,
+                plcDQ005HoistVentilation = cache[387] ?: 0,
+                plcDQ006GlobalReady = cache[388] ?: 0,
+                plcDQ007HoistOverloadStop = cache[389] ?: 0,
+                // Дискретные входы Модуля
+                plcDI100MicroclimatInput = cache[232] ?: 0,
+                plcDI101BrakePowerControl = cache[233] ?: 0,
+                plcDI102VentilationPowerControl = cache[234] ?: 0,
+                plcDI107ACSSPowerControl = cache[239] ?: 0,
+
+                plcDI110ACSSFault = cache[288] ?: 0,
+                plcDI111ACSSReady = cache[289] ?: 0,
+                plcDI112Zapasovka = cache[290] ?: 0,
+                plcDI113Luk = cache[291] ?: 0,
+                plcDI114HoistZeroPos = cache[292] ?: 0,
+                plcDI115SlewZeroPos = cache[293] ?: 0,
+                plcDI116TrolleyZeroPos = cache[294] ?: 0,
+                plcDI117CraneZeroPos = cache[295] ?: 0,
+                // Дискретные выходы Модуля
+                plcDQ100Sound = cache[390] ?: 0,
+                plcDQ117ACSSReset = cache[399] ?: 0,
+                // Аналоговые входы Модуля
+                plcAI0AnemometerSensor = cache[380] ?: 0,
+                plcAI1LoadCellSensor = cache[381] ?: 0,
             )
-
-
         )
     }
 
@@ -188,7 +227,8 @@ class DiagnosticViewModule @Inject constructor(
     data class DiagnosticState(
         val systemParams: ControlSystemParametersState = ControlSystemParametersState(),
         val drivesParameters: DrivesParametersState = DrivesParametersState(),
-    )
+        val plcParameters: PLCParametersState = PLCParametersState(),
+        )
 
 
     data class ControlSystemParametersState(
@@ -271,12 +311,48 @@ class DiagnosticViewModule @Inject constructor(
         val craneOL1R: Int = 0,
 
         val canOpenDrivesError: Int = 0,
+    )
+    data class PLCParametersState(
+        // Дискретные входы ПЛК
+        val plcDI000PhaseControlRelay: Int= 0,
+        val plcDI001LineContactor: Int= 0,
+        val plcDI002MontageMode: Int= 0,
+        val plcDI003OGPLimSw: Int= 0,
+        val plcDI004HoistBrakeStatus: Int= 0,
+        val plcDI005HoistBrakeSensor: Int= 0,
+        val plcDI006HoistLowSpdButton: Int= 0,
+        val plcDI007SlewBrake: Int= 0,
+        // Дискретные выходы ПЛК
+        val plcDQ000LineContactorEn: Int= 0,
+        val plcDQ001HoistPWREn: Int= 0,
+        val plcDQ002SlewPWREn: Int= 0,
+        val plcDQ003TrolleyPWREn: Int= 0,
+        val plcDQ004CranePWREn: Int= 0,
+        val plcDQ005HoistVentilation: Int= 0,
+        val plcDQ006GlobalReady: Int= 0,
+        val plcDQ007HoistOverloadStop: Int= 0,
+        // Дискретные входы Модуля
+        val plcDI100MicroclimatInput: Int= 0,
+        val plcDI101BrakePowerControl: Int= 0,
+        val plcDI102VentilationPowerControl: Int= 0,
+        val plcDI107ACSSPowerControl: Int= 0,
 
+        val plcDI110ACSSFault: Int= 0,
+        val plcDI111ACSSReady: Int= 0,
+        val plcDI112Zapasovka: Int= 0,
+        val plcDI113Luk: Int= 0,
+        val plcDI114HoistZeroPos: Int= 0,
+        val plcDI115SlewZeroPos: Int= 0,
+        val plcDI116TrolleyZeroPos: Int= 0,
+        val plcDI117CraneZeroPos: Int= 0,
 
+        // Дискретные выходы Модуля
+        val plcDQ100Sound: Int= 0,
+        val plcDQ117ACSSReset: Int= 0,
 
-
-
-
+        // Аналоговые входы Модуля
+        val plcAI0AnemometerSensor:Int= 0,
+        val plcAI1LoadCellSensor:Int= 0,
     )
 
 

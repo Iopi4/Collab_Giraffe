@@ -55,8 +55,8 @@ val navController = rememberNavController()
             composable(NavRoutesDiagnosticSlewing.PageDiagnosticSlewingDIDO.route)
             {
                 DiagnosticSlewingDIDO(
-                    hoistIL1R = diagnosticViewModule.state.value.drivesParameters.hoistIL1R,
-                    hoistOL1R = diagnosticViewModule.state.value.drivesParameters.hoistOL1R,
+                    slewIL1R = diagnosticViewModule.state.value.drivesParameters.slewIL1R,
+                    slewOL1R = diagnosticViewModule.state.value.drivesParameters.slewOL1R,
                 )
             }
         }
