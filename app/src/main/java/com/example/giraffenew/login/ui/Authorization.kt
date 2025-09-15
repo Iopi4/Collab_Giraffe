@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
@@ -22,14 +25,37 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun Authorization(){
+fun Authorization(
+    password: String, // Новый параметр
+    onPasswordChange: (String) -> Unit, // Новый параметр
+    onSetPasswordLogIn: () -> Unit,
+    onSetExitLevel: () -> Unit,
+    buildMode: Int,
+    serviceMode: Int,
+    montageMode: Int,
+){
+
+    // Формируем список активных режимов
+    val activeModes = buildList {
+        if (buildMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Build_Mode))
+        if (serviceMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Service_Mode))
+        if (montageMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Montage_Mode))
+    }
+
+    // Объединяем через запятую или используем пустую строку если нет активных режимов
+    val mode = if (activeModes.isNotEmpty()) {
+        activeModes.joinToString()
+    } else {
+        "" // Пустая строка вместо null
+    }
+
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
             .fillMaxSize()
     )
     {
-//№.1 - Левая область для отображения параметров грузовой характеристики
+//№.1 - Левая область для отображения параметров
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -53,7 +79,7 @@ fun Authorization(){
                 settingParameterId = R.string.LoginScreen_Text_Reset_Access_Level)
         }
 
-//№.2 - Правая область для выбора грузовой характеристики
+//№.2 - Правая область для ввода пароля
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -68,17 +94,17 @@ fun Authorization(){
         ) {
 // Отображение текущих уровня доступа
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "эксплуатация")
+                    valueParameterId = mode
+                )
             }
-//Ввод. Пароль
-            Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+// Поле ввода пароля (ОБНОВЛЕНО)
+            Box(modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)) {
                 BasicTextFilledGiraffe(
-                    placeholder = "1234567890AaBbCcDd",
-                    value = "",
-                    onValueChange = {""},
+                    placeholder = "0123456789",
+                    value = password,
+                    onValueChange = onPasswordChange,
                     modifier = Modifier,
                 )
             }
@@ -86,22 +112,34 @@ fun Authorization(){
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Enter,
-                onClick = {},
+                onClick = onSetPasswordLogIn,
             ) {}
 //Кнопка. Сброс уровня доступа
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,
-                onClick = {},
+                onClick = onSetExitLevel,
             ) {}
         }
     }
 }
 
+
+
 @Preview
 @Composable
 fun AuthorizationPreview(){
     GIRAFFEnewTheme (dynamicColor = false) {
-        Authorization()
+        Authorization(
+            password = "1",
+            onPasswordChange = { },
+
+            buildMode = 1,
+            serviceMode = 1,
+            montageMode = 1,
+
+            onSetPasswordLogIn = {},
+            onSetExitLevel= {},
+        )
     }
 }

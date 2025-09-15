@@ -67,7 +67,7 @@ fun TechnicalMaintenance(
 //Отображения названия параметров
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.TechnicalMaintenance_Text_Number_Crane)
             Spacer(modifier = Modifier.size(20.dp))
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.TechnicalMaintenance_Text_Plane_Maintenance)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.TechnicalMaintenance_Text_TO_Counter)
             Spacer(modifier = Modifier.size(20.dp))
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.TechnicalMaintenance_Text_Maintenance_Left)
             Spacer(modifier = Modifier.size(20.dp))

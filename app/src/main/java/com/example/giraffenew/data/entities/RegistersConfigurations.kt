@@ -18,6 +18,7 @@ object RegistersConfigurations {
         UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC to UIDiagnosticRegisterConfiguration.createConfiguration(),
         UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER to UIParameterLoggerConfiguration.createConfiguration(),
         UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE to UITechnicalMaintenanceConfiguration.createConfiguration(),
+        UILoginConfiguration.NAME_LOGIN to UILoginConfiguration.createConfiguration(),
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -40,6 +41,7 @@ object RegistersConfigurations {
             UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
             UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER -> UIParameterLoggerConfiguration.REGISTERS
             UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE -> UITechnicalMaintenanceConfiguration.REGISTERS
+            UILoginConfiguration.NAME_LOGIN -> UILoginConfiguration.REGISTERS
             else -> emptyList()
         }
     }
@@ -1418,7 +1420,7 @@ object UITechnicalMaintenanceConfiguration {
         RegisterInfo(309, "Technical_Reglament_xWarrantyEnd_MW", "WORD16", "Грузовая лебедка отработала 750 м.ч."),
 
         RegisterInfo(366, "HMI_TotalCraneOperatingHours_Maintenance_MW", "WORD16", "Моточасы крана для технического обслуживания"),
-        RegisterInfo(867, "HMI_WritesTOPassword_MW", "WORD16", "Пароль сброса счетчика ТО"),
+        RegisterInfo(867, "HMI_WritesTOReset_MW", "WORD16", "Команда сброса счетчика ТО"),
         )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -1426,6 +1428,38 @@ object UITechnicalMaintenanceConfiguration {
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
             name = "UI_Technical_Maintenance_Configuration",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+
+/**
+ * Конфигурация UI №11 (LoginScreen)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UILoginConfiguration {
+    const val NAME_LOGIN = "UI_Login"
+
+    val REGISTERS = listOf(
+        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
+        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
+        RegisterInfo(192, "MontageMode_MW", "WORD16", "Флаг монтажного режима"),
+
+        RegisterInfo(798, "HMI_Write_sPassword_MW_1", "WORD16", "Пароль панели оператора для входа в наладку и сервис. Часть 1."),
+        RegisterInfo(799, "HMI_Write_sPassword_MW_2", "WORD16", "Пароль панели оператора для входа в наладку и сервис. Часть 2."),
+        RegisterInfo(800, "HMI_Write_sPassword_MW_3", "WORD16", "Пароль панели оператора для входа в наладку и сервис. Часть 3."),
+
+        RegisterInfo(801, "HMI_Write_LoginButton_MW", "WORD16", "Кнопка LogIn"),
+        RegisterInfo(802, "HMI_Write_ExitLevel_MW", "WORD16", "Выход из наладки и сервиса"),
+        )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_Login_Configuration",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )

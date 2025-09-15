@@ -598,7 +598,7 @@
 
     <!-- Текст экрана TechnicalMaintenanceScreen' -->
     <string name="TechnicalMaintenance_Text_Number_Crane">Заводской номер крана</string>
-    <string name="TechnicalMaintenance_Text_Plane_Maintenance">Плановое ТО [м.ч.]</string>
+    <string name="TechnicalMaintenance_Text_TO_Counter">Проведенное ТО [шт.]</string>
     <string name="TechnicalMaintenance_Text_Maintenance_Left">До планового ТО [м.ч.]</string>
     <string name="TechnicalMaintenance_Text_Password">Пароль</string>
     <string name="TechnicalMaintenance_Text_Work_Permit">Разреш. работы на 3 и 4 скор.</string>
@@ -695,6 +695,11 @@
     <string name="LoginScreen_Text_Access_Code">Ввод. Код доступа</string>
     <string name="LoginScreen_Text_Confirm_Code">Подтвердить код</string>
     <string name="LoginScreen_Text_Reset_Access_Level">Сброс уровня доступа</string>
+    <string name="LoginScreen_Text_Reset_Build_Mode">Наладка</string>
+    <string name="LoginScreen_Text_Reset_Service_Mode">Сервис</string>
+    <string name="LoginScreen_Text_Reset_Montage_Mode">Монтаж</string>
+    <string name="LoginScreen_Text_Empty"> </string>
+
     <!-- Текст экрана LoginScreen' -->
 
 

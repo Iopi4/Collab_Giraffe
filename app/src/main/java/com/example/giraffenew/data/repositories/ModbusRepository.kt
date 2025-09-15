@@ -395,14 +395,13 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC, UIDiagnosticRegisterConfiguration.REGISTERS)
         registerConfiguration(UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER, UIParameterLoggerConfiguration.REGISTERS)
         registerConfiguration(UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE, UITechnicalMaintenanceConfiguration.REGISTERS)
+        registerConfiguration(UILoginConfiguration.NAME_LOGIN, UILoginConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
 
         // Запуск UI потока чтения (реагирует на изменения активной конфигурации)
         startUiConfigurationReading()
-
-
     }
 
     private fun registerConfiguration(name: String, registers: List<RegisterInfo>) {
@@ -467,6 +466,7 @@ class ModbusRepository @Inject constructor(
             UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
             UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER ->UIParameterLoggerConfiguration.REGISTERS
             UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE -> UITechnicalMaintenanceConfiguration.REGISTERS
+            UILoginConfiguration.NAME_LOGIN -> UILoginConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }
