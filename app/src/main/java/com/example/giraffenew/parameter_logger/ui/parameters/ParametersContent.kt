@@ -59,7 +59,6 @@ fun ParametersContent(
                     hmiSBKBInstallationDay = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationDay,
                     hmiSBKBInstallationMonth = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationMonth,
                     hmiSBKBInstallationYear = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationYear,
-
                 )
             }
             composable(NavRoutesParameters.PageEngineHours.route)
@@ -71,7 +70,6 @@ fun ParametersContent(
                 hmiCraneOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiCraneOperatingHours,
                 hmiTotalCraneOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiTotalCraneOperatingHours,
                 hmiSBKBOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiSBKBOperatingHours,
-                hmiTotalCraneOperatingHoursMaintenance = parameterLoggerState.state.value.сraneParameters.hmiTotalCraneOperatingHoursMaintenance,
             )
             }
         }

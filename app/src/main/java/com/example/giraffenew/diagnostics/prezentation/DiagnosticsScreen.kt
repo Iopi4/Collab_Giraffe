@@ -64,7 +64,7 @@ fun DiagnosticsScreen (
 
         // 4. Очистка при удалении Composable
         onDispose {
-            Log.d("HomeScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            Log.d("DiagnosticsScreen", "Lifecycle: ON_DISPOSE - removing observer")
             lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
             diagnosticViewModule.clearActiveConfiguration() // Дополнительная очистка
         }

@@ -21,13 +21,28 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
-import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampWaring
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
+import com.example.giraffenew.diagnostics.ui.StateValueWindAndLoadSensor
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun TechnicalMaintenance(){
+fun TechnicalMaintenance(
+    setValueTOPassword: String,
+    craneNo: Int,
+    tOCounter: Int,
+    technicalReglamentTO1: Int,
+    alarmTO1: Int,
+    motorHourDelta: Float,
+    technicalReglamentTO1Delta: Int,
+    technicalReglamentxWarrantyEnd: Int,
+    hmiTotalCraneOperatingHoursMaintenance: Float,
+
+
+
+    onResetPassword: () -> Unit,
+){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -36,10 +51,15 @@ fun TechnicalMaintenance(){
 //№.1 - Левая область для отображения списка параметров ТО
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(3f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Orange,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
 // Отступ
@@ -62,53 +82,69 @@ fun TechnicalMaintenance(){
 //№.2 - Правая область для отображения данных ТО
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(2f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Burgundy_violet,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
             val myBoxValuesSettingsParameterModifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
 
 // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 // Отображение Заводской номер крана
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "123")
+                    valueParameterId = format(craneNo)
+                )
             }
             Spacer(modifier = Modifier.size(20.dp))
 // Отображение Плановое ТО [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "999")
+                    valueParameterId = format(tOCounter)
+                )
             }
             Spacer(modifier = Modifier.size(20.dp))
 // Отображение До планового ТО [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "555")
+                    valueParameterId = formatDecimal(motorHourDelta)
+                )
             }
             Spacer(modifier = Modifier.size(20.dp))
 // Отображение Разрешение работы на скоростях 3 и 4.
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampWaring(
-                    isLampStatus = 0
-                )
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
+                    .weight(3f))
+                Box(modifier = Modifier
+                    .weight(1f)
+                    .size(height = 35.dp, width = 35.dp)
+                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    BasicLampError(
+                        isLampStatus = alarmTO1
+                    )
+                }
             }
             Spacer(modifier = Modifier.size(20.dp))
 
-// Отображение Плановое ТО не проводилось
-            Box(modifier = Modifier.padding(start = 8.dp)) {
-                BasicLampWaring(
-                    isLampStatus = 0
-                )
-            }
+// Отображение Плановое ТО не проводилось столько часов
+            val CONST_MOTOR_HOIST_DELTA = 65535
+            val absMotorHourDelta: Int = CONST_MOTOR_HOIST_DELTA - (motorHourDelta.toInt())
+            StateValueWindAndLoadSensor(
+                isValueParameter = format(absMotorHourDelta),
+                isValueStatus = alarmTO1
+            )
             Spacer(modifier = Modifier.size(20.dp))
 //Ввод. Пароль
             Box(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicTextFilledGiraffe(
                     placeholder = "1234567890AaBbCcDd",
                     value = "",
@@ -121,17 +157,40 @@ fun TechnicalMaintenance(){
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,
-                onClick = {},
+                onClick = onResetPassword,
             ) {}
         }
     }
 }
+
+
+private fun format(value: Int): String {
+    return String.format("%05d", value)
+}
+
+private fun formatDoubleWord(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+private fun formatDecimal(value: Float): String {
+    return String.format("%03.2f", value).replace(',', '.')
+}
+
 
 @Preview
 @Composable
 fun TechnicalMaintenancePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         TechnicalMaintenance(
+            setValueTOPassword = "1",
+            craneNo = 1,
+            tOCounter = 1,
+            technicalReglamentTO1 = 1,
+            alarmTO1 = 1,
+            motorHourDelta = 1f,
+            technicalReglamentTO1Delta = 1,
+            technicalReglamentxWarrantyEnd = 1,
+            hmiTotalCraneOperatingHoursMaintenance = 1f,
+            onResetPassword = { },
         )
     }
 }

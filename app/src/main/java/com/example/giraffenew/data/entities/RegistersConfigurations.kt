@@ -17,6 +17,7 @@ object RegistersConfigurations {
         UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION to UICoordinateProtectionConfiguration.createConfiguration(),
         UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC to UIDiagnosticRegisterConfiguration.createConfiguration(),
         UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER to UIParameterLoggerConfiguration.createConfiguration(),
+        UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE to UITechnicalMaintenanceConfiguration.createConfiguration(),
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -38,6 +39,7 @@ object RegistersConfigurations {
             UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
             UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
             UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER -> UIParameterLoggerConfiguration.REGISTERS
+            UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE -> UITechnicalMaintenanceConfiguration.REGISTERS
             else -> emptyList()
         }
     }
@@ -1392,6 +1394,38 @@ object UIParameterLoggerConfiguration {
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
             name = "UI_configuration_ParameterLogger",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+/**
+ * Конфигурация UI №10 (TechnicalMaintenanceScreen)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UITechnicalMaintenanceConfiguration {
+    const val NAME_TECHNICAL_MAINTENANCE = "UI_Technical_Maintenance"
+
+    val REGISTERS = listOf(
+        //ТЕХНИЧЕСКОЕ ОБСЛУЖИВАНИЕ
+        RegisterInfo(368, "HMI_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),
+        RegisterInfo(299, "TOCounter_MW", "WORD16", "Счетчик моточасов м.ч."),
+        RegisterInfo(305, "Technical_Reglament_TO1_MW", "WORD16", "Проведите ТО"),
+        RegisterInfo(306, "Alarm_TO1_MW", "WORD16", "Скорости ограничены, проведите ТО"),
+        RegisterInfo(307, "MotorHourDelta_MW", "WORD16", "Сколько часов осталось до ТО"),
+        RegisterInfo(308, "Technical_Reglament_TO1_Delta_MW", "WORD16", "До ТО осталось AT%MW307 часов"),
+        RegisterInfo(309, "Technical_Reglament_xWarrantyEnd_MW", "WORD16", "Грузовая лебедка отработала 750 м.ч."),
+
+        RegisterInfo(366, "HMI_TotalCraneOperatingHours_Maintenance_MW", "WORD16", "Моточасы крана для технического обслуживания"),
+        RegisterInfo(867, "HMI_WritesTOPassword_MW", "WORD16", "Пароль сброса счетчика ТО"),
+        )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_Technical_Maintenance_Configuration",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )

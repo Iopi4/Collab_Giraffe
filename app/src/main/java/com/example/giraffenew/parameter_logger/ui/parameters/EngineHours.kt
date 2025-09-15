@@ -29,7 +29,6 @@ fun EngineHours(
     hmiCraneOperatingHours : Float,
     hmiTotalCraneOperatingHours : Float,
     hmiSBKBOperatingHours : Float,
-    hmiTotalCraneOperatingHoursMaintenance : Float,
 ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -130,7 +129,6 @@ fun EngineHoursPreview () {
             hmiCraneOperatingHours = 1f,
             hmiTotalCraneOperatingHours = 1f,
             hmiSBKBOperatingHours = 1f,
-            hmiTotalCraneOperatingHoursMaintenance = 1f,
         )
     }
 }

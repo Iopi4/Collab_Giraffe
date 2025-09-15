@@ -123,7 +123,7 @@ class ParameterLoggerViewModule @Inject constructor(
                 hmiCraneOperatingHours      = safeDivideTens(cache[363] ?: 0),
                 hmiTotalCraneOperatingHours = safeDivideTens(cache[364] ?: 0),
                 hmiSBKBOperatingHours       = safeDivideTens(cache[365] ?: 0),
-                hmiTotalCraneOperatingHoursMaintenance = safeDivideTens(cache[366] ?: 0),
+
             ),
 
             cyclesOfWorkParameters = CyclesOfWorkParametersState(
@@ -219,7 +219,7 @@ class ParameterLoggerViewModule @Inject constructor(
         val hmiCraneOperatingHours: Float=0f, //Моточасы механизма передвижения крана
         val hmiTotalCraneOperatingHours: Float=0f,//Общие моточасы крана
         val hmiSBKBOperatingHours: Float=0f, //Моточасы системы безопасности
-        val hmiTotalCraneOperatingHoursMaintenance: Float=0f, //Моточасы крана для технического обслуживания
+
     )
     data class CyclesOfWorkParametersState(
         val arrRestA1MW1: Int=0, //0-10% Количество циклов подъема в зависимости от веса груза
