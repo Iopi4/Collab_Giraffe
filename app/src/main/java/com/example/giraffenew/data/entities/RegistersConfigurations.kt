@@ -16,6 +16,7 @@ object RegistersConfigurations {
         UISettingSensorsConfiguration.NAME_SETTING_SENSORS to UISettingSensorsConfiguration.createConfiguration(),
         UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION to UICoordinateProtectionConfiguration.createConfiguration(),
         UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC to UIDiagnosticRegisterConfiguration.createConfiguration(),
+        UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER to UIParameterLoggerConfiguration.createConfiguration(),
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -36,6 +37,7 @@ object RegistersConfigurations {
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS->UISettingSensorsConfiguration.REGISTERS
             UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
             UIDiagnosticRegisterConfiguration.NAME_DIAGNOSTIC -> UIDiagnosticRegisterConfiguration.REGISTERS
+            UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER -> UIParameterLoggerConfiguration.REGISTERS
             else -> emptyList()
         }
     }
@@ -1333,7 +1335,7 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(167, "SettingModeDay_MW", "WORD16", "Дата и время включения последнего режима наладки"),
         RegisterInfo(168, "SettingModeHour_MW", "WORD16", "Дата и время включения последнего режима наладки"),
         RegisterInfo(169, "SettingModeMinute_MW", "WORD16", "Дата и время включения последнего режима наладки"),
-        RegisterInfo(170, "SettingModeSecons_MW", "WORD16", "Дата и время включения последнего режима наладки"),
+        RegisterInfo(170, "SettingModeSeconds_MW", "WORD16", "Дата и время включения последнего режима наладки"),
 
         RegisterInfo(367, "HMI_sR_SBKB_No_MW", "WORD16", "Заводской номер СБКБ"),
         RegisterInfo(368, "HMI_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),

@@ -22,7 +22,15 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun EngineHours(){
+fun EngineHours(
+    hmiHoistOperatingHours : Float,
+    hmiSlewOperatingHours : Float,
+    hmiTrolleyOperatingHours : Float,
+    hmiCraneOperatingHours : Float,
+    hmiTotalCraneOperatingHours : Float,
+    hmiSBKBOperatingHours : Float,
+    hmiTotalCraneOperatingHoursMaintenance : Float,
+){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -65,37 +73,50 @@ fun EngineHours(){
 // Отображение Привод подъема [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiHoistOperatingHours)
+                )
             }
 // Отображение Привод поворота [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiSlewOperatingHours)
+                )
+
             }
 // Отображение Привод тележки [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiTrolleyOperatingHours)
+                )
             }
 // Отображение Привод хода крана [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiCraneOperatingHours)
+                )
             }
 // Отображение Кран [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiTotalCraneOperatingHours)
+                )
             }
 // Отображение Прибор безопасности [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDecimal(hmiSBKBOperatingHours)
+                )
             }
-
-
         }
     }
+}
+
+private fun format(value: Int): String {
+    return String.format("%05d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    return String.format("%03.2f", value).replace(',', '.')
 }
 
 @Preview
@@ -103,6 +124,13 @@ fun EngineHours(){
 fun EngineHoursPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         EngineHours(
+            hmiHoistOperatingHours = 1f,
+            hmiSlewOperatingHours = 1f,
+            hmiTrolleyOperatingHours = 1f,
+            hmiCraneOperatingHours = 1f,
+            hmiTotalCraneOperatingHours = 1f,
+            hmiSBKBOperatingHours = 1f,
+            hmiTotalCraneOperatingHoursMaintenance = 1f,
         )
     }
 }

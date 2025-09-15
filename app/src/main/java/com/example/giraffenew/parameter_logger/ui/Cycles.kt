@@ -22,7 +22,40 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun Cycles(){
+fun Cycles(
+    arrRestA1MW1 :Int,
+    arrRestA1MW2 :Int,
+    arrRestA2MW1 :Int,
+    arrRestA2MW2 :Int,
+    arrRestA3MW1 :Int,
+    arrRestA3MW2 :Int,
+    arrRestA4MW1 :Int,
+    arrRestA4MW2 :Int,
+    arrRestA5MW1 :Int,
+    arrRestA5MW2 :Int,
+    arrRestA6MW1 :Int,
+    arrRestA6MW2 :Int,
+    arrRestA7MW1 :Int,
+    arrRestA7MW2 :Int,
+    arrRestA8MW1 :Int,
+    arrRestA8MW2 :Int,
+    arrRestA9MW1 :Int,
+    arrRestA9MW2 :Int,
+    arrRestA10MW1 :Int,
+    arrRestA10MW2 :Int,
+    arrRestA11MW1 :Int,
+    arrRestA11MW2 :Int,
+    rCycleHoistMW1 :Int,
+    rCycleHoistMW2 :Int,
+    rCycleSlewMW1 :Int,
+    rCycleSlewMW2 :Int,
+    rCycleTrolleyMW1 :Int,
+    rCycleTrolleyMW2 :Int,
+    rCycleCraneMW1 :Int,
+    rCycleCraneMW2 :Int,
+    rCycleHoleCraneMW1 :Int,
+    rCycleHoleCraneMW2 :Int,
+){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -79,94 +112,151 @@ fun Cycles(){
 // Отображение количества циклов с нагрузкой 0_10%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "0")
+                    valueParameterId = formatDoubleWord(arrRestA1MW1,arrRestA1MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 10_20%
+// Отображение количества циклов с нагрузкой 11_20%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId = formatDoubleWord(arrRestA2MW1,arrRestA2MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 20_30%
+// Отображение количества циклов с нагрузкой 21_30%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "20")
+                    valueParameterId = formatDoubleWord(arrRestA3MW1,arrRestA3MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 30_40%
+// Отображение количества циклов с нагрузкой 31_40%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "30")
+                    valueParameterId = formatDoubleWord(arrRestA4MW1,arrRestA4MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 40_50%
+// Отображение количества циклов с нагрузкой 41_50%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "40")
+                    valueParameterId = formatDoubleWord(arrRestA5MW1,arrRestA5MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 50_60%
+// Отображение количества циклов с нагрузкой 51_60%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "50")
+                    valueParameterId = formatDoubleWord(arrRestA6MW1,arrRestA6MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 60_70%
+// Отображение количества циклов с нагрузкой 61_70%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "60")
+                    valueParameterId = formatDoubleWord(arrRestA7MW1,arrRestA7MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 70_80%
+// Отображение количества циклов с нагрузкой 71_80%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "70")
+                    valueParameterId = formatDoubleWord(arrRestA8MW1,arrRestA8MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 80_90%
+// Отображение количества циклов с нагрузкой 81_90%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "80")
+                    valueParameterId = formatDoubleWord(arrRestA9MW1,arrRestA9MW2)
+                )
             }
-// Отображение количества циклов с нагрузкой 90_100%
+// Отображение количества циклов с нагрузкой 91_100%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "90")
+                    valueParameterId = formatDoubleWord(arrRestA10MW1,arrRestA10MW2)
+                )
             }
 // Отображение количества циклов с нагрузкой >100%
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "100")
+                    valueParameterId = formatDoubleWord(arrRestA11MW1,arrRestA11MW2)
+                )
             }
 // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 // Отображение количества операций. Подъем
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "1")
+                    valueParameterId = formatDoubleWord(rCycleHoistMW1, rCycleHoistMW2)
+                )
             }
 // Отображение количества операций. Поворот
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "2")
+                    valueParameterId = formatDoubleWord(rCycleSlewMW1, rCycleSlewMW2)
+                )
             }
 // Отображение количества операций. Тележка
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "3")
+                    valueParameterId = formatDoubleWord(rCycleTrolleyMW1, rCycleTrolleyMW2)
+                )
             }
 // Отображение количества операций. Ход крана
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "4")
+                    valueParameterId = formatDoubleWord(rCycleCraneMW1, rCycleCraneMW2)
+                )
             }
 // Отображение количества операций. Кран
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "5")
+                    valueParameterId = formatDoubleWord(rCycleHoleCraneMW1,rCycleHoleCraneMW2)
+                )
             }
         }
     }
 }
+
+private fun format(value: Int): String {
+    return String.format("%05d", value)
+}
+
+private fun formatDoubleWord(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+
 
 @Preview
 @Composable
 fun CyclesPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         Cycles(
+        arrRestA1MW1 = 1,
+        arrRestA1MW2  = 1,
+        arrRestA2MW1  = 1,
+        arrRestA2MW2  = 1,
+        arrRestA3MW1  = 1,
+        arrRestA3MW2  = 1,
+        arrRestA4MW1  = 1,
+        arrRestA4MW2  = 1,
+        arrRestA5MW1  = 1,
+        arrRestA5MW2  = 1,
+        arrRestA6MW1  = 1,
+        arrRestA6MW2  = 1,
+        arrRestA7MW1  = 1,
+        arrRestA7MW2  = 1,
+        arrRestA8MW1  = 1,
+        arrRestA8MW2  = 1,
+        arrRestA9MW1  = 1,
+        arrRestA9MW2  = 1,
+        arrRestA10MW1  = 1,
+        arrRestA10MW2  = 1,
+        arrRestA11MW1  = 1,
+        arrRestA11MW2  = 1,
+        rCycleHoistMW1  = 1,
+        rCycleHoistMW2  = 1,
+        rCycleSlewMW1  = 1,
+        rCycleSlewMW2  = 1,
+        rCycleTrolleyMW1  = 1,
+        rCycleTrolleyMW2  = 1,
+        rCycleCraneMW1  = 1,
+        rCycleCraneMW2  = 1,
+        rCycleHoleCraneMW1  = 1,
+        rCycleHoleCraneMW2  = 1,
         )
     }
 }

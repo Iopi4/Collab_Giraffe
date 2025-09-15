@@ -77,7 +77,7 @@ class DiagnosticViewModule @Inject constructor(
 
     // Приостановка сбора данных
     fun pauseDataCollection() {
-        Log.d("HomeScreenVM", "Pausing data collection")
+        Log.d("DiagnosticViewModel", "Pausing data collection")
         dataCollectionJob?.cancel()
         dataCollectionJob = null
     }

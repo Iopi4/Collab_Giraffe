@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,11 +22,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.parameter_logger.presentation.ParameterLoggerViewModule
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun ParametersContent(
+ parameterLoggerState: ParameterLoggerViewModule = hiltViewModel()
 ){
     val navController = rememberNavController()
 
@@ -33,8 +36,44 @@ fun ParametersContent(
         verticalArrangement = Arrangement.SpaceEvenly)
     {NavBarParametersContent(navController = navController)
         NavHost(navController, startDestination = NavRoutesParameters.PageParameters.route) {
-            composable(NavRoutesParameters.PageParameters.route){ Parameters() }
-            composable(NavRoutesParameters.PageEngineHours.route) { EngineHours() }
+            composable(NavRoutesParameters.PageParameters.route)
+            {
+                Parameters(
+                    qNom = parameterLoggerState.state.value.сraneParameters.qNom,
+                    craneLenght = parameterLoggerState.state.value.сraneParameters.craneLenght,
+                    rAP = parameterLoggerState.state.value.сraneParameters.rAP,
+                    rAFIso = parameterLoggerState.state.value.сraneParameters.rAFIso,
+                    rQF = parameterLoggerState.state.value.сraneParameters.rQF,
+                    kP = parameterLoggerState.state.value.сraneParameters.kP,
+                    classOfUseC = parameterLoggerState.state.value.сraneParameters.classOfUseC,
+                    rN1 = parameterLoggerState.state.value.сraneParameters.rN1,
+                    rN2 = parameterLoggerState.state.value.сraneParameters.rN2,
+                    settingModeYear = parameterLoggerState.state.value.сraneParameters.settingModeYear,
+                    settingModeMonth = parameterLoggerState.state.value.сraneParameters.settingModeMonth,
+                    settingModeDay = parameterLoggerState.state.value.сraneParameters.settingModeDay,
+                    settingModeHour = parameterLoggerState.state.value.сraneParameters.settingModeHour,
+                    settingModeMinute = parameterLoggerState.state.value.сraneParameters.settingModeMinute,
+                    settingModeSeconds = parameterLoggerState.state.value.сraneParameters.settingModeSeconds,
+                    hmiSBKBNo = parameterLoggerState.state.value.сraneParameters.hmiSBKBNo,
+                    hmiCraneNo = parameterLoggerState.state.value.сraneParameters.hmiCraneNo,
+                    hmiSBKBInstallationDay = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationDay,
+                    hmiSBKBInstallationMonth = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationMonth,
+                    hmiSBKBInstallationYear = parameterLoggerState.state.value.сraneParameters.hmiSBKBInstallationYear,
+
+                )
+            }
+            composable(NavRoutesParameters.PageEngineHours.route)
+            {
+                EngineHours(
+                hmiHoistOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiHoistOperatingHours,
+                hmiSlewOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiSlewOperatingHours,
+                hmiTrolleyOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiTrolleyOperatingHours,
+                hmiCraneOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiCraneOperatingHours,
+                hmiTotalCraneOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiTotalCraneOperatingHours,
+                hmiSBKBOperatingHours = parameterLoggerState.state.value.сraneParameters.hmiSBKBOperatingHours,
+                hmiTotalCraneOperatingHoursMaintenance = parameterLoggerState.state.value.сraneParameters.hmiTotalCraneOperatingHoursMaintenance,
+            )
+            }
         }
     }
 }

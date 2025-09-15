@@ -542,7 +542,7 @@
     <string name="ParameterLogger_Button_Engine_Hours">МОТОЧАСЫ</string>
 
     <string name="ParameterLogger_Text_Parameters_Crane">Параметры крана</string>
-    <string name="ParameterLogger_Text_Load_Capacity">Ном. грузоподъемность [т]</string>
+    <string name="ParameterLogger_Text_Load_Capacity">Ном. грузоподъемность [кг]</string>
     <string name="ParameterLogger_Text_Arrow_Length">Исполнение по стреле [м]</string>
     <string name="ParameterLogger_Text_Passport_Mode_Group">Режим работы. Паспорт [A..]</string>
     <string name="ParameterLogger_Text_Actual_Mode_Group">Режим работы. Факт [A..]</string>

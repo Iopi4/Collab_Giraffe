@@ -22,7 +22,29 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
-fun Parameters(){
+fun Parameters(
+    qNom: Int,
+    craneLenght : Float,
+    rAP : Int,
+    rAFIso : Int,
+    rQF : Int,
+    kP : Int,
+    classOfUseC : Int,
+    rN1 : Int,
+    rN2 : Int,
+    settingModeYear : Int,
+    settingModeMonth : Int,
+    settingModeDay : Int,
+    settingModeHour : Int,
+    settingModeMinute : Int,
+    settingModeSeconds : Int,
+    hmiSBKBNo : Int,
+    hmiCraneNo : Int,
+    hmiSBKBInstallationDay : Int,
+    hmiSBKBInstallationMonth : Int,
+    hmiSBKBInstallationYear : Int,
+
+){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -66,64 +88,85 @@ fun Parameters(){
             verticalArrangement = Arrangement.Top
         ) {
             val myBoxValuesSettingsParameterModifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
 
 // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 // Отображение Ном. грузоподъемность [т]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "10")
+                    valueParameterId =format(qNom)
+                )
             }
 // Отображение Исполнение по стреле [м]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "60")
+                    valueParameterId = formatDecimal(craneLenght)
+                )
             }
 // Отображение Режим работы. Паспорт [A..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "5")
+                    valueParameterId = formatMode(rAP)
+                )
             }
 // Отображение Режим работы. Факт [A..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "3")
+                    valueParameterId = formatMode(rAFIso)
+                )
             }
 // Отображение Класс нагружения. Факт [Q..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "5")
+                    valueParameterId = formatMode(rQF)
+                )
             }
 // Отображение Класс использования [С..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "5")
+                    valueParameterId = formatMode(classOfUseC)
+                )
             }
 // Отображение Характеристическое число [N..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "30")
+                    valueParameterId = formatDoubleWord(rN1,rN2)
+                )
             }
 // Отображение Время последней наладки
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "Date")
+                    valueParameterId = formatDateSettingMode(
+                        settingModeDay,
+                        settingModeMonth,
+                        settingModeYear,
+                        settingModeHour,
+                        settingModeMinute
+                    )
+                )
             }
 // Отображение Заводской номер СБКБ
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "123")
+                    valueParameterId = format(hmiSBKBNo)
+                )
             }
 // Отображение Заводской номер крана
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "123")
+                    valueParameterId = format(hmiCraneNo)
+                )
             }
 // Отображение Дата установки СБКБ
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "12.12.1234")
+                    valueParameterId = formatDateSBKB(
+                        hmiSBKBInstallationDay,
+                        hmiSBKBInstallationMonth,
+                        hmiSBKBInstallationYear
+                    )
+                )
             }
 // Отображение Cтатус FLASH-карты
             Box(myBoxValuesSettingsParameterModifier) {
@@ -139,11 +182,57 @@ fun Parameters(){
     }
 }
 
+private fun format(value: Int): String {
+    return String.format("%05d", value)
+}
+private fun formatMode(value: Int): String {
+    return String.format("%02d", value)
+}
+
+
+private fun formatDecimal(value: Float): String {
+    return String.format("%03.2f", value).replace(',', '.')
+}
+
+private fun formatDoubleWord(value1: Int, value2: Int): String {
+    return String.format("%05d%05d", value2, value1)
+}
+
+private fun formatDateSettingMode(day: Int, month: Int, year: Int, hour: Int, minute: Int,): String {
+    return String.format("%02d.%02d.%04d_%02d:%02d", day, month, year, hour, minute)
+}
+
+private fun formatDateSBKB(day: Int, month: Int, year: Int,): String {
+    return String.format("%02d.%02d.%04d", day, month, year)
+}
+
+
 @Preview
 @Composable
 fun ParametersPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         Parameters(
+            qNom = 1,
+            craneLenght = 1f,
+            rAP = 1,
+            rAFIso = 1,
+            rQF = 1,
+            kP = 1,
+            classOfUseC = 1,
+            rN1 = 1,
+            rN2 = 1,
+            settingModeYear = 1,
+            settingModeMonth = 1,
+            settingModeDay = 1,
+            settingModeHour = 1,
+            settingModeMinute = 1,
+            settingModeSeconds = 1,
+            hmiSBKBNo = 1,
+            hmiCraneNo = 1,
+            hmiSBKBInstallationDay = 1,
+            hmiSBKBInstallationMonth = 1,
+            hmiSBKBInstallationYear = 1,
+
         )
     }
 }
