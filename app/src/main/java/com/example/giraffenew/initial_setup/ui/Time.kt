@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -25,7 +25,7 @@ fun FieldTime(
         Box(modifier = Modifier
             .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
             .weight(1f)) {
-            BasicTextFilledGiraffe(
+            BasicTextFilledGiraffeDecimal(
                 placeholder = "Час",
                 value = isValueHour,
                 onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..23 } == true) { onHourChange(it) } },
@@ -38,7 +38,7 @@ fun FieldTime(
             .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
             .weight(1f)
         ) {
-            BasicTextFilledGiraffe(
+            BasicTextFilledGiraffeDecimal(
                 placeholder = "Mин",
                 value = isValueMinute,
                 onValueChange = {if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..59 } == true) { onMinuteChange(it) } },

@@ -30,7 +30,7 @@ fun BasicInputRowandButton(
                 .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                 .weight(4f)
         ) {
-            BasicTextFilledGiraffe(
+            BasicTextFilledGiraffeDecimal(
                 placeholder = placeholder,
                 value = value,
                 onValueChange = { newValue ->

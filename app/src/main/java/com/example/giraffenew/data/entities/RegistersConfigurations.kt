@@ -70,7 +70,12 @@ object TopBarRegisterConfiguration {
         RegisterInfo(279, "Beeper_Warning_MW", "WORD16", "Пищалка HMI. Предупреждение"),
         RegisterInfo(280, "Beeper_Alarm_Fault_MW", "WORD16", "Пищалка HMI. Авария "),
         RegisterInfo(281, "Beeper_OGP_MW", "WORD16", "Пищалка HMI. ОГП "),
-        RegisterInfo(282, "Beeper_STOP_MW", "WORD16", "Пищалка HMI.Стой ")
+        RegisterInfo(282, "Beeper_STOP_MW", "WORD16", "Пищалка HMI.Стой "),
+
+        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
+        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
+
+
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -120,6 +125,9 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(229, "PLC_DI0_0_5_HoistBrakeSensor_MW", "WORD16", "Контроль износа тормоза подъема"),
         RegisterInfo(212, "Crane_Rails_En_MW", "WORD16", "Флаг включения перемещения крана. 1 - Ход крана активирован"),
         RegisterInfo(353, "HMI_xCraneRepPoint_MW", "WORD16", "Реперная точка хода крана"),
+
+        RegisterInfo(305, "Technical_Reglament_TO1_MW", "WORD16", "Проведите ТО"),
+        RegisterInfo(306, "Alarm_TO1_MW", "WORD16", "Скорости ограничены, проведите ТО"),
 
         //addressesCraneMechanismsCondition
         RegisterInfo(711,  "HMI_Weight_Sensor_Err_MW",  "WORD16",  "Cбой датчика грузоподъемности"),
@@ -1453,6 +1461,7 @@ object UILoginConfiguration {
 
         RegisterInfo(801, "HMI_Write_LoginButton_MW", "WORD16", "Кнопка LogIn"),
         RegisterInfo(802, "HMI_Write_ExitLevel_MW", "WORD16", "Выход из наладки и сервиса"),
+        RegisterInfo(751, "HMI_xPasswordOrNaladka_MW", "WORD16", "Флаг.Режим авторизации наладки"),
         )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

@@ -33,6 +33,8 @@
     <string name="menu_Login">Авторизация пользователя</string>
     <string name="menu_ModbusTools">Настройка Modbus</string>
     <string name="accident_and_warning_log">Журнал Аварий и Предупреждений</string>
+    <string name="menu_access_granted">Доступ разрешен</string>
+    <string name="menu_access_denied">Доступ запрещен</string>
 
     <!-- Текст экрана Home' -->
     <!-- Текст экрана с краном' -->

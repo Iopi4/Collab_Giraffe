@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
@@ -27,7 +27,7 @@ fun FieldDate(
                 .padding(start = 0.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                 .weight(3f)
             ) {
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     modifier = Modifier,
                     placeholder = "дд",
                     value = isValueDay,
@@ -39,7 +39,7 @@ fun FieldDate(
                 .padding(start = 5.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                 .weight(3f)
             ) {
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "мм",
                     value = isValueMonth,
                     onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..12 }== true) {onMonthChange(it)} },
@@ -50,7 +50,7 @@ fun FieldDate(
             Box (modifier = Modifier
                 .padding(start = 5.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                 .weight(5f)) {
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "гггг",
                     value = isValueYear,
                     onValueChange = { if (it.isEmpty() || it.toIntOrNull()?.let { v -> v in 0..2099 }== true) {onYearChange(it)} },

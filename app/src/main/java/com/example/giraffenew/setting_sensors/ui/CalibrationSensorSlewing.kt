@@ -23,7 +23,7 @@ import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -154,7 +154,7 @@ fun CalibrationSensorSlewing(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicTextFilledGiraffeDecimal(
                         placeholder = "000",
                         value = setValueSlewCalcAngle,
                         onValueChange = updateValueSlewCalcAngle,
@@ -178,7 +178,7 @@ fun CalibrationSensorSlewing(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                     .weight(1f)
                 ) {
-                    BasicTextFilledGiraffe(
+                    BasicTextFilledGiraffeDecimal(
                         placeholder = "0000",
                         value = setValueSlewMaxAngle,
                         onValueChange = updateValueSlewMaxAngle,

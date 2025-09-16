@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.state
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

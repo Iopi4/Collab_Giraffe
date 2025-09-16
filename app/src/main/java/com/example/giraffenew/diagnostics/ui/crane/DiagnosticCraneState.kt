@@ -84,7 +84,7 @@ fun DiagnosticCraneState (
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    .padding(start = 5.dp)) {
                     BasicLampSettingParameter(
                         isLampStatus = craneDrivePowerError
                     )
@@ -98,7 +98,7 @@ fun DiagnosticCraneState (
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    .padding(start = 5.dp)) {
                     BasicLampSettingParameter(
                         isLampStatus = craneControlWord
                     )
@@ -112,7 +112,7 @@ fun DiagnosticCraneState (
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    .padding(start = 5.dp)) {
                     BasicLampSettingParameter(
                         isLampStatus = craneDriveError
                     )

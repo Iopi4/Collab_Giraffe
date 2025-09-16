@@ -20,6 +20,7 @@ import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParame
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.diagnostics.ui.state.StateValueWindAndLoadSensor
 import com.example.giraffenew.diagnostics.ui.text.StatusDriveCS710
 import com.example.giraffenew.diagnostics.ui.text.StatusDriveMD520
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -121,7 +122,7 @@ fun DiagnosticSystem(
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    .padding(start = 5.dp)) {
                     BasicLampSettingParameter(
                         isLampStatus = ogpLimSw
                     )
@@ -226,7 +227,7 @@ fun DiagnosticSystem(
                 Box(modifier = Modifier
                     .weight(1f)
                     .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                    .padding(start = 5.dp)) {
                     BasicLampSettingParameter(
                         isLampStatus = craneRepPoint
                     )

@@ -23,7 +23,6 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensBu
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandThousandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange

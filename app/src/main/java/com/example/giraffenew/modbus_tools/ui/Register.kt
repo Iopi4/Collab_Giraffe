@@ -29,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -155,7 +155,7 @@ fun Register(
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
                 val startAddress = viewModel.startAddress.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "0",
                     value = startAddress.value.toString(),
                     onValueChange = { viewModel.updateStartAddress(it.toIntOrNull() ?: 0) },
@@ -168,7 +168,7 @@ fun Register(
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
                 val registerCount = viewModel.registerCount.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "0",
                     value = registerCount.value.toString(),
                     onValueChange = { viewModel.updateRegisterCount(it.toIntOrNull() ?: 0) },
@@ -181,7 +181,7 @@ fun Register(
                     .padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
                 val writeValue = viewModel.writeValue.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "0",
                     value = writeValue.value.toString(),
                     onValueChange = { viewModel.updateWriteValue(it) },

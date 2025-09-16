@@ -32,7 +32,7 @@ fun LampIconInformationACSS(
     {
         // Анимируем цвет с периодичностью 500 мс
         val targetColor = when {
-            isACSSFault == 1 -> Color.Red
+            isACSSFault == 1 && (isACSSPWR == 0 || isACSSPWR == 1)-> Color.Red
             isACSSPWR == 1 -> Color.Green
             else -> Color.DarkGray
         }

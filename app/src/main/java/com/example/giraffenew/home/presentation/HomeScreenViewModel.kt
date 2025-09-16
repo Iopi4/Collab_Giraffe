@@ -27,7 +27,7 @@ class HomeScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,160,161,162,163,135,136,137,317) // Только нужные регистры
-    val addressesCraneParameterScale = listOf(317,159,162,319,336,154,175,176,192, 710, 353, 709, 229, 212) // Только нужные регистры
+    val addressesCraneParameterScale = listOf(317,159,162,319,336,154,175,176,192, 710, 353, 709, 229, 212, 305, 306) // Только нужные регистры
 
     val addressesInformation = listOf(190, 191, 177, 239, 288, 700, 700, 701, 702, 703, 704, 705, 706, 707, 708,
         713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729 ) // Только нужные регистры
@@ -138,14 +138,15 @@ class HomeScreenViewModel @Inject constructor(
             windSpeedMontage = safeDivideTens (cache[176] ?: 0),
             anemometerStatus = cache[336] ?: 0,
 
-            beeperWeightLimit = cache[177] ?: 0,
-
             icMontageMode         = cache[192] ?: 0, //Флаг установки режима Монтаж.
             icCraneRepPointFault  = cache[710] ?: 0, //Сбой датчика реперной точки хода крана
             icCraneRepPoint       = cache[353] ?: 0, //Реперная точка хода крана. Индикатор срабатывания
             icLoadMomentSensorAlarm = cache[709] ?: 0, //Авария датчика критического грузового момента.
             icHoistBrakeSensor    = cache[229] ?: 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
             icCraneRailsEn        = cache[212] ?: 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
+
+            ictechnicalReglamentTO = cache[305] ?: 0, //Флаг проведите ТО
+            icalarmTO = cache[306] ?: 0, //Флаг. ТО не проведено. Ограничение скорости
             ),
         // Mechanisms Condition
         craneMechanismsCondition = CraneMechanismsConditionState(
@@ -492,7 +493,8 @@ class HomeScreenViewModel @Inject constructor(
         val icLoadMomentSensorAlarm: Int = 0, //Авария датчика критического грузового момента.
         val icHoistBrakeSensor: Int = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
         val icCraneRailsEn : Int = 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
-        val beeperWeightLimit: Int = 0,
+        val ictechnicalReglamentTO: Int = 0,
+        val icalarmTO: Int = 0,
     )
 
     data class InformationState (

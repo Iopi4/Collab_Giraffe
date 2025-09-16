@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui
+package com.example.giraffenew.diagnostics.ui.state
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,7 +32,7 @@ fun StateDIDO(
         Box(modifier = Modifier
             .weight(1f)
             .size(height = 35.dp, width = 35.dp)
-            .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+            .padding(start = 5.dp)) {
             BasicLampSettingParameter(
                 isLampStatus = isDIDOStatus
             )

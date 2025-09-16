@@ -29,7 +29,7 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
         279 to SoundConfigRepeat(R.raw.beep_sound_warning, 500, 4500),
         280 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 500, 500),
         281 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 500),
-        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 500)
+        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 500),
     )
 
     private data class SoundConfigRepeat(
@@ -40,7 +40,7 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
 
     private val soundIds = mutableMapOf<Int, Int>()
     private val jobs = mutableMapOf<Int, Job?>()
-    private val singlePlayRegisters = setOf(280, 281, 282)
+    private val singlePlayRegisters = setOf(280, 281, 282,)
     private val lastState = mutableMapOf<Int, Boolean>()
 
     init {
@@ -78,6 +78,30 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
             0
         )
     }
+
+
+    private val singleSoundIds = mutableMapOf<Int, Int>()
+
+    init {
+        // Предзагрузка звука для запрета доступа
+        preloadSound(R.raw.voice_access_denied_half_life)
+        preloadSound(R.raw.beep_sound_neaktive_knopka_half_life)
+    }
+
+    private fun preloadSound(resourceId: Int) {
+        val soundId = soundPool.load(context, resourceId, 1)
+        singleSoundIds[resourceId] = soundId
+    }
+
+    fun playSoundOnce(resourceId: Int) {
+        setMaxVolume()
+        disableSilentMode()
+
+        singleSoundIds[resourceId]?.let { soundId ->
+            soundPool.play(soundId, 0.1f, 0.1f, 1, 0, 1.0f)
+        }
+    }
+
 
     fun setRegisterState(register: Int, active: Boolean) {
         setMaxVolume()

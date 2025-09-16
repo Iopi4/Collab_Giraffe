@@ -26,19 +26,23 @@ import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffeAccess
+import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.parameter_logger.ui.Cycles
 import com.example.giraffenew.parameter_logger.ui.Load
 import com.example.giraffenew.parameter_logger.ui.parameters.ParametersContent
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import kotlin.Int
 
 @Composable
 fun ParameterLoggerScreen (
-    parameterLoggerViewModule: ParameterLoggerViewModule = hiltViewModel()
+    parameterLoggerViewModule: ParameterLoggerViewModule = hiltViewModel(),
+
 ){
     BasicSettingBackground()
 
-
+    val topBarViewModel: TopBarViewModel = hiltViewModel()
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -74,7 +78,11 @@ fun ParameterLoggerScreen (
 
     Column(modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.SpaceEvenly)
-    {NavBarParameterLoggerContent(navController = navController)
+    {NavBarParameterLoggerContent(
+        navController = navController,
+        buildMode = topBarViewModel.buildMode.value, // Передаем значение buildMode
+        serviceMode = topBarViewModel.serviceMode.value,
+        )
         NavHost(navController, startDestination = NavRoutesParameterLogger.PageParameters.route) {
             composable(NavRoutesParameterLogger.PageParameters.route){ ParametersContent() }
             composable(NavRoutesParameterLogger.PageCycles.route)
@@ -114,13 +122,21 @@ fun ParameterLoggerScreen (
                     rCycleHoleCraneMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleHoleCraneMW2,
                 )
             }
-            composable(NavRoutesParameterLogger.PageLoad.route) {Load()}
+            composable(NavRoutesParameterLogger.PageLoad.route)
+            {
+                Load()
+            }
         }
     }
 }
 
 @Composable
-fun NavBarParameterLoggerContent (navController: NavController){
+fun NavBarParameterLoggerContent (
+    navController: NavController,
+    buildMode: Int,
+    serviceMode: Int,
+){
+
     val myBoxNavServiceContentModifier = Modifier
         .padding(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 0.dp)
         .clip(shape = RoundedCornerShape(5.dp))
@@ -130,6 +146,10 @@ fun NavBarParameterLoggerContent (navController: NavController){
             color = DarkGrew,
             shape = RoundedCornerShape(5.dp)
         )
+    val topBarViewModel: TopBarViewModel = hiltViewModel()
+    val protectedMenusEnabled = buildMode == 1 || serviceMode == 1
+    val protectedMenusEnabledService = serviceMode == 1
+
 //Код для формирования области в верху с кнопками переходов между страницами
     Column (myBoxNavServiceContentModifier,
         verticalArrangement = Arrangement.SpaceEvenly)
@@ -154,11 +174,17 @@ fun NavBarParameterLoggerContent (navController: NavController){
             }
 
             Box(modifier = Modifier.weight(1f)) {
-                BasicButtonTabGiraffe(
+                BasicButtonTabGiraffeAccess(
                     modifier = Modifier.padding(end = 7.dp),
                     text = R.string.ParameterLogger_Button_Load,
+                    isLocked = !protectedMenusEnabled,
                     onClick = {
-                        navController.navigate(NavRoutesParameterLogger.PageLoad.route) },) {}
+                        if (protectedMenusEnabled)
+                        {
+                            navController.navigate(NavRoutesParameterLogger.PageLoad.route)
+                        }
+                        else topBarViewModel.playInactiveButtonSound()
+                              },)
             }
         }
     }

@@ -1,0 +1,84 @@
+package com.example.giraffenew.core.ui_kit.composable.button
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.giraffenew.R
+import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+
+
+@Composable
+//Базовая кнопка с заполненным фоном. Ее можно будет использовать в разных частях приложения,
+//например в качестве кнопки сохранения или обновления данных
+fun BasicButtonTabGiraffeAccess(
+    modifier: Modifier = Modifier,
+    text: Int,
+    onClick: () -> Unit,
+    isLocked: Boolean = false, // Добавляем параметр блокировки
+    ) {
+
+    val containerColor = if (isLocked){
+        colorResource(R.color.Grew_50_percent).copy(alpha = 0.6f)
+    } else {
+        colorResource(R.color.Grew_50_percent)
+    }
+
+    val contentColor = if (isLocked){
+        Color.Black.copy(alpha = 0.6f)
+    } else {
+        Color.Black
+    }
+
+    val myBoxButtonModifier = Modifier
+        .padding(start = 7.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+        .clip(shape = RoundedCornerShape(5.dp))
+        .fillMaxWidth()
+
+    Box(myBoxButtonModifier){
+        Button(
+            modifier = modifier
+                .size(width = 350.dp, height = 30.dp),
+            onClick = onClick,
+            contentPadding = PaddingValues(2.dp),
+            shape = RoundedCornerShape(5.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = containerColor,
+                contentColor = contentColor),
+        ) {
+            Text( text = stringResource(id = text), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        }
+    }
+
+}
+
+@Preview
+@Composable
+fun BasicButtonTabGiraffeAccessPreview (){
+    GIRAFFEnewTheme(dynamicColor = false) {
+        BasicButtonTabGiraffeAccess(
+            text = R.string.nul,
+            onClick = { },
+        )
+    }
+}

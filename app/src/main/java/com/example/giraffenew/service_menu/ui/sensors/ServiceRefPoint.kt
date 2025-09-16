@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -78,7 +78,7 @@ fun ServiceRefPoint(){
 //Ввод. Интервал контроля датчика [м]
             Box(modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "0.0",
                     value = "",
                     onValueChange = { ""},

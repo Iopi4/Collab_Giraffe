@@ -104,7 +104,8 @@ internal fun HomeScreen (
                 windSpeedMontage = homeViewModel.state.value.parameterScale.windSpeedMontage,
                 anemometerStatus = homeViewModel.state.value.parameterScale.anemometerStatus,
 
-                beeperWeightLimit = homeViewModel.state.value.parameterScale.beeperWeightLimit,
+                icalarmTO = homeViewModel.state.value.parameterScale.icalarmTO,
+                ictechnicalReglamentTO = homeViewModel.state.value.parameterScale.ictechnicalReglamentTO,
 
                 icMontageMode = homeViewModel.state.value.parameterScale.icMontageMode,
                 icCraneRepPointFault= homeViewModel.state.value.parameterScale.icCraneRepPointFault,

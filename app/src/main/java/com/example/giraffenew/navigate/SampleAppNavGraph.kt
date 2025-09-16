@@ -59,7 +59,8 @@ import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapa
 import com.example.giraffenew.setting_rotation.SettingRotationScreen
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
-
+import androidx.compose.material.icons.Icons.Default
+import androidx.compose.material.icons.filled.Lock
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,7 +93,9 @@ fun SampleAppNavGraph(
             navigateToLogin = { navigationActions.navigateTo_Login() },
             navigateToModbusTools = {navigationActions.navigateTo_ModbusTools() },
             closeDrawer = { coroutineScope.launch { drawerState.close() } },
-            modifier = Modifier
+            modifier = Modifier,
+            buildMode = topBarViewModel.buildMode.value, // Передаем значение buildMode
+            serviceMode = topBarViewModel.serviceMode.value,
         )
     }, drawerState = drawerState) {
         val boxTopBarText = Modifier
@@ -185,7 +188,8 @@ fun SampleAppNavGraph(
                 }
 
                 composable(AllDestinations.NAVIGATE_PARAMETER_LOGGER) {
-                    ParameterLoggerScreen()
+                    ParameterLoggerScreen(
+                    )
                 }
 
                 composable(AllDestinations.NAVIGATE_TECHNICAL_MAINTENANCE) {

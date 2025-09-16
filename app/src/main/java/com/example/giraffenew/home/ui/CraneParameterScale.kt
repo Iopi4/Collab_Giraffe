@@ -29,6 +29,7 @@ import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
 import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
+import com.example.giraffenew.home.ui.lamp.LampIconInformationTO
 import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.home.ui.lamp.LampWindStatus
 import com.example.giraffenew.home.ui.scale.ScaleVerticalHoist
@@ -47,7 +48,7 @@ fun CraneParameterScale(
     windCurrent:      Float,
     windSpeedLvl2: Float,
     windSpeedMontage: Float,
-    beeperWeightLimit: Int,
+
     //Иконки предупреждений
     icMontageMode: Int,
     icCraneRepPointFault: Int,
@@ -55,6 +56,9 @@ fun CraneParameterScale(
     icLoadMomentSensorAlarm: Int,
     icHoistBrakeSensor: Int,
     icCraneRailsEn: Int,
+
+    ictechnicalReglamentTO: Int,
+    icalarmTO: Int,
 
 ){
     val myBoxMainModifier = Modifier
@@ -238,9 +242,10 @@ fun CraneParameterScale(
                     isLampIconStatus = 0,
                     isIcon = painterResource(R.drawable.ic_home_scale_giraffe_power),
                 )
-                LampIconInformationAlarm(
-                    isLampIconStatus = beeperWeightLimit,
-                    isIcon = painterResource(R.drawable.ic_home_info_campaign),
+                LampIconInformationTO(
+                    istechnicalReglamentTO = ictechnicalReglamentTO,
+                    isAlarmTO = icalarmTO,
+                    isIcon = painterResource(R.drawable.ic_home_info_maintenance),
                 )
 
 
@@ -282,7 +287,6 @@ fun CraneParameterScalePreview (){
             anemometerStatus = 1,
             windSpeedMontage = 10f,
             windSpeedLvl2 = 10f,
-            beeperWeightLimit = 1,
 
             icMontageMode = 1,
             icCraneRepPointFault= 1,
@@ -290,6 +294,9 @@ fun CraneParameterScalePreview (){
             icLoadMomentSensorAlarm= 1,
             icHoistBrakeSensor= 1,
             icCraneRailsEn= 1,
+
+            icalarmTO = 1,
+            ictechnicalReglamentTO = 1,
             )
     }
 }

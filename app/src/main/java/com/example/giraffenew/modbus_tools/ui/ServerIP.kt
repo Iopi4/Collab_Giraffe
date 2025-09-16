@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -94,7 +94,7 @@ fun ServerIP(
             ) {
                 // Collect the state from StateFlow
                 val ipAddress = viewModel.ipAddress.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "192.168.1.88",
                     value = ipAddress.value,
                     onValueChange = { viewModel.updateIpAddress(it) },
@@ -107,7 +107,7 @@ fun ServerIP(
                     modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
             val port = viewModel.port.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "502",
                     value = port.value.toString(),
                     onValueChange = { viewModel.updatePort(it.toIntOrNull() ?: 0) },
@@ -121,7 +121,7 @@ fun ServerIP(
                     modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 7.dp, bottom = 0.dp)
             ) {
             val remoteServerUrl = viewModel.remoteServerUrl.collectAsState()
-                BasicTextFilledGiraffe(
+                BasicTextFilledGiraffeDecimal(
                     placeholder = "https://monitor.giraffecrane.ru",
                     value = remoteServerUrl.value,
                     onValueChange = { viewModel.updateRemoteServerUrl(it) },

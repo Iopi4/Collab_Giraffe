@@ -89,7 +89,7 @@ fun BasicTextFilledGiraffe (
             // поведение, сделав текстовое поле нередактируемым, нефокусируемым и невыбираемым
             singleLine = singleLine, //указывает, является ли это однострочным или многострочным текстовым полем.
             // Вы должны передать то же значение, что и BasicTextField
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal) //Выбор типа клавиатуры
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) //Выбор типа клавиатуры
         ){
             TextFieldDefaults.DecorationBox(
                 value = value,

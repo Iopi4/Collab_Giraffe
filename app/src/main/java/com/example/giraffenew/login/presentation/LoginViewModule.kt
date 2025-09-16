@@ -36,7 +36,10 @@ class LoginViewModule
     private val _password = mutableStateOf("")
     val password: State<String> = _password
 
-    private val addresses = listOf( 190, 191, 192)
+    private val _passwordOrNaladka = mutableStateOf(0)
+    val passwordOrNaladka: State<Int> = _passwordOrNaladka
+
+    private val addresses = listOf( 190, 191, 192, 751)
 
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
@@ -84,12 +87,15 @@ class LoginViewModule
     }
 
     private fun createLoginState(cache: Map<Int, Int?>): LoginState {
+        val passwordOrNaladkaValue = cache[751] ?: 0
+        _passwordOrNaladka.value = passwordOrNaladkaValue // Сохраняем значение
+
         return LoginState(
             //Параметры крана
             buildMode = cache[190] ?: 0,
             serviceMode = cache[191] ?: 0,
             montageMode = cache[192] ?: 0,
-
+            passwordOrNaladka = passwordOrNaladkaValue,
         )
     }
 
@@ -98,6 +104,7 @@ class LoginViewModule
         val buildMode: Int=0, //Флаг режима наладки
         val serviceMode: Int=0, //Флаг режима сервис
         val montageMode: Int=0, //Флаг монтажного режима
+        val passwordOrNaladka: Int=0, //Флаг.Режим авторизации по слову naladka
     )
 
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
@@ -108,9 +115,20 @@ class LoginViewModule
 
     // Функция для обновления пароля
     fun updatePassword(value: String) {
-        if (value.length <= 9 && (value.isEmpty() || value.all { it.isDigit() })) {
-            _password.value = value
-            splitPassword(value)
+        if (passwordOrNaladka.value == 1){
+            if (value.length <= 9) {
+                _password.value = value
+                // Для цифровых значений обновляем части пароля
+                if (value.all { it.isDigit() }) {
+                    splitPassword(value)
+                }
+            }
+
+        } else {
+            if (value.length <= 9 && (value.isEmpty() || value.all { it.isDigit() })) {
+                _password.value = value
+                splitPassword(value)
+            }
         }
     }
 
@@ -120,24 +138,6 @@ class LoginViewModule
         _setValuePasswordPart1.value = "1" + paddedPassword.substring(0, 3)
         _setValuePasswordPart2.value = "1" + paddedPassword.substring(3, 6)
         _setValuePasswordPart3.value = "1" + paddedPassword.substring(6, 9)
-    }
-
-
-    fun onSetValuePasswordPart123() {
-        viewModelScope.launch(Dispatchers.Default) {
-            try {
-                val model1 = validateAndConvert(_setValuePasswordPart1.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(798, model1)
-                val model2 = validateAndConvert(_setValuePasswordPart2.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(799, model2)
-                val model3 = validateAndConvert(_setValuePasswordPart3.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(800, model3)
-            } catch (e: Exception) {
-            }
-        }
     }
 
 
@@ -174,31 +174,27 @@ class LoginViewModule
     }
 
 
-
-    fun updateValuePasswordPart1(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
-            _setValuePasswordPart1.value = value }
-    }
-    fun updateValuePasswordPart2(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
-            _setValuePasswordPart2.value = value }
-    }
-    fun updateValuePasswordPart3(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
-            _setValuePasswordPart3.value = value }
-    }
-
-
     fun onSetPasswordLogIn() {
-        // Сначала отправляем части пароля
-        onSetValuePasswordPart1()
-        onSetValuePasswordPart2()
-        onSetValuePasswordPart3()
-        
-        // Затем отправляем команду входа
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Default) {
             try {
-                if (!isActive) return@launch
+                if (passwordOrNaladka.value == 1 && password.value == "naladka") {
+                    // Отправляем фиксированные значения для "naladka"
+                    modbusRepository.writeRegister(798, 1009)
+                    modbusRepository.writeRegister(799, 1007)
+                    modbusRepository.writeRegister(800, 1008)
+                } else {
+                    // Стандартная логика отправки частей пароля
+                    val part1 = validateAndConvert(_setValuePasswordPart1.value, 0, 1999)
+                    modbusRepository.writeRegister(798, part1)
+
+                    val part2 = validateAndConvert(_setValuePasswordPart2.value, 0, 1999)
+                    modbusRepository.writeRegister(799, part2)
+
+                    val part3 = validateAndConvert(_setValuePasswordPart3.value, 0, 1999)
+                    modbusRepository.writeRegister(800, part3)
+                }
+
+                // Отправка команды ввода
                 delay(200)
                 modbusRepository.writeRegister(801, 1)
                 delay(200)

@@ -12,6 +12,7 @@ import com.example.giraffenew.network.CraneIdRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.giraffenew.R
 
 /**
  * Затем будем собирать только изменения в этих регистрах. При этом важно, чтобы коллектор срабатывал только когда изменился хотя бы один из нужных регистров.
@@ -49,13 +50,19 @@ class TopBarViewModel @Inject constructor(
     private val _currentLoadCapacity = mutableStateOf("ГХ [...]")
     val currentLoadCapacity: State<String> = _currentLoadCapacity
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 193, 194, 367, 278, 279, 280, 281, 282, ) // Только нужные регистры
+    private val _craneId = mutableStateOf("CRANE_ID")
+    val craneId: State<String> = _craneId
+
+    private val _buildMode = mutableStateOf(0)
+    val buildMode: State<Int> = _buildMode
+
+    private val _serviceMode = mutableStateOf(0)
+    val serviceMode: State<Int> = _serviceMode
+
+    private val addresses = listOf(90, 91, 94, 95, 98, 150, 190, 191, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
-
-    private val _craneId = mutableStateOf("CRANE_ID")
-    val craneId: State<String> = _craneId
 
     init {
         startDataCollection()
@@ -80,6 +87,7 @@ class TopBarViewModel @Inject constructor(
                         updatePulleyBlock(currentValues)
                         updateLoadCapacity(currentValues)
                         updateCraneID(currentValues)
+                        updateStatusMode(currentValues)
 
                         // Обработка звуковых регистров
                         for (register in 278..282) {
@@ -89,8 +97,14 @@ class TopBarViewModel @Inject constructor(
                                 soundController.setRegisterState(register, currentValue == 1)
                             }
                         }
-
-
+                        // Обработка звуковых регистров режима сервис и наладка
+                        for (register in 190..191) {
+                            val currentValue = currentValues[register] ?: 0
+                            val previousValue = previousValues[register] ?: 0
+                            if (currentValue != previousValue) {
+                                soundController.setRegisterState(register, currentValue == 1)
+                            }
+                        }
 
                         // Сохраняем текущие значения для следующего сравнения
                         previousValues = currentValues
@@ -150,6 +164,23 @@ class TopBarViewModel @Inject constructor(
         _craneId.value = newCraneId
         craneIdRepository.updateCraneId(newCraneId) // Обновляем значение в репозитории
     }
+
+    private fun updateStatusMode(cache: Map<Int, Int?>) {
+        val buildMode = cache[190] ?: return
+        val serviceMode = cache[191] ?: return
+        _buildMode.value = buildMode
+        _serviceMode.value = serviceMode
+
+    }
+
+    fun playAccessDeniedSound() {
+        soundController.playSoundOnce(R.raw.voice_access_denied_half_life)
+    }
+
+    fun playInactiveButtonSound() {
+        soundController.playSoundOnce(R.raw.beep_sound_neaktive_knopka_half_life)
+    }
+
 }
 
 /**
