@@ -37,8 +37,6 @@ fun BasicTextFilledGiraffe (
     placeholder: String,
     value: String,
     onValueChange: (String) -> Unit,
-    isDecimal: Boolean = false,
-    modifier: Modifier
 
     ){  val interactionSource = remember { MutableInteractionSource() }
 
@@ -66,17 +64,7 @@ fun BasicTextFilledGiraffe (
     Box(myBoxVisualTextFieldModifier) {
         BasicTextField(
             value = value, //value: представляет введенное в текстовое поле значение в виде строки, объекта String
-            onValueChange = { newValue ->
-                if (isDecimal) {
-                    if (newValue.isEmpty() || newValue.matches(Regex("^\\d{0,5}(\\.\\d{0,1})?$"))) {
-                        onValueChange(newValue)
-                    }
-                } else {
-                    if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
-                        onValueChange(newValue)
-                    }
-                }
-            }, //функция обработки изменения введенного значения. Представляет функцию типа (String) -> Unit
+            onValueChange = onValueChange, //функция обработки изменения введенного значения. Представляет функцию типа (String) -> Unit
             modifier = Modifier
                 .size(height = 30.dp, width = 500.dp),
 
@@ -125,7 +113,6 @@ fun BasicTextFilledGiraffePreview (){
         BasicTextFilledGiraffe(
             placeholder = "Value",
             onValueChange = { },
-            modifier = Modifier,
             value = ""
         )
     }

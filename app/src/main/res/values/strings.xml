@@ -15,7 +15,13 @@
     <string name="Button_Turn_ON_Off">ВКЛ/ВЫКЛ</string>
     <string name="Button_Switch">ГРУЗ/СТР</string>
     <string name="Button_Calibration">КАЛИБРОВКА</string>
+    <string name="Button_Resetting_Archived_Events">ОЧИСТКА ЖУРНАЛА</string>
 
+    <!-- Текст TopBar -->
+    <string name="TopBar_Debug_mode">НАЛАДКА</string>
+    <string name="TopBar_Service_mode">СЕРВИС</string>
+    <string name="TopBar_Montage_mode">МОНТАЖ</string>
+    <!-- Текст TopBar -->
 
     <!-- Текст меню навигации -->
     <string name="menu_home">Главный экран</string>
@@ -698,9 +704,9 @@
     <string name="LoginScreen_Text_Access_Code">Ввод. Код доступа</string>
     <string name="LoginScreen_Text_Confirm_Code">Подтвердить код</string>
     <string name="LoginScreen_Text_Reset_Access_Level">Сброс уровня доступа</string>
-    <string name="LoginScreen_Text_Reset_Build_Mode">Наладка</string>
-    <string name="LoginScreen_Text_Reset_Service_Mode">Сервис</string>
-    <string name="LoginScreen_Text_Reset_Montage_Mode">Монтаж</string>
+    <string name="LoginScreen_Text_Reset_Build_Mode">НАЛАДКА</string>
+    <string name="LoginScreen_Text_Reset_Service_Mode">СЕРВИС</string>
+    <string name="LoginScreen_Text_Reset_Montage_Mode">МОНТАЖ</string>
     <string name="LoginScreen_Text_Empty"> </string>
 
     <!-- Текст экрана LoginScreen' -->

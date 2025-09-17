@@ -1,6 +1,8 @@
 package com.example.giraffenew.navigate
 
+import androidx.compose.foundation.BasicTooltipState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,6 +46,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.accident_and_warning_log.AccidentWarningLogScreen
 import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionScreen
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersValueText
 import com.example.giraffenew.diagnostics.prezentation.DiagnosticsScreen
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.Orange
@@ -59,6 +64,8 @@ import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapa
 import com.example.giraffenew.setting_rotation.SettingRotationScreen
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
+import com.example.giraffenew.R
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,6 +80,29 @@ fun SampleAppNavGraph(
     val currentRoute = currentNavBackStackEntry?.destination?.route ?: AllDestinations.NAVIGATE_TO_HOME
     val navigationActions = remember (navController) {
         AppNavigationActions(navController) }
+
+    val buildMode = topBarViewModel.buildMode.value
+    val serviceMode = topBarViewModel.serviceMode.value
+    val montageMode = topBarViewModel.montageMode.value
+
+    // Формируем список активных режимов
+    val activeModes = buildList {
+        if (buildMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Build_Mode))
+        if (serviceMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Service_Mode))
+        if (montageMode == 1) add(stringResource(R.string.LoginScreen_Text_Reset_Montage_Mode))
+    }
+    // Объединяем через запятую или используем пустую строку если нет активных режимов
+    val mode = if (activeModes.isNotEmpty()) {
+        activeModes.joinToString()
+    } else {
+        "РАБОТА" // Пустая строка вместо null
+    }
+    val modeColor = when {
+        buildMode == 1 -> colorResource(R.color.Red)
+        serviceMode == 1 -> colorResource(R.color.Red)
+        montageMode == 1 -> colorResource(R.color.Red)
+    else -> colorResource(R.color.Silver) }
+
 
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(
@@ -117,13 +147,36 @@ fun SampleAppNavGraph(
                             }
 
 //Область отображения кнопки меню навигации
-                            Box (modifier = Modifier.weight(1f)){
+
+                            Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Box (modifier = Modifier.weight(7f)){
                                 TopAppBar(title = { Text(text = currentRoute, color = white) },
                                     modifier = Modifier.fillMaxWidth(),
                                     navigationIcon = { IconButton(onClick = { coroutineScope.launch { drawerState.open() } },
                                         content = { Icon(imageVector = Icons.Default.Menu, contentDescription = null, tint = white) }) },
                                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Orange))
+                                }
+                                val myBoxModifier = Modifier
+                                    .clip(shape = RoundedCornerShape(5.dp))
+                                    .background(colorResource(R.color.black))
+                                    .fillMaxWidth()
+                                    .border(
+                                        width = 2.dp,
+                                        color = modeColor,
+                                        shape = RoundedCornerShape(5.dp)
+                                    )
+                                Box (myBoxModifier.weight(2f, )
+                                ){
+                                    Text(modifier = modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 1.dp, end = 1.dp, top = 5.dp, bottom = 5.dp),
+                                        text = mode,
+                                        fontSize = 18.sp, fontWeight = FontWeight.Bold,
+                                        textAlign = TextAlign.Center, color = modeColor
+                                    )
+                                }
                             }
+
                         }
                     }
 //Область отобтражения даты и времени

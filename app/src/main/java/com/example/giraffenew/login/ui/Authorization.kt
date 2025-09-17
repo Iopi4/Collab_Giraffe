@@ -103,7 +103,6 @@ fun Authorization(
                     placeholder = "0123456789AaBbCcDd..",
                     value = password,
                     onValueChange = onPasswordChange,
-                    modifier = Modifier,
                 )
             }
 //Кнопка. Подтвердить код

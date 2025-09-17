@@ -1,12 +1,10 @@
 package com.example.giraffenew.accident_and_warning_log.presentation.screen
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +17,6 @@ fun EventTable(
     events:List<EventEntity>,
     title: String,
     modifier: Modifier = Modifier) {
-    val scrollState = rememberScrollState()
 
     LazyColumn (
         modifier = modifier.fillMaxWidth()

@@ -65,7 +65,10 @@ class TopBarViewModel @Inject constructor(
     private val _serviceMode = mutableStateOf(0)
     val serviceMode: State<Int> = _serviceMode
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
+    private val _montageMode = mutableStateOf(0)
+    val montageMode: State<Int> = _montageMode
+
+    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
@@ -201,8 +204,10 @@ class TopBarViewModel @Inject constructor(
     private fun updateStatusMode(cache: Map<Int, Int?>) {
         val buildMode = cache[190] ?: 0
         val serviceMode = cache[191] ?: 0
+        val montageMode = cache[192] ?: 0
         _buildMode.value = buildMode
         _serviceMode.value = serviceMode
+        _montageMode.value = montageMode
 
     }
 
