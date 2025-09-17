@@ -605,7 +605,7 @@
     <string name="TechnicalMaintenance_Text_Password">Пароль</string>
     <string name="TechnicalMaintenance_Text_Work_Permit">Разреш. работы на 3 и 4 скор.</string>
     <string name="TechnicalMaintenance_Text_Reset_Counter">Сброс счетчика моточасов</string>
-    <string name="TechnicalMaintenance_Text_Maintenance_Not">Плановое ТО не проводилось</string>
+    <string name="TechnicalMaintenance_Text_Maintenance_Not">ТО не проводилось [м.ч.]</string>
     <!-- Текст экрана TechnicalMaintenanceScreen' -->
 
 
@@ -659,6 +659,10 @@
     <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxDeltaError">Сбой датчика вылета. Макс. дельта</string>
     <string name="Errors_PERSISTENTVARS.pv_xTrolleyAbsEnc_MaxValueError">Сбой датчика вылета. Макс. значение</string>
 
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Hoist_EncFault">Сбой энкодера двигателя подъема</string>
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Slew_EncFault">Сбой энкодера двигателя поворота</string>
+    <string name="Errors_HMI_ALARMS.HMI_Drive_Trolley_EncFault">Сбой энкодера двигателя тележки</string>
+
     <!-- Не используются -->
     <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError1">Ход.CTT. Неверный закон управления двигателем</string>
     <string name="AlarmGroup1_GVL1.gv_xCrane_ATVConfigError2">Ход.TUN. Автонастройка не выполнена</string>
@@ -685,9 +689,6 @@
     <string name="Errors_GVL1.gv_xPLCExpertIOError">ПЛК. Модуль входов/выходов</string>
     <string name="Errors_GVL1.gv_xPLCExpertIOStatError">ПЛК. Модуль выходов</string>
 
-    <string name="Errors_HMI_ALARMS.HMI_Drive_Hoist_EncFault">Сбой энкодера двигателя подъема</string>
-    <string name="Errors_HMI_ALARMS.HMI_Drive_Slew_EncFault">Сбой энкодера двигателя поворота</string>
-    <string name="Errors_HMI_ALARMS.HMI_Drive_Trolley_EncFault">Сбой энкодера двигателя тележки</string>
     <string name="Errors_HMI_ALARMS.HMI_PLC_BatteryError">Батарейка ПЛК разряжена</string>в
     <!-- Текст экрана AccidentWarningLogScreen' -->
 

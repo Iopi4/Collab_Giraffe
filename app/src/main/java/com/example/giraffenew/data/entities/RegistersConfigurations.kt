@@ -19,6 +19,7 @@ object RegistersConfigurations {
         UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER to UIParameterLoggerConfiguration.createConfiguration(),
         UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE to UITechnicalMaintenanceConfiguration.createConfiguration(),
         UILoginConfiguration.NAME_LOGIN to UILoginConfiguration.createConfiguration(),
+        UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING to UIAccidentAndWaringConfiguration.createConfiguration()
     )
 
     fun getAllConfigurations(): List<RegisterConfiguration> {
@@ -42,6 +43,7 @@ object RegistersConfigurations {
             UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER -> UIParameterLoggerConfiguration.REGISTERS
             UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE -> UITechnicalMaintenanceConfiguration.REGISTERS
             UILoginConfiguration.NAME_LOGIN -> UILoginConfiguration.REGISTERS
+            UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING -> UIAccidentAndWaringConfiguration.REGISTERS
             else -> emptyList()
         }
     }
@@ -1435,7 +1437,7 @@ object UITechnicalMaintenanceConfiguration {
 
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
-            name = "UI_Technical_Maintenance_Configuration",
+            name = "UI_Technical_Maintenance",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )
@@ -1444,7 +1446,108 @@ object UITechnicalMaintenanceConfiguration {
 
 
 /**
- * Конфигурация UI №11 (LoginScreen)
+ * Конфигурация UI №12 (LoginScreen)
+ * Регистры для работы с UI экрана начальные настройки
+ */
+object UIAccidentAndWaringConfiguration {
+    const val NAME_ACCIDENT_AND_WARING = "UI_accident_and_waring_screen"
+
+    val REGISTERS = listOf(
+        RegisterInfo(186, "Overload_105Percent_MW", "WORD16", "Бит превышения грузоподъемности более 105%"),
+        RegisterInfo(187, "Overload_110Percent_MW", "WORD16", "Бит превышения грузоподъемности более 110%"),
+        RegisterInfo(188, "OGPLimSw_MW", "WORD16", "Датчик критического момента. 1-Норма (грузоподъемность не превышена). 0- превышение грузоподъемности"),
+        RegisterInfo(189, "HoistBrakeSensor_MW", "WORD16", "Износ тормоза привода главного подъема. 0-Норма (тормоз исправен). 1- тормоз изношен"),
+
+        RegisterInfo(244, "Alarm_GRUZ_FUN_MW", "WORD16", "Неверная ГХ"),
+        RegisterInfo(245, "Alarm_Zapasovka_MW", "WORD16", "Ошибка выбора запасовки"),
+
+        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
+        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
+        RegisterInfo(192, "MontageMode_MW", "WORD16", "Флаг монтажного режима"),
+
+        RegisterInfo(300, "Crane_Config_Warning_MW", "WORD16", "Ход крана не настроен"),
+        RegisterInfo(301, "Hoist_Config_Warning_MW", "WORD16", "Подъем не настроен"),
+        RegisterInfo(302, "Slew_Config_Warning_MW", "WORD16", "Поворот крана не настроен"),
+        RegisterInfo(303, "Trolley_Config_Warning_MW", "WORD16", "Вылет не настроен"),
+        RegisterInfo(304, "Weight_Config_Warning_MW", "WORD16", "Грузоподъемность не настроена"),
+        RegisterInfo(305, "Technical_Reglament_TO1_MW", "WORD16", "Проведите ТО"),
+        RegisterInfo(306, "Alrm_TO1_MW", "WORD16", "Скорости ограничены, проведите ТО"),
+        RegisterInfo(307, "MotorHourDelta_MW", "WORD16", "Сколько часов осталось до ТО"),
+        RegisterInfo(308, "Technical_Reglament_TO1_Delta_MW", "WORD16", "До ТО осталось AT%MW307 часов"),
+        RegisterInfo(309, "Technical_Reglament_xWarrantyEnd_MW", "WORD16", "Грузовая лебедка отработала 750 м.ч."),
+
+        RegisterInfo(700, "HMI_HatchLimitSwitch_Status_MW", "WORD16", "Состояние конечного выключателя люка ОПУ"),
+        RegisterInfo(701, "HMI_LineContactorZeroPos_Alarm_MW", "WORD16", "Авария нулевой блокировки линейного контактора"),
+        RegisterInfo(702, "HMI_MicroclimateHeater_Fault_MW", "WORD16", "Авария обогрева технического помещения"),
+        RegisterInfo(703, "HMI_BrakePowerSupply_Fault_MW", "WORD16", "Авария питания тормозов"),
+        RegisterInfo(704, "HMI_VentilationPowerSupply_Fault_MW", "WORD16", "Авария питания вентиляции электродвигателей"),
+
+        RegisterInfo(705, "HMI_HoistJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма подъема"),
+        RegisterInfo(706, "HMI_SlewJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма поворота"),
+        RegisterInfo(707, "HMI_TrolleyJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма тележки"),
+        RegisterInfo(708, "HMI_TravelJoystick_Error_MW", "WORD16", "Ошибка джойстика механизма передвижения"),
+        RegisterInfo(709, "HMI_LoadMomentSensor_Alarm_MW", "WORD16", "Авария датчика критического грузового момента"),
+
+        RegisterInfo(710, "HMI_CraneReferencePointSensor_Fault_MW", "WORD16", "Сбой датчика реперной точки хода крана"),
+        RegisterInfo(711, "HMI_LoadCellSensor_Fault_MW", "WORD16", "Сбой датчика грузоподъемности"),
+        RegisterInfo(712, "HMI_AnemometerSensor_Fault_MW", "WORD16", "Сбой анемометра"),
+
+        RegisterInfo(713, "HMI_AbsCraneEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма передвижения"),
+        RegisterInfo(714, "HMI_AbsHoistEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма подъема"),
+        RegisterInfo(715, "HMI_AbsSlewEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма поворота"),
+        RegisterInfo(716, "HMI_AbsTrolleyEncoder_Fault_MW", "WORD16", "Сбой энкодера механизма тележки"),
+
+        RegisterInfo(717, "HMI_PhaseControlRelay_Fault_MW", "WORD16", "Авария реле контроля фаз"),
+        RegisterInfo(718, "HMI_PowerSupplyNetwork_Fault_MW", "WORD16", "Авария питающей сети"),
+
+        RegisterInfo(720, "HMI_HoistDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя подъема"),
+        RegisterInfo(721, "HMI_SlewDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя поворота"),
+        RegisterInfo(722, "HMI_TrolleyDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя тележки"),
+        RegisterInfo(723, "HMI_TravelDrive_Error_MW", "WORD16", "Ошибка частотного преобразователя передвижения"),
+
+        RegisterInfo(724, "HMI_HoistDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ подъема"),
+        RegisterInfo(725, "HMI_SlewDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ поворота"),
+        RegisterInfo(726, "HMI_TrolleyDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ тележки"),
+        RegisterInfo(727, "HMI_TravelDrivePower_Error_MW", "WORD16", "Отключение питания ПЧ передвижения"),
+
+        RegisterInfo(728, "HMI_CANopenSensors_Error_MW", "WORD16", "Авария сети CANopen (датчики)"),
+        RegisterInfo(729, "HMI_CANopenDrives_Error_MW", "WORD16", "Авария сети CANopen (частотные преобразователи)"),
+
+        RegisterInfo(730, "HMI_HoistEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера подъема"),
+        RegisterInfo(731, "HMI_SlewEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера поворота"),
+        RegisterInfo(732, "HMI_TrolleyEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера тележки"),
+        RegisterInfo(733, "HMI_TravelEncoder_MaxDeltaError_MW", "WORD16", "Превышение максимальной дельты энкодера передвижения"),
+
+        RegisterInfo(734, "HMI_HoistEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера подъема"),
+        RegisterInfo(735, "HMI_SlewEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера поворота"),
+        RegisterInfo(736, "HMI_TrolleyEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера тележки"),
+        RegisterInfo(737, "HMI_TravelEncoder_MaxValueError_MW", "WORD16", "Превышение максимального значения энкодера передвижения"),
+
+        RegisterInfo(738, "HMI_HoistDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя подъема"),
+        RegisterInfo(739, "HMI_SlewDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя поворота"),
+        RegisterInfo(740, "HMI_TrolleyDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя тележки"),
+        RegisterInfo(741, "HMI_TravelDrive_ErrorCode_MW", "WORD16", "Код ошибки частотного преобразователя передвижения"),
+
+        RegisterInfo(742, "HMI_HoistEncoder_Fault_MW", "WORD16", "Ошибка энкодера привода подъема"),
+        RegisterInfo(743, "HMI_SlewEncoder_Fault_MW", "WORD16", "Ошибка энкодера привода поворота"),
+        RegisterInfo(744, "HMI_TrolleyEncoder_Fault_MW", "WORD16", "Ошибка энкодера привода тележки")
+    )
+
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "UI_accident_and_waring_screen",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
+
+
+/**
+ * Конфигурация UI №12 (LoginScreen)
  * Регистры для работы с UI экрана начальные настройки
  */
 object UILoginConfiguration {
@@ -1468,7 +1571,7 @@ object UILoginConfiguration {
 
     fun createConfiguration(): RegisterConfiguration {
         return RegisterConfiguration(
-            name = "UI_Login_Configuration",
+            name = "UI_Login",
             jsonConfiguration = JSON_CONFIG,
             isActive = false
         )

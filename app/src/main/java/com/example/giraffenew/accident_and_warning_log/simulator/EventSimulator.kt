@@ -17,4 +17,5 @@ class EventSimulator(
                 delay(5000)
                 val regNum = registrationNumbers.random()
                 val isActive = random.nextBoolean()
-                handleStatusChange(regNum, isActive) } } } }
+                val eventTime = System.currentTimeMillis()
+                handleStatusChange(regNum, isActive, eventTime) } } } }

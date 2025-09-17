@@ -79,7 +79,6 @@ class HomeScreenViewModel @Inject constructor(
     // Запуск сбора данных
     fun startDataCollection() {
         dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
-        //if (dataCollectionJob?.isActive == true) return
 
         Log.d("HomeScreenVM", "Starting data collection for ${UiHomeScreenRegisterConfiguration.NAME_HOME}")
         dataCollectionJob = viewModelScope.launch(Dispatchers.IO) {

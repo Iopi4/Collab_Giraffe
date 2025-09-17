@@ -396,6 +396,7 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER, UIParameterLoggerConfiguration.REGISTERS)
         registerConfiguration(UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE, UITechnicalMaintenanceConfiguration.REGISTERS)
         registerConfiguration(UILoginConfiguration.NAME_LOGIN, UILoginConfiguration.REGISTERS)
+        registerConfiguration(UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING, UIAccidentAndWaringConfiguration.REGISTERS)
 
         // Запуск главного потока чтения
         startMainConfigurationReading()
@@ -467,6 +468,7 @@ class ModbusRepository @Inject constructor(
             UIParameterLoggerConfiguration.NAME_PARAMETER_LOGGER ->UIParameterLoggerConfiguration.REGISTERS
             UITechnicalMaintenanceConfiguration.NAME_TECHNICAL_MAINTENANCE -> UITechnicalMaintenanceConfiguration.REGISTERS
             UILoginConfiguration.NAME_LOGIN -> UILoginConfiguration.REGISTERS
+            UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING -> UIAccidentAndWaringConfiguration.REGISTERS
             else -> { Log.w(TAG, "Unknown configuration: $configName")
                 emptyList()}
         }

@@ -19,7 +19,9 @@ open class EventRepository
     //функция контроля изменения статуса
         open suspend fun handleStatusChange(
         registrationNumber: String,
-        isActive: Boolean)
+        isActive: Boolean,
+        eventTime: Long
+        )
     {
         try {
             if (isActive) {
@@ -40,7 +42,7 @@ open class EventRepository
                         type = definition.type,
                         description = definition.description,
                         isActive = true,
-                        timestamp = System.currentTimeMillis(),
+                        timestamp = eventTime,
                     )
                     dao.insert(event)
                 }
@@ -60,7 +62,7 @@ open class EventRepository
             Log.e("REGISTER_ERROR", "Error handling status for $registrationNumber", e)
 
         }
-        }
+    }
     //3. Методы получения данных
     open fun getActiveEvents(): Flow<List<EventEntity>> = dao.getActiveEvents()
     open fun getArchivedEvents(): Flow<List<EventEntity>> = dao.getArchivedEvents()
@@ -69,7 +71,8 @@ open class EventRepository
 
 //4. Метод очистки архива
     open suspend fun clearArchive() = dao.clearArchive() //Удаляет все архивные записи из базы данных
-    }
+
+}
 
 //Такой подход обеспечивает:
 //Отделение бизнес-логики от работы с данными

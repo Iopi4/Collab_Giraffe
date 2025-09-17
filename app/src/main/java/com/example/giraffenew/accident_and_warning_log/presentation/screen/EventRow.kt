@@ -18,8 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.giraffenew.accident_and_warning_log.domian.model.EventEntity
 import com.example.giraffenew.accident_and_warning_log.domian.model.EventType
+import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Silver
 import java.text.SimpleDateFormat
@@ -33,10 +35,13 @@ import java.util.Locale
 // - Отображение строки
 @Composable
 fun EventRow(event: EventEntity) {
-    val date = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        .format(Date(event.timestamp))
-    val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        .format(Date(event.timestamp))
+
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+
+    val date = dateFormat.format(Date(event.timestamp))
+    val time = timeFormat.format(Date(event.timestamp))
+
 
     val color = when (event.type) {
         EventType.ACCIDENT -> Color.Red.copy(alpha = 0.8f)
@@ -78,7 +83,7 @@ fun EventRow(event: EventEntity) {
             Text(modifier = Modifier.padding(start = 2.dp, end = 2.dp),
                 text = date,
                 color = textColor,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Medium)
         }
         //Столбец №2 отображения времени Аварии
@@ -86,7 +91,7 @@ fun EventRow(event: EventEntity) {
             Text(modifier = Modifier.padding(start = 2.dp, end = 2.dp),
                 text = time,
                 color = textColor,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Medium)
         }
         //Столбец №3 отображения текста Аварии
@@ -94,7 +99,7 @@ fun EventRow(event: EventEntity) {
             Text(modifier = Modifier.padding(start = 2.dp, end = 2.dp),
                 text = event.description,
                 color = textColor,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Medium)
         }
     }

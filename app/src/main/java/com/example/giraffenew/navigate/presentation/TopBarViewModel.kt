@@ -13,6 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.giraffenew.R
+import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventTimeProvider
+import java.util.Calendar
 
 /**
  * Затем будем собирать только изменения в этих регистрах. При этом важно, чтобы коллектор срабатывал только когда изменился хотя бы один из нужных регистров.
@@ -31,12 +33,16 @@ import com.example.giraffenew.R
 class TopBarViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository,
     private val craneIdRepository: CraneIdRepository,
-    private val soundController: SoundController
+    private val soundController: SoundController,
+    private val eventTimeProvider: EventTimeProvider,
 
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
-    private val _currentTime = mutableStateOf("00:00:00")
+    private val _currentTime = mutableStateOf("00:00")
     val currentTime: State<String> = _currentTime
+
+    private val _currentTimeEvents = mutableStateOf("00:00:00")
+    val currentTimeEvents: State<String> = _currentTimeEvents
 
     private val _currentDate = mutableStateOf("00:00:0000")
     val currentDate: State<String> = _currentDate
@@ -59,7 +65,7 @@ class TopBarViewModel @Inject constructor(
     private val _serviceMode = mutableStateOf(0)
     val serviceMode: State<Int> = _serviceMode
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 150, 190, 191, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
@@ -82,6 +88,7 @@ class TopBarViewModel @Inject constructor(
 
                         // Обновляем данные на основе отфильтрованного кэша
                         updateTime(currentValues)
+                        updateTimeEvents(currentValues)
                         updateDate(currentValues)
                         updateModelCrane(currentValues)
                         updatePulleyBlock(currentValues)
@@ -115,6 +122,7 @@ class TopBarViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
+        // Убрать вызов soundController.release()
         soundController.release()
     }
     // Функция для проверки изменений в relevant регистрах
@@ -123,10 +131,36 @@ class TopBarViewModel @Inject constructor(
             currentValues[address] != previousValues[address]
         }
     }
+
     private fun updateTime(cache: Map<Int, Int?>) {
         val hour = cache[95] ?: return
         val minute = cache[98] ?: return
         _currentTime.value = String.format("%02d:%02d", hour, minute)
+    }
+    private fun updateTimeEvents(cache: Map<Int, Int?>) {
+        val year = cache[90] ?: return
+        val month = cache[91] ?: return
+        val day = cache[94] ?: return
+        val hour = cache[95] ?: return
+        val minute = cache[98] ?: return
+        val second = cache[99] ?: return
+
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month - 1)
+            set(Calendar.DAY_OF_MONTH, day)
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
+            set(Calendar.SECOND, second)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        val timeInMillis = calendar.timeInMillis
+        _currentTimeEvents.value = String.format(
+            "%02d.%02d.%04d.%02d:%02d:%02d", day, month, year, hour, minute, second
+        )
+
+        eventTimeProvider.updateEventTime(timeInMillis)
     }
 
     private fun updateDate(cache: Map<Int, Int?>) {
@@ -166,8 +200,8 @@ class TopBarViewModel @Inject constructor(
     }
 
     private fun updateStatusMode(cache: Map<Int, Int?>) {
-        val buildMode = cache[190] ?: return
-        val serviceMode = cache[191] ?: return
+        val buildMode = cache[190] ?: 0
+        val serviceMode = cache[191] ?: 0
         _buildMode.value = buildMode
         _serviceMode.value = serviceMode
 

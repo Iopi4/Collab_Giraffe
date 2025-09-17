@@ -55,7 +55,11 @@ object AppModule {
     }
 
 
-
+    @Provides
+    @Singleton
+    fun provideJsonDataSource(@ApplicationContext context: Context): JsonDataSource {
+        return JsonDataSource(context)
+    }
 
     @Provides
     @Singleton
