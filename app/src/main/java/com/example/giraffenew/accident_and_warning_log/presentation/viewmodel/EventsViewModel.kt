@@ -61,22 +61,15 @@ open class EventsViewModel
     private val previousRegisterStates = mutableMapOf<Int, Int>()
 
 
-    fun setActiveConfiguration() {
-        modbusRepository.setActiveUiConfiguration(UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING)
+    init {
         startEventsCollection()
     }
 
-    fun clearActiveConfiguration() {
-        pauseEventsCollection()
-        modbusRepository.setActiveUiConfiguration(null)
-    }
-
     // Запуск сбора данных
-    fun startEventsCollection() {
-        dataCollectionJob?.cancel() // Всегда отменяем предыдущую job
-
-        Log.d("AccidentАndWarningVM", "Starting data collection for ${UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING}")
-        dataCollectionJob = viewModelScope.launch(Dispatchers.IO) {
+    private fun startEventsCollection() {
+        viewModelScope.launch {
+            Log.d("AccidentАndWarningVM", "Starting data collection for ${UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING}"
+            )
             modbusRepository.getConfigurationFlow(UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING)
                 .collect { cache ->
                     // Обработка данных
@@ -327,12 +320,4 @@ open class EventsViewModel
         clearArchive //вызывает use case для очистки архива
     }
 
-    // Приостановка сбора данных
-    fun pauseEventsCollection() {
-        Log.d("AccidentАndWarningVM", "Pausing data collection")
-        dataCollectionJob?.cancel()
-        dataCollectionJob = null
-        // Очищаем предыдущие статусы при остановке?
-        // previousStatuses.clear()
-    }
 }

@@ -84,30 +84,30 @@ fun CraneMechanismsCondition(
                     .padding(horizontal = 5.dp, vertical = 10.dp)
                     .fillMaxSize())
         }
-//Тележка. Состояние
+//Подъем. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
-            { BasicLampMechanismsCondition(isLampStatus = trolleyRevStatus)}
+                .padding(top = 25.dp, start = 9.dp)
+                .size(height = 55.dp, width = 18.dp))
+            { BasicLampMechanismsCondition(isLampStatus = hoistDownStatus,)}
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
-            { BasicLampMechanismsCondition(isLampStatus = trolleyFwdStatus)}
+                .padding(top = 25.dp, start = 71.dp)
+                .size(height = 55.dp, width = 18.dp))
+            { BasicLampMechanismsCondition(isLampStatus = hoistUpStatus,)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = trolleyRev, isVisibility =trolleyRev ) }
+                .padding(top = 25.dp, start = 9.dp)
+                .size(height = 55.dp, width = 18.dp))
+            { BasicLampMechanismsPoligon(isLampStatus = hoistDown, isVisibility = hoistDown)}
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = trolleyFwd, isVisibility =trolleyFwd )}
+                .padding(top = 25.dp, start = 71.dp)
+                .size(height = 55.dp, width = 18.dp))
+            { BasicLampMechanismsPoligon(isLampStatus = hoistUp, isVisibility = hoistUp)}
 
             Image (
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_cargo_trolley),
-                contentDescription = "Тележка",
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_hook_suspension),
+                contentDescription = "Подъем",
                 modifier = Modifier
                     .padding(horizontal = 10.dp, vertical = 10.dp)
                     .fillMaxSize())
@@ -140,34 +140,36 @@ fun CraneMechanismsCondition(
                     .padding(horizontal = 10.dp, vertical = 10.dp)
                     .fillMaxSize())
         }
-//Подъем. Состояние
+
+//Тележка. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 9.dp)
-                .size(height = 55.dp, width = 18.dp))
-            { BasicLampMechanismsCondition(isLampStatus = hoistDownStatus,)}
+                .padding(top = 15.dp, start = 10.dp)
+                .size(height = 20.dp, width = 36.dp))
+            { BasicLampMechanismsCondition(isLampStatus = trolleyRevStatus)}
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 71.dp)
-                .size(height = 55.dp, width = 18.dp))
-            { BasicLampMechanismsCondition(isLampStatus = hoistUpStatus,)}
+                .padding(top = 15.dp, start = 52.dp)
+                .size(height = 20.dp, width = 36.dp))
+            { BasicLampMechanismsCondition(isLampStatus = trolleyFwdStatus)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 9.dp)
-                .size(height = 55.dp, width = 18.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = hoistDown, isVisibility = hoistDown)}
+                .padding(top = 15.dp, start = 10.dp)
+                .size(height = 20.dp, width = 36.dp))
+            { BasicLampMechanismsPoligon(isLampStatus = trolleyRev, isVisibility =trolleyRev ) }
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 71.dp)
-                .size(height = 55.dp, width = 18.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = hoistUp, isVisibility = hoistUp)}
+                .padding(top = 15.dp, start = 52.dp)
+                .size(height = 20.dp, width = 36.dp))
+            { BasicLampMechanismsPoligon(isLampStatus = trolleyFwd, isVisibility =trolleyFwd )}
 
             Image (
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_hook_suspension),
-                contentDescription = "Подъем",
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_cargo_trolley),
+                contentDescription = "Тележка",
                 modifier = Modifier
                     .padding(horizontal = 10.dp, vertical = 10.dp)
                     .fillMaxSize())
         }
+
 //Ход крана. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)

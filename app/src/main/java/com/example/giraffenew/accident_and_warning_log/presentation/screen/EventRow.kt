@@ -18,10 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.giraffenew.accident_and_warning_log.domian.model.EventEntity
 import com.example.giraffenew.accident_and_warning_log.domian.model.EventType
-import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Silver
 import java.text.SimpleDateFormat

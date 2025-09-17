@@ -4,8 +4,7 @@
 
   {"registrationNumber": "186", "type": "ACCIDENT", "description": "Превышена грузоподъемность более 105%"},
   {"registrationNumber": "187", "type": "ACCIDENT", "description": "Превышена грузоподъемность более 110%"},
-  {"registrationNumber": "188", "type": "ACCIDENT", "description": "Датчик критического момента. Превышение грузоподъемности"},
-  {"registrationNumber": "189", "type": "WARNING", "description": "Износ тормоза привода главного подъема"},
+  {"registrationNumber": "189", "type": "ACCIDENT", "description": "Износ тормоза привода главного подъема"},
 
   {"registrationNumber": "244", "type": "WARNING", "description": "Не верная ГХ"},
   {"registrationNumber": "245", "type": "WARNING", "description": "Ошибка выбора кратности запасовки"},
@@ -45,7 +44,7 @@
   {"registrationNumber": "727", "type": "ACCIDENT", "description": "Отключение от СБКБ сигнала PWR ПЧ хода крана"},
 
   {"registrationNumber": "728", "type": "ACCIDENT", "description": "Аавария готовности в сети CANopen. Датчики"},
-  {"registrationNumber": "729", "type": "ACCIDENT", "description": "Аавария готовности в сети CANopen. ПЧ"},
+  {"registrationNumber": "729", "type": "ACCIDENT", "description": "Аавария готовности в сети CANopen. Преоброват. частоты"},
 
   {"registrationNumber": "730", "type": "ACCIDENT", "description": "Сбой датчика подъема. Макс. дельта"},
   {"registrationNumber": "731", "type": "ACCIDENT", "description": "Сбой датчика поворота. Макс. дельта"},

@@ -43,8 +43,8 @@ fun СraneOperatingParameters(
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
-            title = stringResource(R.string.Home_Trolley),
-            valueFirst = formatDecimal(trolleyCurrent),
+            title = stringResource(R.string.Home_Height),
+            valueFirst = formatDecimalMinus(heightCurrent),
             valueSecond = ""
         ) }
 
@@ -57,10 +57,11 @@ fun СraneOperatingParameters(
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,
-            title = stringResource(R.string.Home_Height),
-            valueFirst = formatDecimalMinus(heightCurrent),
+            title = stringResource(R.string.Home_Trolley),
+            valueFirst = formatDecimal(trolleyCurrent),
             valueSecond = ""
         ) }
+
 
         Box (myBoxParametersModifier) { ParameterMeaning(
             modifier = Modifier,

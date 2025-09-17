@@ -12,6 +12,7 @@ import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
 import com.example.giraffenew.data.entities.ModbusLog
 import com.example.giraffenew.data.entities.RegisterConfiguration
 import com.example.giraffenew.data.entities.RegistersConfigurations
+import com.example.giraffenew.data.entities.UIAccidentAndWaringConfiguration
 
 /**
  * Room Database для хранения конфигурации и логов системы Modbus
@@ -164,11 +165,17 @@ object DatabaseInitializer {
             configurations.forEach { config ->
                 configDao.insert(config)
                     // Активируем главную конфигурацию
-                    val mainConfig =
-                        configDao.getConfigurationByName(TopBarRegisterConfiguration.NAME_TOP_BAR)
-                    mainConfig?.let {
-                        configDao.setActiveConfiguration(it.id)
-                    }
+                val mainConfig =
+                    configDao.getConfigurationByName(TopBarRegisterConfiguration.NAME_TOP_BAR)
+                mainConfig?.let {
+                    configDao.setActiveConfiguration(it.id)
+                }
+                val mainConfig2 =
+                    configDao.getConfigurationByName(UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING)
+                mainConfig2?.let {
+                    configDao.setActiveConfiguration(it.id)
+                }
+
             }
             // Логируем инициализацию
             val initLog = ModbusLog(

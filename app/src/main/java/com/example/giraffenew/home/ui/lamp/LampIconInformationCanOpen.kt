@@ -31,9 +31,9 @@ fun LampIconInformationCanOpen(
     {
         // Анимируем цвет с периодичностью 500 мс
         val targetColor = when (isLampIconStatus) {
-            0 -> Color.Red
-            1 -> Color.DarkGray
-            else -> Color.Red
+            0 -> Color.DarkGray
+            1 -> Color.Red
+            else -> Color.DarkGray
         }
 
 // Анимируем цвет с периодичностью 500 мс

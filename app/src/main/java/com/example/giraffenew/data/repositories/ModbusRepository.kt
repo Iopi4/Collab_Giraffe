@@ -416,6 +416,7 @@ class ModbusRepository @Inject constructor(
             while (isActive) {
                 val startTime = System.currentTimeMillis()
                 readConfigurationRegisters(TopBarRegisterConfiguration.NAME_TOP_BAR)
+                readConfigurationRegisters(UIAccidentAndWaringConfiguration.NAME_ACCIDENT_AND_WARING)
                 val elapsed = System.currentTimeMillis() - startTime
                 delay(maxOf(0, 500 - elapsed)) // Точный интервал 0,5 секунды
             }

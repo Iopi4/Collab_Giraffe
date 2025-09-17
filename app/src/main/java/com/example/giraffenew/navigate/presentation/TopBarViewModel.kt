@@ -84,7 +84,6 @@ class TopBarViewModel @Inject constructor(
                     }
                     // Проверяем, изменились ли значения целевых регистров
                     if (haveRelevantRegistersChanged(currentValues)) {
-                        Log.d("TopBarViewModel", "Relevant registers changed: $currentValues")
 
                         // Обновляем данные на основе отфильтрованного кэша
                         updateTime(currentValues)

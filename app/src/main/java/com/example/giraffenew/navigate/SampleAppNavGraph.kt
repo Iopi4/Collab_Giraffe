@@ -59,8 +59,6 @@ import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapa
 import com.example.giraffenew.setting_rotation.SettingRotationScreen
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
-import androidx.compose.material.icons.Icons.Default
-import androidx.compose.material.icons.filled.Lock
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -610,8 +610,8 @@
 
 
     <!-- Текст экрана AccidentWarningLogScreen' -->
-    <string name="Alarm_ActiveEvents">Текущие</string>
-    <string name="Alarm_ArchiveEvents">Архив</string>
+    <string name="Alarm_ActiveEvents">ТЕКУЩИЕ СОБЫТИЯ</string>
+    <string name="Alarm_ArchiveEvents">АРХИВНЫЕ СОБЫТИЯ</string>
 
     <!-- Перезаписаны в events.JSON -->
     <string name="Warning_HMI_ALARMS.HMI_Crane_Config_Warning">Ход крана не настроен</string>
