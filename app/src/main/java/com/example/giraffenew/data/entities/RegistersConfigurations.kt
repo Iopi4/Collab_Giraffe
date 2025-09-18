@@ -64,8 +64,10 @@ object TopBarRegisterConfiguration {
         RegisterInfo(98, "gv_wMinute_MW", "WORD16", "Минуты"),
         RegisterInfo(99, "gv_wSeconds_MW", "WORD16", "Секунды"),
         RegisterInfo(150, "Crane_No_MW", "WORD16", "Заводской номер крана"),
+        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
+        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
+        RegisterInfo(192, "Montage_Mode_MW", "WORD16", "Флаг режима монтаж"),
         RegisterInfo(193, "Curr_Gruz_Zapas_MW", "WORD16", "выбор кратности запасовки, =TRUE -4х кратная, =FALSE -2х кратная"),
-        RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(194, "Curr_Gruz_Fun_MW", "WORD16", "Текущая выбранная грузовая характеристика"),
         RegisterInfo(367, "HMI_CraneSerialNumber_MW", "WORD16", "Заводской номер крана"),
         RegisterInfo(278, "Beeper_Weight_MW", "WORD16", "Пищалка HMI.Превышение ГП больше 90%"),
@@ -74,9 +76,7 @@ object TopBarRegisterConfiguration {
         RegisterInfo(281, "Beeper_OGP_MW", "WORD16", "Пищалка HMI. ОГП "),
         RegisterInfo(282, "Beeper_STOP_MW", "WORD16", "Пищалка HMI.Стой "),
 
-        RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
-        RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
-
+        RegisterInfo(893, "HMI_Write_HMI_Active_MW", "WORD16", "Флаг режима активности HMI"),
 
     )
 
@@ -742,6 +742,7 @@ object UISettingSensorsConfiguration {
 
         //Параметры настройки датчика подъема
         RegisterInfo(803, "HMI_Write_xHoist_Limit_En_MW", "WORD16", "Включить проверку ограничения подъемного мех. крюка"),
+        RegisterInfo(1623, "HMI_Hoist_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
         RegisterInfo(804, "HMI_Write_xHoist_Fwd_Mem_MW", "WORD16", "Запомнить положение по высоте при движении вверх"),
         RegisterInfo(805, "HMI_Write_xHoist_Rev_Mem_MW", "WORD16", "Запомнить положение по высоте при движении вниз"),
 
@@ -756,6 +757,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(813, "HMI_Write_rHoist_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
         //Параметры настройки датчика поворота
         RegisterInfo(814, "HMI_Write_xSlew_Limit_En_MW", "WORD16", "Включение принудительной проверки механизма поворота в наладочном режиме"),
+        RegisterInfo(1648, "HMI_Slew_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
         RegisterInfo(815, "HMI_Write_rMax_Slew_Angle_MW", "WORD16", "Максимальный угол поворота, устанавливается с HMI"),
         RegisterInfo(816, "HMI_Write_rCalc_Angle_MW", "WORD16", "Задаваемое значение угла при калибровке энкодера поворота"),
         RegisterInfo(817, "HMI_Write_xSlew_Zero_Mem_MW", "WORD16", "Запомнить положение стрелы при нулевом угле"),
@@ -766,6 +768,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(822, "HMI_Write_rSlew_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
         //Параметры настройки датчика тележки
         RegisterInfo(823, "HMI_Write_xTrolley_Limit_En_MW", "WORD16", "Включить ограничения перемещения тележки"),
+        RegisterInfo(1699, "HMI_Trolley_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
         RegisterInfo(824, "HMI_Write_xTrolley_Fwd_Mem_MW", "WORD16", "Запомнить положение тележки при движении вперед"),
         RegisterInfo(825, "HMI_Write_xTrolley_Rev_Mem_MW", "WORD16", "Запомнить положение тележки при движении назад"),
 
@@ -781,6 +784,7 @@ object UISettingSensorsConfiguration {
         //Параметры настройки датчика хода крана
         RegisterInfo(869, "HMI_Write_xCrane_Rails_En_MW", "WORD16", "Активация хода крана. 1 - Ход крана активирован"),
         RegisterInfo(834, "HMI_Write_xCrane_Limit_En_MW", "WORD16", "Включить ограничения перемещения хода крана"),
+        RegisterInfo(1738, "HMI_Crane_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
         RegisterInfo(835, "HMI_Write_rCrane_Pos_CTRL_Point_MW", "WORD16", "Значение передвижения крана в контрольной точке"),
         RegisterInfo(836, "HMI_Write_xCrane_Fwd_Mem_MW", "WORD16", "Запомнить положение крана при движении вправо"),
         RegisterInfo(837, "HMI_Write_xCrane_Rev_Mem_MW", "WORD16", "Запомнить положение крана при движении влево"),
@@ -821,7 +825,8 @@ object UISettingSensorsConfiguration {
         RegisterInfo(205, "Slew_AbsEnc_Err_MW", "WORD16", "Сбой датчика поворота"),
         RegisterInfo(206, "Trolley_AbsEnc_Err_MW", "WORD16", "Сбой датчика вылета"),
         RegisterInfo(207, "Crane_AbsEnc_Err_MW", "WORD16", "Сбой датчика перемещения крана")
-        )
+
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1155,7 +1160,89 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(964, "HMI_Write_rTrolley_Acc_MW", "WORD16", "Время разгона тележки, сек"),
         RegisterInfo(965, "HMI_Write_rTrolley_Dec_MW", "WORD16", "Время торможения тележки, сек"),
         RegisterInfo(966, "HMI_Write_wTrolleyLsp_MW", "WORD16", "Пониженная скорость тележки"),
-        RegisterInfo(967, "HMI_Write_rTrolleyOverspd_MW", "WORD16", "Значение веса груза при превышении которого запрещена сверхсинхронная работа тележки")
+        RegisterInfo(967, "HMI_Write_rTrolleyOverspd_MW", "WORD16", "Значение веса груза при превышении которого запрещена сверхсинхронная работа тележки"),
+
+
+        RegisterInfo(1610, "HMI_wSpdRefButton_Hoist", "WORD16", "Пониженая скорость подъема"),
+        RegisterInfo(1611, "HMI_wSpdRef1_Hoist", "WORD16", "1-ая скорость подъема об/мин"),
+        RegisterInfo(1612, "HMI_wSpdRef2_Hoist", "WORD16", "2-ая скорость подъема об/мин"),
+        RegisterInfo(1613, "HMI_wSpdRef3_Hoist", "WORD16", "3-я скорость подъема об/мин"),
+        RegisterInfo(1614, "HMI_wSpdRef4_Hoist", "WORD16", "4-ая скорость подъема об/мин"),
+        RegisterInfo(1615, "HMI_iSpdRef_MAX_Value", "WORD16", "Сверхсинхронная скорость об/мин"),
+        RegisterInfo(1616, "HMI_wSpdNom_Hoist", "WORD16", "Номинальная скорость ЭД подъема об/мин"),
+        RegisterInfo(1617, "HMI_rHoist_Acc", "WORD16", "Время разгона, сек"),
+        RegisterInfo(1618, "HMI_rHoist_Dec", "WORD16", "Время торможения, сек"),
+
+        RegisterInfo(1619, "HMI_wSpdRef1Strela_Hoist", "WORD16", "1-ая скорость с монтажного пульта"),
+        RegisterInfo(1620, "HMI_wSpdRef2Strela_Hoist", "WORD16", "2-ая скорость с монтажного пульта"),
+        RegisterInfo(1621, "HMI_rStrela_Acc_Hoist", "WORD16", "Ускорение с монтажного пульта, сек"),
+        RegisterInfo(1622, "HMI_rStrela_Dec_Hoist", "WORD16", "Замедление с монтажного пульта, сек"),
+
+        RegisterInfo(1623, "HMI_Hoist_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
+        RegisterInfo(1624, "HMI_LspAuto_Stat_Hoist_MW", "WORD16", "Статус автоматического снижения скорости"),
+        RegisterInfo(1625, "HMI_LspDist3_Hoist_MW", "WORD16", "Дистанция снижения до 3 скорости, м"),
+        RegisterInfo(1626, "HMI_LspDist2_Hoist_MW", "WORD16", "Дистанция снижения до 2 скорости, м"),
+        RegisterInfo(1627, "HMI_LspDist1_Hoist_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
+        RegisterInfo(1628, "HMI_ZoneAcc_Hoist_MW", "WORD16", "Зона регулирования ускорения подъема"),
+        RegisterInfo(1629, "HMI_ZoneDec_Hoist_MW", "WORD16", "Зона регулирования замедления подъема"),
+
+        RegisterInfo(1640, "HMI_wSpdRefLou_Slew", "WORD16", "Пониженая скорость поворота"),
+        RegisterInfo(1641, "HMI_wSpdRef1_Slew", "WORD16", "1-ая скорость поворота об/мин"),
+        RegisterInfo(1642, "HMI_wSpdRef2_Slew", "WORD16", "2-ая скорость поворота об/мин"),
+        RegisterInfo(1643, "HMI_wSpdRef3_Slew", "WORD16", "3-я скорость поворота об/мин"),
+        RegisterInfo(1644, "HMI_wSpdRef4_Slew", "WORD16", "4-ая скорость поворота об/мин"),
+        RegisterInfo(1645, "HMI_wSpdNom_Slew", "WORD16", "Номинальная скорость ЭД поворота об/мин"),
+        RegisterInfo(1646, "HMI_iSlew_Acc", "WORD16", "Время разгона, сек"),
+        RegisterInfo(1647, "HMI_iSlew_Dec", "WORD16", "Время торможения, сек"),
+
+        RegisterInfo(1648, "HMI_Slew_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
+        RegisterInfo(1649, "HMI_LspAuto_Stat_Slew_MW", "WORD16", "Статус автоматического снижения скорости"),
+        RegisterInfo(1650, "HMI_LspDist3_Slew_MW", "WORD16", "Дистанция снижения до 3 скорости, м"),
+        RegisterInfo(1651, "HMI_LspDist2_Slew_MW", "WORD16", "Дистанция снижения до 2 скорости, м"),
+        RegisterInfo(1652, "HMI_LspDist1_Slew_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
+        RegisterInfo(1653, "HMI_ZoneAcc_Slew_MW", "WORD16", "Зона регулирования ускорения поворота"),
+        RegisterInfo(1654, "HMI_ZoneDec_Slew_MW", "WORD16", "Зона регулирования замедления поворота"),
+
+        RegisterInfo(1655, "HMI_Slew_Dec_Revers", "WORD16", "Время торможения противовключением"),
+        RegisterInfo(1656, "HMI_Slew_DelayTimeBrake", "WORD16", "Время задержки наложения тормоза"),
+        RegisterInfo(1657, "HMI_iSlew_BrakeCloseFrq", "WORD16", "Частота удержания"),
+
+
+        RegisterInfo(1690, "HMI_wSpdRefLou_Trolley", "WORD16", "Пониженая скорость тележки"),
+        RegisterInfo(1691, "HMI_wSpdRef1_Trolley", "WORD16", "1-ая скорость тележки об/мин"),
+        RegisterInfo(1692, "HMI_wSpdRef2_Trolley", "WORD16", "2-ая скорость тележки об/мин"),
+        RegisterInfo(1693, "HMI_wSpdRef3_Trolley", "WORD16", "3-я скорость тележки об/мин"),
+        RegisterInfo(1694, "HMI_wSpdRef4_Trolley", "WORD16", "4-ая скорость тележки об/мин"),
+        RegisterInfo(1695, "HMI_wSpdNom_Trolley", "WORD16", "Номинальная скорость ЭД тележки об/мин"),
+        RegisterInfo(1696, "HMI_rTrolleyOverspd", "WORD16", "Масса груза выше которой запрешена повышенная скорость тележки"),
+        RegisterInfo(1697, "HMI_rTrolley_Acc", "WORD16", "Время разгона, сек"),
+        RegisterInfo(1698, "HMI_rTrolley_Dec", "WORD16", "Время торможения, сек"),
+
+        RegisterInfo(1699, "HMI_Trolley_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
+        RegisterInfo(1700, "HMI_LspAuto_Stat_Trolley_MW", "WORD16", "Статус автоматического снижения скорости"),
+        RegisterInfo(1701, "HMI_LspDist3_Trolley_MW", "WORD16", "Дистанция снижения до 3 скорости, м"),
+        RegisterInfo(1702, "HMI_LspDist2_Trolley_MW", "WORD16", "Дистанция снижения до 2 скорости, м"),
+        RegisterInfo(1703, "HMI_LspDist1_Trolley_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
+        RegisterInfo(1704, "HMI_ZoneAcc_Trolley_MW", "WORD16", "Зона регулирования ускорения тележки"),
+        RegisterInfo(1705, "HMI_ZoneDec_Trolley_MW", "WORD16", "Зона регулирования замедления тележки"),
+
+        RegisterInfo(1730, "HMI_wSpdRefLou_Crane", "WORD16", "Пониженая скорость хода крана"),
+        RegisterInfo(1731, "HMI_wSpdRef1_Crane", "WORD16", "1-ая скорость хода крана об/мин"),
+        RegisterInfo(1732, "HMI_wSpdRef2_Crane", "WORD16", "2-ая скорость хода крана об/мин"),
+        RegisterInfo(1733, "HMI_wSpdRef3_Crane", "WORD16", "3-я скорость хода крана об/мин"),
+        RegisterInfo(1734, "HMI_wSpdRef4_Crane", "WORD16", "4-ая скорость хода крана об/мин"),
+        RegisterInfo(1735, "HMI_wSpdNom_Crane", "WORD16", "Номинальная скорость ЭД хода крана об/мин"),
+        RegisterInfo(1736, "HMI_rCrane_Acc", "WORD16", "Время разгона, сек"),
+        RegisterInfo(1737, "HMI_rCrane_Dec", "WORD16", "Время торможения, сек"),
+
+        RegisterInfo(1738, "HMI_Crane_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
+        RegisterInfo(1739, "HMI_LspAuto_Stat_Crane_MW", "WORD16", "Статус автоматического снижения скорости"),
+        RegisterInfo(1740, "HMI_LspDist3_Crane_MW", "WORD16", "Дистанция снижения до 3 скорости, м"),
+        RegisterInfo(1741, "HMI_LspDist2_Crane_MW", "WORD16", "Дистанция снижения до 2 скорости, м"),
+        RegisterInfo(1742, "HMI_LspDist1_Crane_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
+        RegisterInfo(1743, "HMI_ZoneAcc_Crane_MW", "WORD16", "Зона регулирования ускорения крана"),
+        RegisterInfo(1744, "HMI_ZoneDec_Crane_MW", "WORD16", "Зона регулирования замедления крана"),
+
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

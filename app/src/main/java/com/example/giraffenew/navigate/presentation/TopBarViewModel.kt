@@ -1,8 +1,12 @@
 package com.example.giraffenew.navigate.presentation
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.core.sound.SoundController
@@ -14,6 +18,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.giraffenew.R
 import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventTimeProvider
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.util.Calendar
 
 /**
@@ -35,9 +42,19 @@ class TopBarViewModel @Inject constructor(
     private val craneIdRepository: CraneIdRepository,
     private val soundController: SoundController,
     private val eventTimeProvider: EventTimeProvider,
+    private val application: Application,
 
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
+
+    private val _appActiveState = mutableStateOf(true)
+    private var lastAppState: Boolean? = null
+    private val mutex = Mutex()
+
+
+
+
+
     private val _currentTime = mutableStateOf("00:00")
     val currentTime: State<String> = _currentTime
 
@@ -75,6 +92,7 @@ class TopBarViewModel @Inject constructor(
 
     init {
         startDataCollection()
+        setupAppStateMonitoring()
     }
 
     private fun startDataCollection() {
@@ -133,6 +151,37 @@ class TopBarViewModel @Inject constructor(
             currentValues[address] != previousValues[address]
         }
     }
+
+    private fun setupAppStateMonitoring() {
+        val lifecycleObserver = object : DefaultLifecycleObserver {
+            override fun onResume(owner: LifecycleOwner) {
+                updateAppState(true)
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                updateAppState(false)
+            }
+        }
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+    }
+
+    private fun updateAppState(isActive: Boolean) {
+        viewModelScope.launch {
+            mutex.withLock {
+                if (lastAppState != isActive) {
+                    try {
+                        delay(3000)
+                        modbusRepository.writeRegister(893, if (isActive) 1 else 0)
+                        lastAppState = isActive
+                        _appActiveState.value = isActive
+                    } catch (e: Exception) {
+                        Log.e("TopBarViewModel", "Error writing to register 893", e)
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun updateTime(cache: Map<Int, Int?>) {
         val hour = cache[95] ?: return
@@ -218,7 +267,6 @@ class TopBarViewModel @Inject constructor(
     fun playInactiveButtonSound() {
         soundController.playSoundOnce(R.raw.beep_sound_neaktive_knopka_half_life)
     }
-
 }
 
 /**

@@ -42,6 +42,8 @@ fun CalibrationSensorCrane(
     currentCranePosition: Float,
 
     onSetCraneLimitTestEn : () -> Unit,
+    craneLimitStatus :Int,
+
     onSetCraneRailsEn : () -> Unit,
     currentCraneRailsEn: Int,
 
@@ -170,7 +172,7 @@ fun CalibrationSensorCrane(
             // Кнопка включения проверки защит
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetCraneLimitTestEn,
-                isLampStatus = 0
+                isLampStatus = craneLimitStatus
             )
 
             // Отображение кнопок ввода защит и статуса
@@ -374,6 +376,7 @@ fun CalibrationSensorCranePreview () {
             currentCranePosition = 1f,
 
             onSetCraneLimitTestEn = { },
+            craneLimitStatus = 1,
             onSetCraneRailsEn = { },
             currentCraneRailsEn = 1,
 

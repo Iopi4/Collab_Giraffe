@@ -24,6 +24,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
+import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -33,10 +34,26 @@ fun ServiceHoist(
     setValueHoistACC: String,
     onModelChangeHoistACC: (String) -> Unit,
     onSetHoistACC: () -> Unit,
+    hmiHoistACC: Float,
 
     setValueHoistDEC: String,
     onModelChangeHoistDEC: (String) -> Unit,
     onSetHoistDEC: () -> Unit,
+    hmiHoistDEC: Float,
+
+    hmiSpdRefButtonHoist:    Int,
+    hmiSpdRef1Hoist:    Int,
+    hmiSpdRef2Hoist:    Int,
+    hmiSpdRef3Hoist:    Int,
+    hmiSpdRef4Hoist:    Int,
+    hmiSpdRefMAXHoist:    Int,
+    hmiSpdRefNomHoist:    Int,
+
+    hmiSpdRef1HoistMontage:    Int,
+    hmiSpdRef2HoistMontage:    Int,
+    hmiHoistACCMontage:    Float,
+    hmiHoistDECMontage:    Float,
+
 
     setValueHoistSpdRef1: String,
     onModelChangeHoistSpdRef1: (String) -> Unit,
@@ -145,7 +162,7 @@ fun ServiceHoist(
             }
 //Ввод. Разгон. сек
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiHoistACC),
                 value = setValueHoistACC,
                 onValueChange = onModelChangeHoistACC,
                 onClick = onSetHoistACC,
@@ -153,7 +170,7 @@ fun ServiceHoist(
             )
 //Ввод. Торможение. сек
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiHoistDEC),
                 value = setValueHoistDEC,
                 onValueChange = onModelChangeHoistDEC,
                 onClick = onSetHoistDEC,
@@ -161,7 +178,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 1. об/мин
             BasicInputRowandButton(
-                placeholder = "250",
+                placeholder = format(hmiSpdRef1Hoist),
                 value = setValueHoistSpdRef1,
                 valueMin = 0,
                 valueMax = 9999,
@@ -170,7 +187,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 2. об/мин
             BasicInputRowandButton(
-                placeholder = "450",
+                placeholder = format(hmiSpdRef2Hoist),
                 value = setValueHoistSpdRef2,
                 valueMin = 0,
                 valueMax = 9999,
@@ -179,7 +196,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 3. об/мин
             BasicInputRowandButton(
-                placeholder = "900",
+                placeholder = format(hmiSpdRef3Hoist),
                 value = setValueHoistSpdRef3,
                 valueMin = 0,
                 valueMax = 9999,
@@ -188,7 +205,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 4. об/мин
             BasicInputRowandButton(
-                placeholder = "1500",
+                placeholder = format(hmiSpdRef4Hoist),
                 value = setValueHoistSpdRef4,
                 valueMin = 0,
                 valueMax = 9999,
@@ -197,7 +214,7 @@ fun ServiceHoist(
             )
 //Ввод. Сверх.синхр. скорость, об/мин
             BasicInputRowandButton(
-                placeholder = "3000",
+                placeholder = format(hmiSpdRefMAXHoist),
                 value = setValueHoistSpdRefMax,
                 valueMin = 0,
                 valueMax = 9999,
@@ -206,7 +223,7 @@ fun ServiceHoist(
             )
 //Ввод. Медленная скорость при нажатии кнопки, об/мин
             BasicInputRowandButton(
-                placeholder = "90",
+                placeholder = format(hmiSpdRefButtonHoist),
                 valueMin = 0,
                 valueMax = 999,
                 value = setValueHoistSpdRefButton,
@@ -220,7 +237,7 @@ fun ServiceHoist(
 //Настройка скоростей и ускорения в монтажном режиме для подъема
 //Ввод. Разгон. сек
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiHoistACCMontage),
                 value = setValueHoistMontageACC,
                 onValueChange = onModelChangeHoistMontageACC,
                 onClick = onSetHoistMontageACC,
@@ -228,7 +245,7 @@ fun ServiceHoist(
             )
 //Ввод. Торможение. сек
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiHoistDECMontage),
                 value = setValueHoistMontageDEC,
                 onValueChange = onModelChangeHoistMontageDEC,
                 onClick = onSetHoistMontageDEC,
@@ -236,7 +253,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 1. об/мин
             BasicInputRowandButton(
-                placeholder = "250",
+                placeholder = format(hmiSpdRef1HoistMontage),
                 value = setValueHoistMontageSpdRef1,
                 valueMin = 0,
                 valueMax = 9999,
@@ -245,7 +262,7 @@ fun ServiceHoist(
             )
 //Ввод. Скорость 2. об/мин
             BasicInputRowandButton(
-                placeholder = "450",
+                placeholder = format(hmiSpdRef2HoistMontage),
                 valueMin = 0,
                 valueMax = 9999,
                 value = setValueHoistMontageSpdRef2,
@@ -256,18 +273,28 @@ fun ServiceHoist(
     }
 }
 
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun format(value: Int): String {
+    return String.format("%04d", value)
+}
+
 @Preview
 @Composable
 fun ServiceHoistPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServiceHoist(
-            setValueHoistACC = "2",
+            setValueHoistACC = "",
             onModelChangeHoistACC = { },
             onSetHoistACC = { },
+            hmiHoistACC = 3f,
 
-            setValueHoistDEC = "2",
+            setValueHoistDEC = "",
             onModelChangeHoistDEC = { },
             onSetHoistDEC = { },
+            hmiHoistDEC = 3f,
 
             setValueHoistSpdRef1 = "2",
             onModelChangeHoistSpdRef1 = { },
@@ -313,7 +340,19 @@ fun ServiceHoistPreview () {
             logMessageHoist = null,
 
             errorMessageHoistMontage = null,
-            logMessageHoistMontage = null
+            logMessageHoistMontage = null,
+
+            hmiSpdRefButtonHoist = 20,
+            hmiSpdRef1Hoist = 60,
+            hmiSpdRef2Hoist = 240,
+            hmiSpdRef3Hoist = 450,
+            hmiSpdRef4Hoist = 600,
+            hmiSpdRefMAXHoist = 2880,
+            hmiSpdRefNomHoist = 980,
+            hmiSpdRef1HoistMontage = 120,
+            hmiSpdRef2HoistMontage = 980,
+            hmiHoistACCMontage = 3f,
+            hmiHoistDECMontage = 3f
         )
     }
 }

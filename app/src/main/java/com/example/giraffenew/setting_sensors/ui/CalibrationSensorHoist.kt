@@ -42,6 +42,8 @@ fun CalibrationSensorHoist(
     currentHoistPosition: Float,
 
     onSetHoistLimitTestEn : () -> Unit,
+    hoistLimitStatus : Int,
+
 
     setValueHoistPosFwdStop: String,
     updateValueHoistPosFwdStop: (String) -> Unit,
@@ -165,7 +167,7 @@ fun CalibrationSensorHoist(
             // Кнопка включения проверки защит
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetHoistLimitTestEn,
-                isLampStatus = 0
+                isLampStatus = hoistLimitStatus
             )
 
             // Отображение кнопок ввода защит и статуса
@@ -385,6 +387,8 @@ fun CalibrationSensorHoistPreview () {
 
             errorMessageHoist = null,
             logMessageHoist = null,
+
+            hoistLimitStatus = 1,
         )
     }
 }

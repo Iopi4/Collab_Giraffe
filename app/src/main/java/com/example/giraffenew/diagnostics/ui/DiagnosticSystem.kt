@@ -270,7 +270,6 @@ fun DiagnosticSystem(
 }
 
 private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%05d", value)
 }
 

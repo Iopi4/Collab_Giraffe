@@ -85,6 +85,7 @@ fun SettingSensorsScreen (
                     currentAbsEncHoistPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord1,
                     currentAbsEncHoistPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord2,
                     onSetHoistLimitTestEn = { settingSensorsViewModule.onSetHoistLimitTestEn()},
+                    hoistLimitStatus = settingSensorsViewModule.state.value.hoistLimitStatus,
 
                     setValueHoistPosFwdStop = settingSensorsViewModule.setValueHoistPosFwdStop.value,
                     updateValueHoistPosFwdStop = { settingSensorsViewModule.updateValueHoistPosFwdStop(it)},
@@ -170,6 +171,7 @@ fun SettingSensorsScreen (
 
                     errorMessageTrolley = settingSensorsViewModule.errorMessageTrolley.value,
                     logMessageTrolley = settingSensorsViewModule.logMessageTrolley.value,
+                    trolleyLimitStatus = settingSensorsViewModule.state.value.trolleyLimitStatus,
                 ) }
             composable(NavRoutesDriveContent.PageSensorCrane.route)
             { CalibrationSensorCrane(
@@ -212,6 +214,8 @@ fun SettingSensorsScreen (
 
                 errorMessageCrane = settingSensorsViewModule.errorMessageCrane.value,
                 logMessageCrane = settingSensorsViewModule.logMessageCrane.value,
+
+                craneLimitStatus = settingSensorsViewModule.state.value.craneLimitStatus
             ) }
         }
     }

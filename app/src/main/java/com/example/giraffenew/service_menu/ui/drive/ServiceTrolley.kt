@@ -31,34 +31,42 @@ fun ServiceTrolley(
     setValueTrolleyACC: String,
     onModelChangeTrolleyACC: (String) -> Unit,
     onSetTrolleyACC: () -> Unit,
+    hmiTrolleyACC :  Float,
 
     setValueTrolleyDEC: String,
     onModelChangeTrolleyDEC: (String) -> Unit,
     onSetTrolleyDEC: () -> Unit,
+    hmiTrolleyDEC :  Float,
 
     setValueTrolleySpdRef1: String,
     onModelChangeTrolleySpdRef1: (String) -> Unit,
     onSetTrolleySpdRef1: () -> Unit,
+    hmiSpdRef1Trolley:  Int,
 
     setValueTrolleySpdRef2: String,
     onModelChangeTrolleySpdRef2: (String) -> Unit,
     onSetTrolleySpdRef2: () -> Unit,
+    hmiSpdRef2Trolley:  Int,
 
     setValueTrolleySpdRef3: String,
     onModelChangeTrolleySpdRef3: (String) -> Unit,
     onSetTrolleySpdRef3: () -> Unit,
+    hmiSpdRef3Trolley:  Int,
 
     setValueTrolleySpdRef4: String,
     onModelChangeTrolleySpdRef4: (String) -> Unit,
     onSetTrolleySpdRef4: () -> Unit,
+    hmiSpdRef4Trolley:  Int,
 
     setValueTrolleyOverSpd: String,
     onModelChangeTrolleyOverSpd: (String) -> Unit,
     onSetTrolleyOverSpd: () -> Unit,
+    hmiSpdRefOverSpd:  Float,
 
     errorMessageTrolley: String?,
     logMessageTrolley: String?,
-){
+
+    ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -108,7 +116,7 @@ fun ServiceTrolley(
             }
 //Ввод. Разгон. Секунды
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiTrolleyACC),
                 value = setValueTrolleyACC,
                 onValueChange = onModelChangeTrolleyACC,
                 onClick = onSetTrolleyACC,
@@ -116,7 +124,7 @@ fun ServiceTrolley(
             )
 //Ввод. Торможение. Секунды
             BasicInputRowandTensButton(
-                placeholder = "3.0",
+                placeholder = formatDecimal(hmiTrolleyDEC),
                 value = setValueTrolleyDEC,
                 onValueChange = onModelChangeTrolleyDEC,
                 onClick = onSetTrolleyDEC,
@@ -124,7 +132,7 @@ fun ServiceTrolley(
             )
 //Ввод. Скорость 1. Об/мин
             BasicInputRowandButton(
-                placeholder = "150",
+                placeholder = format(hmiSpdRef1Trolley),
                 value = setValueTrolleySpdRef1,
                 valueMin = 0,
                 valueMax = 9999,
@@ -133,7 +141,7 @@ fun ServiceTrolley(
             )
 //Ввод. Скорость 2.Об/мин
             BasicInputRowandButton(
-                placeholder = "750",
+                placeholder = format(hmiSpdRef2Trolley),
                 value = setValueTrolleySpdRef2,
                 valueMin = 0,
                 valueMax = 9999,
@@ -142,7 +150,7 @@ fun ServiceTrolley(
             )
 //Ввод. Скорость 3.Об/мин
             BasicInputRowandButton(
-                placeholder = "1500",
+                placeholder = format(hmiSpdRef3Trolley),
                 value = setValueTrolleySpdRef3,
                 valueMin = 0,
                 valueMax = 9999,
@@ -151,7 +159,7 @@ fun ServiceTrolley(
             )
 //Ввод. Сверх.синхр. скорость, об/мин
             BasicInputRowandButton(
-                placeholder = "3000",
+                placeholder = format(hmiSpdRef4Trolley),
                 value = setValueTrolleySpdRef4,
                 valueMin = 0,
                 valueMax = 9999,
@@ -161,7 +169,7 @@ fun ServiceTrolley(
 
 //Ввод. Запрет движения на сверхсинхронной скорости, тонны
             BasicInputRowandTensButton(
-                placeholder = "5.0",
+                placeholder = formatDecimal(hmiSpdRefOverSpd),
                 value = setValueTrolleyOverSpd,
                 onValueChange = onModelChangeTrolleyOverSpd,
                 onClick = onSetTrolleyOverSpd,
@@ -172,43 +180,57 @@ fun ServiceTrolley(
     }
 }
 
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
 
+private fun format(value: Int): String {
+    return String.format("%04d", value)
+}
 
 @Preview
 @Composable
 fun ServiceTrolleyPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServiceTrolley(
-            setValueTrolleyACC = "2",
+            setValueTrolleyACC = "4",
             onModelChangeTrolleyACC = { },
-            onSetTrolleyACC ={ },
+            onSetTrolleyACC = { },
 
-            setValueTrolleyDEC = "2",
+            setValueTrolleyDEC = "4",
             onModelChangeTrolleyDEC = { },
-            onSetTrolleyDEC ={ },
+            onSetTrolleyDEC = { },
 
             setValueTrolleySpdRef1 = "150",
             onModelChangeTrolleySpdRef1 = { },
-            onSetTrolleySpdRef1 ={ },
+            onSetTrolleySpdRef1 = { },
 
-            setValueTrolleySpdRef2 = "700",
+            setValueTrolleySpdRef2 = "500",
             onModelChangeTrolleySpdRef2 = { },
-            onSetTrolleySpdRef2 ={ },
+            onSetTrolleySpdRef2 = { },
 
-            setValueTrolleySpdRef3 = "1500",
+            setValueTrolleySpdRef3 = "1000",
             onModelChangeTrolleySpdRef3 = { },
-            onSetTrolleySpdRef3 ={ },
+            onSetTrolleySpdRef3 = { },
 
-            setValueTrolleySpdRef4 = "3000",
+            setValueTrolleySpdRef4 = "1500",
             onModelChangeTrolleySpdRef4 = { },
-            onSetTrolleySpdRef4 ={ },
+            onSetTrolleySpdRef4 = { },
 
-            setValueTrolleyOverSpd = "1500",
+            setValueTrolleyOverSpd = "5",
             onModelChangeTrolleyOverSpd = { },
-            onSetTrolleyOverSpd ={ },
+            onSetTrolleyOverSpd = { },
 
             errorMessageTrolley = null,
-            logMessageTrolley= null
+            logMessageTrolley = null,
+
+            hmiTrolleyACC = 5f,
+            hmiTrolleyDEC = 5f,
+            hmiSpdRef1Trolley = 150,
+            hmiSpdRef2Trolley = 300,
+            hmiSpdRef3Trolley = 600,
+            hmiSpdRef4Trolley = 1500,
+            hmiSpdRefOverSpd = 5f,
         )
     }
 }

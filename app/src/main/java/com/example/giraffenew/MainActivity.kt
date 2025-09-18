@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             GIRAFFEnewTheme {
                 SampleAppNavGraph()
-                //AccidentWarningLogScreen()
             }
         }
     }

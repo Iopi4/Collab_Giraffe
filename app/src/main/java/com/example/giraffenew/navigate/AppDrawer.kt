@@ -126,9 +126,9 @@ fun AppDrawer(
             iconResId = R.drawable.ic_nav_service_menu,
             labelResId = R.string.menu_service,
             isSelected = route == AllDestinations.NAVIGATE_SERVICE_MENU,
-            isLocked = !protectedMenusEnabledService,
+            isLocked = !protectedMenusEnabled,
             onClick = {
-                if (protectedMenusEnabledService){
+                if (protectedMenusEnabled){
                 navigateToServiceMenu()
                 closeDrawer()
                 } else topBarViewModule.playAccessDeniedSound()

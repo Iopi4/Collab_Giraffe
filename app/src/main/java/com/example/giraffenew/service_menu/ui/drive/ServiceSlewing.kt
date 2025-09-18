@@ -32,26 +32,32 @@ fun ServiceSlewing(
     setValueSlewACC: String,
     onModelChangeSlewACC: (String) -> Unit,
     onSetSlewACC: () -> Unit,
+    hmiSlewACC : Float,
 
     setValueSlewDEC: String,
     onModelChangeSlewDEC: (String) -> Unit,
     onSetSlewDEC: () -> Unit,
+    hmiSlewDEC : Float,
 
     setValueSlewSpdRef1: String,
     onModelChangeSlewSpdRef1: (String) -> Unit,
     onSetSlewSpdRef1: () -> Unit,
+    hmiSpdRef1Slew : Int,
 
     setValueSlewSpdRef2: String,
     onModelChangeSlewSpdRef2: (String) -> Unit,
     onSetSlewSpdRef2: () -> Unit,
+    hmiSpdRef2Slew  : Int,
 
     setValueSlewSpdRef3: String,
     onModelChangeSlewSpdRef3: (String) -> Unit,
     onSetSlewSpdRef3: () -> Unit,
+    hmiSpdRef3Slew  : Int,
 
     setValueSlewSpdRef4: String,
     onModelChangeSlewSpdRef4: (String) -> Unit,
     onSetSlewSpdRef4: () -> Unit,
+    hmiSpdRef4Slew  : Int,
 
     setValueSlewSpdStopButton: String,
     onModelChangeSlewSpdStopButton: (String) -> Unit,
@@ -69,10 +75,14 @@ fun ServiceSlewing(
     updateSlewBrakeCloseFrq: (String) -> Unit,
     onSetSlewBrakeCloseFrq: () -> Unit,
 
-
     errorMessageSlew: String?,
     logMessageSlew: String?,
-){
+
+    hmiSlewDecRevers        : Float,
+    hmiSlewDelayTimeBrake   : Float,
+    hmiSlewBrakeCloseFrq    : Float,
+
+    ){
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -126,7 +136,7 @@ fun ServiceSlewing(
 
 //Ввод. Скорость 1. Об/мин
             BasicInputRowandButton(
-                placeholder = "150",
+                placeholder = format(hmiSpdRef1Slew),
                 value = setValueSlewSpdRef1,
                 valueMin = 0,
                 valueMax = 500,
@@ -135,7 +145,7 @@ fun ServiceSlewing(
             )
 //Ввод. Скорость 2.Об/мин
             BasicInputRowandButton(
-                placeholder = "450",
+                placeholder = format(hmiSpdRef2Slew),
                 value = setValueSlewSpdRef2,
                 valueMin = 0,
                 valueMax = 1000,
@@ -144,7 +154,7 @@ fun ServiceSlewing(
             )
 //Ввод. Скорость 3.Об/мин
             BasicInputRowandButton(
-                placeholder = "900",
+                placeholder = format(hmiSpdRef3Slew),
                 value = setValueSlewSpdRef3,
                 valueMin = 0,
                 valueMax = 1500,
@@ -153,7 +163,7 @@ fun ServiceSlewing(
             )
 //Ввод. Скорость 4.Об/мин
             BasicInputRowandButton(
-                placeholder = "1500",
+                placeholder = format(hmiSpdRef4Slew),
                 value = setValueSlewSpdRef4,
                 valueMin = 0,
                 valueMax = 3000,
@@ -162,7 +172,7 @@ fun ServiceSlewing(
             )
 //Ввод. Остановка от кнопки, об/мин
             BasicInputRowandButton(
-                placeholder = "100",
+                placeholder = "000",
                 value = setValueSlewSpdStopButton,
                 valueMin = 0,
                 valueMax = 200,
@@ -171,7 +181,7 @@ fun ServiceSlewing(
             )
 //Ввод. Разгон. Секунды
             BasicInputRowandTensButton(
-                placeholder = "15.0",
+                placeholder = formatDecimal(hmiSlewACC),
                 value = setValueSlewACC,
                 onValueChange = onModelChangeSlewACC,
                 onClick = onSetSlewACC,
@@ -179,7 +189,7 @@ fun ServiceSlewing(
             )
 //Ввод. Торможение. Секунды
             BasicInputRowandTensButton(
-                placeholder = "15.0",
+                placeholder = formatDecimal(hmiSlewDEC),
                 value = setValueSlewDEC,
                 onValueChange = onModelChangeSlewDEC,
                 onClick = onSetSlewDEC,
@@ -187,7 +197,7 @@ fun ServiceSlewing(
             )
 //Ввод. Торможение противоходом. Секунды
             BasicInputRowandTensButton(
-                placeholder = "10.0",
+                placeholder = formatDecimal(hmiSlewDecRevers),
                 value = setValueSlewDECRevers,
                 onValueChange = updateSlewDECRevers,
                 onClick = onSetSlewDECRevers,
@@ -195,7 +205,7 @@ fun ServiceSlewing(
             )
 //Ввод. Задержка наложения тормоза. Секунды
             BasicInputRowandTensButton(
-                placeholder = "15...25",
+                placeholder = formatDecimal(hmiSlewDelayTimeBrake),
                 value = setValueSlewDelayTime,
                 onValueChange = updateSlewDelayTime,
                 onClick = onSetSlewDelayTime,
@@ -203,7 +213,7 @@ fun ServiceSlewing(
             )
 //Ввод. Частота удержания. Секунды
             BasicInputRowandThousandButton(
-                placeholder = "0.01...0.20",
+                placeholder = formatHundred(hmiSlewBrakeCloseFrq),
                 value = setValueSlewBrakeCloseFrq,
                 onValueChange = updateSlewBrakeCloseFrq,
                 onClick = onSetSlewBrakeCloseFrq,
@@ -213,53 +223,76 @@ fun ServiceSlewing(
     }
 }
 
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatHundred(value: Float): String {
+    return String.format("%2.2f", value).replace(',', '.')
+}
+
+private fun format(value: Int): String {
+    return String.format("%04d", value)
+}
+
 @Preview
 @Composable
 fun ServiceSlewingPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServiceSlewing(
-            setValueSlewACC = "8",
+            setValueSlewACC = "15",
             onModelChangeSlewACC = { },
-            onSetSlewACC ={ },
+            onSetSlewACC = { },
 
-            setValueSlewDEC = "12",
+            setValueSlewDEC = "20",
             onModelChangeSlewDEC = { },
-            onSetSlewDEC ={ },
+            onSetSlewDEC = { },
 
             setValueSlewSpdRef1 = "150",
             onModelChangeSlewSpdRef1 = { },
-            onSetSlewSpdRef1 ={ },
+            onSetSlewSpdRef1 = { },
 
             setValueSlewSpdRef2 = "700",
             onModelChangeSlewSpdRef2 = { },
-            onSetSlewSpdRef2 ={ },
+            onSetSlewSpdRef2 = { },
 
-            setValueSlewSpdRef3 = "1500",
+            setValueSlewSpdRef3 = "1000",
             onModelChangeSlewSpdRef3 = { },
-            onSetSlewSpdRef3 ={ },
+            onSetSlewSpdRef3 = { },
 
-            setValueSlewSpdRef4 = "3000",
+            setValueSlewSpdRef4 = "1500",
             onModelChangeSlewSpdRef4 = { },
-            onSetSlewSpdRef4 ={ },
+            onSetSlewSpdRef4 = { },
 
-            setValueSlewSpdStopButton = "1500",
+            setValueSlewSpdStopButton = "100",
             onModelChangeSlewSpdStopButton = { },
-            onSetSlewSpdStopButton ={ },
+            onSetSlewSpdStopButton = { },
 
-            setValueSlewDECRevers= "15",
-            updateSlewDECRevers= { },
-            onSetSlewDECRevers={ },
+            setValueSlewDECRevers = "15",
+            updateSlewDECRevers = { },
+            onSetSlewDECRevers = { },
 
-            setValueSlewDelayTime= "25",
-            updateSlewDelayTime= { },
-            onSetSlewDelayTime={ },
+            setValueSlewDelayTime = "25",
+            updateSlewDelayTime = { },
+            onSetSlewDelayTime = { },
 
-            setValueSlewBrakeCloseFrq= "0.01",
-            updateSlewBrakeCloseFrq= { },
-            onSetSlewBrakeCloseFrq={ },
+            setValueSlewBrakeCloseFrq = "0.01",
+            updateSlewBrakeCloseFrq = { },
+            onSetSlewBrakeCloseFrq = { },
 
             errorMessageSlew = null,
             logMessageSlew = null,
+
+            hmiSlewACC = 15f,
+            hmiSlewDEC = 15f,
+            hmiSpdRef1Slew = 200,
+            hmiSpdRef2Slew = 400,
+            hmiSpdRef3Slew = 750,
+            hmiSpdRef4Slew = 1500,
+
+            hmiSlewDecRevers = 15f,
+            hmiSlewDelayTimeBrake = 100f,
+            hmiSlewBrakeCloseFrq = 1f,
         )
     }
 }

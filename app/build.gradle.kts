@@ -70,6 +70,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.lifecycle.process)
     ksp(libs.hilt.compiler)
 
     implementation(libs.room.ktx)

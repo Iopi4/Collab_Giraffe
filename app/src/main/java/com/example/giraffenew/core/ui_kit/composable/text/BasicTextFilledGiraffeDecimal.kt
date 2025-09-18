@@ -111,7 +111,7 @@ fun BasicTextFilledGiraffeDecimal (
                 // значения интервала для применения внутри между внутренними элементами текстового поля и контейнером декоративных блоков.
                 colors = colors, //Настройка цвета которая будет использоваться для определения цвета текста и содержимого
                 // (включая метку, заполнитель, начальные и конечные значки, границу) для этого текстового поля в разных состояниях.
-                placeholder ={Text(placeholder, style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Grew_50_percent))
+                placeholder = {Text(placeholder, style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Grew_50_percent))
                 } //временный текст, который отображается внутри поля.
             )
         }

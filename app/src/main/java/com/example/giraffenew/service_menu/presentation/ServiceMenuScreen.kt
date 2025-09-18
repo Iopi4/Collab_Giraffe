@@ -84,14 +84,12 @@ fun ServiceMenuScreen(
                 onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
                 onSetLukModeActiveEn= { serviceMenuViewModel.onSetLukModeActiveEn()},
 
-                currentDataLogErrStopHoist = serviceMenuViewModel.state.value.currentDataLogErrStopHoist,
-                currentPasswordOrNaladka = serviceMenuViewModel.state.value.currentPasswordOrNaladka,
-                currentFOURPolygonsEn = serviceMenuViewModel.state.value.currentFOURPolygonsEn,
-                currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.currentWithoutRingCurrentCollector,
-                currentZoneACCDECActive = serviceMenuViewModel.state.value.currentZoneACCDECActive,
-                currentLukModeActiveEn  = serviceMenuViewModel.state.value.currentLukModeActiveEn,
-
-
+                currentDataLogErrStopHoist = serviceMenuViewModel.state.value.sensorsAndUserState.currentDataLogErrStopHoist,
+                currentPasswordOrNaladka = serviceMenuViewModel.state.value.sensorsAndUserState.currentPasswordOrNaladka,
+                currentFOURPolygonsEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentFOURPolygonsEn,
+                currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.sensorsAndUserState.currentWithoutRingCurrentCollector,
+                currentZoneACCDECActive = serviceMenuViewModel.state.value.sensorsAndUserState.currentZoneACCDECActive,
+                currentLukModeActiveEn  = serviceMenuViewModel.state.value.sensorsAndUserState.currentLukModeActiveEn,
             )}
         }
     }

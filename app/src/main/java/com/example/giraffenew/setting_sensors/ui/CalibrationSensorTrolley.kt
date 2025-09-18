@@ -41,6 +41,8 @@ fun CalibrationSensorTrolley(
     currentTrolleyPosition: Float,
 
     onSetTrolleyLimitTestEn : () -> Unit,
+    trolleyLimitStatus : Int,
+
 
     setValueTrolleyPosFwdStop: String,
     updateValueTrolleyPosFwdStop: (String) -> Unit,
@@ -160,7 +162,7 @@ fun CalibrationSensorTrolley(
             // Кнопка включения проверки защит
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetTrolleyLimitTestEn,
-                isLampStatus = 0
+                isLampStatus = trolleyLimitStatus
             )
 
             // Отображение кнопок ввода защит и статуса
@@ -341,6 +343,7 @@ fun CalibrationSensorTrolleyPreview () {
             currentAbsEncTrolleyPositionWord2 = 1,
 
             onSetTrolleyLimitTestEn = { },
+            trolleyLimitStatus = 1,
 
             setValueTrolleyPosFwdStop = "1",
             updateValueTrolleyPosFwdStop = { },

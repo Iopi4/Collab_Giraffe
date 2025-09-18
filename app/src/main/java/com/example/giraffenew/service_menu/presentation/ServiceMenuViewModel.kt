@@ -14,6 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.Float
 
 @HiltViewModel
 class ServiceMenuViewModel
@@ -222,16 +223,19 @@ class ServiceMenuViewModel
 
 
     private val addresses = listOf(
-        163, 381, 336, 997, 750, 751, 752, 753, 754, 755, 756, 757 // Регистры для считывания
-        //940, 941, 942, 943, 944, 945, 946, 947, 950, 951, 952, 953, // Регистры Hoist
-        //955, 956, 957, 958, 959, 968, 969,      // Регистры Slew
-        //960, 961, 962, 963, 964, 965, 966, 967,  // Регистры Trolley
-        //980, 981, 982, 983, 984, 985, 986,// Регистры датчика ветра
-        //990, 991, 992, 993, 994, 995, 996, //Регистры датчиков положения
-        // 1200, 1201, 1202, 1203 // Регистры датчики усилия
+        163, 381, 336, 997, 750, 751, 752, 753, 754, 755, 756, 757,
+        1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
+        1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629,
+        1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
+        1650, 1651, 1652, 1653, 1654, 1655, 1656, 1657, 1690, 1691, 1692, 1693, 1694,
+        1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
+        1705, 1730, 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738,
+        1739, 1740, 1741, 1742, 1743, 1744
+        // Регистры для считывания
     )
 
     private val _state = mutableStateOf(ServiceMenuState())
+
     val state: State<ServiceMenuState> = _state
 
     private var dataCollectionJob: Job? = null
@@ -287,21 +291,108 @@ class ServiceMenuViewModel
     // //Функция createServiceMenuState() для обработки отфильтрованных данных:
     private fun createServiceMenuState(cache: Map<Int, Int?>): ServiceMenuState {
         return ServiceMenuState(
-            //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
-            currentWind = safeDivideTens(cache[163] ?: 0),
-            currentAnemometerSensor = cache[381] ?: 0,
-            currentAnemometerStatus = cache[336] ?: 0,
-            //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
-            currentDataLogErrStopHoist = cache[750] ?: 0,
-            currentPasswordOrNaladka = cache[751] ?: 0,
-            currentFOURPolygonsEn = cache[752] ?: 0,
-            currentWithoutRingCurrentCollector = cache[753] ?: 0,
-            currentZoneACCDECActive = cache[754] ?: 0,
-            currentLukModeActiveEn = cache[755] ?: 0,
-            //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
-            currentAbsEncDeltaControlEn = cache[755] ?: 0,
-            currentAbsEncDebugModeHoist = cache[756] ?: 0,
-            currentAbsEncDebugModeSlew = cache[757] ?: 0,
+            sensorsAndUserState = SensorsAndUserState (
+                //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
+                currentWind = safeDivideTens(cache[163] ?: 0),
+                currentAnemometerSensor = cache[381] ?: 0,
+                currentAnemometerStatus = cache[336] ?: 0,
+                //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
+                currentDataLogErrStopHoist = cache[750] ?: 0,
+                currentPasswordOrNaladka = cache[751] ?: 0,
+                currentFOURPolygonsEn = cache[752] ?: 0,
+                currentWithoutRingCurrentCollector = cache[753] ?: 0,
+                currentZoneACCDECActive = cache[754] ?: 0,
+                currentLukModeActiveEn = cache[755] ?: 0,
+                //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
+                currentAbsEncDeltaControlEn = cache[755] ?: 0,
+                currentAbsEncDebugModeHoist = cache[756] ?: 0,
+                currentAbsEncDebugModeSlew = cache[757] ?: 0,
+
+
+            ),
+            hoistDriveState = HoistDriveState(
+                hmiSpdRefButtonHoist    = cache[1610] ?: 0,
+                hmiSpdRef1Hoist         = cache[1611] ?: 0,
+                hmiSpdRef2Hoist         = cache[1612] ?: 0,
+                hmiSpdRef3Hoist         = cache[1613] ?: 0,
+                hmiSpdRef4Hoist         = cache[1614] ?: 0,
+                hmiSpdRefMAXHoist       = cache[1615] ?: 0,
+                hmiSpdRefNomHoist       = cache[1616] ?: 0,
+                hmiHoistACC = safeDivideTens(cache[1617] ?: 0),
+                hmiHoistDEC = safeDivideTens(cache[1618] ?: 0),
+
+                hmiSpdRef1HoistMontage = cache[1619] ?: 0,
+                hmiSpdRef2HoistMontage = cache[1620] ?: 0,
+                hmiHoistACCMontage = safeDivideTens(cache[1621] ?: 0),
+                hmiHoistDECMontage = safeDivideTens(cache[1622] ?: 0),
+
+                hmiHoistLimitState = cache[1623] ?: 0,
+                hmiLspAutoStatHoist = cache[1624] ?: 0,
+                hmiLspDist3Hoist = safeDivideTens(cache[1625] ?: 0),
+                hmiLspDist2Hoist = safeDivideTens(cache[1626] ?: 0),
+                hmiLspDist1Hoist = safeDivideTens(cache[1627] ?: 0),
+                hmiZoneAccHoist = safeDivideTens(cache[1628] ?: 0),
+                hmiZoneDecHoist = safeDivideTens(cache[1629] ?: 0)
+            ),
+            slewDriveState = SlewDriveState(
+                hmiSpdRefLowSlew = cache[1640] ?: 0,
+                hmiSpdRef1Slew  = cache[1641] ?: 0,
+                hmiSpdRef2Slew  = cache[1642] ?: 0,
+                hmiSpdRef3Slew  = cache[1643] ?: 0,
+                hmiSpdRef4Slew  = cache[1644] ?: 0,
+                hmiSpdRefNomSlew = cache[1645] ?: 0,
+                hmiSlewACC = safeDivideTens(cache[1646] ?: 0),
+                hmiSlewDEC = safeDivideTens(cache[1647] ?: 0),
+
+                hmiSlewLimitState = cache[1648] ?: 0,
+                hmiLspAutoStatSlew = cache[1649] ?: 0,
+                hmiLspDist3Slew = safeDivideTens(cache[1650] ?: 0),
+                hmiLspDist2Slew = safeDivideTens(cache[1651] ?: 0),
+                hmiLspDist1Slew = safeDivideTens(cache[1652] ?: 0),
+                hmiZoneAccSlew = safeDivideTens(cache[1653] ?: 0),
+                hmiZoneDecSlew = safeDivideTens(cache[1654] ?: 0),
+
+                hmiSlewDecRevers        = safeDivideTens(cache[1655] ?: 0),
+                hmiSlewDelayTimeBrake   = safeDivideTens(cache[1656] ?: 0),
+                hmiSlewBrakeCloseFrq    = safeDivideHundred(cache[1657] ?: 0),
+            ),
+            trolleyDriveState = TrolleyDriveState(
+                hmiSpdRefLowTrolley = cache[1690] ?: 0,
+                hmiSpdRef1Trolley   = cache[1691] ?: 0,
+                hmiSpdRef2Trolley   = cache[1692] ?: 0,
+                hmiSpdRef3Trolley   = cache[1693] ?: 0,
+                hmiSpdRef4Trolley   = cache[1694] ?: 0,
+                hmiSpdRefNomTrolley = cache[1695] ?: 0,
+                hmiSpdRefOverSpd    = safeDivideTens( cache[1696] ?: 0), //Масса груза выше которой запрешена повышенная скорость тележки
+                hmiTrolleyACC = safeDivideTens(cache[1697] ?: 0),
+                hmiTrolleyDEC = safeDivideTens(cache[1698] ?: 0),
+
+                hmiTrolleyLimitState = cache[1699] ?: 0,
+                hmiLspAutoStatSlew = cache[1700] ?: 0,
+                hmiLspDist3Slew = safeDivideTens(cache[1701] ?: 0),
+                hmiLspDist2Slew =safeDivideTens(cache[1702] ?: 0),
+                hmiLspDist1Slew = safeDivideTens(cache[1703] ?: 0),
+                hmiZoneAccSlew = safeDivideTens(cache[1704] ?: 0),
+                hmiZoneDecSlew = safeDivideTens(cache[1705] ?: 0)
+            ),
+            craneDriveState = CraneDriveState(
+                hmiSpdRefLowCrane = cache[1730] ?: 0,
+                hmiSpdRef1Crane = cache[1731] ?: 0,
+                hmiSpdRef2Crane = cache[1732] ?: 0,
+                hmiSpdRef3Crane = cache[1733] ?: 0,
+                hmiSpdRef4Crane = cache[1734] ?: 0,
+                hmiSpdRefNomCrane = cache[1735] ?: 0,
+                hmiCraneACC = safeDivideTens(cache[1736] ?: 0),
+                hmiCraneDEC = safeDivideTens(cache[1737] ?: 0),
+
+                hmiCraneLimitState = cache[1738] ?: 0,
+                hmiLspAutoStatCrane = cache[1739] ?: 0,
+                hmiLspDist3Crane = safeDivideTens(cache[1740] ?: 0),
+                hmiLspDist2Crane = safeDivideTens(cache[1741] ?: 0),
+                hmiLspDist1Crane = safeDivideTens(cache[1742] ?: 0),
+                hmiZoneAccCrane = safeDivideTens(cache[1743] ?: 0),
+                hmiZoneDecCrane = safeDivideTens(cache[1744] ?: 0)
+            ),
             )
     }
 
@@ -313,8 +404,19 @@ class ServiceMenuViewModel
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
+    private fun safeDivideHundred(value: Int?): Float {
+        return (value ?: 0) / 100f
+    }
 
     data class ServiceMenuState(
+        val sensorsAndUserState: SensorsAndUserState = SensorsAndUserState(),
+        val hoistDriveState: HoistDriveState = HoistDriveState(),
+        val slewDriveState: SlewDriveState = SlewDriveState(),
+        val trolleyDriveState: TrolleyDriveState = TrolleyDriveState(),
+        val craneDriveState: CraneDriveState = CraneDriveState(),
+    )
+
+    data class SensorsAndUserState(
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
         val currentWind: Float = 0f,
         val currentAnemometerSensor: Int = 0,
@@ -330,7 +432,94 @@ class ServiceMenuViewModel
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
         val currentLukModeActiveEn: Int = 0,
+
     )
+    data class HoistDriveState(
+        val hmiSpdRefButtonHoist: Int = 0, // Пониженая скорость подъема
+        val hmiSpdRef1Hoist: Int = 0, // 1-ая скорость подъема об/мин
+        val hmiSpdRef2Hoist: Int = 0, // 2-ая скорость подъема об/мин
+        val hmiSpdRef3Hoist: Int = 0, // 3-ая скорость подъема об/мин
+        val hmiSpdRef4Hoist: Int = 0, // 4-ая скорость подъема об/мин
+        val hmiSpdRefMAXHoist: Int = 0, // Сверхсинхронная скорость об/мин
+        val hmiSpdRefNomHoist: Int = 0, // Номинальная скорость ЭД подъема об/мин
+
+        val hmiHoistACC: Float = 0f, // Время разгона, сек
+        val hmiHoistDEC: Float = 0f, // Время торможения, сек
+
+        val hmiSpdRef1HoistMontage: Int = 0, // 1-ая скорость с монтажного пульта
+        val hmiSpdRef2HoistMontage: Int = 0, // 2-ая скорость с монтажного пульта
+        val hmiHoistACCMontage: Float = 0f, // Ускорение с монтажного пульта, сек
+        val hmiHoistDECMontage: Float = 0f, // Замедление с монтажного пульта, сек
+
+        val hmiHoistLimitState: Int = 0, //Статус функции проверки ограничений в наладке
+        val hmiLspAutoStatHoist: Int = 0, //Статус автоматического снижения скорости
+        val hmiLspDist3Hoist: Float = 0f, //Дистанция снижения до 3 скорости, м
+        val hmiLspDist2Hoist: Float = 0f, //Дистанция снижения до 2 скорости, м
+        val hmiLspDist1Hoist: Float = 0f, //Дистанция снижения до 1 скорости, м
+        val hmiZoneAccHoist: Float = 0f, //Зона регулирования ускорения подъема
+        val hmiZoneDecHoist: Float = 0f, //Зона регулирования замедления подъема
+    )
+    data class SlewDriveState(
+        val hmiSpdRefLowSlew: Int = 0,
+        val hmiSpdRef1Slew: Int = 0,
+        val hmiSpdRef2Slew: Int = 0,
+        val hmiSpdRef3Slew: Int = 0,
+        val hmiSpdRef4Slew: Int = 0,
+        val hmiSpdRefNomSlew: Int = 0,
+        val hmiSlewACC: Float = 0f,
+        val hmiSlewDEC: Float = 0f,
+
+        val hmiSlewDecRevers: Float = 0f,
+        val hmiSlewDelayTimeBrake: Float = 0f,
+        val hmiSlewBrakeCloseFrq: Float = 0f,
+
+        val hmiSlewLimitState: Int = 0, //Статус функции проверки ограничений в наладке
+        val hmiLspAutoStatSlew: Int = 0, //Статус автоматического снижения скорости
+        val hmiLspDist3Slew: Float = 0f, //Дистанция снижения до 3 скорости, м
+        val hmiLspDist2Slew: Float = 0f, //Дистанция снижения до 2 скорости, м
+        val hmiLspDist1Slew: Float = 0f, //Дистанция снижения до 1 скорости, м
+        val hmiZoneAccSlew: Float = 0f, //Зона регулирования ускорения поворота
+        val hmiZoneDecSlew: Float = 0f, //Зона регулирования замедления поворота
+
+    )
+    data class TrolleyDriveState(
+        val hmiSpdRefLowTrolley: Int = 0,
+        val hmiSpdRef1Trolley: Int = 0,
+        val hmiSpdRef2Trolley: Int = 0,
+        val hmiSpdRef3Trolley: Int = 0,
+        val hmiSpdRef4Trolley: Int = 0,
+        val hmiSpdRefNomTrolley: Int = 0,
+        val hmiSpdRefOverSpd: Float = 0f, //Масса груза выше которой запрешена повышенная скорость тележки
+        val hmiTrolleyACC: Float = 0f,
+        val hmiTrolleyDEC: Float = 0f,
+
+        val hmiTrolleyLimitState: Int = 0, //Статус функции проверки ограничений в наладке
+        val hmiLspAutoStatSlew: Int = 0, //Статус автоматического снижения скорости
+        val hmiLspDist3Slew: Float = 0f, //Дистанция снижения до 3 скорости, м
+        val hmiLspDist2Slew: Float = 0f, //Дистанция снижения до 2 скорости, м
+        val hmiLspDist1Slew: Float = 0f, //Дистанция снижения до 1 скорости, м
+        val hmiZoneAccSlew: Float = 0f, //Зона регулирования ускорения тележки
+        val hmiZoneDecSlew: Float = 0f, //Зона регулирования замедления тележки
+    )
+    data class CraneDriveState(
+        val hmiSpdRefLowCrane: Int = 0,
+        val hmiSpdRef1Crane: Int = 0,
+        val hmiSpdRef2Crane: Int = 0,
+        val hmiSpdRef3Crane: Int = 0,
+        val hmiSpdRef4Crane: Int = 0,
+        val hmiSpdRefNomCrane: Int = 0,
+        val hmiCraneACC: Float = 0f,
+        val hmiCraneDEC: Float = 0f,
+
+        val hmiCraneLimitState: Int = 0, //Статус функции проверки ограничений в наладке
+        val hmiLspAutoStatCrane: Int = 0, //Статус автоматического снижения скорости
+        val hmiLspDist3Crane: Float = 0f, //Дистанция снижения до 3 скорости, м
+        val hmiLspDist2Crane: Float = 0f, //Дистанция снижения до 2 скорости, м
+        val hmiLspDist1Crane: Float = 0f, //Дистанция снижения до 1 скорости, м
+        val hmiZoneAccCrane: Float = 0f, //Зона регулирования ускорения хода крана
+        val hmiZoneDecCrane: Float = 0f, //Зона регулирования замедления хода крана
+    )
+
 
     //Функция проверки и преобразования целых чисел
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {

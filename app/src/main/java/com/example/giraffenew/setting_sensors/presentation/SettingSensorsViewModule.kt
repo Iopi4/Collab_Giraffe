@@ -110,7 +110,7 @@ class SettingSensorsViewModule
         155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
         341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
         730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
-        382, 383, 386, 387, 390, 391, 394, 395
+        382, 383, 386, 387, 390, 391, 394, 395, 1623, 1648, 1699, 1738
         // Регистры для считывания
     )
 
@@ -178,6 +178,8 @@ class SettingSensorsViewModule
     // //Функция createSettingLoadCapacityState() для обработки отфильтрованных данных:
     private fun createSettingSensorsState(cache: Map<Int, Int?>): SettingSensorsState {
         return SettingSensorsState(
+
+
             //Параметры крана
             currentHoistPosition = safeDivideTens(cache[159] ?: 0),
             currentSlewPosition = safeDivideTens(cache[158] ?: 0),
@@ -227,6 +229,12 @@ class SettingSensorsViewModule
 
             currentAbsEncCranePositionWord1 = cache[394] ?: 0,
             currentAbsEncCranePositionWord2 = cache[395] ?: 0,
+
+            hoistLimitStatus = cache[1623] ?: 0,
+            slewLimitStatus = cache[1648] ?: 0,
+            trolleyLimitStatus = cache[1699] ?: 0,
+            craneLimitStatus = cache[1738] ?: 0,
+
             )
     }
 
@@ -286,6 +294,12 @@ class SettingSensorsViewModule
         val currentAbsEncTrolleyPositionWord2: Int = 0,
         val currentAbsEncCranePositionWord1: Int = 0,
         val currentAbsEncCranePositionWord2: Int = 0,
+
+//Статус функции проверки ограничений в наладке
+        val hoistLimitStatus: Int = 0,
+        val slewLimitStatus: Int = 0,
+        val trolleyLimitStatus: Int = 0,
+        val craneLimitStatus: Int = 0,
         )
 
 

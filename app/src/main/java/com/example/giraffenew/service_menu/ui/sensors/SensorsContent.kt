@@ -94,9 +94,9 @@ fun SensorsContent(
                 onModelChangeWindSpeedLvlClbr = { serviceMenuViewModel.updateWindSpeedLvlClbr(it) },
                 onSetWindSpeedLvlClbr = { serviceMenuViewModel.onSetWindSpeedLvlClbr() },
 
-                currentWind = serviceMenuViewModel.state.value.currentWind,
-                currentAnemometerSensor = serviceMenuViewModel.state.value.currentAnemometerSensor,
-                currentAnemometerStatus = serviceMenuViewModel.state.value.currentAnemometerStatus,
+                currentWind = serviceMenuViewModel.state.value.sensorsAndUserState.currentWind,
+                currentAnemometerSensor = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerSensor,
+                currentAnemometerStatus = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerStatus,
 
                 setValueWindRK = serviceMenuViewModel.setValueWindRK.value,
                 onModelChangeWindRK = { serviceMenuViewModel.updateWindRK(it) },
@@ -148,7 +148,7 @@ fun SensorsContent(
                 onSetAbsEncRatioCraneGK = { serviceMenuViewModel.onSetAbsEncRatioCraneGK() },
 
                 onSetAbsEncDeltaControlEn = { serviceMenuViewModel.onSetAbsEncDeltaControlEn() },
-                currentAbsEncDeltaControlEn = serviceMenuViewModel.state.value.currentAbsEncDeltaControlEn,
+                currentAbsEncDeltaControlEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDeltaControlEn,
 
                 setValueUDIHoistAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDIHoistAbsEncMaxDeltaEn.value,
                 onModelChangeUDIHoistAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDIHoistAbsEncMaxDeltaEn(it) },
@@ -172,8 +172,8 @@ fun SensorsContent(
                 errorMessageAbsEnc = serviceMenuViewModel.errorMessageAbsEnc.value,
                 logMessageAbsEnc = serviceMenuViewModel.logMessageAbsEnc.value,
 
-                currentAbsEncDebugModeHoist = serviceMenuViewModel.state.value.currentAbsEncDebugModeHoist,
-                currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.currentAbsEncDebugModeSlew,
+                currentAbsEncDebugModeHoist = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDebugModeHoist,
+                currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDebugModeSlew,
             )
             }
             composable(NavRoutesSensorsContent.PageServiceRefPoint.route) {ServiceRefPoint()}
