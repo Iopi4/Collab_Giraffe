@@ -13,6 +13,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -26,8 +29,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.giraffenew.R
 import com.example.giraffenew.accident_and_warning_log.domian.model.EventEntity
+import com.example.giraffenew.accident_and_warning_log.presentation.screen.ClearArchiveDialog
 import com.example.giraffenew.accident_and_warning_log.presentation.screen.EventTable
 import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventsViewModel
+import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackgroundEvents
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffeAccess
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.navigate.presentation.TopBarViewModel
@@ -46,6 +51,8 @@ fun AccidentWarningLogScreen (
 
 //Структура экрана. Для начала создадим отдельные компоненты из которых соберем весь экран
     val navController = rememberNavController()
+
+    BasicSettingBackgroundEvents()
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -129,27 +136,38 @@ fun ArchivedEventsContent(
 ) {
     val topBarViewModel: TopBarViewModel = hiltViewModel()
     val protectedMenusEnabledService = serviceMode == 1
+    var showClearArchiveDialog by remember { mutableStateOf(false) } // Состояние для диалога
 
-    Column(modifier = Modifier
-        .fillMaxSize()) {
-        BasicButtonGiraffeAccess(
-            modifier = Modifier.padding(start = 40.dp, end = 40.dp),
-            text = R.string.Button_Resetting_Archived_Events,
-            isLocked = !protectedMenusEnabledService,
-            onClick = {
-                if (protectedMenusEnabledService)
-                {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            BasicButtonGiraffeAccess(
+                modifier = Modifier.padding(start = 40.dp, end = 40.dp),
+                text = R.string.Button_Resetting_Archived_Events,
+                isLocked = !protectedMenusEnabledService,
+                onClick = {
+                    if (protectedMenusEnabledService) {
+                        showClearArchiveDialog = true // Показываем всплывающее окно Dialog
+                    } else topBarViewModel.playAccessDeniedSound()
+                },
+            )
+
+
+            EventTable(
+                events = events,
+                title = stringResource(R.string.Alarm_ArchiveEvents),
+                modifier = Modifier.weight(1f) // Добавляем вес для занимания оставшегося пространства
+            )
+        }
+        // Диалоговое окно
+        if (showClearArchiveDialog) {
+            ClearArchiveDialog (
+                onDismiss = { showClearArchiveDialog = false },
+                onConfirm = {
                     viewModel.clearArchive()
+                    showClearArchiveDialog = false
                 }
-                else topBarViewModel.playAccessDeniedSound()
-            },)
-
-
-        EventTable(
-            events = events,
-            title = stringResource(R.string.Alarm_ArchiveEvents),
-            modifier = Modifier.weight(1f) // Добавляем вес для занимания оставшегося пространства
-        )
+            )
+        }
     }
 }
 

@@ -14,8 +14,6 @@ import com.example.giraffenew.accident_and_warning_log.domian.usecase.HandleStat
 import com.example.giraffenew.data.entities.UIAccidentAndWaringConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -34,7 +32,7 @@ open class EventsViewModel
 
     //Содержит зависимости, которые представляют бизнес-логику через Use Case:
     private val getActiveEvents: GetActiveEventsUseCase, //use case для получения активных событий
-    private val clearArchive: ClearArchiveUseCase, //use case для очистки архива
+    private val clearArchiveUseCase: ClearArchiveUseCase, //use case для очистки архива
     private val getArchivedEvents: GetArchiveEventsUseCase, //use case для отображения архивных событий
     private val handleStatusChange: HandleStatusChangeUseCase,
 
@@ -54,8 +52,6 @@ open class EventsViewModel
 
     private val _state = mutableStateOf(EventsState())
     val state: State<EventsState> = _state
-
-    private var dataCollectionJob: Job? = null
 
     // Карта для отслеживания предыдущих состояний регистров
     private val previousRegisterStates = mutableMapOf<Int, Int>()
@@ -316,8 +312,13 @@ open class EventsViewModel
     open val archivedEvents: StateFlow<List<EventEntity>> = getArchivedEvents()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun clearArchive() = viewModelScope.launch { //запускает корутину в контексте ViewModel
-        clearArchive //вызывает use case для очистки архива
+    fun clearArchive() = viewModelScope.launch {
+        try {
+            clearArchiveUseCase.invoke() //вызывает invoke из use case для очистки архива
+        } catch (e: Exception){
+            Log.e("ClearArchive", "Error clearing archive", e)
+        }//запускает корутину в контексте ViewModel
+
     }
 
 }

@@ -26,13 +26,15 @@ interface EventDao {
     @Update
     suspend fun update (event: EventEntity) //Обновляет существующую запись в базе данных
 
-//3 Получение активных событий
+//3 Получение активных событий.
     //@Query — позволяет написать SQL-запрос
-    @Query ("SELECT * FROM events WHERE isActive = 1")
+    //Чтобы отображать события в обратном порядке (последние сверху), надо добавить "ORDER BY timestamp DESC"
+    @Query ("SELECT * FROM events WHERE isActive = 1 ORDER BY timestamp DESC")
     fun getActiveEvents(): Flow<List<EventEntity>>  //Возвращает поток (Flow) активных событий (isActive = 1)
 
 //4 Получение архивных событий
-    @Query("SELECT * FROM events WHERE isActive=0")
+    //Чтобы отображать события в обратном порядке (последние сверху), надо добавить "ORDER BY timestamp DESC"
+    @Query("SELECT * FROM events WHERE isActive=0 ORDER BY timestamp DESC")
     fun getArchivedEvents(): Flow<List<EventEntity>> //Аналогично предыдущему, но для неактивных событий (isActive = 0)
 
 //5 Очистка архива
