@@ -152,6 +152,11 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(712, "HMI_Anemometer_Sensor_Err_MW", "WORD16", "Статус анемометраю Ошибка датчика"),
         RegisterInfo(337, "HMI_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
 
+        RegisterInfo(103, "Hoist_ControlEffort_MW", "WORD16", "Текущая скорость вращения подъема *0,01Гц"),
+        RegisterInfo(112, "Slew_ControlEffort_MW", "WORD16", "Текущая скорость вращения *0,01Гц"),
+        RegisterInfo(121, "Trolley_ControlEffort_MW", "WORD16", "Текущая скорость вращения *0,01Гц"),
+        RegisterInfo(130, "Crane_ControlEffort_MW", "WORD16", "Текущая скорость вращения *0,01Гц"),
+
         //Information
         RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
         RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
@@ -1162,6 +1167,13 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(966, "HMI_Write_wTrolleyLsp_MW", "WORD16", "Пониженная скорость тележки"),
         RegisterInfo(967, "HMI_Write_rTrolleyOverspd_MW", "WORD16", "Значение веса груза при превышении которого запрещена сверхсинхронная работа тележки"),
 
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ХОДА КРАНА
+        RegisterInfo(972, "HMI_Write_Crane_wSpdRef1_Value_MW", "WORD16", "Скорость 1 хода крана"),
+        RegisterInfo(973, "HMI_Write_Crane_wSpdRef2_Value_MW", "WORD16", "Скорость 2 хода крана"),
+        RegisterInfo(974, "HMI_Write_Crane_wSpdRef3_Value_MW", "WORD16", "Скорость 3 хода крана"),
+        RegisterInfo(975, "HMI_Write_Crane_wSpdRef4_Value_MW", "WORD16", "Скорость 4 хода крана"),
+        RegisterInfo(976, "HMI_Write_rCrane_Acc_MW", "WORD16", "Время разгона хода крана, сек"),
+        RegisterInfo(977, "HMI_Write_rCrane_Dec_MW", "WORD16", "Время торможения хода крана, сек"),
 
         RegisterInfo(1610, "HMI_wSpdRefButton_Hoist", "WORD16", "Пониженая скорость подъема"),
         RegisterInfo(1611, "HMI_wSpdRef1_Hoist", "WORD16", "1-ая скорость подъема об/мин"),

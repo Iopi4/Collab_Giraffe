@@ -144,7 +144,33 @@ class ServiceMenuViewModel
     private val _logMessageTrolley = mutableStateOf<String?>(null)
     val logMessageTrolley: State<String?> = _logMessageTrolley
 
-//СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
+
+    // СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
+    private val _setValueCraneSpdRef1 = mutableStateOf("")
+    val setValueCraneSpdRef1: State<String> = _setValueCraneSpdRef1
+
+    private val _setValueCraneSpdRef2 = mutableStateOf("")
+    val setValueCraneSpdRef2: State<String> = _setValueCraneSpdRef2
+
+    private val _setValueCraneSpdRef3 = mutableStateOf("")
+    val setValueCraneSpdRef3: State<String> = _setValueCraneSpdRef3
+
+    private val _setValueCraneSpdRef4 = mutableStateOf("")
+    val setValueCraneSpdRef4: State<String> = _setValueCraneSpdRef4
+
+    private val _setValueCraneACC = mutableStateOf("")
+    val setValueCraneACC: State<String> = _setValueCraneACC
+
+    private val _setValueCraneDEC = mutableStateOf("")
+    val setValueCraneDEC: State<String> = _setValueCraneDEC
+
+    private val _errorMessageCrane = mutableStateOf<String?>(null)
+    val errorMessageCrane: State<String?> = _errorMessageCrane
+
+    private val _logMessageCrane = mutableStateOf<String?>(null)
+    val logMessageCrane: State<String?> = _logMessageCrane
+
+    //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
     private val _setValueWindSpeedLvl1 = mutableStateOf("")
     val setValueWindSpeedLvl1: State<String> = _setValueWindSpeedLvl1
 
@@ -1046,6 +1072,107 @@ class ServiceMenuViewModel
     }
 
     /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ХОДА КРАНА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // Crane. Запись времени разгона [сек]
+    fun onSetCraneACC() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCraneACC.value, 0.0f,99.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(976, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись времени торможения [сек]
+    fun onSetCraneDEC() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCraneDEC.value, 0.0f,99.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(977, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+
+            }
+        }
+    }
+
+    // Crane. Запись скорости 1.
+    fun onSetCraneSpdRef1() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueCraneSpdRef1.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(972, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись скорости 2.
+    fun onSetCraneSpdRef2() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueCraneSpdRef2.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(973, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись скорости 3.
+    fun onSetCraneSpdRef3() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueCraneSpdRef3.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(974, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Crane. Запись скорости 4.
+    fun onSetCraneSpdRef4() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueCraneSpdRef4.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(975, model)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCrane.value = null
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+
+    /**
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИК ВЕТРА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     // Wind. Запись уровня предупредительной сигнализации (м/c)
@@ -1680,6 +1807,27 @@ class ServiceMenuViewModel
     fun updateTrolleyOverLsp(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueTrolleyTrolleyOverspd.value = value }}
+
+
+    // Ход крана. Обновления для UI
+    fun updateCraneACC(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueCraneACC.value = value } }
+    fun updateCraneDEC(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueCraneDEC.value = value } }
+    fun updateCraneSpdRef1(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueCraneSpdRef1.value = value } }
+    fun updateCraneSpdRef2(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueCraneSpdRef2.value = value } }
+    fun updateCraneSpdRef3(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueCraneSpdRef3.value = value } }
+    fun updateCraneSpdRef4(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueCraneSpdRef4.value = value } }
 
 
     // Очистка при уничтожении ViewModel

@@ -23,6 +23,8 @@ import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampAlarmStatus
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampMechanismsCondition
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampMechanismsPoligon
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
+import com.example.giraffenew.home.ui.text.ParametersTextControlEffort
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 
@@ -50,7 +52,12 @@ fun CraneMechanismsCondition(
     hoistUp		: Int, //AT%MW334 Статус можно выйти из полигона крюком вверх
     hoistDown	: Int, //AT%MW335 Статус можно выйти из полигона крюком вниз
 
-){
+    hoistControlEffortHz : Float,
+    slewControlEffortHz : Float,
+    trolleyControlEffortHz : Float,
+    craneControlEffortHz : Float,
+
+    ){
 
 //№2. Центральная область для отображения состояния механизмов крана.
 //Контейнер Column позволяет выстроить вложенные компоненты в столбик
@@ -109,56 +116,64 @@ fun CraneMechanismsCondition(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_hook_suspension),
                 contentDescription = "Подъем",
                 modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 10.dp)
-                    .fillMaxSize())
+                    .padding(start = 10.dp, end =10.dp, top = 25.dp)
+            )
+            ParametersTextControlEffort(
+                formatDecimalHoist(hoistControlEffortHz),
+                modifier = Modifier
+                    .padding(start = 5.dp, end =1.dp, top = 1.dp))
         }
 //Поворот. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 20.dp, start = 10.dp)
-                .size(height = 30.dp, width = 30.dp))
-            { BasicLampMechanismsCondition(isLampStatus = slewRightStatus,) }
-            Box(modifier = Modifier
-                .padding(top = 20.dp, start = 58.dp)
+                .padding(top = 25.dp, start = 10.dp)
                 .size(height = 30.dp, width = 30.dp))
             { BasicLampMechanismsCondition(isLampStatus = slewLeftStatus,) }
+            Box(modifier = Modifier
+                .padding(top = 25.dp, start = 58.dp)
+                .size(height = 30.dp, width = 30.dp))
+            { BasicLampMechanismsCondition(isLampStatus = slewRightStatus,) }
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 20.dp, start = 10.dp)
+                .padding(top = 25.dp, start = 10.dp)
                 .size(height = 30.dp, width = 30.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = slewRight, isVisibility = slewRight) }
+            { BasicLampMechanismsPoligon(isLampStatus = slewRight, isVisibility = slewLeft) }
             Box(modifier = Modifier
-                .padding(top = 20.dp, start = 58.dp)
+                .padding(top = 25.dp, start = 58.dp)
                 .size(height = 30.dp, width = 30.dp))
-            { BasicLampMechanismsPoligon(isLampStatus = slewLeft, isVisibility = slewLeft) }
+            { BasicLampMechanismsPoligon(isLampStatus = slewLeft, isVisibility = slewRight) }
 
             Image (
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_tower_crane_boom),
                 contentDescription = "Поворот",
                 modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 10.dp)
+                    .padding(start = 10.dp, end =10.dp, top = 18.dp, bottom = 5.dp)
                     .fillMaxSize())
+            ParametersTextControlEffort(
+                formatDecimalSlew(slewControlEffortHz),
+                modifier = Modifier
+                    .padding(start = 9.dp, end =2.dp, top = 1.dp))
         }
 
 //Тележка. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 10.dp)
+                .padding(top = 25.dp, start = 10.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = trolleyRevStatus)}
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 52.dp)
+                .padding(top = 25.dp, start = 52.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = trolleyFwdStatus)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 10.dp)
+                .padding(top = 25.dp, start = 10.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = trolleyRev, isVisibility =trolleyRev ) }
             Box(modifier = Modifier
-                .padding(top = 15.dp, start = 52.dp)
+                .padding(top = 25.dp, start = 52.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = trolleyFwd, isVisibility =trolleyFwd )}
 
@@ -166,28 +181,32 @@ fun CraneMechanismsCondition(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_cargo_trolley),
                 contentDescription = "Тележка",
                 modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 10.dp)
+                    .padding(start = 10.dp, end =10.dp, top = 22.dp, bottom = 5.dp)
                     .fillMaxSize())
+            ParametersTextControlEffort(
+                formatDecimalTrolley(trolleyControlEffortHz),
+                modifier = Modifier
+                    .padding(start = 9.dp, end =2.dp, top = 1.dp))
         }
 
 //Ход крана. Состояние
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 65.dp, start = 10.dp)
+                .padding(top = 75.dp, start = 10.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = craneLeftStatus,)}
             Box(modifier = Modifier
-                .padding(top = 65.dp, start = 52.dp)
+                .padding(top = 75.dp, start = 52.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = cranRightStatus,)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 65.dp, start = 10.dp)
+                .padding(top = 75.dp, start = 10.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = craneLeft, isVisibility =craneLeft )}
             Box(modifier = Modifier
-                .padding(top = 65.dp, start = 52.dp)
+                .padding(top = 75.dp, start = 52.dp)
                 .size(height = 20.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = craneRight, isVisibility = craneRight )}
 
@@ -195,8 +214,12 @@ fun CraneMechanismsCondition(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_home_cargo_move),
                 contentDescription = "Ход крана",
                 modifier = Modifier
-                    .padding(horizontal = 15.dp, vertical = 10.dp)
+                    .padding(start = 10.dp, end =10.dp, top = 27.dp, bottom = 5.dp)
                     .fillMaxSize())
+            ParametersTextControlEffort(
+                formatDecimalCrane(craneControlEffortHz),
+                modifier = Modifier
+                    .padding(start = 9.dp, end =2.dp, top = 1.dp))
         }
 //Датчиик ветра. Состояние
         Box(myBoxMechanismModifier){
@@ -224,6 +247,32 @@ fun CraneMechanismsCondition(
 
 }
 
+private val HOIST_COEFFICIENT: Float = 0.93f //Коэффициент коррекции скорости подъема
+private val SLEW_COEFFICIENT: Float = 0.016f //Коэффициент коррекции скорости поворота
+private val TROLLEY_COEFFICIENT: Float = 1f //Коэффициент коррекции скорости тележки
+private val CRANE_COEFFICIENT: Float = 1f //Коэффициент коррекции скорости подъема
+
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatDecimalHoist(value: Float): String {
+    val realValue = (value * HOIST_COEFFICIENT) / 1f
+    return String.format("%05.1fм/мин", realValue).replace(',', '.')
+}
+private fun formatDecimalSlew(value: Float): String {
+    val realValue = (value * SLEW_COEFFICIENT) / 1f
+    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+}
+private fun formatDecimalTrolley(value: Float): String {
+    val realValue = (value * TROLLEY_COEFFICIENT) / 1f
+    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+}
+private fun formatDecimalCrane(value: Float): String {
+    val realValue = (value * CRANE_COEFFICIENT) / 1f
+    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+}
+
 @Preview
 @Composable
 fun CraneMechanismsConditionPreview (){
@@ -247,7 +296,12 @@ fun CraneMechanismsConditionPreview (){
             hoistUp = 0,
             hoistDown = 0,
             anemometerSensorErr = 0,
-            alarmLampStatus = 2
+            alarmLampStatus = 2,
+
+            hoistControlEffortHz = 132f,
+            slewControlEffortHz = 1f,
+            trolleyControlEffortHz = 1f,
+            craneControlEffortHz = 1f,
         )
     }
 }

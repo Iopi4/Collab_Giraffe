@@ -24,7 +24,6 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -156,7 +155,7 @@ fun ServiceHoist(
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
                 ) {
-                    errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    errorMessageHoist?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
                     logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
@@ -231,7 +230,7 @@ fun ServiceHoist(
                 onClick = onSetHoistSpdRefButton,
             )
 
-            Spacer(modifier = Modifier.size(30.dp))
+            Spacer(modifier = Modifier.size(20.dp))
 // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 //Настройка скоростей и ускорения в монтажном режиме для подъема

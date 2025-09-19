@@ -246,7 +246,41 @@ fun DriveContent(
                 logMessageTrolley = serviceMenuViewModel.logMessageTrolley.value
                 )
             }
-            composable(NavRoutesDriveContent.PageServiceCrane.route) {ServiceCrane()}
+            composable(NavRoutesDriveContent.PageServiceCrane.route)
+            { ServiceCrane(
+                setValueCraneACC = serviceMenuViewModel.setValueCraneACC.value,
+                onModelChangeCraneACC = { serviceMenuViewModel.updateCraneACC(it)},
+                onSetCraneACC = {serviceMenuViewModel.onSetCraneACC() },
+                hmiCraneACC = serviceMenuViewModel.state.value.craneDriveState.hmiCraneACC,
+
+                setValueCraneDEC = serviceMenuViewModel.setValueCraneDEC.value,
+                onModelChangeCraneDEC = { serviceMenuViewModel.updateCraneDEC(it)},
+                onSetCraneDEC = {serviceMenuViewModel.onSetCraneDEC() },
+                hmiCraneDEC = serviceMenuViewModel.state.value.craneDriveState.hmiCraneDEC,
+
+                setValueCraneSpdRef1 = serviceMenuViewModel.setValueCraneSpdRef1.value,
+                onModelChangeCraneSpdRef1 = { serviceMenuViewModel.updateCraneSpdRef1(it)},
+                onSetCraneSpdRef1 = {serviceMenuViewModel.onSetCraneSpdRef1() },
+                hmiSpdRef1Crane = serviceMenuViewModel.state.value.craneDriveState.hmiSpdRef1Crane,
+
+                setValueCraneSpdRef2 = serviceMenuViewModel.setValueCraneSpdRef2.value,
+                onModelChangeCraneSpdRef2 = { serviceMenuViewModel.updateCraneSpdRef2(it)},
+                onSetCraneSpdRef2 = {serviceMenuViewModel.onSetCraneSpdRef2() },
+                hmiSpdRef2Crane = serviceMenuViewModel.state.value.craneDriveState.hmiSpdRef2Crane,
+
+                setValueCraneSpdRef3 = serviceMenuViewModel.setValueCraneSpdRef3.value,
+                onModelChangeCraneSpdRef3 = { serviceMenuViewModel.updateCraneSpdRef3(it)},
+                onSetCraneSpdRef3 = {serviceMenuViewModel.onSetCraneSpdRef3() },
+                hmiSpdRef3Crane = serviceMenuViewModel.state.value.craneDriveState.hmiSpdRef3Crane,
+
+                setValueCraneSpdRef4 = serviceMenuViewModel.setValueCraneSpdRef4.value,
+                onModelChangeCraneSpdRef4 = { serviceMenuViewModel.updateCraneSpdRef4(it)},
+                onSetCraneSpdRef4 = {serviceMenuViewModel.onSetCraneSpdRef4() },
+                hmiSpdRef4Crane = serviceMenuViewModel.state.value.craneDriveState.hmiSpdRef4Crane,
+
+                errorMessageCrane = serviceMenuViewModel.errorMessageCrane.value,
+                logMessageCrane = serviceMenuViewModel.logMessageCrane.value
+            )}
         }
     }
 }

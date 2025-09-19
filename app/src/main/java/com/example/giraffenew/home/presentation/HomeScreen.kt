@@ -381,7 +381,7 @@ internal fun HomeScreen (
             .weight(1f)) {
             CraneMechanismsCondition(
                 weightSensorErr = homeViewModel.state.value.craneMechanismsCondition.weightSensorErr,
-                anemometerSensorErr= homeViewModel.state.value.craneMechanismsCondition.anemometerSensorErr,
+                anemometerSensorErr = homeViewModel.state.value.craneMechanismsCondition.anemometerSensorErr,
                 trolleyFwdStatus = homeViewModel.state.value.craneMechanismsCondition.trolleyFwdStatus,
                 trolleyRevStatus = homeViewModel.state.value.craneMechanismsCondition.trolleyRevStatus,
                 hoistUpStatus = homeViewModel.state.value.craneMechanismsCondition.hoistUpStatus,
@@ -399,6 +399,10 @@ internal fun HomeScreen (
                 hoistUp = homeViewModel.state.value.craneMechanismsCondition.hoistUp,
                 hoistDown = homeViewModel.state.value.craneMechanismsCondition.hoistDown,
                 alarmLampStatus = homeViewModel.state.value.craneMechanismsCondition.alarmLampStatus,
+                hoistControlEffortHz = homeViewModel.state.value.craneMechanismsCondition.hoistControlEffortHz,
+                slewControlEffortHz = homeViewModel.state.value.craneMechanismsCondition.slewControlEffortHz,
+                trolleyControlEffortHz = homeViewModel.state.value.craneMechanismsCondition.trolleyControlEffortHz,
+                craneControlEffortHz = homeViewModel.state.value.craneMechanismsCondition.craneControlEffortHz,
             )
         }
 

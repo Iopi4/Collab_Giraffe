@@ -32,7 +32,7 @@ class HomeScreenViewModel @Inject constructor(
     val addressesInformation = listOf(190, 191, 177, 239, 288, 700, 700, 701, 702, 703, 704, 705, 706, 707, 708,
         713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728, 729 ) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
-        330,331,332,333,334,335,712,337) // Только нужные регистры
+        330,331,332,333,334,335,712,337, 103, 112, 121, 130) // Только нужные регистры
 
     val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405, 406, 407, 408, 410,
         411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430,
@@ -168,6 +168,12 @@ class HomeScreenViewModel @Inject constructor(
             hoistDown = cache[335] ?: 0,
             anemometerSensorErr = cache[712] ?: 0,
             alarmLampStatus = cache[337] ?: 0,
+
+            hoistControlEffortHz = safeDivideHundred(cache[103] ?: 0),
+            slewControlEffortHz = safeDivideHundred(cache[112] ?: 0),
+            trolleyControlEffortHz = safeDivideHundred(cache[121] ?: 0),
+            craneControlEffortHz = safeDivideHundred(cache[130] ?: 0),
+
         ),
         //Infirmation
         information = InformationState(
@@ -446,6 +452,10 @@ class HomeScreenViewModel @Inject constructor(
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
+
+    private fun safeDivideHundred(value: Int?): Float {
+        return (value ?: 0) / 100f
+    }
     private fun safeDivideThousands(value: Int?): Float {
         return (value ?: 0) / 1000f
     }
@@ -550,6 +560,11 @@ class HomeScreenViewModel @Inject constructor(
         val trolleyRev: Int = 0,
         val hoistUp: Int = 0,
         val hoistDown: Int = 0,
+
+        val hoistControlEffortHz: Float = 0f,
+        val slewControlEffortHz: Float = 0f,
+        val trolleyControlEffortHz: Float = 0f,
+        val craneControlEffortHz: Float = 0f,
     )
 
     data class CraneSozrState(
