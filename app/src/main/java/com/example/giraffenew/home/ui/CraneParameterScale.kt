@@ -1,6 +1,7 @@
 package com.example.giraffenew.home.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,6 +27,7 @@ import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
+import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersTextSmall
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
@@ -164,23 +167,30 @@ fun CraneParameterScale(
         BasicParametersText(
             stringResource(R.string.Home_LIFT_HEIGHT),
             modifier = Modifier
-            .padding(start = 170.dp, end = 50.dp, top = 137.dp))
+                .padding(start = 250.dp, top = 240.dp))
         //Значение максимальной высоты подъема
-        BasicParametersText(
-            formatDecimalMinus(hoistMaxPosition),
+        Box(
             modifier = Modifier
-                .padding(start = 135.dp, end = 50.dp, top = 147.dp))
+                .padding(start = 115.dp, end = 50.dp, top = 147.dp, bottom = 90.dp)
+                .background(Color.Black),
+            contentAlignment = Alignment.TopStart
+        ) {
+            BasicParametersText(
+            formatDecimalMinus(hoistMaxPosition),
+            modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp))}
+
+
         //Шкала
         Box(
             modifier = Modifier
-                .padding(start = 260.dp, top = 80.dp,),
+                .padding(start = 280.dp, top = 100.dp,),
             contentAlignment = Alignment.TopStart
         ) {
             ScaleVerticalHoist(
                 currentValue = hoistPosition,
                 minValue = hoistMinPosition,
                 maxValue = hoistMaxPosition,
-                modifier = Modifier.size(width = 16.dp, height = 150.dp)
+                modifier = Modifier.size(width = 16.dp, height = 140.dp)
             )
         }
 
@@ -188,15 +198,15 @@ fun CraneParameterScale(
         BasicParametersText(
             stringResource(R.string.Home_MOVE_CRANE),
             modifier = Modifier
-            .padding(start = 10.dp, top = 225.dp))
+            .padding(start = 10.dp, top = 230.dp))
         //Значение максимальной длины кранового пути
         BasicParametersText(
             formatDecimal(craneMaxPosition),
             modifier = Modifier
-                .padding(start = 150.dp, end = 50.dp, top = 244.dp))
+                .padding(start = 150.dp, end = 50.dp, top = 245.dp))
         Box(
             modifier = Modifier
-                .padding(start = 10.dp, top = 245.dp, end = 15.dp),
+                .padding(start = 10.dp, top = 248.dp, end = 15.dp),
             contentAlignment = Alignment.TopStart
         ) {
             ScaleHorizonWeightHi(
@@ -266,11 +276,12 @@ private fun formatDecimal(value: Float): String {
 private fun formatDecimalMinus(value: Float): String {
     val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
     return if (realValue < 0) {
-        String.format("%05.1f", realValue).replace(',', '.')
+        String.format("%03d", realValue.toInt()) // Для отрицательных чисел
     } else {
-        String.format("%04.1f", realValue).replace(',', '.')
+        String.format("%03d", realValue.toInt()) // Для положительных чисел
     }
 }
+
 
 @Preview
 @Composable

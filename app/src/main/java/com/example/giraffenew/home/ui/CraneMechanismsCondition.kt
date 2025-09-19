@@ -127,21 +127,21 @@ fun CraneMechanismsCondition(
         Box(myBoxMechanismModifier){
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 10.dp)
-                .size(height = 30.dp, width = 30.dp))
+                .padding(top = 32.dp, start = 10.dp)
+                .size(height = 20.dp, width = 30.dp))
             { BasicLampMechanismsCondition(isLampStatus = slewLeftStatus,) }
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 58.dp)
-                .size(height = 30.dp, width = 30.dp))
+                .padding(top = 32.dp, start = 58.dp)
+                .size(height = 20.dp, width = 30.dp))
             { BasicLampMechanismsCondition(isLampStatus = slewRightStatus,) }
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 10.dp)
-                .size(height = 30.dp, width = 30.dp))
+                .padding(top = 32.dp, start = 10.dp)
+                .size(height = 20.dp, width = 30.dp))
             { BasicLampMechanismsPoligon(isLampStatus = slewRight, isVisibility = slewLeft) }
             Box(modifier = Modifier
-                .padding(top = 25.dp, start = 58.dp)
-                .size(height = 30.dp, width = 30.dp))
+                .padding(top = 32.dp, start = 58.dp)
+                .size(height = 20.dp, width = 30.dp))
             { BasicLampMechanismsPoligon(isLampStatus = slewLeft, isVisibility = slewRight) }
 
             Image (

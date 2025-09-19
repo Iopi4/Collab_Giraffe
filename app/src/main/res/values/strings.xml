@@ -45,7 +45,7 @@
     <!-- Текст экрана Home' -->
     <!-- Текст экрана с краном' -->
     <string name="Home_LOADING_CAPACITY">ГРУЗОПОДЪЕМНОСТЬ</string>
-    <string name="Home_LIFT_HEIGHT">ВЫСОТА ПОДЪЕМА</string>
+    <string name="Home_LIFT_HEIGHT">ВЫСОТА</string>
     <string name="Home_MOVE_CRANE">ХОД КРАНА</string>
     <string name="Home_">ВЫСОТА ПОДЪЕМА</string>
     <!-- Текст параметры крана' -->
