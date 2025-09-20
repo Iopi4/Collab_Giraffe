@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -115,14 +116,6 @@ fun ServicePosition(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Crane)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Hoist_Activate)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Slewing_Activate)
-
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageAbsEnc?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageAbsEnc?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
-
         }
 
 //№.2 - Правая область для отображения и ввода параметров датчиков
@@ -134,9 +127,17 @@ fun ServicePosition(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-// Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.ServiceMenu_Text_Setting))
+// Отступ  и Статус записи данных настройки подъема
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageAbsEnc?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageAbsEnc?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 //Ввод. Коэффициент датчика подъема
             BasicInputRowandThousandButton(
                 placeholder = "1.0000",

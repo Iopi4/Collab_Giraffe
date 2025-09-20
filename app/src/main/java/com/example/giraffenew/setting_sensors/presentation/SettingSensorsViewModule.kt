@@ -110,7 +110,8 @@ class SettingSensorsViewModule
         155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
         341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
         730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
-        382, 383, 386, 387, 390, 391, 394, 395, 1623, 1648, 1699, 1738
+        382, 383, 386, 387, 390, 391, 394, 395, 1623, 1648, 1699, 1738,
+        160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372
         // Регистры для считывания
     )
 
@@ -201,22 +202,22 @@ class SettingSensorsViewModule
             currentCraneStopRev1 = cache[350] ?: 0,
             currentCraneFwdDwnSp1 = cache[351] ?: 0,
             currentCraneRevDwnSp1 = cache[352] ?: 0,
-            currentCraneRepPoint= cache[353] ?: 0,
+            currentCraneRepPoint = cache[353] ?: 0,
 
             //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
             currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
             currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
-            currentTrolleyEncoderMaxDeltaError  = cache[732] ?: 0,
+            currentTrolleyEncoderMaxDeltaError = cache[732] ?: 0,
             currentCraneEncoderMaxDeltaError = cache[733] ?: 0,
             currentHoistEncoderMaxValueError = cache[734] ?: 0,
-            currentSlewEncoderMaxValueError  = cache[735] ?: 0,
+            currentSlewEncoderMaxValueError = cache[735] ?: 0,
             currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
-            currentCraneEncoderMaxValueError  = cache[737] ?: 0,
+            currentCraneEncoderMaxValueError = cache[737] ?: 0,
             //-----ошибка связи энкодеров
-            currentHoistAbsEncErrCanOpen    = cache[204] ?: 0,
-            currentSlewAbsEncErrCanOpen     = cache[205] ?: 0,
-            currentTrolleyAbsEncErrCanOpen  = cache[206] ?: 0,
-            currentCraneAbsEncErrCanOpen    = cache[207] ?: 0,
+            currentHoistAbsEncErrCanOpen = cache[204] ?: 0,
+            currentSlewAbsEncErrCanOpen = cache[205] ?: 0,
+            currentTrolleyAbsEncErrCanOpen = cache[206] ?: 0,
+            currentCraneAbsEncErrCanOpen = cache[207] ?: 0,
 
             currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
             currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
@@ -235,7 +236,22 @@ class SettingSensorsViewModule
             trolleyLimitStatus = cache[1699] ?: 0,
             craneLimitStatus = cache[1738] ?: 0,
 
-            )
+            hoistMaxPosition = safeDivideTens(cache[160] ?: 0),
+            hoistMinPosition = safeDivideTens(cache[161] ?: 0),
+            hoistPosFwdDwnSp = safeDivideTens(cache[338] ?: 0),
+            hoistPosRevDwnSp = safeDivideTens(cache[339] ?: 0),
+
+            trolleyMaxPosition = safeDivideTens(cache[156] ?: 0),
+            trolleyMinPosition = safeDivideTens(cache[157] ?: 0),
+            trolleyPosFwdDwnSp = safeDivideTens(cache[354] ?: 0),
+            trolleyPosRevDwnSp = safeDivideTens(cache[355] ?: 0),
+
+            craneMaxPosition = safeDivideTens(cache[356] ?: 0),
+            craneMinPosition = safeDivideTens(cache[357] ?: 0),
+            cranePosFwdDwnSp = safeDivideTens(cache[358] ?: 0),
+            cranePosRevDwnSp = safeDivideTens(cache[359] ?: 0),
+            cranePosCTRLPoint = safeDivideTens(cache[372] ?: 0),
+        )
     }
 
 
@@ -300,6 +316,25 @@ class SettingSensorsViewModule
         val slewLimitStatus: Int = 0,
         val trolleyLimitStatus: Int = 0,
         val craneLimitStatus: Int = 0,
+
+//Данные крайних положений механизмов
+        val hoistMaxPosition: Float = 0f, //Максимальное положение подъема
+        val hoistMinPosition: Float = 0f, //Минимальное положение подъема
+        val hoistPosFwdDwnSp: Float = 0f, //Положение крюка замедление вверх
+        val hoistPosRevDwnSp: Float = 0f, //Положение крюка замедление вниз
+
+        val trolleyMaxPosition: Float = 0f, //Максимальное положение тележки
+        val trolleyMinPosition: Float = 0f, //Минимальное положение тележки
+        val trolleyPosFwdDwnSp: Float = 0f, //положение при котором снижаем скорость двигая тележку вперед
+        val trolleyPosRevDwnSp: Float = 0f, //положение при котором снижаем скорость двигая тележку назад
+
+        val craneMaxPosition: Float = 0f, //Путь при котором останавливаем движение крана вперед
+        val craneMinPosition: Float = 0f, //Путь при котором останавливаем движение крана назад
+        val cranePosFwdDwnSp: Float = 0f, //Путь при котором снижаем скорость при движении крана вперед
+        val cranePosRevDwnSp: Float = 0f, //Путь при котором снижаем скорость при движении крана назад
+        val cranePosCTRLPoint: Float = 0f, //Путь при котором снижаем скорость при движении крана назад
+
+
         )
 
 

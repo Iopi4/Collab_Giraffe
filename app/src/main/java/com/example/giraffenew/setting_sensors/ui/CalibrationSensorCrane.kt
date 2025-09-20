@@ -51,27 +51,32 @@ fun CalibrationSensorCrane(
     updateValueCranePosFwdStop: (String) -> Unit,
     onSetValueCranePosFwdStop: () -> Unit,
     currentCraneStopFwd1: Int,
+    craneMaxPosition: Float,
 
     setValueCranePosRevStop: String,
     updateValueCranePosRevStop: (String) -> Unit,
     onSetValueCranePosRevStop: () -> Unit,
     currentCraneStopRev1: Int,
+    craneMinPosition: Float,
 
     setValueCranePosFwdDwnSp: String,
     updateValueCranePosFwdDwnSp: (String) -> Unit,
     onSetValueCranePosFwdDwnSp: () -> Unit,
     currentCraneFwdDwnSp1: Int,
+    cranePosFwdDwnSp: Float,
 
     setValueCranePosRevDwnSp: String,
     updateValueCranePosRevDwnSp: (String) -> Unit,
     onSetValueCranePosRevDwnSp: () -> Unit,
     currentCraneRevDwnSp1: Int,
+    cranePosRevDwnSp: Float,
 
 
     setValueCranePosRepPoint: String,
     updateValueCranePosRepPoint: (String) -> Unit,
     onSetValueCranePosRepPoint: () -> Unit,
     currentCraneRepPoint: Int,
+    cranePosCTRLPoint: Float,
 
     currentCraneEncoderMaxDeltaError: Int,
     currentCraneEncoderMaxValueError: Int,
@@ -87,7 +92,7 @@ fun CalibrationSensorCrane(
             .fillMaxSize()
     ) {
 
-        //№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
+//№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f)
@@ -130,7 +135,7 @@ fun CalibrationSensorCrane(
         }
 
 
-        //№.2 - Правая область для отображения и ввода данных датчика хода крана
+//№.2 - Правая область для отображения и ввода данных датчика хода крана
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(2f)
@@ -142,7 +147,7 @@ fun CalibrationSensorCrane(
                 verticalArrangement = Arrangement.Top
         ) {
 
-            // Отступ  и Статус записи данных настройки датчика
+// Отступ  и Статус записи данных настройки датчика
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
@@ -154,14 +159,14 @@ fun CalibrationSensorCrane(
                 }
             }
 
-            // Отображение текущего значения датчика хода крана
+// Отображение текущего значения датчика хода крана
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(currentAbsEncCranePositionWord1, currentAbsEncCranePositionWord2)
                 )
             }
-            // Отображение пройденного пути
+// Отображение пройденного пути
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
@@ -169,15 +174,15 @@ fun CalibrationSensorCrane(
                 )
             }
 
-            // Кнопка включения проверки защит
+// Кнопка включения проверки защит
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetCraneLimitTestEn,
                 isLampStatus = craneLimitStatus
             )
 
-            // Отображение кнопок ввода защит и статуса
+// Отображение кнопок ввода защит и статуса
 
-            // Ограничение движения хода вперед (вправо)
+// Ограничение движения хода вперед (вправо)
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения остановка вперед (вправо)
                 Box(
@@ -186,7 +191,7 @@ fun CalibrationSensorCrane(
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffeDecimal(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(craneMaxPosition),
                         value = setValueCranePosFwdStop,
                         onValueChange = updateValueCranePosFwdStop,
                         modifier = Modifier,
@@ -210,13 +215,13 @@ fun CalibrationSensorCrane(
             }
 
 
-            // Замедление скорости движения крана вперед (вправо)
+// Замедление скорости движения крана вперед (вправо)
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость подъема
                 Box(modifier = Modifier.weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(cranePosFwdDwnSp),
                         value = setValueCranePosFwdDwnSp,
                         onValueChange = updateValueCranePosFwdDwnSp,
                         onClick = onSetValueCranePosFwdDwnSp,
@@ -232,13 +237,13 @@ fun CalibrationSensorCrane(
             }
 
 
-            // Замедление скорости движения крана назад (влево)
+// Замедление скорости движения крана назад (влево)
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость подъема
                 Box(modifier = Modifier.weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(cranePosRevDwnSp),
                         value = setValueCranePosRevDwnSp,
                         onValueChange = updateValueCranePosRevDwnSp,
                         onClick = onSetValueCranePosRevDwnSp,
@@ -253,7 +258,7 @@ fun CalibrationSensorCrane(
                 }
             }
 
-            // Ограничение движения крана влево
+// Ограничение движения крана влево
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения остановка назад (влево)
                 Box(
@@ -262,7 +267,7 @@ fun CalibrationSensorCrane(
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffeDecimal(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(craneMinPosition),
                         value = setValueCranePosRevStop,
                         onValueChange = updateValueCranePosRevStop,
                         modifier = Modifier,
@@ -285,13 +290,13 @@ fun CalibrationSensorCrane(
                 }
             }
 
-            //Ввод. Реперная точка хода крана
+//Ввод. Реперная точка хода крана
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором срабатывает реперная точка
                 Box(modifier = Modifier.weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(cranePosCTRLPoint),
                         value = setValueCranePosRepPoint,
                         onValueChange = updateValueCranePosRepPoint,
                         onClick = onSetValueCranePosRepPoint,
@@ -314,7 +319,7 @@ fun CalibrationSensorCrane(
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
-            //Статус датчика. Контроль максимального рассогласования
+//Статус датчика. Контроль максимального рассогласования
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
@@ -326,7 +331,7 @@ fun CalibrationSensorCrane(
                     )
                 }
             }
-            //Статус датчика. Контроль максимального значения
+//Статус датчика. Контроль максимального значения
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
@@ -338,7 +343,7 @@ fun CalibrationSensorCrane(
                     )
                 }
             }
-            //Статус датчика. Контроль связи
+//Статус датчика. Контроль связи
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(
@@ -384,26 +389,31 @@ fun CalibrationSensorCranePreview () {
             updateValueCranePosFwdStop = { },
             onSetValueCranePosFwdStop = { },
             currentCraneStopFwd1 = 1,
+            craneMaxPosition = 40F,
 
             setValueCranePosRevStop = "1",
             updateValueCranePosRevStop = { },
             onSetValueCranePosRevStop = { },
             currentCraneStopRev1 = 1,
+            craneMinPosition = 0f,
 
             setValueCranePosFwdDwnSp = "1",
             updateValueCranePosFwdDwnSp = { },
             onSetValueCranePosFwdDwnSp = { },
             currentCraneFwdDwnSp1 = 1,
+            cranePosFwdDwnSp = 35f,
 
             setValueCranePosRevDwnSp = "1",
             updateValueCranePosRevDwnSp = { },
             onSetValueCranePosRevDwnSp = { },
             currentCraneRevDwnSp1 = 1,
+            cranePosRevDwnSp = 5f,
 
             setValueCranePosRepPoint = "1",
             updateValueCranePosRepPoint = { },
             onSetValueCranePosRepPoint = { },
             currentCraneRepPoint = 1,
+            cranePosCTRLPoint = 20f,
 
             currentCraneEncoderMaxDeltaError = 1,
             currentCraneEncoderMaxValueError = 1,

@@ -299,6 +299,7 @@
     <string name="ServiceMenu_Text_Speed_2">Ввод. Скорость 2 [об/мин]</string>
     <string name="ServiceMenu_Text_Speed_3">Ввод. Скорость 3 [об/мин]</string>
     <string name="ServiceMenu_Text_Speed_4">Ввод. Скорость 4 [об/мин]</string>
+    <string name="ServiceMenu_Text_Speed_Nom">Ввод. Ном. скорость [об/мин]</string>
     <string name="ServiceMenu_Text_Max_Speed_SS">Ввод. Сверх.синхр.скор.[об/мин]</string>
     <string name="ServiceMenu_Text_Stoping_Speed">Ввод. Останов. от кнопки[об/мин]</string>
     <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Ввод. Запрет сверх.синхр.скор [т]</string>

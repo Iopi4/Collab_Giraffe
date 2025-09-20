@@ -58,6 +58,11 @@ fun ServiceTrolley(
     onSetTrolleySpdRef4: () -> Unit,
     hmiSpdRef4Trolley:  Int,
 
+    setValueTrolleySpdNom: String,
+    updateTrolleySpdNom: (String) -> Unit,
+    onSetTrolleySpdNom: () -> Unit,
+    hmiSpdRefNomTrolley: Int,
+
     setValueTrolleyOverSpd: String,
     onModelChangeTrolleyOverSpd: (String) -> Unit,
     onSetTrolleyOverSpd: () -> Unit,
@@ -90,7 +95,8 @@ fun ServiceTrolley(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_3)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Max_Speed_SS)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_4)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_Nom)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Trolley_Speed_SS_Ban)
         }
 
@@ -110,7 +116,7 @@ fun ServiceTrolley(
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
                 ) {
-                    errorMessageTrolley?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    errorMessageTrolley?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
                     logMessageTrolley?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
@@ -157,7 +163,7 @@ fun ServiceTrolley(
                 onValueChange = onModelChangeTrolleySpdRef3,
                 onClick = onSetTrolleySpdRef3
             )
-//Ввод. Сверх.синхр. скорость, об/мин
+//Ввод. Скорость 4.Об/мин
             BasicInputRowandButton(
                 placeholder = format(hmiSpdRef4Trolley),
                 value = setValueTrolleySpdRef4,
@@ -165,6 +171,15 @@ fun ServiceTrolley(
                 valueMax = 9999,
                 onValueChange = onModelChangeTrolleySpdRef4,
                 onClick = onSetTrolleySpdRef4
+            )
+//Ввод. Номинальная скорость 4.Об/мин
+            BasicInputRowandButton(
+                placeholder = format(hmiSpdRefNomTrolley),
+                value = setValueTrolleySpdNom,
+                valueMin = 0,
+                valueMax = 9999,
+                onValueChange = updateTrolleySpdNom,
+                onClick = onSetTrolleySpdNom
             )
 
 //Ввод. Запрет движения на сверхсинхронной скорости, тонны
@@ -217,6 +232,10 @@ fun ServiceTrolleyPreview () {
             onModelChangeTrolleySpdRef4 = { },
             onSetTrolleySpdRef4 = { },
 
+            setValueTrolleySpdNom = "1500",
+            updateTrolleySpdNom = { },
+            onSetTrolleySpdNom = { },
+
             setValueTrolleyOverSpd = "5",
             onModelChangeTrolleyOverSpd = { },
             onSetTrolleyOverSpd = { },
@@ -231,6 +250,7 @@ fun ServiceTrolleyPreview () {
             hmiSpdRef3Trolley = 600,
             hmiSpdRef4Trolley = 1500,
             hmiSpdRefOverSpd = 5f,
+            hmiSpdRefNomTrolley = 5,
         )
     }
 }

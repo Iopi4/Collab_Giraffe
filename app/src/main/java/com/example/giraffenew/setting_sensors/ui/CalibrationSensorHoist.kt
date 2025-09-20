@@ -44,26 +44,29 @@ fun CalibrationSensorHoist(
     onSetHoistLimitTestEn : () -> Unit,
     hoistLimitStatus : Int,
 
-
     setValueHoistPosFwdStop: String,
     updateValueHoistPosFwdStop: (String) -> Unit,
     onSetValueHoistPosFvdStop: () -> Unit,
     currentHoistStopUp1: Int,
+    hoistMaxPosition: Float,
 
     setValueHoistPosRevStop: String,
     updateValueHoistPosRevStop: (String) -> Unit,
     onSetValueHoistPosRevStop: () -> Unit,
     currentHoistStopDwn1: Int,
+    hoistMinPosition: Float,
 
     setValueHoistPosFwdDwnSp: String,
     updateValueHoistPosFwdDwnSp: (String) -> Unit,
     onSetValueHoistPosFwdDwnSp: () -> Unit,
     currentHoistUpDwnSp1: Int,
+    hoistPosFwdDwnSp: Float,
 
     setValueHoistPosRevDwnSp: String,
     updateValueHoistPosRevDwnSp: (String) -> Unit,
     onSetValueHoistPosRevDwnSp: () -> Unit,
     currentHoistDwnDwnSp1: Int,
+    hoistPosRevDwnSp: Float,
 
     currentHoistEncoderMaxDeltaError: Int,
     currentHoistEncoderMaxValueError: Int,
@@ -181,7 +184,7 @@ fun CalibrationSensorHoist(
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffeDecimal(
-                        placeholder = "000.0",
+                        placeholder = formatDecimalMinus(hoistMaxPosition),
                         value = setValueHoistPosFwdStop,
                         onValueChange = updateValueHoistPosFwdStop,
                         modifier = Modifier,
@@ -211,7 +214,7 @@ fun CalibrationSensorHoist(
                 Box(modifier = Modifier.weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(hoistPosFwdDwnSp),
                         value = setValueHoistPosFwdDwnSp,
                         onValueChange = updateValueHoistPosFwdDwnSp,
                         onClick = onSetValueHoistPosFwdDwnSp,
@@ -235,7 +238,7 @@ fun CalibrationSensorHoist(
                         .weight(4f)
                 ) {
                     BasicInputRowandTensButtonBelowZero(
-                        placeholder = "000.0",
+                        placeholder = formatDecimalMinus(hoistPosRevDwnSp),
                         value = setValueHoistPosRevDwnSp,
                         onValueChange = updateValueHoistPosRevDwnSp,
                         onClick = onSetValueHoistPosRevDwnSp,
@@ -259,7 +262,7 @@ fun CalibrationSensorHoist(
                         .weight(2f)
                 ) {
                     BasicTextFilledBelowZero(
-                        placeholder = "000.0",
+                        placeholder = formatDecimalMinus(hoistMinPosition),
                         value = setValueHoistPosRevStop,
                         onValueChange = updateValueHoistPosRevStop,
                         isDecimal = true
@@ -365,30 +368,35 @@ fun CalibrationSensorHoistPreview () {
             updateValueHoistPosFwdStop = { },
             onSetValueHoistPosFvdStop = {},
             currentHoistStopUp1 = 1,
+            hoistMaxPosition = 50f,
 
             setValueHoistPosRevStop = "`1",
             updateValueHoistPosRevStop = {},
             onSetValueHoistPosRevStop = {},
             currentHoistStopDwn1 = 1,
+            hoistMinPosition = 0f,
 
             setValueHoistPosFwdDwnSp = "1",
             updateValueHoistPosFwdDwnSp = {},
             onSetValueHoistPosFwdDwnSp = {},
             currentHoistUpDwnSp1 = 1,
+            hoistPosFwdDwnSp = 45f,
 
             setValueHoistPosRevDwnSp = "1",
             updateValueHoistPosRevDwnSp = { },
             onSetValueHoistPosRevDwnSp = {},
             currentHoistDwnDwnSp1 = 1,
+            hoistPosRevDwnSp = 5f,
 
-            currentHoistEncoderMaxDeltaError= 1,
-            currentHoistEncoderMaxValueError= 1,
-            currentHoistAbsEncErrCanOpen= 1,
+            currentHoistEncoderMaxDeltaError = 1,
+            currentHoistEncoderMaxValueError = 1,
+            currentHoistAbsEncErrCanOpen = 1,
 
             errorMessageHoist = null,
             logMessageHoist = null,
 
             hoistLimitStatus = 1,
+
         )
     }
 }

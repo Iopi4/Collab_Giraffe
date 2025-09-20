@@ -37,6 +37,9 @@ class ServiceMenuViewModel
     private val _setValueHoistACC = mutableStateOf("")
     val setValueHoistACC: State<String> = _setValueHoistACC
 
+    private val _setValueHoistSpdNom = mutableStateOf("")
+    val setValueHoistSpdNom: State<String> = _setValueHoistSpdNom
+
     private val _setValueHoistDEC = mutableStateOf("")
     val setValueHoistDEC: State<String> = _setValueHoistDEC
 
@@ -100,6 +103,8 @@ class ServiceMenuViewModel
     private val _setValueSlewBrakeCloseFrq = mutableStateOf("")
     val setValueSlewBrakeCloseFrq: State<String> = _setValueSlewBrakeCloseFrq
 
+    private val _setValueSlewSpdNom = mutableStateOf("")
+    val setValueSlewSpdNom: State<String> = _setValueSlewSpdNom
 
     //Снижение скорости поворота
     private val _setValueSlewSpdStopButton = mutableStateOf("")
@@ -130,6 +135,9 @@ class ServiceMenuViewModel
     private val _setValueTrolleyDEC = mutableStateOf("")
     val setValueTrolleyDEC: State<String> = _setValueTrolleyDEC
 
+    private val _setValueTrolleySpdNom = mutableStateOf("")
+    val setValueTrolleySpdNom: State<String> = _setValueTrolleySpdNom
+
     //пониженная скорость тележки
     private val _setValueTrolleyLsp = mutableStateOf("")
     val setValueTrolleyTrolleyLsp: State<String> = _setValueTrolleyLsp
@@ -145,7 +153,7 @@ class ServiceMenuViewModel
     val logMessageTrolley: State<String?> = _logMessageTrolley
 
 
-    // СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
+    // СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ХОДА КРАНА
     private val _setValueCraneSpdRef1 = mutableStateOf("")
     val setValueCraneSpdRef1: State<String> = _setValueCraneSpdRef1
 
@@ -227,6 +235,17 @@ class ServiceMenuViewModel
     private val _logMessageAbsEnc = mutableStateOf<String?>(null)
     val logMessageAbsEnc: State<String?> = _logMessageAbsEnc
 
+//СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА РЕПЕРНОЙ ТОЧКИ
+
+    private val _setValueCTRLPointControlInterval = mutableStateOf("")
+    val setValueCTRLPointControlInterval: State<String> = _setValueCTRLPointControlInterval
+
+    private val _errorMessageCTRLPoint = mutableStateOf<String?>(null)
+    val errorMessageCTRLPoint: State<String?> = _errorMessageCTRLPoint
+
+    private val _logMessageCTRLPoint = mutableStateOf<String?>(null)
+    val logMessageCTRLPoint: State<String?> = _logMessageCTRLPoint
+
 
 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА УСИЛИЯ
     private val _setLoadCellMinWeight = mutableStateOf("")
@@ -249,14 +268,14 @@ class ServiceMenuViewModel
 
 
     private val addresses = listOf(
-        163, 381, 336, 997, 750, 751, 752, 753, 754, 755, 756, 757,
+        163, 381, 336, 373, 374, 997, 750, 751, 752, 753, 754, 755, 756, 757,
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
         1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629,
         1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
-        1650, 1651, 1652, 1653, 1654, 1655, 1656, 1657, 1690, 1691, 1692, 1693, 1694,
+        1650, 1651, 1652, 1653, 1654, 1655, 1656, 1657, 1658, 1690, 1691, 1692, 1693, 1694,
         1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
         1705, 1730, 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738,
-        1739, 1740, 1741, 1742, 1743, 1744
+        1739, 1740, 1741, 1742, 1743, 1744,
         // Регистры для считывания
     )
 
@@ -334,6 +353,8 @@ class ServiceMenuViewModel
                 currentAbsEncDebugModeHoist = cache[756] ?: 0,
                 currentAbsEncDebugModeSlew = cache[757] ?: 0,
 
+                craneCTRLPointEN = cache[373] ?: 0,
+                ctrlPointControlInterval = safeDivideTens(cache[374] ?: 0),
 
             ),
             hoistDriveState = HoistDriveState(
@@ -369,6 +390,7 @@ class ServiceMenuViewModel
                 hmiSpdRefNomSlew = cache[1645] ?: 0,
                 hmiSlewACC = safeDivideTens(cache[1646] ?: 0),
                 hmiSlewDEC = safeDivideTens(cache[1647] ?: 0),
+                hmiSlewSpeedBrakeClose = cache[1658] ?: 0,
 
                 hmiSlewLimitState = cache[1648] ?: 0,
                 hmiLspAutoStatSlew = cache[1649] ?: 0,
@@ -458,7 +480,8 @@ class ServiceMenuViewModel
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
         val currentLukModeActiveEn: Int = 0,
-
+        val craneCTRLPointEN: Int = 0, //Флаг включения, отключения датчика реперной точки хода крана
+        val ctrlPointControlInterval: Float = 0f, //Интервал контроля реперной точки
     )
     data class HoistDriveState(
         val hmiSpdRefButtonHoist: Int = 0, // Пониженая скорость подъема
@@ -494,6 +517,7 @@ class ServiceMenuViewModel
         val hmiSpdRefNomSlew: Int = 0,
         val hmiSlewACC: Float = 0f,
         val hmiSlewDEC: Float = 0f,
+        val hmiSlewSpeedBrakeClose: Int = 0,
 
         val hmiSlewDecRevers: Float = 0f,
         val hmiSlewDelayTimeBrake: Float = 0f,
@@ -698,6 +722,22 @@ class ServiceMenuViewModel
                 val model = validateAndConvert(_setValueHoistSpdRefMax.value, 0,9999 )
                 // Запись в регистры
                 modbusRepository.writeRegister(945, model)
+                _errorMessageHoist.value = null
+                _logMessageHoist.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoist.value = null
+                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Hoist. Значение номинальной скорости двигателя подъема
+    fun onSetHoistSpdNom() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueHoistSpdNom.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(948, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -928,7 +968,23 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdStopButton.value, 0,200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(955, model)
+                modbusRepository.writeRegister(1217, model)
+                _errorMessageSlew.value = null
+                _logMessageSlew.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageSlew.value = null
+                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    // Slew. Запись номинальной скорости привода поворота
+    fun onSetSlewSpdNom() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueSlewSpdNom.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(970, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -1071,6 +1127,22 @@ class ServiceMenuViewModel
         }
     }
 
+    // Trolley. Запись номинальной скорости двигателя тележки
+    fun onSetTrolleySpdNom() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueTrolleySpdNom.value, 0,9999 )
+                // Запись в регистры
+                modbusRepository.writeRegister(971, model)
+                _errorMessageTrolley.value = null
+                _logMessageTrolley.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageTrolley.value = null
+                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
     /**
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ХОДА КРАНА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
@@ -1167,6 +1239,41 @@ class ServiceMenuViewModel
             } catch (e: Exception) {
                 _logMessageCrane.value = null
                 _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИК РЕПЕРНОЙ ТОЧКИ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    // CTRLPoint. Включение, отключение контроля реперной точки
+    fun onSetCTRLPointEN() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Запись в регистры
+                modbusRepository.writeRegister(978, 1)
+                delay(200)
+                modbusRepository.writeRegister(978, 0)
+                _errorMessageCTRLPoint.value = null
+                _logMessageCTRLPoint.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCTRLPoint.value = null
+                _errorMessageCTRLPoint.value = "Запись не удалась: ${e.message}"
+            }
+        }
+    }
+    // CTRLPoint. Запись значения интервала контроля реперной точки
+    fun onSetValueCTRLPointControlInterval() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueCTRLPointControlInterval.value, 0.0f,999.9f )
+                // Запись в регистры
+                modbusRepository.writeRegister(979, model)
+                _errorMessageCTRLPoint.value = null
+                _logMessageCTRLPoint.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageCTRLPoint.value = null
+                _errorMessageCTRLPoint.value = "Запись не удалась: ${e.message}"
             }
         }
     }
@@ -1668,6 +1775,10 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setLoadCellOverSpeedThreshold.value = value } }
 
+    //CTRLPoint. Обновление для UI
+    fun updateCTRLPointControlInterval(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueCTRLPointControlInterval.value = value } }
 
     // ДАТЧИКИ ПОЛОЖЕНИЯ. Обновления для UI
     fun updateValueAbsEncRatioHoistGK(value: String) {
@@ -1731,6 +1842,10 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueHoistSpdRefMax.value = value }}
 
+    fun updateHoistSpdRefNom(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueHoistSpdNom.value = value }}
+
     fun updateHoistMontageACC(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueHoistMontageACC.value = value }}
@@ -1778,6 +1893,9 @@ class ServiceMenuViewModel
     fun updateSlewSpdStopButton(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewSpdStopButton.value = value }}
+    fun updateSlewSpdNom(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueSlewSpdNom.value = value }}
 
 
     // Тележка. Обновления для UI
@@ -1807,6 +1925,10 @@ class ServiceMenuViewModel
     fun updateTrolleyOverLsp(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueTrolleyTrolleyOverspd.value = value }}
+
+    fun updateTrolleySpdNom(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueTrolleySpdNom.value = value }}
 
 
     // Ход крана. Обновления для UI

@@ -108,6 +108,10 @@ fun DriveContent(
                 onModelChangeHoistSpdRefMax = { serviceMenuViewModel.updateHoistSpdRefMax(it) },
                 onSetHoistSpdRefMax = { serviceMenuViewModel.onSetHoistSpdRefMax() },
 
+                setValueHoistSpdNom = serviceMenuViewModel.setValueHoistSpdNom.value,
+                updateHoistSpdRefNom = { serviceMenuViewModel.updateHoistSpdRefNom(it) },
+                onSetHoistSpdNom = { serviceMenuViewModel.onSetHoistSpdNom() },
+
                 setValueHoistMontageACC = serviceMenuViewModel.setValueHoistMontageACC.value,
                 onModelChangeHoistMontageACC = { serviceMenuViewModel.updateHoistMontageACC(it) },
                 onSetHoistMontageACC = { serviceMenuViewModel.onSetHoistMontageACC() },
@@ -182,9 +186,15 @@ fun DriveContent(
                 onSetSlewSpdRef4 = { serviceMenuViewModel.onSetSlewSpdRef4() },
                 hmiSpdRef4Slew = serviceMenuViewModel.state.value.slewDriveState.hmiSpdRef4Slew,
 
+                setValueSlewSpdNom = serviceMenuViewModel.setValueSlewSpdNom.value,
+                updateSlewSpdNom = { serviceMenuViewModel.updateSlewSpdNom(it) },
+                onSetSlewSpdNom = { serviceMenuViewModel.onSetSlewSpdNom() },
+                hmiSpdRefNomSlew = serviceMenuViewModel.state.value.slewDriveState.hmiSpdRefNomSlew,
+
                 setValueSlewSpdStopButton = serviceMenuViewModel.setValueSlewSpdStopButton.value,
                 onModelChangeSlewSpdStopButton = { serviceMenuViewModel.updateSlewSpdStopButton(it) },
                 onSetSlewSpdStopButton = { serviceMenuViewModel.onSetSlewSpdStopButton() },
+                hmiSlewSpeedBrakeClose = serviceMenuViewModel.state.value.slewDriveState.hmiSlewSpeedBrakeClose,
 
                 setValueSlewDECRevers = serviceMenuViewModel.setValueSlewDECRevers.value,
                 updateSlewDECRevers = { serviceMenuViewModel.updateSlewDECRevers(it) },
@@ -236,6 +246,11 @@ fun DriveContent(
                 onModelChangeTrolleySpdRef4 = { serviceMenuViewModel.updateTrolleySpdRef4(it)},
                 onSetTrolleySpdRef4 ={ serviceMenuViewModel.onSetTrolleySpdRef4()},
                 hmiSpdRef4Trolley = serviceMenuViewModel.state.value.trolleyDriveState.hmiSpdRef4Trolley,
+
+                setValueTrolleySpdNom = serviceMenuViewModel.setValueTrolleySpdNom.value,
+                updateTrolleySpdNom = { serviceMenuViewModel.updateTrolleySpdNom(it)},
+                onSetTrolleySpdNom ={ serviceMenuViewModel.onSetTrolleySpdNom()},
+                hmiSpdRefNomTrolley = serviceMenuViewModel.state.value.trolleyDriveState.hmiSpdRefNomTrolley,
 
                 setValueTrolleyOverSpd = serviceMenuViewModel.setValueTrolleyTrolleyOverSpd.value,
                 onModelChangeTrolleyOverSpd = { serviceMenuViewModel.updateTrolleyOverLsp(it)},

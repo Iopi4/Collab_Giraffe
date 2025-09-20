@@ -48,21 +48,25 @@ fun CalibrationSensorTrolley(
     updateValueTrolleyPosFwdStop: (String) -> Unit,
     onSetValueTrolleyPosFvdStop: () -> Unit,
     currentTrolleyStopFwd1: Int,
+    trolleyMaxPosition: Float,
 
     setValueTrolleyPosRevStop: String,
     updateValueTrolleyPosRevStop: (String) -> Unit,
     onSetValueTrolleyPosRevStop: () -> Unit,
     currentTrolleyStopRev1: Int,
+    trolleyMinPosition: Float,
 
     setValueTrolleyPosFwdDwnSp: String,
     updateValueTrolleyPosFwdDwnSp: (String) -> Unit,
     onSetValueTrolleyPosFwdDwnSp: () -> Unit,
     currentTrolleyFwdDwnSp1: Int,
+    trolleyPosFwdDwnSp: Float,
 
     setValueTrolleyPosRevDwnSp: String,
     updateValueTrolleyPosRevDwnSp: (String) -> Unit,
     onSetValueTrolleyPosRevDwnSp: () -> Unit,
     currentTrolleyRevDwnSp1: Int,
+    trolleyPosRevDwnSp: Float,
 
     currentTrolleyEncoderMaxDeltaError: Int,
     currentTrolleyEncoderMaxValueError: Int,
@@ -79,7 +83,7 @@ fun CalibrationSensorTrolley(
             .fillMaxSize()
     ) {
 
-        //№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
+//№.1 - Левая область для отображения параметров настройки датчика высоты подъема)
         Column(
             modifier = Modifier
                 .fillMaxSize().weight(3f)
@@ -119,7 +123,7 @@ fun CalibrationSensorTrolley(
         }
 
 
-        //№.2 - Правая область для отображения и ввода данных датчика высоты подъема
+//№.2 - Правая область для отображения и ввода данных датчика высоты подъема
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -132,7 +136,7 @@ fun CalibrationSensorTrolley(
                     shape = RoundedCornerShape(5.dp)),
                 verticalArrangement = Arrangement.Top
         ) {
-            // Отступ  и Статус записи данных настройки датчика
+// Отступ  и Статус записи данных настройки датчика
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
@@ -144,14 +148,14 @@ fun CalibrationSensorTrolley(
                 }
             }
 
-            // Отображение текущего значения датчика вылета
+// Отображение текущего значения датчика вылета
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(currentAbsEncTrolleyPositionWord1, currentAbsEncTrolleyPositionWord2)
                 )
             }
-            // Отображение текущего вылета
+// Отображение текущего вылета
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
@@ -159,24 +163,24 @@ fun CalibrationSensorTrolley(
                 )
             }
 
-            // Кнопка включения проверки защит
+// Кнопка включения проверки защит
             BasicButtonOnOffStatusPolygon(
                 onClick = onSetTrolleyLimitTestEn,
                 isLampStatus = trolleyLimitStatus
             )
 
-            // Отображение кнопок ввода защит и статуса
+// Отображение кнопок ввода защит и статуса
 
-            // Ограничение тележка назад
+// Ограничение тележка назад
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения минимального вылета
+//Поле ввода значения минимального вылета
                 Box(
                     modifier = Modifier
                         .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffeDecimal(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(trolleyMinPosition),
                         value = setValueTrolleyPosRevStop,
                         onValueChange = updateValueTrolleyPosRevStop,
                         modifier = Modifier,
@@ -200,13 +204,13 @@ fun CalibrationSensorTrolley(
             }
 
 
-            // Замедление джвижени тележки назад
+// Замедление джвижения тележки назад
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость подъема
                 Box(modifier = Modifier.weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(trolleyPosRevDwnSp),
                         value = setValueTrolleyPosRevDwnSp,
                         onValueChange = updateValueTrolleyPosRevDwnSp,
                         onClick = onSetValueTrolleyPosRevDwnSp,
@@ -222,7 +226,7 @@ fun CalibrationSensorTrolley(
             }
 
 
-            // Замедление движение тележки вперед
+// Замедление движение тележки вперед
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения при котором снижается скорость опускания
                 Box(
@@ -230,14 +234,14 @@ fun CalibrationSensorTrolley(
                         .weight(4f)
                 ) {
                     BasicInputRowandTensButton(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(trolleyPosFwdDwnSp),
                         value = setValueTrolleyPosFwdDwnSp,
                         onValueChange = updateValueTrolleyPosFwdDwnSp,
                         onClick = onSetValueTrolleyPosFwdDwnSp,
                         isDecimal = true,
                     )
                 }
-                //Статус. Индикация срабатывания замедления
+//Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorDwn(
                         isLampStatus = currentTrolleyFwdDwnSp1
@@ -245,7 +249,7 @@ fun CalibrationSensorTrolley(
                 }
             }
 
-            // Ограничение остановки тележки вперед
+// Ограничение остановки тележки вперед
             Row(horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения минимальной высоты подъема
                 Box(
@@ -254,13 +258,13 @@ fun CalibrationSensorTrolley(
                         .weight(2f)
                 ) {
                     BasicTextFilledGiraffeDecimal(
-                        placeholder = "000.0",
+                        placeholder = formatDecimal(trolleyMaxPosition),
                         value = setValueTrolleyPosFwdStop,
                         onValueChange = updateValueTrolleyPosFwdStop,
                         modifier = Modifier,
                     )
                 }
-                //Кнопка ввода
+//Кнопка ввода
                 Box(modifier = Modifier.weight(2f)) {
                     BasicButtonGiraffe(
                         modifier = Modifier,
@@ -275,10 +279,10 @@ fun CalibrationSensorTrolley(
                 }
             }
 
-            // Отступ
+// Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 
-            //Статус датчика. Контроль максимального рассогласования
+//Статус датчика. Контроль максимального рассогласования
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
@@ -290,7 +294,7 @@ fun CalibrationSensorTrolley(
                     )
                 }
             }
-            //Статус датчика. Контроль максимального значения
+//Статус датчика. Контроль максимального значения
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(modifier = Modifier
@@ -302,7 +306,7 @@ fun CalibrationSensorTrolley(
                     )
                 }
             }
-            //Статус датчика. Контроль связи
+//Статус датчика. Контроль связи
             Row(horizontalArrangement = Arrangement.Start) {
                 Box(modifier = Modifier.weight(3f))
                 Box(
@@ -349,21 +353,25 @@ fun CalibrationSensorTrolleyPreview () {
             updateValueTrolleyPosFwdStop = { },
             onSetValueTrolleyPosFvdStop = {},
             currentTrolleyStopFwd1 = 1,
+            trolleyMaxPosition = 60f,
 
             setValueTrolleyPosRevStop = "`1",
             updateValueTrolleyPosRevStop = {},
             onSetValueTrolleyPosRevStop = {},
             currentTrolleyStopRev1 = 1,
+            trolleyMinPosition = 2f,
 
             setValueTrolleyPosFwdDwnSp = "1",
             updateValueTrolleyPosFwdDwnSp = {},
             onSetValueTrolleyPosFwdDwnSp = {},
             currentTrolleyFwdDwnSp1 = 1,
+            trolleyPosFwdDwnSp = 55f,
 
             setValueTrolleyPosRevDwnSp = "1",
             updateValueTrolleyPosRevDwnSp = { },
             onSetValueTrolleyPosRevDwnSp = {},
             currentTrolleyRevDwnSp1 = 1,
+            trolleyPosRevDwnSp = 5f,
 
             currentTrolleyEncoderMaxDeltaError= 1,
             currentTrolleyEncoderMaxValueError= 1,

@@ -176,7 +176,20 @@ fun SensorsContent(
                 currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDebugModeSlew,
             )
             }
-            composable(NavRoutesSensorsContent.PageServiceRefPoint.route) {ServiceRefPoint()}
+            composable(NavRoutesSensorsContent.PageServiceRefPoint.route)
+            {
+                ServiceRefPoint(
+                    setValueCTRLPointControlInterval = serviceMenuViewModel.setValueCTRLPointControlInterval.value,
+                    updateCTRLPointControlInterval = { serviceMenuViewModel.updateCTRLPointControlInterval(it)},
+                    onSetValueCTRLPointControlInterval = {serviceMenuViewModel.onSetValueCTRLPointControlInterval()},
+                    ctrlPointControlInterval = serviceMenuViewModel.state.value.sensorsAndUserState.ctrlPointControlInterval,
+
+                    onSetCTRLPointEN = { serviceMenuViewModel.onSetCTRLPointEN()},
+                    craneCTRLPointEN = serviceMenuViewModel.state.value.sensorsAndUserState.craneCTRLPointEN,
+
+                    errorMessageCTRLPoint = serviceMenuViewModel.errorMessageCTRLPoint.value,
+                    logMessageCTRLPoint = serviceMenuViewModel.logMessageCTRLPoint.value
+                )}
         }
     }
 }

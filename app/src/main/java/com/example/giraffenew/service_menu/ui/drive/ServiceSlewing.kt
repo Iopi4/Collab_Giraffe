@@ -59,9 +59,15 @@ fun ServiceSlewing(
     onSetSlewSpdRef4: () -> Unit,
     hmiSpdRef4Slew  : Int,
 
+    setValueSlewSpdNom: String,
+    updateSlewSpdNom: (String) -> Unit,
+    onSetSlewSpdNom: () -> Unit,
+    hmiSpdRefNomSlew: Int,
+
     setValueSlewSpdStopButton: String,
     onModelChangeSlewSpdStopButton: (String) -> Unit,
     onSetSlewSpdStopButton: () -> Unit,
+    hmiSlewSpeedBrakeClose: Int,
 
     setValueSlewDECRevers: String,
     updateSlewDECRevers: (String) -> Unit,
@@ -105,6 +111,7 @@ fun ServiceSlewing(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_3)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_4)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_Nom)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Stoping_Speed)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Acc)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
@@ -129,7 +136,7 @@ fun ServiceSlewing(
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
                 ) {
-                    errorMessageSlew?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    errorMessageSlew?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
                     logMessageSlew?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
@@ -170,9 +177,18 @@ fun ServiceSlewing(
                 onValueChange = onModelChangeSlewSpdRef4,
                 onClick = onSetSlewSpdRef4
             )
+//Ввод. Номинальная скорость.Об/мин
+            BasicInputRowandButton(
+                placeholder = format(hmiSpdRefNomSlew),
+                value = setValueSlewSpdNom,
+                valueMin = 0,
+                valueMax = 3000,
+                onValueChange = updateSlewSpdNom,
+                onClick = onSetSlewSpdNom
+            )
 //Ввод. Остановка от кнопки, об/мин
             BasicInputRowandButton(
-                placeholder = "000",
+                placeholder = format(hmiSlewSpeedBrakeClose),
                 value = setValueSlewSpdStopButton,
                 valueMin = 0,
                 valueMax = 200,
@@ -264,6 +280,10 @@ fun ServiceSlewingPreview () {
             onModelChangeSlewSpdRef4 = { },
             onSetSlewSpdRef4 = { },
 
+            setValueSlewSpdNom = "1500",
+            updateSlewSpdNom = { },
+            onSetSlewSpdNom = { },
+
             setValueSlewSpdStopButton = "100",
             onModelChangeSlewSpdStopButton = { },
             onSetSlewSpdStopButton = { },
@@ -279,6 +299,7 @@ fun ServiceSlewingPreview () {
             setValueSlewBrakeCloseFrq = "0.01",
             updateSlewBrakeCloseFrq = { },
             onSetSlewBrakeCloseFrq = { },
+            hmiSlewSpeedBrakeClose = 5,
 
             errorMessageSlew = null,
             logMessageSlew = null,
@@ -293,6 +314,7 @@ fun ServiceSlewingPreview () {
             hmiSlewDecRevers = 15f,
             hmiSlewDelayTimeBrake = 100f,
             hmiSlewBrakeCloseFrq = 1f,
+            hmiSpdRefNomSlew = 5,
         )
     }
 }

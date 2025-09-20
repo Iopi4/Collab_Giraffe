@@ -74,6 +74,10 @@ fun ServiceHoist(
     onModelChangeHoistSpdRefButton: (String) -> Unit,
     onSetHoistSpdRefButton: () -> Unit,
 
+    setValueHoistSpdNom: String,
+    updateHoistSpdRefNom: (String) -> Unit,
+    onSetHoistSpdNom: () -> Unit,
+
     setValueHoistSpdRefMax: String,
     onModelChangeHoistSpdRefMax: (String) -> Unit,
     onSetHoistSpdRefMax: () -> Unit,
@@ -125,6 +129,7 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_3)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_4)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_Nom)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Max_Speed_SS)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_SpdRefButton)
 
@@ -210,6 +215,15 @@ fun ServiceHoist(
                 valueMax = 9999,
                 onValueChange = onModelChangeHoistSpdRef4,
                 onClick = onSetHoistSpdRef4
+            )
+//Ввод. Номинальная скорость двигателя, об/мин
+            BasicInputRowandButton(
+                placeholder = format(hmiSpdRefNomHoist),
+                value = setValueHoistSpdNom,
+                valueMin = 0,
+                valueMax = 9999,
+                onValueChange = updateHoistSpdRefNom,
+                onClick = onSetHoistSpdNom
             )
 //Ввод. Сверх.синхр. скорость, об/мин
             BasicInputRowandButton(
@@ -314,6 +328,10 @@ fun ServiceHoistPreview () {
             setValueHoistSpdRefButton = "2",
             onModelChangeHoistSpdRefButton = { },
             onSetHoistSpdRefButton = { },
+
+            setValueHoistSpdNom = "2",
+            updateHoistSpdRefNom = { },
+            onSetHoistSpdNom = { },
 
             setValueHoistSpdRefMax = "2",
             onModelChangeHoistSpdRefMax = { },
