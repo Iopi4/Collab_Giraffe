@@ -3,6 +3,7 @@ package com.example.giraffenew.initial_setup.presentation
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -44,6 +45,25 @@ class InitialSetupViewModel
     private val _setValueYear = mutableStateOf("")
     val setValueYear: State<String> = _setValueYear
 
+
+
+    private val _selectedCrane = mutableStateOf<CraneEntity?>(null)
+    val selectedCrane: State<CraneEntity?> = _selectedCrane
+
+    private val _showCraneDialog = mutableStateOf(false)
+    val showCraneDialog: State<Boolean> = _showCraneDialog
+
+    private val _selectedCraneId = mutableStateOf<Int?>(null)
+    val selectedCraneId: State<Int?> = _selectedCraneId
+
+    private val _cranesList = mutableStateListOf<CraneEntity>()
+    val cranesList: List<CraneEntity> = _cranesList
+
+    private val _errorMessageModelCrane = mutableStateOf<String?>(null)
+    val errorMessageModelCrane: State<String?> = _errorMessageModelCrane
+
+    private val _logMessageModelCrane = mutableStateOf<String?>(null)
+    val logMessageModelCrane: State<String?> = _logMessageModelCrane
 
 
     private val _setModelCrane = mutableStateOf("")
@@ -110,6 +130,7 @@ class InitialSetupViewModel
     val logMessageSBKB: State<String?> = _logMessageSBKB
 
 
+
     fun getCraneModel(craneID: Int): LiveData<String?> {
         return liveData(Dispatchers.IO) {
             emit(craneRepository.getCraneModel(craneID))
@@ -170,6 +191,39 @@ class InitialSetupViewModel
             }
         }
     }
+
+
+    init {
+        loadAllCranes()
+    }
+    fun loadAllCranes() {
+        viewModelScope.launch {
+            try {
+                val cranes = craneRepository.getAllCranes()
+                _cranesList.clear()
+                _cranesList.addAll(cranes)
+            } catch (e: Exception) {
+                _errorMessageCrane.value = "Ошибка загрузки списка кранов: ${e.message}"
+            }
+        }
+    }
+    fun openCraneDialog() {
+        _showCraneDialog.value = true
+    }
+
+    fun closeCraneDialog() {
+        _showCraneDialog.value = false
+    }
+
+    fun selectCrane(crane: CraneEntity) {
+        _selectedCrane.value = crane
+        _selectedCraneId.value = crane.craneID
+        closeCraneDialog()
+    }
+
+
+
+
     // Запись даты ввода крана в эксплуатацию
     fun onSetDateCrane() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -240,12 +294,11 @@ class InitialSetupViewModel
     }
 
     // Запись модели крана
-    fun onSetModelCrane() {
+    fun onSetModelCrane(craneID: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setModelCrane.value, 0.00f,99.999f )
-                // Запись в регистры модель крана
-                modbusRepository.writeRegister(848, model)
+                // Запись в регистры модель крана (craneID)
+                modbusRepository.writeRegister(848, craneID)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {

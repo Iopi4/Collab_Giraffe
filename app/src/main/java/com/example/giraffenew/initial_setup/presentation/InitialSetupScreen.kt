@@ -23,6 +23,15 @@ fun InitialSetupScreen(
     ) {
         BasicSettingBackground()
 
+    // Показываем диалог выбора крана, если нужно
+    if (initialSetupViewModel.showCraneDialog.value) {
+        CraneSelectionDialog(
+            cranes = initialSetupViewModel.cranesList,
+            onDismiss = { initialSetupViewModel.closeCraneDialog() },
+            onCraneSelected = { initialSetupViewModel.selectCrane(it) }
+        )
+    }
+
 //Создаем поле в котором разделим экраны на горизонтальные области для отображения наших UI
     Column(
         modifier = Modifier
@@ -50,9 +59,10 @@ fun InitialSetupScreen(
         }
         Box(modifier = Modifier.weight(3f)){
             ParametersCraneAndSBKB(
-                setValueModelCrane = initialSetupViewModel.setValueModelCrane.value,
-                onModelChangeCrane = { initialSetupViewModel.updateModelCrane(it) },
-                onSetModelCrane = { initialSetupViewModel.onSetModelCrane() },
+                selectedCrane  = initialSetupViewModel.selectedCrane.value,
+                onSelectCrane  = { initialSetupViewModel.openCraneDialog() },
+                onSetModelCrane = { craneID -> initialSetupViewModel.onSetModelCrane(craneID) },
+                selectedCraneId = initialSetupViewModel.selectedCraneId.value,
 
                 setValueNumberCrane = initialSetupViewModel.setValueNumberCrane.value,
                 onNumberChangeCrane =  { initialSetupViewModel.updateNumberCrane(it) },

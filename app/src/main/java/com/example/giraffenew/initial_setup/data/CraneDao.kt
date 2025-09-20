@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.giraffenew.initial_setup.domain.CraneEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CraneDao {
@@ -14,6 +15,14 @@ interface CraneDao {
     @Query("SELECT * FROM cranes WHERE craneID = :craneId")
     suspend fun getCraneById(craneId: Int): CraneEntity?
 
+    // Добавляем метод для получения Flow
+    @Query("SELECT * FROM cranes WHERE craneID = :craneId")
+    fun getCraneByIdFlow(craneId: Int): Flow<CraneEntity?>
+
     @Query("SELECT * FROM cranes")
     suspend fun getAllCranes(): List<CraneEntity>
+
+    // Добавляем метод для получения Flow всех кранов
+    @Query("SELECT * FROM cranes")
+    fun getAllCranesFlow(): Flow<List<CraneEntity>>
 }

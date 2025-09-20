@@ -52,12 +52,16 @@ abstract class AppDatabase : RoomDatabase() {
                     CraneEntity(16, "TDK-12.280"),
                     CraneEntity(17, "TDK-16.300"),
                     CraneEntity(18, "TDK-40.1100"),
+
                     CraneEntity(21, "SMK-5.66"),
                     CraneEntity(22, "SMK-10.200"),
+
                     CraneEntity(31, "TDKZ-10.160"),
+
                     CraneEntity(41, "TDKP-12,5.300"),
                     CraneEntity(42, "TDKP-12,5.440"),
-                    CraneEntity(43, "TDKP-20.600")
+                    CraneEntity(43, "TDKP-20.600"),
+                    CraneEntity(44, "TDKP-10.300")
                 )
 
                 defaultCranes.forEach { crane ->

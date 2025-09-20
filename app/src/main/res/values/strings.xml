@@ -68,6 +68,7 @@
     <!-- Текст экрана Home' -->
 
     <!-- Текст экрана InitialSetup' -->
+    <string name="InitialSetup_Button_Model_Crane">ВЫБРАТЬ</string>
     <!-- Текст параметров настройки даты и времени' -->
     <string name="InitialSetup_Text_Setting_Date_Time">Настройка даты и времени</string>
     <string name="InitialSetup_Text_Current_Time">Текущее время [Час:Мин]</string>
@@ -76,7 +77,7 @@
     <string name="InitialSetup_TextFilled_Date">Ввод. [ДД] [ММ] [ГГГГ]</string>
     <!-- Текст параметров настройки крана' -->
     <string name="InitialSetup_Text_Parameters_Crane_And_SBKB">Параметры крана и СБКБ</string>
-    <string name="InitialSetup_TextFilled_Model_Crane">Ввод. Модель крана</string>
+    <string name="InitialSetup_TextFilled_Model_Crane">Выбор. Модель крана</string>
     <string name="InitialSetup_TextFilled_Number_Crane">Ввод. Заводской номер крана</string>
     <string name="InitialSetup_TextFilled_Registration">Ввод. Дата рег. в Ростехнадзоре</string>
     <string name="InitialSetup_TextFilled_Operation">Ввод. Дата ввода в эксплуатацию</string>

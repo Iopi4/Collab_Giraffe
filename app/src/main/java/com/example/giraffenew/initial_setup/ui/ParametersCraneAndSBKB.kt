@@ -4,31 +4,27 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
-import com.example.giraffenew.initial_setup.text.BasicTextFilledGiraffeModelCrane
+import com.example.giraffenew.initial_setup.button.ButtonModelCrane
+import com.example.giraffenew.core.ui_kit.composable.button.ButtonOn
+import com.example.giraffenew.initial_setup.button.ButtonOnModelCrane
+import com.example.giraffenew.initial_setup.domain.CraneEntity
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -36,9 +32,10 @@ import com.example.giraffenew.ui.theme.Orange
 @Composable
 fun ParametersCraneAndSBKB(
 
-    setValueModelCrane: String,
-    onModelChangeCrane: (String) -> Unit,
-    onSetModelCrane: () -> Unit,
+    selectedCrane: CraneEntity?,
+    onSelectCrane: () -> Unit,
+    onSetModelCrane: (Int) -> Unit,
+    selectedCraneId: Int?,
 
     setValueNumberCrane: String,
     onNumberChangeCrane: (String) -> Unit,
@@ -153,21 +150,21 @@ fun ParametersCraneAndSBKB(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                     .weight(3f)
                 ) {
-                    BasicTextFilledGiraffeModelCrane(
+                    ButtonModelCrane(
                         modifier = Modifier,
-                        placeholder = "XXX-00.0000",
-                        value = setValueModelCrane,
-                        onValueChange = onModelChangeCrane,
-                        isDecimal = true
+                        onClick = onSelectCrane,
+                        text = selectedCrane?.craneModel ?:
+                        stringResource(R.string.InitialSetup_Button_Model_Crane),
                     )
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(1f)) {
-                    ButtonOn(
+                    ButtonOnModelCrane(
                         modifier = Modifier,
                         text = R.string.Button_ON,
-                        onClick = onSetModelCrane,
-                    ) {}
+                        onClick = { selectedCraneId?.let { onSetModelCrane(it) } },
+                        craneId = selectedCraneId
+                    )
                 }
             }
 
@@ -197,7 +194,8 @@ fun ParametersCraneAndSBKB(
 //Ввод. Дата регистр. в Ростехнадзоре
             Row (horizontalArrangement = Arrangement.Start) {
                 //Поле ввода значения максимального веса груза
-                Box (modifier = Modifier.padding(start = 10.dp)
+                Box (modifier = Modifier
+                    .padding(start = 10.dp)
                     .weight(3f)
                 ) { FieldDate(
                         isValueDay = setValueDayRTN,
@@ -220,7 +218,8 @@ fun ParametersCraneAndSBKB(
 //Ввод. Дата ввода крана в эксплуатацию
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
                 //Поле ввода значения максимального веса груза
-                Box (modifier = Modifier.padding(start = 10.dp)
+                Box (modifier = Modifier
+                    .padding(start = 10.dp)
                     .weight(3f)
                 ) {
                     FieldDate(
@@ -294,32 +293,7 @@ fun ParametersCraneAndSBKB(
     }
 }
 
-@Composable
-fun ButtonOn(
-    modifier: Modifier = Modifier,
-    text: Int,
-    onClick: () -> Unit,
-    function: () -> Unit,
-) {
-    Box(modifier = modifier
-        .padding(start = 5.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)
-        .clip(shape = RoundedCornerShape(5.dp))
-        .fillMaxWidth()){
-        Button(
-            modifier = Modifier
-                .size(width = 350.dp, height = 30.dp),
-            onClick = onClick,
-            contentPadding = PaddingValues(2.dp),
-            shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(R.color.Burgundy_violet),
-                contentColor = Color.White),
-        ) {
-            Text( text = stringResource(id = text), fontSize = 19.sp, fontWeight = FontWeight.Bold)
-        }
-    }
 
-}
 
 @Preview
 @Composable
@@ -327,9 +301,10 @@ fun ParametersCraneAndSBKBPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ParametersCraneAndSBKB(
 
-            setValueModelCrane = "1",
-            onModelChangeCrane = { },
-            onSetModelCrane ={ },
+            selectedCrane = CraneEntity(14, "") ,
+            onSelectCrane= { },
+            onSetModelCrane= { },
+            selectedCraneId= 14,
 
             setValueNumberCrane = "1",
             onNumberChangeCrane = { },
@@ -368,6 +343,7 @@ fun ParametersCraneAndSBKBPreview () {
             logMessageCrane = null,
             logMessageSBKB = null,
             logMessageRTN = null,
+
         )
     }
 }

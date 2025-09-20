@@ -1,6 +1,5 @@
 package com.example.giraffenew.navigate.presentation
 
-import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.giraffenew.R
 import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventTimeProvider
+import com.example.giraffenew.initial_setup.data.CraneRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -35,14 +35,14 @@ import java.util.Calendar
 
  */
 
-//Создание ViewModel для управления временем и датой
+//Создание ViewModel для управления временем, датой и типом крана
 @HiltViewModel
 class TopBarViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository,
     private val craneIdRepository: CraneIdRepository,
     private val soundController: SoundController,
     private val eventTimeProvider: EventTimeProvider,
-    private val application: Application,
+    private val craneRepository: CraneRepository,
 
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
@@ -64,7 +64,7 @@ class TopBarViewModel @Inject constructor(
     private val _currentDate = mutableStateOf("00:00:0000")
     val currentDate: State<String> = _currentDate
 
-    private val _currentModelCrane = mutableStateOf("TDK-00.000")
+    private val _currentModelCrane = mutableStateOf("XXX-00.000")
     val currentModelCrane: State<String> = _currentModelCrane
 
     private val _currentPulleyBlock = mutableStateOf("Запасовка [... кр.]")
@@ -90,9 +90,15 @@ class TopBarViewModel @Inject constructor(
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
 
+    // Для отслеживания текущего craneId
+    private var currentCraneId: Int? = null
+
     init {
         startDataCollection()
         setupAppStateMonitoring()
+
+        // Запускаем наблюдение за изменениями в базе данных кранов
+        observeCraneDatabase()
     }
 
     private fun startDataCollection() {
@@ -165,6 +171,7 @@ class TopBarViewModel @Inject constructor(
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
     }
 
+    //Записываем в регистр состояние активности приложения. Если приложение активно отправляем 1.
     private fun updateAppState(isActive: Boolean) {
         viewModelScope.launch {
             mutex.withLock {
@@ -208,9 +215,7 @@ class TopBarViewModel @Inject constructor(
 
         val timeInMillis = calendar.timeInMillis
         _currentTimeEvents.value = String.format(
-            "%02d.%02d.%04d.%02d:%02d:%02d", day, month, year, hour, minute, second
-        )
-
+            "%02d.%02d.%04d.%02d:%02d:%02d", day, month, year, hour, minute, second)
         eventTimeProvider.updateEventTime(timeInMillis)
     }
 
@@ -222,10 +227,49 @@ class TopBarViewModel @Inject constructor(
         _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
     }
 
+    // Функция для наблюдения за изменениями в базе данных
+    private fun observeCraneDatabase() {
+        viewModelScope.launch {
+            // Подписываемся на изменения всех кранов
+            craneRepository.getAllCranesFlow()
+                .collect { cranes ->
+                    // Если у нас есть текущий craneId, обновляем модель
+                    currentCraneId?.let { id ->
+                        updateModelFromDatabase(id)
+                    }
+                }
+        }
+    }
+
+    //Чтобы TopBarViewModel реагировал на изменения в базе данных кранов в реальном времени, надо использовать Flow:
     private fun updateModelCrane(cache: Map<Int, Int?>) {
-        val crane = cache[150] ?: return
-        val numberStr = crane.toString().padStart(5, '0')
-        _currentModelCrane.value = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}"
+        val craneId = cache[150] ?: return
+        currentCraneId = craneId
+        updateModelFromDatabase(craneId)
+    }
+
+    private fun updateModelFromDatabase(craneId: Int) {
+        viewModelScope.launch {
+            try {
+                // Используем Flow для получения модели крана
+                craneRepository.getCraneModelFlow(craneId)
+                    .collect { model ->
+                        _currentModelCrane.value = model ?: "XXX-00.000"
+                    }
+            } catch (e: Exception) {
+                _currentModelCrane.value = "ОШИБКА"
+                Log.e("TopBarViewModel", "Ошибка получения модели крана: ${e.message}")
+            }
+        }
+    }
+
+    private fun updateCraneID(cache: Map<Int, Int?>) {
+        val serialNumber = cache[367] ?: return
+        val model = _currentModelCrane.value
+        val newCraneId = "${model}_${serialNumber}"
+
+        _craneId.value = newCraneId
+        craneIdRepository.updateCraneId(newCraneId) // Обновляем значение в репозитории
     }
 
     private fun updatePulleyBlock(cache: Map<Int, Int?>) {
@@ -239,17 +283,6 @@ class TopBarViewModel @Inject constructor(
         val loadCapacity = cache[194] ?: return
         _currentLoadCapacity.value = "Груз.хар. [%02d]".format(loadCapacity)
     }
-
-    private fun updateCraneID(cache: Map<Int, Int?>) {
-        val crane = cache[150] ?: return
-        val serialNumber = cache[367] ?: return
-        val numberStr = crane.toString().padStart(5, '0')
-        val newCraneId = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}_CRANE-X-${serialNumber}"
-
-        _craneId.value = newCraneId
-        craneIdRepository.updateCraneId(newCraneId) // Обновляем значение в репозитории
-    }
-
     private fun updateStatusMode(cache: Map<Int, Int?>) {
         val buildMode = cache[190] ?: 0
         val serviceMode = cache[191] ?: 0
