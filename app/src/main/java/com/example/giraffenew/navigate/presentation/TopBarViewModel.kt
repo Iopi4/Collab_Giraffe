@@ -244,7 +244,7 @@ class TopBarViewModel @Inject constructor(
         val crane = cache[150] ?: return
         val serialNumber = cache[367] ?: return
         val numberStr = crane.toString().padStart(5, '0')
-        val newCraneId = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}.2кз_${serialNumber}"
+        val newCraneId = "TDK-${numberStr.take(2)}.${numberStr.takeLast(3)}_CRANE-X-${serialNumber}"
 
         _craneId.value = newCraneId
         craneIdRepository.updateCraneId(newCraneId) // Обновляем значение в репозитории

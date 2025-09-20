@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 
 //@Dao — аннотация, указывающая, что это Data Access Object (объект доступа к данным)
 @Dao
-
 //EventDao — это интерфейс, который определяет операции с базой данных для работы с событиями.
 interface EventDao {
     // Методы для работы с данными

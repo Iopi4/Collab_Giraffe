@@ -69,11 +69,13 @@
 
     <!-- Текст экрана InitialSetup' -->
     <!-- Текст параметров настройки даты и времени' -->
+    <string name="InitialSetup_Text_Setting_Date_Time">Настройка даты и времени</string>
     <string name="InitialSetup_Text_Current_Time">Текущее время [Час:Мин]</string>
     <string name="InitialSetup_Text_Current_Date">Текущая дата [День.Мес.Год]</string>
     <string name="InitialSetup_TextFilled_Time">Ввод. [ЧЧ] [ММ]</string>
     <string name="InitialSetup_TextFilled_Date">Ввод. [ДД] [ММ] [ГГГГ]</string>
     <!-- Текст параметров настройки крана' -->
+    <string name="InitialSetup_Text_Parameters_Crane_And_SBKB">Параметры крана и СБКБ</string>
     <string name="InitialSetup_TextFilled_Model_Crane">Ввод. Модель крана</string>
     <string name="InitialSetup_TextFilled_Number_Crane">Ввод. Заводской номер крана</string>
     <string name="InitialSetup_TextFilled_Registration">Ввод. Дата рег. в Ростехнадзоре</string>
@@ -330,7 +332,7 @@
 
     <string name="ServiceMenu_Text_Sensor_Weight_Min">Мин. значение измерения</string>
     <string name="ServiceMenu_Text_Sensor_Weight_Max">Макс. значение измерения</string>
-    <string name="ServiceMenu_Text_Sensor_Weight_Averaging">Глубина сглаживания веса</string>
+    <string name="ServiceMenu_Text_Sensor_Weight_Averaging">Кол-во точек усреднения [шт]</string>
     <string name="ServiceMenu_Text_Sensor_Weight_SS_Speed">Огранич. сверхскор. подъема [т]</string>
     <!-- Настройка пользователя -->
     <string name="ServiceMenu_Text_User_Registrator">Регистратор параметров</string>

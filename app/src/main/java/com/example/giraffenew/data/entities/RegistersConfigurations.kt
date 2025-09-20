@@ -760,6 +760,12 @@ object UISettingSensorsConfiguration {
         RegisterInfo(811, "HMI_Write_rHoist_LSP_Dist3_MW", "WORD16", "дистанция снижение до 3-й скорости"),
         RegisterInfo(812, "HMI_Write_rHoist_LSP_Dist2_MW", "WORD16", "дистанция снижение до 2-й скорости"),
         RegisterInfo(813, "HMI_Write_rHoist_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
+
+        RegisterInfo(160, "Hoist_Max_Position_MW", "WORD16", "Максимальное положение подъема *0,1м"),
+        RegisterInfo(161, "Hoist_Min_Position_MW", "WORD16", "Минимальное положение подъема *0,1м"),
+        RegisterInfo(338, "HMI_Hoist_Pos_Fwd_DwnSp_MW", "WORD16", "Положение крюка замедление вверх *0,1м"),
+        RegisterInfo(339, "HMI_Hoist_Pos_Rev_DwnSp_MW", "WORD16", "Положение крюка замедление вниз *0,1м"),
+
         //Параметры настройки датчика поворота
         RegisterInfo(814, "HMI_Write_xSlew_Limit_En_MW", "WORD16", "Включение принудительной проверки механизма поворота в наладочном режиме"),
         RegisterInfo(1648, "HMI_Slew_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
@@ -771,6 +777,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(820, "HMI_Write_rSlew_LSP_Dist3_MW", "WORD16", "дистанция снижение до 3-й скорости"),
         RegisterInfo(821, "HMI_Write_rSlew_LSP_Dist2_MW", "WORD16", "дистанция снижение до 2-й скорости"),
         RegisterInfo(822, "HMI_Write_rSlew_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
+
         //Параметры настройки датчика тележки
         RegisterInfo(823, "HMI_Write_xTrolley_Limit_En_MW", "WORD16", "Включить ограничения перемещения тележки"),
         RegisterInfo(1699, "HMI_Trolley_Limit_Stat_MW", "WORD16", "Стутус функции проверки ограничений в наладке"),
@@ -786,6 +793,13 @@ object UISettingSensorsConfiguration {
         RegisterInfo(831, "HMI_Write_rTrolley_LSP_Dist3_MW", "WORD16", "дистанция снижение до 3-й скорости"),
         RegisterInfo(832, "HMI_Write_rTrolley_LSP_Dist2_MW", "WORD16", "дистанция снижение до 2-й скорости"),
         RegisterInfo(833, "HMI_Write_rTrolley_LSP_Dist1_MW", "WORD16", "дистанция снижение до 1-й скорости"),
+
+        RegisterInfo(156, "Trolley_Max_Position_MW", "WORD16", "Максимальное положение тележки *0,1м"),
+        RegisterInfo(157, "Trolley_Min_Position_MW", "WORD16", "Минимальное положение тележки *0,1м"),
+        RegisterInfo(354, "HMI_Trolley_Pos_Fwd_DwnSp_MW", "WORD16", "положение тележки при котором снижаем скорость двигаю тележку вперед *0,1м"),
+        RegisterInfo(355, "HMI_Trolley_Pos_Rev_DwnSp_MW", "WORD16", "положение тележки при котором снижаем скорость двигаю тележку назад"),
+
+
         //Параметры настройки датчика хода крана
         RegisterInfo(869, "HMI_Write_xCrane_Rails_En_MW", "WORD16", "Активация хода крана. 1 - Ход крана активирован"),
         RegisterInfo(834, "HMI_Write_xCrane_Limit_En_MW", "WORD16", "Включить ограничения перемещения хода крана"),
@@ -797,6 +811,13 @@ object UISettingSensorsConfiguration {
         RegisterInfo(839, "HMI_Write_rCrane_Pos_Rev_Stop_MW", "WORD16", "Значение при котором останавливаем движение крана назад"),
         RegisterInfo(840, "HMI_Write_rCrane_Pos_Fwd_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость при движении крана вперед"),
         RegisterInfo(841, "HMI_Write_rCrane_Pos_Rev_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость при движении крана назад"),
+
+        RegisterInfo(356, "HMI_Crane_Pos_Fwd_Stop_MW", "WORD16", "Путь при котором останавливаем движение крана вперед"),
+        RegisterInfo(357, "HMI_Crane_Pos_Rev_Stop_MW", "WORD16", "Путь при котором останавливаем движение крана назад"),
+        RegisterInfo(358, "HMI_Crane_Pos_Fwd_DwnSp_MW", "WORD16", "Путь при котором снижаем скорость при движении крана вперед"),
+        RegisterInfo(359, "HMI_Crane_Pos_Rev_DwnSp_MW", "WORD16", "Путь при котором снижаем скорость при движении крана назад"),
+        RegisterInfo(372, "HMI_Crane_Pos_CTRL_Point_MW", "WORD16", "Реперная точка хода крана"),
+
         //Регистры состояний активности экрана настройки датчиков
         RegisterInfo(868, "HMI_Current_Picture_MW", "WORD16", "Значение при котором снижаем скорость при движении крана назад"),
         //Регистры состояний. Проверка датчиков во время настройки

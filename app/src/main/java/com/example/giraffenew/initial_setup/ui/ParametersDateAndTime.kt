@@ -65,7 +65,7 @@ fun ParametersDateAndTime(
             verticalArrangement = Arrangement.Top
         ) {
 //Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.InitialSetup_Text_Setting_Date_Time))
 
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_Time)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_Date)

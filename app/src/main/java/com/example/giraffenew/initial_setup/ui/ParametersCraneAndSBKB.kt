@@ -28,7 +28,7 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeModelCrane
+import com.example.giraffenew.initial_setup.text.BasicTextFilledGiraffeModelCrane
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -101,7 +101,7 @@ fun ParametersCraneAndSBKB(
         ) {
 //Отступ
             BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.spacer))
+                text = stringResource(R.string.InitialSetup_Text_Parameters_Crane_And_SBKB))
             //Бокс 1.2 для отображения текста параметров крана
                     BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Model_Crane)
                     BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Number_Crane)
@@ -155,7 +155,7 @@ fun ParametersCraneAndSBKB(
                 ) {
                     BasicTextFilledGiraffeModelCrane(
                         modifier = Modifier,
-                        placeholder = "10.180",
+                        placeholder = "XXX-00.0000",
                         value = setValueModelCrane,
                         onValueChange = onModelChangeCrane,
                         isDecimal = true

@@ -1,11 +1,17 @@
 package com.example.giraffenew.initial_setup.presentation
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
+import com.example.giraffenew.initial_setup.data.AppDatabase
+import com.example.giraffenew.initial_setup.data.CraneRepository
+import com.example.giraffenew.initial_setup.domain.CraneEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,7 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class InitialSetupViewModel
 @Inject constructor(
-    private val modbusRepository: ModbusRepository
+    private val modbusRepository: ModbusRepository,
+    private var craneRepository: CraneRepository, // Внедряем через Hilt
+    private val application: Application
 ): ViewModel(){
 
     // Состояния для ввода
@@ -102,7 +110,18 @@ class InitialSetupViewModel
     val logMessageSBKB: State<String?> = _logMessageSBKB
 
 
-    private var dataCollectionJob: Job? = null
+    fun getCraneModel(craneID: Int): LiveData<String?> {
+        return liveData(Dispatchers.IO) {
+            emit(craneRepository.getCraneModel(craneID))
+        }
+    }
+
+    fun getAllCranes(): LiveData<List<CraneEntity>> {
+        return liveData(Dispatchers.IO) {
+            emit(craneRepository.getAllCranes())
+        }
+    }
+
 
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
         val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
