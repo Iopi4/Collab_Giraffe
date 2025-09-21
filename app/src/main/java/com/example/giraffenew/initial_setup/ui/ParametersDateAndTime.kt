@@ -24,12 +24,22 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.initial_setup.button.ButtonModelCrane
+import com.example.giraffenew.initial_setup.button.ButtonOnModelCrane
+import com.example.giraffenew.initial_setup.domain.CraneEntity
+import com.example.giraffenew.initial_setup.domain.TimeZoneEntity
 import com.example.giraffenew.ui.theme.Burgundy_violet
 
 @Composable
 fun ParametersDateAndTime(
     currentTime: String,
     currentDate: String,
+
+    selectedTimeZone: TimeZoneEntity?,
+    onSelectTimeZone: () -> Unit,
+    onSetTimeZone: (Int) -> Unit,
+    selectedTimeZoneUTC: Int?,
+
     setValueHour: String, //AT%MW846 (* Hours 0 to 23 *)
     setValueMinute: String, //AT%MW847 (* Minutes 0 to 59 *)
     setValueDay: String, //AT%MW845 (* Days 1 to 31 *)
@@ -69,6 +79,7 @@ fun ParametersDateAndTime(
 
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_Time)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_Date)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_Text_Current_TimeZone)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Time)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Date)
 
@@ -100,7 +111,30 @@ fun ParametersDateAndTime(
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentTime) }
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentDate) }
-
+//Ввод. Модель крана
+            Row (horizontalArrangement = Arrangement.SpaceBetween) {
+                //Поле ввода значения максимального веса груза
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 0.dp, top = 5.dp)
+                    .weight(3f)
+                ) {
+                    ButtonModelCrane(
+                        modifier = Modifier,
+                        onClick = onSelectTimeZone,
+                        text = selectedTimeZone?.timeZoneRegion?:
+                        stringResource(R.string.InitialSetup_Button_Model),
+                    )
+                }
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(1f)) {
+                    ButtonOnModelCrane(
+                        modifier = Modifier,
+                        text = R.string.Button_ON,
+                        onClick = { selectedTimeZoneUTC?.let { onSetTimeZone(it) } },
+                        craneId = selectedTimeZoneUTC
+                    )
+                }
+            }
 // Ввод времени. Создадим два поля
             FieldTime(
                 isValueHour = setValueHour,
@@ -136,19 +170,26 @@ fun ParametersDataAndTimeTextPreview () {
         ParametersDateAndTime(
             currentTime = "123456",
             currentDate = "123456",
+
+            selectedTimeZone = TimeZoneEntity(12,""),
+            onSelectTimeZone = {  },
+            onSetTimeZone = {  },
+            selectedTimeZoneUTC = 12,
+
             setValueHour = "12",
             setValueMinute = "12",
             setValueDay = "31",
             setValueMonth = "12",
             setValueYear = "2000",
             onHourChange = {},
-            onMinuteChange= {},
-            onDayChange= {},
-            onMonthChange= {},
-            onYearChange= {},
+            onMinuteChange = {},
+            onDayChange = {},
+            onMonthChange = {},
+            onYearChange = {},
             onSetDateTime = { },
             errorMessage = null,
-            logMessageDateTime = null
+            logMessageDateTime = null,
+
         )
     }
 }

@@ -154,7 +154,7 @@ fun ParametersCraneAndSBKB(
                         modifier = Modifier,
                         onClick = onSelectCrane,
                         text = selectedCrane?.craneModel ?:
-                        stringResource(R.string.InitialSetup_Button_Model_Crane),
+                        stringResource(R.string.InitialSetup_Button_Model),
                     )
                 }
                 //Кнопка ввода

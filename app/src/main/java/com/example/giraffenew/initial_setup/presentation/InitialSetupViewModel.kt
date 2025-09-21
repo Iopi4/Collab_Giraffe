@@ -11,7 +11,9 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
+import com.example.giraffenew.initial_setup.data.TimeZoneRepository
 import com.example.giraffenew.initial_setup.domain.CraneEntity
+import com.example.giraffenew.initial_setup.domain.TimeZoneEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -24,10 +26,11 @@ class InitialSetupViewModel
 @Inject constructor(
     private val modbusRepository: ModbusRepository,
     private var craneRepository: CraneRepository, // Внедряем через Hilt
+    private var timeZoneRepository: TimeZoneRepository,
     private val application: Application
 ): ViewModel(){
 
-    // Состояния для ввода
+    // Переменные для ввода даты и времени
     private val _setValueHour = mutableStateOf("")
     val setValueHour: State<String> = _setValueHour
 
@@ -44,7 +47,21 @@ class InitialSetupViewModel
     val setValueYear: State<String> = _setValueYear
 
 
+    // Переменные выбора часового пояса
+    private val _selectedTimeZone = mutableStateOf<TimeZoneEntity?>(null)
+    val selectedTimeZone: State<TimeZoneEntity?> = _selectedTimeZone
 
+    private val _showTimeZoneDialog = mutableStateOf(false)
+    val showTimeZoneDialog: State<Boolean> = _showTimeZoneDialog
+
+    private val _selectedTimeZoneUTC = mutableStateOf<Int?>(null)
+    val selectedTimeZoneUTC: State<Int?> = _selectedTimeZoneUTC
+
+    private val _timeZonesList = mutableStateListOf<TimeZoneEntity>()
+    val timeZonesList: List<TimeZoneEntity> = _timeZonesList
+// Переменные выбора модели крана
+
+    // Переменные выбора модели крана
     private val _selectedCrane = mutableStateOf<CraneEntity?>(null)
     val selectedCrane: State<CraneEntity?> = _selectedCrane
 
@@ -56,16 +73,9 @@ class InitialSetupViewModel
 
     private val _cranesList = mutableStateListOf<CraneEntity>()
     val cranesList: List<CraneEntity> = _cranesList
-
-    private val _errorMessageModelCrane = mutableStateOf<String?>(null)
-    val errorMessageModelCrane: State<String?> = _errorMessageModelCrane
-
-    private val _logMessageModelCrane = mutableStateOf<String?>(null)
-    val logMessageModelCrane: State<String?> = _logMessageModelCrane
+// Переменные выбора модели крана
 
 
-    private val _setModelCrane = mutableStateOf("")
-    val setValueModelCrane: State<String> = _setModelCrane
 
     private val _setNumberCrane = mutableStateOf("")
     val setValueNumberCrane: State<String> = _setNumberCrane
@@ -190,9 +200,12 @@ class InitialSetupViewModel
         }
     }
 
-
+//Подписка на актуальные модели кранов и часовые пояса из баз данных
     init {
+        //Загрузка базы данных модели кранов
         loadAllCranes()
+        //Загрузка базы данных часовых поясов
+        loadAllTimeZones()
     }
     fun loadAllCranes() {
         viewModelScope.launch {
@@ -219,8 +232,46 @@ class InitialSetupViewModel
         closeCraneDialog()
     }
 
+    fun loadAllTimeZones() {
+        viewModelScope.launch {
+            try {
+                val timeZones = timeZoneRepository.getAllTimeZone()
+                _timeZonesList.clear()
+                _timeZonesList.addAll(timeZones)
+            } catch (e: Exception) {
+                _errorMessageCrane.value = "Ошибка загрузки списка кранов: ${e.message}"
+            }
+        }
+    }
+    fun openTimeZoneDialog() {
+        _showTimeZoneDialog.value = true
+    }
+
+    fun closeTimeZoneDialog() {
+        _showTimeZoneDialog.value = false
+    }
+
+    fun selectTimeZone(timeZone: TimeZoneEntity) {
+        _selectedTimeZone.value = timeZone
+        _selectedTimeZoneUTC.value = timeZone.timeZoneUTC
+        closeTimeZoneDialog()
+    }
 
 
+    // Запись часового пояса
+    fun onSetTimeZone(TimeZoneUTC: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Запись в регистр часового пояса (TimeZoneUTC)
+                modbusRepository.writeRegister(99999, TimeZoneUTC)
+                _errorMessageCrane.value = null
+                _logMessageCrane.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _logMessageCrane.value = null
+            }
+        }
+    }
 
     // Запись даты ввода крана в эксплуатацию
     fun onSetDateCrane() {
@@ -425,12 +476,6 @@ class InitialSetupViewModel
     fun updateYearSBKB(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueYearSBKB.value = value
-        }
-    }
-
-    fun updateModelCrane(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,3})?$"))) {
-            _setModelCrane.value = value
         }
     }
 

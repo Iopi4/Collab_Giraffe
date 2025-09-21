@@ -68,11 +68,12 @@
     <!-- Текст экрана Home' -->
 
     <!-- Текст экрана InitialSetup' -->
-    <string name="InitialSetup_Button_Model_Crane">ВЫБРАТЬ</string>
+    <string name="InitialSetup_Button_Model">ВЫБРАТЬ</string>
     <!-- Текст параметров настройки даты и времени' -->
     <string name="InitialSetup_Text_Setting_Date_Time">Настройка даты и времени</string>
     <string name="InitialSetup_Text_Current_Time">Текущее время [Час:Мин]</string>
     <string name="InitialSetup_Text_Current_Date">Текущая дата [День.Мес.Год]</string>
+    <string name="InitialSetup_Text_Current_TimeZone">Выбор. Часовой пояс [UTC]</string>
     <string name="InitialSetup_TextFilled_Time">Ввод. [ЧЧ] [ММ]</string>
     <string name="InitialSetup_TextFilled_Date">Ввод. [ДД] [ММ] [ГГГГ]</string>
     <!-- Текст параметров настройки крана' -->

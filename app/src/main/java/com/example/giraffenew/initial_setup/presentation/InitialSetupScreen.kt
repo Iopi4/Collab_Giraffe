@@ -31,6 +31,15 @@ fun InitialSetupScreen(
             onCraneSelected = { initialSetupViewModel.selectCrane(it) }
         )
     }
+    // Показываем диалог выбора часового пояса
+    if (initialSetupViewModel.showTimeZoneDialog.value) {
+        TimeZoneSelectionDialog(
+            timeZones = initialSetupViewModel.timeZonesList,
+            onDismiss = { initialSetupViewModel.closeTimeZoneDialog() },
+            onTimeZoneSelected = { initialSetupViewModel.selectTimeZone(it) }
+        )
+    }
+    
 
 //Создаем поле в котором разделим экраны на горизонтальные области для отображения наших UI
     Column(
@@ -42,6 +51,12 @@ fun InitialSetupScreen(
             ParametersDateAndTime(
                 currentTime = topBarViewModel.currentTime.value,
                 currentDate = topBarViewModel.currentDate.value,
+
+                selectedTimeZone = initialSetupViewModel.selectedTimeZone.value,
+                onSelectTimeZone = {initialSetupViewModel.openTimeZoneDialog()},
+                onSetTimeZone = { timeZoneUTC -> initialSetupViewModel.onSetTimeZone(timeZoneUTC)},
+                selectedTimeZoneUTC = initialSetupViewModel.selectedTimeZoneUTC.value,
+
                 setValueHour = initialSetupViewModel.setValueHour.value,
                 setValueMinute = initialSetupViewModel.setValueMinute.value,
                 setValueDay = initialSetupViewModel.setValueDay.value,
