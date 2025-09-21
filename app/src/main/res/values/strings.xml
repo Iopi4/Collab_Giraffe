@@ -286,7 +286,6 @@
     <string name="ServiceMenu_Text_Calibration">Калибровка</string>
     <string name="ServiceMenu_Text_Sensor_Wind">Датчик ветра</string>
     <string name="ServiceMenu_Text_Sensor_Weight">Датчик грузоподъемности</string>
-    <string name="ServiceMenu_Text_Sensor_Position">Датчики положения</string>
     <string name="ServiceMenu_Text_Sensor_Ref_Point">Датчик реперной точки</string>
 
     <string name="ServiceMenu_Text_Acc">Ввод. Разгон [с]</string>
@@ -318,10 +317,12 @@
     <string name="ServiceMenu_Text_Ref_Point_Diagnostic">Датчик репер.точки [вкл/выкл]</string>
     <string name="ServiceMenu_Text_Ref_Point_Interval">Интервал контроля датчика [м]</string>
 
-    <string name="ServiceMenu_Text_Sensor_Hoist_Coeff">Коэффициент датчика подъема</string>
-    <string name="ServiceMenu_Text_Sensor_Slewing_Coeff">Коэффициент датчика поворота</string>
-    <string name="ServiceMenu_Text_Sensor_Trolley_Coeff">Коэффициент датчика тележки</string>
-    <string name="ServiceMenu_Text_Sensor_Crane_Coeff">Коэффициент датчика хода крана</string>
+    <string name="ServiceMenu_Text_Sensor_Position">Настройка датчика поворота</string>
+    <string name="ServiceMenu_Text_Slew_Number_Teeth_OPU">Число зубьев ОПУ крана</string>
+    <string name="ServiceMenu_Text_Slew_Number_Teeth_Gear_Sensor">Число зубьев шестерни датчика</string>
+    <string name="ServiceMenu_Text_Slew_Single_Turn_Steps_Sensor">Количество импульсов за оборот датчика</string>
+    <string name="ServiceMenu_Text_Slew_Ratio_K">К. передачи ОПУ и шестерни датчика</string>
+
     <string name="ServiceMenu_Sensor_Misalignment">Макс. рассогласование</string>
     <string name="ServiceMenu_Text_Sensor_Hoist">Ввод. Датчик подъема</string>
     <string name="ServiceMenu_Text_Sensor_Hoist_Activate">Датчик подъема [вкл/выкл]</string>
@@ -329,7 +330,7 @@
     <string name="ServiceMenu_Text_Sensor_Slewing_Activate">Датчик поворота [вкл/выкл]</string>
     <string name="ServiceMenu_Text_Sensor_Trolley">Ввод. Датчик тележки</string>
     <string name="ServiceMenu_Text_Sensor_Crane">Ввод. Датчик хода крана</string>
-    <string name="ServiceMenu_Text_Sensor_Disconnect">!ЗАПРЕЩЕНО ОТКЛЮЧАТЬ ОБА ДАТЧИКА ПОДЪЕМ и ТЕЛЕЖКА</string>
+    <string name="ServiceMenu_Text_Sensor_Disconnect">!ЗАПРЕЩЕНО ОТКЛЮЧАТЬ ОБА ДАТЧИКА</string>
     <string name="ServiceMenu_Text_Sensors_Control">Контроль датчиков [вкл/выкл]</string>
 
     <string name="ServiceMenu_Text_Sensor_Weight_Min">Мин. значение измерения</string>

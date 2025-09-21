@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -35,18 +36,22 @@ fun ServiceWind(
     setValueWindSpeedLvl1: String,
     onModelChangeWindSpeedLvl1: (String) -> Unit,
     onSetWindSpeedLvl1: () -> Unit,
+    hmiWindSpeedLvl1: Float,
 
     setValueWindSpeedLvl2: String,
     onModelChangeWindSpeedLvl2: (String) -> Unit,
     onSetWindSpeedLvl2: () -> Unit,
+    hmiWindSpeedLvl2: Float,
 
     setValueWindSpeedMontageLvl1: String,
     onModelChangeWindSpeedMontageLvl1: (String) -> Unit,
     onSetWindSpeedMontageLvl1: () -> Unit,
+    hmiWindSpeedLvl1Montage: Float,
 
     setValueWindTimeSmooth: String,
     onModelChangeWindTimeSmooth: (String) -> Unit,
     onSetWindTimeSmooth: () -> Unit,
+    hmiAnemometerTimeSmooth: Float,
 
     setValueWindSpeedLvlClbr: String,
     onModelChangeWindSpeedLvlClbr: (String) -> Unit,
@@ -59,6 +64,7 @@ fun ServiceWind(
     setValueWindRK: String,
     onModelChangeWindRK: (String) -> Unit,
     onSetWindRK: () -> Unit,
+    hmiK: Float,
 
     onSetAnemometerClbr: () -> Unit,
 
@@ -92,12 +98,7 @@ fun ServiceWind(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Value)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Calibration_Factor)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageWind?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageWind?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -109,12 +110,20 @@ fun ServiceWind(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-// Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.ServiceMenu_Text_Setting))
+// Отступ  и Статус записи данных настройки поворота
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageWind?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp))}
+                    logMessageWind?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                }
+            }
 //Ввод. Пред. сигнализация [м/c]
             BasicInputRowandTensButton(
-                placeholder = "10.0",
+                placeholder = formatDecimal(hmiWindSpeedLvl1),
                 value = setValueWindSpeedLvl1,
                 onValueChange = onModelChangeWindSpeedLvl1,
                 onClick = onSetWindSpeedLvl1,
@@ -122,7 +131,7 @@ fun ServiceWind(
             )
 //Ввод. Авар. сигнализация [м/c]
             BasicInputRowandTensButton(
-                placeholder = "15.0",
+                placeholder = formatDecimal(hmiWindSpeedLvl2),
                 value = setValueWindSpeedLvl2,
                 onValueChange = onModelChangeWindSpeedLvl2,
                 onClick = onSetWindSpeedLvl2,
@@ -130,7 +139,7 @@ fun ServiceWind(
             )
 //Ввод.Авар.сигн.монтаж.реж.[м/c]
             BasicInputRowandTensButton(
-                placeholder = "15.0",
+                placeholder = formatDecimal(hmiWindSpeedLvl1Montage),
                 value = setValueWindSpeedMontageLvl1,
                 onValueChange = onModelChangeWindSpeedMontageLvl1,
                 onClick = onSetWindSpeedMontageLvl1,
@@ -138,7 +147,7 @@ fun ServiceWind(
             )
 //Ввод. Время усреднения [с]
             BasicInputRowandButton(
-                placeholder = "5",
+                placeholder = formatDecimal(hmiAnemometerTimeSmooth),
                 value = setValueWindTimeSmooth,
                 valueMin = 0,
                 valueMax = 99,
@@ -162,12 +171,12 @@ fun ServiceWind(
             }
 // Отображение статус датчика ветра
             StateValueWindAndLoadSensor(
-                isValueParameter = format(currentAnemometerSensor),
+                isValueParameter = formatDecimalMinus(currentAnemometerSensor),
                 isValueStatus = currentAnemometerStatus
             )
 //Ввод. Коэффициент калибровки
             BasicInputRowandThousandButton(
-                placeholder = "00.0",
+                placeholder = formatThousand(hmiK),
                 value = setValueWindRK,
                 onValueChange = onModelChangeWindRK,
                 onClick = onSetWindRK,
@@ -185,12 +194,25 @@ fun ServiceWind(
 
 private fun format(value: Int): String {
     //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%05d", value)
+    return String.format("%02d", value)
 }
 
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%04.1f", value).replace(',', '.')
+}
+
+private fun formatThousand(value: Float): String {
+    return String.format("%01.5f", value).replace(',', '.')
+}
+private val VIRTUAL_ZERO: Int = 32250 //Константа для виртуального нуля.
+// Необходимо для корретного отображения мин. значения датчика ветра
+private fun formatDecimalMinus(value: Int): String {
+    val realValue = (value - VIRTUAL_ZERO)
+    return if (realValue < 0) {
+        String.format("%05d", realValue)
+    } else {
+        String.format("%05d", realValue)
+    }
 }
 
 @Preview

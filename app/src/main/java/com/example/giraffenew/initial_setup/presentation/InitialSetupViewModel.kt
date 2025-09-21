@@ -10,12 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.giraffenew.data.repositories.ModbusRepository
-import com.example.giraffenew.initial_setup.data.AppDatabase
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.domain.CraneEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch

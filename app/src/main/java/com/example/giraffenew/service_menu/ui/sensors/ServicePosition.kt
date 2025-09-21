@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,21 +32,25 @@ import com.example.giraffenew.ui.theme.Orange
 @Composable
 fun ServicePosition(
 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
-    setValueAbsEncRatioHoistGK: String,
-    onModelChangeAbsEncRatioHoistGK: (String) -> Unit,
-    onSetAbsEncRatioHoistGK: () -> Unit,
+    setValueSlewNumberTeethOPU: String,
+    updateValueSlewNumberTeethOPU: (String) -> Unit,
+    onSetSlewNumberTeethOPU: () -> Unit,
+    hmiSlewNumberTeethOPU: Int,
 
-    setValueAbsEncRatioSlewGK: String,
-    onModelChangeAbsEncRatioSlewGK: (String) -> Unit,
-    onSetAbsEncRatioSlewGK: () -> Unit,
+    setValueSlewNumberTeethGearSensor: String,
+    updateValueSlewNumberTeethGearSensor: (String) -> Unit,
+    onSetSlewNumberTeethGearSensor: () -> Unit,
+    hmiSlewNumberTeethGearSensor: Int,
 
-    setValueAbsEncRatioTrolleyGK: String,
-    onModelChangeAbsEncRatioTrolleyGK: (String) -> Unit,
-    onSetAbsEncRatioTrolleyGK: () -> Unit,
+    setValueSlewSingleTurnStepsSensor: String,
+    updateValueSlewSingleTurnStepsSensor: (String) -> Unit,
+    onSetSlewSingleTurnStepsSensor: () -> Unit,
+    hmiSlewSingleTurnStepsSensor: Int,
 
-    setValueAbsEncRatioCraneGK: String,
-    onModelChangeAbsEncRatioCraneGK: (String) -> Unit,
-    onSetAbsEncRatioCraneGK: () -> Unit,
+    setValueSlewRatioK: String,
+    updateValueSlewRatioK: (String) -> Unit,
+    onSetSlewRatioK: () -> Unit,
+    hmiSlewRatioK: Float,
 
     onSetAbsEncDeltaControlEn: () -> Unit,
     currentAbsEncDeltaControlEn: Int,
@@ -52,18 +58,22 @@ fun ServicePosition(
     setValueUDIHoistAbsEncMaxDeltaEn: String,
     onModelChangeUDIHoistAbsEncMaxDeltaEn: (String) -> Unit,
     onSetUDIHoistAbsEncMaxDeltaEn: () -> Unit,
+    hmiHoistAbsEncMaxDeltaEn: Int,
 
     setValueUDISlewAbsEncMaxDeltaEn: String,
     onModeChangelUDISlewAbsEncMaxDeltaEn: (String) -> Unit,
     onSetUDISlewAbsEncMaxDeltaEn: () -> Unit,
+    hmiSlewAbsEncMaxDeltaEn: Int,
 
     setValueUDITrolleyAbsEncMaxDeltaEn: String,
     onModelChangeUDITrolleyAbsEncMaxDeltaEn: (String) -> Unit,
     onSetUDITrolleyAbsEncMaxDeltaEn: () -> Unit,
+    hmiTrolleyAbsEncMaxDeltaEn: Int,
 
     setValueUDICraneAbsEncMaxDeltaEn: String,
     onModelChangeUDICraneAbsEncMaxDeltaEn: (String) -> Unit,
     onSetUDICraneAbsEncMaxDeltaEn: () -> Unit,
+    hmiCraneAbsEncMaxDeltaEn: Int,
 
     onSetAbsEncDebugModeHoistEn: () -> Unit,
     currentAbsEncDebugModeHoist: Int,
@@ -75,7 +85,7 @@ fun ServicePosition(
     logMessageAbsEnc: String?,
 
 
-){
+    ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -93,11 +103,11 @@ fun ServicePosition(
 // Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Sensor_Position))
-//Отображения текста рабочих параметров датчиков положения
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Hoist_Coeff)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Slewing_Coeff)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Trolley_Coeff)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Crane_Coeff)
+//Отображения текста рабочих параметров датчика поворота
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Number_Teeth_OPU)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Number_Teeth_Gear_Sensor)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Single_Turn_Steps_Sensor)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Ratio_K)
 // Отступ
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.spacer))
@@ -138,41 +148,44 @@ fun ServicePosition(
                     logMessageAbsEnc?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
-//Ввод. Коэффициент датчика подъема
+//Ввод. Число зубьев ОПУ крана
             BasicInputRowandThousandButton(
-                placeholder = "1.0000",
-                value = setValueAbsEncRatioHoistGK,
-                onValueChange = onModelChangeAbsEncRatioHoistGK,
-                onClick = onSetAbsEncRatioHoistGK,
+                placeholder = format(hmiSlewNumberTeethOPU),
+                value = setValueSlewNumberTeethOPU,
+                onValueChange = updateValueSlewNumberTeethOPU,
+                onClick = onSetSlewNumberTeethOPU,
                 isDecimal = true,
             )
-//Ввод. Коэффициент датчика поворота
+//Ввод. Число зубьев шестерни датчика поворота крана
             BasicInputRowandThousandButton(
-                placeholder = "1.0000",
-                value = setValueAbsEncRatioSlewGK,
-                onValueChange = onModelChangeAbsEncRatioSlewGK,
-                onClick = onSetAbsEncRatioSlewGK,
+                placeholder = format(hmiSlewNumberTeethGearSensor),
+                value = setValueSlewNumberTeethGearSensor,
+                onValueChange = updateValueSlewNumberTeethGearSensor,
+                onClick = onSetSlewNumberTeethGearSensor,
                 isDecimal = true,
             )
-//Ввод. Коэффициент датчика тележки
+//Отступ
+            Spacer(modifier = Modifier.size(20.dp))
+//Ввод. Количество импульсов за оборот датчика
             BasicInputRowandThousandButton(
-                placeholder = "1.0000",
-                value = setValueAbsEncRatioTrolleyGK,
-                onValueChange = onModelChangeAbsEncRatioTrolleyGK,
-                onClick = onSetAbsEncRatioTrolleyGK,
+                placeholder = format(hmiSlewSingleTurnStepsSensor),
+                value = setValueSlewSingleTurnStepsSensor,
+                onValueChange = updateValueSlewSingleTurnStepsSensor,
+                onClick = onSetSlewSingleTurnStepsSensor,
                 isDecimal = true,
             )
-//Ввод. Коэффициент датчика хода крана
+//Отступ
+            Spacer(modifier = Modifier.size(20.dp))
+//Ввод. Коэффициент передачи ОПУ и шестерни датчика
             BasicInputRowandThousandButton(
-                placeholder = "1.0000",
-                value = setValueAbsEncRatioCraneGK,
-                onValueChange = onModelChangeAbsEncRatioCraneGK,
-                onClick = onSetAbsEncRatioCraneGK,
+                placeholder = formatHundred(hmiSlewRatioK),
+                value = setValueSlewRatioK,
+                onValueChange = updateValueSlewRatioK,
+                onClick = onSetSlewRatioK,
                 isDecimal = true,
             )
-// Отступ
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.spacer))
+//Отступ
+            Spacer(modifier = Modifier.size(30.dp))
 
 //Контроль датчиков [вкл/выкл]
             BasicButtonOnOffStatus(
@@ -184,7 +197,7 @@ fun ServicePosition(
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 //Ввод. Макс. рассогласование датчика подъема
             BasicInputRowandButton(
-                placeholder = "20000",
+                placeholder = format(hmiHoistAbsEncMaxDeltaEn),
                 value = setValueUDIHoistAbsEncMaxDeltaEn,
                 valueMin = 0,
                 valueMax = 65535,
@@ -193,7 +206,7 @@ fun ServicePosition(
             )
 //Ввод. Макс. рассогласование датчика поворота
             BasicInputRowandButton(
-                placeholder = "20000",
+                placeholder = format(hmiSlewAbsEncMaxDeltaEn),
                 value = setValueUDISlewAbsEncMaxDeltaEn,
                 valueMin = 0,
                 valueMax = 65535,
@@ -202,7 +215,7 @@ fun ServicePosition(
             )
 //Ввод. Макс. рассогласование датчика тележки
             BasicInputRowandButton(
-                placeholder = "20000",
+                placeholder = format(hmiTrolleyAbsEncMaxDeltaEn),
                 value = setValueUDITrolleyAbsEncMaxDeltaEn,
                 valueMin = 0,
                 valueMax = 65535,
@@ -211,7 +224,7 @@ fun ServicePosition(
             )
 //Ввод. Макс. рассогласование датчика хода крана
             BasicInputRowandButton(
-                placeholder = "20000",
+                placeholder = format(hmiCraneAbsEncMaxDeltaEn),
                 value = setValueUDICraneAbsEncMaxDeltaEn,
                 valueMin = 0,
                 valueMax = 65535,
@@ -234,6 +247,19 @@ fun ServicePosition(
 
         }
     }
+}
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%05d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    return String.format("%02.1f", value).replace(',', '.')
+}
+
+private fun formatHundred(value: Float): String {
+    return String.format("%03.2f", value).replace(',', '.')
 }
 
 @Preview

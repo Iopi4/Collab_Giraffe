@@ -15,6 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.Float
+import kotlin.Int
 
 @HiltViewModel
 class ServiceMenuViewModel
@@ -205,18 +206,21 @@ class ServiceMenuViewModel
 
 
 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
-    private val _setValueAbsEncRatioHoistGK = mutableStateOf("")
-    val setValueAbsEncRatioHoistGK: State<String> = _setValueAbsEncRatioHoistGK
+    //Настройка датчика поворота крана
+    //Число зубьев ОПУ крана
+    private val _setValueSlewNumberTeethOPU = mutableStateOf("")
+    val setValueSlewNumberTeethOPU: State<String> = _setValueSlewNumberTeethOPU
+    //Число зубьев шестерни датчика поворота крана
+    private val _setValueSlewNumberTeethGearSensor = mutableStateOf("")
+    val setValueSlewNumberTeethGearSensor: State<String> = _setValueSlewNumberTeethGearSensor
+    //Количество импульсов за оборот датчика
+    private val _setValueSlewSingleTurnStepsSensor = mutableStateOf("")
+    val setValueSlewSingleTurnStepsSensor: State<String> = _setValueSlewSingleTurnStepsSensor
+    //Коэффициент передачи ОПУ и шестерни датчика
+    private val _setValueSlewRatioK = mutableStateOf("")
+    val setValueSlewRatioK: State<String> = _setValueSlewRatioK
 
-    private val _setValueAbsEncRatioSlewGK = mutableStateOf("")
-    val setValueAbsEncRatioSlewGK: State<String> = _setValueAbsEncRatioSlewGK
-
-    private val _setValueAbsEncRatioTrolleyGK = mutableStateOf("")
-    val setValueAbsEncRatioTrolleyGK: State<String> = _setValueAbsEncRatioTrolleyGK
-
-    private val _setValueAbsEncRatioCraneGK = mutableStateOf("")
-    val setValueAbsEncRatioCraneGK: State<String> = _setValueAbsEncRatioCraneGK
-
+    //Настройка параметров максимального рассогласования энкодеров
     private val _setValueUDIHoistAbsEncMaxDeltaEn = mutableStateOf("")
     val setValueUDIHoistAbsEncMaxDeltaEn: State<String> = _setValueUDIHoistAbsEncMaxDeltaEn
 
@@ -268,7 +272,9 @@ class ServiceMenuViewModel
 
 
     private val addresses = listOf(
-        163, 381, 336, 373, 374, 997, 750, 751, 752, 753, 754, 755, 756, 757,
+        163, 381, 336, 373, 374, 175, 154, 176, 644, 645, 646, 647, 648, 649,
+        650, 651, 652, 653, 654, 655, 656, 657, 997,
+        750, 751, 752, 753, 754, 755, 756, 757,
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
         1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629,
         1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
@@ -341,6 +347,19 @@ class ServiceMenuViewModel
                 currentWind = safeDivideTens(cache[163] ?: 0),
                 currentAnemometerSensor = cache[381] ?: 0,
                 currentAnemometerStatus = cache[336] ?: 0,
+
+                hmiWindSpeedLvl1 = safeDivideTens(cache[175] ?: 0),
+                hmiWindSpeedLvl2= safeDivideTens(cache[154] ?: 0),
+                hmiWindSpeedLvl1Montage = safeDivideTens(cache[176] ?: 0),
+                hmiAnemometerTimeSmooth = safeDivideTens(cache[644] ?: 0),
+                hmiK= safeDivideThousand(cache[645] ?: 0),
+
+                //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
+                hmiAdvLoadCellLL= cache[646] ?: 0, //Минимальное значение измерения
+                hmiAdvLoadCellHH= cache[647] ?: 0, //Максимальное значение измерения
+                hmiArraySizeWeightSmooth= cache[648] ?: 0, //Глубина сглаживания измерения веса
+                hmiWeightSPOverSpeed = safeDivideTens(cache[649] ?: 0), //Уставка массы, ниже которой будет разрешена повышенная скорость
+
                 //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
                 currentDataLogErrStopHoist = cache[750] ?: 0,
                 currentPasswordOrNaladka = cache[751] ?: 0,
@@ -353,9 +372,19 @@ class ServiceMenuViewModel
                 currentAbsEncDebugModeHoist = cache[756] ?: 0,
                 currentAbsEncDebugModeSlew = cache[757] ?: 0,
 
+                hmiSlewNumberTeethOPU= cache[650] ?: 0, //Число зубьев ОПУ крана
+                hmiSlewNumberTeethGearSensor= cache[651] ?: 0, //Число зубьев шестерни датчика поворота крана
+                hmiSlewSingleTurnStepsSensor= cache[652] ?: 0, //Количество импульсов за оборот датчика
+                hmiSlewRatioK = safeDivideHundred(cache[653] ?: 0), //Коэффициент передачи ОПУ и шестерни датчика
+
+                hmiHoistAbsEncMaxDeltaEn= cache[654] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiSlewAbsEncMaxDeltaEn= cache[655] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiTrolleyAbsEncMaxDeltaEn= cache[656] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiCraneAbsEncMaxDeltaEn= cache[657] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+
+                //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА РЕПЕРНОЙ ТОЧКИ
                 craneCTRLPointEN = cache[373] ?: 0,
                 ctrlPointControlInterval = safeDivideTens(cache[374] ?: 0),
-
             ),
             hoistDriveState = HoistDriveState(
                 hmiSpdRefButtonHoist    = cache[1610] ?: 0,
@@ -455,6 +484,9 @@ class ServiceMenuViewModel
     private fun safeDivideHundred(value: Int?): Float {
         return (value ?: 0) / 100f
     }
+    private fun safeDivideThousand(value: Int?): Float {
+        return (value ?: 0) / 1000f
+    }
 
     data class ServiceMenuState(
         val sensorsAndUserState: SensorsAndUserState = SensorsAndUserState(),
@@ -469,10 +501,35 @@ class ServiceMenuViewModel
         val currentWind: Float = 0f,
         val currentAnemometerSensor: Int = 0,
         val currentAnemometerStatus: Int = 0,
+
+        val hmiWindSpeedLvl1: Float = 0f,
+        val hmiWindSpeedLvl2: Float = 0f,
+        val hmiWindSpeedLvl1Montage: Float = 0f,
+        val hmiAnemometerTimeSmooth: Float = 0f,
+        val hmiK: Float = 0f,
+
+        //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
+        val hmiAdvLoadCellLL: Int = 0, //Минимальное значение измерения
+        val hmiAdvLoadCellHH: Int = 0, //Максимальное значение измерения
+        val hmiArraySizeWeightSmooth: Int = 0, //Глубина сглаживания измерения веса
+        val hmiWeightSPOverSpeed: Float = 0f, //Уставка массы, ниже которой будет разрешена повышенная скорость
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
         val currentAbsEncDeltaControlEn: Int = 0,
         val currentAbsEncDebugModeHoist: Int = 0,
         val currentAbsEncDebugModeSlew: Int = 0,
+
+        val hmiSlewNumberTeethOPU: Int = 0, //Число зубьев ОПУ крана
+        val hmiSlewNumberTeethGearSensor: Int = 0, //Число зубьев шестерни датчика поворота крана
+        val hmiSlewSingleTurnStepsSensor: Int = 0, //Количество импульсов за оборот датчика
+        val hmiSlewRatioK: Float = 0f, //Коэффициент передачи ОПУ и шестерни датчика
+
+        val hmiHoistAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
+        val hmiSlewAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
+        val hmiTrolleyAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
+        val hmiCraneAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
+
+
         //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
         val currentDataLogErrStopHoist: Int = 0,
         val currentPasswordOrNaladka: Int = 0,
@@ -1462,11 +1519,11 @@ class ServiceMenuViewModel
     /**
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ДАТЧИКИ ПОЛОЖЕНИЯ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
-    // AbsEncoder. Запись коэффициент датчика подъема
-    fun onSetAbsEncRatioHoistGK() {
+    // SlewEncoder. Запись Число зубьев ОПУ крана
+    fun onSetSlewNumberTeethOPU() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioHoistGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvert(_setValueSlewNumberTeethOPU.value, 0,999 )
                 // Запись в регистры
                 modbusRepository.writeRegister(990, model)
                 _errorMessageAbsEnc.value = null
@@ -1478,11 +1535,11 @@ class ServiceMenuViewModel
         }
     }
 
-    // AbsEncoder. Запись коэффициент датчика поворота
-    fun onSetAbsEncRatioSlewGK() {
+    // SlewEncoder. Запись Число зубьев шестерни датчика поворота крана
+    fun onSetSlewNumberTeethGearSensor() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioSlewGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvert(_setValueSlewNumberTeethGearSensor.value, 0,100 )
                 // Запись в регистры
                 modbusRepository.writeRegister(991, model)
                 _errorMessageAbsEnc.value = null
@@ -1494,11 +1551,11 @@ class ServiceMenuViewModel
         }
     }
 
-    // AbsEncoder. Запись коэффициент датчика тележки
-    fun onSetAbsEncRatioTrolleyGK() {
+    // SlewEncoder. Запись Количество импульсов за оборот датчика
+    fun onSetSlewSingleTurnStepsSensor() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioTrolleyGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvert(_setValueSlewSingleTurnStepsSensor.value, 0,65535 )
                 // Запись в регистры
                 modbusRepository.writeRegister(992, model)
                 _errorMessageAbsEnc.value = null
@@ -1510,11 +1567,11 @@ class ServiceMenuViewModel
         }
     }
 
-    // AbsEncoder. Запись коэффициент датчика хода крана
-    fun onSetAbsEncRatioCraneGK() {
+    // SlewEncoder. Коэффициент передачи ОПУ и шестерни датчика
+    fun onSetSlewRatioK() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloatThousand(_setValueAbsEncRatioCraneGK.value, 0.0000f,1.9999f )
+                val model = validateAndConvertFloat(_setValueSlewRatioK.value, 0.00f,999.99f )
                 // Запись в регистры
                 modbusRepository.writeRegister(993, model)
                 _errorMessageAbsEnc.value = null
@@ -1777,25 +1834,25 @@ class ServiceMenuViewModel
 
     //CTRLPoint. Обновление для UI
     fun updateCTRLPointControlInterval(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueCTRLPointControlInterval.value = value } }
 
     // ДАТЧИКИ ПОЛОЖЕНИЯ. Обновления для UI
-    fun updateValueAbsEncRatioHoistGK(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,4})?$"))) {
-            _setValueAbsEncRatioHoistGK.value = value } }
+    fun updateValueSlewNumberTeethOPU(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueSlewNumberTeethOPU.value = value } }
 
-    fun updateValueAbsEncRatioSlewGK(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,4})?$"))) {
-            _setValueAbsEncRatioSlewGK.value = value } }
+    fun updateValueSlewNumberTeethGearSensor(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueSlewNumberTeethGearSensor.value = value } }
 
-    fun updateValueAbsEncRatioTrolleyGK(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,4})?$"))) {
-            _setValueAbsEncRatioTrolleyGK.value = value } }
+    fun updateValueSlewSingleTurnStepsSensor(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueSlewSingleTurnStepsSensor.value = value } }
 
-    fun updateValueAbsEncRatioCraneGK(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,4})?$"))) {
-            _setValueAbsEncRatioCraneGK.value = value } }
+    fun updateValueSlewRatioK(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,2})?$"))) {
+            _setValueSlewRatioK.value = value } }
 
     fun updateValueUDIHoistAbsEncMaxDeltaEn(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {

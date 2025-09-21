@@ -1107,11 +1107,17 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(985, "HMI_Write_rK_MW", "WORD16", "Коэффициент калибровки"),
         RegisterInfo(986, "HMI_Write_xAnemomClbr_MW", "WORD16", "Команда калибровать анемометр"),
 
+        RegisterInfo(175, "HMI_rWindSpeedLvl1_MW", "WORD16", "Величина скорости ветра для порога №1, м/с, включение желтой индикации"),
+        RegisterInfo(154, "HMI_rWindSpeedLvl2_MW", "WORD16", "Величина скорости ветра для порогоа №2, м/с, включение красной индикации"),
+        RegisterInfo(176, "HMI_rWindSpeedMontageLvl_MW", "WORD16", "Велична скорости ветра для порогоа №2, м/с, включение красной индикации/ Монтажный режим"),
+        RegisterInfo(644, "HMI_iAnemTimeSmooth_MW", "WORD16", "Время усреднения показаний анемометра. 5 сек."),
+        RegisterInfo(645, "HMI_rK_MW", "WORD16", "Коэффициент калибровки"),
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
-        RegisterInfo(990, "HMI_Write_rAbsEnc_Ratio_Hoist_MW", "WORD16", "Коэффициент передачи энкодера подъема"),
-        RegisterInfo(991, "HMI_Write_rAbsEnc_Ratio_Slew_MW", "WORD16", "Коэффициент передачи энкодера поворота"),
-        RegisterInfo(992, "HMI_Write_rAbsEnc_Ratio_Trolley_MW", "WORD16", "Коэффициент передачи энкодера тележки"),
-        RegisterInfo(993, "HMI_Write_rAbsEnc_Ratio_Crane_MW", "WORD16", "Коэффициент передачи энкодера крана"),
+        RegisterInfo(990, "HMI_Write_Slew_Number_Teeth_OPU_MW", "WORD16", "Число зубьев ОПУ крана"),
+        RegisterInfo(991, "HMI_Write_Slew_Number_Teeth_Gear_Sensor_MW", "WORD16", "Число зубьев шестерни датчика поворота крана"),
+        RegisterInfo(992, "HMI_Write_Slew_Single_Turn_Steps_Sensor_MW", "WORD16", "Количество импульсов за оборот датчика"),
+        RegisterInfo(993, "HMI_Write_Slew_Ratio_K_MW", "WORD16", "Коэффициент передачи ОПУ и шестерни датчика"),
 
         RegisterInfo(994, "HMI_Write_xAbsEncDeltaControlEn_MW", "WORD16", "Включить контроль максимального рассогласования абсолютных энкодеров"),
         RegisterInfo(995, "HMI_Write_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),
@@ -1126,11 +1132,28 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(756, "HMI_xDebug_Mode_Hoist_MW", "WORD16", "Флаг установки режима наладки механизма подъема при выходе датчика из строя"),
         RegisterInfo(757, "HMI_xDebug_Mode_Slew_MW", "WORD16", "Флаг установки режима наладки механизма поворота при выходе датчика из строя"),
 
+        RegisterInfo(650, "HMI_Slew_Number_Teeth_OPU_MW", "WORD16", "Число зубьев ОПУ крана"),
+        RegisterInfo(651, "HMI_Slew_Number_Teeth_Gear_Sensor_MW", "WORD16", "Число зубьев шестерни датчика поворота крана"),
+        RegisterInfo(652, "HMI_Slew_Single_Turn_Steps_Sensor_MW", "WORD16", "Количество импульсов за оборот датчика"),
+        RegisterInfo(653, "HMI_Slew_Ratio_K_MW", "WORD16", "Коэффициент передачи ОПУ и шестерни датчика"),
+
+        RegisterInfo(654, "HMI_udiHoistAbsEncMaxDeltaEn_MD", "WORD16", "Максимальное рассогласование абс. энкодера подъема"),
+        RegisterInfo(655, "HMI_udiSlewAbsEncMaxDeltaEn_MD", "WORD16", "Максимальное рассогласование абс. энкодера поворота"),
+        RegisterInfo(656, "HMI_udiTrolleyAbsEncMaxDeltaEn_MD", "WORD16", "Максимальное рассогласование абс. энкодера тележки"),
+        RegisterInfo(657, "HMI_udiCraneAbsEncMaxDeltaEn_MD", "WORD16", "Максимальное рассогласование абс. энкодера хода крана"),
+
+
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА УСИЛИЯ
-        RegisterInfo(1200, "LoadCell_MinWeight_MW", "WORD16", "Минимальное значение измерения веса"),
-        RegisterInfo(1201, "LoadCell_MaxWeight_MW", "WORD16", "Максимальное значение измерения веса"),
-        RegisterInfo(1202, "LoadCell_SmoothingDepth_MW", "WORD16", "Глубина сглаживания измерения веса"),
-        RegisterInfo(1203, "LoadCell_OverSpeedThreshold_MW", "WORD16", "Уставка массы для разрешения повышенной скорости"),
+        RegisterInfo(1200, "HMI_Write_iAdvLoadCell_LL_MW", "WORD16", "Минимальное значение измерения веса"),
+        RegisterInfo(1201, "HMI_Write_iAdvLoadCell_HH_MW", "WORD16", "Максимальное значение измерения веса"),
+        RegisterInfo(1202, "HMI_Write_iArray_Size_WeightSmooth_MW", "WORD16", "Глубина сглаживания измерения веса"),
+        RegisterInfo(1203, "HMI_Write_rWeight_SP_Over_Speed_MW", "WORD16", "Уставка массы для разрешения повышенной скорости"),
+
+        RegisterInfo(646, "HMI_iAdvLoadCell_LL_MW", "WORD16", "Минимальное значение измерения"),
+        RegisterInfo(647, "HMI_iAdvLoadCell_HH_MW", "WORD16", "Максимальное значение измерения"),
+        RegisterInfo(648, "HMI_iArray_Size_WeightSmooth_MW", "WORD16", "Глубина сглаживания измерения веса"),
+        RegisterInfo(649, "HMI_rWeight_SP_Over_Speed_MW", "WORD16", "Уставка массы, ниже которой будет разрешена повышенная скорость"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА РЕПЕРНОЙ ТОЧКИ ХОДА КРАНА
         RegisterInfo(978, "HMI_Write_xCTRL_Point_EN_MW", "WORD16", "Включение, отключение датчика реперной точки хода крана"),
@@ -1171,7 +1194,6 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(946, "HMI_Write_Hoist_rHoist_Acc_MW", "WORD16", "Время разгона подъема, сек"),
         RegisterInfo(947, "HMI_Write_Hoist_rHoist_Dec_MW", "WORD16", "Время торможения подъема, сек"),
         RegisterInfo(948, "HMI_Write_Hoist_wSpdNom_MW", "WORD16", "Номинальня скорость подъема"),
-
 
         RegisterInfo(950, "HMI_Write_Hoist_wSpdRef1Strela_MW", "WORD16", "Скорость подъема 1 в режиме монтаж"),
         RegisterInfo(951, "HMI_Write_Hoist_wSpdRef2Strela_MW", "WORD16", "Скорость подъема 2 в режиме монтаж"),

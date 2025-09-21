@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -31,18 +32,23 @@ fun ServiceWeight(
     setValueLoadCellMinWeight: String,
     onModelChangeLoadCellMinWeight: (String) -> Unit,
     onSetLoadCellMinWeight: () -> Unit,
+    hmiAdvLoadCellLL:Int,
 
     setValueLoadCellMaxWeight: String,
     onModelChangeLoadCellMaxWeight: (String) -> Unit,
     onSetLoadCellMaxWeight: () -> Unit,
+    hmiAdvLoadCellHH: Int,
+
 
     setValueLoadCellSmoothingDepth: String,
     onModelChangeLoadCellSmoothingDepth: (String) -> Unit,
     onSetLoadCellSmoothingDepth: () -> Unit,
+    hmiArraySizeWeightSmooth: Int,
 
     setValueLoadCellOverSpeedThreshold: String,
     onModelChangeLoadCellOverSpeedThreshold: (String) -> Unit,
     onSetLoadCellOverSpeedThreshold: () -> Unit,
+    hmiWeightSPOverSpeed: Float,
 
     errorMessageLoadCell: String?,
     logMessageLoadCell: String?,
@@ -72,12 +78,7 @@ fun ServiceWeight(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Weight_Averaging)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Weight_SS_Speed)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageLoadCell?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageLoadCell?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+
         }
 
         //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -89,12 +90,20 @@ fun ServiceWeight(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.ServiceMenu_Text_Setting))
+// Отступ  и Статус записи данных настройки поворота
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageLoadCell?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp))}
+                    logMessageLoadCell?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                }
+            }
 //Ввод. Мин. значение измерения [4000]
             BasicInputRowandButton(
-                placeholder = "4000",
+                placeholder = formatDecimalMinus(hmiAdvLoadCellLL),
                 value = setValueLoadCellMinWeight,
                 valueMin = 0,
                 valueMax = 10000,
@@ -103,7 +112,7 @@ fun ServiceWeight(
             )
 //Ввод. Макс. значение измерения [32767]
             BasicInputRowandButton(
-                placeholder = "32767",
+                placeholder = format(hmiAdvLoadCellHH),
                 value = setValueLoadCellMaxWeight,
                 valueMin = 0,
                 valueMax = 32767,
@@ -112,22 +121,46 @@ fun ServiceWeight(
             )
 //Ввод. Глубина сглаживания веса [70]
             BasicInputRowandButton(
-                placeholder = "70",
+                placeholder = format(hmiArraySizeWeightSmooth),
                 value = setValueLoadCellSmoothingDepth,
                 valueMin = 0,
-                valueMax = 200,
+                valueMax = 500,
                 onValueChange = onModelChangeLoadCellSmoothingDepth,
                 onClick = onSetLoadCellSmoothingDepth,
             )
 //Ввод. Огранич. сверхскор. подъема [т]
             BasicInputRowandTensButton(
-                placeholder = "5.0",
+                placeholder = formatDecimal(hmiWeightSPOverSpeed),
                 value = setValueLoadCellOverSpeedThreshold,
                 onValueChange = onModelChangeLoadCellOverSpeedThreshold,
                 onClick = onSetLoadCellOverSpeedThreshold,
                 isDecimal = true,
             )
         }
+    }
+}
+
+
+private fun format(value: Int): String {
+    //return String.format("%.1f", value).padStart(5, '0')
+    return String.format("%05d", value)
+}
+
+private fun formatDecimal(value: Float): String {
+    return String.format("%02.1f", value).replace(',', '.')
+}
+
+private fun formatThousand(value: Float): String {
+    return String.format("%01.5f", value).replace(',', '.')
+}
+private val VIRTUAL_ZERO: Int = 32250 //Константа для виртуального нуля.
+// Необходимо для корретного отображения мин. значения датчика усилия
+private fun formatDecimalMinus(value: Int): String {
+    val realValue = (value - VIRTUAL_ZERO)
+    return if (realValue < 0) {
+        String.format("%05d", realValue)
+    } else {
+        String.format("%05d", realValue)
     }
 }
 

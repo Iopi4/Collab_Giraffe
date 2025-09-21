@@ -112,7 +112,7 @@ fun ParameterWeightSensor(
             // Отображение текущих параметров датчика усилия
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = format(currentCurrAI))
+                    valueParameterId = formatDecimalMinus(currentCurrAI))
             }
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
@@ -179,6 +179,17 @@ private fun format(value: Int): String {
 private fun formatDecimal(value: Float): String {
     //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%03.2f", value).replace(',', '.')
+}
+
+private val VIRTUAL_ZERO: Int = 32250 //Константа для виртуального нуля.
+// Необходимо для корретного отображения мин. значения датчика ветра
+private fun formatDecimalMinus(value: Int): String {
+    val realValue = (value - VIRTUAL_ZERO)
+    return if (realValue < 0) {
+        String.format("%05d", realValue)
+    } else {
+        String.format("%05d", realValue)
+    }
 }
 
 @Preview

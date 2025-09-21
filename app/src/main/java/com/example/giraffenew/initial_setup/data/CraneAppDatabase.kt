@@ -11,18 +11,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Database(entities = [CraneEntity::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+abstract class CraneAppDatabase : RoomDatabase() {
     abstract fun craneDao(): CraneDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: CraneAppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): CraneAppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                    CraneAppDatabase::class.java,
                     "crane_database"
                 )
                     .addCallback(object : Callback() {
