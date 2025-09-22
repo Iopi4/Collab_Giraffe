@@ -147,7 +147,7 @@ fun CalibrationSensorHoist(
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
                 ) {
-                    errorMessageHoist?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    errorMessageHoist?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
                     logMessageHoist?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }

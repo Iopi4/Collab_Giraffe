@@ -381,7 +381,7 @@ class SettingSensorsViewModule
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
                 _logMessageHoist.value = null
             }
         }
@@ -400,7 +400,7 @@ class SettingSensorsViewModule
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
                 _logMessageHoist.value = null
             }
         }
@@ -418,7 +418,7 @@ class SettingSensorsViewModule
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -438,7 +438,7 @@ class SettingSensorsViewModule
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -454,7 +454,7 @@ class SettingSensorsViewModule
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -473,7 +473,7 @@ class SettingSensorsViewModule
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -508,7 +508,7 @@ class SettingSensorsViewModule
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
                 _logMessageTrolley.value = null
             }
         }
@@ -527,7 +527,7 @@ class SettingSensorsViewModule
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
                 _logMessageTrolley.value = null
             }
         }
@@ -545,7 +545,7 @@ class SettingSensorsViewModule
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -562,7 +562,7 @@ class SettingSensorsViewModule
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -578,7 +578,7 @@ class SettingSensorsViewModule
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -594,7 +594,7 @@ class SettingSensorsViewModule
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -616,7 +616,7 @@ class SettingSensorsViewModule
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
                 _logMessageSlew.value = null
             }
         }
@@ -634,7 +634,7 @@ class SettingSensorsViewModule
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
                 _logMessageSlew.value = null
             }
         }
@@ -652,7 +652,7 @@ class SettingSensorsViewModule
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -668,7 +668,7 @@ class SettingSensorsViewModule
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -742,7 +742,7 @@ class SettingSensorsViewModule
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -759,7 +759,7 @@ class SettingSensorsViewModule
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -775,7 +775,7 @@ class SettingSensorsViewModule
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -791,7 +791,7 @@ class SettingSensorsViewModule
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -806,7 +806,7 @@ class SettingSensorsViewModule
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }

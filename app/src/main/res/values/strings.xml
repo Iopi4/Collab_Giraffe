@@ -115,7 +115,7 @@
     <string name="SettingLoadCapacity_Text_MaxLoadCapacity">Макс. вес на конце стрелы [т]</string>
     <string name="SettingLoadCapacity_Text_ArrowLength">Длина стрелы [м]</string>
 
-    <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика усилия</string>
+    <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика</string>
     <string name="SettingLoadCapacity_Text_SettingSensor">Настройка датчика</string>
     <string name="SettingLoadCapacity_Text_SensorReadings">Показания датчика</string>
     <string name="SettingLoadCapacity_Text_HookWeightReadings">Текущий вес на крюке</string>

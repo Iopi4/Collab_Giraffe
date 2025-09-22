@@ -143,7 +143,7 @@ fun CalibrationSensorTrolley(
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
                 ) {
-                    errorMessageTrolley?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp))}
+                    errorMessageTrolley?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
                     logMessageTrolley?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }

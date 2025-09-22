@@ -100,7 +100,16 @@ fun ParametersDateAndTime(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
+// Статус записи данных времени
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) { errorMessage?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                    logMessageDateTime?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 // Отображение текущего времени и даты
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentTime) }
@@ -151,17 +160,6 @@ fun ParametersDateAndTime(
                 text = R.string.Button_Enter,
                 onClick = onSetDateTime,
             ) {}
-// Статус записи данных времени
-            Row(modifier = Modifier.fillMaxWidth()) {
-                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
-
-                Box (modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                ) { errorMessage?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-                    logMessageDateTime?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-                }
-            }
-
         }
     }
 }

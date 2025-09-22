@@ -143,7 +143,7 @@ fun Polygon2Setting(
 
                 Box (modifier = Modifier.weight(10f)
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                ) { errorMessagePolygon2?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp)) }
+                ) { errorMessagePolygon2?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                     logMessagePolygon2?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
@@ -156,7 +156,7 @@ fun Polygon2Setting(
 
 //Ввод. Количество точек полигона
             BasicInputRowandButton(
-                placeholder = "4...20",
+                placeholder = format(currentP2PointNum),
                 value = setValuePolygon2PointNum,
                 onValueChange = updateValuePolygon2PointNum,
                 onClick = onSetValueP2PointNum,
@@ -167,7 +167,7 @@ fun Polygon2Setting(
 //Ввод. Высота полигона
 
             BasicInputRowandTensButton(
-                placeholder = "00.0",
+                placeholder = formatDecimal(currentP2Height),
                 value = setValuePolygon2Height,
                 onValueChange = updateValuePolygon2Height,
                 onClick = onSetValueP2Height,
@@ -265,7 +265,13 @@ fun Polygon2Setting(
     }
 }
 
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
 
+private fun format(value: Int): String {
+    return String.format("%02d", value)
+}
 
 @Preview
 @Composable

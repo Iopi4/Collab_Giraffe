@@ -86,7 +86,7 @@ fun SettingPointsPolygon2Coordinate (
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
+// Заголовок
             BasicSettingsName(
                 modifier = Modifier,
                 text = stringResource(R.string.CoordinateProtection_Text_Setting_Points_Polygon_Coordinate))
@@ -95,7 +95,7 @@ fun SettingPointsPolygon2Coordinate (
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Coordinate_Point_X)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.CoordinateProtection_Coordinate_Point_Y)
 
-            // Координаты X и Y точек
+// Координаты X и Y точек
             BasicSettingsName(
                 modifier = Modifier,
                 text = stringResource(R.string.CoordinateProtection_Text_Coordinate_Points))
@@ -205,7 +205,7 @@ fun SettingPointsPolygon2Coordinate (
         }
 
 
-        //№.2 - Правая область для отображения и ввода данных настройки полигона
+//№.2 - Правая область для отображения и ввода данных настройки полигона
         Column(
             modifier = Modifier
                 .verticalScroll(scrollState) // Добавлена прокрутка
@@ -217,13 +217,13 @@ fun SettingPointsPolygon2Coordinate (
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Отступ  и Статус записи данных вылета, поворота и хода
+// Отступ  и Статус записи данных вылета, поворота и хода
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
                 Box (modifier = Modifier.weight(10f)
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                ) { errorMessagePolygon2?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp)) }
+                ) { errorMessagePolygon2?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                     logMessagePolygon2?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }

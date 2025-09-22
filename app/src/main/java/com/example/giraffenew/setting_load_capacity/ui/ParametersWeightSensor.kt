@@ -81,14 +81,6 @@ fun ParameterWeightSensor(
             BasicSettingsName(modifier = Modifier.padding(top = 5.dp), text = stringResource(R.string.spacer))
             BasicNameSettingParameterGiraffe(
                 settingParameterId = R.string.SettingLoadCapacity_TextFilled_HookWeightMax)
-
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) {
-                errorMessageWeightSensor?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp))}
-                logMessageWeightSensor?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
-
         }
 
 
@@ -105,9 +97,17 @@ fun ParameterWeightSensor(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-            // Заголовок
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.SettingLoadCapacity_Text_SettingSensor))
+// Отступ  и Статус записи данных настройки датчика усилия
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageWeightSensor?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageWeightSensor?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 
             // Отображение текущих параметров датчика усилия
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {

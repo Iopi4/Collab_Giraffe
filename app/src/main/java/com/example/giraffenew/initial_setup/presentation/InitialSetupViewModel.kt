@@ -199,7 +199,7 @@ class InitialSetupViewModel
                 Log.i("InitialSetupVM", "Registers written successfully")
             } catch (e: Exception) {
                 Log.e("InitialSetupVM", "Запись не удалась: ${e.message}", e)
-                _errorMessage.value = "Запись не удалась: ${e.message}"
+                _errorMessage.value = "${e.message}"
                 _logMessageDateTime.value = null
             }
         }
@@ -264,7 +264,7 @@ class InitialSetupViewModel
                 _errorMessage.value = null
                 _logMessageDateTime.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessage.value = "Запись не удалась: ${e.message}"
+                _errorMessage.value = "${e.message}"
                 _logMessageDateTime.value = null
             }
         }
@@ -288,7 +288,7 @@ class InitialSetupViewModel
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
                 _logMessageCrane.value = null
             }
         }
@@ -310,7 +310,7 @@ class InitialSetupViewModel
                 _errorMessageRTN.value = null
                 _logMessageRTN.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageRTN.value = "Запись не удалась: ${e.message}"
+                _errorMessageRTN.value = "${e.message}"
                 _logMessageRTN.value = null
             }
         }
@@ -333,7 +333,7 @@ class InitialSetupViewModel
                 _errorMessageSBKB.value = null
                 _logMessageSBKB.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
+                _errorMessageSBKB.value = "${e.message}"
                 _logMessageSBKB.value = null
             }
         }
@@ -348,7 +348,7 @@ class InitialSetupViewModel
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
                 _logMessageCrane.value = null
             }
         }
@@ -364,7 +364,7 @@ class InitialSetupViewModel
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
                 _logMessageCrane.value = null
             }
         }
@@ -382,7 +382,7 @@ class InitialSetupViewModel
                 _errorMessageSBKB.value = null
                 _logMessageSBKB.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageSBKB.value = "Запись не удалась: ${e.message}"
+                _errorMessageSBKB.value = "${e.message}"
                 _logMessageSBKB.value = null
             }
         }

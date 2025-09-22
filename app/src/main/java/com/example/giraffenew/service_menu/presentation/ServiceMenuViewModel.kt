@@ -670,7 +670,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -686,7 +686,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
 
             }
         }
@@ -703,7 +703,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -719,7 +719,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -735,7 +735,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -751,7 +751,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -767,7 +767,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -783,7 +783,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -799,7 +799,7 @@ class ServiceMenuViewModel
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoist.value = null
-                _errorMessageHoist.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoist.value = "${e.message}"
             }
         }
     }
@@ -816,7 +816,7 @@ class ServiceMenuViewModel
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoistMontage.value = null
-                _errorMessageHoistMontage.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoistMontage.value = "${e.message}"
             }
         }
     }
@@ -832,7 +832,7 @@ class ServiceMenuViewModel
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoistMontage.value = null
-                _errorMessageHoistMontage.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoistMontage.value = "${e.message}"
 
             }
         }
@@ -849,7 +849,7 @@ class ServiceMenuViewModel
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoistMontage.value = null
-                _errorMessageHoistMontage.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoistMontage.value = "${e.message}"
             }
         }
     }
@@ -865,7 +865,7 @@ class ServiceMenuViewModel
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageHoistMontage.value = null
-                _errorMessageHoistMontage.value = "Запись не удалась: ${e.message}"
+                _errorMessageHoistMontage.value = "${e.message}"
             }
         }
     }
@@ -886,7 +886,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -902,7 +902,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -918,7 +918,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -933,7 +933,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -948,7 +948,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -966,7 +966,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -982,7 +982,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -998,7 +998,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -1014,7 +1014,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -1030,7 +1030,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -1046,7 +1046,7 @@ class ServiceMenuViewModel
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageSlew.value = null
-                _errorMessageSlew.value = "Запись не удалась: ${e.message}"
+                _errorMessageSlew.value = "${e.message}"
             }
         }
     }
@@ -1066,7 +1066,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1082,7 +1082,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
 
             }
         }
@@ -1099,7 +1099,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1115,7 +1115,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1131,7 +1131,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1147,7 +1147,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1163,7 +1163,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1179,7 +1179,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1195,7 +1195,7 @@ class ServiceMenuViewModel
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageTrolley.value = null
-                _errorMessageTrolley.value = "Запись не удалась: ${e.message}"
+                _errorMessageTrolley.value = "${e.message}"
             }
         }
     }
@@ -1214,7 +1214,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -1230,7 +1230,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
 
             }
         }
@@ -1247,7 +1247,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -1263,7 +1263,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -1279,7 +1279,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -1295,7 +1295,7 @@ class ServiceMenuViewModel
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCrane.value = null
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
+                _errorMessageCrane.value = "${e.message}"
             }
         }
     }
@@ -1315,7 +1315,7 @@ class ServiceMenuViewModel
                 _logMessageCTRLPoint.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCTRLPoint.value = null
-                _errorMessageCTRLPoint.value = "Запись не удалась: ${e.message}"
+                _errorMessageCTRLPoint.value = "${e.message}"
             }
         }
     }
@@ -1330,7 +1330,7 @@ class ServiceMenuViewModel
                 _logMessageCTRLPoint.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageCTRLPoint.value = null
-                _errorMessageCTRLPoint.value = "Запись не удалась: ${e.message}"
+                _errorMessageCTRLPoint.value = "${e.message}"
             }
         }
     }
@@ -1350,7 +1350,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1365,7 +1365,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1380,7 +1380,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1395,7 +1395,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1410,7 +1410,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1425,7 +1425,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWind.value = null
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
             }
         }
     }
@@ -1444,7 +1444,7 @@ class ServiceMenuViewModel
                 _logMessageWind.value = "Сохранено"
                 // Логирование
             } catch (e: Exception) {
-                _errorMessageWind.value = "Запись не удалась: ${e.message}"
+                _errorMessageWind.value = "${e.message}"
                 _logMessageWind.value = null
             }
         }
@@ -1464,7 +1464,7 @@ class ServiceMenuViewModel
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageLoadCell.value = null
-                _errorMessageLoadCell.value = "Запись не удалась: ${e.message}"
+                _errorMessageLoadCell.value = "${e.message}"
             }
         }
     }
@@ -1479,7 +1479,7 @@ class ServiceMenuViewModel
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageLoadCell.value = null
-                _errorMessageLoadCell.value = "Запись не удалась: ${e.message}"
+                _errorMessageLoadCell.value = "${e.message}"
             }
         }
     }
@@ -1495,7 +1495,7 @@ class ServiceMenuViewModel
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageLoadCell.value = null
-                _errorMessageLoadCell.value = "Запись не удалась: ${e.message}"
+                _errorMessageLoadCell.value = "${e.message}"
             }
         }
     }
@@ -1511,7 +1511,7 @@ class ServiceMenuViewModel
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageLoadCell.value = null
-                _errorMessageLoadCell.value = "Запись не удалась: ${e.message}"
+                _errorMessageLoadCell.value = "${e.message}"
             }
         }
     }
@@ -1530,7 +1530,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1546,7 +1546,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1562,7 +1562,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1578,7 +1578,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1594,7 +1594,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1610,7 +1610,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1626,7 +1626,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }
@@ -1642,7 +1642,7 @@ class ServiceMenuViewModel
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageAbsEnc.value = null
-                _errorMessageAbsEnc.value = "Запись не удалась: ${e.message}"
+                _errorMessageAbsEnc.value = "${e.message}"
             }
         }
     }

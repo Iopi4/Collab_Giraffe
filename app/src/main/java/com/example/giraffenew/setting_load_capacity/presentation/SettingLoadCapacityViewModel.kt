@@ -175,7 +175,7 @@ class SettingLoadCapacityViewModel
                 _errorMessageGH.value = null
                 _logMessageGH.value = "СОХРАНЕНО"
             } catch (e: Exception) {
-                _errorMessageGH.value = "Выбрать не удалось: ${e.message}"
+                _errorMessageGH.value = "Выбрать не удалось:${e.message}"
                 _logMessageGH.value = null
             }
         }
@@ -197,7 +197,7 @@ class SettingLoadCapacityViewModel
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWeightSensor.value = null
-                _errorMessageWeightSensor.value = "Запись не удалась: ${e.message}"
+                _errorMessageWeightSensor.value = "${e.message}"
             }
         }
     }
@@ -212,7 +212,7 @@ class SettingLoadCapacityViewModel
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessageWeightSensor.value = null
-                _errorMessageWeightSensor.value = "Запись не удалась: ${e.message}"
+                _errorMessageWeightSensor.value = "${e.message}"
             }
         }
     }
@@ -229,9 +229,9 @@ class SettingLoadCapacityViewModel
                 delay(1000)
                 modbusRepository.writeRegister(865, 0)
                 _errorMessageWeightSensor.value = null
-                _logMessageWeightSensor.value = "Включено"
+                _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageWeightSensor.value = "Калибровка не удалась: ${e.message}"
+                _errorMessageWeightSensor.value = "Не удалось:${e.message}"
                 _logMessageWeightSensor.value = null
             }
         }
@@ -250,9 +250,9 @@ class SettingLoadCapacityViewModel
                 delay(1000)
                 modbusRepository.writeRegister(866, 0)
                 _errorMessageWeightSensor.value = null
-                _logMessageWeightSensor.value = "Включено"
+                _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageWeightSensor.value = "Калибровка не удалась: ${e.message}"
+                _errorMessageWeightSensor.value = "Не удалось:${e.message}"
                 _logMessageWeightSensor.value = null
             }
         }

@@ -220,13 +220,13 @@ fun SettingPointsPolygon1Manual (
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-            // Отступ  и Статус записи данных вылета, поворота и хода
+// Отступ  и Статус записи данных вылета, поворота и хода
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
                 Box (modifier = Modifier.weight(10f)
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                ) { errorMessagePolygon1?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp)) }
+                ) { errorMessagePolygon1?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                     logMessagePolygon1?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }

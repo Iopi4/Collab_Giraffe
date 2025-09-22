@@ -148,7 +148,7 @@ fun Polygon1Setting(
 
                 Box (modifier = Modifier.weight(10f)
                     .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                ) { errorMessagePolygon1?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 0.dp)) }
+                ) { errorMessagePolygon1?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                     logMessagePolygon1?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
                 }
             }
@@ -161,7 +161,7 @@ fun Polygon1Setting(
 
 //Ввод. Количество точек полигона
                 BasicInputRowandButton(
-                    placeholder = "4...20",
+                    placeholder = format(currentP1PointNum),
                     value = setValuePolygon1PointNum,
                     onValueChange = updateValuePolygon1PointNum,
                     onClick = onSetValueP1PointNum,
@@ -169,17 +169,14 @@ fun Polygon1Setting(
                     valueMax = 20
                 )
 
-
 //Ввод. Высота полигона
-
                 BasicInputRowandTensButton(
-                    placeholder = "00.0",
+                    placeholder = formatDecimal(currentP1Height),
                     value = setValuePolygon1Height,
                     onValueChange = updateValuePolygon1Height,
                     onClick = onSetValueP1Height,
                     isDecimal = true,
                 )
-
 
 //Кнопка. Разрешить работу вверху
             BasicButtonOnOffStatus(
@@ -269,7 +266,13 @@ fun Polygon1Setting(
     }
 }
 
+private fun formatDecimal(value: Float): String {
+    return String.format("%04.1f", value).replace(',', '.')
+}
 
+private fun format(value: Int): String {
+    return String.format("%02d", value)
+}
 
 @Preview
 @Composable

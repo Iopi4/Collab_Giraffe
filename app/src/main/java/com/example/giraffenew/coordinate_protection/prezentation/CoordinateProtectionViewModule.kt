@@ -538,7 +538,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1.value = null
-                _errorMessagePolygon1.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1.value = "${e.message}"
             }
         }
     }
@@ -553,7 +553,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1.value = null
-                _errorMessagePolygon1.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1.value = "${e.message}"
             }
         }
     }
@@ -608,7 +608,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1Manual.value = null
-                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1Manual.value = "${e.message}"
             }
         }
     }
@@ -623,7 +623,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1Manual.value = null
-                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1Manual.value = "${e.message}"
             }
         }
     }
@@ -638,7 +638,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1Manual.value = null
-                _errorMessagePolygon1Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1Manual.value = "${e.message}"
             }
         }
     }
@@ -654,7 +654,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1Coordinate.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1Coordinate.value = null
-                _errorMessagePolygon1Coordinate.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1Coordinate.value = "${e.message}"
             }
         }
     }
@@ -669,7 +669,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon1Coordinate.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon1Coordinate.value = null
-                _errorMessagePolygon1Coordinate.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon1Coordinate.value = "${e.message}"
             }
         }
     }
@@ -771,7 +771,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2.value = null
-                _errorMessagePolygon2.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2.value = "${e.message}"
             }
         }
     }
@@ -786,7 +786,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2.value = null
-                _errorMessagePolygon2.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2.value = "${e.message}"
             }
         }
     }
@@ -841,7 +841,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2Manual.value = null
-                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2Manual.value = "${e.message}"
             }
         }
     }
@@ -856,7 +856,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2Manual.value = null
-                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2Manual.value = "${e.message}"
             }
         }
     }
@@ -871,7 +871,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2Manual.value = null
-                _errorMessagePolygon2Manual.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2Manual.value = "${e.message}"
             }
         }
     }
@@ -887,7 +887,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2Coordinate.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2Coordinate.value = null
-                _errorMessagePolygon2Coordinate.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2Coordinate.value = "${e.message}"
             }
         }
     }
@@ -902,7 +902,7 @@ class CoordinateProtectionViewModule
                 _logMessagePolygon2Coordinate.value = "Сохранено"
             } catch (e: Exception) {
                 _logMessagePolygon2Coordinate.value = null
-                _errorMessagePolygon2Coordinate.value = "Запись не удалась: ${e.message}"
+                _errorMessagePolygon2Coordinate.value = "${e.message}"
             }
         }
     }
