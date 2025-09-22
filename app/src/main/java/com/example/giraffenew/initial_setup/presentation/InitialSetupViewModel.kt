@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
+import com.example.giraffenew.data.entities.UiInitialSetupRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
@@ -59,6 +59,9 @@ class InitialSetupViewModel
 
     private val _timeZonesList = mutableStateListOf<TimeZoneEntity>()
     val timeZonesList: List<TimeZoneEntity> = _timeZonesList
+
+    private val _currentTimeZone = mutableStateOf("")
+    val currentTimeZone: State<String> = _currentTimeZone
 // Переменные выбора модели крана
 
     // Переменные выбора модели крана
@@ -73,6 +76,9 @@ class InitialSetupViewModel
 
     private val _cranesList = mutableStateListOf<CraneEntity>()
     val cranesList: List<CraneEntity> = _cranesList
+
+    private val _currentModelCrane = mutableStateOf("XXX-00.000")
+    val currentModelCrane: State<String> = _currentModelCrane
 // Переменные выбора модели крана
 
 
@@ -138,19 +144,18 @@ class InitialSetupViewModel
     val logMessageSBKB: State<String?> = _logMessageSBKB
 
 
+    private val addresses = listOf(150, 641) // Только нужные регистры
 
-    fun getCraneModel(craneID: Int): LiveData<String?> {
-        return liveData(Dispatchers.IO) {
-            emit(craneRepository.getCraneModel(craneID))
-        }
+    private var previousValues: Map<Int, Int?> = emptyMap()
+
+
+    //Подписка на актуальные модели кранов и часовые пояса из баз данных
+    init {
+        //Загрузка базы данных модели кранов
+        loadAllCranes()
+        //Загрузка базы данных часовых поясов
+        loadAllTimeZones()
     }
-
-    fun getAllCranes(): LiveData<List<CraneEntity>> {
-        return liveData(Dispatchers.IO) {
-            emit(craneRepository.getAllCranes())
-        }
-    }
-
 
     private fun validateAndConvert(value: String, min: Int, max: Int): Int {
         val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -198,14 +203,6 @@ class InitialSetupViewModel
                 _logMessageDateTime.value = null
             }
         }
-    }
-
-//Подписка на актуальные модели кранов и часовые пояса из баз данных
-    init {
-        //Загрузка базы данных модели кранов
-        loadAllCranes()
-        //Загрузка базы данных часовых поясов
-        loadAllTimeZones()
     }
     fun loadAllCranes() {
         viewModelScope.launch {
@@ -259,16 +256,16 @@ class InitialSetupViewModel
 
 
     // Запись часового пояса
-    fun onSetTimeZone(TimeZoneUTC: Int) {
+    fun onSetTimeZone(timeZoneUTC: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // Запись в регистр часового пояса (TimeZoneUTC)
-                modbusRepository.writeRegister(99999, TimeZoneUTC)
-                _errorMessageCrane.value = null
-                _logMessageCrane.value = "Сохранено"
+                // Запись в регистр часового пояса (timeZoneUTC)
+                modbusRepository.writeRegister(939, timeZoneUTC)
+                _errorMessage.value = null
+                _logMessageDateTime.value = "Сохранено"
             } catch (e: Exception) {
-                _errorMessageCrane.value = "Запись не удалась: ${e.message}"
-                _logMessageCrane.value = null
+                _errorMessage.value = "Запись не удалась: ${e.message}"
+                _logMessageDateTime.value = null
             }
         }
     }

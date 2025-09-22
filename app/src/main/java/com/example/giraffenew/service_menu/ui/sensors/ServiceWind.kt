@@ -110,7 +110,7 @@ fun ServiceWind(
                     shape = RoundedCornerShape(5.dp)),
             verticalArrangement = Arrangement.Top
         ) {
-// Отступ  и Статус записи данных настройки поворота
+// Статус записи данных настройки поворота
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 

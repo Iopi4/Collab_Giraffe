@@ -63,7 +63,7 @@ object TopBarRegisterConfiguration {
         RegisterInfo(95, "gv_wHour_MW", "WORD16", "Часы"),
         RegisterInfo(98, "gv_wMinute_MW", "WORD16", "Минуты"),
         RegisterInfo(99, "gv_wSeconds_MW", "WORD16", "Секунды"),
-        RegisterInfo(150, "Crane_No_MW", "WORD16", "Заводской номер крана"),
+        RegisterInfo(150, "Crane_No_MW", "WORD16", "Заводской тип крана"),
         RegisterInfo(190, "Build_Mode_MW", "WORD16", "Флаг режима наладки"),
         RegisterInfo(191, "Service_Mode_MW", "WORD16", "Флаг режима сервис"),
         RegisterInfo(192, "Montage_Mode_MW", "WORD16", "Флаг режима монтаж"),
@@ -77,7 +77,7 @@ object TopBarRegisterConfiguration {
         RegisterInfo(282, "Beeper_STOP_MW", "WORD16", "Пищалка HMI.Стой "),
 
         RegisterInfo(893, "HMI_Write_HMI_Active_MW", "WORD16", "Флаг режима активности HMI"),
-
+        RegisterInfo(641, "HMI_TimeZone_MW", "WORD16", "(* Часовой пояс в UTC *)"),
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
@@ -652,6 +652,8 @@ object UiInitialSetupRegisterConfiguration {
         RegisterInfo(845, "HMI_Write_i_uiDay_MW", "WORD16", "День для установки"),
         RegisterInfo(846, "HMI_Write_i_uiHour_MW", "WORD16", "Час для установки"),
         RegisterInfo(847, "HMI_Write_i_uiMinute_MW", "WORD16", "Минута для установки"),
+
+        RegisterInfo(641, "HMI_TimeZone_MW", "WORD16", "(* Часовой пояс в UTC *)"),
         // Запись в регистры даты ввода крана в эксплуатацию
         RegisterInfo(854, "HMI_Write_R_InstallDay_Crane_MW", "WORD16", "День ввода в эксплуатацию"),
         RegisterInfo(855, "HMI_Write_R_InstallMonth_Crane_MW", "WORD16", "Месяц ввода в эксплуатацию"),
@@ -667,7 +669,9 @@ object UiInitialSetupRegisterConfiguration {
         // Запись модели крана, зав. № и № СБКБ
         RegisterInfo(848, "HMI_Write_sR_CraneType_MW", "UINT16", "Тип крана"),
         RegisterInfo(849, "HMI_Write_rQnom_MW", "WORD16", "Номинальная грузоподъемность"),
-        RegisterInfo(850, "HMI_Write_sR_Crane_No_MW", "WORD16", "Заводской номер крана")
+        RegisterInfo(850, "HMI_Write_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),
+
+        RegisterInfo(150, "Crane_No_MW", "WORD16", "Заводской тип крана"),
     )
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 

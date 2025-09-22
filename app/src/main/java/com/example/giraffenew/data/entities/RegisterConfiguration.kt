@@ -90,6 +90,8 @@ object DefaultRegisterConfiguration {
             {"address": 98, "name": "gv_wMinute_MW", "type": "WORD16", "description": "Минуты"},
             {"address": 99, "name": "gv_wSeconds_MW", "type": "WORD16", "description": "Секунды"},
             
+            {"address": 641, "name": "HMI_TimeZone_MW", "type": "WORD16", "description": "Часовой пояс в UTC"},
+            
             {"address": 100, "name": "Hoist_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ подъема"},
             {"address": 101, "name": "Hoist_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ подъема"},
             {"address": 102, "name": "Hoist_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения подъема"},

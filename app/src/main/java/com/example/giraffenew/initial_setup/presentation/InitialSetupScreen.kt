@@ -1,6 +1,5 @@
 package com.example.giraffenew.initial_setup.presentation
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,6 +55,7 @@ fun InitialSetupScreen(
                 onSelectTimeZone = {initialSetupViewModel.openTimeZoneDialog()},
                 onSetTimeZone = { timeZoneUTC -> initialSetupViewModel.onSetTimeZone(timeZoneUTC)},
                 selectedTimeZoneUTC = initialSetupViewModel.selectedTimeZoneUTC.value,
+                currentTimeZone = topBarViewModel.currentTimeZone.value,
 
                 setValueHour = initialSetupViewModel.setValueHour.value,
                 setValueMinute = initialSetupViewModel.setValueMinute.value,
@@ -78,6 +78,7 @@ fun InitialSetupScreen(
                 onSelectCrane  = { initialSetupViewModel.openCraneDialog() },
                 onSetModelCrane = { craneID -> initialSetupViewModel.onSetModelCrane(craneID) },
                 selectedCraneId = initialSetupViewModel.selectedCraneId.value,
+                currentModelCrane = topBarViewModel.currentModelCrane.value,
 
                 setValueNumberCrane = initialSetupViewModel.setValueNumberCrane.value,
                 onNumberChangeCrane =  { initialSetupViewModel.updateNumberCrane(it) },

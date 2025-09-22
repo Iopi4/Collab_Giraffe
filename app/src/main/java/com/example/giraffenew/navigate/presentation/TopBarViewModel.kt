@@ -18,6 +18,7 @@ import javax.inject.Inject
 import com.example.giraffenew.R
 import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventTimeProvider
 import com.example.giraffenew.initial_setup.data.CraneRepository
+import com.example.giraffenew.initial_setup.data.TimeZoneRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -43,6 +44,7 @@ class TopBarViewModel @Inject constructor(
     private val soundController: SoundController,
     private val eventTimeProvider: EventTimeProvider,
     private val craneRepository: CraneRepository,
+    private var timeZoneRepository: TimeZoneRepository,
 
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
@@ -67,6 +69,9 @@ class TopBarViewModel @Inject constructor(
     private val _currentModelCrane = mutableStateOf("XXX-00.000")
     val currentModelCrane: State<String> = _currentModelCrane
 
+    private val _currentTimeZone = mutableStateOf("")
+    val currentTimeZone: State<String> = _currentTimeZone
+
     private val _currentPulleyBlock = mutableStateOf("Запасовка [... кр.]")
     val currentPulleyBlock: State<String> = _currentPulleyBlock
 
@@ -85,13 +90,15 @@ class TopBarViewModel @Inject constructor(
     private val _montageMode = mutableStateOf(0)
     val montageMode: State<Int> = _montageMode
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194, 367, 278, 279, 280, 281, 282) // Только нужные регистры
+    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194,
+        367, 278, 279, 280, 281, 282, 641) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
 
     // Для отслеживания текущего craneId
     private var currentCraneId: Int? = null
+    private var currentTimeZoneUTC: Int? = null
 
     init {
         startDataCollection()
@@ -99,6 +106,8 @@ class TopBarViewModel @Inject constructor(
 
         // Запускаем наблюдение за изменениями в базе данных кранов
         observeCraneDatabase()
+        // Запускаем наблюдение за изменениями в базе данных часовых поясов
+        observeTimeZoneDatabase()
     }
 
     private fun startDataCollection() {
@@ -117,6 +126,7 @@ class TopBarViewModel @Inject constructor(
                         updateTimeEvents(currentValues)
                         updateDate(currentValues)
                         updateModelCrane(currentValues)
+                        updateTimeZone(currentValues)
                         updatePulleyBlock(currentValues)
                         updateLoadCapacity(currentValues)
                         updateCraneID(currentValues)
@@ -219,6 +229,8 @@ class TopBarViewModel @Inject constructor(
         eventTimeProvider.updateEventTime(timeInMillis)
     }
 
+
+
     private fun updateDate(cache: Map<Int, Int?>) {
         val year = cache[90] ?: return
         val month = cache[91] ?: return
@@ -259,6 +271,39 @@ class TopBarViewModel @Inject constructor(
             } catch (e: Exception) {
                 _currentModelCrane.value = "ОШИБКА"
                 Log.e("TopBarViewModel", "Ошибка получения модели крана: ${e.message}")
+            }
+        }
+    }
+
+    //Чтобы TopBarViewModel реагировал на изменения в базе данных часовых поясов, надо использовать Flow:
+    private fun updateTimeZone(cache: Map<Int, Int?>) {
+        val timeZoneUTC = cache[641] ?: return
+        currentTimeZoneUTC = timeZoneUTC
+        updateTimeZoneFromDatabase(timeZoneUTC)
+    }
+    private fun observeTimeZoneDatabase() {
+        viewModelScope.launch {
+            // Подписываемся на изменения часовых поясов
+            timeZoneRepository.getAllTimeZoneFlow()
+                .collect { timeZones ->
+                    // Если у нас есть текущий timeZoneUTC, обновляем модель
+                    currentTimeZoneUTC?.let { id ->
+                        updateTimeZoneFromDatabase(id)
+                    }
+                }
+        }
+    }
+    private fun updateTimeZoneFromDatabase(timeZoneUTC: Int) {
+        viewModelScope.launch {
+            try {
+                // Используем Flow для получения модели крана
+                timeZoneRepository.getTimeZoneFlow(timeZoneUTC)
+                    .collect { timeZone ->
+                        _currentTimeZone.value = timeZone ?: "UTC+X(MCK+XX)"
+                    }
+            } catch (e: Exception) {
+                _currentTimeZone.value = "ОШИБКА"
+                Log.e("InitialSetupViewModel", "Ошибка получения часового пояса: ${e.message}")
             }
         }
     }

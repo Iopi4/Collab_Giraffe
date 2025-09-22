@@ -14,16 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
-import com.example.giraffenew.initial_setup.button.ButtonModelCrane
+import com.example.giraffenew.initial_setup.button.ButtonModel
 import com.example.giraffenew.core.ui_kit.composable.button.ButtonOn
-import com.example.giraffenew.initial_setup.button.ButtonOnModelCrane
+import com.example.giraffenew.initial_setup.button.ButtonOnModel
 import com.example.giraffenew.initial_setup.domain.CraneEntity
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -36,6 +35,7 @@ fun ParametersCraneAndSBKB(
     onSelectCrane: () -> Unit,
     onSetModelCrane: (Int) -> Unit,
     selectedCraneId: Int?,
+    currentModelCrane: String,
 
     setValueNumberCrane: String,
     onNumberChangeCrane: (String) -> Unit,
@@ -76,6 +76,7 @@ fun ParametersCraneAndSBKB(
     logMessageSBKB: String?,
 
 ) {
+
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -106,22 +107,6 @@ fun ParametersCraneAndSBKB(
                     BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Operation)
                     BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Number_SBKB)
                     BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Date_SBKB)
-
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) { errorMessageCrane?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
-                logMessageCrane?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) { errorMessageSBKB?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
-                logMessageSBKB?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) { errorMessageRTN?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
-                logMessageRTN?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
         }
 
 //№.2 - Правая область для отображения и ввода параметров. ( 2-Тип крана)
@@ -150,16 +135,16 @@ fun ParametersCraneAndSBKB(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                     .weight(3f)
                 ) {
-                    ButtonModelCrane(
+                    ButtonModel(
                         modifier = Modifier,
                         onClick = onSelectCrane,
-                        text = selectedCrane?.craneModel ?:
-                        stringResource(R.string.InitialSetup_Button_Model),
+                        text = selectedCrane?.craneModel ?:currentModelCrane,
+                        //stringResource(R.string.InitialSetup_Button_Model),
                     )
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(1f)) {
-                    ButtonOnModelCrane(
+                    ButtonOnModel(
                         modifier = Modifier,
                         text = R.string.Button_ON,
                         onClick = { selectedCraneId?.let { onSetModelCrane(it) } },
@@ -288,6 +273,21 @@ fun ParametersCraneAndSBKB(
                     ) {}
                 }
             }
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) { errorMessageCrane?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageCrane?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) { errorMessageSBKB?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageSBKB?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
+            Box (modifier = Modifier
+                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+            ) { errorMessageRTN?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                logMessageRTN?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+            }
 
         }
     }
@@ -305,6 +305,7 @@ fun ParametersCraneAndSBKBPreview () {
             onSelectCrane= { },
             onSetModelCrane= { },
             selectedCraneId= 14,
+            currentModelCrane = "",
 
             setValueNumberCrane = "1",
             onNumberChangeCrane = { },

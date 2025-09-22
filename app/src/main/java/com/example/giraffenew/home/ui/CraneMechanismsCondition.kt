@@ -153,7 +153,7 @@ fun CraneMechanismsCondition(
             ParametersTextControlEffort(
                 formatDecimalSlew(slewControlEffortHz),
                 modifier = Modifier
-                    .padding(start = 9.dp, end =2.dp, top = 1.dp))
+                    .padding(start = 6.dp, end =2.dp, top = 1.dp))
         }
 
 //Тележка. Состояние
@@ -262,7 +262,7 @@ private fun formatDecimalHoist(value: Float): String {
 }
 private fun formatDecimalSlew(value: Float): String {
     val realValue = (value * SLEW_COEFFICIENT) / 1f
-    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+    return String.format("%04.1fоб/мин", realValue).replace(',', '.')
 }
 private fun formatDecimalTrolley(value: Float): String {
     val realValue = (value * TROLLEY_COEFFICIENT) / 1f

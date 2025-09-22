@@ -1,12 +1,12 @@
 package com.example.giraffenew.initial_setup.ui
 
-import android.os.Message
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -24,9 +24,8 @@ import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
-import com.example.giraffenew.initial_setup.button.ButtonModelCrane
-import com.example.giraffenew.initial_setup.button.ButtonOnModelCrane
-import com.example.giraffenew.initial_setup.domain.CraneEntity
+import com.example.giraffenew.initial_setup.button.ButtonModel
+import com.example.giraffenew.initial_setup.button.ButtonOnModel
 import com.example.giraffenew.initial_setup.domain.TimeZoneEntity
 import com.example.giraffenew.ui.theme.Burgundy_violet
 
@@ -39,6 +38,7 @@ fun ParametersDateAndTime(
     onSelectTimeZone: () -> Unit,
     onSetTimeZone: (Int) -> Unit,
     selectedTimeZoneUTC: Int?,
+    currentTimeZone: String,
 
     setValueHour: String, //AT%MW846 (* Hours 0 to 23 *)
     setValueMinute: String, //AT%MW847 (* Minutes 0 to 59 *)
@@ -83,11 +83,7 @@ fun ParametersDateAndTime(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Time)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.InitialSetup_TextFilled_Date)
 
-            Box (modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-            ) { errorMessage?.let { Text(text = it, color = Color.Red, modifier = Modifier.padding(top = 8.dp)) }
-                logMessageDateTime?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
-            }
+
 
         }
 
@@ -104,8 +100,7 @@ fun ParametersDateAndTime(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-//Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
 // Отображение текущего времени и даты
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentTime) }
@@ -118,16 +113,16 @@ fun ParametersDateAndTime(
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                     .weight(3f)
                 ) {
-                    ButtonModelCrane(
+                    ButtonModel(
                         modifier = Modifier,
                         onClick = onSelectTimeZone,
-                        text = selectedTimeZone?.timeZoneRegion?:
-                        stringResource(R.string.InitialSetup_Button_Model),
+                        text = selectedTimeZone?.timeZoneRegion?: currentTimeZone,
+                        //stringResource(R.string.InitialSetup_Button_Model),
                     )
                 }
                 //Кнопка ввода
                 Box(modifier = Modifier.weight(1f)) {
-                    ButtonOnModelCrane(
+                    ButtonOnModel(
                         modifier = Modifier,
                         text = R.string.Button_ON,
                         onClick = { selectedTimeZoneUTC?.let { onSetTimeZone(it) } },
@@ -156,7 +151,16 @@ fun ParametersDateAndTime(
                 text = R.string.Button_Enter,
                 onClick = onSetDateTime,
             ) {}
+// Статус записи данных времени
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
 
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) { errorMessage?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                    logMessageDateTime?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 8.dp)) }
+                }
+            }
 
         }
     }
@@ -171,10 +175,11 @@ fun ParametersDataAndTimeTextPreview () {
             currentTime = "123456",
             currentDate = "123456",
 
-            selectedTimeZone = TimeZoneEntity(12,""),
+            selectedTimeZone = TimeZoneEntity(12,"1","1"),
             onSelectTimeZone = {  },
             onSetTimeZone = {  },
             selectedTimeZoneUTC = 12,
+            currentTimeZone = "",
 
             setValueHour = "12",
             setValueMinute = "12",
