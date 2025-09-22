@@ -207,7 +207,7 @@ class CoordinateProtectionViewModule
             currentP1FewPoint       = cache[628] ?: 0,
             currentP1ActiveStatus    = cache[629] ?: 0,
             currentP2FewPoint       = cache[634] ?: 0,
-            currentP2ActiveStatus    = cache[335] ?: 0,
+            currentP2ActiveStatus    = cache[635] ?: 0,
             currentP3FewPoint       = cache[636] ?: 0,
             currentP3ActiveStatus    = cache[637] ?: 0,
             currentP4FewPoint       = cache[638] ?: 0,

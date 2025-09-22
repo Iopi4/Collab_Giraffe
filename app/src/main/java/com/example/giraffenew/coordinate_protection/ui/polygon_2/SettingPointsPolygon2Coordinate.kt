@@ -252,61 +252,61 @@ fun SettingPointsPolygon2Coordinate (
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_1,
-                onClick = {onSetP2PointCmd(1)},
+                onClick = {onSetP2PointCmd(31)},
             ) {}
             // Кнопка задать точку №2
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_2,
-                onClick = {onSetP2PointCmd(2)},
+                onClick = {onSetP2PointCmd(32)},
             ) {}
             // Кнопка задать точку №3
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_3,
-                onClick = {onSetP2PointCmd(3)},
+                onClick = {onSetP2PointCmd(33)},
             ) {}
             // Кнопка задать точку №4
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_4,
-                onClick = {onSetP2PointCmd(4)},
+                onClick = {onSetP2PointCmd(34)},
             ) {}
             // Кнопка задать точку №5
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_5,
-                onClick = {onSetP2PointCmd(5)},
+                onClick = {onSetP2PointCmd(35)},
             ) {}
             // Кнопка задать точку №6
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_6,
-                onClick = {onSetP2PointCmd(6)},
+                onClick = {onSetP2PointCmd(36)},
             ) {}
             // Кнопка задать точку №7
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_7,
-                onClick = {onSetP2PointCmd(7)},
+                onClick = {onSetP2PointCmd(37)},
             ) {}
             // Кнопка задать точку №8
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_8,
-                onClick = {onSetP2PointCmd(8)},
+                onClick = {onSetP2PointCmd(38)},
             ) {}
             // Кнопка задать точку №9
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_9,
-                onClick = {onSetP2PointCmd(9)},
+                onClick = {onSetP2PointCmd(39)},
             ) {}
             // Кнопка задать точку №10
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.CoordinateProtection_Button_Set_Point_10,
-                onClick = {onSetP2PointCmd(10)},
+                onClick = {onSetP2PointCmd(40)},
             ) {}
 
             // Кнопка задать точку №11
