@@ -146,7 +146,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSpdRef1Slew),
                 value = setValueSlewSpdRef1,
                 valueMin = 0,
-                valueMax = 500,
+                valueMax = 200,
                 onValueChange = onModelChangeSlewSpdRef1,
                 onClick = onSetSlewSpdRef1
             )
@@ -155,7 +155,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSpdRef2Slew),
                 value = setValueSlewSpdRef2,
                 valueMin = 0,
-                valueMax = 1000,
+                valueMax = 600,
                 onValueChange = onModelChangeSlewSpdRef2,
                 onClick = onSetSlewSpdRef2
             )
@@ -164,7 +164,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSpdRef3Slew),
                 value = setValueSlewSpdRef3,
                 valueMin = 0,
-                valueMax = 1500,
+                valueMax = 1200,
                 onValueChange = onModelChangeSlewSpdRef3,
                 onClick = onSetSlewSpdRef3
             )
@@ -173,7 +173,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSpdRef4Slew),
                 value = setValueSlewSpdRef4,
                 valueMin = 0,
-                valueMax = 3000,
+                valueMax = 2000,
                 onValueChange = onModelChangeSlewSpdRef4,
                 onClick = onSetSlewSpdRef4
             )
@@ -182,7 +182,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSpdRefNomSlew),
                 value = setValueSlewSpdNom,
                 valueMin = 0,
-                valueMax = 3000,
+                valueMax = 1500,
                 onValueChange = updateSlewSpdNom,
                 onClick = onSetSlewSpdNom
             )
@@ -191,7 +191,7 @@ fun ServiceSlewing(
                 placeholder = format(hmiSlewSpeedBrakeClose),
                 value = setValueSlewSpdStopButton,
                 valueMin = 0,
-                valueMax = 200,
+                valueMax = 100,
                 onValueChange = onModelChangeSlewSpdStopButton,
                 onClick = onSetSlewSpdStopButton,
             )

@@ -649,7 +649,7 @@ class ServiceMenuViewModel
     fun onSetHoistACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistACC.value, 0.0f, 99.9f )
+                val model = validateAndConvertFloat(_setValueHoistACC.value, 0.0f, 10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(946, model)
                 _errorMessageHoist.value = null
@@ -665,7 +665,7 @@ class ServiceMenuViewModel
     fun onSetHoistDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistDEC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueHoistDEC.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(947, model)
                 _errorMessageHoist.value = null
@@ -682,7 +682,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRef1.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdRef1.value, 0,120 )
                 // Запись в регистры
                 modbusRepository.writeRegister(941, model)
                 _errorMessageHoist.value = null
@@ -698,7 +698,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRef2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRef2.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdRef2.value, 0,400 )
                 // Запись в регистры
                 modbusRepository.writeRegister(942, model)
                 _errorMessageHoist.value = null
@@ -714,7 +714,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRef3() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRef3.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdRef3.value, 0,1000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(943, model)
                 _errorMessageHoist.value = null
@@ -730,7 +730,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRef4() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRef4.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdRef4.value, 0,3000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(944, model)
                 _errorMessageHoist.value = null
@@ -746,7 +746,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRefButton() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRefButton.value, 0,999 )
+                val model = validateAndConvert(_setValueHoistSpdRefButton.value, 0,120 )
                 // Запись в регистры
                 modbusRepository.writeRegister(940, model)
                 _errorMessageHoist.value = null
@@ -762,7 +762,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdRefMax() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdRefMax.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdRefMax.value, 0,3000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(945, model)
                 _errorMessageHoist.value = null
@@ -778,7 +778,7 @@ class ServiceMenuViewModel
     fun onSetHoistSpdNom() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistSpdNom.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistSpdNom.value, 0,1500 )
                 // Запись в регистры
                 modbusRepository.writeRegister(948, model)
                 _errorMessageHoist.value = null
@@ -795,7 +795,7 @@ class ServiceMenuViewModel
     fun onSetHoistMontageACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistMontageACC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueHoistMontageACC.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(952, model)
                 _errorMessageHoistMontage.value = null
@@ -811,7 +811,7 @@ class ServiceMenuViewModel
     fun onSetHoistMontageDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistMontageDEC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueHoistMontageDEC.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(953, model)
                 _errorMessageHoistMontage.value = null
@@ -828,7 +828,7 @@ class ServiceMenuViewModel
     fun onSetHoistMontageSpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistMontageSpdRef1.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistMontageSpdRef1.value, 0,240 )
                 // Запись в регистры
                 modbusRepository.writeRegister(950, model)
                 _errorMessageHoistMontage.value = null
@@ -844,7 +844,7 @@ class ServiceMenuViewModel
     fun onSetHoistMontageSpdRef2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueHoistMontageSpdRef2.value, 0,9999 )
+                val model = validateAndConvert(_setValueHoistMontageSpdRef2.value, 0,3000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(951, model)
                 _errorMessageHoistMontage.value = null
@@ -865,7 +865,7 @@ class ServiceMenuViewModel
     fun onSetSlewACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewACC.value, 0.0f,50.0f )
+                val model = validateAndConvertFloat(_setValueSlewACC.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(968, model)
                 _errorMessageSlew.value = null
@@ -881,7 +881,7 @@ class ServiceMenuViewModel
     fun onSetSlewDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewDEC.value, 0.0f,50.0f )
+                val model = validateAndConvertFloat(_setValueSlewDEC.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(969, model)
                 _errorMessageSlew.value = null
@@ -897,7 +897,7 @@ class ServiceMenuViewModel
     fun onSetSlewDECRevers() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewDECRevers.value, 0.0f,50.0f )
+                val model = validateAndConvertFloat(_setValueSlewDECRevers.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(987, model)
                 _errorMessageSlew.value = null
@@ -912,7 +912,7 @@ class ServiceMenuViewModel
     fun onSetSlewDelayTime() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueSlewDelayTime.value, 0.0f,50.0f )
+                val model = validateAndConvertFloat(_setValueSlewDelayTime.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(988, model)
                 _errorMessageSlew.value = null
@@ -945,7 +945,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdRef1.value, 0,9999 )
+                val model = validateAndConvert(_setValueSlewSpdRef1.value, 0,200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(956, model)
                 _errorMessageSlew.value = null
@@ -961,7 +961,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdRef2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdRef2.value, 0,9999 )
+                val model = validateAndConvert(_setValueSlewSpdRef2.value, 0,600 )
                 // Запись в регистры
                 modbusRepository.writeRegister(957, model)
                 _errorMessageSlew.value = null
@@ -977,7 +977,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdRef3() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdRef3.value, 0,9999 )
+                val model = validateAndConvert(_setValueSlewSpdRef3.value, 0,1200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(958, model)
                 _errorMessageSlew.value = null
@@ -993,7 +993,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdRef4() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdRef4.value, 0,9999 )
+                val model = validateAndConvert(_setValueSlewSpdRef4.value, 0,2000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(959, model)
                 _errorMessageSlew.value = null
@@ -1009,7 +1009,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdStopButton() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdStopButton.value, 0,200 )
+                val model = validateAndConvert(_setValueSlewSpdStopButton.value, 0,100 )
                 // Запись в регистры
                 modbusRepository.writeRegister(1217, model)
                 _errorMessageSlew.value = null
@@ -1025,7 +1025,7 @@ class ServiceMenuViewModel
     fun onSetSlewSpdNom() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueSlewSpdNom.value, 0,9999 )
+                val model = validateAndConvert(_setValueSlewSpdNom.value, 0,1500 )
                 // Запись в регистры
                 modbusRepository.writeRegister(970, model)
                 _errorMessageSlew.value = null
@@ -1045,7 +1045,7 @@ class ServiceMenuViewModel
     fun onSetTrolleyACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyACC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyACC.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(964, model)
                 _errorMessageTrolley.value = null
@@ -1061,7 +1061,7 @@ class ServiceMenuViewModel
     fun onSetTrolleyDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyDEC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyDEC.value, 0.0f,10.0f)
                 // Запись в регистры
                 modbusRepository.writeRegister(965, model)
                 _errorMessageTrolley.value = null
@@ -1078,7 +1078,7 @@ class ServiceMenuViewModel
     fun onSetTrolleySpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleySpdRef1.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleySpdRef1.value, 0,200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(960, model)
                 _errorMessageTrolley.value = null
@@ -1094,7 +1094,7 @@ class ServiceMenuViewModel
     fun onSetTrolleySpdRef2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleySpdRef2.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleySpdRef2.value, 0,600 )
                 // Запись в регистры
                 modbusRepository.writeRegister(961, model)
                 _errorMessageTrolley.value = null
@@ -1110,7 +1110,7 @@ class ServiceMenuViewModel
     fun onSetTrolleySpdRef3() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleySpdRef3.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleySpdRef3.value, 0,1200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(962, model)
                 _errorMessageTrolley.value = null
@@ -1126,7 +1126,7 @@ class ServiceMenuViewModel
     fun onSetTrolleySpdRef4() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleySpdRef4.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleySpdRef4.value, 0,2000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(963, model)
                 _errorMessageTrolley.value = null
@@ -1142,7 +1142,7 @@ class ServiceMenuViewModel
     fun onSetTrolleyLsp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleyLsp.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleyLsp.value, 0,200 )
                 // Запись в регистры
                 modbusRepository.writeRegister(966, model)
                 _errorMessageTrolley.value = null
@@ -1158,7 +1158,7 @@ class ServiceMenuViewModel
     fun onSetTrolleyOverSpd() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(967, model)
                 _errorMessageTrolley.value = null
@@ -1174,7 +1174,7 @@ class ServiceMenuViewModel
     fun onSetTrolleySpdNom() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueTrolleySpdNom.value, 0,9999 )
+                val model = validateAndConvert(_setValueTrolleySpdNom.value, 0,1500 )
                 // Запись в регистры
                 modbusRepository.writeRegister(971, model)
                 _errorMessageTrolley.value = null
@@ -1193,7 +1193,7 @@ class ServiceMenuViewModel
     fun onSetCraneACC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCraneACC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueCraneACC.value, 0.0f,20.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(976, model)
                 _errorMessageCrane.value = null
@@ -1209,7 +1209,7 @@ class ServiceMenuViewModel
     fun onSetCraneDEC() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCraneDEC.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueCraneDEC.value, 0.0f,20.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(977, model)
                 _errorMessageCrane.value = null
@@ -1226,7 +1226,7 @@ class ServiceMenuViewModel
     fun onSetCraneSpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueCraneSpdRef1.value, 0,9999 )
+                val model = validateAndConvert(_setValueCraneSpdRef1.value, 0,300 )
                 // Запись в регистры
                 modbusRepository.writeRegister(972, model)
                 _errorMessageCrane.value = null
@@ -1242,7 +1242,7 @@ class ServiceMenuViewModel
     fun onSetCraneSpdRef2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueCraneSpdRef2.value, 0,9999 )
+                val model = validateAndConvert(_setValueCraneSpdRef2.value, 0,700 )
                 // Запись в регистры
                 modbusRepository.writeRegister(973, model)
                 _errorMessageCrane.value = null
@@ -1258,7 +1258,7 @@ class ServiceMenuViewModel
     fun onSetCraneSpdRef3() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueCraneSpdRef3.value, 0,9999 )
+                val model = validateAndConvert(_setValueCraneSpdRef3.value, 0,1500 )
                 // Запись в регистры
                 modbusRepository.writeRegister(974, model)
                 _errorMessageCrane.value = null
@@ -1274,7 +1274,7 @@ class ServiceMenuViewModel
     fun onSetCraneSpdRef4() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setValueCraneSpdRef4.value, 0,9999 )
+                val model = validateAndConvert(_setValueCraneSpdRef4.value, 0,2000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(975, model)
                 _errorMessageCrane.value = null
@@ -1309,7 +1309,7 @@ class ServiceMenuViewModel
     fun onSetValueCTRLPointControlInterval() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCTRLPointControlInterval.value, 0.0f,999.9f )
+                val model = validateAndConvertFloat(_setValueCTRLPointControlInterval.value, 0.0f,300.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(979, model)
                 _errorMessageCTRLPoint.value = null
@@ -1329,7 +1329,7 @@ class ServiceMenuViewModel
     fun onSetWindSpeedLvl1() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindSpeedLvl1.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindSpeedLvl1.value, 0.0f,20.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(980, model)
                 _errorMessageWind.value = null
@@ -1344,7 +1344,7 @@ class ServiceMenuViewModel
     fun onSetWindSpeedLvl2() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindSpeedLvl2.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindSpeedLvl2.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(981, model)
                 _errorMessageWind.value = null
@@ -1359,7 +1359,7 @@ class ServiceMenuViewModel
     fun onSetWindSpeedMontageLvl() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindSpeedMontageLvl.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindSpeedMontageLvl.value, 0.0f,20.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(982, model)
                 _errorMessageWind.value = null
@@ -1374,7 +1374,7 @@ class ServiceMenuViewModel
     fun onSetWindTimeSmooth() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindTimeSmooth.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindTimeSmooth.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(983, model)
                 _errorMessageWind.value = null
@@ -1389,7 +1389,7 @@ class ServiceMenuViewModel
     fun onSetWindSpeedLvlClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindSpeedLvlClbr.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setValueWindSpeedLvlClbr.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(984, model)
                 _errorMessageWind.value = null
@@ -1470,11 +1470,11 @@ class ServiceMenuViewModel
         }
     }
 
-    // LoadSensor. Запись глубина сглаживания веса
+    // LoadSensor. Запись глубина сглаживания веса. Количество точек.
     fun onSetLoadCellSmoothingDepth() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvert(_setLoadCellSmoothingDepth.value, 0,200 )
+                val model = validateAndConvert(_setLoadCellSmoothingDepth.value, 0,500 )
                 // Запись в регистры
                 modbusRepository.writeRegister(1202, model)
                 _errorMessageLoadCell.value = null
@@ -1486,11 +1486,11 @@ class ServiceMenuViewModel
         }
     }
 
-    // LoadSensor. Запись ограничение сверхскорости подъема
+    // LoadSensor. Запись веса ограничение сверхскорости подъема
     fun onSetLoadCellOverSpeedThreshold() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setLoadCellOverSpeedThreshold.value, 0.0f,99.9f )
+                val model = validateAndConvertFloat(_setLoadCellOverSpeedThreshold.value, 0.0f,10.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(1203, model)
                 _errorMessageLoadCell.value = null

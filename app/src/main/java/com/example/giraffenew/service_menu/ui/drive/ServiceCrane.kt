@@ -129,7 +129,7 @@ fun ServiceCrane(
                 placeholder = format(hmiSpdRef1Crane),
                 value = setValueCraneSpdRef1,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 300,
                 onValueChange = onModelChangeCraneSpdRef1,
                 onClick = onSetCraneSpdRef1
             )
@@ -138,7 +138,7 @@ fun ServiceCrane(
                 placeholder = format(hmiSpdRef2Crane),
                 value = setValueCraneSpdRef2,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 700,
                 onValueChange = onModelChangeCraneSpdRef2,
                 onClick = onSetCraneSpdRef2
             )
@@ -147,7 +147,7 @@ fun ServiceCrane(
                 placeholder = format(hmiSpdRef3Crane),
                 value = setValueCraneSpdRef3,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1500,
                 onValueChange = onModelChangeCraneSpdRef3,
                 onClick = onSetCraneSpdRef3
             )
@@ -156,7 +156,7 @@ fun ServiceCrane(
                 placeholder = format(hmiSpdRef4Crane),
                 value = setValueCraneSpdRef4,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 2000,
                 onValueChange = onModelChangeCraneSpdRef4,
                 onClick = onSetCraneSpdRef4
             )

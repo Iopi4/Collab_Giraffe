@@ -141,7 +141,7 @@ fun ServiceTrolley(
                 placeholder = format(hmiSpdRef1Trolley),
                 value = setValueTrolleySpdRef1,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 200,
                 onValueChange = onModelChangeTrolleySpdRef1,
                 onClick = onSetTrolleySpdRef1
             )
@@ -150,7 +150,7 @@ fun ServiceTrolley(
                 placeholder = format(hmiSpdRef2Trolley),
                 value = setValueTrolleySpdRef2,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 600,
                 onValueChange = onModelChangeTrolleySpdRef2,
                 onClick = onSetTrolleySpdRef2
             )
@@ -159,7 +159,7 @@ fun ServiceTrolley(
                 placeholder = format(hmiSpdRef3Trolley),
                 value = setValueTrolleySpdRef3,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1200,
                 onValueChange = onModelChangeTrolleySpdRef3,
                 onClick = onSetTrolleySpdRef3
             )
@@ -168,7 +168,7 @@ fun ServiceTrolley(
                 placeholder = format(hmiSpdRef4Trolley),
                 value = setValueTrolleySpdRef4,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 2000,
                 onValueChange = onModelChangeTrolleySpdRef4,
                 onClick = onSetTrolleySpdRef4
             )
@@ -177,7 +177,7 @@ fun ServiceTrolley(
                 placeholder = format(hmiSpdRefNomTrolley),
                 value = setValueTrolleySpdNom,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1500,
                 onValueChange = updateTrolleySpdNom,
                 onClick = onSetTrolleySpdNom
             )

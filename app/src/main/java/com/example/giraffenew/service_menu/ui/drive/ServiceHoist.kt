@@ -185,7 +185,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRef1Hoist),
                 value = setValueHoistSpdRef1,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 120,
                 onValueChange = onModelChangeHoistSpdRef1,
                 onClick = onSetHoistSpdRef1
             )
@@ -194,7 +194,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRef2Hoist),
                 value = setValueHoistSpdRef2,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 400,
                 onValueChange = onModelChangeHoistSpdRef2,
                 onClick = onSetHoistSpdRef2
             )
@@ -203,7 +203,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRef3Hoist),
                 value = setValueHoistSpdRef3,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1000,
                 onValueChange = onModelChangeHoistSpdRef3,
                 onClick = onSetHoistSpdRef3
             )
@@ -212,7 +212,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRef4Hoist),
                 value = setValueHoistSpdRef4,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 3000,
                 onValueChange = onModelChangeHoistSpdRef4,
                 onClick = onSetHoistSpdRef4
             )
@@ -221,7 +221,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRefNomHoist),
                 value = setValueHoistSpdNom,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 1500,
                 onValueChange = updateHoistSpdRefNom,
                 onClick = onSetHoistSpdNom
             )
@@ -230,7 +230,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRefMAXHoist),
                 value = setValueHoistSpdRefMax,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 3000,
                 onValueChange = onModelChangeHoistSpdRefMax,
                 onClick = onSetHoistSpdRefMax
             )
@@ -238,7 +238,7 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = format(hmiSpdRefButtonHoist),
                 valueMin = 0,
-                valueMax = 999,
+                valueMax = 120,
                 value = setValueHoistSpdRefButton,
                 onValueChange = onModelChangeHoistSpdRefButton,
                 onClick = onSetHoistSpdRefButton,
@@ -269,7 +269,7 @@ fun ServiceHoist(
                 placeholder = format(hmiSpdRef1HoistMontage),
                 value = setValueHoistMontageSpdRef1,
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 240,
                 onValueChange = onModelChangeHoistMontageSpdRef1,
                 onClick = onSetHoistMontageSpdRef1
             )
@@ -277,7 +277,7 @@ fun ServiceHoist(
             BasicInputRowandButton(
                 placeholder = format(hmiSpdRef2HoistMontage),
                 valueMin = 0,
-                valueMax = 9999,
+                valueMax = 3000,
                 value = setValueHoistMontageSpdRef2,
                 onValueChange = onModelChangeHoistMontageSpdRef2,
                 onClick = onSetHoistMontageSpdRef2
