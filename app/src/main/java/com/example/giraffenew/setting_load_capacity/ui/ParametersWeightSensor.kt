@@ -40,13 +40,13 @@ fun ParameterWeightSensor(
     onModelChangeMaxWeight: (String) -> Unit,
     onSetValueMaxWeight: () -> Unit,
 
-    onSetMinWeightСalibration: () -> Unit,
-    onSetMaxWeightСalibration: () -> Unit,
+    onSetMinWeightCalibration: () -> Unit,
+    onSetMaxWeightCalibration: () -> Unit,
 
     errorMessageWeightSensor: String?,
     logMessageWeightSensor: String?,
 
-) {
+    ) {
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -137,7 +137,7 @@ fun ParameterWeightSensor(
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.SettingLoadCapacity_Button_Calibration,
-                        onClick = onSetMinWeightСalibration,
+                        onClick = onSetMinWeightCalibration,
                     ) {}
                 }
             }
@@ -159,7 +159,7 @@ fun ParameterWeightSensor(
                     BasicButtonGiraffe(
                         modifier = Modifier,
                         text = R.string.SettingLoadCapacity_Button_Calibration,
-                        onClick = onSetMaxWeightСalibration,
+                        onClick = onSetMaxWeightCalibration,
                     ) {}
                 }
             }
@@ -171,13 +171,7 @@ fun ParameterWeightSensor(
 }
 
 
-private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%05d", value)
-}
-
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%03.2f", value).replace(',', '.')
 }
 
@@ -205,8 +199,8 @@ fun ParametersSensorPreview () {
             setValueMaxWeight = "",
             onModelChangeMaxWeight = {},
             onSetValueMaxWeight = {},
-            onSetMinWeightСalibration = {},
-            onSetMaxWeightСalibration = {},
+            onSetMinWeightCalibration = {},
+            onSetMaxWeightCalibration = {},
             errorMessageWeightSensor = null,
             logMessageWeightSensor = null,
         )

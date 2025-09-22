@@ -323,13 +323,7 @@ fun CalibrationSensorTrolley(
     }
 }
 
-private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%10d", value)
-}
-
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%04.1f", value).replace(',', '.')
 }
 

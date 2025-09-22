@@ -25,7 +25,6 @@ import com.example.giraffenew.coordinate_protection.ui.button.BasicButtonPolygon
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType1Status
 import com.example.giraffenew.coordinate_protection.ui.lamp.BasicLampPointType2Status
 import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusCalibration
-import com.example.giraffenew.coordinate_protection.ui.text.BasicTextPolygonSettingStatusFewPoint
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe

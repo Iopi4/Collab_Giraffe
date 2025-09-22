@@ -7,8 +7,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.giraffenew.data.entities.TopBarRegisterConfiguration
-import com.example.giraffenew.data.entities.UiInitialSetupRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
@@ -27,7 +25,6 @@ class InitialSetupViewModel
     private val modbusRepository: ModbusRepository,
     private var craneRepository: CraneRepository, // Внедряем через Hilt
     private var timeZoneRepository: TimeZoneRepository,
-    private val application: Application
 ): ViewModel(){
 
     // Переменные для ввода даты и времени
@@ -60,8 +57,6 @@ class InitialSetupViewModel
     private val _timeZonesList = mutableStateListOf<TimeZoneEntity>()
     val timeZonesList: List<TimeZoneEntity> = _timeZonesList
 
-    private val _currentTimeZone = mutableStateOf("")
-    val currentTimeZone: State<String> = _currentTimeZone
 // Переменные выбора модели крана
 
     // Переменные выбора модели крана
@@ -77,8 +72,6 @@ class InitialSetupViewModel
     private val _cranesList = mutableStateListOf<CraneEntity>()
     val cranesList: List<CraneEntity> = _cranesList
 
-    private val _currentModelCrane = mutableStateOf("XXX-00.000")
-    val currentModelCrane: State<String> = _currentModelCrane
 // Переменные выбора модели крана
 
 
@@ -142,12 +135,6 @@ class InitialSetupViewModel
 
     private val _logMessageSBKB = mutableStateOf<String?>(null)
     val logMessageSBKB: State<String?> = _logMessageSBKB
-
-
-    private val addresses = listOf(150, 641) // Только нужные регистры
-
-    private var previousValues: Map<Int, Int?> = emptyMap()
-
 
     //Подписка на актуальные модели кранов и часовые пояса из баз данных
     init {

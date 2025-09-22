@@ -128,11 +128,6 @@ class SettingLoadCapacityViewModel
         )
     }
 
-
-    private fun safeDivide(value: Int?): Float {
-        return (value ?: 0) / 1f
-    }
-
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
@@ -148,13 +143,6 @@ class SettingLoadCapacityViewModel
         val currentWeight: Float = 0f,
     )
 
-
-    //Функция проверки и преобразования целых чисел
-    private fun validateAndConvert(value: String, min: Int, max: Int): Int {
-        val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
-        if (intValue !in min..max) throw IllegalArgumentException("Значение вне диапазона")
-        return intValue
-    }
     //Функция проверки и преобразования десятичных чисел
     private fun validateAndConvertFloatTens(value: String, min: Float, max: Float): Int {
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
@@ -217,7 +205,7 @@ class SettingLoadCapacityViewModel
         }
     }
     // КАЛИБРОВКА МИНИМАЛЬНОГО ВЕСА.
-    fun onSetMinWeightСalibration(
+    fun onSetMinWeightCalibration(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -238,7 +226,7 @@ class SettingLoadCapacityViewModel
     }
 
     // КАЛИБРОВКА МИНИМАЛЬНОГО ВЕСА.
-    fun onSetMaxWeightСalibration(
+    fun onSetMaxWeightCalibration(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {

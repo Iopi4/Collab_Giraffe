@@ -87,8 +87,8 @@ fun SettingLoadCapacityScreen (
                 setValueMaxWeight = settingLoadCapacityViewModel.setValueMaxWeight.value,
                 onModelChangeMaxWeight = {settingLoadCapacityViewModel.updateMaxWeight(it)},
                 onSetValueMaxWeight = {settingLoadCapacityViewModel.onSetValueMaxWeight()},
-                onSetMinWeightСalibration = {settingLoadCapacityViewModel.onSetMinWeightСalibration()},
-                onSetMaxWeightСalibration = {settingLoadCapacityViewModel.onSetMaxWeightСalibration()},
+                onSetMinWeightCalibration = {settingLoadCapacityViewModel.onSetMinWeightCalibration()},
+                onSetMaxWeightCalibration = {settingLoadCapacityViewModel.onSetMaxWeightCalibration()},
                 errorMessageWeightSensor = settingLoadCapacityViewModel.errorMessageWeightSensor.value,
                 logMessageWeightSensor = settingLoadCapacityViewModel.logMessageWeightSensor.value,
             )

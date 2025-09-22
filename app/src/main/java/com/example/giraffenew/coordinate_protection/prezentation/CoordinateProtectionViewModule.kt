@@ -302,11 +302,6 @@ class CoordinateProtectionViewModule
         )
     }
 
-
-    private fun safeDivide(value: Int?): Float {
-        return (value ?: 0) / 1f
-    }
-
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }

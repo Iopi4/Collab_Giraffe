@@ -1,6 +1,5 @@
 package com.example.giraffenew.data.entities
 
-import com.example.giraffenew.data.entities.RegisterInfo
 import kotlinx.serialization.json.Json
 
 /**

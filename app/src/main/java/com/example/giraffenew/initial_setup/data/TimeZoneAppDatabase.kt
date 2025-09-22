@@ -21,7 +21,7 @@ abstract class TimeZoneAppDatabase: RoomDatabase() {
         private var INSTANCE: TimeZoneAppDatabase? = null
 
         fun getDatabase(context: Context): TimeZoneAppDatabase {
-            return TimeZoneAppDatabase.Companion.INSTANCE ?: synchronized(this) {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TimeZoneAppDatabase::class.java,

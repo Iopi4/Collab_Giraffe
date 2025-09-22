@@ -473,11 +473,6 @@ class ServiceMenuViewModel
             )
     }
 
-
-    private fun safeDivide(value: Int?): Float {
-        return (value ?: 0) / 1f
-    }
-
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
@@ -646,15 +641,6 @@ class ServiceMenuViewModel
         if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
         return (floatValue * 100).toInt()
     }
-
-    //Функция проверки и преобразования тысячных чисел
-    private fun validateAndConvertFloatThousand(value: String, min: Float, max: Float): Int {
-        val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
-        if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
-        return (floatValue * 1000).toInt()
-    }
-
-
 
     /**
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ПОДЪЕМА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
