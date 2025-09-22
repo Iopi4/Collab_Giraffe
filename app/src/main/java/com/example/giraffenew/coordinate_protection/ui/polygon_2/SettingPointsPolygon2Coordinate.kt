@@ -44,28 +44,28 @@ fun SettingPointsPolygon2Coordinate (
     errorMessagePolygon2: String?,
     logMessagePolygon2: String?,
 
-    Polygon2PointY01: Float, Polygon2PointX01: Float,
-    Polygon2PointY02: Float, Polygon2PointX02: Float,
-    Polygon2PointY03: Float, Polygon2PointX03: Float,
-    Polygon2PointY04: Float, Polygon2PointX04: Float,
-    Polygon2PointY05: Float, Polygon2PointX05: Float,
-    Polygon2PointY06: Float, Polygon2PointX06: Float,
-    Polygon2PointY07: Float, Polygon2PointX07: Float,
-    Polygon2PointY08: Float, Polygon2PointX08: Float,
-    Polygon2PointY09: Float, Polygon2PointX09: Float,
-    Polygon2PointY10: Float, Polygon2PointX10: Float,
-    Polygon2PointY11: Float, Polygon2PointX11: Float,
-    Polygon2PointY12: Float, Polygon2PointX12: Float,
-    Polygon2PointY13: Float, Polygon2PointX13: Float,
-    Polygon2PointY14: Float, Polygon2PointX14: Float,
-    Polygon2PointY15: Float, Polygon2PointX15: Float,
-    Polygon2PointY16: Float, Polygon2PointX16: Float,
-    Polygon2PointY17: Float, Polygon2PointX17: Float,
-    Polygon2PointY18: Float, Polygon2PointX18: Float,
-    Polygon2PointY19: Float, Polygon2PointX19: Float,
-    Polygon2PointY20: Float, Polygon2PointX20: Float,
+    polygon2PointY01: Float, polygon2PointX01: Float,
+    polygon2PointY02: Float, polygon2PointX02: Float,
+    polygon2PointY03: Float, polygon2PointX03: Float,
+    polygon2PointY04: Float, polygon2PointX04: Float,
+    polygon2PointY05: Float, polygon2PointX05: Float,
+    polygon2PointY06: Float, polygon2PointX06: Float,
+    polygon2PointY07: Float, polygon2PointX07: Float,
+    polygon2PointY08: Float, polygon2PointX08: Float,
+    polygon2PointY09: Float, polygon2PointX09: Float,
+    polygon2PointY10: Float, polygon2PointX10: Float,
+    polygon2PointY11: Float, polygon2PointX11: Float,
+    polygon2PointY12: Float, polygon2PointX12: Float,
+    polygon2PointY13: Float, polygon2PointX13: Float,
+    polygon2PointY14: Float, polygon2PointX14: Float,
+    polygon2PointY15: Float, polygon2PointX15: Float,
+    polygon2PointY16: Float, polygon2PointX16: Float,
+    polygon2PointY17: Float, polygon2PointX17: Float,
+    polygon2PointY18: Float, polygon2PointX18: Float,
+    polygon2PointY19: Float, polygon2PointX19: Float,
+    polygon2PointY20: Float, polygon2PointX20: Float,
 
-) {
+    ) {
     // Общее состояние прокрутки
     val scrollState = rememberScrollState()
 
@@ -102,103 +102,103 @@ fun SettingPointsPolygon2Coordinate (
 
             //Координаты точки №1
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX01),
-                pointY = formatDecimal(Polygon2PointY01)
+                pointX = formatDecimal(polygon2PointX01),
+                pointY = formatDecimal(polygon2PointY01)
             )
             //Координаты точки №2
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX02),
-                pointY = formatDecimal(Polygon2PointY02)
+                pointX = formatDecimal(polygon2PointX02),
+                pointY = formatDecimal(polygon2PointY02)
             )
             //Координаты точки №3
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX03),
-                pointY = formatDecimal(Polygon2PointY03)
+                pointX = formatDecimal(polygon2PointX03),
+                pointY = formatDecimal(polygon2PointY03)
             )
             //Координаты точки №4
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX04),
-                pointY = formatDecimal(Polygon2PointY04)
+                pointX = formatDecimal(polygon2PointX04),
+                pointY = formatDecimal(polygon2PointY04)
             )
             //Координаты точки №5
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX05),
-                pointY = formatDecimal(Polygon2PointY05)
+                pointX = formatDecimal(polygon2PointX05),
+                pointY = formatDecimal(polygon2PointY05)
             )
             //Координаты точки №6
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX06),
-                pointY = formatDecimal(Polygon2PointY06)
+                pointX = formatDecimal(polygon2PointX06),
+                pointY = formatDecimal(polygon2PointY06)
             )
             //Координаты точки №7
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX07),
-                pointY = formatDecimal(Polygon2PointY07)
+                pointX = formatDecimal(polygon2PointX07),
+                pointY = formatDecimal(polygon2PointY07)
             )
             //Координаты точки №8
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX08),
-                pointY = formatDecimal(Polygon2PointY08)
+                pointX = formatDecimal(polygon2PointX08),
+                pointY = formatDecimal(polygon2PointY08)
             )
             //Координаты точки №9
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX09),
-                pointY = formatDecimal(Polygon2PointY09)
+                pointX = formatDecimal(polygon2PointX09),
+                pointY = formatDecimal(polygon2PointY09)
             )
             //Координаты точки №10
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX10),
-                pointY = formatDecimal(Polygon2PointY10)
+                pointX = formatDecimal(polygon2PointX10),
+                pointY = formatDecimal(polygon2PointY10)
             )
             //Координаты точки №11
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX11),
-                pointY = formatDecimal(Polygon2PointY11)
+                pointX = formatDecimal(polygon2PointX11),
+                pointY = formatDecimal(polygon2PointY11)
             )
             //Координаты точки №12
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX12),
-                pointY = formatDecimal(Polygon2PointY12)
+                pointX = formatDecimal(polygon2PointX12),
+                pointY = formatDecimal(polygon2PointY12)
             )
             //Координаты точки №13
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX13),
-                pointY = formatDecimal(Polygon2PointY13)
+                pointX = formatDecimal(polygon2PointX13),
+                pointY = formatDecimal(polygon2PointY13)
             )
             //Координаты точки №14
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX14),
-                pointY = formatDecimal(Polygon2PointY14)
+                pointX = formatDecimal(polygon2PointX14),
+                pointY = formatDecimal(polygon2PointY14)
             )
             //Координаты точки №15
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX15),
-                pointY = formatDecimal(Polygon2PointY15)
+                pointX = formatDecimal(polygon2PointX15),
+                pointY = formatDecimal(polygon2PointY15)
             )
             //Координаты точки №16
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX16),
-                pointY = formatDecimal(Polygon2PointY16)
+                pointX = formatDecimal(polygon2PointX16),
+                pointY = formatDecimal(polygon2PointY16)
             )
             //Координаты точки №17
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX17),
-                pointY = formatDecimal(Polygon2PointY17)
+                pointX = formatDecimal(polygon2PointX17),
+                pointY = formatDecimal(polygon2PointY17)
             )
             //Координаты точки №18
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX18),
-                pointY = formatDecimal(Polygon2PointY18)
+                pointX = formatDecimal(polygon2PointX18),
+                pointY = formatDecimal(polygon2PointY18)
             )
             //Координаты точки №19
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX19),
-                pointY = formatDecimal(Polygon2PointY19)
+                pointX = formatDecimal(polygon2PointX19),
+                pointY = formatDecimal(polygon2PointY19)
             )
             //Координаты точки №20
             PolygonPoint(
-                pointX = formatDecimal(Polygon2PointX20),
-                pointY = formatDecimal(Polygon2PointY20)
+                pointX = formatDecimal(polygon2PointX20),
+                pointY = formatDecimal(polygon2PointY20)
             )
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
@@ -399,47 +399,47 @@ fun SettingPointsPolygon2CoordinatePreview (){
             errorMessagePolygon2 = null,
             logMessagePolygon2 = null,
 
-            Polygon2PointY01 = 1f,
-            Polygon2PointX01 = 1f,
-            Polygon2PointY02 = 1f,
-            Polygon2PointX02 = 1f,
-            Polygon2PointY03 = 1f,
-            Polygon2PointX03 = 1f,
-            Polygon2PointY04 = 1f,
-            Polygon2PointX04 = 1f,
-            Polygon2PointY05 = 1f,
-            Polygon2PointX05 = 1f,
-            Polygon2PointY06 = 1f,
-            Polygon2PointX06 = 1f,
-            Polygon2PointY07 = 1f,
-            Polygon2PointX07 = 1f,
-            Polygon2PointY08 = 1f,
-            Polygon2PointX08 = 1f,
-            Polygon2PointY09 = 1f,
-            Polygon2PointX09 = 1f,
-            Polygon2PointY10 = 1f,
-            Polygon2PointX10 = 1f,
+            polygon2PointY01 = 1f,
+            polygon2PointX01 = 1f,
+            polygon2PointY02 = 1f,
+            polygon2PointX02 = 1f,
+            polygon2PointY03 = 1f,
+            polygon2PointX03 = 1f,
+            polygon2PointY04 = 1f,
+            polygon2PointX04 = 1f,
+            polygon2PointY05 = 1f,
+            polygon2PointX05 = 1f,
+            polygon2PointY06 = 1f,
+            polygon2PointX06 = 1f,
+            polygon2PointY07 = 1f,
+            polygon2PointX07 = 1f,
+            polygon2PointY08 = 1f,
+            polygon2PointX08 = 1f,
+            polygon2PointY09 = 1f,
+            polygon2PointX09 = 1f,
+            polygon2PointY10 = 1f,
+            polygon2PointX10 = 1f,
 
-            Polygon2PointY11 = 1f,
-            Polygon2PointX11 = 1f,
-            Polygon2PointY12 = 1f,
-            Polygon2PointX12 = 1f,
-            Polygon2PointY13 = 1f,
-            Polygon2PointX13 = 1f,
-            Polygon2PointY14 = 1f,
-            Polygon2PointX14 = 1f,
-            Polygon2PointY15 = 1f,
-            Polygon2PointX15 = 1f,
-            Polygon2PointY16 = 1f,
-            Polygon2PointX16 = 1f,
-            Polygon2PointY17 = 1f,
-            Polygon2PointX17 = 1f,
-            Polygon2PointY18 = 1f,
-            Polygon2PointX18 = 1f,
-            Polygon2PointY19 = 1f,
-            Polygon2PointX19 = 1f,
-            Polygon2PointY20 = 1f,
-            Polygon2PointX20 = 1f,
+            polygon2PointY11 = 1f,
+            polygon2PointX11 = 1f,
+            polygon2PointY12 = 1f,
+            polygon2PointX12 = 1f,
+            polygon2PointY13 = 1f,
+            polygon2PointX13 = 1f,
+            polygon2PointY14 = 1f,
+            polygon2PointX14 = 1f,
+            polygon2PointY15 = 1f,
+            polygon2PointX15 = 1f,
+            polygon2PointY16 = 1f,
+            polygon2PointX16 = 1f,
+            polygon2PointY17 = 1f,
+            polygon2PointX17 = 1f,
+            polygon2PointY18 = 1f,
+            polygon2PointX18 = 1f,
+            polygon2PointY19 = 1f,
+            polygon2PointX19 = 1f,
+            polygon2PointY20 = 1f,
+            polygon2PointX20 = 1f,
         )
     }
 }

@@ -177,6 +177,8 @@
     <!-- Текст экрана CoordinateProtectionScreen' -->
     <string name="CoordinateProtection_Button_Polygon_1">ПОЛИГОН №1</string>
     <string name="CoordinateProtection_Button_Polygon_2">ПОЛИГОН №2</string>
+    <string name="CoordinateProtection_Button_Polygon_3">ПОЛИГОН №3</string>
+    <string name="CoordinateProtection_Button_Polygon_4">ПОЛИГОН №4</string>
     <string name="CoordinateProtection_Button_Setting">НАСТРОЙКА</string>
     <string name="CoordinateProtection_Button_Position">ПО КРЮКУ</string>
     <string name="CoordinateProtection_Button_Manual">РУЧНОЙ ВВОД</string>

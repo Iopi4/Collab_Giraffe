@@ -34,8 +34,8 @@ class HomeScreenViewModel @Inject constructor(
     val addressesCraneMechanismsCondition = listOf(711, 320,321,322,323,324,325,326,327,328,329,
         330,331,332,333,334,335,712,337, 103, 112, 121, 130) // Только нужные регистры
 
-    val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405, 406, 407, 408, 410,
-        411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430,
+    val addressesCraneSOZR = listOf(400, 401, 402, 403, 404, 405, 406, 407, 408,
+        410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430,
         431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450,
         451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470,
         471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490,
@@ -44,7 +44,22 @@ class HomeScreenViewModel @Inject constructor(
         530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549,
         550, 551, 552, 553, 554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567, 568, 569,
         570, 571, 572, 573, 574, 575, 576, 577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589,
-        590, 591, 592, 593, 594, 595, 596, 597, 598, 599, 600, 601, 602, 603, 604, 605, 606, 607, 608, 609)
+        590, 591, 592, 593, 594, 595, 596, 597, 598, 599, 600, 601, 602, 603, 604, 605, 606, 607, 608, 609,
+        1410, 1411, 1412, 1413, 1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1422, 1423, 1424,
+        1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432, 1433, 1434, 1435, 1436, 1437, 1438, 1439,
+        1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452, 1453, 1454,
+        1455, 1456, 1457, 1458, 1459, 1460, 1461, 1462, 1463, 1464, 1465, 1466, 1467, 1468, 1469,
+        1470, 1471, 1472, 1473, 1474, 1475, 1476, 1477, 1478, 1479, 1480, 1481, 1482, 1483, 1484,
+        1485, 1486, 1487, 1488, 1489, 1490, 1491, 1492, 1493, 1494, 1495, 1496, 1497, 1498, 1499,
+        1500, 1501, 1502, 1503, 1504, 1505, 1506, 1507, 1508, 1509,
+        1510, 1511, 1512, 1513, 1514, 1515, 1516, 1517, 1518, 1519, 1520, 1521, 1522, 1523, 1524,
+        1525, 1526, 1527, 1528, 1529, 1530, 1531, 1532, 1533, 1534, 1535, 1536, 1537, 1538, 1539,
+        1540, 1541, 1542, 1543, 1544, 1545, 1546, 1547, 1548, 1549, 1550, 1551, 1552, 1553, 1554,
+        1555, 1556, 1557, 1558, 1559, 1560, 1561, 1562, 1563, 1564, 1565, 1566, 1567, 1568, 1569,
+        1570, 1571, 1572, 1573, 1574, 1575, 1576, 1577, 1578, 1579, 1580, 1581, 1582, 1583, 1584,
+        1585, 1586, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1595, 1596, 1597, 1598, 1599,
+        1600, 1601, 1602, 1603, 1604, 1605, 1606, 1607, 1608, 1609)
+
     //1. Объединим все адреса в один список
     private val allAddresses = (addressesCraneOperatingParameters + addressesCraneParameterScale
             + addressesCraneMechanismsCondition+addressesCraneSOZR+addressesInformation).distinct()
@@ -435,7 +450,221 @@ class HomeScreenViewModel @Inject constructor(
             segmentP2Visibility18 = cache[608] ?: 0, //Видимость сегмента №18
             segmentP2Visibility19 = cache[609] ?: 0, //Видимость сегмента №19
         ),
+        //Polygon #3
+        polygonP3 = PolygonP3State(
+            hmiSegmentP3Length00 = cache[1410] ?: 0, // Длина сегмента №00
+            hmiSegmentP3Length01 = cache[1411] ?: 0, // Длина сегмента №01
+            hmiSegmentP3Length02 = cache[1412] ?: 0, // Длина сегмента №02
+            hmiSegmentP3Length03 = cache[1413] ?: 0, // Длина сегмента №03
+            hmiSegmentP3Length04 = cache[1414] ?: 0, // Длина сегмента №04
+            hmiSegmentP3Length05 = cache[1415] ?: 0, // Длина сегмента №05
+            hmiSegmentP3Length06 = cache[1416] ?: 0, // Длина сегмента №06
+            hmiSegmentP3Length07 = cache[1417] ?: 0, // Длина сегмента №07
+            hmiSegmentP3Length08 = cache[1418] ?: 0, // Длина сегмента №08
+            hmiSegmentP3Length09 = cache[1419] ?: 0, // Длина сегмента №09
+            hmiSegmentP3Length10 = cache[1420] ?: 0, // Длина сегмента №10
+            hmiSegmentP3Length11 = cache[1421] ?: 0, // Длина сегмента №11
+            hmiSegmentP3Length12 = cache[1422] ?: 0, // Длина сегмента №12
+            hmiSegmentP3Length13 = cache[1423] ?: 0, // Длина сегмента №13
+            hmiSegmentP3Length14 = cache[1424] ?: 0, // Длина сегмента №14
+            hmiSegmentP3Length15 = cache[1425] ?: 0, // Длина сегмента №15
+            hmiSegmentP3Length16 = cache[1426] ?: 0, // Длина сегмента №16
+            hmiSegmentP3Length17 = cache[1427] ?: 0, // Длина сегмента №17
+            hmiSegmentP3Length18 = cache[1428] ?: 0, // Длина сегмента №18
+            hmiSegmentP3Length19 = cache[1429] ?: 0, // Длина сегмента №19
 
+            pointP3PositionY00 = cache[1430] ?: 0, // Координата Y точки №00
+            pointP3PositionY01 = cache[1431] ?: 0, // Координата Y точки №00
+            pointP3PositionY02 = cache[1432] ?: 0, // Координата Y точки №00
+            pointP3PositionY03 = cache[1433] ?: 0, // Координата Y точки №00
+            pointP3PositionY04 = cache[1434] ?: 0, // Координата Y точки №00
+            pointP3PositionY05 = cache[1435] ?: 0, // Координата Y точки №00
+            pointP3PositionY06 = cache[1436] ?: 0, // Координата Y точки №00
+            pointP3PositionY07 = cache[1437] ?: 0, // Координата Y точки №00
+            pointP3PositionY08 = cache[1438] ?: 0, // Координата Y точки №00
+            pointP3PositionY09 = cache[1439] ?: 0, // Координата Y точки №00
+            pointP3PositionY10 = cache[1440] ?: 0, // Координата Y точки №00
+            pointP3PositionY11 = cache[1441] ?: 0, // Координата Y точки №00
+            pointP3PositionY12 = cache[1442] ?: 0, // Координата Y точки №00
+            pointP3PositionY13 = cache[1443] ?: 0, // Координата Y точки №00
+            pointP3PositionY14 = cache[1444] ?: 0, // Координата Y точки №00
+            pointP3PositionY15 = cache[1445] ?: 0, // Координата Y точки №00
+            pointP3PositionY16 = cache[1446] ?: 0, // Координата Y точки №00
+            pointP3PositionY17 = cache[1447] ?: 0, // Координата Y точки №00
+            pointP3PositionY18 = cache[1448] ?: 0, // Координата Y точки №00
+            pointP3PositionY19 = cache[1449] ?: 0, // Координата Y точки №00
+
+            pointP3PositionX00 = cache[1450] ?: 0, // Координата X точки №00
+            pointP3PositionX01 = cache[1451] ?: 0, // Координата X точки №00
+            pointP3PositionX02 = cache[1452] ?: 0, // Координата X точки №00
+            pointP3PositionX03 = cache[1453] ?: 0, // Координата X точки №00
+            pointP3PositionX04 = cache[1454] ?: 0, // Координата X точки №00
+            pointP3PositionX05 = cache[1455] ?: 0, // Координата X точки №00
+            pointP3PositionX06 = cache[1456] ?: 0, // Координата X точки №00
+            pointP3PositionX07 = cache[1457] ?: 0, // Координата X точки №00
+            pointP3PositionX08 = cache[458] ?: 0, // Координата X точки №00
+            pointP3PositionX09 = cache[1459] ?: 0, // Координата X точки №00
+            pointP3PositionX10 = cache[1460] ?: 0, // Координата X точки №00
+            pointP3PositionX11 = cache[1461] ?: 0, // Координата X точки №00
+            pointP3PositionX12 = cache[1462] ?: 0, // Координата X точки №00
+            pointP3PositionX13 = cache[1463] ?: 0, // Координата X точки №00
+            pointP3PositionX14 = cache[1464] ?: 0, // Координата X точки №00
+            pointP3PositionX15 = cache[1465] ?: 0, // Координата X точки №00
+            pointP3PositionX16 = cache[1466] ?: 0, // Координата X точки №00
+            pointP3PositionX17 = cache[1467] ?: 0, // Координата X точки №00
+            pointP3PositionX18 = cache[1468] ?: 0, // Координата X точки №00
+            pointP3PositionX19 = cache[1469] ?: 0, // Координата X точки №00
+
+            segmentP3Angle00 = cache[1470] ?: 0, //Угол между сегментами 00-01
+            segmentP3Angle01 = cache[1471] ?: 0, //Угол между сегментами 01-02
+            segmentP3Angle02 = cache[1472] ?: 0, //Угол между сегментами 02-03
+            segmentP3Angle03 = cache[1473] ?: 0, //Угол между сегментами 03-04
+            segmentP3Angle04 = cache[1474] ?: 0, //Угол между сегментами 04-05
+            segmentP3Angle05 = cache[1475] ?: 0, //Угол между сегментами 05-06
+            segmentP3Angle06 = cache[1476] ?: 0, //Угол между сегментами 06-07
+            segmentP3Angle07 = cache[1477] ?: 0, //Угол между сегментами 07-08
+            segmentP3Angle08 = cache[1478] ?: 0, //Угол между сегментами 08-09
+            segmentP3Angle09 = cache[1479] ?: 0, //Угол между сегментами 09-10
+            segmentP3Angle10 = cache[1480] ?: 0, //Угол между сегментами 10-11
+            segmentP3Angle11 = cache[1481] ?: 0, //Угол между сегментами 11-12
+            segmentP3Angle12 = cache[1482] ?: 0, //Угол между сегментами 12-13
+            segmentP3Angle13 = cache[1483] ?: 0, //Угол между сегментами 13-14
+            segmentP3Angle14 = cache[1484] ?: 0, //Угол между сегментами 14-15
+            segmentP3Angle15 = cache[1485] ?: 0, //Угол между сегментами 15-16
+            segmentP3Angle16 = cache[1486] ?: 0, //Угол между сегментами 16-17
+            segmentP3Angle17 = cache[1487] ?: 0, //Угол между сегментами 17-18
+            segmentP3Angle18 = cache[1488] ?: 0, //Угол между сегментами 18-19
+            segmentP3Angle19 = cache[1489] ?: 0, //Угол между сегментами 19-00
+
+            segmentP3Visibility00 = cache[1490] ?: 0, //Видимость сегмента №00
+            segmentP3Visibility01 = cache[1491] ?: 0, //Видимость сегмента №01
+            segmentP3Visibility02 = cache[1492] ?: 0, //Видимость сегмента №02
+            segmentP3Visibility03 = cache[1493] ?: 0, //Видимость сегмента №03
+            segmentP3Visibility04 = cache[1494] ?: 0, //Видимость сегмента №04
+            segmentP3Visibility05 = cache[1495] ?: 0, //Видимость сегмента №05
+            segmentP3Visibility06 = cache[1496] ?: 0, //Видимость сегмента №06
+            segmentP3Visibility07 = cache[1497] ?: 0, //Видимость сегмента №07
+            segmentP3Visibility08 = cache[1498] ?: 0, //Видимость сегмента №08
+            segmentP3Visibility09 = cache[1499] ?: 0, //Видимость сегмента №09
+            segmentP3Visibility10 = cache[1500] ?: 0, //Видимость сегмента №10
+            segmentP3Visibility11 = cache[1501] ?: 0, //Видимость сегмента №11
+            segmentP3Visibility12 = cache[1502] ?: 0, //Видимость сегмента №12
+            segmentP3Visibility13 = cache[1503] ?: 0, //Видимость сегмента №13
+            segmentP3Visibility14 = cache[1504] ?: 0, //Видимость сегмента №14
+            segmentP3Visibility15 = cache[1505] ?: 0, //Видимость сегмента №15
+            segmentP3Visibility16 = cache[1506] ?: 0, //Видимость сегмента №16
+            segmentP3Visibility17 = cache[1507] ?: 0, //Видимость сегмента №17
+            segmentP3Visibility18 = cache[1508] ?: 0, //Видимость сегмента №18
+            segmentP3Visibility19 = cache[1509] ?: 0, //Видимость сегмента №19
+        ),
+        //Polygon #4
+        polygonP4 = PolygonP4State(
+            // Параметры отезков для отображения полигона №2
+            hmiSegmentP4Length00 = cache[1510] ?: 0, // Длина сегмента №00
+            hmiSegmentP4Length01 = cache[1511] ?: 0, // Длина сегмента №01
+            hmiSegmentP4Length02 = cache[1512] ?: 0, // Длина сегмента №02
+            hmiSegmentP4Length03 = cache[1513] ?: 0, // Длина сегмента №03
+            hmiSegmentP4Length04 = cache[1514] ?: 0, // Длина сегмента №04
+            hmiSegmentP4Length05 = cache[1515] ?: 0, // Длина сегмента №05
+            hmiSegmentP4Length06 = cache[1516] ?: 0, // Длина сегмента №06
+            hmiSegmentP4Length07 = cache[1517] ?: 0, // Длина сегмента №07
+            hmiSegmentP4Length08 = cache[1518] ?: 0, // Длина сегмента №08
+            hmiSegmentP4Length09 = cache[1519] ?: 0, // Длина сегмента №09
+            hmiSegmentP4Length10 = cache[1520] ?: 0, // Длина сегмента №10
+            hmiSegmentP4Length11 = cache[1521] ?: 0, // Длина сегмента №11
+            hmiSegmentP4Length12 = cache[1522] ?: 0, // Длина сегмента №12
+            hmiSegmentP4Length13 = cache[1523] ?: 0, // Длина сегмента №13
+            hmiSegmentP4Length14 = cache[1524] ?: 0, // Длина сегмента №14
+            hmiSegmentP4Length15 = cache[1525] ?: 0, // Длина сегмента №15
+            hmiSegmentP4Length16 = cache[1526] ?: 0, // Длина сегмента №16
+            hmiSegmentP4Length17 = cache[1527] ?: 0, // Длина сегмента №17
+            hmiSegmentP4Length18 = cache[1528] ?: 0, // Длина сегмента №18
+            hmiSegmentP4Length19 = cache[1529] ?: 0, // Длина сегмента №19
+            // Параметры отезков для отображения полигона №2
+            pointP4PositionY00 = cache[1530] ?: 0, // Координата Y точки №00
+            pointP4PositionY01 = cache[1531] ?: 0, // Координата Y точки №00
+            pointP4PositionY02 = cache[1532] ?: 0, // Координата Y точки №00
+            pointP4PositionY03 = cache[1533] ?: 0, // Координата Y точки №00
+            pointP4PositionY04 = cache[1534] ?: 0, // Координата Y точки №00
+            pointP4PositionY05 = cache[1535] ?: 0, // Координата Y точки №00
+            pointP4PositionY06 = cache[1536] ?: 0, // Координата Y точки №00
+            pointP4PositionY07 = cache[1537] ?: 0, // Координата Y точки №00
+            pointP4PositionY08 = cache[1538] ?: 0, // Координата Y точки №00
+            pointP4PositionY09 = cache[1539] ?: 0, // Координата Y точки №00
+            pointP4PositionY10 = cache[1540] ?: 0, // Координата Y точки №00
+            pointP4PositionY11 = cache[1541] ?: 0, // Координата Y точки №00
+            pointP4PositionY12 = cache[1542] ?: 0, // Координата Y точки №00
+            pointP4PositionY13 = cache[1543] ?: 0, // Координата Y точки №00
+            pointP4PositionY14 = cache[1544] ?: 0, // Координата Y точки №00
+            pointP4PositionY15 = cache[1545] ?: 0, // Координата Y точки №00
+            pointP4PositionY16 = cache[1546] ?: 0, // Координата Y точки №00
+            pointP4PositionY17 = cache[1547] ?: 0, // Координата Y точки №00
+            pointP4PositionY18 = cache[1548] ?: 0, // Координата Y точки №00
+            pointP4PositionY19 = cache[1549] ?: 0, // Координата Y точки №00
+            // Параметры отезков для отображения полигона №2
+            pointP4PositionX00 = cache[1550] ?: 0, // Координата X точки №00
+            pointP4PositionX01 = cache[1551] ?: 0, // Координата X точки №00
+            pointP4PositionX02 = cache[1552] ?: 0, // Координата X точки №00
+            pointP4PositionX03 = cache[1553] ?: 0, // Координата X точки №00
+            pointP4PositionX04 = cache[1554] ?: 0, // Координата X точки №00
+            pointP4PositionX05 = cache[1555] ?: 0, // Координата X точки №00
+            pointP4PositionX06 = cache[1556] ?: 0, // Координата X точки №00
+            pointP4PositionX07 = cache[1557] ?: 0, // Координата X точки №00
+            pointP4PositionX08 = cache[1558] ?: 0, // Координата X точки №00
+            pointP4PositionX09 = cache[1559] ?: 0, // Координата X точки №00
+            pointP4PositionX10 = cache[1560] ?: 0, // Координата X точки №00
+            pointP4PositionX11 = cache[1561] ?: 0, // Координата X точки №00
+            pointP4PositionX12 = cache[1562] ?: 0, // Координата X точки №00
+            pointP4PositionX13 = cache[1563] ?: 0, // Координата X точки №00
+            pointP4PositionX14 = cache[1564] ?: 0, // Координата X точки №00
+            pointP4PositionX15 = cache[1565] ?: 0, // Координата X точки №00
+            pointP4PositionX16 = cache[1566] ?: 0, // Координата X точки №00
+            pointP4PositionX17 = cache[1567] ?: 0, // Координата X точки №00
+            pointP4PositionX18 = cache[1568] ?: 0, // Координата X точки №00
+            pointP4PositionX19 = cache[1569] ?: 0, // Координата X точки №00
+            // Параметры отезков для отображения полигона №2
+            segmentP4Angle00 = cache[1570] ?: 0, //Угол между сегментами 00-01
+            segmentP4Angle01 = cache[1571] ?: 0, //Угол между сегментами 01-02
+            segmentP4Angle02 = cache[1572] ?: 0, //Угол между сегментами 02-03
+            segmentP4Angle03 = cache[1573] ?: 0, //Угол между сегментами 03-04
+            segmentP4Angle04 = cache[1574] ?: 0, //Угол между сегментами 04-05
+            segmentP4Angle05 = cache[1575] ?: 0, //Угол между сегментами 05-06
+            segmentP4Angle06 = cache[1576] ?: 0, //Угол между сегментами 06-07
+            segmentP4Angle07 = cache[1577] ?: 0, //Угол между сегментами 07-08
+            segmentP4Angle08 = cache[1578] ?: 0, //Угол между сегментами 08-09
+            segmentP4Angle09 = cache[1579] ?: 0, //Угол между сегментами 09-10
+            segmentP4Angle10 = cache[1580] ?: 0, //Угол между сегментами 10-11
+            segmentP4Angle11 = cache[1581] ?: 0, //Угол между сегментами 11-12
+            segmentP4Angle12 = cache[1582] ?: 0, //Угол между сегментами 12-13
+            segmentP4Angle13 = cache[1583] ?: 0, //Угол между сегментами 13-14
+            segmentP4Angle14 = cache[1584] ?: 0, //Угол между сегментами 14-15
+            segmentP4Angle15 = cache[1585] ?: 0, //Угол между сегментами 15-16
+            segmentP4Angle16 = cache[1586] ?: 0, //Угол между сегментами 16-17
+            segmentP4Angle17 = cache[1587] ?: 0, //Угол между сегментами 17-18
+            segmentP4Angle18 = cache[1588] ?: 0, //Угол между сегментами 18-19
+            segmentP4Angle19 = cache[1589] ?: 0, //Угол между сегментами 19-00
+            // Параметры отезков для отображения полигона №2
+            segmentP4Visibility00 = cache[1590] ?: 0, //Видимость сегмента №00
+            segmentP4Visibility01 = cache[1591] ?: 0, //Видимость сегмента №01
+            segmentP4Visibility02 = cache[1592] ?: 0, //Видимость сегмента №02
+            segmentP4Visibility03 = cache[1593] ?: 0, //Видимость сегмента №03
+            segmentP4Visibility04 = cache[1594] ?: 0, //Видимость сегмента №04
+            segmentP4Visibility05 = cache[1595] ?: 0, //Видимость сегмента №05
+            segmentP4Visibility06 = cache[1596] ?: 0, //Видимость сегмента №06
+            segmentP4Visibility07 = cache[1597] ?: 0, //Видимость сегмента №07
+            segmentP4Visibility08 = cache[1598] ?: 0, //Видимость сегмента №08
+            segmentP4Visibility09 = cache[1599] ?: 0, //Видимость сегмента №09
+            segmentP4Visibility10 = cache[1600] ?: 0, //Видимость сегмента №10
+            segmentP4Visibility11 = cache[1601] ?: 0, //Видимость сегмента №11
+            segmentP4Visibility12 = cache[1602] ?: 0, //Видимость сегмента №12
+            segmentP4Visibility13 = cache[1603] ?: 0, //Видимость сегмента №13
+            segmentP4Visibility14 = cache[1604] ?: 0, //Видимость сегмента №14
+            segmentP4Visibility15 = cache[1605] ?: 0, //Видимость сегмента №15
+            segmentP4Visibility16 = cache[1606] ?: 0, //Видимость сегмента №16
+            segmentP4Visibility17 = cache[1607] ?: 0, //Видимость сегмента №17
+            segmentP4Visibility18 = cache[1608] ?: 0, //Видимость сегмента №18
+            segmentP4Visibility19 = cache[1609] ?: 0, //Видимость сегмента №19
+        ),
 
 
 
@@ -467,6 +696,8 @@ class HomeScreenViewModel @Inject constructor(
         val craneMechanismsCondition: CraneMechanismsConditionState = CraneMechanismsConditionState(),
         val polygonP1: PolygonP1State = PolygonP1State(),
         val polygonP2: PolygonP2State = PolygonP2State(),
+        val polygonP3: PolygonP3State = PolygonP3State(),
+        val polygonP4: PolygonP4State = PolygonP4State(),
         val sozrParams: CraneSozrState = CraneSozrState()
     )
 
@@ -793,6 +1024,221 @@ class HomeScreenViewModel @Inject constructor(
         val segmentP2Visibility17: Int = 0, //Видимость сегмента №17
         val segmentP2Visibility18: Int = 0, //Видимость сегмента №18
         val segmentP2Visibility19: Int = 0, //Видимость сегмента №19
+    )
+
+    data class PolygonP3State(
+        // Параметры отезков для отображения полигона №2
+        val hmiSegmentP3Length00: Int = 0, //Длина сегмента №00
+        val hmiSegmentP3Length01: Int = 0, //Длина сегмента №01
+        val hmiSegmentP3Length02: Int = 0, //Длина сегмента №02
+        val hmiSegmentP3Length03: Int = 0, //Длина сегмента №03
+        val hmiSegmentP3Length04: Int = 0, //Длина сегмента №04
+        val hmiSegmentP3Length05: Int = 0, //Длина сегмента №05
+        val hmiSegmentP3Length06: Int = 0, //Длина сегмента №06
+        val hmiSegmentP3Length07: Int = 0, //Длина сегмента №07
+        val hmiSegmentP3Length08: Int = 0, //Длина сегмента №08
+        val hmiSegmentP3Length09: Int = 0, //Длина сегмента №09
+        val hmiSegmentP3Length10: Int = 0, //Длина сегмента №10
+        val hmiSegmentP3Length11: Int = 0, //Длина сегмента №11
+        val hmiSegmentP3Length12: Int = 0, //Длина сегмента №12
+        val hmiSegmentP3Length13: Int = 0, //Длина сегмента №13
+        val hmiSegmentP3Length14: Int = 0, //Длина сегмента №14
+        val hmiSegmentP3Length15: Int = 0, //Длина сегмента №15
+        val hmiSegmentP3Length16: Int = 0, //Длина сегмента №16
+        val hmiSegmentP3Length17: Int = 0, //Длина сегмента №17
+        val hmiSegmentP3Length18: Int = 0, //Длина сегмента №18
+        val hmiSegmentP3Length19: Int = 0, //Длина сегмента №19
+        // Параметры отезков для отображения полигона №2
+        val pointP3PositionY00: Int = 0, //Координата Y точки №00
+        val pointP3PositionY01: Int = 0, //Координата Y точки №01
+        val pointP3PositionY02: Int = 0, //Координата Y точки №02
+        val pointP3PositionY03: Int = 0, //Координата Y точки №03
+        val pointP3PositionY04: Int = 0, //Координата Y точки №04
+        val pointP3PositionY05: Int = 0, //Координата Y точки №05
+        val pointP3PositionY06: Int = 0, //Координата Y точки №06
+        val pointP3PositionY07: Int = 0, //Координата Y точки №07
+        val pointP3PositionY08: Int = 0, //Координата Y точки №08
+        val pointP3PositionY09: Int = 0, //Координата Y точки №09
+        val pointP3PositionY10: Int = 0, //Координата Y точки №10
+        val pointP3PositionY11: Int = 0, //Координата Y точки №11
+        val pointP3PositionY12: Int = 0, //Координата Y точки №12
+        val pointP3PositionY13: Int = 0, //Координата Y точки №13
+        val pointP3PositionY14: Int = 0, //Координата Y точки №14
+        val pointP3PositionY15: Int = 0, //Координата Y точки №15
+        val pointP3PositionY16: Int = 0, //Координата Y точки №16
+        val pointP3PositionY17: Int = 0, //Координата Y точки №17
+        val pointP3PositionY18: Int = 0, //Координата Y точки №18
+        val pointP3PositionY19: Int = 0, //Координата Y точки №19
+        // Параметры отезков для отображения полигона №2
+        val pointP3PositionX00: Int = 0, //Координата X точки №00
+        val pointP3PositionX01: Int = 0, //Координата X точки №01
+        val pointP3PositionX02: Int = 0, //Координата X точки №02
+        val pointP3PositionX03: Int = 0, //Координата X точки №03
+        val pointP3PositionX04: Int = 0, //Координата X точки №04
+        val pointP3PositionX05: Int = 0, //Координата X точки №05
+        val pointP3PositionX06: Int = 0, //Координата X точки №06
+        val pointP3PositionX07: Int = 0, //Координата X точки №07
+        val pointP3PositionX08: Int = 0, //Координата X точки №08
+        val pointP3PositionX09: Int = 0, //Координата X точки №09
+        val pointP3PositionX10: Int = 0, //Координата X точки №10
+        val pointP3PositionX11: Int = 0, //Координата X точки №11
+        val pointP3PositionX12: Int = 0, //Координата X точки №12
+        val pointP3PositionX13: Int = 0, //Координата X точки №13
+        val pointP3PositionX14: Int = 0, //Координата X точки №14
+        val pointP3PositionX15: Int = 0, //Координата X точки №15
+        val pointP3PositionX16: Int = 0, //Координата X точки №16
+        val pointP3PositionX17: Int = 0, //Координата X точки №17
+        val pointP3PositionX18: Int = 0, //Координата X точки №18
+        val pointP3PositionX19: Int = 0, //Координата X точки №19
+        // Параметры отезков для отображения полигона №2
+        val segmentP3Angle00: Int = 0, //Угол между сегментами 00-01
+        val segmentP3Angle01: Int = 0, //Угол между сегментами 01-02
+        val segmentP3Angle02: Int = 0, //Угол между сегментами 02-03
+        val segmentP3Angle03: Int = 0, //Угол между сегментами 03-04
+        val segmentP3Angle04: Int = 0, //Угол между сегментами 04-05
+        val segmentP3Angle05: Int = 0, //Угол между сегментами 05-06
+        val segmentP3Angle06: Int = 0, //Угол между сегментами 06-07
+        val segmentP3Angle07: Int = 0, //Угол между сегментами 07-08
+        val segmentP3Angle08: Int = 0, //Угол между сегментами 08-09
+        val segmentP3Angle09: Int = 0, //Угол между сегментами 09-10
+        val segmentP3Angle10: Int = 0, //Угол между сегментами 10-11
+        val segmentP3Angle11: Int = 0, //Угол между сегментами 11-12
+        val segmentP3Angle12: Int = 0, //Угол между сегментами 12-13
+        val segmentP3Angle13: Int = 0, //Угол между сегментами 13-14
+        val segmentP3Angle14: Int = 0, //Угол между сегментами 14-15
+        val segmentP3Angle15: Int = 0, //Угол между сегментами 15-16
+        val segmentP3Angle16: Int = 0, //Угол между сегментами 16-17
+        val segmentP3Angle17: Int = 0, //Угол между сегментами 17-18
+        val segmentP3Angle18: Int = 0, //Угол между сегментами 18-19
+        val segmentP3Angle19: Int = 0, //Угол между сегментами 19-00
+        // Параметры отезков для отображения полигона №2
+        val segmentP3Visibility00: Int = 0, //Видимость сегмента №00
+        val segmentP3Visibility01: Int = 0, //Видимость сегмента №01
+        val segmentP3Visibility02: Int = 0, //Видимость сегмента №02
+        val segmentP3Visibility03: Int = 0, //Видимость сегмента №03
+        val segmentP3Visibility04: Int = 0, //Видимость сегмента №04
+        val segmentP3Visibility05: Int = 0, //Видимость сегмента №05
+        val segmentP3Visibility06: Int = 0, //Видимость сегмента №06
+        val segmentP3Visibility07: Int = 0, //Видимость сегмента №07
+        val segmentP3Visibility08: Int = 0, //Видимость сегмента №08
+        val segmentP3Visibility09: Int = 0, //Видимость сегмента №09
+        val segmentP3Visibility10: Int = 0, //Видимость сегмента №10
+        val segmentP3Visibility11: Int = 0, //Видимость сегмента №11
+        val segmentP3Visibility12: Int = 0, //Видимость сегмента №12
+        val segmentP3Visibility13: Int = 0, //Видимость сегмента №13
+        val segmentP3Visibility14: Int = 0, //Видимость сегмента №14
+        val segmentP3Visibility15: Int = 0, //Видимость сегмента №15
+        val segmentP3Visibility16: Int = 0, //Видимость сегмента №16
+        val segmentP3Visibility17: Int = 0, //Видимость сегмента №17
+        val segmentP3Visibility18: Int = 0, //Видимость сегмента №18
+        val segmentP3Visibility19: Int = 0, //Видимость сегмента №19
+    )
+    data class PolygonP4State(
+        // Параметры отезков для отображения полигона №2
+        val hmiSegmentP4Length00: Int = 0, //Длина сегмента №00
+        val hmiSegmentP4Length01: Int = 0, //Длина сегмента №01
+        val hmiSegmentP4Length02: Int = 0, //Длина сегмента №02
+        val hmiSegmentP4Length03: Int = 0, //Длина сегмента №03
+        val hmiSegmentP4Length04: Int = 0, //Длина сегмента №04
+        val hmiSegmentP4Length05: Int = 0, //Длина сегмента №05
+        val hmiSegmentP4Length06: Int = 0, //Длина сегмента №06
+        val hmiSegmentP4Length07: Int = 0, //Длина сегмента №07
+        val hmiSegmentP4Length08: Int = 0, //Длина сегмента №08
+        val hmiSegmentP4Length09: Int = 0, //Длина сегмента №09
+        val hmiSegmentP4Length10: Int = 0, //Длина сегмента №10
+        val hmiSegmentP4Length11: Int = 0, //Длина сегмента №11
+        val hmiSegmentP4Length12: Int = 0, //Длина сегмента №12
+        val hmiSegmentP4Length13: Int = 0, //Длина сегмента №13
+        val hmiSegmentP4Length14: Int = 0, //Длина сегмента №14
+        val hmiSegmentP4Length15: Int = 0, //Длина сегмента №15
+        val hmiSegmentP4Length16: Int = 0, //Длина сегмента №16
+        val hmiSegmentP4Length17: Int = 0, //Длина сегмента №17
+        val hmiSegmentP4Length18: Int = 0, //Длина сегмента №18
+        val hmiSegmentP4Length19: Int = 0, //Длина сегмента №19
+        // Параметры отезков для отображения полигона №2
+        val pointP4PositionY00: Int = 0, //Координата Y точки №00
+        val pointP4PositionY01: Int = 0, //Координата Y точки №01
+        val pointP4PositionY02: Int = 0, //Координата Y точки №02
+        val pointP4PositionY03: Int = 0, //Координата Y точки №03
+        val pointP4PositionY04: Int = 0, //Координата Y точки №04
+        val pointP4PositionY05: Int = 0, //Координата Y точки №05
+        val pointP4PositionY06: Int = 0, //Координата Y точки №06
+        val pointP4PositionY07: Int = 0, //Координата Y точки №07
+        val pointP4PositionY08: Int = 0, //Координата Y точки №08
+        val pointP4PositionY09: Int = 0, //Координата Y точки №09
+        val pointP4PositionY10: Int = 0, //Координата Y точки №10
+        val pointP4PositionY11: Int = 0, //Координата Y точки №11
+        val pointP4PositionY12: Int = 0, //Координата Y точки №12
+        val pointP4PositionY13: Int = 0, //Координата Y точки №13
+        val pointP4PositionY14: Int = 0, //Координата Y точки №14
+        val pointP4PositionY15: Int = 0, //Координата Y точки №15
+        val pointP4PositionY16: Int = 0, //Координата Y точки №16
+        val pointP4PositionY17: Int = 0, //Координата Y точки №17
+        val pointP4PositionY18: Int = 0, //Координата Y точки №18
+        val pointP4PositionY19: Int = 0, //Координата Y точки №19
+        // Параметры отезков для отображения полигона №2
+        val pointP4PositionX00: Int = 0, //Координата X точки №00
+        val pointP4PositionX01: Int = 0, //Координата X точки №01
+        val pointP4PositionX02: Int = 0, //Координата X точки №02
+        val pointP4PositionX03: Int = 0, //Координата X точки №03
+        val pointP4PositionX04: Int = 0, //Координата X точки №04
+        val pointP4PositionX05: Int = 0, //Координата X точки №05
+        val pointP4PositionX06: Int = 0, //Координата X точки №06
+        val pointP4PositionX07: Int = 0, //Координата X точки №07
+        val pointP4PositionX08: Int = 0, //Координата X точки №08
+        val pointP4PositionX09: Int = 0, //Координата X точки №09
+        val pointP4PositionX10: Int = 0, //Координата X точки №10
+        val pointP4PositionX11: Int = 0, //Координата X точки №11
+        val pointP4PositionX12: Int = 0, //Координата X точки №12
+        val pointP4PositionX13: Int = 0, //Координата X точки №13
+        val pointP4PositionX14: Int = 0, //Координата X точки №14
+        val pointP4PositionX15: Int = 0, //Координата X точки №15
+        val pointP4PositionX16: Int = 0, //Координата X точки №16
+        val pointP4PositionX17: Int = 0, //Координата X точки №17
+        val pointP4PositionX18: Int = 0, //Координата X точки №18
+        val pointP4PositionX19: Int = 0, //Координата X точки №19
+        // Параметры отезков для отображения полигона №2
+        val segmentP4Angle00: Int = 0, //Угол между сегментами 00-01
+        val segmentP4Angle01: Int = 0, //Угол между сегментами 01-02
+        val segmentP4Angle02: Int = 0, //Угол между сегментами 02-03
+        val segmentP4Angle03: Int = 0, //Угол между сегментами 03-04
+        val segmentP4Angle04: Int = 0, //Угол между сегментами 04-05
+        val segmentP4Angle05: Int = 0, //Угол между сегментами 05-06
+        val segmentP4Angle06: Int = 0, //Угол между сегментами 06-07
+        val segmentP4Angle07: Int = 0, //Угол между сегментами 07-08
+        val segmentP4Angle08: Int = 0, //Угол между сегментами 08-09
+        val segmentP4Angle09: Int = 0, //Угол между сегментами 09-10
+        val segmentP4Angle10: Int = 0, //Угол между сегментами 10-11
+        val segmentP4Angle11: Int = 0, //Угол между сегментами 11-12
+        val segmentP4Angle12: Int = 0, //Угол между сегментами 12-13
+        val segmentP4Angle13: Int = 0, //Угол между сегментами 13-14
+        val segmentP4Angle14: Int = 0, //Угол между сегментами 14-15
+        val segmentP4Angle15: Int = 0, //Угол между сегментами 15-16
+        val segmentP4Angle16: Int = 0, //Угол между сегментами 16-17
+        val segmentP4Angle17: Int = 0, //Угол между сегментами 17-18
+        val segmentP4Angle18: Int = 0, //Угол между сегментами 18-19
+        val segmentP4Angle19: Int = 0, //Угол между сегментами 19-00
+        // Параметры отезков для отображения полигона №2
+        val segmentP4Visibility00: Int = 0, //Видимость сегмента №00
+        val segmentP4Visibility01: Int = 0, //Видимость сегмента №01
+        val segmentP4Visibility02: Int = 0, //Видимость сегмента №02
+        val segmentP4Visibility03: Int = 0, //Видимость сегмента №03
+        val segmentP4Visibility04: Int = 0, //Видимость сегмента №04
+        val segmentP4Visibility05: Int = 0, //Видимость сегмента №05
+        val segmentP4Visibility06: Int = 0, //Видимость сегмента №06
+        val segmentP4Visibility07: Int = 0, //Видимость сегмента №07
+        val segmentP4Visibility08: Int = 0, //Видимость сегмента №08
+        val segmentP4Visibility09: Int = 0, //Видимость сегмента №09
+        val segmentP4Visibility10: Int = 0, //Видимость сегмента №10
+        val segmentP4Visibility11: Int = 0, //Видимость сегмента №11
+        val segmentP4Visibility12: Int = 0, //Видимость сегмента №12
+        val segmentP4Visibility13: Int = 0, //Видимость сегмента №13
+        val segmentP4Visibility14: Int = 0, //Видимость сегмента №14
+        val segmentP4Visibility15: Int = 0, //Видимость сегмента №15
+        val segmentP4Visibility16: Int = 0, //Видимость сегмента №16
+        val segmentP4Visibility17: Int = 0, //Видимость сегмента №17
+        val segmentP4Visibility18: Int = 0, //Видимость сегмента №18
+        val segmentP4Visibility19: Int = 0, //Видимость сегмента №19
     )
 
     // Очистка при уничтожении ViewModel

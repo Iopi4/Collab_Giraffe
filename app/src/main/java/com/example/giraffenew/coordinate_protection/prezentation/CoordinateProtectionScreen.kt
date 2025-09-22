@@ -27,6 +27,8 @@ import com.example.giraffenew.R
 import com.example.giraffenew.coordinate_protection.ui.CoordinateProtectionSetting
 import com.example.giraffenew.coordinate_protection.ui.polygon_1.Polygon1Content
 import com.example.giraffenew.coordinate_protection.ui.polygon_2.Polygon2Content
+import com.example.giraffenew.coordinate_protection.ui.polygon_3.Polygon3Content
+import com.example.giraffenew.coordinate_protection.ui.polygon_4.Polygon4Content
 import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.ui.theme.DarkGrew
@@ -77,9 +79,9 @@ fun CoordinateProtectionScreen (
         Box(modifier = Modifier.weight(1f)) {
             CoordinateProtectionSetting(
                 onSetPosProtEn = {coordinateProtectionViewModule.onSetPosProtEn()},
-                currentPosProtEn = coordinateProtectionViewModule.state.value.currentPosProtEn,
+                currentPosProtEn = coordinateProtectionViewModule.state.value.polygonState.currentPosProtEn,
                 onSetModePosProt = {coordinateProtectionViewModule.onSetModePosProt()},
-                currentModePosProt = coordinateProtectionViewModule.state.value.currentModePosProt
+                currentModePosProt = coordinateProtectionViewModule.state.value.polygonState.currentModePosProt
             )
         }
         Box(modifier = Modifier.weight(7f)) {
@@ -92,6 +94,8 @@ fun CoordinateProtectionScreen (
                 NavHost(navController, startDestination = NavRoutesCoordinateProtection.PagePolygon1.route){
                     composable(NavRoutesCoordinateProtection.PagePolygon1.route) { Polygon1Content() }
                     composable(NavRoutesCoordinateProtection.PagePolygon2.route) { Polygon2Content() }
+                    composable(NavRoutesCoordinateProtection.PagePolygon3.route) { Polygon3Content() }
+                    composable(NavRoutesCoordinateProtection.PagePolygon4.route) { Polygon4Content() }
 
                 }
             }
@@ -132,6 +136,22 @@ fun NavBarCoordinateProtection(navController: NavController) {
                     onClick = {
                         navController.navigate(NavRoutesCoordinateProtection.PagePolygon2.route) },) {}
             }
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.CoordinateProtection_Button_Polygon_3,
+                    onClick = {
+                        navController.navigate(NavRoutesCoordinateProtection.PagePolygon3.route) },) {}
+            }
+
+            Box(modifier = Modifier.weight(1f)) {
+                BasicButtonTabGiraffe(
+                    modifier = Modifier,
+                    text = R.string.CoordinateProtection_Button_Polygon_4,
+                    onClick = {
+                        navController.navigate(NavRoutesCoordinateProtection.PagePolygon4.route) },) {}
+            }
         }
     }
 }
@@ -140,6 +160,9 @@ fun NavBarCoordinateProtection(navController: NavController) {
 sealed class NavRoutesCoordinateProtection (val route: String) {
     object PagePolygon1: NavRoutesCoordinateProtection("Полигон №1")
     object PagePolygon2: NavRoutesCoordinateProtection("Полигон №2")
+    object PagePolygon3: NavRoutesCoordinateProtection("Полигон №3")
+    object PagePolygon4: NavRoutesCoordinateProtection("Полигон №4")
+
 }
 
 @Preview
