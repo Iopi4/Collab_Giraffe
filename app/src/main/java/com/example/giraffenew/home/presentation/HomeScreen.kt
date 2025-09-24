@@ -1,5 +1,6 @@
 package com.example.giraffenew.home.presentation
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +30,7 @@ import com.example.giraffenew.home.ui.CraneOperatingParameters
 
 @Composable
 internal fun HomeScreen (
-    homeViewModel: HomeScreenViewModel = hiltViewModel() // Получаем ViewModel для HomeScreen
+    homeViewModel: HomeScreenViewModel = hiltViewModel(),
 ){
     val state = homeViewModel.state.value
 

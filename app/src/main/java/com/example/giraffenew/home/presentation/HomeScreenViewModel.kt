@@ -5,8 +5,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.data.entities.UiHomeScreenRegisterConfiguration
 import com.example.giraffenew.data.repositories.ModbusRepository
+import com.example.giraffenew.network.CraneIdRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +25,8 @@ import kotlin.Int
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val modbusRepository: ModbusRepository
+    private val modbusRepository: ModbusRepository,
+    val soundController: SoundController,
 ) : ViewModel() {
 
     val addressesCraneOperatingParameters = listOf(152,153,155,158,159,160,161,162,163,135,136,137,317) // Только нужные регистры
@@ -69,11 +72,27 @@ class HomeScreenViewModel @Inject constructor(
 
     private var dataCollectionJob: Job? = null
 
-//    init {
-//        // Активируем UI конфигурацию для этого экрана
-//        modbusRepository.setActiveUiConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME)
-//        startDataCollection()
-//    }
+
+    //1.1 Создадим переменные и функцию для управления уровнем громкости звуковых сигналов на главном экрана
+    private val _currentVolume = mutableStateOf(0.1f) // Начальное значение Low. Уровень громкости для звукового оповешения
+    val currentVolume: State<Float> = _currentVolume
+
+    private val volumeLevels = listOf(0.1f, 0.3f, 0.5f) //Low, Medium, Max
+
+    init {
+        // Установим начальную громкость в soundController
+        soundController.setVolume(_currentVolume.value)
+    }
+
+    fun toggleVolume() {
+        val currentIndex = volumeLevels.indexOf(_currentVolume.value)
+        val nextIndex = (currentIndex + 1) % volumeLevels.size
+        _currentVolume.value = volumeLevels[nextIndex]
+        // Обновляем громкость в soundController
+        soundController.setVolume(_currentVolume.value)
+    }
+
+
 
     /**
     2. В коллекторе потока registerCache, будем преобразовывать весь кэш в отфильтрованную карту (только наши адреса).

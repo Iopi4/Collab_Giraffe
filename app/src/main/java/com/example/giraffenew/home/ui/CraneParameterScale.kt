@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,18 +23,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
+import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
-import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersTextSmall
 import com.example.giraffenew.home.presentation.HomeScreenViewModel
+import com.example.giraffenew.home.ui.bottom.BottomIconSound
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
-import com.example.giraffenew.home.ui.lamp.LampIconInformationFault
 import com.example.giraffenew.home.ui.lamp.LampIconInformationTO
 import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.home.ui.lamp.LampWindStatus
@@ -43,7 +46,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 @Composable
 fun CraneParameterScale(
     parameterScale: HomeScreenViewModel.CraneParameterScaleState,
-    
+    //viewModel: HomeScreenViewModel = hiltViewModel(),
 ){
     val weightPercent = parameterScale.weightPercent
     val hoistPosition = parameterScale.hoistPosition
@@ -67,6 +70,16 @@ fun CraneParameterScale(
     val icHoistBrakeSensor = parameterScale.icHoistBrakeSensor
     val icCraneRailsEn = parameterScale.icCraneRailsEn
 
+    val viewModel: HomeScreenViewModel = hiltViewModel()
+
+    val currentVolume = viewModel.currentVolume.value
+
+    val soundController = viewModel.soundController
+
+    // Синхронизируем громкость
+    LaunchedEffect(currentVolume) {
+        soundController?.setVolume(currentVolume)
+    }
 
     val myBoxMainModifier = Modifier
         .padding(5.dp)
@@ -80,6 +93,18 @@ fun CraneParameterScale(
 
     //Бокс 1 - для крана с ГХ
     Box(myBoxMainModifier){
+//Отрисовываем кнопку регулировки уровня громкости
+        Box(modifier = Modifier
+            .padding(start = 10.dp, top =10.dp, end = 100.dp, bottom = 100.dp),
+            contentAlignment = Alignment.TopStart)
+        {
+            BottomIconSound(
+                currentVolume = currentVolume,
+                onClick ={viewModel.toggleVolume()},
+                modifier = Modifier.size(width = 12.dp, height = 40.dp)
+            )
+        }
+
 //Кран
         Image (
             imageVector = ImageVector.vectorResource(id = R.drawable.image_home_tower_crane_vector),
@@ -114,7 +139,7 @@ fun CraneParameterScale(
         }
 //Отрисуем лампу с вентилятором. Уровень ветра.
         Box(modifier = Modifier
-            .padding(start = 10.dp, top =10.dp, end = 10.dp),
+            .padding(start = 10.dp, top =90.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             LampWindStatus(
                 isLampStatus = anemometerStatus
@@ -127,7 +152,7 @@ fun CraneParameterScale(
             else -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
         }
         Box(modifier = Modifier
-            .padding(start = 10.dp, top =10.dp, end = 10.dp),
+            .padding(start = 10.dp, top =90.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             Image(
                 imageVector = imageVector,
@@ -141,7 +166,7 @@ fun CraneParameterScale(
             else -> windSpeedLvl2
         }
         Box(modifier = Modifier
-            .padding(start = 55.dp, top =10.dp, end = 10.dp),
+            .padding(start = 55.dp, top =90.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             ScaleVerticalWind(
                 currentValue = windCurrent,
@@ -155,17 +180,7 @@ fun CraneParameterScale(
 
 
 
-//Отрисуем лампу со звуковой сигнализацией
-        Box(modifier = Modifier
-            .padding(start = 10.dp, top =50.dp, end = 10.dp),
-            contentAlignment = Alignment.TopStart) {
 
-        }
-        Box(modifier = Modifier
-            .padding(start = 10.dp, top =50.dp, end = 10.dp),
-            contentAlignment = Alignment.TopStart) {
-
-        }
 
 //Шкала высоты подъема. Заголовок
         BasicParametersText(
@@ -218,7 +233,8 @@ fun CraneParameterScale(
                 minValue = 0f,
                 maxValue = craneMaxPosition,
                 modifier = Modifier.size(width = 135.dp, height = 16.dp)
-            )}
+            )
+        }
 
         Box(modifier = Modifier
             .padding(start = 0.dp, top = 260.dp,)){
@@ -292,7 +308,30 @@ private fun formatDecimalMinus(value: Float): String {
 fun CraneParameterScalePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         CraneParameterScale(
-            parameterScale = TODO()
+            parameterScale = HomeScreenViewModel.CraneParameterScaleState(
+                weightPercent = 1f,
+                hoistPosition = 40f,
+                hoistMaxPosition = 3278f,
+                hoistMinPosition = 0f,
+                cranePosition = 20f,
+                craneMaxPosition = 40f,
+
+                windCurrent = 10f,
+                windSpeedLvl1 = 15f,
+                windSpeedLvl2 = 18f,
+                windSpeedMontage = 10f,
+                anemometerStatus = 1,
+
+                icMontageMode         = 1, //Флаг установки режима Монтаж.
+                icCraneRepPointFault  = 1, //Сбой датчика реперной точки хода крана
+                icCraneRepPoint       = 1, //Реперная точка хода крана. Индикатор срабатывания
+                icLoadMomentSensorAlarm = 1, //Авария датчика критического грузового момента.
+                icHoistBrakeSensor    = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
+                icCraneRailsEn        = 1, //Флаг включения перемещения крана. 1 - Ход крана активирован
+
+                ictechnicalReglamentTO = 1, //Флаг проведите ТО
+                icalarmTO = 1, //Флаг. ТО не проведено. Ограничение скорости
+            )
         )
     }
 }

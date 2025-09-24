@@ -3,6 +3,7 @@ package com.example.giraffenew.core.sound
 import android.app.NotificationManager
 import com.example.giraffenew.R
 import android.content.Context
+import android.health.connect.datatypes.units.Volume
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
@@ -17,7 +18,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SoundController @Inject constructor(@ApplicationContext private val context: Context) {
+class SoundController
+@Inject constructor(@ApplicationContext private val context: Context) {
     private val audioManager: AudioManager by lazy {
         context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
     }
@@ -42,6 +44,16 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
     private val jobs = mutableMapOf<Int, Job?>()
     private val singlePlayRegisters = setOf(280, 281, 282,)
     private val lastState = mutableMapOf<Int, Boolean>()
+
+    //Поле для хранения текущей громкости
+    private var currentVolume: Float = 0.1f
+
+    //Метод для установки громкости сигналов
+    fun setVolume(volume: Float){
+        currentVolume = volume.coerceIn(0.1f, 0.5f) //Установили min и max значения
+    }
+
+
 
     init {
         soundConfigs.forEach { (id, config) ->
@@ -98,7 +110,7 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
         disableSilentMode()
 
         singleSoundIds[resourceId]?.let { soundId ->
-            soundPool.play(soundId, 0.1f, 0.1f, 1, 0, 1.0f)
+            soundPool.play(soundId, currentVolume, currentVolume, 1, 0, 1.0f)
         }
     }
 
@@ -115,7 +127,7 @@ class SoundController @Inject constructor(@ApplicationContext private val contex
         if (register in singlePlayRegisters) {
             if (active && !wasActive) {
                 //Volume 0.1f - это 74dB. 0.5f - это 85dB. 1.0f - это 91dB. Оставляем 0.3f
-                soundPool.play(soundId, 0.1f, 0.1f, 1, 0, 1.0f)
+                soundPool.play(soundId, currentVolume, currentVolume, 1, 0, 1.0f)
             }
         } else {
             val job = jobs[register]

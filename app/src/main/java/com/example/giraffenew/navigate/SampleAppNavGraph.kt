@@ -63,6 +63,7 @@ import com.example.giraffenew.setting_rotation.presentation.SettingRotationScree
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 import com.example.giraffenew.R
+import com.example.giraffenew.core.sound.SoundController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
