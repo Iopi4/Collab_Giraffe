@@ -153,6 +153,14 @@ fun DriveContent(
                 hmiSpdRef2HoistMontage = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRef2HoistMontage,
                 hmiHoistACCMontage = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistACCMontage,
                 hmiHoistDECMontage = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistDECMontage,
+
+                onSetHoistBrakeControlEn = {serviceMenuViewModel.onSetHoistBrakeControlEn()},
+                hmiHoistBrakeControlStat = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistBrakeControlStat,
+
+                setValueHoistBrakeControlTimeout = serviceMenuViewModel.setValueHoistBrakeControlTimeout.value,
+                updateHoistBrakeControlTimeout = {serviceMenuViewModel.updateHoistBrakeControlTimeout(it)},
+                onSetHoistBrakeControlTimeout = {serviceMenuViewModel.onSetHoistBrakeControlTimeout()},
+                hmiHoistBrakeControlTimeout = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistBrakeControlTimeout,
             )}
             composable(NavRoutesDriveContent.PageServiceSlewing.route)
             {ServiceSlewing(

@@ -1333,6 +1333,9 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(952, "HMI_Write_Hoist_rStrela_Acc_MW", "WORD16", "Время разгона в режиме монтаж, сек"),
         RegisterInfo(953, "HMI_Write_Hoist_rStrela_Dec_MW", "WORD16", "Время торможения в режиме монтаж, сек"),
 
+        RegisterInfo(1222, "HMI_Write_Hoist_BrakeControl_Stat", "WORD16", "Вкл. Выкл. отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет"),
+        RegisterInfo(1223, "HMI_Write_Hoist_BrakeControl_Timeout", "WORD16", "Значение времени ожидания обратной связи от тормоза подъема, сек"),
+
         RegisterInfo(1610, "HMI_wSpdRefButton_Hoist", "WORD16", "Пониженая скорость подъема"),
         RegisterInfo(1611, "HMI_wSpdRef1_Hoist", "WORD16", "1-ая скорость подъема об/мин"),
         RegisterInfo(1612, "HMI_wSpdRef2_Hoist", "WORD16", "2-ая скорость подъема об/мин"),
@@ -1355,6 +1358,9 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(1627, "HMI_LspDist1_Hoist_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
         RegisterInfo(1628, "HMI_ZoneAcc_Hoist_MW", "WORD16", "Зона регулирования ускорения подъема"),
         RegisterInfo(1629, "HMI_ZoneDec_Hoist_MW", "WORD16", "Зона регулирования замедления подъема"),
+
+        RegisterInfo(1630, "HMI_Hoist_BrakeControl_Stat", "WORD16", "Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет"),
+        RegisterInfo(1631, "HMI_ZoneDec_Hoist_MW", "WORD16", "Время ожидания обратной связи от тормоза"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОВОРОТА
         RegisterInfo(955, "HMI_Write_Slew_wDrvSpdLSP_MW", "WORD16", "Снижение скорости поворота"),

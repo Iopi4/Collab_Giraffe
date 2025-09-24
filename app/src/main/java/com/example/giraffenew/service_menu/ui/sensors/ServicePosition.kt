@@ -111,7 +111,7 @@ fun ServicePosition(
 // Отступ
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.spacer))
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensors_Control)
+            
 // Отступ
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.spacer))
@@ -119,7 +119,7 @@ fun ServicePosition(
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Sensor_Misalignment))
 //Отображения текста рабочих параметров датчиков положения
-
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensors_Control)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Hoist)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Trolley)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Slewing)
@@ -187,14 +187,15 @@ fun ServicePosition(
 //Отступ
             Spacer(modifier = Modifier.size(30.dp))
 
+
+// Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 //Контроль датчиков [вкл/выкл]
             BasicButtonOnOffStatus(
                 onClick = onSetAbsEncDeltaControlEn,
                 isLampStatus = currentAbsEncDeltaControlEn
             )
-// Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
 //Ввод. Макс. рассогласование датчика подъема
             BasicInputRowandButton(
                 placeholder = format(hmiHoistAbsEncMaxDeltaEn),

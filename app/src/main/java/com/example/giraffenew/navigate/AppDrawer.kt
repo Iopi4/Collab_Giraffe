@@ -116,6 +116,7 @@ fun AppDrawer(
             iconResId = R.drawable.ic_nav_setting_rotation,
             labelResId = R.string.menu_setting_rotation,
             isSelected = route == AllDestinations.NAVIGATE_SETTING_ROTATION,
+            isLocked = !protectedMenusEnabled,
             onClick = {
             if (protectedMenusEnabled){
                 navigateToSettingRotation()
@@ -140,7 +141,7 @@ fun AppDrawer(
 
 //Кнопка навигации "Диагностика"
         NavigationButton(
-            iconResId = R.drawable.ic_nav_diagnostics,
+            iconResId = R.drawable.ic_nav_diagnostic_search,
             labelResId = R.string.menu_diagnostic,
             isSelected = route == AllDestinations.NAVIGATE_DIAGNOSTICS,
             onClick = {

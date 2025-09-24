@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -104,6 +105,16 @@ fun ServiceHoist(
     errorMessageHoistMontage: String?,
     logMessageHoistMontage: String?,
 
+    onSetHoistBrakeControlEn: () -> Unit,
+    hmiHoistBrakeControlStat: Int,
+
+    setValueHoistBrakeControlTimeout: String,
+    updateHoistBrakeControlTimeout: (String) -> Unit,
+    onSetHoistBrakeControlTimeout: () -> Unit,
+    hmiHoistBrakeControlTimeout: Float,
+
+
+
 ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -113,10 +124,15 @@ fun ServiceHoist(
 //№.1 - Левая область для отображения параметров скорости и ускорений
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(3f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(3f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Orange,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
 // Заголовок
@@ -141,16 +157,25 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
-
+// Заголовок
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.ServiceMenu_Text_Hoist_Brake_Setting))
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_En)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_Timeout)
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
         Column(
             modifier = Modifier
-                .fillMaxSize().weight(2f).padding(5.dp).fillMaxSize().border(
+                .fillMaxSize()
+                .weight(2f)
+                .padding(5.dp)
+                .fillMaxSize()
+                .border(
                     width = 3.dp,
                     color = Burgundy_violet,
-                    shape = RoundedCornerShape(5.dp)),
+                    shape = RoundedCornerShape(5.dp)
+                ),
             verticalArrangement = Arrangement.Top
         ) {
 // Отступ  и Статус записи данных настройки подъема
@@ -282,12 +307,28 @@ fun ServiceHoist(
                 onValueChange = onModelChangeHoistMontageSpdRef2,
                 onClick = onSetHoistMontageSpdRef2
             )
+
+// Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+//Контроль отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет [вкл/выкл]
+            BasicButtonOnOffStatus(
+                onClick = onSetHoistBrakeControlEn,
+                isLampStatus = hmiHoistBrakeControlStat,
+            )
+//Ввод. Время ожидания обратной связи от тормоза
+            BasicInputRowandTensButton(
+                placeholder = formatDecimal(hmiHoistBrakeControlTimeout),
+                value = setValueHoistBrakeControlTimeout,
+                onValueChange = updateHoistBrakeControlTimeout,
+                onClick = onSetHoistBrakeControlTimeout,
+                isDecimal = true,
+            )
         }
     }
 }
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%04.1f", value).replace(',', '.')
+    return String.format("%03.1f", value).replace(',', '.')
 }
 
 private fun format(value: Int): String {
@@ -369,7 +410,15 @@ fun ServiceHoistPreview () {
             hmiSpdRef1HoistMontage = 120,
             hmiSpdRef2HoistMontage = 980,
             hmiHoistACCMontage = 3f,
-            hmiHoistDECMontage = 3f
+            hmiHoistDECMontage = 3f,
+
+            onSetHoistBrakeControlEn = { },
+            hmiHoistBrakeControlStat = 1,
+
+            setValueHoistBrakeControlTimeout = "",
+            updateHoistBrakeControlTimeout = {},
+            onSetHoistBrakeControlTimeout = { },
+            hmiHoistBrakeControlTimeout = 1f
         )
     }
 }

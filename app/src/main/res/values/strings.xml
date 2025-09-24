@@ -274,7 +274,7 @@
     <string name="SettingRotation_Text_Stoping_Speed">Ввод. Скорость остановки от кнопки (0..100)[об/мин] </string>
     <string name="SettingRotation_Text_Dec_Revers">Ввод. Время торможения противоходом (0..30)[с] </string>
     <string name="SettingRotation_Text_Delay_Time">Ввод. Задержка наложения тормоза (0..30)[с]</string>
-    <string name="SettingRotation_Text_Brake_Close_Frq">Ввод. Частота удержания привода (0,12..0.25)[Гц]</string>
+    <string name="SettingRotation_Text_Brake_Close_Frq">Ввод. Частота удержания привода (0.12..0.25)[Гц]</string>
 
     <string name="SettingRotation_Text_Frq_Start_Braking">Ввод. Частота начала торможения (0..5)[Гц]</string>
     <string name="SettingRotation_Text_Delay_Start_Braking">Ввод. Задержка времени при достижении частоты начала торможения (0..10)[с]</string>
@@ -299,6 +299,7 @@
     <string name="ServiceMenu_Text_Drive_Parameters">Настройка привода</string>
     <string name="ServiceMenu_Text_Hoist_Parameters">Подъем. Параметры привода</string>
     <string name="ServiceMenu_Text_Hoist_Montage">Монтажный режим</string>
+    <string name="ServiceMenu_Text_Hoist_Brake_Setting">Контроль тормоза</string>
     <string name="ServiceMenu_Text_Slewing_Parameters">Поворот. Параметры привода</string>
     <string name="ServiceMenu_Text_Trolley_Parameters">Тележка. Параметры привода</string>
     <string name="ServiceMenu_Text_Crane_Parameters">Ход крана. Параметры привода</string>
@@ -320,6 +321,9 @@
     <string name="ServiceMenu_Text_Stoping_Speed">Ввод. Останов. от кнопки[об/мин]</string>
     <string name="ServiceMenu_Text_Trolley_Speed_SS_Ban">Ввод. Запрет сверх.синхр.скор [т]</string>
     <string name="ServiceMenu_Text_Hoist_SpdRefButton">Ввод. Скорость при нажатии кнопки [об/мин]</string>
+    <string name="ServiceMenu_Text_Hoist_BrakeControl_En">Контроль обр.связи [вкл.выкл]</string>
+    <string name="ServiceMenu_Text_Hoist_BrakeControl_Timeout">Ввод. Время обратной связи [c]</string>
+
     <!-- Настройка датчиков -->
     <string name="ServiceMenu_Text_Sensors_Parameters">Настройка датчиков</string>
     <string name="ServiceMenu_Text_Wind_Warning_Signal">Ввод. Предупредит. сигн. [м/c]</string>

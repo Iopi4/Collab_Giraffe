@@ -63,6 +63,11 @@ class ServiceMenuViewModel
     private val _setValueHoistMontageDEC = mutableStateOf("")
     val setValueHoistMontageDEC: State<String> = _setValueHoistMontageDEC
 
+    private val _setValueHoistBrakeControlTimeout = mutableStateOf("")
+    val setValueHoistBrakeControlTimeout: State<String> = _setValueHoistBrakeControlTimeout
+
+
+
     private val _errorMessageHoist = mutableStateOf<String?>(null)
     val errorMessageHoist: State<String?> = _errorMessageHoist
 
@@ -264,7 +269,7 @@ class ServiceMenuViewModel
         650, 651, 652, 653, 654, 655, 656, 657, 997,
         750, 751, 752, 753, 754, 755, 756, 757,
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
-        1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629,
+        1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631,
         1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
         1650, 1651, 1652, 1653, 1654, 1690, 1691, 1692, 1693, 1694,
         1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
@@ -396,7 +401,10 @@ class ServiceMenuViewModel
                 hmiLspDist2Hoist = safeDivideTens(cache[1626] ?: 0),
                 hmiLspDist1Hoist = safeDivideTens(cache[1627] ?: 0),
                 hmiZoneAccHoist = safeDivideTens(cache[1628] ?: 0),
-                hmiZoneDecHoist = safeDivideTens(cache[1629] ?: 0)
+                hmiZoneDecHoist = safeDivideTens(cache[1629] ?: 0),
+
+                hmiHoistBrakeControlStat = cache[1630] ?: 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
+                hmiHoistBrakeControlTimeout = safeDivideTens(cache[1631] ?: 0), //Время ожидания обратной связи от тормоза
             ),
             slewDriveState = SlewDriveState(
                 hmiSpdRefLowSlew = cache[1640] ?: 0,
@@ -545,6 +553,9 @@ class ServiceMenuViewModel
         val hmiLspDist1Hoist: Float = 0f, //Дистанция снижения до 1 скорости, м
         val hmiZoneAccHoist: Float = 0f, //Зона регулирования ускорения подъема
         val hmiZoneDecHoist: Float = 0f, //Зона регулирования замедления подъема
+
+        val hmiHoistBrakeControlStat: Int = 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
+        val hmiHoistBrakeControlTimeout: Float = 0f, //Время ожидания обратной связи от тормоза
     )
     data class SlewDriveState(
         val hmiSpdRefLowSlew: Int = 0,
@@ -830,6 +841,37 @@ class ServiceMenuViewModel
             }
         }
     }
+
+    // Hoist. Включение отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
+    fun onSetHoistBrakeControlEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Запись в регистры
+                modbusRepository.writeRegister(1222, 1)
+                delay(200)
+                modbusRepository.writeRegister(1222, 0)
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+    // Hoist. Запись времени ожидания обратной связи от тормоза [сек]
+    fun onSetHoistBrakeControlTimeout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueHoistBrakeControlTimeout.value, 0.0f,2.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(1223, model)
+                _errorMessageHoistMontage.value = null
+                _logMessageHoistMontage.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoistMontage.value = null
+                _errorMessageHoistMontage.value = "${e.message}"
+            }
+        }
+    }
+
 
 
     /**
@@ -1812,6 +1854,10 @@ class ServiceMenuViewModel
     fun updateHoistMontageSpdRef2(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueHoistMontageSpdRef2.value = value }}
+
+    fun updateHoistBrakeControlTimeout(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,1})?$"))) {
+            _setValueHoistBrakeControlTimeout.value = value }}
 
 
 
