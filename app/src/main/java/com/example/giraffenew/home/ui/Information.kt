@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.home.presentation.HomeScreenViewModel
 import com.example.giraffenew.home.ui.lamp.LampIconInformationACSS
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationCanOpen
@@ -28,39 +29,40 @@ import com.example.giraffenew.ui.theme.Silver
 
 @Composable
 fun Information (
-    icBuildMode   : Int,
-    icServiceMode : Int,
-
-    icACSSPWR   : Int,      //АЦСС питание в норме
-    icACSSFault : Int,     //АЦСС в ошибке
-    icLukStatus : Int,     //Состояние конечного выключателя люка ОПУ
-    icLineContactorZeroPosAlarm : Int, //Авария нулевой блокировки линейного контактора
-    icMicroclimateHeaterFault   : Int,   //вария обогрева технического помещения
-    icBrakePowerSupplyFault     : Int,    //Авария питания тормозов
-    icVentilationPowerSupplyFault : Int, //Авария питания вентиляции электродвигателей
-    icHoistJoystickError        : Int,    //Ошибка джойстика механизма подъема
-    icSlewJoystickError         : Int,     //Ошибка джойстика механизма поворота
-    icTrolleyJoystickError      : Int,  //Ошибка джойстика механизма тележки
-    icCraneJoystickError      : Int,    //Ошибка джойстика механизма хода крана
-    icCraneEncoderFault       : Int,     //Сбой энкодера механизма хода крана
-    icHoistEncoderFault       : Int,     //Сбой энкодера механизма хода крана
-    icSlewEncoderFault        : Int,      //Сбой энкодера механизма поворота
-    icTrolleyEncoderFault     : Int,   //Сбой энкодера механизма тележки
-    icPhaseControlRelayFault  : Int, //Авария реле контроля фаз
-    icPowerSupplyNetworkFault : Int, //Авария питающей сети
-    icHoistDriveError         : Int, //Ошибка частотного преобразователя подъема
-    icSlewDriveError          : Int, //Ошибка частотного преобразователя поворота
-    icTrolleyDriveError       : Int, //Ошибка частотного преобразователя тележки
-    icCraneDriveError         : Int, //Ошибка частотного преобразователя хода крана
-    icHoistDrivePowerError    : Int, //Отключение питания частотного преобразователя подъема
-    icSlewDrivePowerError     : Int, //Отключение питания частотного преобразователя поворота
-    icTrolleyDrivePowerError  : Int, //Отключение питания частотного преобразователя тележки
-    icCraneDrivePowerError    : Int, //Отключение питания частотного преобразователя хода крана
-    icCANOpenSensorsError     : Int, //Авария сети CANopen (датчики)
-    icCANOpenDrivesError      : Int, //Авария сети CANopen (частотные преобразователи)
-
-
+    information: HomeScreenViewModel.InformationState,
 ){
+
+    val icBuildMode = information.icBuildMode
+    val icServiceMode = information.icServiceMode
+
+    val icACSSPWR = information.icACSSPWR  //АЦСС питание в норме
+    val icACSSFault = information.icACSSFault //АЦСС в ошибке
+    val icLukStatus = information.icLukStatus //Состояние конечного выключателя люка ОПУ
+    val icLineContactorZeroPosAlarm = information.icLineContactorZeroPosAlarm //Авария нулевой блокировки линейного контактора
+    val icMicroclimateHeaterFault = information.icMicroclimateHeaterFault//вария обогрева технического помещения
+    val icBrakePowerSupplyFault = information.icBrakePowerSupplyFault //Авария питания тормозов
+    val icVentilationPowerSupplyFault = information.icVentilationPowerSupplyFault //Авария питания вентиляции электродвигателей
+    val icHoistJoystickError = information.icHoistJoystickError //Ошибка джойстика механизма подъема
+    val icSlewJoystickError = information.icSlewJoystickError //Ошибка джойстика механизма поворота
+    val icTrolleyJoystickError = information.icTrolleyJoystickError //Ошибка джойстика механизма тележки
+    val icCraneJoystickError = information.icCraneJoystickError //Ошибка джойстика механизма хода крана
+    val icCraneEncoderFault = information.icCraneEncoderFault //Сбой энкодера механизма хода крана
+    val icHoistEncoderFault = information.icHoistEncoderFault //Сбой энкодера механизма хода крана
+    val icSlewEncoderFault = information.icSlewEncoderFault //Сбой энкодера механизма поворота
+    val icTrolleyEncoderFault = information.icTrolleyEncoderFault //Сбой энкодера механизма тележки
+    val icPhaseControlRelayFault = information.icPhaseControlRelayFault //Авария реле контроля фаз
+    val icPowerSupplyNetworkFault = information.icPowerSupplyNetworkFault //Авария питающей сети
+    val icHoistDriveError = information.icHoistDriveError //Ошибка частотного преобразователя подъема
+    val icSlewDriveError = information.icSlewDriveError //Ошибка частотного преобразователя поворота
+    val icTrolleyDriveError = information.icTrolleyDriveError //Ошибка частотного преобразователя тележки
+    val icCraneDriveError = information.icCraneDriveError //Ошибка частотного преобразователя хода крана
+    val icHoistDrivePowerError = information.icHoistDrivePowerError //Отключение питания частотного преобразователя подъема
+    val icSlewDrivePowerError = information.icSlewDrivePowerError //Отключение питания частотного преобразователя поворота
+    val icTrolleyDrivePowerError = information.icTrolleyDrivePowerError //Отключение питания частотного преобразователя тележки
+    val icCraneDrivePowerError = information.icCraneDrivePowerError //Отключение питания частотного преобразователя хода крана
+    val icCANOpenSensorsError = information.icCANOpenSensorsError //Авария сети CANopen (датчики)
+    val icCANOpenDrivesError = information.icCANOpenDrivesError //Авария сети CANopen (частотные преобразователи)
+    
     val myBoxMainModifier = Modifier
         .size(width = 324.dp, height = 106.dp)
         .padding(5.dp)
@@ -173,35 +175,7 @@ fun Information (
 fun InformationPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         Information(
-            icBuildMode = 1,
-            icServiceMode = 1,
-            icACSSPWR = 1,
-            icACSSFault = 1,
-            icLukStatus = 1,
-            icLineContactorZeroPosAlarm = 1,
-            icMicroclimateHeaterFault = 1,
-            icBrakePowerSupplyFault = 1,
-            icVentilationPowerSupplyFault = 1,
-            icHoistJoystickError = 1,
-            icSlewJoystickError =1,
-            icTrolleyJoystickError = 1,
-            icCraneJoystickError = 1,
-            icCraneEncoderFault = 1,
-            icHoistEncoderFault = 1,
-            icSlewEncoderFault = 1,
-            icTrolleyEncoderFault = 1,
-            icPhaseControlRelayFault = 1,
-            icPowerSupplyNetworkFault = 1,
-            icHoistDriveError = 1,
-            icSlewDriveError = 1,
-            icTrolleyDriveError = 1,
-            icCraneDriveError = 1,
-            icHoistDrivePowerError = 1,
-            icSlewDrivePowerError = 1,
-            icTrolleyDrivePowerError = 1,
-            icCraneDrivePowerError = 1,
-            icCANOpenSensorsError = 1,
-            icCANOpenDrivesError = 1,
+            information = TODO()
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionViewModule
 import com.example.giraffenew.coordinate_protection.ui.polygon_1.PolygonPoint
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
@@ -48,30 +49,52 @@ fun SettingPointsPolygon2Manual (
     errorMessagePolygon2: String?,
     logMessagePolygon2: String?,
 
-
-    polygon2PointY01: Float, polygon2PointX01: Float,
-    polygon2PointY02: Float, polygon2PointX02: Float,
-    polygon2PointY03: Float, polygon2PointX03: Float,
-    polygon2PointY04: Float, polygon2PointX04: Float,
-    polygon2PointY05: Float, polygon2PointX05: Float,
-    polygon2PointY06: Float, polygon2PointX06: Float,
-    polygon2PointY07: Float, polygon2PointX07: Float,
-    polygon2PointY08: Float, polygon2PointX08: Float,
-    polygon2PointY09: Float, polygon2PointX09: Float,
-    polygon2PointY10: Float, polygon2PointX10: Float,
-    polygon2PointY11: Float, polygon2PointX11: Float,
-    polygon2PointY12: Float, polygon2PointX12: Float,
-    polygon2PointY13: Float, polygon2PointX13: Float,
-    polygon2PointY14: Float, polygon2PointX14: Float,
-    polygon2PointY15: Float, polygon2PointX15: Float,
-    polygon2PointY16: Float, polygon2PointX16: Float,
-    polygon2PointY17: Float, polygon2PointX17: Float,
-    polygon2PointY18: Float, polygon2PointX18: Float,
-    polygon2PointY19: Float, polygon2PointX19: Float,
-    polygon2PointY20: Float, polygon2PointX20: Float,
+    polygon2Point: CoordinateProtectionViewModule.Polygon2Point,
 ) {
     // Общее состояние прокрутки
     val scrollState = rememberScrollState()
+
+    val polygon2PointY01 = polygon2Point.polygon2PointY01
+    val polygon2PointX01 = polygon2Point.polygon2PointX01
+    val polygon2PointY02 = polygon2Point.polygon2PointY02
+    val polygon2PointX02 = polygon2Point.polygon2PointX02
+    val polygon2PointY03 = polygon2Point.polygon2PointY03
+    val polygon2PointX03 = polygon2Point.polygon2PointX03
+    val polygon2PointY04 = polygon2Point.polygon2PointY04
+    val polygon2PointX04 = polygon2Point.polygon2PointX04
+    val polygon2PointY05 = polygon2Point.polygon2PointY05
+    val polygon2PointX05 = polygon2Point.polygon2PointX05
+    val polygon2PointY06 = polygon2Point.polygon2PointY06
+    val polygon2PointX06 = polygon2Point.polygon2PointX06
+    val polygon2PointY07 = polygon2Point.polygon2PointY07
+    val polygon2PointX07 = polygon2Point.polygon2PointX07
+    val polygon2PointY08 = polygon2Point.polygon2PointY08
+    val polygon2PointX08 = polygon2Point.polygon2PointX08
+    val polygon2PointY09 = polygon2Point.polygon2PointY09
+    val polygon2PointX09 = polygon2Point.polygon2PointX09
+    val polygon2PointY10 = polygon2Point.polygon2PointY10
+    val polygon2PointX10 = polygon2Point.polygon2PointX10
+
+    val polygon2PointY11 = polygon2Point.polygon2PointY11
+    val polygon2PointX11 = polygon2Point.polygon2PointX11
+    val polygon2PointY12 = polygon2Point.polygon2PointY12
+    val polygon2PointX12 = polygon2Point.polygon2PointX12
+    val polygon2PointY13 = polygon2Point.polygon2PointY13
+    val polygon2PointX13 = polygon2Point.polygon2PointX13
+    val polygon2PointY14 = polygon2Point.polygon2PointY14
+    val polygon2PointX14 = polygon2Point.polygon2PointX14
+    val polygon2PointY15 = polygon2Point.polygon2PointY15
+    val polygon2PointX15 = polygon2Point.polygon2PointX15
+    val polygon2PointY16 = polygon2Point.polygon2PointY16
+    val polygon2PointX16 = polygon2Point.polygon2PointX16
+    val polygon2PointY17 = polygon2Point.polygon2PointY17
+    val polygon2PointX17 = polygon2Point.polygon2PointX17
+    val polygon2PointY18 = polygon2Point.polygon2PointY18
+    val polygon2PointX18 = polygon2Point.polygon2PointX18
+    val polygon2PointY19 = polygon2Point.polygon2PointY19
+    val polygon2PointX19 = polygon2Point.polygon2PointX19
+    val polygon2PointY20 = polygon2Point.polygon2PointY20
+    val polygon2PointX20 = polygon2Point.polygon2PointX20
 
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -414,6 +437,7 @@ fun SettingPointsPolygon2ManualPreview (){
             errorMessagePolygon2 = null,
             logMessagePolygon2 = null,
 
+            polygon2Point = CoordinateProtectionViewModule.Polygon2Point(
             polygon2PointY01 = 1f,
             polygon2PointX01 = 1f,
             polygon2PointY02 = 1f,
@@ -455,6 +479,8 @@ fun SettingPointsPolygon2ManualPreview (){
             polygon2PointX19 = 1f,
             polygon2PointY20 = 1f,
             polygon2PointX20 = 1f,
+                )
+
         )
     }
 }

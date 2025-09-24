@@ -28,6 +28,7 @@ import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersTextSmall
+import com.example.giraffenew.home.presentation.HomeScreenViewModel
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
@@ -41,29 +42,32 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun CraneParameterScale(
-    weightPercent:      Float,
-    hoistPosition:      Float,
-    hoistMaxPosition:   Float,
-    hoistMinPosition:   Float,
-    cranePosition:      Float,
-    craneMaxPosition:   Float,
-    anemometerStatus: Int,
-    windCurrent:      Float,
-    windSpeedLvl2: Float,
-    windSpeedMontage: Float,
-
-    //Иконки предупреждений
-    icMontageMode: Int,
-    icCraneRepPointFault: Int,
-    icCraneRepPoint: Int,
-    icLoadMomentSensorAlarm: Int,
-    icHoistBrakeSensor: Int,
-    icCraneRailsEn: Int,
-
-    ictechnicalReglamentTO: Int,
-    icalarmTO: Int,
-
+    parameterScale: HomeScreenViewModel.CraneParameterScaleState,
+    
 ){
+    val weightPercent = parameterScale.weightPercent
+    val hoistPosition = parameterScale.hoistPosition
+    val hoistMaxPosition = parameterScale.hoistMaxPosition
+    val hoistMinPosition = parameterScale.hoistMinPosition
+    val cranePosition = parameterScale.cranePosition
+    val craneMaxPosition = parameterScale.craneMaxPosition
+
+    val windCurrent = parameterScale.windCurrent
+    val windSpeedLvl2 = parameterScale.windSpeedLvl2
+    val windSpeedMontage = parameterScale.windSpeedMontage
+    val anemometerStatus = parameterScale.anemometerStatus
+
+    val icalarmTO = parameterScale.icalarmTO
+    val ictechnicalReglamentTO = parameterScale.ictechnicalReglamentTO
+
+    val icMontageMode = parameterScale.icMontageMode
+    val icCraneRepPointFault = parameterScale.icCraneRepPointFault
+    val icCraneRepPoint = parameterScale.icCraneRepPoint
+    val icLoadMomentSensorAlarm = parameterScale.icLoadMomentSensorAlarm
+    val icHoistBrakeSensor = parameterScale.icHoistBrakeSensor
+    val icCraneRailsEn = parameterScale.icCraneRailsEn
+
+
     val myBoxMainModifier = Modifier
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
@@ -243,9 +247,9 @@ fun CraneParameterScale(
                     isLampIconStatus = icCraneRailsEn,
                     isIcon = painterResource(R.drawable.ic_home_scale_crane_rails_en),
                 )
-                //Лампа срабатывания ошибки реперной точки
-                LampIconInformationFault(
-                    isLampIconStatus = icCraneRepPointFault,
+                //Лампа срабатывания реперной точки
+                LampIconInformationWorking(
+                    isLampIconStatus = icCraneRepPoint,
                     isIcon = painterResource(R.drawable.ic_home_scale_crane_rep_point_trigger),
                 )
                 LampIconInformationWorking(
@@ -288,26 +292,7 @@ private fun formatDecimalMinus(value: Float): String {
 fun CraneParameterScalePreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         CraneParameterScale(
-            weightPercent= 90f,
-            hoistPosition = 30f,
-            hoistMaxPosition= 3225+60f,
-            hoistMinPosition= -5f,
-            cranePosition = 20f,
-            craneMaxPosition= 40f,
-            windCurrent = 10f,
-            anemometerStatus = 1,
-            windSpeedMontage = 10f,
-            windSpeedLvl2 = 10f,
-
-            icMontageMode = 1,
-            icCraneRepPointFault= 1,
-            icCraneRepPoint= 1,
-            icLoadMomentSensorAlarm= 1,
-            icHoistBrakeSensor= 1,
-            icCraneRailsEn= 1,
-
-            icalarmTO = 1,
-            ictechnicalReglamentTO = 1,
-            )
+            parameterScale = TODO()
+        )
     }
 }

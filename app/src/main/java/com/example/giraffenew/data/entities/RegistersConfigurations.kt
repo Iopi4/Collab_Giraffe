@@ -10,6 +10,7 @@ object RegistersConfigurations {
         TopBarRegisterConfiguration.NAME_TOP_BAR to TopBarRegisterConfiguration.createConfiguration(),
         UiHomeScreenRegisterConfiguration.NAME_HOME to UiHomeScreenRegisterConfiguration.createConfiguration(),
         UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP to UiInitialSetupRegisterConfiguration.createConfiguration(),
+        UiSettingRotationConfiguration.NAME_SETTING_ROTATION to UiSettingRotationConfiguration.createConfiguration(),
         UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU to UIServiceMenuRegisterConfiguration.createConfiguration(),
         UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY to UISettingLoadCapacityConfiguration.createConfiguration(),
         UISettingSensorsConfiguration.NAME_SETTING_SENSORS to UISettingSensorsConfiguration.createConfiguration(),
@@ -35,6 +36,7 @@ object RegistersConfigurations {
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
             UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
+            UiSettingRotationConfiguration.NAME_SETTING_ROTATION -> UiSettingRotationConfiguration.REGISTERS
             UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS->UISettingSensorsConfiguration.REGISTERS
             UICoordinateProtectionConfiguration.NAME_COORDINATE_PROTECTION -> UICoordinateProtectionConfiguration.REGISTERS
@@ -1177,6 +1179,46 @@ object UICoordinateProtectionConfiguration {
 }
 
 
+/**
+ * Конфигурация UI №6 (SettingRotationViewModel)
+ * Регистры для работы с UI экрана настройка поворота
+ */
+object UiSettingRotationConfiguration {
+    const val NAME_SETTING_ROTATION = "ui_configuration_SettingRotation"
+
+    val REGISTERS = listOf(
+        // Параметры настройки блока упраления приводом поворота в ПЛК
+        RegisterInfo(1217, "HMI_Write_Slew_SpeadBrakeClose", "WORD16", "Допустимая скорость ручного наложения тормоза об/мин"),
+        RegisterInfo(987, "HMI_Write_Slew_wDecRevers_MW", "WORD16", "Время торможения поворота противоходом"),
+        RegisterInfo(988, "HMI_Write_Slew_wDelay_Time_MW", "WORD16", "Задержка наложения тормоза"),
+        RegisterInfo(989, "HMI_Write_Slew_wBrake_Close_Frq", "WORD16", "Частота удержания"),
+
+        RegisterInfo(1218, "HMI_Write_Slew_DelayTimeBrakeCurr", "WORD16", "Задержка до начала торможения постоянным током"),
+        RegisterInfo(1219, "HMI_Write_Slew_TimeBrakeCurrent", "WORD16", "Время торможения постонным током"),
+        RegisterInfo(1220, "HMI_Write_Slew_FrqStartBraking", "WORD16", "Частота начала торможения"),
+        RegisterInfo(1221, "HMI_Write_Slew_DelayStartBraking", "WORD16", "Задержка времени при достижении частоты начала торможения"),
+
+        RegisterInfo(1658, "HMI_iSlew_SpeedBrakeClose", "WORD16", "Допустимая скорость ручного наложения тормоза об/мин"),
+        RegisterInfo(1655, "HMI_Slew_Dec_Revers", "WORD16", "Время торможения противовключением"),
+        RegisterInfo(1656, "HMI_Slew_DelayTimeBrake", "WORD16", "Время задержки наложения тормоза"),
+        RegisterInfo(1657, "HMI_iSlew_BrakeCloseFrq", "WORD16", "Частота удержания"),
+
+        RegisterInfo(1659, "HMI_Slew_DelayTimeBrakeCurr", "WORD16", "Задержка до начала торможения постоянным током"),
+        RegisterInfo(1660, "HMI_Slew_TimeBrakeCurrent", "WORD16", "Время торможения постонным током"),
+        RegisterInfo(1661, "HMI_Slew_FrqStartBraking", "WORD16", "Частота начала торможения"),
+        RegisterInfo(1662, "HMI_Slew_DelayStartBraking", "WORD16", "Задержка времени при достижении частоты начала торможения"),
+    )
+    val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
+
+    fun createConfiguration(): RegisterConfiguration {
+        return RegisterConfiguration(
+            name = "ui_configuration_SettingRotation",
+            jsonConfiguration = JSON_CONFIG,
+            isActive = false
+        )
+    }
+}
+
 
 /**
  * Конфигурация UI №7 (ServiceMenuViewModel)
@@ -1323,11 +1365,7 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(968, "HMI_Write_Slew_wACCnom_MW", "WORD16", "Время разгона поворота"),
         RegisterInfo(969, "HMI_Write_Slew_wDECnom_MW", "WORD16", "Время торможения поворота"),
         RegisterInfo(970, "HMI_Write_Slew_wSpdNom_MW", "WORD16", "Номинальня скорость поворота"),
-        RegisterInfo(1217, "HMI_Write_Slew_SpeadBrakeClose", "WORD16", "Допустимая скорость ручного наложения тормоза об/мин"),
 
-        RegisterInfo(987, "HMI_Write_Slew_wDecRevers_MW", "WORD16", "Время торможения поворота противоходом"),
-        RegisterInfo(988, "HMI_Write_Slew_wDelay_Time_MW", "WORD16", "Задержка наложения тормоза"),
-        RegisterInfo(989, "HMI_Write_Slew_wBrake_Close_Frq", "WORD16", "Частота удержания"),
 
         RegisterInfo(1640, "HMI_wSpdRefLou_Slew", "WORD16", "Пониженая скорость поворота"),
         RegisterInfo(1641, "HMI_wSpdRef1_Slew", "WORD16", "1-ая скорость поворота об/мин"),
@@ -1345,12 +1383,6 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(1652, "HMI_LspDist1_Slew_MW", "WORD16", "Дистанция снижения до 1 скорости, м"),
         RegisterInfo(1653, "HMI_ZoneAcc_Slew_MW", "WORD16", "Зона регулирования ускорения поворота"),
         RegisterInfo(1654, "HMI_ZoneDec_Slew_MW", "WORD16", "Зона регулирования замедления поворота"),
-
-        RegisterInfo(1655, "HMI_Slew_Dec_Revers", "WORD16", "Время торможения противовключением"),
-        RegisterInfo(1656, "HMI_Slew_DelayTimeBrake", "WORD16", "Время задержки наложения тормоза"),
-        RegisterInfo(1657, "HMI_iSlew_BrakeCloseFrq", "WORD16", "Частота удержания"),
-
-        RegisterInfo(1658, "HMI_iSlew_SpeedBrakeClose", "WORD16", "Допустимая скорость ручного наложения тормоза об/мин"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
         RegisterInfo(960, "HMI_Write_Trolley_wSpdRef1_Value_MW", "WORD16", "Скорость 1 тележки"),
@@ -1529,14 +1561,14 @@ object UIDiagnosticRegisterConfiguration {
         RegisterInfo(231, "PLC_DI0_0_7_SlewBrake_MW", "WORD16", "Ручное наложение тормоза поворота"),
 
         // Дискретные выходы ПЛК
-        RegisterInfo(382, "PLC_DQ0_0_LineContactorEn_MW", "WORD16", "Разрешение включения линейного контактора"),
-        RegisterInfo(383, "PLC_DQ0_1_HoistPWREn_MW", "WORD16", "Разрешение работы подъема"),
-        RegisterInfo(384, "PLC_DQ0_2_SlewPWREn_MW", "WORD16", "Разрешение работы поворота"),
-        RegisterInfo(385, "PLC_DQ0_3_TrolleyPWREn_MW", "WORD16", "Разрешение работы тележки"),
-        RegisterInfo(386, "PLC_DQ0_4_CranePWREn_MW", "WORD16", "Разрешение работы хода крана"),
-        RegisterInfo(387, "PLC_DQ0_5_Hoist_Ventilation_MW", "WORD16", "Вентиляция подъема"),
-        RegisterInfo(388, "PLC_DQ0_6_GlobalReady_MW", "WORD16", "Ошибка. Глобальная готовность"),
-        RegisterInfo(389, "PLC_DQ0_7_HoistOverloadStop_MW", "WORD16", "Авария/перегрузка"),
+        RegisterInfo(2, "PLC_DQ0_0_LineContactorEn_MW", "WORD16", "Разрешение включения линейного контактора"),
+        RegisterInfo(3, "PLC_DQ0_1_HoistPWREn_MW", "WORD16", "Разрешение работы подъема"),
+        RegisterInfo(4, "PLC_DQ0_2_SlewPWREn_MW", "WORD16", "Разрешение работы поворота"),
+        RegisterInfo(5, "PLC_DQ0_3_TrolleyPWREn_MW", "WORD16", "Разрешение работы тележки"),
+        RegisterInfo(6, "PLC_DQ0_4_CranePWREn_MW", "WORD16", "Разрешение работы хода крана"),
+        RegisterInfo(7, "PLC_DQ0_5_Hoist_Ventilation_MW", "WORD16", "Вентиляция подъема"),
+        RegisterInfo(8, "PLC_DQ0_6_GlobalReady_MW", "WORD16", "Ошибка. Глобальная готовность"),
+        RegisterInfo(9, "PLC_DQ0_7_HoistOverloadStop_MW", "WORD16", "Авария/перегрузка"),
 
         // Дискретные входы Модуля
         RegisterInfo(232, "PLC_DI1_0_0_MicroclimatInput_MW", "WORD16", "Контроль питания обогрева"),
@@ -1554,8 +1586,8 @@ object UIDiagnosticRegisterConfiguration {
         RegisterInfo(295, "PLC_DI1_1_7_Crane_Zero_Pos_MW", "WORD16", "0-положение джойстика хода крана"),
 
         // Дискретные выходы Модуля
-        RegisterInfo(390, "PLC_DQ1_0_0_Sound_MW", "WORD16", "Звуковая сигнализация"),
-        RegisterInfo(399, "PLC_DQ1_1_7_ACSS_Reset_MW", "WORD16", "Сброс ошибки АЦСС"),
+        RegisterInfo(10, "PLC_DQ1_0_0_Sound_MW", "WORD16", "Звуковая сигнализация"),
+        RegisterInfo(11, "PLC_DQ1_1_7_ACSS_Reset_MW", "WORD16", "Сброс ошибки АЦСС"),
 
         // Аналоговые входы Модуля
         RegisterInfo(380, "HMI_LoadCellSensor_MW", "WORD16", "Датчик нагрузки"),

@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionViewModule
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -44,30 +45,51 @@ fun SettingPointsPolygon1Coordinate (
     errorMessagePolygon1: String?,
     logMessagePolygon1: String?,
 
-
-    polygon1PointY01: Float, polygon1PointX01: Float,
-    polygon1PointY02: Float, polygon1PointX02: Float,
-    polygon1PointY03: Float, polygon1PointX03: Float,
-    polygon1PointY04: Float, polygon1PointX04: Float,
-    polygon1PointY05: Float, polygon1PointX05: Float,
-    polygon1PointY06: Float, polygon1PointX06: Float,
-    polygon1PointY07: Float, polygon1PointX07: Float,
-    polygon1PointY08: Float, polygon1PointX08: Float,
-    polygon1PointY09: Float, polygon1PointX09: Float,
-    polygon1PointY10: Float, polygon1PointX10: Float,
-    polygon1PointY11: Float, polygon1PointX11: Float,
-    polygon1PointY12: Float, polygon1PointX12: Float,
-    polygon1PointY13: Float, polygon1PointX13: Float,
-    polygon1PointY14: Float, polygon1PointX14: Float,
-    polygon1PointY15: Float, polygon1PointX15: Float,
-    polygon1PointY16: Float, polygon1PointX16: Float,
-    polygon1PointY17: Float, polygon1PointX17: Float,
-    polygon1PointY18: Float, polygon1PointX18: Float,
-    polygon1PointY19: Float, polygon1PointX19: Float,
-    polygon1PointY20: Float, polygon1PointX20: Float,
+    polygon1Point: CoordinateProtectionViewModule.Polygon1Point,
 ) {
     // Общее состояние прокрутки
     val scrollState = rememberScrollState()
+
+    val polygon1PointY01 = polygon1Point.polygon1PointY01
+    val polygon1PointX01 = polygon1Point.polygon1PointX01
+    val polygon1PointY02 = polygon1Point.polygon1PointY02
+    val polygon1PointX02 = polygon1Point.polygon1PointX02
+    val polygon1PointY03 = polygon1Point.polygon1PointY03
+    val polygon1PointX03 = polygon1Point.polygon1PointX03
+    val polygon1PointY04 = polygon1Point.polygon1PointY04
+    val polygon1PointX04 = polygon1Point.polygon1PointX04
+    val polygon1PointY05 = polygon1Point.polygon1PointY05
+    val polygon1PointX05 = polygon1Point.polygon1PointX05
+    val polygon1PointY06 = polygon1Point.polygon1PointY06
+    val polygon1PointX06 = polygon1Point.polygon1PointX06
+    val polygon1PointY07 = polygon1Point.polygon1PointY07
+    val polygon1PointX07 = polygon1Point.polygon1PointX07
+    val polygon1PointY08 = polygon1Point.polygon1PointY08
+    val polygon1PointX08 = polygon1Point.polygon1PointX08
+    val polygon1PointY09 = polygon1Point.polygon1PointY09
+    val polygon1PointX09 = polygon1Point.polygon1PointX09
+    val polygon1PointY10 = polygon1Point.polygon1PointY10
+    val polygon1PointX10 = polygon1Point.polygon1PointX10
+    val polygon1PointY11 = polygon1Point.polygon1PointY11
+    val polygon1PointX11 = polygon1Point.polygon1PointX11
+    val polygon1PointY12 = polygon1Point.polygon1PointY12
+    val polygon1PointX12 = polygon1Point.polygon1PointX12
+    val polygon1PointY13 = polygon1Point.polygon1PointY13
+    val polygon1PointX13 = polygon1Point.polygon1PointX13
+    val polygon1PointY14 = polygon1Point.polygon1PointY14
+    val polygon1PointX14 = polygon1Point.polygon1PointX14
+    val polygon1PointY15 = polygon1Point.polygon1PointY15
+    val polygon1PointX15 = polygon1Point.polygon1PointX15
+    val polygon1PointY16 = polygon1Point.polygon1PointY16
+    val polygon1PointX16 = polygon1Point.polygon1PointX16
+    val polygon1PointY17 = polygon1Point.polygon1PointY17
+    val polygon1PointX17 = polygon1Point.polygon1PointX17
+    val polygon1PointY18 = polygon1Point.polygon1PointY18
+    val polygon1PointX18 = polygon1Point.polygon1PointX18
+    val polygon1PointY19 = polygon1Point.polygon1PointY19
+    val polygon1PointX19 = polygon1Point.polygon1PointX19
+    val polygon1PointY20 = polygon1Point.polygon1PointY20
+    val polygon1PointX20 = polygon1Point.polygon1PointX20
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -401,7 +423,7 @@ fun SettingPointsPolygon1CoordinatePreview (){
             errorMessagePolygon1 = null,
             logMessagePolygon1 = null,
 
-
+            polygon1Point = CoordinateProtectionViewModule.Polygon1Point(
             polygon1PointY01 = 1f,
             polygon1PointX01 = 1f,
             polygon1PointY02 = 1f,
@@ -443,6 +465,7 @@ fun SettingPointsPolygon1CoordinatePreview (){
             polygon1PointX19 = 1f,
             polygon1PointY20 = 1f,
             polygon1PointX20 = 1f,
+            )
         )
     }
 }

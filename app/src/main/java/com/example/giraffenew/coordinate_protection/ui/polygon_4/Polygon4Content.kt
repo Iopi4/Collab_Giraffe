@@ -39,6 +39,8 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 fun Polygon4Content(
     coordinateProtectionViewModule: CoordinateProtectionViewModule = hiltViewModel()
 ) {
+    val state = coordinateProtectionViewModule.state.value
+
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -79,8 +81,8 @@ fun Polygon4Content(
             composable(NavRoutesPolygon4.PageSettingPolygon4.route)
             {
                 Polygon4Setting(
-                    onSetP4En = { coordinateProtectionViewModule.onSetP3En() },
-                    onStartResetPolygon4 = { coordinateProtectionViewModule.startResetPolygon3() },
+                    onSetP4En = { coordinateProtectionViewModule.onSetP4En() },
+                    onStartResetPolygon4 = { coordinateProtectionViewModule.startResetPolygon4() },
 
                     setValuePolygon4PointNum = coordinateProtectionViewModule.setValuePolygon4PointNum.value,
                     updateValuePolygon4PointNum = { coordinateProtectionViewModule.updateValuePolygon4PointNum(it) },
@@ -120,46 +122,7 @@ fun Polygon4Content(
 
                     onSetP4PointCmd = { index -> coordinateProtectionViewModule.onSetP4PointCmd(index) },
 
-                    polygon4PointY01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY01,
-                    polygon4PointX01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX01,
-                    polygon4PointY02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY02,
-                    polygon4PointX02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX02,
-                    polygon4PointY03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY03,
-                    polygon4PointX03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX03,
-                    polygon4PointY04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY04,
-                    polygon4PointX04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX04,
-                    polygon4PointY05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY05,
-                    polygon4PointX05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX05,
-                    polygon4PointY06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY06,
-                    polygon4PointX06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX06,
-                    polygon4PointY07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY07,
-                    polygon4PointX07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX07,
-                    polygon4PointY08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY08,
-                    polygon4PointX08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX08,
-                    polygon4PointY09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY09,
-                    polygon4PointX09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX09,
-                    polygon4PointY10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY10,
-                    polygon4PointX10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX10,
-                    polygon4PointY11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY11,
-                    polygon4PointX11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX11,
-                    polygon4PointY12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY12,
-                    polygon4PointX12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX12,
-                    polygon4PointY13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY13,
-                    polygon4PointX13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX13,
-                    polygon4PointY14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY14,
-                    polygon4PointX14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX14,
-                    polygon4PointY15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY15,
-                    polygon4PointX15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX15,
-                    polygon4PointY16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY16,
-                    polygon4PointX16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX16,
-                    polygon4PointY17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY17,
-                    polygon4PointX17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX17,
-                    polygon4PointY18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY18,
-                    polygon4PointX18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX18,
-                    polygon4PointY19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY19,
-                    polygon4PointX19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX19,
-                    polygon4PointY20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY20,
-                    polygon4PointX20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX20,
+                    polygon4Point = state.polygon4Point,
                 )
             }
             composable(NavRoutesPolygon4.PageSettingPointsPolygon4Manual.route)
@@ -182,46 +145,7 @@ fun Polygon4Content(
                     errorMessagePolygon4 = coordinateProtectionViewModule.errorMessagePolygon4Manual.value,
                     logMessagePolygon4 = coordinateProtectionViewModule.logMessagePolygon4Manual.value,
 
-                    polygon4PointY01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY01,
-                    polygon4PointX01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX01,
-                    polygon4PointY02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY02,
-                    polygon4PointX02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX02,
-                    polygon4PointY03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY03,
-                    polygon4PointX03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX03,
-                    polygon4PointY04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY04,
-                    polygon4PointX04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX04,
-                    polygon4PointY05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY05,
-                    polygon4PointX05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX05,
-                    polygon4PointY06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY06,
-                    polygon4PointX06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX06,
-                    polygon4PointY07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY07,
-                    polygon4PointX07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX07,
-                    polygon4PointY08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY08,
-                    polygon4PointX08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX08,
-                    polygon4PointY09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY09,
-                    polygon4PointX09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX09,
-                    polygon4PointY10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY10,
-                    polygon4PointX10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX10,
-                    polygon4PointY11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY11,
-                    polygon4PointX11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX11,
-                    polygon4PointY12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY12,
-                    polygon4PointX12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX12,
-                    polygon4PointY13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY13,
-                    polygon4PointX13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX13,
-                    polygon4PointY14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY14,
-                    polygon4PointX14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX14,
-                    polygon4PointY15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY15,
-                    polygon4PointX15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX15,
-                    polygon4PointY16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY16,
-                    polygon4PointX16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX16,
-                    polygon4PointY17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY17,
-                    polygon4PointX17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX17,
-                    polygon4PointY18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY18,
-                    polygon4PointX18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX18,
-                    polygon4PointY19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY19,
-                    polygon4PointX19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX19,
-                    polygon4PointY20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY20,
-                    polygon4PointX20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX20,
+                    polygon4Point = state.polygon4Point,
                 )
             }
             composable(NavRoutesPolygon4.PageSettingPointsPolygon4Coordinate.route) {
@@ -239,46 +163,7 @@ fun Polygon4Content(
                     errorMessagePolygon4 = coordinateProtectionViewModule.errorMessagePolygon4Coordinate.value,
                     logMessagePolygon4 = coordinateProtectionViewModule.logMessagePolygon4Coordinate.value,
 
-                    polygon4PointY01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY01,
-                    polygon4PointX01 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX01,
-                    polygon4PointY02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY02,
-                    polygon4PointX02 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX02,
-                    polygon4PointY03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY03,
-                    polygon4PointX03 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX03,
-                    polygon4PointY04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY04,
-                    polygon4PointX04 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX04,
-                    polygon4PointY05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY05,
-                    polygon4PointX05 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX05,
-                    polygon4PointY06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY06,
-                    polygon4PointX06 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX06,
-                    polygon4PointY07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY07,
-                    polygon4PointX07 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX07,
-                    polygon4PointY08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY08,
-                    polygon4PointX08 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX08,
-                    polygon4PointY09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY09,
-                    polygon4PointX09 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX09,
-                    polygon4PointY10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY10,
-                    polygon4PointX10 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX10,
-                    polygon4PointY11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY11,
-                    polygon4PointX11 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX11,
-                    polygon4PointY12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY12,
-                    polygon4PointX12 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX12,
-                    polygon4PointY13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY13,
-                    polygon4PointX13 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX13,
-                    polygon4PointY14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY14,
-                    polygon4PointX14 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX14,
-                    polygon4PointY15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY15,
-                    polygon4PointX15 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX15,
-                    polygon4PointY16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY16,
-                    polygon4PointX16 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX16,
-                    polygon4PointY17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY17,
-                    polygon4PointX17 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX17,
-                    polygon4PointY18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY18,
-                    polygon4PointX18 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX18,
-                    polygon4PointY19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY19,
-                    polygon4PointX19 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX19,
-                    polygon4PointY20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointY20,
-                    polygon4PointX20 = coordinateProtectionViewModule.state.value.polygon4Point.polygon4PointX20,
+                    polygon4Point = state.polygon4Point,
                 )
             }
         }
@@ -303,7 +188,7 @@ fun NavBarPolygon4(navController: NavController) {
     {
 // Заголовок
         BasicSettingsText(modifier = Modifier,
-            text = stringResource(R.string.CoordinateProtection_Text_Polygon_1))
+            text = stringResource(R.string.CoordinateProtection_Text_Polygon_4))
 
         //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
         Row (modifier = Modifier.fillMaxWidth(),

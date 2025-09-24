@@ -112,13 +112,16 @@ fun AppDrawer(
         )
 
 //Кнопка навигации "Настройка поворота"
-        NavigationButton(
+        ServiceNavigationButton(
             iconResId = R.drawable.ic_nav_setting_rotation,
             labelResId = R.string.menu_setting_rotation,
             isSelected = route == AllDestinations.NAVIGATE_SETTING_ROTATION,
             onClick = {
+            if (protectedMenusEnabled){
                 navigateToSettingRotation()
-                closeDrawer() },
+                closeDrawer()
+            } else topBarViewModule.playAccessDeniedSound()
+                      },
         )
 
 //Кнопка навигации "Сервисное меню"

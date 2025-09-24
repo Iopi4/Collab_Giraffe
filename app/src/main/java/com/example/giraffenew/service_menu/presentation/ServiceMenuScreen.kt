@@ -79,7 +79,7 @@ fun ServiceMenuScreen(
             {ServiceUser(
                 onSetDataLogErrStopHoist = { serviceMenuViewModel.onSetDataLogErrStopHoist() },
                 onSetPasswordNaladka = { serviceMenuViewModel.onSetPasswordNaladka()},
-                onSetFOURpoligonsEn = { serviceMenuViewModel.onSetFOURpoligonsEn()},
+                onSetFourPolygonsEn = { serviceMenuViewModel.onSetFourPolygonsEn()},
                 onSetWithoutRingCurrentCollectorEn = { serviceMenuViewModel.onSetWithoutRingCurrentCollectorEn()},
                 onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
                 onSetLukModeActiveEn= { serviceMenuViewModel.onSetLukModeActiveEn()},

@@ -89,33 +89,21 @@ class ServiceMenuViewModel
     private val _setValueSlewSpdRef4 = mutableStateOf("")
     val setValueSlewSpdRef4: State<String> = _setValueSlewSpdRef4
 
+    private val _setValueSlewSpdNom = mutableStateOf("")
+    val setValueSlewSpdNom: State<String> = _setValueSlewSpdNom
+
     private val _setValueSlewACC = mutableStateOf("")
     val setValueSlewACC: State<String> = _setValueSlewACC
 
     private val _setValueSlewDEC = mutableStateOf("")
     val setValueSlewDEC: State<String> = _setValueSlewDEC
 
-    private val _setValueSlewDECRevers = mutableStateOf("")
-    val setValueSlewDECRevers: State<String> = _setValueSlewDECRevers
-
-    private val _setValueSlewDelayTime = mutableStateOf("")
-    val setValueSlewDelayTime: State<String> = _setValueSlewDelayTime
-
-    private val _setValueSlewBrakeCloseFrq = mutableStateOf("")
-    val setValueSlewBrakeCloseFrq: State<String> = _setValueSlewBrakeCloseFrq
-
-    private val _setValueSlewSpdNom = mutableStateOf("")
-    val setValueSlewSpdNom: State<String> = _setValueSlewSpdNom
-
-    //Снижение скорости поворота
-    private val _setValueSlewSpdStopButton = mutableStateOf("")
-    val setValueSlewSpdStopButton: State<String> = _setValueSlewSpdStopButton
-
     private val _errorMessageSlew = mutableStateOf<String?>(null)
     val errorMessageSlew: State<String?> = _errorMessageSlew
 
     private val _logMessageSlew = mutableStateOf<String?>(null)
     val logMessageSlew: State<String?> = _logMessageSlew
+
 
     // СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ТЕЛЕЖКИ
     private val _setValueTrolleySpdRef1 = mutableStateOf("")
@@ -278,7 +266,7 @@ class ServiceMenuViewModel
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
         1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629,
         1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
-        1650, 1651, 1652, 1653, 1654, 1655, 1656, 1657, 1658, 1690, 1691, 1692, 1693, 1694,
+        1650, 1651, 1652, 1653, 1654, 1690, 1691, 1692, 1693, 1694,
         1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
         1705, 1730, 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738,
         1739, 1740, 1741, 1742, 1743, 1744,
@@ -331,7 +319,7 @@ class ServiceMenuViewModel
 
     // Приостановка сбора данных
     fun pauseDataCollection() {
-        Log.d("HomeScreenVM", "Pausing data collection")
+        Log.d("ServiceMenuScreenVM", "Pausing data collection")
         dataCollectionJob?.cancel()
         dataCollectionJob = null
     }
@@ -419,7 +407,7 @@ class ServiceMenuViewModel
                 hmiSpdRefNomSlew = cache[1645] ?: 0,
                 hmiSlewACC = safeDivideTens(cache[1646] ?: 0),
                 hmiSlewDEC = safeDivideTens(cache[1647] ?: 0),
-                hmiSlewSpeedBrakeClose = cache[1658] ?: 0,
+
 
                 hmiSlewLimitState = cache[1648] ?: 0,
                 hmiLspAutoStatSlew = cache[1649] ?: 0,
@@ -429,9 +417,7 @@ class ServiceMenuViewModel
                 hmiZoneAccSlew = safeDivideTens(cache[1653] ?: 0),
                 hmiZoneDecSlew = safeDivideTens(cache[1654] ?: 0),
 
-                hmiSlewDecRevers        = safeDivideTens(cache[1655] ?: 0),
-                hmiSlewDelayTimeBrake   = safeDivideTens(cache[1656] ?: 0),
-                hmiSlewBrakeCloseFrq    = safeDivideHundred(cache[1657] ?: 0),
+
             ),
             trolleyDriveState = TrolleyDriveState(
                 hmiSpdRefLowTrolley = cache[1690] ?: 0,
@@ -569,11 +555,6 @@ class ServiceMenuViewModel
         val hmiSpdRefNomSlew: Int = 0,
         val hmiSlewACC: Float = 0f,
         val hmiSlewDEC: Float = 0f,
-        val hmiSlewSpeedBrakeClose: Int = 0,
-
-        val hmiSlewDecRevers: Float = 0f,
-        val hmiSlewDelayTimeBrake: Float = 0f,
-        val hmiSlewBrakeCloseFrq: Float = 0f,
 
         val hmiSlewLimitState: Int = 0, //Статус функции проверки ограничений в наладке
         val hmiLspAutoStatSlew: Int = 0, //Статус автоматического снижения скорости
@@ -634,12 +615,6 @@ class ServiceMenuViewModel
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
         if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
         return (floatValue * 10).toInt()
-    }
-
-    private fun validateAndConvertFloatHundred(value: String, min: Float, max: Float): Int {
-        val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
-        if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
-        return (floatValue * 100).toInt()
     }
 
     /**
@@ -893,54 +868,6 @@ class ServiceMenuViewModel
         }
     }
 
-    // Slew. Запись времени торможения противоходом поворота [сек]
-    fun onSetSlewDECRevers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val model = validateAndConvertFloat(_setValueSlewDECRevers.value, 0.0f,30.0f )
-                // Запись в регистры
-                modbusRepository.writeRegister(987, model)
-                _errorMessageSlew.value = null
-                _logMessageSlew.value = "Сохранено"
-            } catch (e: Exception) {
-                _logMessageSlew.value = null
-                _errorMessageSlew.value = "${e.message}"
-            }
-        }
-    }
-    // Slew. Запись времени задержки наложения торможения поворота [сек]
-    fun onSetSlewDelayTime() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val model = validateAndConvertFloat(_setValueSlewDelayTime.value, 0.0f,30.0f )
-                // Запись в регистры
-                modbusRepository.writeRegister(988, model)
-                _errorMessageSlew.value = null
-                _logMessageSlew.value = "Сохранено"
-            } catch (e: Exception) {
-                _logMessageSlew.value = null
-                _errorMessageSlew.value = "${e.message}"
-            }
-        }
-    }
-    // Slew. Запись частоты удержания привода стрелы [Гц]
-    fun onSetSlewBrakeCloseFrq() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val model = validateAndConvertFloatHundred(_setValueSlewBrakeCloseFrq.value, 0.00f,0.50f )
-                // Запись в регистры
-                modbusRepository.writeRegister(989, model)
-                _errorMessageSlew.value = null
-                _logMessageSlew.value = "Сохранено"
-            } catch (e: Exception) {
-                _logMessageSlew.value = null
-                _errorMessageSlew.value = "${e.message}"
-            }
-        }
-    }
-
-
-
     // Slew. Запись скорости 1.
     fun onSetSlewSpdRef1() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -996,22 +923,6 @@ class ServiceMenuViewModel
                 val model = validateAndConvert(_setValueSlewSpdRef4.value, 0,2000 )
                 // Запись в регистры
                 modbusRepository.writeRegister(959, model)
-                _errorMessageSlew.value = null
-                _logMessageSlew.value = "Сохранено"
-            } catch (e: Exception) {
-                _logMessageSlew.value = null
-                _errorMessageSlew.value = "${e.message}"
-            }
-        }
-    }
-
-    // Slew. Запись скорости для остановки при нажатии кнопки
-    fun onSetSlewSpdStopButton() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val model = validateAndConvert(_setValueSlewSpdStopButton.value, 0,100 )
-                // Запись в регистры
-                modbusRepository.writeRegister(1217, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -1713,7 +1624,7 @@ class ServiceMenuViewModel
         }
     }
     // Ingener. Включить режим работы полигонов (1- активизация 4 полигона 20 точек, 0- 2 полигона по 10 точек )
-    fun onSetFOURpoligonsEn() {
+    fun onSetFourPolygonsEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
@@ -1911,15 +1822,7 @@ class ServiceMenuViewModel
     fun updateSlewDEC(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
             _setValueSlewDEC.value = value } }
-    fun updateSlewDECRevers(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
-            _setValueSlewDECRevers.value = value } }
-    fun updateSlewDelayTime(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
-            _setValueSlewDelayTime.value = value } }
-    fun updateSlewBrakeCloseFrq(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,3})?$"))) {
-            _setValueSlewBrakeCloseFrq.value = value } }
+
 
     fun updateSlewSpdRef1(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
@@ -1933,9 +1836,7 @@ class ServiceMenuViewModel
     fun updateSlewSpdRef4(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewSpdRef4.value = value } }
-    fun updateSlewSpdStopButton(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
-            _setValueSlewSpdStopButton.value = value }}
+
     fun updateSlewSpdNom(value: String) {
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueSlewSpdNom.value = value }}

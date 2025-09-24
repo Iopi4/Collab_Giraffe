@@ -8,24 +8,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.giraffenew.R
-import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import com.example.giraffenew.home.presentation.HomeScreenViewModel
 
 @Composable
-fun СraneOperatingParameters(
-    weightCurrent: Float,
-    weightQnom: Float,
-    trolleyCurrent: Float,
-    slewingCurrent: Float,
-    heightCurrent: Float,
-    moveCurrent: Float,
-    windCurrent: Float,
-    voltageL1L2Current: Float,
-    voltageL2L3Current: Float,
-    voltageL1L3Current: Float,
-    modifier: Modifier= Modifier,
+fun CraneOperatingParameters(
+    operatingParams: HomeScreenViewModel.CraneOperatingParametersState,
 ){
+    val weightQnom = operatingParams.weightQnom
+    val weightCurrent = operatingParams.weightCurrent
+    val trolleyCurrent = operatingParams.trolleyCurrent
+    val slewingCurrent = operatingParams.slewingCurrent
+    val heightCurrent = operatingParams.heightCurrent
+    val moveCurrent = operatingParams.moveCurrent
+    val windCurrent = operatingParams.windCurrent
+    val voltageL1L2Current = operatingParams.voltageL1L2Current
+    val voltageL2L3Current = operatingParams.voltageL2L3Current
+    val voltageL1L3Current = operatingParams.voltageL1L3Current
+
     Column(modifier = Modifier
         .fillMaxHeight()
         .fillMaxWidth(),

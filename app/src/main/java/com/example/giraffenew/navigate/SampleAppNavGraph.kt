@@ -1,6 +1,5 @@
 package com.example.giraffenew.navigate
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +25,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -40,9 +38,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -64,7 +59,7 @@ import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.parameter_logger.presentation.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.presentation.ServiceMenuScreen
 import com.example.giraffenew.setting_load_capacity.presentation.SettingLoadCapacityScreen
-import com.example.giraffenew.setting_rotation.SettingRotationScreen
+import com.example.giraffenew.setting_rotation.presentation.SettingRotationScreen
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 import com.example.giraffenew.R

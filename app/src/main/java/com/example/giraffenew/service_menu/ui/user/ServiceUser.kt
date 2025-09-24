@@ -2,7 +2,6 @@ package com.example.giraffenew.service_menu.ui.user
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
-import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -33,7 +30,7 @@ fun ServiceUser(
     onSetPasswordNaladka: () -> Unit,
     currentPasswordOrNaladka: Int,
 
-    onSetFOURpoligonsEn: () -> Unit,
+    onSetFourPolygonsEn: () -> Unit,
     currentFOURPolygonsEn: Int,
 
     onSetWithoutRingCurrentCollectorEn: () -> Unit,
@@ -111,7 +108,7 @@ fun ServiceUser(
             Spacer(modifier = Modifier.size(10.dp))
 //Поле активации 4 полигона по 20 точек
             BasicButtonOnOffStatus(
-                onClick = onSetFOURpoligonsEn,
+                onClick = onSetFourPolygonsEn,
                 isLampStatus = currentFOURPolygonsEn
             )
             Spacer(modifier = Modifier.size(20.dp))
@@ -147,7 +144,7 @@ fun ServiceUserPreview () {
             onSetPasswordNaladka = { },
             currentPasswordOrNaladka =1,
 
-            onSetFOURpoligonsEn = { },
+            onSetFourPolygonsEn = { },
             currentFOURPolygonsEn =1,
 
             onSetWithoutRingCurrentCollectorEn = { },

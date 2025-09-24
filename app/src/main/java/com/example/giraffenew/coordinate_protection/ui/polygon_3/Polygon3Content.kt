@@ -39,6 +39,8 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsText
 fun Polygon3Content(
     coordinateProtectionViewModule: CoordinateProtectionViewModule = hiltViewModel()
 ) {
+    val state = coordinateProtectionViewModule.state.value
+
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -120,46 +122,8 @@ fun Polygon3Content(
 
                     onSetP3PointCmd = { index -> coordinateProtectionViewModule.onSetP3PointCmd(index) },
 
-                    polygon3PointY01 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY01,
-                    polygon3PointX01 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX01,
-                    polygon3PointY02 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY02,
-                    polygon3PointX02 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX02,
-                    polygon3PointY03 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY03,
-                    polygon3PointX03 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX03,
-                    polygon3PointY04 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY04,
-                    polygon3PointX04 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX04,
-                    polygon3PointY05 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY05,
-                    polygon3PointX05 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX05,
-                    polygon3PointY06 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY06,
-                    polygon3PointX06 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX06,
-                    polygon3PointY07 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY07,
-                    polygon3PointX07 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX07,
-                    polygon3PointY08 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY08,
-                    polygon3PointX08 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX08,
-                    polygon3PointY09 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY09,
-                    polygon3PointX09 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX09,
-                    polygon3PointY10 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY10,
-                    polygon3PointX10 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX10,
-                    polygon3PointY11 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY11,
-                    polygon3PointX11 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX11,
-                    polygon3PointY12 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY12,
-                    polygon3PointX12 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX12,
-                    polygon3PointY13 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY13,
-                    polygon3PointX13 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX13,
-                    polygon3PointY14 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY14,
-                    polygon3PointX14 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX14,
-                    polygon3PointY15 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY15,
-                    polygon3PointX15 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX15,
-                    polygon3PointY16 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY16,
-                    polygon3PointX16 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX16,
-                    polygon3PointY17 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY17,
-                    polygon3PointX17 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX17,
-                    polygon3PointY18 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY18,
-                    polygon3PointX18 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX18,
-                    polygon3PointY19 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY19,
-                    polygon3PointX19 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX19,
-                    polygon3PointY20 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY20,
-                    polygon3PointX20 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX20,
+                    polygon3Point = state.polygon3Point,
+
                 )
             }
             composable(NavRoutesPolygon3.PageSettingPointsPolygon3Manual.route)
@@ -182,46 +146,7 @@ fun Polygon3Content(
                     errorMessagePolygon3 = coordinateProtectionViewModule.errorMessagePolygon3Manual.value,
                     logMessagePolygon3 = coordinateProtectionViewModule.logMessagePolygon3Manual.value,
 
-                    polygon3PointY01 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY01,
-                    polygon3PointX01 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX01,
-                    polygon3PointY02 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY02,
-                    polygon3PointX02 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX02,
-                    polygon3PointY03 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY03,
-                    polygon3PointX03 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX03,
-                    polygon3PointY04 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY04,
-                    polygon3PointX04 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX04,
-                    polygon3PointY05 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY05,
-                    polygon3PointX05 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX05,
-                    polygon3PointY06 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY06,
-                    polygon3PointX06 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX06,
-                    polygon3PointY07 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY07,
-                    polygon3PointX07 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX07,
-                    polygon3PointY08 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY08,
-                    polygon3PointX08 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX08,
-                    polygon3PointY09 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY09,
-                    polygon3PointX09 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX09,
-                    polygon3PointY10 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY10,
-                    polygon3PointX10 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX10,
-                    polygon3PointY11 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY11,
-                    polygon3PointX11 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX11,
-                    polygon3PointY12 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY12,
-                    polygon3PointX12 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX12,
-                    polygon3PointY13 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY13,
-                    polygon3PointX13 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX13,
-                    polygon3PointY14 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY14,
-                    polygon3PointX14 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX14,
-                    polygon3PointY15 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY15,
-                    polygon3PointX15 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX15,
-                    polygon3PointY16 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY16,
-                    polygon3PointX16 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX16,
-                    polygon3PointY17 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY17,
-                    polygon3PointX17 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX17,
-                    polygon3PointY18 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY18,
-                    polygon3PointX18 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX18,
-                    polygon3PointY19 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY19,
-                    polygon3PointX19 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX19,
-                    polygon3PointY20 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointY20,
-                    polygon3PointX20 = coordinateProtectionViewModule.state.value.polygon3Point.polygon3PointX20,
+                    polygon3Point = state.polygon3Point,
                 )
             }
             composable(NavRoutesPolygon3.PageSettingPointsPolygon3Coordinate.route) {
@@ -303,7 +228,7 @@ fun NavBarPolygon3(navController: NavController) {
     {
 // Заголовок
         BasicSettingsText(modifier = Modifier,
-            text = stringResource(R.string.CoordinateProtection_Text_Polygon_1))
+            text = stringResource(R.string.CoordinateProtection_Text_Polygon_3))
 
         //Код для формирования области в верху с кнопками переходов между страницами (название и стрелки вверху экрана)
         Row (modifier = Modifier.fillMaxWidth(),

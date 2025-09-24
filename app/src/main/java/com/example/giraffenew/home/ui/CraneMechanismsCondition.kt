@@ -24,39 +24,14 @@ import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampAlarmStatus
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampMechanismsCondition
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampMechanismsPoligon
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
+import com.example.giraffenew.home.presentation.HomeScreenViewModel
 import com.example.giraffenew.home.ui.text.ParametersTextControlEffort
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 
 @Composable
 fun CraneMechanismsCondition(
-    weightSensorErr     : Int,  //AT%MW711 Cбой датчика усилия
-    anemometerSensorErr : Int,	//AT%MW712 Cбой анемометра
-    alarmLampStatus	    : Int,	//AT%MW337 статус лампочки аварии на главном экране (0-Green, 1-Yel, 2-Red)
-
-    trolleyFwdStatus    : Int,	//AT%MW320 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    trolleyRevStatus    : Int,	//AT%MW321 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    hoistUpStatus       : Int,	//AT%MW322 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    hoistDownStatus     : Int,	//AT%MW323 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    slewRightStatus     : Int,	//AT%MW324 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    slewLeftStatus      : Int,	//AT%MW325 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    cranRightStatus 	: Int,	//AT%MW326 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-    craneLeftStatus 	: Int,	//AT%MW327 Cтатус запрета движений на HMI (0-Red, 1-Yel, 2-Green, 3-Blue)
-
-    craneRight	: Int, //AT%MW328 Статус можно выйти из полигона краном вперед
-    craneLeft	: Int, //AT%MW329 Статус можно выйти из полигона краном назад
-    slewLeft	: Int, //AT%MW330 Статус можно выйти из полигона поворотом налево
-    slewRight	: Int, //AT%MW331 Статус можно выйти из полигона поворотом направо
-    trolleyFwd	: Int, //AT%MW332 Статус можно выйти из полигона телегой вперед
-    trolleyRev	: Int, //AT%MW333 Статус можно выйти из полигона телегой назад
-    hoistUp		: Int, //AT%MW334 Статус можно выйти из полигона крюком вверх
-    hoistDown	: Int, //AT%MW335 Статус можно выйти из полигона крюком вниз
-
-    hoistControlEffortHz : Float,
-    slewControlEffortHz : Float,
-    trolleyControlEffortHz : Float,
-    craneControlEffortHz : Float,
-
+    craneMechanismsCondition: HomeScreenViewModel.CraneMechanismsConditionState,
     ){
 
 //№2. Центральная область для отображения состояния механизмов крана.
@@ -71,6 +46,31 @@ fun CraneMechanismsCondition(
             shape = RoundedCornerShape(10.dp)
         ))
     {
+        val weightSensorErr = craneMechanismsCondition.weightSensorErr
+        val anemometerSensorErr = craneMechanismsCondition.anemometerSensorErr
+        val trolleyFwdStatus = craneMechanismsCondition.trolleyFwdStatus
+        val trolleyRevStatus = craneMechanismsCondition.trolleyRevStatus
+        val hoistUpStatus = craneMechanismsCondition.hoistUpStatus
+        val hoistDownStatus = craneMechanismsCondition.hoistDownStatus
+        val slewRightStatus = craneMechanismsCondition.slewRightStatus
+        val slewLeftStatus = craneMechanismsCondition.slewLeftStatus
+        val cranRightStatus = craneMechanismsCondition.cranRightStatus
+        val craneLeftStatus = craneMechanismsCondition.craneLeftStatus
+        val craneRight = craneMechanismsCondition.craneRight
+        val craneLeft = craneMechanismsCondition.craneLeft
+        val slewLeft = craneMechanismsCondition.slewLeft
+        val slewRight = craneMechanismsCondition.slewRight
+        val trolleyFwd = craneMechanismsCondition.trolleyFwd
+        val trolleyRev = craneMechanismsCondition.trolleyRev
+        val hoistUp = craneMechanismsCondition.hoistUp
+        val hoistDown = craneMechanismsCondition.hoistDown
+        val alarmLampStatus = craneMechanismsCondition.alarmLampStatus
+        val hoistControlEffortHz = craneMechanismsCondition.hoistControlEffortHz
+        val slewControlEffortHz = craneMechanismsCondition.slewControlEffortHz
+        val trolleyControlEffortHz = craneMechanismsCondition.trolleyControlEffortHz
+        val craneControlEffortHz = craneMechanismsCondition.craneControlEffortHz
+
+
         val myBoxMechanismModifier = Modifier
             .padding(top = 5.dp)
             .fillMaxWidth()
@@ -278,30 +278,7 @@ private fun formatDecimalCrane(value: Float): String {
 fun CraneMechanismsConditionPreview (){
     GIRAFFEnewTheme (dynamicColor = false) {
         CraneMechanismsCondition(
-            weightSensorErr = 0,
-            trolleyFwdStatus = 1,
-            trolleyRevStatus = 1,
-            hoistUpStatus = 0,
-            hoistDownStatus = 0,
-            slewRightStatus = 2,
-            slewLeftStatus = 2,
-            cranRightStatus = 2,
-            craneLeftStatus = 1,
-            craneRight = 1,
-            craneLeft = 0,
-            slewLeft = 0,
-            slewRight = 0,
-            trolleyFwd = 0,
-            trolleyRev = 0,
-            hoistUp = 0,
-            hoistDown = 0,
-            anemometerSensorErr = 0,
-            alarmLampStatus = 2,
-
-            hoistControlEffortHz = 132f,
-            slewControlEffortHz = 1f,
-            trolleyControlEffortHz = 1f,
-            craneControlEffortHz = 1f,
+            craneMechanismsCondition = TODO()
         )
     }
 }

@@ -64,30 +64,8 @@ fun ServiceSlewing(
     onSetSlewSpdNom: () -> Unit,
     hmiSpdRefNomSlew: Int,
 
-    setValueSlewSpdStopButton: String,
-    onModelChangeSlewSpdStopButton: (String) -> Unit,
-    onSetSlewSpdStopButton: () -> Unit,
-    hmiSlewSpeedBrakeClose: Int,
-
-    setValueSlewDECRevers: String,
-    updateSlewDECRevers: (String) -> Unit,
-    onSetSlewDECRevers: () -> Unit,
-
-    setValueSlewDelayTime: String,
-    updateSlewDelayTime: (String) -> Unit,
-    onSetSlewDelayTime: () -> Unit,
-
-    setValueSlewBrakeCloseFrq: String,
-    updateSlewBrakeCloseFrq: (String) -> Unit,
-    onSetSlewBrakeCloseFrq: () -> Unit,
-
     errorMessageSlew: String?,
     logMessageSlew: String?,
-
-    hmiSlewDecRevers        : Float,
-    hmiSlewDelayTimeBrake   : Float,
-    hmiSlewBrakeCloseFrq    : Float,
-
     ){
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -106,18 +84,16 @@ fun ServiceSlewing(
             // Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Slewing_Parameters))
-//Отображения текста рабочих параметров привода подъема
+//Отображения текста рабочих параметров привода поворота
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_3)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_4)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_Nom)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Stoping_Speed)
+
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Acc)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec_Revers)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Delay_Time)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Brake_Close_Frq)
+
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -186,15 +162,7 @@ fun ServiceSlewing(
                 onValueChange = updateSlewSpdNom,
                 onClick = onSetSlewSpdNom
             )
-//Ввод. Остановка от кнопки, об/мин
-            BasicInputRowandButton(
-                placeholder = format(hmiSlewSpeedBrakeClose),
-                value = setValueSlewSpdStopButton,
-                valueMin = 0,
-                valueMax = 100,
-                onValueChange = onModelChangeSlewSpdStopButton,
-                onClick = onSetSlewSpdStopButton,
-            )
+
 //Ввод. Разгон. Секунды
             BasicInputRowandTensButton(
                 placeholder = formatDecimal(hmiSlewACC),
@@ -211,30 +179,7 @@ fun ServiceSlewing(
                 onClick = onSetSlewDEC,
                 isDecimal = true,
             )
-//Ввод. Торможение противоходом. Секунды
-            BasicInputRowandTensButton(
-                placeholder = formatDecimal(hmiSlewDecRevers),
-                value = setValueSlewDECRevers,
-                onValueChange = updateSlewDECRevers,
-                onClick = onSetSlewDECRevers,
-                isDecimal = true,
-            )
-//Ввод. Задержка наложения тормоза. Секунды
-            BasicInputRowandTensButton(
-                placeholder = formatDecimal(hmiSlewDelayTimeBrake),
-                value = setValueSlewDelayTime,
-                onValueChange = updateSlewDelayTime,
-                onClick = onSetSlewDelayTime,
-                isDecimal = true,
-            )
-//Ввод. Частота удержания. Секунды
-            BasicInputRowandThousandButton(
-                placeholder = formatHundred(hmiSlewBrakeCloseFrq),
-                value = setValueSlewBrakeCloseFrq,
-                onValueChange = updateSlewBrakeCloseFrq,
-                onClick = onSetSlewBrakeCloseFrq,
-                isDecimal = true,
-            )
+
         }
     }
 }
@@ -284,22 +229,7 @@ fun ServiceSlewingPreview () {
             updateSlewSpdNom = { },
             onSetSlewSpdNom = { },
 
-            setValueSlewSpdStopButton = "100",
-            onModelChangeSlewSpdStopButton = { },
-            onSetSlewSpdStopButton = { },
 
-            setValueSlewDECRevers = "15",
-            updateSlewDECRevers = { },
-            onSetSlewDECRevers = { },
-
-            setValueSlewDelayTime = "25",
-            updateSlewDelayTime = { },
-            onSetSlewDelayTime = { },
-
-            setValueSlewBrakeCloseFrq = "0.01",
-            updateSlewBrakeCloseFrq = { },
-            onSetSlewBrakeCloseFrq = { },
-            hmiSlewSpeedBrakeClose = 5,
 
             errorMessageSlew = null,
             logMessageSlew = null,
@@ -311,9 +241,6 @@ fun ServiceSlewingPreview () {
             hmiSpdRef3Slew = 750,
             hmiSpdRef4Slew = 1500,
 
-            hmiSlewDecRevers = 15f,
-            hmiSlewDelayTimeBrake = 100f,
-            hmiSlewBrakeCloseFrq = 1f,
             hmiSpdRefNomSlew = 5,
         )
     }

@@ -207,6 +207,8 @@
 
     <string name="CoordinateProtection_Text_Polygon_1">Полигон №1</string>
     <string name="CoordinateProtection_Text_Polygon_2">Полигон №2</string>
+    <string name="CoordinateProtection_Text_Polygon_3">Полигон №3</string>
+    <string name="CoordinateProtection_Text_Polygon_4">Полигон №4</string>
 
     <string name="CoordinateProtection_Text_Setting_Polygon">Настройка полигона</string>
 
@@ -264,6 +266,21 @@
     <string name="CoordinateProtection_Text_Entering_Points_10">Задать точку 10</string>
     <!-- Текст экрана CoordinateProtectionScreen' -->
 
+    <!-- Текст экрана SettingRotationScreen' -->
+
+    <!-- Текст экрана SettingRotationScreen' -->
+    <string name="SettingRotation_Text_Parameters">Параметры настройки поворота</string>
+
+    <string name="SettingRotation_Text_Stoping_Speed">Ввод. Скорость остановки от кнопки (0..100)[об/мин] </string>
+    <string name="SettingRotation_Text_Dec_Revers">Ввод. Время торможения противоходом (0..30)[с] </string>
+    <string name="SettingRotation_Text_Delay_Time">Ввод. Задержка наложения тормоза (0..30)[с]</string>
+    <string name="SettingRotation_Text_Brake_Close_Frq">Ввод. Частота удержания привода (0,12..0.25)[Гц]</string>
+
+    <string name="SettingRotation_Text_Frq_Start_Braking">Ввод. Частота начала торможения (0..5)[Гц]</string>
+    <string name="SettingRotation_Text_Delay_Start_Braking">Ввод. Задержка времени при достижении частоты начала торможения (0..10)[с]</string>
+    <string name="SettingRotation_Text_Delay_Time_Brake_Curr">Ввод. Задержка до начала торможения постоянным током (0..10)[с]</string>
+    <string name="SettingRotation_Text_Time_Brake_Current">Ввод. Время торможения постонным током (0..20)[с]</string>
+
     <!-- Текст экрана ServiceMenuScreen' -->
     <string name="ServiceMenu_Register_Save">СОХРАНЕНО</string>
     <!-- Названия вкладок -->
@@ -293,9 +310,6 @@
 
     <string name="ServiceMenu_Text_Acc">Ввод. Разгон [с]</string>
     <string name="ServiceMenu_Text_Dec">Ввод. Торможение [с]</string>
-    <string name="ServiceMenu_Text_Dec_Revers">Ввод. Торможение противоход.[с]</string>
-    <string name="ServiceMenu_Text_Delay_Time">Ввод. Время налож. тормоза [с] </string>
-    <string name="ServiceMenu_Text_Brake_Close_Frq">Ввод. Частота удержания [Гц]</string>
 
     <string name="ServiceMenu_Text_Speed_1">Ввод. Скорость 1 [об/мин]</string>
     <string name="ServiceMenu_Text_Speed_2">Ввод. Скорость 2 [об/мин]</string>

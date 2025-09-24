@@ -27,7 +27,7 @@ class DiagnosticViewModule @Inject constructor(
         727, 128, 723, 134, 741, 129, 130, 131, 132, 133, 729, 353) // Только нужные регистры Вкладки Система управления
 
     val addressesPLCParameters = listOf(221, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 239, 288,
-        289, 290, 291, 292, 293, 294, 295, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 399)
+        289, 290, 291, 292, 293, 294, 295, 380, 381, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
     private val allAddresses = (addressesSystemParameters+addressesDrivesParameters+addressesPLCParameters).distinct()
 
     private val _state = mutableStateOf(DiagnosticState())
@@ -177,14 +177,14 @@ class DiagnosticViewModule @Inject constructor(
                 plcDI006HoistLowSpdButton = cache[230] ?: 0,
                 plcDI007SlewBrake = cache[231] ?: 0,
                 // Дискретные выходы ПЛК
-                plcDQ000LineContactorEn = cache[382] ?: 0,
-                plcDQ001HoistPWREn = cache[383] ?: 0,
-                plcDQ002SlewPWREn = cache[384] ?: 0,
-                plcDQ003TrolleyPWREn = cache[385] ?: 0,
-                plcDQ004CranePWREn = cache[386] ?: 0,
-                plcDQ005HoistVentilation = cache[387] ?: 0,
-                plcDQ006GlobalReady = cache[388] ?: 0,
-                plcDQ007HoistOverloadStop = cache[389] ?: 0,
+                plcDQ000LineContactorEn = cache[2] ?: 0,
+                plcDQ001HoistPWREn = cache[3] ?: 0,
+                plcDQ002SlewPWREn = cache[4] ?: 0,
+                plcDQ003TrolleyPWREn = cache[5] ?: 0,
+                plcDQ004CranePWREn = cache[6] ?: 0,
+                plcDQ005HoistVentilation = cache[7] ?: 0,
+                plcDQ006GlobalReady = cache[8] ?: 0,
+                plcDQ007HoistOverloadStop = cache[9] ?: 0,
                 // Дискретные входы Модуля
                 plcDI100MicroclimatInput = cache[232] ?: 0,
                 plcDI101BrakePowerControl = cache[233] ?: 0,
@@ -200,8 +200,8 @@ class DiagnosticViewModule @Inject constructor(
                 plcDI116TrolleyZeroPos = cache[294] ?: 0,
                 plcDI117CraneZeroPos = cache[295] ?: 0,
                 // Дискретные выходы Модуля
-                plcDQ100Sound = cache[390] ?: 0,
-                plcDQ117ACSSReset = cache[399] ?: 0,
+                plcDQ100Sound = cache[10] ?: 0,
+                plcDQ117ACSSReset = cache[11] ?: 0,
                 // Аналоговые входы Модуля
                 plcAI0AnemometerSensor = cache[380] ?: 0,
                 plcAI1LoadCellSensor = cache[381] ?: 0,

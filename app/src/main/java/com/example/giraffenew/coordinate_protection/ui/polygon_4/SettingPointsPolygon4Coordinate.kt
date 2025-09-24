@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionViewModule
 import com.example.giraffenew.coordinate_protection.ui.polygon_1.PolygonPoint
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
@@ -44,30 +45,52 @@ fun SettingPointsPolygon4Coordinate (
     errorMessagePolygon4: String?,
     logMessagePolygon4: String?,
 
-
-    polygon4PointY01: Float, polygon4PointX01: Float,
-    polygon4PointY02: Float, polygon4PointX02: Float,
-    polygon4PointY03: Float, polygon4PointX03: Float,
-    polygon4PointY04: Float, polygon4PointX04: Float,
-    polygon4PointY05: Float, polygon4PointX05: Float,
-    polygon4PointY06: Float, polygon4PointX06: Float,
-    polygon4PointY07: Float, polygon4PointX07: Float,
-    polygon4PointY08: Float, polygon4PointX08: Float,
-    polygon4PointY09: Float, polygon4PointX09: Float,
-    polygon4PointY10: Float, polygon4PointX10: Float,
-    polygon4PointY11: Float, polygon4PointX11: Float,
-    polygon4PointY12: Float, polygon4PointX12: Float,
-    polygon4PointY13: Float, polygon4PointX13: Float,
-    polygon4PointY14: Float, polygon4PointX14: Float,
-    polygon4PointY15: Float, polygon4PointX15: Float,
-    polygon4PointY16: Float, polygon4PointX16: Float,
-    polygon4PointY17: Float, polygon4PointX17: Float,
-    polygon4PointY18: Float, polygon4PointX18: Float,
-    polygon4PointY19: Float, polygon4PointX19: Float,
-    polygon4PointY20: Float, polygon4PointX20: Float,
+    polygon4Point: CoordinateProtectionViewModule.Polygon4Point,
 ) {
     // Общее состояние прокрутки
     val scrollState = rememberScrollState()
+
+    val polygon4PointY01 = polygon4Point.polygon4PointY01
+    val polygon4PointX01 = polygon4Point.polygon4PointX01
+    val polygon4PointY02 = polygon4Point.polygon4PointY02
+    val polygon4PointX02 = polygon4Point.polygon4PointX02
+    val polygon4PointY03 = polygon4Point.polygon4PointY03
+    val polygon4PointX03 = polygon4Point.polygon4PointX03
+    val polygon4PointY04 = polygon4Point.polygon4PointY04
+    val polygon4PointX04 = polygon4Point.polygon4PointX04
+    val polygon4PointY05 = polygon4Point.polygon4PointY05
+    val polygon4PointX05 = polygon4Point.polygon4PointX05
+    val polygon4PointY06 = polygon4Point.polygon4PointY06
+    val polygon4PointX06 = polygon4Point.polygon4PointX06
+    val polygon4PointY07 = polygon4Point.polygon4PointY07
+    val polygon4PointX07 = polygon4Point.polygon4PointX07
+    val polygon4PointY08 = polygon4Point.polygon4PointY08
+    val polygon4PointX08 = polygon4Point.polygon4PointX08
+    val polygon4PointY09 = polygon4Point.polygon4PointY09
+    val polygon4PointX09 = polygon4Point.polygon4PointX09
+    val polygon4PointY10 = polygon4Point.polygon4PointY10
+    val polygon4PointX10 = polygon4Point.polygon4PointX10
+
+    val polygon4PointY11 = polygon4Point.polygon4PointY11
+    val polygon4PointX11 = polygon4Point.polygon4PointX11
+    val polygon4PointY12 = polygon4Point.polygon4PointY12
+    val polygon4PointX12 = polygon4Point.polygon4PointX12
+    val polygon4PointY13 = polygon4Point.polygon4PointY13
+    val polygon4PointX13 = polygon4Point.polygon4PointX13
+    val polygon4PointY14 = polygon4Point.polygon4PointY14
+    val polygon4PointX14 = polygon4Point.polygon4PointX14
+    val polygon4PointY15 = polygon4Point.polygon4PointY15
+    val polygon4PointX15 = polygon4Point.polygon4PointX15
+    val polygon4PointY16 = polygon4Point.polygon4PointY16
+    val polygon4PointX16 = polygon4Point.polygon4PointX16
+    val polygon4PointY17 = polygon4Point.polygon4PointY17
+    val polygon4PointX17 = polygon4Point.polygon4PointX17
+    val polygon4PointY18 = polygon4Point.polygon4PointY18
+    val polygon4PointX18 = polygon4Point.polygon4PointX18
+    val polygon4PointY19 = polygon4Point.polygon4PointY19
+    val polygon4PointX19 = polygon4Point.polygon4PointX19
+    val polygon4PointY20 = polygon4Point.polygon4PointY20
+    val polygon4PointX20 = polygon4Point.polygon4PointX20
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -401,48 +424,49 @@ fun SettingPointsPolygon4CoordinatePreview (){
             errorMessagePolygon4 = null,
             logMessagePolygon4 = null,
 
+            polygon4Point = CoordinateProtectionViewModule.Polygon4Point(
+                polygon4PointY01 = 1f,
+                polygon4PointX01 = 1f,
+                polygon4PointY02 = 1f,
+                polygon4PointX02 = 1f,
+                polygon4PointY03 = 1f,
+                polygon4PointX03 = 1f,
+                polygon4PointY04 = 1f,
+                polygon4PointX04 = 1f,
+                polygon4PointY05 = 1f,
+                polygon4PointX05 = 1f,
+                polygon4PointY06 = 1f,
+                polygon4PointX06 = 1f,
+                polygon4PointY07 = 1f,
+                polygon4PointX07 = 1f,
+                polygon4PointY08 = 1f,
+                polygon4PointX08 = 1f,
+                polygon4PointY09 = 1f,
+                polygon4PointX09 = 1f,
+                polygon4PointY10 = 1f,
+                polygon4PointX10 = 1f,
 
-            polygon4PointY01 = 1f,
-            polygon4PointX01 = 1f,
-            polygon4PointY02 = 1f,
-            polygon4PointX02 = 1f,
-            polygon4PointY03 = 1f,
-            polygon4PointX03 = 1f,
-            polygon4PointY04 = 1f,
-            polygon4PointX04 = 1f,
-            polygon4PointY05 = 1f,
-            polygon4PointX05 = 1f,
-            polygon4PointY06 = 1f,
-            polygon4PointX06 = 1f,
-            polygon4PointY07 = 1f,
-            polygon4PointX07 = 1f,
-            polygon4PointY08 = 1f,
-            polygon4PointX08 = 1f,
-            polygon4PointY09 = 1f,
-            polygon4PointX09 = 1f,
-            polygon4PointY10 = 1f,
-            polygon4PointX10 = 1f,
-
-            polygon4PointY11 = 1f,
-            polygon4PointX11 = 1f,
-            polygon4PointY12 = 1f,
-            polygon4PointX12 = 1f,
-            polygon4PointY13 = 1f,
-            polygon4PointX13 = 1f,
-            polygon4PointY14 = 1f,
-            polygon4PointX14 = 1f,
-            polygon4PointY15 = 1f,
-            polygon4PointX15 = 1f,
-            polygon4PointY16 = 1f,
-            polygon4PointX16 = 1f,
-            polygon4PointY17 = 1f,
-            polygon4PointX17 = 1f,
-            polygon4PointY18 = 1f,
-            polygon4PointX18 = 1f,
-            polygon4PointY19 = 1f,
-            polygon4PointX19 = 1f,
-            polygon4PointY20 = 1f,
-            polygon4PointX20 = 1f,
+                polygon4PointY11 = 1f,
+                polygon4PointX11 = 1f,
+                polygon4PointY12 = 1f,
+                polygon4PointX12 = 1f,
+                polygon4PointY13 = 1f,
+                polygon4PointX13 = 1f,
+                polygon4PointY14 = 1f,
+                polygon4PointX14 = 1f,
+                polygon4PointY15 = 1f,
+                polygon4PointX15 = 1f,
+                polygon4PointY16 = 1f,
+                polygon4PointX16 = 1f,
+                polygon4PointY17 = 1f,
+                polygon4PointX17 = 1f,
+                polygon4PointY18 = 1f,
+                polygon4PointX18 = 1f,
+                polygon4PointY19 = 1f,
+                polygon4PointX19 = 1f,
+                polygon4PointY20 = 1f,
+                polygon4PointX20 = 1f,
+            ),
         )
     }
 }

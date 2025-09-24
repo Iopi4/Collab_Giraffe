@@ -388,6 +388,7 @@ class ModbusRepository @Inject constructor(
         registerConfiguration(TopBarRegisterConfiguration.NAME_TOP_BAR, TopBarRegisterConfiguration.REGISTERS)
         registerConfiguration(UiHomeScreenRegisterConfiguration.NAME_HOME, UiHomeScreenRegisterConfiguration.REGISTERS)
         registerConfiguration(UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP, UiInitialSetupRegisterConfiguration.REGISTERS)
+        registerConfiguration(UiSettingRotationConfiguration.NAME_SETTING_ROTATION, UiSettingRotationConfiguration.REGISTERS)
         registerConfiguration(UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU, UIServiceMenuRegisterConfiguration.REGISTERS)
         registerConfiguration(UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY, UISettingLoadCapacityConfiguration.REGISTERS)
         registerConfiguration(UISettingSensorsConfiguration.NAME_SETTING_SENSORS, UISettingSensorsConfiguration.REGISTERS)
@@ -461,6 +462,7 @@ class ModbusRepository @Inject constructor(
             TopBarRegisterConfiguration.NAME_TOP_BAR -> TopBarRegisterConfiguration.REGISTERS
             UiHomeScreenRegisterConfiguration.NAME_HOME -> UiHomeScreenRegisterConfiguration.REGISTERS
             UiInitialSetupRegisterConfiguration.NAME_INITIAL_SETUP -> UiInitialSetupRegisterConfiguration.REGISTERS
+            UiSettingRotationConfiguration.NAME_SETTING_ROTATION -> UiSettingRotationConfiguration.REGISTERS
             UIServiceMenuRegisterConfiguration.NAME_SERVICE_MENU -> UIServiceMenuRegisterConfiguration.REGISTERS
             UISettingLoadCapacityConfiguration.NAME_SETTING_LOAD_CAPACITY -> UISettingLoadCapacityConfiguration.REGISTERS
             UISettingSensorsConfiguration.NAME_SETTING_SENSORS -> UISettingSensorsConfiguration.REGISTERS

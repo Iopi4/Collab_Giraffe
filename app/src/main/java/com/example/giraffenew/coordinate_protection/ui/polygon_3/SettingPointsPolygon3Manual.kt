@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.coordinate_protection.prezentation.CoordinateProtectionViewModule
 import com.example.giraffenew.coordinate_protection.ui.polygon_1.PolygonPoint
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
@@ -48,31 +49,51 @@ fun SettingPointsPolygon3Manual (
     errorMessagePolygon3: String?,
     logMessagePolygon3: String?,
 
-
-    polygon3PointY01: Float, polygon3PointX01: Float,
-    polygon3PointY02: Float, polygon3PointX02: Float,
-    polygon3PointY03: Float, polygon3PointX03: Float,
-    polygon3PointY04: Float, polygon3PointX04: Float,
-    polygon3PointY05: Float, polygon3PointX05: Float,
-    polygon3PointY06: Float, polygon3PointX06: Float,
-    polygon3PointY07: Float, polygon3PointX07: Float,
-    polygon3PointY08: Float, polygon3PointX08: Float,
-    polygon3PointY09: Float, polygon3PointX09: Float,
-    polygon3PointY10: Float, polygon3PointX10: Float,
-    polygon3PointY11: Float, polygon3PointX11: Float,
-    polygon3PointY12: Float, polygon3PointX12: Float,
-    polygon3PointY13: Float, polygon3PointX13: Float,
-    polygon3PointY14: Float, polygon3PointX14: Float,
-    polygon3PointY15: Float, polygon3PointX15: Float,
-    polygon3PointY16: Float, polygon3PointX16: Float,
-    polygon3PointY17: Float, polygon3PointX17: Float,
-    polygon3PointY18: Float, polygon3PointX18: Float,
-    polygon3PointY19: Float, polygon3PointX19: Float,
-    polygon3PointY20: Float, polygon3PointX20: Float,
-
+    polygon3Point: CoordinateProtectionViewModule.Polygon3Point,
     ) {
     // Общее состояние прокрутки
     val scrollState = rememberScrollState()
+
+    val polygon3PointY01 = polygon3Point.polygon3PointY01
+    val polygon3PointX01 = polygon3Point.polygon3PointX01
+    val polygon3PointY02 = polygon3Point.polygon3PointY02
+    val polygon3PointX02 = polygon3Point.polygon3PointX02
+    val polygon3PointY03 = polygon3Point.polygon3PointY03
+    val polygon3PointX03 = polygon3Point.polygon3PointX03
+    val polygon3PointY04 = polygon3Point.polygon3PointY04
+    val polygon3PointX04 = polygon3Point.polygon3PointX04
+    val polygon3PointY05 = polygon3Point.polygon3PointY05
+    val polygon3PointX05 = polygon3Point.polygon3PointX05
+    val polygon3PointY06 = polygon3Point.polygon3PointY06
+    val polygon3PointX06 = polygon3Point.polygon3PointX06
+    val polygon3PointY07 = polygon3Point.polygon3PointY07
+    val polygon3PointX07 = polygon3Point.polygon3PointX07
+    val polygon3PointY08 = polygon3Point.polygon3PointY08
+    val polygon3PointX08 = polygon3Point.polygon3PointX08
+    val polygon3PointY09 = polygon3Point.polygon3PointY09
+    val polygon3PointX09 = polygon3Point.polygon3PointX09
+    val polygon3PointY10 = polygon3Point.polygon3PointY10
+    val polygon3PointX10 = polygon3Point.polygon3PointX10
+    val polygon3PointY11 = polygon3Point.polygon3PointY11
+    val polygon3PointX11 = polygon3Point.polygon3PointX11
+    val polygon3PointY12 = polygon3Point.polygon3PointY12
+    val polygon3PointX12 = polygon3Point.polygon3PointX12
+    val polygon3PointY13 = polygon3Point.polygon3PointY13
+    val polygon3PointX13 = polygon3Point.polygon3PointX13
+    val polygon3PointY14 = polygon3Point.polygon3PointY14
+    val polygon3PointX14 = polygon3Point.polygon3PointX14
+    val polygon3PointY15 = polygon3Point.polygon3PointY15
+    val polygon3PointX15 = polygon3Point.polygon3PointX15
+    val polygon3PointY16 = polygon3Point.polygon3PointY16
+    val polygon3PointX16 = polygon3Point.polygon3PointX16
+    val polygon3PointY17 = polygon3Point.polygon3PointY17
+    val polygon3PointX17 = polygon3Point.polygon3PointX17
+    val polygon3PointY18 = polygon3Point.polygon3PointY18
+    val polygon3PointX18 = polygon3Point.polygon3PointX18
+    val polygon3PointY19 = polygon3Point.polygon3PointY19
+    val polygon3PointX19 = polygon3Point.polygon3PointX19
+    val polygon3PointY20 = polygon3Point.polygon3PointY20
+    val polygon3PointX20 = polygon3Point.polygon3PointX20
 
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -416,47 +437,49 @@ fun SettingPointsPolygon3ManualPreview (){
             logMessagePolygon3 = null,
 
 
-            polygon3PointY01 = 1f,
-            polygon3PointX01 = 1f,
-            polygon3PointY02 = 1f,
-            polygon3PointX02 = 1f,
-            polygon3PointY03 = 1f,
-            polygon3PointX03 = 1f,
-            polygon3PointY04 = 1f,
-            polygon3PointX04 = 1f,
-            polygon3PointY05 = 1f,
-            polygon3PointX05 = 1f,
-            polygon3PointY06 = 1f,
-            polygon3PointX06 = 1f,
-            polygon3PointY07 = 1f,
-            polygon3PointX07 = 1f,
-            polygon3PointY08 = 1f,
-            polygon3PointX08 = 1f,
-            polygon3PointY09 = 1f,
-            polygon3PointX09 = 1f,
-            polygon3PointY10 = 1f,
-            polygon3PointX10 = 1f,
+            polygon3Point = CoordinateProtectionViewModule.Polygon3Point(
+                polygon3PointY01 = 1f,
+                polygon3PointX01 = 1f,
+                polygon3PointY02 = 1f,
+                polygon3PointX02 = 1f,
+                polygon3PointY03 = 1f,
+                polygon3PointX03 = 1f,
+                polygon3PointY04 = 1f,
+                polygon3PointX04 = 1f,
+                polygon3PointY05 = 1f,
+                polygon3PointX05 = 1f,
+                polygon3PointY06 = 1f,
+                polygon3PointX06 = 1f,
+                polygon3PointY07 = 1f,
+                polygon3PointX07 = 1f,
+                polygon3PointY08 = 1f,
+                polygon3PointX08 = 1f,
+                polygon3PointY09 = 1f,
+                polygon3PointX09 = 1f,
+                polygon3PointY10 = 1f,
+                polygon3PointX10 = 1f,
 
-            polygon3PointY11 = 1f,
-            polygon3PointX11 = 1f,
-            polygon3PointY12 = 1f,
-            polygon3PointX12 = 1f,
-            polygon3PointY13 = 1f,
-            polygon3PointX13 = 1f,
-            polygon3PointY14 = 1f,
-            polygon3PointX14 = 1f,
-            polygon3PointY15 = 1f,
-            polygon3PointX15 = 1f,
-            polygon3PointY16 = 1f,
-            polygon3PointX16 = 1f,
-            polygon3PointY17 = 1f,
-            polygon3PointX17 = 1f,
-            polygon3PointY18 = 1f,
-            polygon3PointX18 = 1f,
-            polygon3PointY19 = 1f,
-            polygon3PointX19 = 1f,
-            polygon3PointY20 = 1f,
-            polygon3PointX20 = 1f,
+                polygon3PointY11 = 1f,
+                polygon3PointX11 = 1f,
+                polygon3PointY12 = 1f,
+                polygon3PointX12 = 1f,
+                polygon3PointY13 = 1f,
+                polygon3PointX13 = 1f,
+                polygon3PointY14 = 1f,
+                polygon3PointX14 = 1f,
+                polygon3PointY15 = 1f,
+                polygon3PointX15 = 1f,
+                polygon3PointY16 = 1f,
+                polygon3PointX16 = 1f,
+                polygon3PointY17 = 1f,
+                polygon3PointX17 = 1f,
+                polygon3PointY18 = 1f,
+                polygon3PointX18 = 1f,
+                polygon3PointY19 = 1f,
+                polygon3PointX19 = 1f,
+                polygon3PointY20 = 1f,
+                polygon3PointX20 = 1f,
+                )
         )
     }
 }
