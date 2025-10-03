@@ -1,6 +1,5 @@
 package com.example.giraffenew.home.presentation
 
-import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -85,20 +84,19 @@ internal fun HomeScreen (
 //№.1 - Левая область для отображения двух основных окон. (1- кран с ГХ, 2-Стрела и СОЗР. 3 - Статус и сообщения)
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
                 .weight(3f),
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceAround
         ) {
 
-            Box (modifier = Modifier
+            Box (modifier = Modifier.fillMaxSize()
                 .weight(3f))
             {
                 CraneParameterScale(
                     parameterScale = state.parameterScale,
-            ) }
+                ) }
 
-            Box (modifier = Modifier
+            Box (modifier = Modifier.fillMaxSize()
                 .weight(3f))
             { CraneSOZR(
                 sozrParams = state.sozrParams,
@@ -108,7 +106,7 @@ internal fun HomeScreen (
                 polygonP4 = state.polygonP4,
 
 
-            ) }
+                ) }
 
             Box (modifier = Modifier
                 .weight(1f))

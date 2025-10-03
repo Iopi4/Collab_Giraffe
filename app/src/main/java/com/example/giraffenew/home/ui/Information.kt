@@ -62,9 +62,9 @@ fun Information (
     val icCraneDrivePowerError = information.icCraneDrivePowerError //Отключение питания частотного преобразователя хода крана
     val icCANOpenSensorsError = information.icCANOpenSensorsError //Авария сети CANopen (датчики)
     val icCANOpenDrivesError = information.icCANOpenDrivesError //Авария сети CANopen (частотные преобразователи)
-    
+
     val myBoxMainModifier = Modifier
-        .size(width = 324.dp, height = 106.dp)
+        .fillMaxSize()
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
         .fillMaxSize()
@@ -77,7 +77,7 @@ fun Information (
             .any { it == 1 }) 1 else 0
 
     val encoderFault = if (listOf(icHoistEncoderFault, icSlewEncoderFault, icTrolleyEncoderFault, icCraneEncoderFault)
-        .any { it == 1 }) 1 else 0
+            .any { it == 1 }) 1 else 0
 
     val joystickFault = if (listOf(icHoistJoystickError, icSlewJoystickError, icTrolleyJoystickError, icCraneJoystickError)
             .any { it == 1 }) 1 else 0
@@ -96,7 +96,7 @@ fun Information (
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 LampIconInformationAlarm(
                     isLampIconStatus = icPhaseControlRelayFault,

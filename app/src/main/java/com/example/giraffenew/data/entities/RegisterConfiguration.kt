@@ -6,12 +6,12 @@ import kotlinx.serialization.Serializable
 
 /**
  * Room entity для хранения конфигурации регистров Modbus
- * 
+ *
  * Хранит JSON конфигурацию согласно техзаданию:
  * {"registers": [{"address": 90, "name": "hoist_position", "type": "INT16"}]}
- * 
+ *
  * @param id Primary key для Room
- * @param name Название конфигурации для удобства идентификации 
+ * @param name Название конфигурации для удобства идентификации
  * @param jsonConfiguration JSON строка с конфигурацией регистров
  * @param isActive Флаг активности конфигурации (только одна может быть активной)
  * @param createdAt Timestamp создания
@@ -22,15 +22,15 @@ import kotlinx.serialization.Serializable
 data class RegisterConfiguration(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    
+
     val name: String,
-    
+
     val jsonConfiguration: String, // JSON с регистрами
-    
+
     val isActive: Boolean = false,
-    
+
     val createdAt: Long = System.currentTimeMillis(),
-    
+
     val updatedAt: Long = System.currentTimeMillis()
 )
 
@@ -108,47 +108,47 @@ object DefaultRegisterConfiguration {
             
             {"address": 100, "name": "Hoist_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ подъема"},
             {"address": 101, "name": "Hoist_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ подъема"},
-            {"address": 102, "name": "Hoist_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения подъема"},
-            {"address": 103, "name": "Hoist_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения подъема"},
-            {"address": 104, "name": "Hoist_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя подъема"},
+            {"address": 102, "name": "Hoist_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения подъема Гц *0.01"},
+            {"address": 103, "name": "Hoist_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения подъема Гц *0.01"},
+            {"address": 104, "name": "Hoist_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя *0.1"},
             {"address": 106, "name": "Hoist_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 107, "name": "Hoist_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
             {"address": 108, "name": "Hoist_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
             
             {"address": 109, "name": "Slew_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ поворота"},
             {"address": 110, "name": "Slew_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ поворота"},
-            {"address": 111, "name": "Slew_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения"},
-            {"address": 112, "name": "Slew_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения"},
-            {"address": 113, "name": "Slew_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя подъема"},
+            {"address": 111, "name": "Slew_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения Гц *0.01"},
+            {"address": 112, "name": "Slew_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения Гц *0.01"},
+            {"address": 113, "name": "Slew_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя *0.1"},
             {"address": 115, "name": "Slew_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 116, "name": "Slew_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
             {"address": 117, "name": "Slew_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
             
             {"address": 118, "name": "Trolley_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ тележки"},
             {"address": 119, "name": "Trolley_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ тележки"},
-            {"address": 120, "name": "Trolley_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения"},
-            {"address": 121, "name": "Trolley_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения"},
-            {"address": 122, "name": "Trolley_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя подъема"},
+            {"address": 120, "name": "Trolley_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения Гц *0.01"},
+            {"address": 121, "name": "Trolley_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения Гц *0.01"},
+            {"address": 122, "name": "Trolley_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя *0.1"},
             {"address": 124, "name": "Trolley_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 125, "name": "Trolley_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
             {"address": 126, "name": "Trolley_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
             
             {"address": 127, "name": "Crane_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ хода крана"},
             {"address": 128, "name": "Crane_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ хода крана"},
-            {"address": 129, "name": "Crane_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения"},
-            {"address": 130, "name": "Crane_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения"},
-            {"address": 131, "name": "Crane_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя подъема"},
+            {"address": 129, "name": "Crane_TargetVelocity_MW", "type": "WORD16", "description": "Заданная скорость вращения Гц *0.01"},
+            {"address": 130, "name": "Crane_ControlEffort_MW", "type": "WORD16", "description": "Текущая скорость вращения Гц *0.01"},
+            {"address": 131, "name": "Crane_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя  *0.1"},
             {"address": 132, "name": "Crane_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 133, "name": "Crane_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
             {"address": 134, "name": "Crane_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
             
-            {"address": 135, "name": "VoltageL1L2_MW", "type": "WORD16", "description": "Линейное напряжение L1-L2"},
-            {"address": 136, "name": "VoltageL2L3_MW", "type": "WORD16", "description": "Линейное напряжение L2-L3"},
-            {"address": 137, "name": "VoltageL3L1_MW", "type": "WORD16", "description": "Линейное напряжение L3-L1"},
-            {"address": 138, "name": "VoltageL1N_MW", "type": "WORD16", "description": "Линейное напряжение L1-N"},
-            {"address": 139, "name": "VoltageL2N_MW", "type": "WORD16", "description": "Линейное напряжение L2-N"},
-            {"address": 140, "name": "VoltageL3N_MW", "type": "WORD16", "description": "Линейное напряжение L3-N"},
-            {"address": 141, "name": "Frequency_MW", "type": "WORD16", "description": "Частота питающей сети, Гц"},
+            {"address": 135, "name": "VoltageL1L2_MW", "type": "WORD16", "description": "Линейное напряжение L1-L2 *0.1"},
+            {"address": 136, "name": "VoltageL2L3_MW", "type": "WORD16", "description": "Линейное напряжение L2-L3 *0.1"},
+            {"address": 137, "name": "VoltageL3L1_MW", "type": "WORD16", "description": "Линейное напряжение L3-L1 *0.1"},
+            {"address": 138, "name": "VoltageL1N_MW", "type": "WORD16", "description": "Линейное напряжение L1-N *0.1"},
+            {"address": 139, "name": "VoltageL2N_MW", "type": "WORD16", "description": "Линейное напряжение L2-N *0.1"},
+            {"address": 140, "name": "VoltageL3N_MW", "type": "WORD16", "description": "Линейное напряжение L3-N *0.1"},
+            {"address": 141, "name": "Frequency_MW", "type": "WORD16", "description": "Частота питающей сети, Гц *0.1"},
            
             {"address": 142, "name": "HoistRhours_MW", "type": "WORD16", "description": "Наработка моточасов подъема крана"},
             {"address": 143, "name": "SlewRhours_MW", "type": "WORD16", "description": "Наработка моточасов поворота крана"},
@@ -161,7 +161,7 @@ object DefaultRegisterConfiguration {
             {"address": 150, "name": "CraneType_MW", "type": "UINT16", "description": "Модель крана"},
             {"address": 151, "name": "Crane_No_MW", "type": "WORD16", "description": "Заводской номер крана"},
             {"address": 152, "name": "Qnom_MW", "type": "WORD16", "description": "Номинальная грузоподъемность в кг"},
-            {"address": 153, "name": "Weight_MW", "type": "WORD16", "description": "Текущая грузоподъемность в кг"},
+            {"address": 153, "name": "Weight_MW", "type": "WORD16", "description": "Текущая грузоподъемность в тоннах *0.1"},
             {"address": 154, "name": "WindSpeedLvl2_MW", "type": "WORD16", "description": "Предельный ветер нерабочего состояния в м/с"},
             
             {"address": 155, "name": "Trolley_Position_MW", "type": "WORD16", "description": "Текущее положение тележки на стреле *0,1м"},

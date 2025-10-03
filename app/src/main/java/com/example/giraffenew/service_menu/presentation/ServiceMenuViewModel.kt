@@ -198,7 +198,7 @@ class ServiceMenuViewModel
     val logMessageWind: State<String?> = _logMessageWind
 
 
-//СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
+    //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
     //Настройка датчика поворота крана
     //Число зубьев ОПУ крана
     private val _setValueSlewNumberTeethOPU = mutableStateOf("")
@@ -244,7 +244,7 @@ class ServiceMenuViewModel
     val logMessageCTRLPoint: State<String?> = _logMessageCTRLPoint
 
 
-//СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА УСИЛИЯ
+    //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА УСИЛИЯ
     private val _setLoadCellMinWeight = mutableStateOf("")
     val setLoadCellMinWeight: State<String> = _setLoadCellMinWeight
 
@@ -275,6 +275,7 @@ class ServiceMenuViewModel
         1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
         1705, 1730, 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738,
         1739, 1740, 1741, 1742, 1743, 1744,
+        2001
         // Регистры для считывания
     )
 
@@ -360,6 +361,7 @@ class ServiceMenuViewModel
                 currentWithoutRingCurrentCollector = cache[753] ?: 0,
                 currentZoneACCDECActive = cache[754] ?: 0,
                 currentLukModeActiveEn = cache[755] ?: 0,
+                currentAndroidModeActiveEn = cache[2001] ?: 0,
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
                 currentAbsEncDeltaControlEn = cache[755] ?: 0,
                 currentAbsEncDebugModeHoist = cache[756] ?: 0,
@@ -426,7 +428,7 @@ class ServiceMenuViewModel
                 hmiZoneDecSlew = safeDivideTens(cache[1654] ?: 0),
 
 
-            ),
+                ),
             trolleyDriveState = TrolleyDriveState(
                 hmiSpdRefLowTrolley = cache[1690] ?: 0,
                 hmiSpdRef1Trolley   = cache[1691] ?: 0,
@@ -464,7 +466,7 @@ class ServiceMenuViewModel
                 hmiZoneAccCrane = safeDivideTens(cache[1743] ?: 0),
                 hmiZoneDecCrane = safeDivideTens(cache[1744] ?: 0)
             ),
-            )
+        )
     }
 
     private fun safeDivideTens(value: Int?): Float {
@@ -526,6 +528,7 @@ class ServiceMenuViewModel
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
         val currentLukModeActiveEn: Int = 0,
+        val currentAndroidModeActiveEn: Int = 0,
         val craneCTRLPointEN: Int = 0, //Флаг включения, отключения датчика реперной точки хода крана
         val ctrlPointControlInterval: Float = 0f, //Интервал контроля реперной точки
     )
@@ -875,7 +878,7 @@ class ServiceMenuViewModel
 
 
     /**
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ПОВОРОТА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ПОВОРОТА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
     // Slew. Запись времени разгона [сек]
@@ -992,7 +995,7 @@ class ServiceMenuViewModel
 
 
     /**
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ТЕЛЕЖКИ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОД ТЕЛЕЖКИ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     // Trolley. Запись времени разгона [сек]
     fun onSetTrolleyACC() {
@@ -1720,6 +1723,22 @@ class ServiceMenuViewModel
                 modbusRepository.writeRegister(1209, 1)
                 delay(200)
                 modbusRepository.writeRegister(1209, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // Ingener. Включение доступа к функциям Android
+    fun onSetAndroidModeActiveEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                // Активация калибровки
+                modbusRepository.writeRegister(2000, 1)
+                delay(200)
+                modbusRepository.writeRegister(2000, 0)
                 // Логирование
             } catch (e: Exception) {
             }

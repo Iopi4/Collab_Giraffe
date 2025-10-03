@@ -1,0 +1,73 @@
+package com.example.giraffenew.home.ui.button
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.giraffenew.R
+import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+
+@Composable
+fun ButtonIconAndroid(
+    onClick: () -> Unit,
+    isKioskModeEnabled: Boolean
+) {
+    val iconColor = if (isKioskModeEnabled) {
+        colorResource(R.color.Grey) // Серый - доступ к Android запрещен
+    } else {
+        colorResource(R.color.Emerald) // Зеленый - доступ к Android разрешен
+    }
+
+    val description = if (isKioskModeEnabled) {
+        "Доступен"
+    } else {
+        "Не доступен"
+    }
+
+    Box(
+        modifier = Modifier
+            .size(width = 35.dp, height = 35.dp)
+            .padding(start = 10.dp),
+        contentAlignment = Alignment.TopStart
+    ) {
+        Button(
+            onClick = onClick,
+            contentPadding = PaddingValues(1.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.Orange),
+                contentColor = Color.White
+            ),
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_topbar_android),
+                contentDescription = description,
+                modifier = Modifier.size(35.dp),
+                tint = iconColor
+            )
+        }
+    }
+}
+
+
+
+@Preview
+@Composable
+fun ButtonIconAndroidPreview (){
+    GIRAFFEnewTheme (dynamicColor = false) {
+        ButtonIconAndroid(
+            onClick = {},
+            isKioskModeEnabled = false,
+        )
+    }
+}

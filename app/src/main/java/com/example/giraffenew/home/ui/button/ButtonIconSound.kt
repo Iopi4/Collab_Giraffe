@@ -1,4 +1,4 @@
-package com.example.giraffenew.home.ui.bottom
+package com.example.giraffenew.home.ui.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,7 +22,7 @@ import com.example.giraffenew.home.ui.scale.ScaleVerticalSound
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
-fun BottomIconSound(
+fun ButtonIconSound(
     currentVolume: Float,
     onClick: () -> Unit,
     modifier: Modifier
@@ -66,9 +66,9 @@ fun BottomIconSound(
 
 @Preview
 @Composable
-fun BottomIconSoundPreview (){
+fun BottomIconSound2Preview (){
     GIRAFFEnewTheme (dynamicColor = false) {
-        BottomIconSound(
+        ButtonIconSound(
             currentVolume = 0.9f,
             onClick = {},
             modifier = Modifier.size(width = 12.dp, height = 40.dp)

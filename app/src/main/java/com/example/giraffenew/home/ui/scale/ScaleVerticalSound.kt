@@ -24,8 +24,8 @@ fun ScaleVerticalSound(
     currentVolume: Float,
     modifier: Modifier,
 ) {
-    val minValue = 0f
-    val maxValue = 0.5f // Максимальное значение из требований
+    val minValue = 0.5f
+    val maxValue = 1f // Максимальное значение из требований
     val lineThickness = 16f
     val animationDuration = 100
 
@@ -68,7 +68,7 @@ fun ScaleVerticalSound(
 
 
             // Дополнительно: рисуем маркеры для уровней громкости
-            val levels = listOf(0.1f, 0.3f, 0.5f)
+            val levels = listOf(0.5f, 0.7f, 1f)
             levels.forEach { level ->
                 val levelRatio = (level - minValue) / (maxValue - minValue)
                 val markerY = size.height - lineThickness / 2 - availableHeight * levelRatio
@@ -85,13 +85,13 @@ fun ScaleVerticalSound(
 
 @Preview
 @Composable
-fun ScaleVerticalSoundPreview() {
+fun ScaleVerticalSound2Preview() {
     GIRAFFEnewTheme(dynamicColor = false) {
         ScaleVerticalSound(
-                currentVolume = 0.9f,
-                modifier = Modifier
-                    .size(width = 10.dp, height = 40.dp)
-            )
+            currentVolume = 0.9f,
+            modifier = Modifier
+                .size(width = 10.dp, height = 40.dp)
+        )
 
     }
 }

@@ -39,14 +39,12 @@ fun StatusDriveCS710 (
         )
 
     val statusWordDrive: String = when (valueParameterId) {
-        129 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit0)
-        130 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit1)
-        132 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit2)
-        136 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit3)
-        144 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit4)
-        160 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit5)
-        192 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit6)
-        128 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_bit7)
+        40 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_40)
+        45 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_45)
+        43 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_43)
+        109 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_109)
+        107 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_107)
+        5152 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_5152)
      else -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_Not_Available)
     }
     Box (myBoxVisualValuesModifier) {

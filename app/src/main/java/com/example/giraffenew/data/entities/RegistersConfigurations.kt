@@ -102,7 +102,7 @@ object UiHomeScreenRegisterConfiguration {
     val REGISTERS = listOf(
         //addressesCraneOperatingParameters
         RegisterInfo(152, "Qnom_MW", "WORD16", "Номинальная грузоподъемность в кг"),
-        RegisterInfo(153, "Weight_MW", "WORD16", "Текущая грузоподъемность в кг"),
+        RegisterInfo(153, "Weight_MW", "WORD16", "Текущая грузоподъемность в тоннах"),
         RegisterInfo(155, "Trolley_Position_MW", "WORD16", "Текущее положение тележки на стреле *0,1м"),
         RegisterInfo(158, "Rotation_Position_MW", "WORD16", "Текущий угол поворота"),
         RegisterInfo(159, "Hoist_Position_MW", "WORD16", "Текущее положение подъема *0,1м"),
@@ -714,7 +714,7 @@ object UISettingLoadCapacityConfiguration {
         RegisterInfo(866, "HMI_Write_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз"),
 
         RegisterInfo(868, "HMI_Write_xUISettingLoadCapacity_Active_MW", "WORD16", "Флаг активности экрана настройки грузоподъемности")
-        )
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1165,7 +1165,7 @@ object UICoordinateProtectionConfiguration {
         RegisterInfo(1158, "HMI_Points_P4_19_0_Config_MW", "WORD16", "Точка 20X многоугольника внутри блока конфигурации полигона 1"),
         RegisterInfo(1159, "HMI_Points_P4_19_1_Config_MW", "WORD16", "Точка 20Y многоугольника внутри блока конфигурации полигона 1"),
 
-    )
+        )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1444,7 +1444,7 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(1743, "HMI_ZoneAcc_Crane_MW", "WORD16", "Зона регулирования ускорения крана"),
         RegisterInfo(1744, "HMI_ZoneDec_Crane_MW", "WORD16", "Зона регулирования замедления крана"),
 
-    )
+        )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1598,7 +1598,7 @@ object UIDiagnosticRegisterConfiguration {
         // Аналоговые входы Модуля
         RegisterInfo(380, "HMI_LoadCellSensor_MW", "WORD16", "Датчик нагрузки"),
         RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр")
-        )
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1687,7 +1687,7 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(93, "R_CycleCrane_MW_2", "WORD32", "Рабочие циклы хода крана"),
         RegisterInfo(96, "R_CycleHoleCrane_MW_1", "WORD32", "Рабочие циклы крана в целом"),
         RegisterInfo(97, "R_CycleHoleCrane_MW_2", "WORD32", "Рабочие циклы крана в целом"),
-        )
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1719,7 +1719,7 @@ object UITechnicalMaintenanceConfiguration {
 
         RegisterInfo(366, "HMI_TotalCraneOperatingHours_Maintenance_MW", "WORD16", "Моточасы крана для технического обслуживания"),
         RegisterInfo(867, "HMI_WritesTOReset_MW", "WORD16", "Команда сброса счетчика ТО"),
-        )
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
@@ -1853,7 +1853,7 @@ object UILoginConfiguration {
         RegisterInfo(801, "HMI_Write_LoginButton_MW", "WORD16", "Кнопка LogIn"),
         RegisterInfo(802, "HMI_Write_ExitLevel_MW", "WORD16", "Выход из наладки и сервиса"),
         RegisterInfo(751, "HMI_xPasswordOrNaladka_MW", "WORD16", "Флаг.Режим авторизации наладки"),
-        )
+    )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 

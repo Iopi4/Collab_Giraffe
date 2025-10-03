@@ -122,8 +122,8 @@ class DiagnosticViewModule @Inject constructor(
                 hoistDriveError = cache[720] ?: 0,
                 hoistFault = cache[108] ?: 0,
                 hoistDriveErrorCode = cache[738] ?: 0,
-                hoistTargetVelocity = safeDivideTens(cache[102] ?: 0),
-                hoistControlEffort = safeDivideTens(cache[103] ?: 0),
+                hoistTargetVelocity = safeDivideHundred(cache[102] ?: 0),
+                hoistControlEffort = safeDivideHundred(cache[103] ?: 0),
                 hoistMotorCurrent = safeDivideTens(cache[104] ?: 0),
                 hoistEncoder = cache[177] ?: 0,
                 hoistIL1R = cache[106] ?: 0,
@@ -134,8 +134,8 @@ class DiagnosticViewModule @Inject constructor(
                 slewDriveError = cache[721] ?: 0,
                 slewFault = cache[117] ?: 0,
                 slewDriveErrorCode = cache[739] ?: 0,
-                slewTargetVelocity = safeDivideTens(cache[111] ?: 0),
-                slewControlEffort = safeDivideTens(cache[112] ?: 0),
+                slewTargetVelocity = safeDivideHundred(cache[111] ?: 0),
+                slewControlEffort = safeDivideHundred(cache[112] ?: 0),
                 slewMotorCurrent = safeDivideTens(cache[113] ?: 0),
                 slewEncoder = cache[178] ?: 0,
                 slewIL1R = cache[115] ?: 0,
@@ -146,8 +146,8 @@ class DiagnosticViewModule @Inject constructor(
                 trolleyDriveError = cache[722] ?: 0,
                 trolleyFault = cache[126] ?: 0,
                 trolleyDriveErrorCode = cache[740] ?: 0,
-                trolleyTargetVelocity = safeDivideTens(cache[120] ?: 0),
-                trolleyControlEffort = safeDivideTens(cache[121] ?: 0),
+                trolleyTargetVelocity = safeDivideHundred(cache[120] ?: 0),
+                trolleyControlEffort = safeDivideHundred(cache[121] ?: 0),
                 trolleyMotorCurrent = safeDivideTens(cache[122] ?: 0),
                 trolleyEncoder = cache[179] ?: 0,
                 trolleyIL1R = cache[124] ?: 0,
@@ -158,8 +158,8 @@ class DiagnosticViewModule @Inject constructor(
                 craneDriveError = cache[723] ?: 0,
                 craneFault = cache[134] ?: 0,
                 craneDriveErrorCode = cache[741] ?: 0,
-                craneTargetVelocity = safeDivideTens(cache[129] ?: 0),
-                craneControlEffort = safeDivideTens(cache[130] ?: 0),
+                craneTargetVelocity = safeDivideHundred(cache[129] ?: 0),
+                craneControlEffort = safeDivideHundred(cache[130] ?: 0),
                 craneMotorCurrent = safeDivideTens(cache[131] ?: 0),
                 craneIL1R = cache[132] ?: 0,
                 craneOL1R = cache[133] ?: 0,
@@ -219,6 +219,11 @@ class DiagnosticViewModule @Inject constructor(
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
+
+    private fun safeDivideHundred(value: Int?): Float {
+        return (value ?: 0) / 100f
+    }
+
     private fun safeDivideThousands(value: Int?): Float {
         return (value ?: 0) / 1000f
     }
@@ -228,7 +233,7 @@ class DiagnosticViewModule @Inject constructor(
         val systemParams: ControlSystemParametersState = ControlSystemParametersState(),
         val drivesParameters: DrivesParametersState = DrivesParametersState(),
         val plcParameters: PLCParametersState = PLCParametersState(),
-        )
+    )
 
 
     data class ControlSystemParametersState(

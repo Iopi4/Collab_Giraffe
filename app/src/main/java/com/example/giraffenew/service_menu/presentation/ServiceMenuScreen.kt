@@ -83,6 +83,7 @@ fun ServiceMenuScreen(
                 onSetWithoutRingCurrentCollectorEn = { serviceMenuViewModel.onSetWithoutRingCurrentCollectorEn()},
                 onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
                 onSetLukModeActiveEn= { serviceMenuViewModel.onSetLukModeActiveEn()},
+                onSetAndroidModeActiveEn = {serviceMenuViewModel.onSetAndroidModeActiveEn()},
 
                 currentDataLogErrStopHoist = serviceMenuViewModel.state.value.sensorsAndUserState.currentDataLogErrStopHoist,
                 currentPasswordOrNaladka = serviceMenuViewModel.state.value.sensorsAndUserState.currentPasswordOrNaladka,
@@ -90,6 +91,7 @@ fun ServiceMenuScreen(
                 currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.sensorsAndUserState.currentWithoutRingCurrentCollector,
                 currentZoneACCDECActive = serviceMenuViewModel.state.value.sensorsAndUserState.currentZoneACCDECActive,
                 currentLukModeActiveEn  = serviceMenuViewModel.state.value.sensorsAndUserState.currentLukModeActiveEn,
+                currentAndroidModeActiveEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentAndroidModeActiveEn,
             )}
         }
     }

@@ -4,6 +4,7 @@
 
     <string name="nul">nul</string>
     <string name="spacer"> </string>
+    <string name="accessibility_service_description">Служба для блокировки кнопки Recent Apps в режиме киоска</string>
 
     <!-- Универсальный текст -->
     <string name="Button_ON">Ок</string>
@@ -366,6 +367,7 @@
     <string name="ServiceMenu_Text_User_Current_Collector">Исполнение без кольцевого токсъемника [вкл/выкл]</string>
     <string name="ServiceMenu_Text_User_Setting_Mode_ACC_DEC">Режим настройки ускорений и торможений [вкл/выкл]</string>
     <string name="ServiceMenu_Text_User_Setting_Luk_Mode">Отключить контроль датчика люка в ОПУ. [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_Setting_Android">Доступ к функциям Android [вкл/выкл]</string>
 
     <!-- Текст экрана ServiceMenuScreen' -->
 
@@ -419,32 +421,36 @@
     <string name="Diagnostic_Text_System_Status_Sensor_Slewing">Датчик поворота</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Crane">Датчик хода</string>
     <string name="Diagnostic_Text_System_Status_Sensor_Crane_Reference_Point">Реперная точка хода</string>
-    <string name="Diagnostic_Text_System_Status_Hoist">Привод подъема</string>
-    <string name="Diagnostic_Text_System_Status_Slewing">Привод поворота</string>
-    <string name="Diagnostic_Text_System_Status_Trolley">Привод тележки</string>
-    <string name="Diagnostic_Text_System_Status_Crane">Привод хода</string>
+    <string name="Diagnostic_Text_System_Status_Hoist">Статус. Привод подъема</string>
+    <string name="Diagnostic_Text_System_Status_Slewing">Статус.Привод поворота</string>
+    <string name="Diagnostic_Text_System_Status_Trolley">Статус.Привод тележки</string>
+    <string name="Diagnostic_Text_System_Status_Crane">Статус.Привод хода</string>
 
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_Not_Available">Не подключен</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit0">Торможение</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit1">Выбег</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit2">Работает. Вперед</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit3">Работает. Назад</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit4">Быстрый останов</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit5">Управление моментом</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit6">Сброс ошибок</string>
-    <string name="Diagnostic_Text_System_Status_Word_Hoist_bit7">Готов</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_Not_Available">Not Found</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_40">RDY</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_45">ACC/DEC_Fwd</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_43">ACC/DEC_Rev</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_109">RUN_Fwd</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_107">RUN_Rev</string>
+    <string name="Diagnostic_Text_System_Status_Word_Hoist_5152">Fault</string>
+
+    <string name="Diagnostic_Text_System_Control_Word_Hoist_Not_Available">Not Found</string>
+    <string name="Diagnostic_Text_System_Control_Word_Hoist_129">STOP</string>
+    <string name="Diagnostic_Text_System_Control_Word_Hoist_136">RUN_Fwd</string>
+    <string name="Diagnostic_Text_System_Control_Word_Hoist_132">RUN_Rev</string>
 
 
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_Not_Available">Не подключен</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit0_0">Не подключен</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit0_1">Готовность</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_0">Работает. Вперед</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_1">Работает. Назад</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit2_0">Неисправен</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit2_1">Исправен</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_0">Раб. част. не достигнута</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_1">Раб. част. достигнута</string>
-    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit8_15">Неисправен</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_Not_Available">Not Found</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_16">RDY</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_17">ACC/DEC_Fwd</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_19">ACC/DEC_Rev</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_25">RUN_Fwd</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_27">RUN_Rev</string>
+    <string name="Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_7700">Fault</string>
+
+    <string name="Diagnostic_Text_System_Control_Word_SlewTrolleyCrane_6">STOP</string>
+    <string name="Diagnostic_Text_System_Control_Word_SlewTrolleyCrane_1">RUN_Fwd</string>
+    <string name="Diagnostic_Text_System_Control_Word_SlewTrolleyCrane_2">RUN_Rev</string>
 
 
     <!-- Диагностика. Вкладка ПЛК -->
@@ -529,14 +535,14 @@
 
     <!-- Диагностика. Вкладки приводов Подъем, Поворот, Тележка, Ход крана -->
     <!-- Параметры привода -->
-    <string name="Diagnostic_Text_Drive_Readiness">Готовность привода к работе</string>
-    <string name="Diagnostic_Text_Drive_Status">Состояние привода</string>
+    <string name="Diagnostic_Text_Drive_Readiness">Разрешение работы привода</string>
+    <string name="Diagnostic_Text_Drive_Control_Status">Команда управления</string>
     <string name="Diagnostic_Text_Drive_Status_Encoder">Состояние энкодера</string>
     <string name="Diagnostic_Text_Drive_Amperage">Ток, А</string>
     <string name="Diagnostic_Text_Drive_Speed_Setting">Заданная скорость, Гц</string>
     <string name="Diagnostic_Text_Drive_Speed_Current">Текущая скорость, Гц</string>
     <string name="Diagnostic_Text_Drive_Encoder">Энкодер</string>
-    <string name="Diagnostic_Text_Drive_Fault">Ошибка привода</string>
+    <string name="Diagnostic_Text_Drive_Fault">Привод в ошибке</string>
     <string name="Diagnostic_Text_Drive_Last_Fault">Последняя ошибка</string>
     <string name="Diagnostic_Text_Drive_Magazine_Fault">Журнал ошибок</string>
     <!-- Состояние входов выходов -->

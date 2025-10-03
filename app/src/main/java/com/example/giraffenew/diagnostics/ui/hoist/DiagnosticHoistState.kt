@@ -22,6 +22,8 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParame
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.diagnostics.ui.text.ControlDriveCS710
+import com.example.giraffenew.diagnostics.ui.text.StatusDriveCS710
 
 @Composable
 fun DiagnosticHoistState (
@@ -35,6 +37,9 @@ fun DiagnosticHoistState (
     hoistMotorCurrent: Float,
     hoistEncoder:Int,
 ){
+
+
+
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -58,7 +63,7 @@ fun DiagnosticHoistState (
 
 //Наименование параметров диагностики состояния преобразователя частоты привода подъема
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Readiness)
-            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Status)
+            BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Control_Status)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Fault)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Amperage)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_Drive_Speed_Setting)
@@ -95,18 +100,12 @@ fun DiagnosticHoistState (
                 }
             }
 
-// Отображение статус Состояние привода
-            Row(horizontalArrangement = Arrangement.Start) {
-                Box(modifier = Modifier.padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(3f))
-                Box(modifier = Modifier
-                    .weight(1f)
-                    .size(height = 35.dp, width = 35.dp)
-                    .padding(start = 5.dp)) {
-                    BasicLampSettingParameter(
-                        isLampStatus = hoistControlWord
-                    )
-                }
+// Отображение статус команды управления приводом
+            Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
+                ControlDriveCS710(
+                    modifier = Modifier,
+                    valueParameterId = hoistControlWord
+                )
             }
 
 // Отображение статус Ошибка привода

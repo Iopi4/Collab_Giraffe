@@ -636,7 +636,7 @@ fun CraneSOZR(
                 style = Stroke(width = 2.dp.toPx()),
             )
 
-// Отрисовка положеня тележки. Trolley
+// Отрисовка положения тележки. Trolley
             val centerTrolley = Offset(size.width/2, size.height/2)
             val radiusTrolley = hmiCircleSizeTrolley / 2
             val radiusPxTrolley = radiusTrolley.coerceIn(7,120).dp.toPx()

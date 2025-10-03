@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.giraffenew.R
 import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.EventTimeProvider
+import com.example.giraffenew.data.repositories.SettingsRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
 import kotlinx.coroutines.delay
@@ -41,11 +42,11 @@ import java.util.Calendar
 class TopBarViewModel @Inject constructor(
     private val modbusRepository: ModbusRepository,
     private val craneIdRepository: CraneIdRepository,
-    private val soundController: SoundController,
+    val soundController: SoundController,
     private val eventTimeProvider: EventTimeProvider,
     private val craneRepository: CraneRepository,
     private var timeZoneRepository: TimeZoneRepository,
-
+    private val settingsRepository: SettingsRepository
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
 
@@ -53,6 +54,13 @@ class TopBarViewModel @Inject constructor(
     private var lastAppState: Boolean? = null
     private val mutex = Mutex()
 
+
+    //1.1 Создадим переменные и функцию для управления уровнем громкости звуковых сигналов на главном экрана
+    // Начальное значение Medium. Уровень громкости для звукового оповешения
+    private val _currentVolume = mutableStateOf(settingsRepository.getVolumeLevel())
+    val currentVolume: State<Float> = _currentVolume
+
+    private val volumeLevels = listOf(0.7f, 1f, 0.5f) //Low, Medium, Max
 
 
 
@@ -101,6 +109,7 @@ class TopBarViewModel @Inject constructor(
     private var currentTimeZoneUTC: Int? = null
 
     init {
+        Log.d("TopBarViewModel", "Init called, initial volume: ${_currentVolume.value}")
         startDataCollection()
         setupAppStateMonitoring()
 
@@ -108,6 +117,23 @@ class TopBarViewModel @Inject constructor(
         observeCraneDatabase()
         // Запускаем наблюдение за изменениями в базе данных часовых поясов
         observeTimeZoneDatabase()
+
+        // Устанавливаем независимую громкость при инициализации
+        soundController.setAppVolumeIndependent()
+    }
+
+    fun toggleVolume() {
+        val currentIndex = volumeLevels.indexOf(_currentVolume.value)
+        val nextIndex = (currentIndex + 1) % volumeLevels.size
+        val newVolume = volumeLevels[nextIndex]
+
+        _currentVolume.value = newVolume
+        settingsRepository.saveVolumeLevel(newVolume)
+
+        // Применяем новую громкость
+        soundController.setAppVolumeIndependent()
+
+        Log.d("TopBarViewModel", "Volume toggled to: $newVolume")
     }
 
     private fun startDataCollection() {
@@ -156,11 +182,12 @@ class TopBarViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        // Убрать вызов soundController.release()
-        soundController.release()
-    }
+    //override fun onCleared() {
+    //super.onCleared()
+    // Убрать вызов soundController.release()
+    //soundController.release()
+    //}
+
     // Функция для проверки изменений в relevant регистрах
     private fun haveRelevantRegistersChanged(currentValues: Map<Int, Int?>): Boolean {
         return addresses.any { address ->
@@ -345,6 +372,14 @@ class TopBarViewModel @Inject constructor(
     fun playInactiveButtonSound() {
         soundController.playSoundOnce(R.raw.beep_sound_neaktive_knopka_half_life)
     }
+
+
+    //Закомментировать.
+    override fun onCleared() {
+        super.onCleared()
+        //soundController.release()
+    }
+
 }
 
 /**

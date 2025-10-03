@@ -1,5 +1,6 @@
 package com.example.giraffenew.home.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,8 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,13 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.giraffenew.ui.theme.DarkLemon
 import com.example.giraffenew.R
-import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightHiHi
 import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.home.presentation.HomeScreenViewModel
-import com.example.giraffenew.home.ui.bottom.BottomIconSound
+import com.example.giraffenew.home.ui.button.ButtonIconSound
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
@@ -41,12 +39,12 @@ import com.example.giraffenew.home.ui.lamp.LampIconInformationWorking
 import com.example.giraffenew.home.ui.lamp.LampWindStatus
 import com.example.giraffenew.home.ui.scale.ScaleVerticalHoist
 import com.example.giraffenew.home.ui.scale.ScaleVerticalWind
+import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun CraneParameterScale(
     parameterScale: HomeScreenViewModel.CraneParameterScaleState,
-    //viewModel: HomeScreenViewModel = hiltViewModel(),
 ){
     val weightPercent = parameterScale.weightPercent
     val hoistPosition = parameterScale.hoistPosition
@@ -70,21 +68,15 @@ fun CraneParameterScale(
     val icHoistBrakeSensor = parameterScale.icHoistBrakeSensor
     val icCraneRailsEn = parameterScale.icCraneRailsEn
 
-    val viewModel: HomeScreenViewModel = hiltViewModel()
+    val viewModel: TopBarViewModel = hiltViewModel()
+    Log.d("CraneParameterScale", "Current volume: ${viewModel.currentVolume.value}")
 
     val currentVolume = viewModel.currentVolume.value
 
-    val soundController = viewModel.soundController
-
-    // Синхронизируем громкость
-    LaunchedEffect(currentVolume) {
-        soundController?.setVolume(currentVolume)
-    }
-
     val myBoxMainModifier = Modifier
+        .fillMaxSize()
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
-        .size(324.dp)
         .border(
             width = 2.dp,
             color = DarkLemon,
@@ -98,7 +90,7 @@ fun CraneParameterScale(
             .padding(start = 10.dp, top =10.dp, end = 100.dp, bottom = 100.dp),
             contentAlignment = Alignment.TopStart)
         {
-            BottomIconSound(
+            ButtonIconSound(
                 currentVolume = currentVolume,
                 onClick ={viewModel.toggleVolume()},
                 modifier = Modifier.size(width = 12.dp, height = 40.dp)
@@ -114,7 +106,7 @@ fun CraneParameterScale(
         BasicParametersText(
             stringResource(R.string.Home_LOADING_CAPACITY),
             modifier = Modifier
-            .padding(start = 130.dp, end = 5.dp, top = 10.dp))
+                .padding(start = 130.dp, end = 5.dp, top = 10.dp))
 
         Box(
             modifier = Modifier
@@ -195,8 +187,8 @@ fun CraneParameterScale(
             contentAlignment = Alignment.TopStart
         ) {
             BasicParametersText(
-            formatDecimalMinus(hoistMaxPosition),
-            modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp))}
+                formatDecimalMinus(hoistMaxPosition),
+                modifier = Modifier.padding(start = 4.dp, end = 4.dp, top = 2.dp, bottom = 2.dp))}
 
 
         //Шкала
@@ -217,7 +209,7 @@ fun CraneParameterScale(
         BasicParametersText(
             stringResource(R.string.Home_MOVE_CRANE),
             modifier = Modifier
-            .padding(start = 10.dp, top = 230.dp))
+                .padding(start = 10.dp, top = 230.dp))
         //Значение максимальной длины кранового пути
         BasicParametersText(
             formatDecimal(craneMaxPosition),

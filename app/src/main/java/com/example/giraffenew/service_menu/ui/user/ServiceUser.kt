@@ -41,7 +41,12 @@ fun ServiceUser(
 
     onSetLukModeActiveEn: () -> Unit,
     currentLukModeActiveEn: Int,
-){
+
+    onSetAndroidModeActiveEn: () -> Unit,
+    currentAndroidModeActiveEn: Int,
+
+
+    ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -75,6 +80,7 @@ fun ServiceUser(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Current_Collector)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Mode_ACC_DEC)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Luk_Mode)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Android)
         }
 
 //№.2 - Правая область для отображения и ввода параметров сервисного инженера
@@ -129,6 +135,11 @@ fun ServiceUser(
                 onClick = onSetLukModeActiveEn,
                 isLampStatus = currentLukModeActiveEn
             )
+//Поле. Включение доступа к функциям Android [вкл/выкл]
+            BasicButtonOnOffStatus(
+                onClick = onSetAndroidModeActiveEn,
+                isLampStatus = currentAndroidModeActiveEn
+            )
         }
     }
 }
@@ -142,20 +153,22 @@ fun ServiceUserPreview () {
             currentDataLogErrStopHoist = 1,
 
             onSetPasswordNaladka = { },
-            currentPasswordOrNaladka =1,
+            currentPasswordOrNaladka = 1,
 
             onSetFourPolygonsEn = { },
-            currentFOURPolygonsEn =1,
+            currentFOURPolygonsEn = 1,
 
             onSetWithoutRingCurrentCollectorEn = { },
             currentWithoutRingCurrentCollector = 1,
 
             onSetZoneACCDECActiveEn = { },
-            currentZoneACCDECActive =1,
+            currentZoneACCDECActive = 1,
 
-            onSetLukModeActiveEn= { },
-            currentLukModeActiveEn=1,
+            onSetLukModeActiveEn = { },
+            currentLukModeActiveEn = 1,
 
+            onSetAndroidModeActiveEn = { },
+            currentAndroidModeActiveEn = 1,
         )
     }
 }

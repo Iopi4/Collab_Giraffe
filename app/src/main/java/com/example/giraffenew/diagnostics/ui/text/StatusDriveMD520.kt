@@ -38,13 +38,13 @@ fun StatusDriveMD520 (
             shape = RoundedCornerShape(5.dp)
         )
     val statusWordDrive: String = when (valueParameterId) {
-        0 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit0_0)
-        1 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_0)
-        3 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit1_1)
-        4 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit2_1)
-        9 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_0)
-        11 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit3_1)
-        else -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_bit8_15)
+        16 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_16)
+        17 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_17)
+        19 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_19)
+        25 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_25)
+        27 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_27)
+        7700 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_7700)
+        else -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_Not_Available)
     }
     Box (myBoxVisualValuesModifier) {
         Text(modifier = modifier
@@ -64,7 +64,7 @@ fun StatusDriveMD520Preview (){
     GIRAFFEnewTheme(dynamicColor = false) {
         StatusDriveMD520(
             modifier = Modifier,
-            valueParameterId = 3
+            valueParameterId = 16
         )
     }
 }
