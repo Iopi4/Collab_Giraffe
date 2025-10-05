@@ -131,7 +131,7 @@ fun Parameters(
 // Отображение Характеристическое число [N..]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = formatDoubleWord(rN1,rN2)
+                    valueParameterId = formatCharacteristicNumber(rN1, rN2)
                 )
             }
 // Отображение Время последней наладки
@@ -183,19 +183,24 @@ fun Parameters(
 }
 
 private fun format(value: Int): String {
-    return String.format("%05d", value)
+    return String.format("%d", value)
 }
 private fun formatMode(value: Int): String {
-    return String.format("%02d", value)
+    return String.format("%d", value)
 }
-
-
 private fun formatDecimal(value: Float): String {
-    return String.format("%03.2f", value).replace(',', '.')
+    return String.format("%02.0f", value).replace(',', '.')
 }
 
-private fun formatDoubleWord(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+private fun formatCharacteristicNumber(rN1: Int, rN2: Int): String {
+    // Объединяем два 16-битных значения в одно 32-битное целое
+    val combined = (rN2.toLong() shl 16) or (rN1.toLong() and 0xFFFF)
+
+    // Делим на 100.0 чтобы получить исходное значение с двумя знаками после запятой
+    val originalValue = combined.toDouble() / 100.0
+
+    // Форматируем с двумя знаками после запятой
+    return String.format("%.2f", originalValue).replace(',', '.')
 }
 
 private fun formatDateSettingMode(day: Int, month: Int, year: Int, hour: Int, minute: Int,): String {
@@ -212,15 +217,15 @@ private fun formatDateSBKB(day: Int, month: Int, year: Int,): String {
 fun ParametersPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         Parameters(
-            qNom = 1,
+            qNom = 10000,
             craneLenght = 1f,
             rAP = 1,
             rAFIso = 1,
             rQF = 1,
             kP = 1,
             classOfUseC = 1,
-            rN1 = 1,
-            rN2 = 1,
+            rN1 = 3289,
+            rN2 = 0,
             settingModeYear = 1,
             settingModeMonth = 1,
             settingModeDay = 1,

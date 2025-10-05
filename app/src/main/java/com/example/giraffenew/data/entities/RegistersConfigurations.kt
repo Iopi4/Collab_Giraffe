@@ -1633,7 +1633,7 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(172, "AF_Iso_MW", "WORD16", "Фактическая группа режима работы по ИСО"),
         RegisterInfo(173, "R_Q_MW", "WORD16", "Фактический класс нагружения"),
         RegisterInfo(174, "Kp_MW", "WORD16", "Коэффициент нагружения Кр"),
-        RegisterInfo(175, "C_MW", "WORD16", "Класс использования С"),
+        RegisterInfo(283, "C_MW", "WORD16", "Класс использования С"),
         RegisterInfo(0, "R_N_MW_1", "WORD16", "текущее характеристическое число"),
         RegisterInfo(1, "R_N_MW_2", "WORD16", "текущее характеристическое число"),
 
@@ -1644,8 +1644,8 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(169, "SettingModeMinute_MW", "WORD16", "Дата и время включения последнего режима наладки"),
         RegisterInfo(170, "SettingModeSeconds_MW", "WORD16", "Дата и время включения последнего режима наладки"),
 
-        RegisterInfo(367, "HMI_sR_SBKB_No_MW", "WORD16", "Заводской номер СБКБ"),
-        RegisterInfo(368, "HMI_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),
+        RegisterInfo(368, "HMI_sR_SBKB_No_MW", "WORD16", "Заводской номер СБКБ"),
+        RegisterInfo(367, "HMI_sR_Crane_No_MW", "WORD16", "Заводской номер крана"),
 
         RegisterInfo(369, "HMI_SBKB_InstallationDay_MW", "WORD16", "День установки системы безопасности"),
         RegisterInfo(370, "HMI_SBKB_InstallationMonth_MW", "WORD16", "Месяц установки системы безопасности"),

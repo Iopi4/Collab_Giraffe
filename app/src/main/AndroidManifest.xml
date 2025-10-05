@@ -26,6 +26,9 @@
     <!-- Разрешение ACCESS_NOTIFICATION_POLICY для игнорирования режима "Не беспокоить" выставленное пользователя Андроид-->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
+
+
+
     <application
         android:name=".GiraffeApplication"
         android:allowBackup="true"

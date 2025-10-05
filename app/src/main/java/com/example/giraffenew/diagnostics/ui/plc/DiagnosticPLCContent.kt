@@ -1,5 +1,6 @@
 package com.example.giraffenew.diagnostics.ui.plc
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,12 +10,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,6 +35,35 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 fun DiagnosticPLCContent(
     diagnosticViewModule: DiagnosticViewModule = hiltViewModel()
 ) {
+// 1. Получаем текущий LifecycleOwner
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    // 2. Создаем Lifecycle-aware эффект
+    DisposableEffect(lifecycleOwner, diagnosticViewModule) {
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    Log.d("DiagnosticsScreen", "Lifecycle: ON_RESUME - resuming data collection")
+                    diagnosticViewModule.setActiveConfiguration()
+                }
+                Lifecycle.Event.ON_PAUSE -> {
+                    Log.d("DiagnosticsScreen", "Lifecycle: ON_PAUSE    - pausing data collection")
+                    diagnosticViewModule.clearActiveConfiguration()
+                }
+                else -> {Log.e("DiagnosticsScreen", "Lifecycle: NOT START")}
+            }
+        }
+        // 3. Регистрируем наблюдатель
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
+        // 4. Очистка при удалении Composable
+        onDispose {
+            Log.d("DiagnosticsScreen", "Lifecycle: ON_DISPOSE - removing observer")
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            diagnosticViewModule.clearActiveConfiguration() // Дополнительная очистка
+        }
+    }
+
     val navController = rememberNavController()
 
     Column (modifier = Modifier.fillMaxWidth(),

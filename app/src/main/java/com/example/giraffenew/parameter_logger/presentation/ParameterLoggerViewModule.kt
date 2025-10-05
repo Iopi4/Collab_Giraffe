@@ -28,7 +28,7 @@ class ParameterLoggerViewModule @Inject constructor(
     val currentDateSBKBInstallation: State<String> = _currentDateSBKBInstallation
 
 
-    val addressParameterCrane = listOf( 152, 197, 171, 172, 173, 174, 175, 0, 1,
+    val addressParameterCrane = listOf( 152, 197, 171, 172, 173, 174, 283, 0, 1,
         165, 166, 167, 168, 169, 170, 367, 368, 369, 370, 371, 360, 361, 362, 363, 364, 365, 366)
 
     val addressCyclesOfWork = listOf(20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49,
@@ -101,7 +101,7 @@ class ParameterLoggerViewModule @Inject constructor(
                 rAFIso      = cache[172] ?: 0,
                 rQF         = cache[173] ?: 0,
                 kP          = cache[174] ?: 0,
-                classOfUseC = cache[175] ?: 0,
+                classOfUseC = cache[283] ?: 0,
                 rN1         = cache[0] ?: 0,
                 rN2         = cache[1] ?: 0,
                 settingModeYear     = cache[165] ?: 0,
@@ -110,8 +110,8 @@ class ParameterLoggerViewModule @Inject constructor(
                 settingModeHour     = cache[168] ?: 0,
                 settingModeMinute   = cache[169] ?: 0,
                 settingModeSeconds  = cache[170] ?: 0,
-                hmiSBKBNo           = cache[367] ?: 0,
-                hmiCraneNo          = cache[368] ?: 0,
+                hmiSBKBNo           = cache[368] ?: 0,
+                hmiCraneNo          = cache[367] ?: 0,
 
                 hmiSBKBInstallationDay= cache[369] ?: 0,
                 hmiSBKBInstallationMonth= cache[370] ?: 0,
