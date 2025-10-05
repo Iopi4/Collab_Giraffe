@@ -38,6 +38,10 @@ class SettingSensorsViewModule
     private val _setValueHoistPosRevDwnSp = mutableStateOf("")
     val setValueHoistPosRevDwnSp: State<String> = _setValueHoistPosRevDwnSp
 
+    private val _setValueHoistPosZero = mutableStateOf("")
+    val setValueHoistPosZero: State<String> = _setValueHoistPosZero
+
+
     // Параметры настройки датчика вылета
     private val _setValueTrolleyPosFwdStop = mutableStateOf("")
     val setValueTrolleyPosFwdStop: State<String> = _setValueTrolleyPosFwdStop
@@ -108,7 +112,7 @@ class SettingSensorsViewModule
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
     private val addresses = listOf(
         155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
-        341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
+        340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
         730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
         382, 383, 386, 387, 390, 391, 394, 395, 1623, 1648, 1699, 1738,
         160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372
@@ -240,6 +244,7 @@ class SettingSensorsViewModule
             hoistMinPosition = safeDivideTens(cache[161] ?: 0),
             hoistPosFwdDwnSp = safeDivideTens(cache[338] ?: 0),
             hoistPosRevDwnSp = safeDivideTens(cache[339] ?: 0),
+            hoistZeroPosition = safeDivideTens(cache[340] ?: 0),
 
             trolleyMaxPosition = safeDivideTens(cache[156] ?: 0),
             trolleyMinPosition = safeDivideTens(cache[157] ?: 0),
@@ -317,6 +322,7 @@ class SettingSensorsViewModule
         val hoistMinPosition: Float = 0f, //Минимальное положение подъема
         val hoistPosFwdDwnSp: Float = 0f, //Положение крюка замедление вверх
         val hoistPosRevDwnSp: Float = 0f, //Положение крюка замедление вниз
+        val hoistZeroPosition: Float = 0f, //Положение крюка при нулевой высоте
 
         val trolleyMaxPosition: Float = 0f, //Максимальное положение тележки
         val trolleyMinPosition: Float = 0f, //Минимальное положение тележки
@@ -383,7 +389,7 @@ class SettingSensorsViewModule
     }
 
 
-    // Hoist. ЗАПОМНИТЬ положение по высоте при движении вверх
+    // Hoist. ЗАПОМНИТЬ положение по высоте при движении вниз
     fun onSetHoistRevMemEn() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -401,12 +407,30 @@ class SettingSensorsViewModule
         }
     }
 
+    // Hoist. ЗАПОМНИТЬ нулевое положение высоты подъема
+    fun onSetHoistZeroMemEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                modbusRepository.writeRegister(895, 1)
+                delay(200)
+                modbusRepository.writeRegister(895, 0)
+                _errorMessageHoist.value = null
+                _logMessageHoist.value = "Сохранено"
+            } catch (e: Exception) {
+                _errorMessageHoist.value = "${e.message}"
+                _logMessageHoist.value = null
+            }
+        }
+    }
+
     // Hoist. Запись Стоп Вверх [м]
     fun onSetValueHoistPosFvdStop() {
         onSetHoistFwdMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosFwdStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueHoistPosFwdStop.value, 0.0f, 200.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(806, model)
                 _errorMessageHoist.value = null
@@ -425,7 +449,7 @@ class SettingSensorsViewModule
             try {
                 val floatValue = _setValueHoistPosRevStop.value.toFloatOrNull()
                     ?: throw NumberFormatException("Некорректное число")
-                if (floatValue < -5.0f || floatValue > 999.9f) throw IllegalArgumentException("Значение вне диапазона")
+                if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
 
                 val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
                 modbusRepository.writeRegister(807, model)
@@ -438,11 +462,31 @@ class SettingSensorsViewModule
         }
     }
 
-    // Hoist. Запись снижение скорости Вверх [м]
+    // Hoist. Запись Нулевая высота [м]
+    fun onSetValueHoistPosZero() {
+        onSetHoistZeroMemEn()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val floatValue = _setValueHoistPosZero.value.toFloatOrNull()
+                    ?: throw NumberFormatException("Некорректное число")
+                if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
+
+                val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
+                modbusRepository.writeRegister(894, model)
+                _errorMessageHoist.value = null
+                _logMessageHoist.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoist.value = null
+                _errorMessageHoist.value = "${e.message}"
+            }
+        }
+    }
+
+    // Hoist. Запись высоты для снижение скорости Вверх [м]
     fun onSetValueHoistPosFwdDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueHoistPosFwdDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueHoistPosFwdDwnSp.value, 0.0f, 200.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(808, model)
                 _errorMessageHoist.value = null
@@ -454,13 +498,13 @@ class SettingSensorsViewModule
         }
     }
 
-    // Hoist. Запись снижение скорости Вниз [м]
+    // Hoist. Запись высоты для снижения скорости Вниз [м]
     fun onSetValueHoistPosRevDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val floatValue = _setValueHoistPosRevDwnSp.value.toFloatOrNull()
                     ?: throw NumberFormatException("Некорректное число")
-                if (floatValue < -5.0f || floatValue > 999.9f) throw IllegalArgumentException("Значение вне диапазона")
+                if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
 
                 val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
                 modbusRepository.writeRegister(809, model)
@@ -533,7 +577,7 @@ class SettingSensorsViewModule
         onSetTrolleyFwdMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyPosFwdStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyPosFwdStop.value, 0.0f, 100.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(827, model)
                 _errorMessageTrolley.value = null
@@ -550,7 +594,7 @@ class SettingSensorsViewModule
         onSetTrolleyRevMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyPosRevStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyPosRevStop.value, 0.0f, 100.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(826, model)
                 _errorMessageTrolley.value = null
@@ -566,7 +610,7 @@ class SettingSensorsViewModule
     fun onSetValueTrolleyPosFwdDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyPosFwdDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyPosFwdDwnSp.value, 0.0f, 100.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(828, model)
                 _errorMessageTrolley.value = null
@@ -582,7 +626,7 @@ class SettingSensorsViewModule
     fun onSetValueTrolleyPosRevDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueTrolleyPosRevDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueTrolleyPosRevDwnSp.value, 0.0f, 100.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(829, model)
                 _errorMessageTrolley.value = null
@@ -730,7 +774,7 @@ class SettingSensorsViewModule
         onSetCraneFwdMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCranePosFwdStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueCranePosFwdStop.value, 0.0f, 300.0f )
                 // Запись в регистр
                 modbusRepository.writeRegister(838, model)
                 _errorMessageCrane.value = null
@@ -747,7 +791,7 @@ class SettingSensorsViewModule
         onSetCraneRevMemEn()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCranePosRevStop.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueCranePosRevStop.value, 0.0f, 300.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(839, model)
                 _errorMessageCrane.value = null
@@ -763,7 +807,7 @@ class SettingSensorsViewModule
     fun onSetValueCranePosFwdDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCranePosFwdDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueCranePosFwdDwnSp.value, 0.0f, 300.0f )
                 // Запись в регистр
                 modbusRepository.writeRegister(840, model)
                 _errorMessageCrane.value = null
@@ -779,7 +823,7 @@ class SettingSensorsViewModule
     fun onSetValueCranePosRevDwnSp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCranePosRevDwnSp.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueCranePosRevDwnSp.value, 0.0f, 300.0f )
                 // Запись в регистр
                 modbusRepository.writeRegister(841, model)
                 _errorMessageCrane.value = null
@@ -794,7 +838,7 @@ class SettingSensorsViewModule
     fun onSetValueCranePosRepPoint() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueCranePosRepPoint.value, 0.0f, 999.9f )
+                val model = validateAndConvertFloat(_setValueCranePosRepPoint.value, 0.0f, 300.0f )
                 // Запись в регистр
                 modbusRepository.writeRegister(835, model)
                 _errorMessageCrane.value = null
@@ -817,6 +861,11 @@ class SettingSensorsViewModule
         if (value.isEmpty() || value.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueHoistPosRevStop.value = value } }
 
+    fun updateValueHoistPosZero(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
+            _setValueHoistPosZero.value = value } }
+
+
     fun updateValueHoistPosFwdDwnSp(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueHoistPosFwdDwnSp.value = value } }
@@ -824,6 +873,7 @@ class SettingSensorsViewModule
     fun updateValueHoistPosRevDwnSp(value: String) {
         if (value.isEmpty() || value.matches(Regex("^-?\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueHoistPosRevDwnSp.value = value } }
+
 
 
     //ДАТЧИК ВЫЛЕТА. Обновление для UI

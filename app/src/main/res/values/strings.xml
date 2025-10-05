@@ -142,30 +142,30 @@
 
     <string name="SettingSensors_Text_Hoist_Calibration">Калибровка подъема</string>
     <string name="SettingSensors_Text_Hoist_Lifting">Высота подъема [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Up">(1) Запомн. Стоп вверх [м]</string>
-    <string name="SettingSensors_Text_Hoist_Stop_Down">(2) Запомн. Стоп вниз [м]</string>
-    <string name="SettingSensors_Text_Hoist_Decline_Up">(3) Ввод. Сниж. скор. вверх [м]</string>
-    <string name="SettingSensors_Text_Hoist_Decline_Down">(4) Ввод. Сниж. скор. вниз [м]</string>
-
+    <string name="SettingSensors_Text_Hoist_Stop_Up">(1) Коорд. Стоп вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Zero">(2) Коорд. Нулевая высота [м]</string>
+    <string name="SettingSensors_Text_Hoist_Stop_Down">(3) Ввод. Стоп вниз [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Up">(4) Ввод. Сниж. скор. вверх [м]</string>
+    <string name="SettingSensors_Text_Hoist_Decline_Down">(5) Ввод. Сниж. скор. вниз [м]</string>
 
     <string name="SettingSensors_Text_Trolley_Calibration">Калибровка вылета</string>
     <string name="SettingSensors_Text_Trolley_Departure">Вылет тележки[м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Forward">(2) Запомнить. Стоп вперед [м]</string>
-    <string name="SettingSensors_Text_Trolley_Stop_Revers">(1) Запомнить. Стоп назад [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Forward">(2) Коорд. Стоп вперед [м]</string>
+    <string name="SettingSensors_Text_Trolley_Stop_Revers">(1) Коорд. Стоп назад [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Forward">(4) Ввод. Сниж. скор. вперед [м]</string>
     <string name="SettingSensors_Text_Trolley_Decline_Revers">(3) Ввод. Сниж. скор. назад [м]</string>
 
     <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
     <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
-    <string name="SettingSensors_Text_Slewing_Installation_Zero">(1) Запомн. Ноль [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner">(2) Запомн. Настр. угол [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(3) Запомн. Макс. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Installation_Zero">(1) Коорд. Ноль [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner">(2) Коорд. Настр. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(3) Ввод. Макс. угол [град]</string>
     <string name="SettingSensors_Text_Slewing_Information">Настройку угла производить по часовой стрелке!</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>
-    <string name="SettingSensors_Text_Crane_Stop_Right">Запомн. Стоп вперед(вправо)[м]</string>
-    <string name="SettingSensors_Text_Crane_Stop_Left">Запомн. Стоп назад(влево) [м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Right">Коорд. Стоп вперед(вправо)[м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Left">Коорд. Стоп назад(влево) [м]</string>
     <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вперед [м]</string>
     <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. назад [м]</string>
     <string name="SettingSensors_Text_Crane_Reference_Point">Реперная точка [м]</string>

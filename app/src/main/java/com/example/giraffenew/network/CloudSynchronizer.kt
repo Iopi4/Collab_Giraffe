@@ -436,7 +436,8 @@ class CloudSynchronizer @Inject constructor(
 
         } catch (e: Exception) {
             failedSyncs.incrementAndGet()
-            Log.e(TAG, "Exception during cloud sync", e)
+                //Log.e(TAG, "Exception during cloud sync", e)
+            Log.e(TAG, "Exception during cloud sync")
             false
         }
     }

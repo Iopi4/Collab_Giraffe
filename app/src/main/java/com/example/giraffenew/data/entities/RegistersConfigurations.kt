@@ -763,6 +763,9 @@ object UISettingSensorsConfiguration {
         RegisterInfo(807, "HMI_Write_rHoist_Pos_Rev_Stop_MW", "WORD16", "Значение при котором останавливаем крюк вниз"),
         RegisterInfo(808, "HMI_Write_rHoist_Pos_Fwd_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость двигая крюк вверх"),
         RegisterInfo(809, "HMI_Write_rHoist_Pos_Rev_DwnSp_MW", "WORD16", "Значение при котором снижаем скорость двигая крюк вниз"),
+        RegisterInfo(894, "HMI_Write_rHoist_Pos_Zero_MW", "WORD16", "Значение нулевой высоты привода подъема"),
+        RegisterInfo(895, "HMI_Write_xHoist_Zero_Mem_MW", "WORD16", "Запомнить положение нулевой высоты подъема"),
+
 
         RegisterInfo(810, "HMI_Write_xHoist_LSP_Auto_MW", "WORD16", "Включить адаптивное снижение скорости"),
         RegisterInfo(811, "HMI_Write_rHoist_LSP_Dist3_MW", "WORD16", "дистанция снижение до 3-й скорости"),
@@ -773,6 +776,8 @@ object UISettingSensorsConfiguration {
         RegisterInfo(161, "Hoist_Min_Position_MW", "WORD16", "Минимальное положение подъема *0,1м"),
         RegisterInfo(338, "HMI_Hoist_Pos_Fwd_DwnSp_MW", "WORD16", "Положение крюка замедление вверх *0,1м"),
         RegisterInfo(339, "HMI_Hoist_Pos_Rev_DwnSp_MW", "WORD16", "Положение крюка замедление вниз *0,1м"),
+        RegisterInfo(340, "HMI_Hoist_Pos_Zero_MW", "WORD16", "Положение нулевой высоты привода подъема *0,1м"),
+
 
         //Параметры настройки датчика поворота
         RegisterInfo(814, "HMI_Write_xSlew_Limit_En_MW", "WORD16", "Включение принудительной проверки механизма поворота в наладочном режиме"),

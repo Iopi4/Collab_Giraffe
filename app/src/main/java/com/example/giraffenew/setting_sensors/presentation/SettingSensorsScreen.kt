@@ -99,6 +99,11 @@ fun SettingSensorsScreen (
                     currentHoistStopDwn1 = settingSensorsViewModule.state.value.currentHoistStopDwn1,
                     hoistMinPosition = settingSensorsViewModule.state.value.hoistMinPosition,
 
+                    setValueHoistPosZero = settingSensorsViewModule.setValueHoistPosZero.value,
+                    updateValueHoistPosZero = {settingSensorsViewModule.updateValueHoistPosZero(it)},
+                    onSetValueHoistPosZero = {settingSensorsViewModule.onSetValueHoistPosZero()},
+                    hoistZeroPosition = settingSensorsViewModule.state.value.hoistZeroPosition,
+
                     setValueHoistPosFwdDwnSp = settingSensorsViewModule.setValueHoistPosFwdDwnSp.value,
                     updateValueHoistPosFwdDwnSp = {settingSensorsViewModule.updateValueHoistPosFwdDwnSp(it)},
                     onSetValueHoistPosFwdDwnSp = {settingSensorsViewModule.onSetValueHoistPosFwdDwnSp()},

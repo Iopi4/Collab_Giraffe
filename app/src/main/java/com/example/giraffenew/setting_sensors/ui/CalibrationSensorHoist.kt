@@ -56,6 +56,11 @@ fun CalibrationSensorHoist(
     currentHoistStopDwn1: Int,
     hoistMinPosition: Float,
 
+    setValueHoistPosZero: String,
+    updateValueHoistPosZero: (String) -> Unit,
+    onSetValueHoistPosZero: () -> Unit,
+    hoistZeroPosition: Float,
+
     setValueHoistPosFwdDwnSp: String,
     updateValueHoistPosFwdDwnSp: (String) -> Unit,
     onSetValueHoistPosFwdDwnSp: () -> Unit,
@@ -114,6 +119,8 @@ fun CalibrationSensorHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Decline_Down)
             //Стоп вниз
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Stop_Down)
+            //Нулевая высота
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Hoist_Zero)
 
             // Отступ
             BasicSettingsName(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Sensor_Status))
@@ -252,35 +259,51 @@ fun CalibrationSensorHoist(
                     )
                 }
             }
-
             // Ограничение опускание крюка в низ
             Row(horizontalArrangement = Arrangement.Start) {
-                //Поле ввода значения минимальной высоты подъема
+                //Поле ввода значения при котором снижается скорость опускания
                 Box(
                     modifier = Modifier
-                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                        .weight(2f)
+                        .weight(4f)
                 ) {
-                    BasicTextFilledBelowZero(
+                    BasicInputRowandTensButtonBelowZero(
                         placeholder = formatDecimalMinus(hoistMinPosition),
                         value = setValueHoistPosRevStop,
                         onValueChange = updateValueHoistPosRevStop,
-                        isDecimal = true
-                    )
-                }
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(2f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Memory,
                         onClick = onSetValueHoistPosRevStop,
-                    ) {}
+                        isDecimal = true,
+                    )
                 }
                 //Статус. Индикация срабатывания замедления
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
                         isLampStatus = currentHoistStopDwn1
                     )
+                }
+            }
+
+
+            // Нулевая высота
+            Row(horizontalArrangement = Arrangement.Start) {
+                Box(
+                    modifier = Modifier
+                        .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+                        .weight(8f)
+                ) {
+                    BasicTextFilledBelowZero(
+                        placeholder = formatDecimalMinus(hoistZeroPosition),
+                        value = setValueHoistPosZero,
+                        onValueChange = updateValueHoistPosZero,
+                        isDecimal = true
+                    )
+                }
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(7f)) {
+                    BasicButtonGiraffe(
+                        modifier = Modifier,
+                        text = R.string.Button_Memory,
+                        onClick = onSetValueHoistPosZero,
+                    ) {}
                 }
             }
 
@@ -371,6 +394,11 @@ fun CalibrationSensorHoistPreview () {
             onSetValueHoistPosRevStop = {},
             currentHoistStopDwn1 = 1,
             hoistMinPosition = 0f,
+
+            setValueHoistPosZero = "`1",
+            updateValueHoistPosZero = {},
+            onSetValueHoistPosZero = {},
+            hoistZeroPosition = 0f,
 
             setValueHoistPosFwdDwnSp = "1",
             updateValueHoistPosFwdDwnSp = {},
