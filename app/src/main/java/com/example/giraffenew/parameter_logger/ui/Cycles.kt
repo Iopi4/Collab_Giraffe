@@ -210,15 +210,9 @@ fun Cycles(
         }
     }
 }
-
-private fun format(value: Int): String {
-    return String.format("%05d", value)
-}
-
 private fun formatDoubleWord(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+    return String.format("%d%d", value2, value1)
 }
-
 
 @Preview
 @Composable

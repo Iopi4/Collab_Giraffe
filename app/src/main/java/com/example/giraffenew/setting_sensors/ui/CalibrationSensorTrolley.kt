@@ -328,7 +328,7 @@ private fun formatDecimal(value: Float): String {
 }
 
 private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+    return String.format("%d%05d", value2, value1)
 }
 
 @Preview

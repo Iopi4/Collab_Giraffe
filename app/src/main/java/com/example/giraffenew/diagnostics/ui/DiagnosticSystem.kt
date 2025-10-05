@@ -270,11 +270,11 @@ fun DiagnosticSystem(
 }
 
 private fun format(value: Int): String {
-    return String.format("%05d", value)
+    return String.format("%d", value)
 }
 
 private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+    return String.format("%d%05d", value2, value1)
 }
 
 

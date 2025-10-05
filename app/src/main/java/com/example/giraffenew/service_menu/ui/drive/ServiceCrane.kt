@@ -165,11 +165,11 @@ fun ServiceCrane(
 }
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%04.1f", value).replace(',', '.')
+    return String.format("%.1f", value).replace(',', '.')
 }
 
 private fun format(value: Int): String {
-    return String.format("%04d", value)
+    return String.format("%d", value)
 }
 
 @Preview

@@ -111,11 +111,11 @@ fun EngineHours(
 }
 
 private fun format(value: Int): String {
-    return String.format("%05d", value)
+    return String.format("%d", value)
 }
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%03.2f", value).replace(',', '.')
+    return String.format("%.2f", value).replace(',', '.')
 }
 
 @Preview

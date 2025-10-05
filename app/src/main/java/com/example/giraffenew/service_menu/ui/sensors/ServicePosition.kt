@@ -251,16 +251,11 @@ fun ServicePosition(
 }
 
 private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
-    return String.format("%05d", value)
-}
-
-private fun formatDecimal(value: Float): String {
-    return String.format("%02.1f", value).replace(',', '.')
+    return String.format("%d", value)
 }
 
 private fun formatHundred(value: Float): String {
-    return String.format("%03.2f", value).replace(',', '.')
+    return String.format("%02.2f", value).replace(',', '.')
 }
 
 @Preview

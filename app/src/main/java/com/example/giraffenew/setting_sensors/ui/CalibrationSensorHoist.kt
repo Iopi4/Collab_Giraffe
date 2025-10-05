@@ -354,7 +354,7 @@ fun CalibrationSensorHoist(
 private val VIRTUAL_ZERO: Float = 32250f //Константа для виртуального нуля. Необходимо для корретной высоты подъема
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%04.1f", value).replace(',', '.')
+    return String.format("%.1f", value).replace(',', '.')
 }
 private fun formatDecimalMinus(value: Float): String {
     val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
@@ -366,7 +366,7 @@ private fun formatDecimalMinus(value: Float): String {
 }
 
 private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+    return String.format("%d%05d", value2, value1)
 }
 
 

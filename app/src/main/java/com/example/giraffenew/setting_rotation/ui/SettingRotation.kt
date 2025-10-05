@@ -209,7 +209,7 @@ private fun formatHundred(value: Float): String {
 }
 
 private fun format(value: Int): String {
-    return String.format("%03d", value)
+    return String.format("%d", value)
 }
 
 @Preview

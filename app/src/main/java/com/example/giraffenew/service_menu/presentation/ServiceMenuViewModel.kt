@@ -345,7 +345,7 @@ class ServiceMenuViewModel
                 hmiWindSpeedLvl1 = safeDivideTens(cache[175] ?: 0),
                 hmiWindSpeedLvl2= safeDivideTens(cache[154] ?: 0),
                 hmiWindSpeedLvl1Montage = safeDivideTens(cache[176] ?: 0),
-                hmiAnemometerTimeSmooth = safeDivideTens(cache[644] ?: 0),
+                hmiAnemometerTimeSmooth = cache[644] ?: 0,
                 hmiK= safeDivideThousand(cache[645] ?: 0),
 
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
@@ -496,7 +496,7 @@ class ServiceMenuViewModel
         val hmiWindSpeedLvl1: Float = 0f,
         val hmiWindSpeedLvl2: Float = 0f,
         val hmiWindSpeedLvl1Montage: Float = 0f,
-        val hmiAnemometerTimeSmooth: Float = 0f,
+        val hmiAnemometerTimeSmooth: Int = 0,
         val hmiK: Float = 0f,
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
@@ -1330,7 +1330,7 @@ class ServiceMenuViewModel
     fun onSetWindTimeSmooth() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindTimeSmooth.value, 0.0f,10.0f )
+                val model = validateAndConvert(_setValueWindTimeSmooth.value, 0,10 )
                 // Запись в регистры
                 modbusRepository.writeRegister(983, model)
                 _errorMessageWind.value = null
@@ -1792,7 +1792,7 @@ class ServiceMenuViewModel
 
     //CTRLPoint. Обновление для UI
     fun updateCTRLPointControlInterval(value: String) {
-        if (value.isEmpty() || value.toIntOrNull() != null) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,3}(\\.\\d{0,1})?$"))) {
             _setValueCTRLPointControlInterval.value = value } }
 
     // ДАТЧИКИ ПОЛОЖЕНИЯ. Обновления для UI

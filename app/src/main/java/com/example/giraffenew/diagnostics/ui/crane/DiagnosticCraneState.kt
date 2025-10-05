@@ -149,11 +149,11 @@ fun DiagnosticCraneState (
 }
 
 private fun format(value: Int): String {
-    return String.format("%10d", value)
+    return String.format("%d", value)
 }
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%04.1f", value).replace(',', '.')
+    return String.format("%01.1f", value).replace(',', '.')
 }
 
 @Preview

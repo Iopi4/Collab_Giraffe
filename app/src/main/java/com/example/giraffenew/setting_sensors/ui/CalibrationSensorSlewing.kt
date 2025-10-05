@@ -245,12 +245,11 @@ fun CalibrationSensorSlewing(
 
 
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%04.1f", value).replace(',', '.')
 }
 
 private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%05d%05d", value2, value1)
+    return String.format("%d%05d", value2, value1)
 }
 
 @Preview

@@ -1,4 +1,4 @@
-package com.example.giraffenew.error_logger
+package com.example.giraffenew.android_error_logger
 
 import android.content.Context
 import java.text.SimpleDateFormat

@@ -51,7 +51,7 @@ fun ServiceWind(
     setValueWindTimeSmooth: String,
     onModelChangeWindTimeSmooth: (String) -> Unit,
     onSetWindTimeSmooth: () -> Unit,
-    hmiAnemometerTimeSmooth: Float,
+    hmiAnemometerTimeSmooth: Int,
 
     setValueWindSpeedLvlClbr: String,
     onModelChangeWindSpeedLvlClbr: (String) -> Unit,
@@ -147,10 +147,10 @@ fun ServiceWind(
             )
 //Ввод. Время усреднения [с]
             BasicInputRowandButton(
-                placeholder = formatDecimal(hmiAnemometerTimeSmooth),
+                placeholder = format(hmiAnemometerTimeSmooth),
                 value = setValueWindTimeSmooth,
                 valueMin = 0,
-                valueMax = 99,
+                valueMax = 10,
                 onValueChange = onModelChangeWindTimeSmooth,
                 onClick = onSetWindTimeSmooth
             )
@@ -195,7 +195,9 @@ fun ServiceWind(
 private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
-
+private fun format(value: Int): String {
+    return String.format("%d", value)
+}
 private fun formatThousand(value: Float): String {
     return String.format("%01.5f", value).replace(',', '.')
 }
