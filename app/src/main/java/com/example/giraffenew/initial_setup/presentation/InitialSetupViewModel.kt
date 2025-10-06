@@ -346,7 +346,7 @@ class InitialSetupViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val number = validateAndConvert(_setNumberCrane.value, 0, 65535)
-                // Запись в регистры модель крана
+                // Запись в регистры номер крана
                 modbusRepository.writeRegister(850, number)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"

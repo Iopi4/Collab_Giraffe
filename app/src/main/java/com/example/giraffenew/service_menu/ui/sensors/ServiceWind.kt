@@ -53,18 +53,29 @@ fun ServiceWind(
     onSetWindTimeSmooth: () -> Unit,
     hmiAnemometerTimeSmooth: Int,
 
-    setValueWindSpeedLvlClbr: String,
-    onModelChangeWindSpeedLvlClbr: (String) -> Unit,
-    onSetWindSpeedLvlClbr: () -> Unit,
+    setValueAnemometerMinWind: String,
+    updateAnemometerMinWind: (String) -> Unit,
+    onSetAnemometerMinWindClbr: () -> Unit,
+    hmiReadAnemometerMinWind: Float,
+
+    setValueAnemometerMaxWind: String,
+    updateAnemometerMaxWind: (String) -> Unit,
+    onSetAnemometerMaxWindClbr: () -> Unit,
+    hmiReadAnemometerMaxWind: Float,
+
+    setValueAnemometerMinAmper: String,
+    updateAnemometerMinAmper: (String) -> Unit,
+    onSetAnemometerMinAmperClbr: () -> Unit,
+    hmiReadAnemometerMinAmper: Float,
+
+    setValueAnemometerMaxAmper: String,
+    updateAnemometerMaxAmper: (String) -> Unit,
+    onSetAnemometerMaxAmperClbr: () -> Unit,
+    hmiReadAnemometerMaxAmper: Float,
 
     currentWind: Float,
     currentAnemometerSensor: Int,
     currentAnemometerStatus: Int,
-
-    setValueWindRK: String,
-    onModelChangeWindRK: (String) -> Unit,
-    onSetWindRK: () -> Unit,
-    hmiK: Float,
 
     onSetAnemometerClbr: () -> Unit,
 
@@ -93,10 +104,12 @@ fun ServiceWind(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_Alarm_Signal)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_Alarm_Signal_Montage)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_Averaging_Time)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_Calibration)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_AnemometerMinWind_Calibration)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_AnemometerMaxWind_Calibration)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_AnemometerMinAmper_Calibration)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_AnemometerMaxAmper_Calibration)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Wind_Value)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Sensor_Value)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Calibration_Factor)
 
 
         }
@@ -154,12 +167,36 @@ fun ServiceWind(
                 onValueChange = onModelChangeWindTimeSmooth,
                 onClick = onSetWindTimeSmooth
             )
-//Ввод. Значение калибровки [м/c]
+//Ввод. Нижний предел измерения анемометра, м/с
             BasicInputRowandTensButton(
-                placeholder = "00.0",
-                value = setValueWindSpeedLvlClbr,
-                onValueChange = onModelChangeWindSpeedLvlClbr,
-                onClick = onSetWindSpeedLvlClbr,
+                placeholder = formatDecimal(hmiReadAnemometerMinWind),
+                value = setValueAnemometerMinWind,
+                onValueChange = updateAnemometerMinWind,
+                onClick = onSetAnemometerMinWindClbr,
+                isDecimal = true,
+            )
+//Ввод. Верхнй предел измерения анемометра, м/с
+            BasicInputRowandTensButton(
+                placeholder = formatDecimal(hmiReadAnemometerMaxWind),
+                value = setValueAnemometerMaxWind,
+                onValueChange = updateAnemometerMaxWind,
+                onClick = onSetAnemometerMaxWindClbr,
+                isDecimal = true,
+            )
+//Ввод. Нижний предел измерения анемометра, mA
+            BasicInputRowandTensButton(
+                placeholder = formatDecimal(hmiReadAnemometerMinAmper),
+                value = setValueAnemometerMinAmper,
+                onValueChange = updateAnemometerMinAmper,
+                onClick = onSetAnemometerMinAmperClbr,
+                isDecimal = true,
+            )
+//Ввод. Верхний предел измерения анемометра, mA
+            BasicInputRowandTensButton(
+                placeholder = formatDecimal(hmiReadAnemometerMaxAmper),
+                value = setValueAnemometerMaxAmper,
+                onValueChange = updateAnemometerMaxAmper,
+                onClick = onSetAnemometerMaxAmperClbr,
                 isDecimal = true,
             )
 // Отображение текущего значения ветра [м/c]
@@ -174,26 +211,19 @@ fun ServiceWind(
                 isValueParameter = formatDecimalMinus(currentAnemometerSensor),
                 isValueStatus = currentAnemometerStatus
             )
-//Ввод. Коэффициент калибровки
-            BasicInputRowandThousandButton(
-                placeholder = formatThousand(hmiK),
-                value = setValueWindRK,
-                onValueChange = onModelChangeWindRK,
-                onClick = onSetWindRK,
-                isDecimal = true,
-            )
 //Кнопка калибровки датчика
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Calibration,
                 onClick = onSetAnemometerClbr,
             ) {}
+
         }
     }
 }
 
 private fun formatDecimal(value: Float): String {
-    return String.format("%04.1f", value).replace(',', '.')
+    return String.format("%.1f", value).replace(',', '.')
 }
 private fun format(value: Int): String {
     return String.format("%d", value)

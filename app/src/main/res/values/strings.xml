@@ -331,7 +331,12 @@
     <string name="ServiceMenu_Text_Wind_Alarm_Signal">Ввод. Аварийная.сигн. [м/c]</string>
     <string name="ServiceMenu_Text_Wind_Alarm_Signal_Montage">Ввод. Авар.сигн.монтаж. [м/c]</string>
     <string name="ServiceMenu_Text_Wind_Averaging_Time">Ввод. Время усреднения [с]</string>
-    <string name="ServiceMenu_Text_Wind_Calibration">Ввод. Значение калибровки [м/c]</string>
+    <string name="ServiceMenu_Text_Wind_AnemometerMinWind_Calibration">Ввод. Мин.предел измер.[м/c]</string>
+    <string name="ServiceMenu_Text_Wind_AnemometerMaxWind_Calibration">Ввод. Макс.предел измер.[м/c]</string>
+    <string name="ServiceMenu_Text_Wind_AnemometerMinAmper_Calibration">Ввод. Мин.предел измер [mA]</string>
+    <string name="ServiceMenu_Text_Wind_AnemometerMaxAmper_Calibration">Ввод. Макс.предел измер [mA]</string>
+
+
     <string name="ServiceMenu_Text_Wind_Value">Значение ветра [м/c]</string>
     <string name="ServiceMenu_Text_Sensor_Value">Значение датчика</string>
     <string name="ServiceMenu_Text_Calibration_Factor">Ввод. Коэффициент калибровки</string>
@@ -603,16 +608,23 @@
     <string name="ParameterLogger_Text_Number_SBKB">Заводской номер СБКБ</string>
     <string name="ParameterLogger_Text_Number_Crane">Заводской номер крана</string>
     <string name="ParameterLogger_Text_Date_SBKB">Дата установки СБКБ</string>
-    <string name="ParameterLogger_Text_SD_Cart_Status">Cтатус FLASH-карты</string>
+    <string name="ParameterLogger_Text_SD_Cart_Status_Ok">Установлена</string>
+    <string name="ParameterLogger_Text_SD_Cart_Status_Fault">Не установлена</string>
+    <string name="ParameterLogger_Text_SD_Cart_Status">Cтатус SD-карты</string>
     <string name="ParameterLogger_Text_Data_Transfer">Cтатус копирования данных</string>
 
-    <string name="ParameterLogger_Text_Logger_Save">Сохранение настроек СБКБ</string>
-    <string name="ParameterLogger_Text_Logger_Write">Записать данные на SD-карту</string>
-    <string name="ParameterLogger_Text_Logger_Read">Загрузить данные с SD-карты</string>
-    <string name="ParameterLogger_Text_Logger_Size">Размер файла [байт]</string>
-    <string name="ParameterLogger_Text_Abort_Logger_Read">Отмена загрузки данных</string>
-    <string name="ParameterLogger_Button_Logger_Write">ЗАПИСАТЬ</string>
-    <string name="ParameterLogger_Button_Logger_Read">ЗАГРУЗИТЬ</string>
+    <string name="ParameterLogger_Text_Logger_Save_SBKB">Сохранение настроек СБКБ</string>
+    <string name="ParameterLogger_Text_Logger_Save_VarFile">Сохранить настройки СБКБ</string>
+    <string name="ParameterLogger_Text_Logger_Abort_Save_VarFile">Отмена сохранения</string>
+    <string name="ParameterLogger_Text_Logger_Read_VarFile">Считать настройки СБКБ</string>
+    <string name="ParameterLogger_Text_Logger_Abort_Read_VarFile">Отмена чтения</string>
+    <string name="ParameterLogger_Text_Logger_Read_Size_VarFile">Узнать размер файла [Кб]</string>
+
+    <string name="ParameterLogger_Text_Logger_Save_ParametersCrane">Сохранение параметров крана</string>
+    <string name="ParameterLogger_Text_Logger_Save_RP">Сохранить данные на SD-карту</string>
+
+    <string name="ParameterLogger_Button_Logger_Write">СОХРАНИТЬ</string>
+    <string name="ParameterLogger_Button_Logger_Read">СЧИТАТЬ</string>
     <string name="ParameterLogger_Button_Abort_Logger_Read">!ОТМЕНА!</string>
 
     <string name="ParameterLogger_Text_Number_Of_Cycles">Количество циклов</string>

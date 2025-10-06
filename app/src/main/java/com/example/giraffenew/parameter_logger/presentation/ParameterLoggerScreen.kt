@@ -124,7 +124,22 @@ fun ParameterLoggerScreen (
             }
             composable(NavRoutesParameterLogger.PageLoad.route)
             {
-                Load()
+                Load(
+                    hmiReadSDcardStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadSDcardStatus,
+
+                    onSetSaveVarFile = {parameterLoggerViewModule.onSetSaveVarFile()},
+                    onSetSaveAbortVarFile = {parameterLoggerViewModule.onSetSaveAbortVarFile()},
+                    hmiReadVarSaveProcess = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSaveProcess,
+                    hmiReadVarSaveStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSaveStatus,
+                    hmiReadVarSize = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSize,
+
+                    onSetReadSizeVarFile = {parameterLoggerViewModule.onSetReadSizeVarFile()},
+                    onSetReadVarFile= {parameterLoggerViewModule.onSetReadVarFile()},
+                    hmiReadVarReadProcess = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarReadProcess,
+                    hmiReadVarReadStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarReadStatus,
+                    onSetReadAbortVarFile = {parameterLoggerViewModule.onSetReadAbortVarFile()},
+                    onSetSaveRPFileToSD = {parameterLoggerViewModule.onSetSaveRPFileToSD()},
+                )
             }
         }
     }

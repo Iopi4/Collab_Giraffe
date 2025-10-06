@@ -10,8 +10,10 @@ import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.Int
 
 @HiltViewModel
 class ParameterLoggerViewModule @Inject constructor(
@@ -34,7 +36,9 @@ class ParameterLoggerViewModule @Inject constructor(
     val addressCyclesOfWork = listOf(20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49,
         52, 53, 56, 57, 60, 61, 80, 81, 84, 85, 88, 89, 92, 93, 96, 97)
 
-    private val allAddresses = (addressParameterCrane+addressCyclesOfWork).distinct()
+    val addressSaveVarFile = listOf(1800, 1801, 1802, 1803, 1804, 1805)
+
+    private val allAddresses = (addressParameterCrane+addressCyclesOfWork+addressSaveVarFile).distinct()
 
     private val _state = mutableStateOf(ParameterLoggerState())
     val state: State<ParameterLoggerState> = _state
@@ -160,6 +164,14 @@ class ParameterLoggerViewModule @Inject constructor(
                 rCycleHoleCraneMW1 = cache[96] ?: 0,
                 rCycleHoleCraneMW2 = cache[97] ?: 0,
             ),
+            savingAndLoadingSettings = SavingAndLoadingSettings(
+                hmiReadSDcardStatus= cache[1800] ?: 0, //Статус SD-карты
+                hmiReadVarSaveStatus= cache[1801] ?: 0, //Статус сохранения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+                hmiReadVarSaveProcess = safeDivideTens(cache[1802] ?: 0), //Процес выполнения сохранения 0-100%
+                hmiReadVarReadStatus= cache[1803] ?: 0, //Статус чтения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+                hmiReadVarReadProcess = safeDivideTens(cache[1804] ?: 0), //Процес выполнения чтения 0-100%
+                hmiReadVarSize = safeDivideHundred(cache[1805] ?: 0), //Объем VAR-файла
+            )
         )
     }
 
@@ -173,17 +185,14 @@ class ParameterLoggerViewModule @Inject constructor(
     private fun safeDivideTens(value: Int?): Float {
         return (value ?: 0) / 10f
     }
-    private fun safeDivideThousands(value: Int?): Float {
-        return (value ?: 0) / 1000f
+    private fun safeDivideHundred(value: Int?): Float {
+        return (value ?: 0) / 100f
     }
 
     data class ParameterLoggerState(
-        val сraneParameters: CraneParametersState = CraneParametersState(
-
-        ),
-        val cyclesOfWorkParameters: CyclesOfWorkParametersState = CyclesOfWorkParametersState(
-
-        ),
+        val сraneParameters: CraneParametersState = CraneParametersState(),
+        val cyclesOfWorkParameters: CyclesOfWorkParametersState = CyclesOfWorkParametersState(),
+        val savingAndLoadingSettings: SavingAndLoadingSettings = SavingAndLoadingSettings(),
     )
 
 
@@ -256,6 +265,113 @@ class ParameterLoggerViewModule @Inject constructor(
         val rCycleHoleCraneMW2: Int=0 //Рабочие циклы крана в целом
     )
 
+    data class SavingAndLoadingSettings(
+        val hmiReadSDcardStatus: Int=0, //Статус SD-карты
+        val hmiReadVarSaveStatus: Int=0, //Статус сохранения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+        val hmiReadVarSaveProcess: Float=0f, //Процес выполнения сохранения 0-100%
+        val hmiReadVarReadStatus: Int=0, //Статус чтения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+        val hmiReadVarReadProcess: Float=0f, //Процес выполнения чтения 0-100%
+        val hmiReadVarSize: Float=0f, //Объем VAR-файла
+    )
+
+
+
+    // Записать VAR-файл
+    fun onSetSaveVarFile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на сохранение параметров СБКБ в VarFile
+                modbusRepository.writeRegister(1250, 1)
+                delay(200)
+                modbusRepository.writeRegister(1250, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Считать VAR-файл
+    fun onSetReadVarFile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1251, 1)
+                delay(200)
+                modbusRepository.writeRegister(1251, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Считать объем VAR-файла
+    fun onSetReadSizeVarFile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1252, 1)
+                delay(200)
+                modbusRepository.writeRegister(1252, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Отмена записи VAR-файла
+    fun onSetSaveAbortVarFile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1253, 1)
+                delay(200)
+                modbusRepository.writeRegister(1253, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Отмена чтения VAR-файла
+    fun onSetReadAbortVarFile() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1254, 1)
+                delay(200)
+                modbusRepository.writeRegister(1254, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+    // Записать VAR-файл на SD-карту
+    fun onSetSaveVarFileToSD() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1256, 1)
+                delay(200)
+                modbusRepository.writeRegister(1256, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // Записать файл регистратора параметров работы крана на SD-карту
+    fun onSetSaveRPFileToSD() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Команда на считывание параметров СБКБ из VarFile
+                modbusRepository.writeRegister(1255, 1)
+                delay(200)
+                modbusRepository.writeRegister(1255, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     // Очистка при уничтожении ViewModel
@@ -265,11 +381,4 @@ class ParameterLoggerViewModule @Inject constructor(
         // Деактивируем конфигурацию при уничтожении ViewModel
         modbusRepository.setActiveUiConfiguration(null)
     }
-
-
-
-
-
-
-
 }

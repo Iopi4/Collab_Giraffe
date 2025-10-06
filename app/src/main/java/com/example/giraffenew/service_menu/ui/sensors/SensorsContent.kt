@@ -94,18 +94,29 @@ fun SensorsContent(
                 onSetWindTimeSmooth = { serviceMenuViewModel.onSetWindTimeSmooth() },
                 hmiAnemometerTimeSmooth = serviceMenuViewModel.state.value.sensorsAndUserState.hmiAnemometerTimeSmooth,
 
-                setValueWindSpeedLvlClbr = serviceMenuViewModel.setValueWindSpeedLvlClbr.value,
-                onModelChangeWindSpeedLvlClbr = { serviceMenuViewModel.updateWindSpeedLvlClbr(it) },
-                onSetWindSpeedLvlClbr = { serviceMenuViewModel.onSetWindSpeedLvlClbr() },
+                setValueAnemometerMinWind = serviceMenuViewModel.setValueAnemometerMinWind.value,
+                updateAnemometerMinWind = { serviceMenuViewModel.updateAnemometerMinWind(it) },
+                onSetAnemometerMinWindClbr = { serviceMenuViewModel.onSetAnemometerMinWindClbr() },
+                hmiReadAnemometerMinWind = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMinWind,
+
+                setValueAnemometerMaxWind = serviceMenuViewModel.setValueAnemometerMaxWind.value,
+                updateAnemometerMaxWind = { serviceMenuViewModel.updateAnemometerMaxWind(it) },
+                onSetAnemometerMaxWindClbr = { serviceMenuViewModel.onSetAnemometerMaxWindClbr() },
+                hmiReadAnemometerMaxWind = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMaxWind,
+
+                setValueAnemometerMinAmper = serviceMenuViewModel.setValueAnemometerMinAmper.value,
+                updateAnemometerMinAmper = { serviceMenuViewModel.updateAnemometerMinAmper(it) },
+                onSetAnemometerMinAmperClbr = { serviceMenuViewModel.onSetAnemometerMinAmperClbr() },
+                hmiReadAnemometerMinAmper = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMinAmper,
+
+                setValueAnemometerMaxAmper = serviceMenuViewModel.setValueAnemometerMaxAmper.value,
+                updateAnemometerMaxAmper = { serviceMenuViewModel.updateAnemometerMaxAmper(it) },
+                onSetAnemometerMaxAmperClbr = { serviceMenuViewModel.onSetAnemometerMaxAmperClbr() },
+                hmiReadAnemometerMaxAmper = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMaxAmper,
 
                 currentWind = serviceMenuViewModel.state.value.sensorsAndUserState.currentWind,
                 currentAnemometerSensor = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerSensor,
                 currentAnemometerStatus = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerStatus,
-
-                setValueWindRK = serviceMenuViewModel.setValueWindRK.value,
-                onModelChangeWindRK = { serviceMenuViewModel.updateWindRK(it) },
-                onSetWindRK = { serviceMenuViewModel.onSetWindRK() },
-                hmiK = serviceMenuViewModel.state.value.sensorsAndUserState.hmiK,
 
                 onSetAnemometerClbr = { serviceMenuViewModel.onSetAnemometerClbr()},
 

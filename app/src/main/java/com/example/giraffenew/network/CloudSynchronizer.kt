@@ -150,7 +150,7 @@ class CloudSynchronizer @Inject constructor(
     // Добавляем подписку на изменения craneId
     private var craneIdJob: Job? = null
 
-    private val syncIntervalMs = 5_000L // было 30 секунд. Сделал 5 секунд.
+    private val syncIntervalMs = 30_000L // было 30 секунд. Сделал 5 секунд.
 
     // Состояние синхронизации
     private val _syncStatus = MutableStateFlow<SyncStatus>(SyncStatus.Stopped)
@@ -187,7 +187,7 @@ class CloudSynchronizer @Inject constructor(
     companion object {
         private const val TAG = "CloudSynchronizer"
         // Максимальный размер offline queue. Количество файлов с массивом регистров. т.е. очередей
-        private const val MAX_OFFLINE_QUEUE_SIZE = 600
+        private const val MAX_OFFLINE_QUEUE_SIZE = 100
         private const val MAX_PAYLOAD_SIZE = 1024 * 1024 // 1MB максимальный размер payload
     }
 
@@ -362,8 +362,8 @@ class CloudSynchronizer @Inject constructor(
                     val payload = CloudPayload(
                         crane_id = craneId,
                         // Отправляется только последнее значение из массива accumulatedReadings за 5 секунд.
-                        readings = readingsToSync.takeLast(1) //Теряем 4 из 5 Json данных!
-                        //readings = readingsToSync //Убираем takeLast(1), так как из-за этого теряем 4 из 5 Json данных в очереди!
+                        readings = readingsToSync.takeLast(1) //Теряем 29 из 30 Json данных!
+                        //readings = readingsToSync //Убираем takeLast(1), так как из-за этого теряем 29 из 30 Json данных в очереди!
                     )
                     //Отправка в облако
                     val success = sendToCloud(payload)
@@ -494,8 +494,8 @@ class CloudSynchronizer @Inject constructor(
                 offlineQueue.add(payload)
             }
 
-            //  Очередь периодически сохраняется в файл (при добавлении новой очереди, если размер кратен 10, и при остановке очередь сохраняется).
-            if (offlineQueue.size % 10 == 0) {
+            //  Очередь периодически сохраняется в файл (при добавлении новой очереди, если размер кратен 5, и при остановке очередь сохраняется).
+            if (offlineQueue.size % 5 == 0) {
                 saveOfflineQueue()
             }
 
@@ -532,16 +532,16 @@ class CloudSynchronizer @Inject constructor(
                             }
 
                             // Ждем перед следующей попыткой
-                            delay(10_000L) // 10 секунд
+                            delay(15_000L) // 10 секунд
                         }
                     }
                 }
 
-                delay(5_000L) // Проверяем offline queue каждые 5 секунд
+                delay(10_000L) // Проверяем offline queue каждые 5 секунд
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error processing offline queue", e)
-                delay(10_000L)
+                delay(30_000L)
             }
         }
     }

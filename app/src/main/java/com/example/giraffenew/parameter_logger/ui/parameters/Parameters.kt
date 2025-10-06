@@ -75,8 +75,6 @@ fun Parameters(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ParameterLogger_Text_Number_SBKB)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ParameterLogger_Text_Number_Crane)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ParameterLogger_Text_Date_SBKB)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ParameterLogger_Text_SD_Cart_Status)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ParameterLogger_Text_Data_Transfer)
         }
 //№.2 - Правая область для отображения значений параметров крана
         Column(
@@ -168,16 +166,7 @@ fun Parameters(
                     )
                 )
             }
-// Отображение Cтатус FLASH-карты
-            Box(myBoxValuesSettingsParameterModifier) {
-                BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "Не подключен")
-            }
-// Отображение Cтатус копирования данных регистратора
-            Box(myBoxValuesSettingsParameterModifier) {
-                BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = "Ожидание")
-            }
+
         }
     }
 }

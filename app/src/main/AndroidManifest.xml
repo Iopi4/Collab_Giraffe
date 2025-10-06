@@ -26,7 +26,9 @@
     <!-- Разрешение ACCESS_NOTIFICATION_POLICY для игнорирования режима "Не беспокоить" выставленное пользователя Андроид-->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
 
-
+    <!-- Новые разрешения для Kiosk режима -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
     <application
@@ -40,15 +42,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GIRAFFEnew"
         tools:targetApi="31">
+        <!-- MainActivity как главный экран -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
             android:theme="@style/Theme.GIRAFFEnew">
+
+            <!-- Intent-filter для лаунчера -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Intent-filter для главного экрана (Home) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!-- Boot receiver для автоматического запуска сервиса -->
@@ -61,6 +74,7 @@
             <!-- BOOT_COMPLETED с категорией DEFAULT -->
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
@@ -72,8 +86,7 @@
             <!-- PACKAGE_REPLACED с явным указанием пакета -->
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <data android:scheme="package"
-                    android:path="com.example.giraffenew" />
+                <data android:scheme="package" android:path="com.example.giraffenew" />
             </intent-filter>
         </receiver>
         <!-- ModbusBackgroundService для непрерывного опроса регистров -->

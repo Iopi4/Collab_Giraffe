@@ -185,11 +185,17 @@ class ServiceMenuViewModel
     private val _setValueWindTimeSmooth = mutableStateOf("")
     val setValueWindTimeSmooth: State<String> = _setValueWindTimeSmooth
 
-    private val _setValueWindSpeedLvlClbr = mutableStateOf("")
-    val setValueWindSpeedLvlClbr: State<String> = _setValueWindSpeedLvlClbr
+    private val _setValueAnemometerMinWind = mutableStateOf("")
+    val setValueAnemometerMinWind: State<String> = _setValueAnemometerMinWind
 
-    private val _setValueWindRK = mutableStateOf("")
-    val setValueWindRK: State<String> = _setValueWindRK
+    private val _setValueAnemometerMaxWind = mutableStateOf("")
+    val setValueAnemometerMaxWind: State<String> = _setValueAnemometerMaxWind
+
+    private val _setValueAnemometerMinAmper = mutableStateOf("")
+    val setValueAnemometerMinAmper: State<String> = _setValueAnemometerMinAmper
+
+    private val _setValueAnemometerMaxAmper = mutableStateOf("")
+    val setValueAnemometerMaxAmper: State<String> = _setValueAnemometerMaxAmper
 
     private val _errorMessageWind = mutableStateOf<String?>(null)
     val errorMessageWind: State<String?> = _errorMessageWind
@@ -266,7 +272,7 @@ class ServiceMenuViewModel
 
     private val addresses = listOf(
         163, 381, 336, 373, 374, 175, 154, 176, 644, 645, 646, 647, 648, 649,
-        650, 651, 652, 653, 654, 655, 656, 657, 997,
+        650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 997,
         750, 751, 752, 753, 754, 755, 756, 757,
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
         1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631,
@@ -343,10 +349,14 @@ class ServiceMenuViewModel
                 currentAnemometerStatus = cache[336] ?: 0,
 
                 hmiWindSpeedLvl1 = safeDivideTens(cache[175] ?: 0),
-                hmiWindSpeedLvl2= safeDivideTens(cache[154] ?: 0),
+                hmiWindSpeedLvl2 = safeDivideTens(cache[154] ?: 0),
                 hmiWindSpeedLvl1Montage = safeDivideTens(cache[176] ?: 0),
                 hmiAnemometerTimeSmooth = cache[644] ?: 0,
-                hmiK= safeDivideThousand(cache[645] ?: 0),
+                hmiReadAnemometerMinWind = safeDivideTens(cache[645] ?: 0), //Нижний предел измерения анемометра, м/с
+                hmiReadAnemometerMaxWind = safeDivideTens(cache[658] ?: 0), //Верхний предел измерения анемометра, м/с
+                hmiReadAnemometerMinAmper = safeDivideTens(cache[659] ?: 0), //Нижний предел показаний анемометра, mA
+                hmiReadAnemometerMaxAmper = safeDivideTens(cache[660] ?: 0), //Верхний предел показаний анемометра, mA
+
 
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
                 hmiAdvLoadCellLL= cache[646] ?: 0, //Минимальное значение измерения
@@ -497,7 +507,10 @@ class ServiceMenuViewModel
         val hmiWindSpeedLvl2: Float = 0f,
         val hmiWindSpeedLvl1Montage: Float = 0f,
         val hmiAnemometerTimeSmooth: Int = 0,
-        val hmiK: Float = 0f,
+        val hmiReadAnemometerMinWind: Float = 0f, //Нижний предел измерения анемометра, м/с
+        val hmiReadAnemometerMaxWind: Float = 0f, //Верхний предел измерения анемометра, м/с
+        val hmiReadAnemometerMinAmper: Float = 0f, //Нижний предел показаний анемометра, mA
+        val hmiReadAnemometerMaxAmper: Float = 0f, //Верхний предел показаний анемометра, mA
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
         val hmiAdvLoadCellLL: Int = 0, //Минимальное значение измерения
@@ -1326,7 +1339,7 @@ class ServiceMenuViewModel
             }
         }
     }
-    // Wind. Запись времени усреднения, сек
+// Wind. Запись времени усреднения, сек
     fun onSetWindTimeSmooth() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -1341,11 +1354,11 @@ class ServiceMenuViewModel
             }
         }
     }
-    // Wind. Запись значения калибровки
-    fun onSetWindSpeedLvlClbr() {
+// Wind. Запись. Нижний предел измерения анемометра, м/с
+    fun onSetAnemometerMinWindClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindSpeedLvlClbr.value, 0.0f,30.0f )
+                val model = validateAndConvertFloat(_setValueAnemometerMinWind.value, 0.0f,30.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(984, model)
                 _errorMessageWind.value = null
@@ -1356,11 +1369,11 @@ class ServiceMenuViewModel
             }
         }
     }
-    // Wind. Запись коэффициента калибровки 0.001938736
-    fun onSetWindRK() {
+// Wind. Запись. Верхний предел измерения анемометра, м/с
+    fun onSetAnemometerMaxWindClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueWindRK.value, 0.0f,0.99999f )
+                val model = validateAndConvertFloat(_setValueAnemometerMaxWind.value, 0.0f,100.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(985, model)
                 _errorMessageWind.value = null
@@ -1372,6 +1385,37 @@ class ServiceMenuViewModel
         }
     }
 
+    // Wind. Запись. Нижний предел измерения анемометра, mA
+    fun onSetAnemometerMinAmperClbr() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueAnemometerMinAmper.value, 0.0f,20.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(986, model)
+                _errorMessageWind.value = null
+                _logMessageWind.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageWind.value = null
+                _errorMessageWind.value = "${e.message}"
+            }
+        }
+    }
+// Wind. Запись. Верхний предел измерения анемометра, mA
+    fun onSetAnemometerMaxAmperClbr() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueAnemometerMinAmper.value, 0.0f,20.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(1224, model)
+                _errorMessageWind.value = null
+                _logMessageWind.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageWind.value = null
+                _errorMessageWind.value = "${e.message}"
+            }
+        }
+    }
+// Wind. Команда калибровать
     fun onSetAnemometerClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -1379,9 +1423,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(986, 1)
+                modbusRepository.writeRegister(1225, 1)
                 delay(200)
-                modbusRepository.writeRegister(986, 0)
+                modbusRepository.writeRegister(1225, 0)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
                 // Логирование
@@ -1763,13 +1807,21 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.toIntOrNull() != null) {
             _setValueWindTimeSmooth.value = value } }
 
-    fun updateWindSpeedLvlClbr(value: String) {
+    fun updateAnemometerMinWind(value: String) {
         if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
-            _setValueWindSpeedLvlClbr.value = value } }
+            _setValueAnemometerMinWind.value = value } }
 
-    fun updateWindRK(value: String) {
-        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,5})?$"))) {
-            _setValueWindRK.value = value } }
+    fun updateAnemometerMaxWind(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueAnemometerMaxWind.value = value } }
+
+    fun updateAnemometerMinAmper(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueAnemometerMinAmper.value = value } }
+
+    fun updateAnemometerMaxAmper(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,2}(\\.\\d{0,1})?$"))) {
+            _setValueAnemometerMaxAmper.value = value } }
 
 
 

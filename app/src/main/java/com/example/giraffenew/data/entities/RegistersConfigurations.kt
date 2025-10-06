@@ -1238,18 +1238,27 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(981, "HMI_Write_rWindSpeedLvl2_MW", "WORD16", "Скорость ветра для порога №2, м/с, включение красной индикации"),
         RegisterInfo(982, "HMI_Write_rWindSpeedMontageLvl_MW", "WORD16", "Скорость ветра для порога №2, м/с, включение красной индикации/Монтажный режим"),
         RegisterInfo(983, "HMI_Write_iAnemTimeSmooth_MW", "WORD16", "Время усреднения показаний анемометра, 5 сек"),
-        RegisterInfo(984, "HMI_Write_rWindSpeedLvlClbr_MW", "WORD16", "Значение калибровки скорости ветра"),
         RegisterInfo(163, "Wind_MW", "WORD16", "Текущие показания ветра *0,1м/с"),
         RegisterInfo(381, "HMI_AnemometerSensor_MW", "WORD16", "Анемометр"),
         RegisterInfo(336, "HMI_Anemometer_Status_MW", "WORD16", "Статус анемометра"),
-        RegisterInfo(985, "HMI_Write_rK_MW", "WORD16", "Коэффициент калибровки"),
-        RegisterInfo(986, "HMI_Write_xAnemomClbr_MW", "WORD16", "Команда калибровать анемометр"),
+
+        RegisterInfo(984, "HMI_Write_Anem_Min_Wind_MW", "WORD16", "Нижний предел измерения анемометра, м/с"),
+        RegisterInfo(985, "HMI_Write_Anem_Max_Wind_MW", "WORD16", "Верхний предел измерения анемометра, м/с"),
+        RegisterInfo(986, "HMI_Write_Anem_Min_Amper_MW", "WORD16", "Нижний предел показаний анемометра, mA"),
+        RegisterInfo(1224, "HMI_Write_Anem_Max_Amper_MW", "WORD16", "Верхний предел показаний анемометра, mA"),
+        RegisterInfo(1225, "HMI_Write_xAnemomClbr_MW", "WORD16", "Команда калибровать анемометр"),
+
 
         RegisterInfo(175, "HMI_rWindSpeedLvl1_MW", "WORD16", "Величина скорости ветра для порога №1, м/с, включение желтой индикации"),
         RegisterInfo(154, "HMI_rWindSpeedLvl2_MW", "WORD16", "Величина скорости ветра для порогоа №2, м/с, включение красной индикации"),
         RegisterInfo(176, "HMI_rWindSpeedMontageLvl_MW", "WORD16", "Велична скорости ветра для порогоа №2, м/с, включение красной индикации/ Монтажный режим"),
         RegisterInfo(644, "HMI_iAnemTimeSmooth_MW", "WORD16", "Время усреднения показаний анемометра. 5 сек."),
-        RegisterInfo(645, "HMI_rK_MW", "WORD16", "Коэффициент калибровки"),
+
+        RegisterInfo(645, "HMI_Read_Anem_Min_Wind_MW", "WORD16", "Нижний предел измерения анемометра, м/с"),
+        RegisterInfo(658, "HMI_Read_Anem_Max_Wind_MW", "WORD16", "Верхний предел измерения анемометра, м/с"),
+        RegisterInfo(659, "HMI_Read_Anem_Min_Amper_MW", "WORD16", "Нижний предел показаний анемометра, mA"),
+        RegisterInfo(660, "HMI_Read_Anem_Max_Amper_MW", "WORD16", "Верхний предел показаний анемометра, mA"),
+
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
         RegisterInfo(990, "HMI_Write_Slew_Number_Teeth_OPU_MW", "WORD16", "Число зубьев ОПУ крана"),
@@ -1692,7 +1701,25 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(93, "R_CycleCrane_MW_2", "WORD32", "Рабочие циклы хода крана"),
         RegisterInfo(96, "R_CycleHoleCrane_MW_1", "WORD32", "Рабочие циклы крана в целом"),
         RegisterInfo(97, "R_CycleHoleCrane_MW_2", "WORD32", "Рабочие циклы крана в целом"),
-    )
+
+        //СОХРАНЕНИЕ
+        //Отправка данных на панель о состоянии записи и чтения VAR-файлов на ПЛК
+        RegisterInfo(1800, "HMI_Read_SDcard_Stat_MW", "WORD32", "Статус SD-карты"),
+        RegisterInfo(1801, "HMI_Read_VarSave_Stat_MW", "WORD32", "Статус сохранения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка."),
+        RegisterInfo(1802, "HMI_Read_VarSave_Proc", "WORD32", "Процес выполнения сохранения 0-100%"),
+        RegisterInfo(1803, "HMI_Read_VarRead_Stat_MW", "WORD32", "Статус чтения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка."),
+        RegisterInfo(1804, "HMI_Read_VarRead_Proc", "WORD32", "Процес выполнения чтения 0-100%"),
+        RegisterInfo(1805, "HMI_Read_VarSize_MW", "WORD32", "Объем VAR-файла"),
+
+        //Запись и чтение VAR-файлов на ПЛК, данных регистратора параметров и т.д
+        RegisterInfo(1250, "HMI_Write_Button_Save_Var_MW", "WORD32", "Записать VAR-файл"),
+        RegisterInfo(1251, "HMI_Write_Button_Read_Var_MW", "WORD32", "Считать VAR-файл"),
+        RegisterInfo(1252, "HMI_Write_Button_Read_Size_MW", "WORD32", "Считать объем VAR-файла"),
+        RegisterInfo(1253, "HMI_Write_Button_Save_Abort_MW", "WORD32", "Отмена записи VAR-файл"),
+        RegisterInfo(1254, "HMI_Write_Button_Read_Abort_MW", "WORD32", "Отмена считать VAR-файл"),
+        RegisterInfo(1255, "HMI_Write_Button_Save_RP_MW", "WORD32", "Записать файл РП-на SD-карту"),
+
+        )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 
