@@ -37,30 +37,28 @@ import kotlin.Int
 
 @Composable
 fun ParameterLoggerScreen (
-    parameterLoggerViewModule: ParameterLoggerViewModule = hiltViewModel(),
-
+    parameterLoggerView: ParameterLoggerViewModule = hiltViewModel(),
+    topBarViewModel: TopBarViewModel = hiltViewModel()
 ){
-    BasicSettingBackground()
-
-    val topBarViewModel: TopBarViewModel = hiltViewModel()
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // 2. Создаем Lifecycle-aware эффект
-    DisposableEffect(lifecycleOwner, parameterLoggerViewModule) {
+    DisposableEffect(lifecycleOwner, parameterLoggerView) {
         val lifecycleObserver = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_RESUME -> {
-                    Log.d("ParameterLoggerScreen", "Lifecycle: ON_RESUME - resuming data collection")
-                    parameterLoggerViewModule.setActiveConfiguration()
+                    Log.d("ParameterLoggerScreen", "Lifecycle: ON_RESUME- resuming data collection")
+                    parameterLoggerView.setActiveConfiguration()
                 }
                 Lifecycle.Event.ON_PAUSE -> {
-                    Log.d("ParameterLoggerScreen", "Lifecycle: ON_PAUSE    - pausing data collection")
-                    parameterLoggerViewModule.clearActiveConfiguration()
+                    Log.d("ParameterLoggerScreen", "Lifecycle: ON_PAUSE - pausing data collection")
+                    parameterLoggerView.clearActiveConfiguration()
                 }
                 else -> {Log.e("ParameterLoggerScreen", "Lifecycle: NOT START")}
             }
         }
+
         // 3. Регистрируем наблюдатель
         lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
@@ -68,12 +66,11 @@ fun ParameterLoggerScreen (
         onDispose {
             Log.d("ParameterLoggerScreen", "Lifecycle: ON_DISPOSE - removing observer")
             lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-            parameterLoggerViewModule.clearActiveConfiguration() // Дополнительная очистка
+            parameterLoggerView.clearActiveConfiguration() // Дополнительная очистка
         }
     }
 
-
-
+    BasicSettingBackground()
     val navController = rememberNavController()
 
     Column(modifier = Modifier.fillMaxWidth(),
@@ -83,62 +80,64 @@ fun ParameterLoggerScreen (
         buildMode = topBarViewModel.buildMode.value, // Передаем значение buildMode
         serviceMode = topBarViewModel.serviceMode.value,
         )
-        NavHost(navController, startDestination = NavRoutesParameterLogger.PageParameters.route) {
-            composable(NavRoutesParameterLogger.PageParameters.route){ ParametersContent() }
+        NavHost(navController, startDestination = NavRoutesParameterLogger.PageLoad.route) {
+            composable(NavRoutesParameterLogger.PageParameters.route){
+                ParametersContent()
+            }
             composable(NavRoutesParameterLogger.PageCycles.route)
             {
                 Cycles(
-                    arrRestA1MW1 = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA1MW1,
-                    arrRestA1MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA1MW2,
-                    arrRestA2MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA2MW1,
-                    arrRestA2MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA2MW2,
-                    arrRestA3MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA3MW1,
-                    arrRestA3MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA3MW2,
-                    arrRestA4MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA4MW1,
-                    arrRestA4MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA4MW2,
-                    arrRestA5MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA5MW1,
-                    arrRestA5MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA5MW2,
-                    arrRestA6MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA6MW1,
-                    arrRestA6MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA6MW2,
-                    arrRestA7MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA7MW1,
-                    arrRestA7MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA7MW2,
-                    arrRestA8MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA8MW1,
-                    arrRestA8MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA8MW2,
-                    arrRestA9MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA9MW1,
-                    arrRestA9MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA9MW2,
-                    arrRestA10MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA10MW1,
-                    arrRestA10MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA10MW2,
-                    arrRestA11MW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA11MW1,
-                    arrRestA11MW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.arrRestA11MW2,
-                    rCycleHoistMW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleHoistMW1,
-                    rCycleHoistMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleHoistMW2,
-                    rCycleSlewMW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleSlewMW1,
-                    rCycleSlewMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleSlewMW2,
-                    rCycleTrolleyMW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleTrolleyMW1,
-                    rCycleTrolleyMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleTrolleyMW2,
-                    rCycleCraneMW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleCraneMW1,
-                    rCycleCraneMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleCraneMW2,
-                    rCycleHoleCraneMW1  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleHoleCraneMW1,
-                    rCycleHoleCraneMW2  = parameterLoggerViewModule.state.value.cyclesOfWorkParameters.rCycleHoleCraneMW2,
+                    arrRestA1MW1 = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA1MW1,
+                    arrRestA1MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA1MW2,
+                    arrRestA2MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA2MW1,
+                    arrRestA2MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA2MW2,
+                    arrRestA3MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA3MW1,
+                    arrRestA3MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA3MW2,
+                    arrRestA4MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA4MW1,
+                    arrRestA4MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA4MW2,
+                    arrRestA5MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA5MW1,
+                    arrRestA5MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA5MW2,
+                    arrRestA6MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA6MW1,
+                    arrRestA6MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA6MW2,
+                    arrRestA7MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA7MW1,
+                    arrRestA7MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA7MW2,
+                    arrRestA8MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA8MW1,
+                    arrRestA8MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA8MW2,
+                    arrRestA9MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA9MW1,
+                    arrRestA9MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA9MW2,
+                    arrRestA10MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA10MW1,
+                    arrRestA10MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA10MW2,
+                    arrRestA11MW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA11MW1,
+                    arrRestA11MW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.arrRestA11MW2,
+                    rCycleHoistMW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleHoistMW1,
+                    rCycleHoistMW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleHoistMW2,
+                    rCycleSlewMW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleSlewMW1,
+                    rCycleSlewMW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleSlewMW2,
+                    rCycleTrolleyMW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleTrolleyMW1,
+                    rCycleTrolleyMW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleTrolleyMW2,
+                    rCycleCraneMW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleCraneMW1,
+                    rCycleCraneMW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleCraneMW2,
+                    rCycleHoleCraneMW1  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleHoleCraneMW1,
+                    rCycleHoleCraneMW2  = parameterLoggerView.state.value.cyclesOfWorkParameters.rCycleHoleCraneMW2,
                 )
             }
             composable(NavRoutesParameterLogger.PageLoad.route)
             {
                 Load(
-                    hmiReadSDcardStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadSDcardStatus,
+                    hmiReadSDcardStatus = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadSDcardStatus,
 
-                    onSetSaveVarFile = {parameterLoggerViewModule.onSetSaveVarFile()},
-                    onSetSaveAbortVarFile = {parameterLoggerViewModule.onSetSaveAbortVarFile()},
-                    hmiReadVarSaveProcess = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSaveProcess,
-                    hmiReadVarSaveStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSaveStatus,
-                    hmiReadVarSize = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarSize,
+                    onSetSaveVarFile = {parameterLoggerView.onSetSaveVarFile()},
+                    onSetSaveAbortVarFile = {parameterLoggerView.onSetSaveAbortVarFile()},
+                    hmiReadVarSaveProcess = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadVarSaveProcess,
+                    hmiReadVarSaveStatus = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadVarSaveStatus,
+                    hmiReadVarSize = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadVarSize,
 
-                    onSetReadSizeVarFile = {parameterLoggerViewModule.onSetReadSizeVarFile()},
-                    onSetReadVarFile= {parameterLoggerViewModule.onSetReadVarFile()},
-                    hmiReadVarReadProcess = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarReadProcess,
-                    hmiReadVarReadStatus = parameterLoggerViewModule.state.value.savingAndLoadingSettings.hmiReadVarReadStatus,
-                    onSetReadAbortVarFile = {parameterLoggerViewModule.onSetReadAbortVarFile()},
-                    onSetSaveRPFileToSD = {parameterLoggerViewModule.onSetSaveRPFileToSD()},
+                    onSetReadSizeVarFile = {parameterLoggerView.onSetReadSizeVarFile()},
+                    onSetReadVarFile= {parameterLoggerView.onSetReadVarFile()},
+                    hmiReadVarReadProcess = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadVarReadProcess,
+                    hmiReadVarReadStatus = parameterLoggerView.state.value.savingAndLoadingSettings.hmiReadVarReadStatus,
+                    onSetReadAbortVarFile = {parameterLoggerView.onSetReadAbortVarFile()},
+                    onSetSaveRPFileToSD = {parameterLoggerView.onSetSaveRPFileToSD()},
                 )
             }
         }

@@ -1248,7 +1248,6 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(1224, "HMI_Write_Anem_Max_Amper_MW", "WORD16", "Верхний предел показаний анемометра, mA"),
         RegisterInfo(1225, "HMI_Write_xAnemomClbr_MW", "WORD16", "Команда калибровать анемометр"),
 
-
         RegisterInfo(175, "HMI_rWindSpeedLvl1_MW", "WORD16", "Величина скорости ветра для порога №1, м/с, включение желтой индикации"),
         RegisterInfo(154, "HMI_rWindSpeedLvl2_MW", "WORD16", "Величина скорости ветра для порогоа №2, м/с, включение красной индикации"),
         RegisterInfo(176, "HMI_rWindSpeedMontageLvl_MW", "WORD16", "Велична скорости ветра для порогоа №2, м/с, включение красной индикации/ Монтажный режим"),

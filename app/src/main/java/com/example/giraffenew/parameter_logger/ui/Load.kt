@@ -124,7 +124,7 @@ fun Load(
                 ScaleHorizonWeightHi(
                 currentValue = hmiReadVarSaveProcess,
                 minValue = 0f,
-                maxValue = 100f,
+                maxValue = 10f,
                 modifier = Modifier.size(width = 200.dp, height = 10.dp)
             ) }
 
@@ -184,7 +184,7 @@ fun Load(
                 ScaleHorizonWeightHi(
                     currentValue = hmiReadVarReadProcess,
                     minValue = 0f,
-                    maxValue = 100f,
+                    maxValue = 10f,
                     modifier = Modifier.size(width = 200.dp, height = 10.dp)
                 ) }
             Spacer(modifier = Modifier.size(15.dp))

@@ -31,14 +31,13 @@ class ParameterLoggerViewModule @Inject constructor(
 
 
     val addressParameterCrane = listOf( 152, 197, 171, 172, 173, 174, 283, 0, 1,
-        165, 166, 167, 168, 169, 170, 367, 368, 369, 370, 371, 360, 361, 362, 363, 364, 365, 366)
+        165, 166, 167, 168, 169, 170, 367, 368, 369, 370, 371, 360, 361, 362, 363, 364, 365, 366,
+        1800, 1801, 1802, 1803, 1804, 1805)
 
     val addressCyclesOfWork = listOf(20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49,
         52, 53, 56, 57, 60, 61, 80, 81, 84, 85, 88, 89, 92, 93, 96, 97)
 
-    val addressSaveVarFile = listOf(1800, 1801, 1802, 1803, 1804, 1805)
-
-    private val allAddresses = (addressParameterCrane+addressCyclesOfWork+addressSaveVarFile).distinct()
+    private val allAddresses = (addressParameterCrane+addressCyclesOfWork).distinct()
 
     private val _state = mutableStateOf(ParameterLoggerState())
     val state: State<ParameterLoggerState> = _state
