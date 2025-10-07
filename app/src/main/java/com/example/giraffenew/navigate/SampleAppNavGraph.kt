@@ -64,15 +64,19 @@ import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 import com.example.giraffenew.R
 import com.example.giraffenew.core.sound.SoundController
+import com.example.giraffenew.home.ui.button.ButtonIconAndroid
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleAppNavGraph(
     modifier: Modifier = Modifier,
+    onKioskModeToggle: () -> Unit = {},
+    isKioskModeEnabled: Boolean = false,
     navController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+
 ) {
     val topBarViewModel: TopBarViewModel = hiltViewModel()
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
@@ -132,7 +136,9 @@ fun SampleAppNavGraph(
         Scaffold(
 
             topBar = {
-                Row (modifier = Modifier.fillMaxHeight(0.08f).background(color = Orange)) {
+                Row (modifier = Modifier
+                    .fillMaxHeight(0.08f)
+                    .background(color = Orange)) {
                     Box(modifier = Modifier.weight(4f)) {
 
 //Область отображения типа крана и кнопки меню навигации
@@ -143,6 +149,12 @@ fun SampleAppNavGraph(
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentModelCrane.value) }
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentPulleyBlock.value) }
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentLoadCapacity.value) }
+
+                                // Добавляем кнопку управления kiosk режимом
+                                ButtonIconAndroid(
+                                    onClick = onKioskModeToggle,
+                                    isKioskModeEnabled = isKioskModeEnabled
+                                )
                             }
 
 //Область отображения кнопки меню навигации
@@ -168,7 +180,12 @@ fun SampleAppNavGraph(
                                 ){
                                     Text(modifier = modifier
                                         .fillMaxWidth()
-                                        .padding(start = 1.dp, end = 1.dp, top = 5.dp, bottom = 5.dp),
+                                        .padding(
+                                            start = 1.dp,
+                                            end = 1.dp,
+                                            top = 5.dp,
+                                            bottom = 5.dp
+                                        ),
                                         text = mode,
                                         fontSize = 18.sp, fontWeight = FontWeight.Bold,
                                         textAlign = TextAlign.Center, color = modeColor

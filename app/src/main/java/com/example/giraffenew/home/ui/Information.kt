@@ -67,7 +67,6 @@ fun Information (
         .fillMaxSize()
         .padding(5.dp)
         .clip(shape = RoundedCornerShape(10.dp))
-        .fillMaxSize()
         .background(Black)
         .border(
             width = 2.dp, color = Silver, //рамка

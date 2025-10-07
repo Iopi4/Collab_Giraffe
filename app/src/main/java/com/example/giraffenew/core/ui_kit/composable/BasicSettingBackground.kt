@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +29,8 @@ fun BasicSettingBackground (){
             bitmap = ImageBitmap.imageResource(R.drawable.background_setting),
             contentDescription = "Фон меню настроек",
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier.padding(horizontal =8.dp, vertical = 5.dp)
+            modifier = Modifier.size(width = 215.dp, height = 1200.dp)
+                .padding(horizontal =8.dp, vertical = 5.dp)
         )
     }
 }

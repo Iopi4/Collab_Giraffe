@@ -1,7 +1,7 @@
 package com.example.giraffenew.di
 
 import android.content.Context
-import android.devicelock.DeviceLockManager
+import com.example.giraffenew.kiosk.DeviceLockManager
 import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.data.repositories.SettingsRepository
 import dagger.Module
@@ -30,9 +30,9 @@ object AppModule {
         return SoundController(context, settingsRepository)
     }
 
-    //@Provides
-    //@Singleton
-    //fun provideDeviceLockManager(@ApplicationContext context: Context): DeviceLockManager {
-       // return DeviceLockManager(context)
-   // }
+    @Provides
+    @Singleton
+    fun provideDeviceLockManager(@ApplicationContext context: Context): DeviceLockManager {
+        return DeviceLockManager(context)
+    }
 }

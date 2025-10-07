@@ -1,4 +1,4 @@
-package com.example.giraffenew.home.ui
+package com.example.giraffenew.home.ui.text
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

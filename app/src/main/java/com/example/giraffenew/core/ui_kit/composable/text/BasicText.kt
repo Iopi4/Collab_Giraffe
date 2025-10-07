@@ -31,6 +31,10 @@ fun BasicParametersValueText (text:String, modifier:Modifier=Modifier){
     Text(text, modifier, fontSize = 30.sp, textAlign = TextAlign.Center, color = white) }
 
 @Composable
+//Создадим функцию для свойств текста для текущих значений высоты, выллета и т.д. (Область с параметрами работы крана)
+fun BasicParametersValueTextLarge (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier, fontSize = 35.sp, textAlign = TextAlign.Center, color = white) }
+@Composable
 //Создадим функцию для свойств текста ПИТАНИЕ, В (Область с параметрами работы крана)
 fun HomeVoltageValueText (text:String, modifier:Modifier=Modifier){
     Text(text, modifier, fontSize = 20.sp, textAlign = TextAlign.Center, color = white) }

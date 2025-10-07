@@ -80,7 +80,7 @@ fun CraneMechanismsCondition(
         Box(myBoxMechanismModifier){
             Box(modifier = Modifier
                 .padding(top = 57.dp, start = 23.dp)
-                .size(height = 23.dp, width = 54.dp)
+                .size(height = 27.dp, width = 54.dp)
             )
             { BasicLampError(isLampStatus = weightSensorErr) }
 
@@ -128,20 +128,20 @@ fun CraneMechanismsCondition(
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
                 .padding(top = 32.dp, start = 10.dp)
-                .size(height = 20.dp, width = 30.dp))
+                .size(height = 25.dp, width = 30.dp))
             { BasicLampMechanismsCondition(isLampStatus = slewLeftStatus,) }
             Box(modifier = Modifier
                 .padding(top = 32.dp, start = 58.dp)
-                .size(height = 20.dp, width = 30.dp))
+                .size(height = 25.dp, width = 30.dp))
             { BasicLampMechanismsCondition(isLampStatus = slewRightStatus,) }
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
                 .padding(top = 32.dp, start = 10.dp)
-                .size(height = 20.dp, width = 30.dp))
+                .size(height = 25.dp, width = 30.dp))
             { BasicLampMechanismsPoligon(isLampStatus = slewRight, isVisibility = slewLeft) }
             Box(modifier = Modifier
                 .padding(top = 32.dp, start = 58.dp)
-                .size(height = 20.dp, width = 30.dp))
+                .size(height = 25.dp, width = 30.dp))
             { BasicLampMechanismsPoligon(isLampStatus = slewLeft, isVisibility = slewRight) }
 
             Image (
@@ -161,20 +161,20 @@ fun CraneMechanismsCondition(
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
                 .padding(top = 25.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = trolleyRevStatus)}
             Box(modifier = Modifier
                 .padding(top = 25.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = trolleyFwdStatus)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
                 .padding(top = 25.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = trolleyRev, isVisibility =trolleyRev ) }
             Box(modifier = Modifier
                 .padding(top = 25.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = trolleyFwd, isVisibility =trolleyFwd )}
 
             Image (
@@ -194,20 +194,20 @@ fun CraneMechanismsCondition(
 //Cтатус запрета движений на HMI (0-Red, 1-Yellow, 2-Green, 3-Blue)
             Box(modifier = Modifier
                 .padding(top = 75.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = craneLeftStatus,)}
             Box(modifier = Modifier
                 .padding(top = 75.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsCondition(isLampStatus = cranRightStatus,)}
 //Cтатус разрешения / запрета выхода из полигона
             Box(modifier = Modifier
                 .padding(top = 75.dp, start = 10.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = craneLeft, isVisibility =craneLeft )}
             Box(modifier = Modifier
                 .padding(top = 75.dp, start = 52.dp)
-                .size(height = 20.dp, width = 36.dp))
+                .size(height = 25.dp, width = 36.dp))
             { BasicLampMechanismsPoligon(isLampStatus = craneRight, isVisibility = craneRight )}
 
             Image (

@@ -2,9 +2,10 @@
     <string name="app_name">GIRAFFE INTERFACE</string>
     <string name="mail">mail@giraffecrane.ru</string>
 
+    <string name="accessibility_service_description">Блокировка системных функций</string>
+
     <string name="nul">nul</string>
     <string name="spacer"> </string>
-    <string name="accessibility_service_description">Служба для блокировки кнопки Recent Apps в режиме киоска</string>
 
     <!-- Универсальный текст -->
     <string name="Button_ON">Ок</string>

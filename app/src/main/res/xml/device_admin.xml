@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-policies>
+        <!-- Lock Task Mode -->
+        <limit-password />
+        <watch-login />
+        <reset-password />
+        <force-lock />
+        <wipe-data />
+
+        <!-- Для Lock Task Features -->
+        <expire-password />
+        <encrypted-storage />
+
+        <!-- Дополнительные политики для полного контроля -->
+        <disable-camera />
+        <disable-keyguard-features />
+    </uses-policies>
+</device-admin>

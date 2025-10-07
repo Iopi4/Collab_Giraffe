@@ -24,6 +24,7 @@ import com.example.giraffenew.services.ModbusBackgroundService
  * - Graceful handling различных версий Android
  * C:\Users\User\AppData\Local\Android\Sdk\platform-tools>
  */
+
 class BootReceiver : BroadcastReceiver() {
     companion object {
         private const val TAG = "BootReceiver"
@@ -32,31 +33,6 @@ class BootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Log.w(TAG, "Boot event received. Starting delayed service initialization...")
-        //Запуск приложения.
-        when (intent.action) {
-            Intent.ACTION_BOOT_COMPLETED,
-            "android.intent.action.QUICKBOOT_POWERON",
-            Intent.ACTION_MY_PACKAGE_REPLACED,
-            Intent.ACTION_PACKAGE_REPLACED -> {
-                Log.d("BootReceiver", "Device booted or app replaced, starting application...")
-
-                // Запускаем сервис
-                val serviceIntent = Intent(context, ModbusBackgroundService::class.java)
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    context.startForegroundService(serviceIntent)
-                } else {
-                    context.startService(serviceIntent)
-                }
-
-                // Запускаем активность
-                val activityIntent = Intent(context, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                }
-                context.startActivity(activityIntent)
-            }
-        }
-
 
         // Используем Handler с главным Looper
         Handler(Looper.getMainLooper()).postDelayed({
