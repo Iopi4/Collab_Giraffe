@@ -18,6 +18,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.lifecycleScope
 import com.example.giraffenew.accident_and_warning_log.data.remoute.RegisterStatusDataSource
 import com.example.giraffenew.kiosk.DeviceLockManager
 import com.example.giraffenew.kiosk.KioskAccessibilityService
@@ -26,6 +27,42 @@ import com.example.giraffenew.services.ModbusBackgroundService
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+/**
+1. Оптимизация onCreate()
+UI инициализируется сразу через setContent()
+
+Тяжелые операции вынесены в initializeHeavyComponents() корутину
+
+2. Использование корутин с Dispatchers.IO
+deviceLockManager.initialize() - в фоновом потоке
+
+deviceLockManager.isAdminActive() - в фоновом потоке
+
+deviceLockManager.isGiraffeDefaultLauncher() - в фоновом потоке
+
+applyKioskPoliciesInBackground() - отдельная suspend функция
+
+3. Безопасное обновление UI
+Все обновления UI через withContext(Dispatchers.Main)
+
+Обработка ошибок в корутинах
+
+4. Оптимизация onResume()
+Проверка состояния лаунчера в фоне
+
+Плавное обновление UI после получения данных
+
+5. Улучшенная обработка toggleKioskMode()
+Вся логика переключения в корутине
+
+Разделение фоновых операций и UI обновлений
+ */
+
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -41,19 +78,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Инициализация должна быть ДО setContent
-        deviceLockManager.initialize()
-
-        // Проверяем текущий статус прав администратора
-        checkAdminStatus()
-
-        val serviceIntent = Intent(this, ModbusBackgroundService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(serviceIntent)
-        } else {
-            startService(serviceIntent)
-        }
-
         enableEdgeToEdge()
         setContent {
             GIRAFFEnewTheme {
@@ -63,15 +87,60 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
-    }
 
-    private fun checkAdminStatus() {
-        val isAdminActive = deviceLockManager.isAdminActive()
-        Log.d("MainActivity", "Device admin active: $isAdminActive")
-        if (!isAdminActive) {
-            Toast.makeText(this, "Для работы режима киоска нужны права администратора", Toast.LENGTH_LONG).show()
+        // Тяжелые операции в корутинах
+        lifecycleScope.launch {
+            initializeHeavyComponents()
         }
     }
+    private suspend fun initializeHeavyComponents() {
+        try {
+            // Инициализация DeviceLockManager в IO dispatcher
+            withContext(Dispatchers.IO) {
+                deviceLockManager.initialize()
+            }
+
+            // Проверка статуса администратора в IO dispatcher
+            val isAdminActive = withContext(Dispatchers.IO) {
+                deviceLockManager.isAdminActive()
+            }
+
+            // Обновление UI в главном потоке
+            withContext(Dispatchers.Main) {
+                Log.d("MainActivity", "Device admin active: $isAdminActive")
+                if (!isAdminActive) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Для работы режима киоска нужны права администратора",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                // Запуск сервиса после инициализации
+                startModbusService()
+            }
+
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error initializing heavy components: ${e.message}")
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Ошибка инициализации приложения",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun startModbusService() {
+        val serviceIntent = Intent(this, ModbusBackgroundService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent)
+        } else {
+            startService(serviceIntent)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("MainActivity", "onActivityResult: requestCode=$requestCode, resultCode=$resultCode")
@@ -82,7 +151,12 @@ class MainActivity : ComponentActivity() {
                     // Права администратора получены
                     Log.d("MainActivity", "Device admin permissions granted")
                     isKioskModeEnabled = true
-                    deviceLockManager.applyKioskPolicies(this)
+
+                    // Применяем политики в корутине
+                    lifecycleScope.launch {
+                        applyKioskPoliciesInBackground()
+                    }
+
                     Toast.makeText(this, "Права администратора получены! Режим киоска активирован.", Toast.LENGTH_LONG).show()
                 } else {
                     // Пользователь отказал в правах
@@ -97,13 +171,41 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private suspend fun applyKioskPoliciesInBackground() {
+        withContext(Dispatchers.IO) {
+            try {
+                deviceLockManager.applyKioskPolicies(this@MainActivity)
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error applying kiosk policies: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Ошибка применения политик киоска",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
     private fun checkAndRequestAccessibilityPermission() {
-        val accessibilityEnabled = isAccessibilityServiceEnabled()
-        if (!accessibilityEnabled) {
-            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            Toast.makeText(this, "Включите службу доступности Giraffe для полной блокировки", Toast.LENGTH_LONG).show()
+        lifecycleScope.launch {
+            val accessibilityEnabled = withContext(Dispatchers.IO) {
+                isAccessibilityServiceEnabled()
+            }
+
+            if (!accessibilityEnabled) {
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Включите службу доступности Giraffe для полной блокировки",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 
@@ -117,62 +219,88 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun toggleKioskMode() {
-        try {
-            if (!deviceLockManager.isAdminActive()) {
-                Log.d("MainActivity", "Admin not active, requesting permissions")
-                val success = deviceLockManager.enableKioskMode(this)
-                if (!success) {
-                    Toast.makeText(this, "Запрос прав администратора отправлен", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            try {
+                if (!deviceLockManager.isAdminActive()) {
+                    Log.d("MainActivity", "Admin not active, requesting permissions")
+                    val success = deviceLockManager.enableKioskMode(this@MainActivity)
+                    if (!success) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Запрос прав администратора отправлен",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    return@launch
                 }
-                return
+
+                // Проверяем текущее состояние лаунчера в фоне
+                val isGiraffeLauncherState = withContext(Dispatchers.IO) {
+                    deviceLockManager.isGiraffeDefaultLauncher(this@MainActivity)
+                }
+                val newState = !isGiraffeLauncherState
+
+                // Сохраняем состояние в SharedPreferences для AccessibilityService
+                withContext(Dispatchers.IO) {
+                    val prefs = getSharedPreferences("kiosk_prefs", Context.MODE_PRIVATE)
+                    prefs.edit().putBoolean("kiosk_enabled", newState).apply()
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (newState) {
+                        // Включаем киоск-режим - выбираем Girafee как лаунчер
+                        deviceLockManager.setGiraffeAsDefaultLauncher(this@MainActivity)
+                        lifecycleScope.launch {
+                            applyKioskPoliciesInBackground()
+                        }
+                        isKioskModeEnabled = true
+                        checkAndRequestAccessibilityPermission()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Режим киоска активирован",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        // Выключаем киоск-режим - выбираем стандартный лаунчер. даем доступ к настройкам
+                        deviceLockManager.clearDefaultLauncher(this@MainActivity)
+                        deviceLockManager.disableKioskMode(this@MainActivity)
+                        isKioskModeEnabled = false
+                        // Явно разрешаем системные настройки
+                        allowSystemSettingsAccess()
+
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Выберите стандартный лаунчер (Home)",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error toggling kiosk mode: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Ошибка: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
-
-
-            // Проверяем текущее состояние лаунчера
-            val isGiraffeLauncherState = deviceLockManager.isGiraffeDefaultLauncher(this)
-            val newState = !isGiraffeLauncherState
-
-            // Сохраняем состояние в SharedPreferences для AccessibilityService
-            val prefs = getSharedPreferences("kiosk_prefs", Context.MODE_PRIVATE)
-            prefs.edit().putBoolean("kiosk_enabled",newState).apply()
-
-
-            if (newState) {
-                // Включаем киоск-режим - выбираем Girafee как лаунчер
-                deviceLockManager.setGiraffeAsDefaultLauncher(this)
-                deviceLockManager.applyKioskPolicies(this)
-                isKioskModeEnabled = true
-                checkAndRequestAccessibilityPermission()
-                Toast.makeText(this, "Режим киоска активирован", Toast.LENGTH_LONG).show()
-            } else {
-                // Выключаем киоск-режим - выбираем стандартный лаунчер. даем доступ к настройкам
-                deviceLockManager.clearDefaultLauncher(this)
-                deviceLockManager.disableKioskMode(this)
-                isKioskModeEnabled = false
-                // Явно разрешаем системные настройки
-                allowSystemSettingsAccess()
-
-                Toast.makeText(this, "Выберите стандартный лаунчер (Home)", Toast.LENGTH_LONG).show()
-            }
-
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Error toggling kiosk mode: ${e.message}")
-            Toast.makeText(this, "Ошибка: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun allowSystemSettingsAccess(){
-        //Явно запускаем настройки, что бы пользователь мог выбрать лаунчер.
+    private fun allowSystemSettingsAccess() {
+        // Явно запускаем настройки, чтобы пользователь мог выбрать лаунчер.
         try {
             val intent = Intent(Settings.ACTION_SETTINGS)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.e("MainActivity", "Cannot open settings: ${e.message}")
         }
-
     }
-
 
     override fun onBackPressed() {
         if (isKioskModeEnabled) {
@@ -248,30 +376,41 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Синхронизируем состояние с реальным положением дел
-        isKioskModeEnabled = deviceLockManager.isGiraffeDefaultLauncher(this)
 
-        // Обновляем состояние в SharedPreferences
-        val prefs = getSharedPreferences("kiosk_prefs", Context.MODE_PRIVATE)
-        prefs.edit().putBoolean("kiosk_enabled", isKioskModeEnabled).apply()
+        // Проверка состояния киоск-режима в фоне
+        lifecycleScope.launch {
+            val isGiraffeLauncher = withContext(Dispatchers.IO) {
+                deviceLockManager.isGiraffeDefaultLauncher(this@MainActivity)
+            }
 
-        //Восстанавливаем режим киоска если нужно
-        if (isKioskModeEnabled && deviceLockManager.isAdminActive()) {
-            deviceLockManager.applyKioskPolicies(this)
-            hideSystemUI()
-        } else {
-            // Гарантируем, что системные UI доступны при выключенном режиме
-            showSystemUI()
+            withContext(Dispatchers.Main) {
+                isKioskModeEnabled = isGiraffeLauncher
+
+                // Обновляем состояние в SharedPreferences
+                val prefs = getSharedPreferences("kiosk_prefs", Context.MODE_PRIVATE)
+                prefs.edit().putBoolean("kiosk_enabled", isKioskModeEnabled).apply()
+
+                // Восстанавливаем режим киоска если нужно
+                if (isKioskModeEnabled && deviceLockManager.isAdminActive()) {
+                    lifecycleScope.launch {
+                        applyKioskPoliciesInBackground()
+                    }
+                    hideSystemUI()
+                } else {
+                    // Гарантируем, что системные UI доступны при выключенном режиме
+                    showSystemUI()
+                }
+            }
         }
     }
-    private fun showSystemUI(){
+
+    private fun showSystemUI() {
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 )
     }
-
 
     override fun onPause() {
         super.onPause()
@@ -280,7 +419,6 @@ class MainActivity : ComponentActivity() {
             if (isKioskModeEnabled && !isInForeground()) {
                 bringToForeground()
             }
-
         }
     }
 }

@@ -111,7 +111,17 @@ class DeviceLockManager @Inject constructor(
 
     fun isKioskModeEnabled(): Boolean = isLockEnabled
 
+    fun isProfileOwner(): Boolean {
+        return devicePolicyManager.isProfileOwnerApp(adminComponent.packageName)
+    }
+
     fun applyKioskPolicies(activity: Activity) {
+        if (!isProfileOwner()) {
+            Log.e("DeviceLockManager", "App is not profile owner - cannot use Lock Task")
+            // Альтернативные методы блокировки через AccessibilityService
+            return
+        }
+
         try {
             if (isAdminActive()) {
                 Log.d("DeviceLockManager", "Applying kiosk policies")
