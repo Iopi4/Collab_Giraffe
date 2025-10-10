@@ -139,9 +139,6 @@ fun DriveContent(
                 errorMessageHoist = serviceMenuViewModel.errorMessageHoist.value,
                 logMessageHoist = serviceMenuViewModel.logMessageHoist.value,
 
-                errorMessageHoistMontage = serviceMenuViewModel.errorMessageHoistMontage.value,
-                logMessageHoistMontage = serviceMenuViewModel.logMessageHoistMontage.value,
-
                 hmiSpdRefButtonHoist = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRefButtonHoist,
                 hmiSpdRef1Hoist = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRef1Hoist,
                 hmiSpdRef2Hoist = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRef2Hoist,
@@ -161,6 +158,8 @@ fun DriveContent(
                 updateHoistBrakeControlTimeout = {serviceMenuViewModel.updateHoistBrakeControlTimeout(it)},
                 onSetHoistBrakeControlTimeout = {serviceMenuViewModel.onSetHoistBrakeControlTimeout()},
                 hmiHoistBrakeControlTimeout = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistBrakeControlTimeout,
+
+                onSetFltRst = { serviceMenuViewModel.onSetFltRst()},
             )}
             composable(NavRoutesDriveContent.PageServiceSlewing.route)
             {ServiceSlewing(
@@ -201,7 +200,10 @@ fun DriveContent(
 
                 errorMessageSlew = serviceMenuViewModel.errorMessageSlew.value,
                 logMessageSlew = serviceMenuViewModel.logMessageSlew.value,
-            )}
+
+                onSetFltRst = { serviceMenuViewModel.onSetFltRst()},
+                )
+            }
             composable(NavRoutesDriveContent.PageServiceTrolley.route)
             { ServiceTrolley(
                 setValueTrolleyACC = serviceMenuViewModel.setValueTrolleyACC.value,
@@ -245,7 +247,9 @@ fun DriveContent(
                 hmiSpdRefOverSpd = serviceMenuViewModel.state.value.trolleyDriveState.hmiSpdRefOverSpd,
 
                 errorMessageTrolley = serviceMenuViewModel.errorMessageTrolley.value,
-                logMessageTrolley = serviceMenuViewModel.logMessageTrolley.value
+                logMessageTrolley = serviceMenuViewModel.logMessageTrolley.value,
+
+                onSetFltRst = { serviceMenuViewModel.onSetFltRst()},
                 )
             }
             composable(NavRoutesDriveContent.PageServiceCrane.route)
@@ -281,8 +285,11 @@ fun DriveContent(
                 hmiSpdRef4Crane = serviceMenuViewModel.state.value.craneDriveState.hmiSpdRef4Crane,
 
                 errorMessageCrane = serviceMenuViewModel.errorMessageCrane.value,
-                logMessageCrane = serviceMenuViewModel.logMessageCrane.value
-            )}
+                logMessageCrane = serviceMenuViewModel.logMessageCrane.value,
+
+                onSetFltRst = { serviceMenuViewModel.onSetFltRst()},
+            )
+            }
         }
     }
 }

@@ -247,7 +247,10 @@ fun SampleAppNavGraph(
                 }
 
                 composable(AllDestinations.NAVIGATE_SERVICE_MENU) {
-                    ServiceMenuScreen()
+                    ServiceMenuScreen(
+                        onKioskModeToggle = onKioskModeToggle,
+                        isKioskModeEnabled = isKioskModeEnabled
+                    )
                 }
 
                 composable(AllDestinations.NAVIGATE_DIAGNOSTICS) {

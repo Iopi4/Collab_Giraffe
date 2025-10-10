@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandThousandButton
@@ -66,6 +69,8 @@ fun ServiceSlewing(
 
     errorMessageSlew: String?,
     logMessageSlew: String?,
+
+    onSetFltRst: () -> Unit,
     ){
 //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -93,7 +98,11 @@ fun ServiceSlewing(
 
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Acc)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
-
+// Отступ
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.spacer))
+//Сброс ошибки привода
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Drive_Fault_Reset)
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -179,6 +188,13 @@ fun ServiceSlewing(
                 onClick = onSetSlewDEC,
                 isDecimal = true,
             )
+            Spacer(modifier = Modifier.size(25.dp))
+//Кнопка сброса ошибка привода
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.Button_Turn_Reset,
+                onClick = onSetFltRst,
+            ) {}
 
         }
     }
@@ -238,6 +254,8 @@ fun ServiceSlewingPreview () {
             hmiSpdRef4Slew = 1500,
 
             hmiSpdRefNomSlew = 5,
+
+            onSetFltRst = {},
         )
     }
 }

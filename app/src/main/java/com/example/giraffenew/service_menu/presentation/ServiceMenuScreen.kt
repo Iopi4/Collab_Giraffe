@@ -34,7 +34,9 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 fun ServiceMenuScreen(
-    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel()
+    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel(),
+    onKioskModeToggle: () -> Unit = {},
+    isKioskModeEnabled: Boolean = false,
 ){
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -91,8 +93,12 @@ fun ServiceMenuScreen(
                 currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.sensorsAndUserState.currentWithoutRingCurrentCollector,
                 currentZoneACCDECActive = serviceMenuViewModel.state.value.sensorsAndUserState.currentZoneACCDECActive,
                 currentLukModeActiveEn  = serviceMenuViewModel.state.value.sensorsAndUserState.currentLukModeActiveEn,
-                currentAndroidModeActiveEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentAndroidModeActiveEn,
-            )}
+
+                onKioskModeToggle = onKioskModeToggle,
+                isKioskModeEnabled = isKioskModeEnabled,
+
+                onSetACSSRst = {serviceMenuViewModel.onSetACSSRst()}
+                )}
         }
     }
 
@@ -153,6 +159,8 @@ sealed class NavRoutesService (val route: String){
 fun ServiceMenuScreenPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         ServiceMenuScreen(
+            onKioskModeToggle  = {},
+            isKioskModeEnabled = false,
         )
     }
 }

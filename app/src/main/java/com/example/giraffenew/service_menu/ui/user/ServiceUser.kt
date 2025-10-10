@@ -2,6 +2,7 @@ package com.example.giraffenew.service_menu.ui.user
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,13 +12,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.AndroidPath
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
+import com.example.giraffenew.service_menu.button.ButtonOnOffAndroidStatus
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -43,8 +47,10 @@ fun ServiceUser(
     currentLukModeActiveEn: Int,
 
     onSetAndroidModeActiveEn: () -> Unit,
-    currentAndroidModeActiveEn: Int,
+    onKioskModeToggle: () -> Unit = {},
+    isKioskModeEnabled: Boolean = false,
 
+    onSetACSSRst: () -> Unit,
 
     ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -81,6 +87,7 @@ fun ServiceUser(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Mode_ACC_DEC)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Luk_Mode)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_Setting_Android)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_User_ACSS_Fault_Reset)
         }
 
 //№.2 - Правая область для отображения и ввода параметров сервисного инженера
@@ -105,13 +112,13 @@ fun ServiceUser(
                 isLampStatus = currentDataLogErrStopHoist
             )
 //Отступ
-            Spacer(modifier = Modifier.size(65.dp))
+            Spacer(modifier = Modifier.size(75.dp))
 //Кнопка. Авторизация [Наладка]
             BasicButtonOnOffStatus(
                 onClick = onSetPasswordNaladka,
                 isLampStatus = currentPasswordOrNaladka
             )
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(20.dp))
 //Поле активации 4 полигона по 20 точек
             BasicButtonOnOffStatus(
                 onClick = onSetFourPolygonsEn,
@@ -129,20 +136,34 @@ fun ServiceUser(
                 onClick = onSetZoneACCDECActiveEn,
                 isLampStatus = currentZoneACCDECActive
             )
-            Spacer(modifier = Modifier.size(40.dp))
+            Spacer(modifier = Modifier.size(20.dp))
 //Поле. Включение контроля люка в ОПУ [вкл/выкл]
             BasicButtonOnOffStatus(
                 onClick = onSetLukModeActiveEn,
                 isLampStatus = currentLukModeActiveEn
             )
+            Spacer(modifier = Modifier.size(20.dp))
 //Поле. Включение доступа к функциям Android [вкл/выкл]
-            BasicButtonOnOffStatus(
-                onClick = onSetAndroidModeActiveEn,
-                isLampStatus = currentAndroidModeActiveEn
+            ButtonOnOffAndroidStatus(
+                onClick = {
+                    onKioskModeToggle()
+                    onSetAndroidModeActiveEn()
+                          },
+                isLampStatus = isKioskModeEnabled
             )
+            Spacer(modifier = Modifier.size(15.dp))
+//Поле. Кнопка сброса ошибка в АЦСС
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.Button_Turn_Reset,
+                onClick = onSetACSSRst,
+            ) {}
+
+
         }
     }
 }
+
 
 @Preview
 @Composable
@@ -168,7 +189,8 @@ fun ServiceUserPreview () {
             currentLukModeActiveEn = 1,
 
             onSetAndroidModeActiveEn = { },
-            currentAndroidModeActiveEn = 1,
+
+            onSetACSSRst= { },
         )
     }
 }

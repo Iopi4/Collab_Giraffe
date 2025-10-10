@@ -122,7 +122,7 @@ object DefaultRegisterConfiguration {
             {"address": 113, "name": "Slew_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя *0.1"},
             {"address": 115, "name": "Slew_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 116, "name": "Slew_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
-            {"address": 117, "name": "Slew_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
+            {"address": 117, "name": "Slew_Fault_MW", "type": "WORD16", "description": "Ошибка ПЧ"},
             
             {"address": 118, "name": "Trolley_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ тележки"},
             {"address": 119, "name": "Trolley_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ тележки"},
@@ -131,7 +131,7 @@ object DefaultRegisterConfiguration {
             {"address": 122, "name": "Trolley_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя *0.1"},
             {"address": 124, "name": "Trolley_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 125, "name": "Trolley_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
-            {"address": 126, "name": "Trolley_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
+            {"address": 126, "name": "Trolley_Fault_MW", "type": "WORD16", "description": "Ошибка ПЧ"},
             
             {"address": 127, "name": "Crane_StatusWord_MW", "type": "WORD16", "description": "Слово состояния ПЧ хода крана"},
             {"address": 128, "name": "Crane_ControlWord_MW", "type": "WORD16", "description": "Слово управления ПЧ хода крана"},
@@ -140,7 +140,7 @@ object DefaultRegisterConfiguration {
             {"address": 131, "name": "Crane_MotorCurrent_MW", "type": "WORD16", "description": "Ток двигателя  *0.1"},
             {"address": 132, "name": "Crane_IL1R_MW", "type": "WORD16", "description": "состояние дискретных входов ПЧ"},
             {"address": 133, "name": "Crane_OL1R_MW", "type": "WORD16", "description": "состояние дискретных выходов ПЧ"},
-            {"address": 134, "name": "Crane_Fault_MW", "type": "WORD16", "description": "ошибка ПЧ"},
+            {"address": 134, "name": "Crane_Fault_MW", "type": "WORD16", "description": "Ошибка ПЧ"},
             
             {"address": 135, "name": "VoltageL1L2_MW", "type": "WORD16", "description": "Линейное напряжение L1-L2 *0.1"},
             {"address": 136, "name": "VoltageL2L3_MW", "type": "WORD16", "description": "Линейное напряжение L2-L3 *0.1"},
@@ -156,6 +156,15 @@ object DefaultRegisterConfiguration {
             {"address": 145, "name": "CraneRhours_MW", "type": "WORD16", "description": "Наработка моточасов хода крана"},
             {"address": 146, "name": "SBKBRhours_MW", "type": "WORD16", "description": "Наработка СБКБ"},
             {"address": 147, "name": "HoleCraneRhours_MW", "type": "WORD16", "description": "Наработка моточасов всего крана"},
+            
+            
+            {"address": 1360, "name": "HoistRhours_Day_MW", "type": "WORD16", "description": "Наработка моточасов подъема крана. За сутки"},
+            {"address": 1361, "name": "SlewRhours_Day_MW", "type": "WORD16", "description": "Наработка моточасов поворота крана. За сутки"},
+            {"address": 1362, "name": "TrolleyRhours_Day_MW", "type": "WORD16", "description": "Наработка моточасов тележки крана. За сутки"},
+            {"address": 1363, "name": "CraneRhours_Day_MW", "type": "WORD16", "description": "Наработка моточасов хода крана. За сутки"},
+            {"address": 1364, "name": "HoleCraneRhours_Day_MW", "type": "WORD16", "description": "Наработка моточасов всего крана. За сутки"},
+            
+            
             {"address": 148, "name": "PLCInputs_MW", "type": "WORD16", "description": "Состояние дискретных входов"},
             {"address": 149, "name": "PLCOutputs_MW", "type": "WORD16", "description": "Состояние дискретных выходов"},
             {"address": 150, "name": "CraneType_MW", "type": "UINT16", "description": "Модель крана"},

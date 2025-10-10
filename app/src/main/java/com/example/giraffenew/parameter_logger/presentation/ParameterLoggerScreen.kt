@@ -80,7 +80,7 @@ fun ParameterLoggerScreen (
         buildMode = topBarViewModel.buildMode.value, // Передаем значение buildMode
         serviceMode = topBarViewModel.serviceMode.value,
         )
-        NavHost(navController, startDestination = NavRoutesParameterLogger.PageLoad.route) {
+        NavHost(navController, startDestination = NavRoutesParameterLogger.PageParameters.route) {
             composable(NavRoutesParameterLogger.PageParameters.route){
                 ParametersContent()
             }

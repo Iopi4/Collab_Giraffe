@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
@@ -102,9 +103,6 @@ fun ServiceHoist(
     errorMessageHoist: String?,
     logMessageHoist: String?,
 
-    errorMessageHoistMontage: String?,
-    logMessageHoistMontage: String?,
-
     onSetHoistBrakeControlEn: () -> Unit,
     hmiHoistBrakeControlStat: Int,
 
@@ -113,7 +111,7 @@ fun ServiceHoist(
     onSetHoistBrakeControlTimeout: () -> Unit,
     hmiHoistBrakeControlTimeout: Float,
 
-
+    onSetFltRst: () -> Unit,
 
 ){
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
@@ -162,6 +160,10 @@ fun ServiceHoist(
                 text = stringResource(R.string.ServiceMenu_Text_Hoist_Brake_Setting))
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_En)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_Timeout)
+// Отступ
+            Spacer(modifier = Modifier.size(10.dp))
+//Сброс ошибки привода
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Drive_Fault_Reset)
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
@@ -323,6 +325,13 @@ fun ServiceHoist(
                 onClick = onSetHoistBrakeControlTimeout,
                 isDecimal = true,
             )
+            Spacer(modifier = Modifier.size(10.dp))
+//Кнопка сброса ошибка привода
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.Button_Turn_Reset,
+                onClick = onSetFltRst,
+            ) {}
         }
     }
 }
@@ -397,9 +406,6 @@ fun ServiceHoistPreview () {
             errorMessageHoist = null,
             logMessageHoist = null,
 
-            errorMessageHoistMontage = null,
-            logMessageHoistMontage = null,
-
             hmiSpdRefButtonHoist = 20,
             hmiSpdRef1Hoist = 60,
             hmiSpdRef2Hoist = 240,
@@ -418,7 +424,9 @@ fun ServiceHoistPreview () {
             setValueHoistBrakeControlTimeout = "",
             updateHoistBrakeControlTimeout = {},
             onSetHoistBrakeControlTimeout = { },
-            hmiHoistBrakeControlTimeout = 1f
+            hmiHoistBrakeControlTimeout = 1f,
+
+            onSetFltRst = {},
         )
     }
 }

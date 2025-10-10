@@ -1233,6 +1233,10 @@ object UIServiceMenuRegisterConfiguration {
     const val NAME_SERVICE_MENU = "UI_configuration_ServiceMenu"
 
     val REGISTERS = listOf(
+        //СЕРВИСНЫЙ РЕЖИМ. КНОПКИ СБРОСА ОШИБОК
+        RegisterInfo(890, "HMI_Write_xFltRst_MW", "WORD16", "Сброс ошибки привода"),
+        RegisterInfo(954, "HMI_Write_ACSS_Reset_MW", "WORD16", "Сброс ошибки АЦСС"),
+
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
         RegisterInfo(980, "HMI_Write_rWindSpeedLvl1_MW", "WORD16", "Скорость ветра для порога №1, м/с, включение желтой индикации"),
         RegisterInfo(981, "HMI_Write_rWindSpeedLvl2_MW", "WORD16", "Скорость ветра для порога №2, м/с, включение красной индикации"),
@@ -1472,7 +1476,7 @@ object UIServiceMenuRegisterConfiguration {
 
 
 /**
- * Конфигурация UI №8 (ServiceMenuViewModel)
+ * Конфигурация UI №8 (DiagnosticMenuViewModel)
  * Регистры для работы с UI экрана начальные настройки
  */
 object UIDiagnosticRegisterConfiguration {

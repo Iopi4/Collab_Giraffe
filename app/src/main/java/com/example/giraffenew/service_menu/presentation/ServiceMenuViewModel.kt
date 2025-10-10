@@ -371,7 +371,6 @@ class ServiceMenuViewModel
                 currentWithoutRingCurrentCollector = cache[753] ?: 0,
                 currentZoneACCDECActive = cache[754] ?: 0,
                 currentLukModeActiveEn = cache[755] ?: 0,
-                currentAndroidModeActiveEn = cache[2001] ?: 0,
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
                 currentAbsEncDeltaControlEn = cache[755] ?: 0,
                 currentAbsEncDebugModeHoist = cache[756] ?: 0,
@@ -541,7 +540,6 @@ class ServiceMenuViewModel
         val currentWithoutRingCurrentCollector: Int = 0,
         val currentZoneACCDECActive: Int = 0,
         val currentLukModeActiveEn: Int = 0,
-        val currentAndroidModeActiveEn: Int = 0,
         val craneCTRLPointEN: Int = 0, //Флаг включения, отключения датчика реперной точки хода крана
         val ctrlPointControlInterval: Float = 0f, //Интервал контроля реперной точки
     )
@@ -642,6 +640,27 @@ class ServiceMenuViewModel
         val floatValue = value.toFloatOrNull() ?: throw NumberFormatException("Некорректное число")
         if (floatValue < min || floatValue > max) throw IllegalArgumentException("Значение вне диапазона")
         return (floatValue * 10).toInt()
+    }
+
+
+
+    /**
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ПРИВОДА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+
+    // Driver. Сброс ошибки приводов
+    fun onSetFltRst() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Сброс ошибки
+                modbusRepository.writeRegister(890, 1)
+                delay(200)
+                modbusRepository.writeRegister(890, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
     }
 
     /**
@@ -1778,16 +1797,30 @@ class ServiceMenuViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                // Активация калибровки
+                // Активация функции
                 modbusRepository.writeRegister(2000, 1)
                 delay(200)
                 modbusRepository.writeRegister(2000, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // ACSS. Сброс ошибки АЦСС
+    fun onSetACSSRst() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Сброс ошибки
+                modbusRepository.writeRegister(954, 1)
+                delay(200)
+                modbusRepository.writeRegister(954, 0)
                 // Логирование
             } catch (e: Exception) {
             }
         }
     }
+
 
 
     //Wind. Обновление для UI

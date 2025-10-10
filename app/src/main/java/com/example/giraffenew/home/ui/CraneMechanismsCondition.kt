@@ -241,10 +241,8 @@ fun CraneMechanismsCondition(
                 modifier= Modifier,
                 statusLamp = alarmLampStatus
             )
-
         }
     }
-
 }
 
 private val HOIST_COEFFICIENT: Float = 0.93f //Коэффициент коррекции скорости подъема
@@ -258,19 +256,19 @@ private fun formatDecimal(value: Float): String {
 
 private fun formatDecimalHoist(value: Float): String {
     val realValue = (value * HOIST_COEFFICIENT) / 1f
-    return String.format("%05.1fм/мин", realValue).replace(',', '.')
+    return String.format("%01.1fм/мин", realValue).replace(',', '.')
 }
 private fun formatDecimalSlew(value: Float): String {
     val realValue = (value * SLEW_COEFFICIENT) / 1f
-    return String.format("%04.1fоб/мин", realValue).replace(',', '.')
+    return String.format("%01.1fоб/мин", realValue).replace(',', '.')
 }
 private fun formatDecimalTrolley(value: Float): String {
     val realValue = (value * TROLLEY_COEFFICIENT) / 1f
-    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+    return String.format("%01.1fм/мин", realValue).replace(',', '.')
 }
 private fun formatDecimalCrane(value: Float): String {
     val realValue = (value * CRANE_COEFFICIENT) / 1f
-    return String.format("%04.1fм/мин", realValue).replace(',', '.')
+    return String.format("%01.1fм/мин", realValue).replace(',', '.')
 }
 
 @Preview

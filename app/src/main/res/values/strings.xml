@@ -326,6 +326,8 @@
     <string name="ServiceMenu_Text_Hoist_BrakeControl_En">Контроль обр.связи [вкл.выкл]</string>
     <string name="ServiceMenu_Text_Hoist_BrakeControl_Timeout">Ввод. Время обратной связи [c]</string>
 
+    <string name="ServiceMenu_Text_Drive_Fault_Reset">Сброс ошибки привода</string>
+
     <!-- Настройка датчиков -->
     <string name="ServiceMenu_Text_Sensors_Parameters">Настройка датчиков</string>
     <string name="ServiceMenu_Text_Wind_Warning_Signal">Ввод. Предупредит. сигн. [м/c]</string>
@@ -374,6 +376,7 @@
     <string name="ServiceMenu_Text_User_Setting_Mode_ACC_DEC">Режим настройки ускорений и торможений [вкл/выкл]</string>
     <string name="ServiceMenu_Text_User_Setting_Luk_Mode">Отключить контроль датчика люка в ОПУ. [вкл/выкл]</string>
     <string name="ServiceMenu_Text_User_Setting_Android">Доступ к функциям Android [вкл/выкл]</string>
+    <string name="ServiceMenu_Text_User_ACSS_Fault_Reset">Сброс ошибки АЦСС</string>
 
     <!-- Текст экрана ServiceMenuScreen' -->
 
