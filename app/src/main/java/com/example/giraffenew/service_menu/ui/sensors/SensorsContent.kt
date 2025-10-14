@@ -77,46 +77,46 @@ fun SensorsContent(
                 setValueWindSpeedLvl1 = serviceMenuViewModel.setValueWindSpeedLvl1.value,
                 onModelChangeWindSpeedLvl1 = { serviceMenuViewModel.updateWindSpeedLvl1(it) },
                 onSetWindSpeedLvl1 = { serviceMenuViewModel.onSetWindSpeedLvl1() },
-                hmiWindSpeedLvl1 = serviceMenuViewModel.state.value.sensorsAndUserState.hmiWindSpeedLvl1,
+                hmiWindSpeedLvl1 = serviceMenuViewModel.state.value.sensorsState.hmiWindSpeedLvl1,
 
                 setValueWindSpeedLvl2 = serviceMenuViewModel.setValueWindSpeedLvl2.value,
                 onModelChangeWindSpeedLvl2 = { serviceMenuViewModel.updateWindSpeedLvl2(it) },
                 onSetWindSpeedLvl2 = { serviceMenuViewModel.onSetWindSpeedLvl2() },
-                hmiWindSpeedLvl2 = serviceMenuViewModel.state.value.sensorsAndUserState.hmiWindSpeedLvl2,
+                hmiWindSpeedLvl2 = serviceMenuViewModel.state.value.sensorsState.hmiWindSpeedLvl2,
 
                 setValueWindSpeedMontageLvl1 = serviceMenuViewModel.setValueWindSpeedMontageLvl.value,
                 onModelChangeWindSpeedMontageLvl1 = { serviceMenuViewModel.updateWindSpeedMontageLvl(it) },
                 onSetWindSpeedMontageLvl1 = { serviceMenuViewModel.onSetWindSpeedMontageLvl() },
-                hmiWindSpeedLvl1Montage = serviceMenuViewModel.state.value.sensorsAndUserState.hmiWindSpeedLvl1Montage,
+                hmiWindSpeedLvl1Montage = serviceMenuViewModel.state.value.sensorsState.hmiWindSpeedLvl1Montage,
 
                 setValueWindTimeSmooth = serviceMenuViewModel.setValueWindTimeSmooth.value,
                 onModelChangeWindTimeSmooth = { serviceMenuViewModel.updateWindTimeSmooth(it) },
                 onSetWindTimeSmooth = { serviceMenuViewModel.onSetWindTimeSmooth() },
-                hmiAnemometerTimeSmooth = serviceMenuViewModel.state.value.sensorsAndUserState.hmiAnemometerTimeSmooth,
+                hmiAnemometerTimeSmooth = serviceMenuViewModel.state.value.sensorsState.hmiAnemometerTimeSmooth,
 
                 setValueAnemometerMinWind = serviceMenuViewModel.setValueAnemometerMinWind.value,
                 updateAnemometerMinWind = { serviceMenuViewModel.updateAnemometerMinWind(it) },
                 onSetAnemometerMinWindClbr = { serviceMenuViewModel.onSetAnemometerMinWindClbr() },
-                hmiReadAnemometerMinWind = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMinWind,
+                hmiReadAnemometerMinWind = serviceMenuViewModel.state.value.sensorsState.hmiReadAnemometerMinWind,
 
                 setValueAnemometerMaxWind = serviceMenuViewModel.setValueAnemometerMaxWind.value,
                 updateAnemometerMaxWind = { serviceMenuViewModel.updateAnemometerMaxWind(it) },
                 onSetAnemometerMaxWindClbr = { serviceMenuViewModel.onSetAnemometerMaxWindClbr() },
-                hmiReadAnemometerMaxWind = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMaxWind,
+                hmiReadAnemometerMaxWind = serviceMenuViewModel.state.value.sensorsState.hmiReadAnemometerMaxWind,
 
                 setValueAnemometerMinAmper = serviceMenuViewModel.setValueAnemometerMinAmper.value,
                 updateAnemometerMinAmper = { serviceMenuViewModel.updateAnemometerMinAmper(it) },
                 onSetAnemometerMinAmperClbr = { serviceMenuViewModel.onSetAnemometerMinAmperClbr() },
-                hmiReadAnemometerMinAmper = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMinAmper,
+                hmiReadAnemometerMinAmper = serviceMenuViewModel.state.value.sensorsState.hmiReadAnemometerMinAmper,
 
                 setValueAnemometerMaxAmper = serviceMenuViewModel.setValueAnemometerMaxAmper.value,
                 updateAnemometerMaxAmper = { serviceMenuViewModel.updateAnemometerMaxAmper(it) },
                 onSetAnemometerMaxAmperClbr = { serviceMenuViewModel.onSetAnemometerMaxAmperClbr() },
-                hmiReadAnemometerMaxAmper = serviceMenuViewModel.state.value.sensorsAndUserState.hmiReadAnemometerMaxAmper,
+                hmiReadAnemometerMaxAmper = serviceMenuViewModel.state.value.sensorsState.hmiReadAnemometerMaxAmper,
 
-                currentWind = serviceMenuViewModel.state.value.sensorsAndUserState.currentWind,
-                currentAnemometerSensor = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerSensor,
-                currentAnemometerStatus = serviceMenuViewModel.state.value.sensorsAndUserState.currentAnemometerStatus,
+                currentWind = serviceMenuViewModel.state.value.sensorsState.currentWind,
+                currentAnemometerSensor = serviceMenuViewModel.state.value.sensorsState.currentAnemometerSensor,
+                currentAnemometerStatus = serviceMenuViewModel.state.value.sensorsState.currentAnemometerStatus,
 
                 onSetAnemometerClbr = { serviceMenuViewModel.onSetAnemometerClbr()},
 
@@ -129,22 +129,22 @@ fun SensorsContent(
                 setValueLoadCellMinWeight = serviceMenuViewModel.setLoadCellMinWeight.value,
                 onModelChangeLoadCellMinWeight = { serviceMenuViewModel.updateLoadCellMinWeight(it) },
                 onSetLoadCellMinWeight = { serviceMenuViewModel.onSetLoadCellMinWeight() },
-                hmiAdvLoadCellLL = serviceMenuViewModel.state.value.sensorsAndUserState.hmiAdvLoadCellLL,
+                hmiAdvLoadCellLL = serviceMenuViewModel.state.value.sensorsState.hmiAdvLoadCellLL,
 
                 setValueLoadCellMaxWeight = serviceMenuViewModel.setLoadCellMaxWeight.value,
                 onModelChangeLoadCellMaxWeight = { serviceMenuViewModel.updateLoadCellMaxWeight(it) },
                 onSetLoadCellMaxWeight = { serviceMenuViewModel.onSetLoadCellMaxWeight() },
-                hmiAdvLoadCellHH = serviceMenuViewModel.state.value.sensorsAndUserState.hmiAdvLoadCellHH,
+                hmiAdvLoadCellHH = serviceMenuViewModel.state.value.sensorsState.hmiAdvLoadCellHH,
 
                 setValueLoadCellSmoothingDepth = serviceMenuViewModel.setLoadCellSmoothingDepth.value,
                 onModelChangeLoadCellSmoothingDepth = { serviceMenuViewModel.updateLoadCellSmoothingDepth(it) },
                 onSetLoadCellSmoothingDepth = { serviceMenuViewModel.onSetLoadCellSmoothingDepth() },
-                hmiArraySizeWeightSmooth = serviceMenuViewModel.state.value.sensorsAndUserState.hmiArraySizeWeightSmooth,
+                hmiArraySizeWeightSmooth = serviceMenuViewModel.state.value.sensorsState.hmiArraySizeWeightSmooth,
 
                 setValueLoadCellOverSpeedThreshold = serviceMenuViewModel.setLoadCellOverSpeedThreshold.value,
                 onModelChangeLoadCellOverSpeedThreshold = { serviceMenuViewModel.updateLoadCellOverSpeedThreshold(it) },
                 onSetLoadCellOverSpeedThreshold = { serviceMenuViewModel.onSetLoadCellOverSpeedThreshold() },
-                hmiWeightSPOverSpeed = serviceMenuViewModel.state.value.sensorsAndUserState.hmiWeightSPOverSpeed,
+                hmiWeightSPOverSpeed = serviceMenuViewModel.state.value.sensorsState.hmiWeightSPOverSpeed,
 
                 errorMessageLoadCell = serviceMenuViewModel.errorMessageLoadCell.value,
                 logMessageLoadCell = serviceMenuViewModel.logMessageLoadCell.value
@@ -154,45 +154,45 @@ fun SensorsContent(
                 setValueSlewNumberTeethOPU = serviceMenuViewModel.setValueSlewNumberTeethOPU.value,
                 updateValueSlewNumberTeethOPU = { serviceMenuViewModel.updateValueSlewNumberTeethOPU(it) },
                 onSetSlewNumberTeethOPU = { serviceMenuViewModel.onSetSlewNumberTeethOPU() },
-                hmiSlewNumberTeethOPU = serviceMenuViewModel.state.value.sensorsAndUserState.hmiSlewNumberTeethOPU,
+                hmiSlewNumberTeethOPU = serviceMenuViewModel.state.value.sensorsState.hmiSlewNumberTeethOPU,
 
                 setValueSlewNumberTeethGearSensor = serviceMenuViewModel.setValueSlewNumberTeethGearSensor.value,
                 updateValueSlewNumberTeethGearSensor = { serviceMenuViewModel.updateValueSlewNumberTeethGearSensor(it) },
                 onSetSlewNumberTeethGearSensor = { serviceMenuViewModel.onSetSlewNumberTeethGearSensor() },
-                hmiSlewNumberTeethGearSensor = serviceMenuViewModel.state.value.sensorsAndUserState.hmiSlewNumberTeethGearSensor,
+                hmiSlewNumberTeethGearSensor = serviceMenuViewModel.state.value.sensorsState.hmiSlewNumberTeethGearSensor,
 
                 setValueSlewSingleTurnStepsSensor = serviceMenuViewModel.setValueSlewSingleTurnStepsSensor.value,
                 updateValueSlewSingleTurnStepsSensor = { serviceMenuViewModel.updateValueSlewSingleTurnStepsSensor(it) },
                 onSetSlewSingleTurnStepsSensor = { serviceMenuViewModel.onSetSlewSingleTurnStepsSensor() },
-                hmiSlewSingleTurnStepsSensor = serviceMenuViewModel.state.value.sensorsAndUserState.hmiSlewSingleTurnStepsSensor,
+                hmiSlewSingleTurnStepsSensor = serviceMenuViewModel.state.value.sensorsState.hmiSlewSingleTurnStepsSensor,
 
                 setValueSlewRatioK = serviceMenuViewModel.setValueSlewRatioK.value,
                 updateValueSlewRatioK = { serviceMenuViewModel.updateValueSlewRatioK(it) },
                 onSetSlewRatioK = { serviceMenuViewModel.onSetSlewRatioK() },
-                hmiSlewRatioK = serviceMenuViewModel.state.value.sensorsAndUserState.hmiSlewRatioK,
+                hmiSlewRatioK = serviceMenuViewModel.state.value.sensorsState.hmiSlewRatioK,
 
                 onSetAbsEncDeltaControlEn = { serviceMenuViewModel.onSetAbsEncDeltaControlEn() },
-                currentAbsEncDeltaControlEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDeltaControlEn,
+                currentAbsEncDeltaControlEn = serviceMenuViewModel.state.value.sensorsState.currentAbsEncDeltaControlEn,
 
                 setValueUDIHoistAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDIHoistAbsEncMaxDeltaEn.value,
                 onModelChangeUDIHoistAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDIHoistAbsEncMaxDeltaEn(it) },
                 onSetUDIHoistAbsEncMaxDeltaEn ={ serviceMenuViewModel.onSetUDIHoistAbsEncMaxDeltaEn() },
-                hmiHoistAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsAndUserState.hmiHoistAbsEncMaxDeltaEn,
+                hmiHoistAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsState.hmiHoistAbsEncMaxDeltaEn,
 
                 setValueUDISlewAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDISlewAbsEncMaxDeltaEn.value,
                 onModeChangelUDISlewAbsEncMaxDeltaEn ={ serviceMenuViewModel.updateValueUDISlewAbsEncMaxDeltaEn(it) },
                 onSetUDISlewAbsEncMaxDeltaEn ={ serviceMenuViewModel.onSetUDISlewAbsEncMaxDeltaEn() },
-                hmiSlewAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsAndUserState.hmiSlewAbsEncMaxDeltaEn,
+                hmiSlewAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsState.hmiSlewAbsEncMaxDeltaEn,
 
                 setValueUDITrolleyAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDITrolleyAbsEncMaxDeltaEn.value,
                 onModelChangeUDITrolleyAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDITrolleyAbsEncMaxDeltaEn(it) },
                 onSetUDITrolleyAbsEncMaxDeltaEn = { serviceMenuViewModel.onSetUDITrolleyAbsEncMaxDeltaEn() },
-                hmiTrolleyAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsAndUserState.hmiTrolleyAbsEncMaxDeltaEn,
+                hmiTrolleyAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsState.hmiTrolleyAbsEncMaxDeltaEn,
 
                 setValueUDICraneAbsEncMaxDeltaEn = serviceMenuViewModel.setValueUDICraneAbsEncMaxDeltaEn.value,
                 onModelChangeUDICraneAbsEncMaxDeltaEn = { serviceMenuViewModel.updateValueUDICraneAbsEncMaxDeltaEn(it) },
                 onSetUDICraneAbsEncMaxDeltaEn = { serviceMenuViewModel.onSetUDICraneAbsEncMaxDeltaEn() },
-                hmiCraneAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsAndUserState.hmiCraneAbsEncMaxDeltaEn,
+                hmiCraneAbsEncMaxDeltaEn = serviceMenuViewModel.state.value.sensorsState.hmiCraneAbsEncMaxDeltaEn,
 
                 onSetAbsEncDebugModeHoistEn = { serviceMenuViewModel.onSetAbsEncDebugModeHoistEn()},
                 onSetAbsEncDebugModeSlewEn = { serviceMenuViewModel.onSetAbsEncDebugModeSlewEn()},
@@ -200,8 +200,8 @@ fun SensorsContent(
                 errorMessageAbsEnc = serviceMenuViewModel.errorMessageAbsEnc.value,
                 logMessageAbsEnc = serviceMenuViewModel.logMessageAbsEnc.value,
 
-                currentAbsEncDebugModeHoist = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDebugModeHoist,
-                currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.sensorsAndUserState.currentAbsEncDebugModeSlew,
+                currentAbsEncDebugModeHoist = serviceMenuViewModel.state.value.sensorsState.currentAbsEncDebugModeHoist,
+                currentAbsEncDebugModeSlew = serviceMenuViewModel.state.value.sensorsState.currentAbsEncDebugModeSlew,
             )
             }
             composable(NavRoutesSensorsContent.PageServiceRefPoint.route)
@@ -210,10 +210,10 @@ fun SensorsContent(
                     setValueCTRLPointControlInterval = serviceMenuViewModel.setValueCTRLPointControlInterval.value,
                     updateCTRLPointControlInterval = { serviceMenuViewModel.updateCTRLPointControlInterval(it)},
                     onSetValueCTRLPointControlInterval = {serviceMenuViewModel.onSetValueCTRLPointControlInterval()},
-                    ctrlPointControlInterval = serviceMenuViewModel.state.value.sensorsAndUserState.ctrlPointControlInterval,
+                    ctrlPointControlInterval = serviceMenuViewModel.state.value.sensorsState.ctrlPointControlInterval,
 
                     onSetCTRLPointEN = { serviceMenuViewModel.onSetCTRLPointEN()},
-                    craneCTRLPointEN = serviceMenuViewModel.state.value.sensorsAndUserState.craneCTRLPointEN,
+                    craneCTRLPointEN = serviceMenuViewModel.state.value.sensorsState.craneCTRLPointEN,
 
                     errorMessageCTRLPoint = serviceMenuViewModel.errorMessageCTRLPoint.value,
                     logMessageCTRLPoint = serviceMenuViewModel.logMessageCTRLPoint.value

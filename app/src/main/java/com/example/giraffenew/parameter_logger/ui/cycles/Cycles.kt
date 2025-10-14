@@ -1,4 +1,4 @@
-package com.example.giraffenew.parameter_logger.ui
+package com.example.giraffenew.parameter_logger.ui.cycles
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

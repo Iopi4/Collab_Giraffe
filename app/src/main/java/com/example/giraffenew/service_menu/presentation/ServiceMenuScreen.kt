@@ -1,6 +1,5 @@
 package com.example.giraffenew.service_menu.presentation
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,15 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,46 +23,16 @@ import com.example.giraffenew.core.ui_kit.composable.BasicSettingBackground
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonTabGiraffe
 import com.example.giraffenew.service_menu.ui.drive.DriveContent
 import com.example.giraffenew.service_menu.ui.sensors.SensorsContent
-import com.example.giraffenew.service_menu.ui.user.ServiceUser
 import com.example.giraffenew.ui.theme.DarkGrew
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
+import com.example.giraffenew.service_menu.ui.user.UserContent
 
 @Composable
 fun ServiceMenuScreen(
-    serviceMenuViewModel: ServiceMenuViewModel = hiltViewModel(),
     onKioskModeToggle: () -> Unit = {},
     isKioskModeEnabled: Boolean = false,
+
 ){
-    // 1. Получаем текущий LifecycleOwner
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    // 2. Создаем Lifecycle-aware эффект
-    DisposableEffect(lifecycleOwner, serviceMenuViewModel) {
-        val lifecycleObserver = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_RESUME -> {
-                    Log.d("ServiceMenuScreen", "Lifecycle: ON_RESUME- resuming data collection")
-                    serviceMenuViewModel.setActiveConfiguration()
-                }
-                Lifecycle.Event.ON_PAUSE -> {
-                    Log.d("ServiceMenuScreen", "Lifecycle: ON_PAUSE - pausing data collection")
-                    serviceMenuViewModel.clearActiveConfiguration()
-                }
-                else -> {Log.e("ServiceMenuScreen", "Lifecycle: NOT START")}
-            }
-        }
-
-        // 3. Регистрируем наблюдатель
-        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-
-        // 4. Очистка при удалении Composable
-        onDispose {
-            Log.d("ServiceMenuScreen", "Lifecycle: ON_DISPOSE - removing observer")
-            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-            serviceMenuViewModel.clearActiveConfiguration() // Дополнительная очистка
-        }
-    }
-
     BasicSettingBackground()
 
     val navController = rememberNavController()
@@ -77,28 +42,10 @@ fun ServiceMenuScreen(
         NavHost(navController, startDestination = NavRoutesService.PageDrive.route) {
             composable(NavRoutesService.PageDrive.route){ DriveContent()}
             composable(NavRoutesService.PageSensors.route) {SensorsContent()}
-            composable(NavRoutesService.PageUser.route)
-            {ServiceUser(
-                onSetDataLogErrStopHoist = { serviceMenuViewModel.onSetDataLogErrStopHoist() },
-                onSetPasswordNaladka = { serviceMenuViewModel.onSetPasswordNaladka()},
-                onSetFourPolygonsEn = { serviceMenuViewModel.onSetFourPolygonsEn()},
-                onSetWithoutRingCurrentCollectorEn = { serviceMenuViewModel.onSetWithoutRingCurrentCollectorEn()},
-                onSetZoneACCDECActiveEn = { serviceMenuViewModel.onSetZoneACCDECActiveEn()},
-                onSetLukModeActiveEn= { serviceMenuViewModel.onSetLukModeActiveEn()},
-                onSetAndroidModeActiveEn = {serviceMenuViewModel.onSetAndroidModeActiveEn()},
-
-                currentDataLogErrStopHoist = serviceMenuViewModel.state.value.sensorsAndUserState.currentDataLogErrStopHoist,
-                currentPasswordOrNaladka = serviceMenuViewModel.state.value.sensorsAndUserState.currentPasswordOrNaladka,
-                currentFOURPolygonsEn = serviceMenuViewModel.state.value.sensorsAndUserState.currentFOURPolygonsEn,
-                currentWithoutRingCurrentCollector = serviceMenuViewModel.state.value.sensorsAndUserState.currentWithoutRingCurrentCollector,
-                currentZoneACCDECActive = serviceMenuViewModel.state.value.sensorsAndUserState.currentZoneACCDECActive,
-                currentLukModeActiveEn  = serviceMenuViewModel.state.value.sensorsAndUserState.currentLukModeActiveEn,
-
+            composable(NavRoutesService.PageUser.route) { UserContent(
                 onKioskModeToggle = onKioskModeToggle,
-                isKioskModeEnabled = isKioskModeEnabled,
-
-                onSetACSSRst = {serviceMenuViewModel.onSetACSSRst()}
-                )}
+                isKioskModeEnabled = isKioskModeEnabled
+            ) }
         }
     }
 

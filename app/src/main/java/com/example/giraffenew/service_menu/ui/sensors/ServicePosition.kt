@@ -107,7 +107,7 @@ fun ServicePosition(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Number_Teeth_OPU)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Number_Teeth_Gear_Sensor)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Single_Turn_Steps_Sensor)
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Slew_Ratio_K)
+
 // Отступ
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.spacer))
@@ -175,22 +175,7 @@ fun ServicePosition(
                 isDecimal = true,
             )
 //Отступ
-            Spacer(modifier = Modifier.size(20.dp))
-//Ввод. Коэффициент передачи ОПУ и шестерни датчика
-            BasicInputRowandThousandButton(
-                placeholder = formatHundred(hmiSlewRatioK),
-                value = setValueSlewRatioK,
-                onValueChange = updateValueSlewRatioK,
-                onClick = onSetSlewRatioK,
-                isDecimal = true,
-            )
-//Отступ
-            Spacer(modifier = Modifier.size(30.dp))
-
-
-// Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+            Spacer(modifier = Modifier.size(78.dp))
 //Контроль датчиков [вкл/выкл]
             BasicButtonOnOffStatus(
                 onClick = onSetAbsEncDeltaControlEn,

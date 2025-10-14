@@ -273,7 +273,7 @@ class ServiceMenuViewModel
     private val addresses = listOf(
         163, 381, 336, 373, 374, 175, 154, 176, 644, 645, 646, 647, 648, 649,
         650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 997,
-        750, 751, 752, 753, 754, 755, 756, 757,
+        750, 751, 752, 753, 754, 755, 756, 757, 758,
         1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
         1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631,
         1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
@@ -342,7 +342,17 @@ class ServiceMenuViewModel
     // //Функция createServiceMenuState() для обработки отфильтрованных данных:
     private fun createServiceMenuState(cache: Map<Int, Int?>): ServiceMenuState {
         return ServiceMenuState(
-            sensorsAndUserState = SensorsAndUserState (
+            userState = UserState (
+                //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
+                currentDataLogErrStopHoist = cache[750] ?: 0,
+                currentPasswordOrNaladka = cache[751] ?: 0,
+                currentFOURPolygonsEn = cache[752] ?: 0,
+                currentWithoutRingCurrentCollector = cache[753] ?: 0,
+                currentZoneACCDECActive = cache[754] ?: 0,
+                currentLukModeActiveEn = cache[758] ?: 0,
+            ),
+
+            sensorsState = SensorsState (
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
                 currentWind = safeDivideTens(cache[163] ?: 0),
                 currentAnemometerSensor = cache[381] ?: 0,
@@ -364,13 +374,7 @@ class ServiceMenuViewModel
                 hmiArraySizeWeightSmooth= cache[648] ?: 0, //Глубина сглаживания измерения веса
                 hmiWeightSPOverSpeed = safeDivideTens(cache[649] ?: 0), //Уставка массы, ниже которой будет разрешена повышенная скорость
 
-                //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
-                currentDataLogErrStopHoist = cache[750] ?: 0,
-                currentPasswordOrNaladka = cache[751] ?: 0,
-                currentFOURPolygonsEn = cache[752] ?: 0,
-                currentWithoutRingCurrentCollector = cache[753] ?: 0,
-                currentZoneACCDECActive = cache[754] ?: 0,
-                currentLukModeActiveEn = cache[755] ?: 0,
+
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
                 currentAbsEncDeltaControlEn = cache[755] ?: 0,
                 currentAbsEncDebugModeHoist = cache[756] ?: 0,
@@ -489,14 +493,25 @@ class ServiceMenuViewModel
     }
 
     data class ServiceMenuState(
-        val sensorsAndUserState: SensorsAndUserState = SensorsAndUserState(),
+        val userState: UserState = UserState(),
+        val sensorsState: SensorsState = SensorsState(),
         val hoistDriveState: HoistDriveState = HoistDriveState(),
         val slewDriveState: SlewDriveState = SlewDriveState(),
         val trolleyDriveState: TrolleyDriveState = TrolleyDriveState(),
         val craneDriveState: CraneDriveState = CraneDriveState(),
     )
 
-    data class SensorsAndUserState(
+    data class UserState(
+        //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
+        val currentDataLogErrStopHoist: Int = 0,
+        val currentPasswordOrNaladka: Int = 0,
+        val currentFOURPolygonsEn: Int = 0,
+        val currentWithoutRingCurrentCollector: Int = 0,
+        val currentZoneACCDECActive: Int = 0,
+        val currentLukModeActiveEn: Int = 0,
+    )
+
+    data class SensorsState(
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
         val currentWind: Float = 0f,
         val currentAnemometerSensor: Int = 0,
@@ -532,16 +547,9 @@ class ServiceMenuViewModel
         val hmiTrolleyAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
         val hmiCraneAbsEncMaxDeltaEn: Int = 0, //Максимальное рассогласование абс. энкодера подъема
 
-
-        //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
-        val currentDataLogErrStopHoist: Int = 0,
-        val currentPasswordOrNaladka: Int = 0,
-        val currentFOURPolygonsEn: Int = 0,
-        val currentWithoutRingCurrentCollector: Int = 0,
-        val currentZoneACCDECActive: Int = 0,
-        val currentLukModeActiveEn: Int = 0,
         val craneCTRLPointEN: Int = 0, //Флаг включения, отключения датчика реперной точки хода крана
         val ctrlPointControlInterval: Float = 0f, //Интервал контроля реперной точки
+
     )
     data class HoistDriveState(
         val hmiSpdRefButtonHoist: Int = 0, // Пониженая скорость подъема
@@ -1783,9 +1791,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1209, 1)
+                modbusRepository.writeRegister(1226, 1)
                 delay(200)
-                modbusRepository.writeRegister(1209, 0)
+                modbusRepository.writeRegister(1226, 0)
                 // Логирование
             } catch (e: Exception) {
             }
