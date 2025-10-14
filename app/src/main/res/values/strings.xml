@@ -214,10 +214,13 @@
 
     <string name="SettingSensors_Text_Slewing_Calibration">Калибровка поворота</string>
     <string name="SettingSensors_Text_Slewing_Corner">Угол поворота</string>
-    <string name="SettingSensors_Text_Slewing_Installation_Zero">(1) Коорд. Ноль [град]</string>
+    <string name="SettingSensors_Text_Slewing_Installation_Zero">(1*) Коорд. Ноль [град]</string>
     <string name="SettingSensors_Text_Slewing_Calibration_Corner">(2) Коорд. Настр. угол [град]</string>
-    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(3) Ввод. Макс. угол [град]</string>
-    <string name="SettingSensors_Text_Slewing_Information">Настройку угла производить по часовой стрелке!</string>
+    <string name="SettingSensors_Text_Slewing_Calibration_Corner_Max">(2**) Макс. угол [град]</string>
+    <string name="SettingSensors_Text_Slewing_Information_1">* Запомните пространственное положение стрелы крана при установке координат Ноль [град]. </string>
+    <string name="SettingSensors_Text_Slewing_Information_11"> При частом вращении стрелы в одну сторону возможно смещения угла 0гр отностельно площадки. При необходимости скорректируйте установку координат Ноль[град] заново.</string>
+    <string name="SettingSensors_Text_Slewing_Information_12"> Соблюдайте точную установку точки 0гр для корректной работы СОЗР.</string>
+    <string name="SettingSensors_Text_Slewing_Information_2">** Максимальный угол указывается в случае исполнения крана без кольцевого токосъемника!</string>
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>

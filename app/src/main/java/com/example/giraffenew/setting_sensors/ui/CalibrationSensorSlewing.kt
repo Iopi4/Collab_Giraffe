@@ -23,6 +23,7 @@ import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
+import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsNameInfo
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -83,7 +84,7 @@ fun CalibrationSensorSlewing(
             //Установка 0
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Installation_Zero)
             //Установка угла
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner)
+            //BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner)
             //Установка максимального угла
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Slewing_Calibration_Corner_Max)
 
@@ -95,8 +96,12 @@ fun CalibrationSensorSlewing(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.SettingSensors_Text_Sensor_Alarm_2)
 
             // Информация!
-            BasicSettingsName(modifier = Modifier,
-                text = stringResource(R.string.SettingSensors_Text_Slewing_Information))
+            BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Slewing_Information_1))
+            BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Slewing_Information_11))
+            BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Slewing_Information_12))
+            // Отступ
+            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+            BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingSensors_Text_Slewing_Information_2))
 
         }
 
@@ -147,29 +152,32 @@ fun CalibrationSensorSlewing(
                 onClick = onSetSlewZeroMemEn,
             ) {}
 
+/**Исключена за ненадобностью
             //Ввод. Установка угла в градусах
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //Поле ввода значения текущего угла поворота стрелы
-                Box (modifier = Modifier
-                    .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
-                    .weight(1f)
-                ) {
-                    BasicTextFilledGiraffeDecimal(
-                        placeholder = "000",
-                        value = setValueSlewCalcAngle,
-                        onValueChange = updateValueSlewCalcAngle,
-                        modifier = Modifier,
-                    )
-                }
-                //Кнопка ввода
-                Box(modifier = Modifier.weight(1f)) {
-                    BasicButtonGiraffe(
-                        modifier = Modifier,
-                        text = R.string.Button_Memory,
-                        onClick = onSetValueSlewCalcAngle,
-                    ) {}
-                }
+            //Поле ввода значения текущего угла поворота стрелы
+            Box (modifier = Modifier
+            .padding(start = 10.dp, end = 0.dp, top = 5.dp, bottom = 0.dp)
+            .weight(1f)
+            ) {
+            BasicTextFilledGiraffeDecimal(
+            placeholder = "000",
+            value = setValueSlewCalcAngle,
+            onValueChange = updateValueSlewCalcAngle,
+            modifier = Modifier,
+            )
             }
+            //Кнопка ввода
+            Box(modifier = Modifier.weight(1f)) {
+            BasicButtonGiraffe(
+            modifier = Modifier,
+            text = R.string.Button_Memory,
+            onClick = onSetValueSlewCalcAngle,
+            ) {}
+            }
+            }
+*/
+
 
             //Ввод. Установка максимального угла в градусах
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
