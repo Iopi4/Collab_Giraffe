@@ -29,53 +29,65 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsPar
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
+import com.example.giraffenew.setting_sensors.presentation.SettingSensorsViewModule
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorTrolley(
-    currentAbsEncTrolleyPositionWord1: Int,
-    currentAbsEncTrolleyPositionWord2: Int,
-
-    currentTrolleyPosition: Float,
+    sensorsTrolleyState: SettingSensorsViewModule.SensorsTrolleyState,
 
     onSetTrolleyLimitTestEn : () -> Unit,
-    trolleyLimitStatus : Int,
-
 
     setValueTrolleyPosFwdStop: String,
     updateValueTrolleyPosFwdStop: (String) -> Unit,
     onSetValueTrolleyPosFvdStop: () -> Unit,
-    currentTrolleyStopFwd1: Int,
-    trolleyMaxPosition: Float,
 
     setValueTrolleyPosRevStop: String,
     updateValueTrolleyPosRevStop: (String) -> Unit,
     onSetValueTrolleyPosRevStop: () -> Unit,
-    currentTrolleyStopRev1: Int,
-    trolleyMinPosition: Float,
 
     setValueTrolleyPosFwdDwnSp: String,
     updateValueTrolleyPosFwdDwnSp: (String) -> Unit,
     onSetValueTrolleyPosFwdDwnSp: () -> Unit,
-    currentTrolleyFwdDwnSp1: Int,
-    trolleyPosFwdDwnSp: Float,
 
     setValueTrolleyPosRevDwnSp: String,
     updateValueTrolleyPosRevDwnSp: (String) -> Unit,
     onSetValueTrolleyPosRevDwnSp: () -> Unit,
-    currentTrolleyRevDwnSp1: Int,
-    trolleyPosRevDwnSp: Float,
-
-    currentTrolleyEncoderMaxDeltaError: Int,
-    currentTrolleyEncoderMaxValueError: Int,
-    currentTrolleyAbsEncErrCanOpen: Int,
 
     errorMessageTrolley: String?,
     logMessageTrolley: String?,
 
 ) {
+    val currentTrolleyPosition = sensorsTrolleyState.currentTrolleyPosition
+    val currentAbsEncTrolleyPositionWord1 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord1
+    val currentAbsEncTrolleyPositionWord2 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord2
+    val currentAbsEncTrolleyPositionWord3 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord3
+    val currentAbsEncTrolleyPositionWord4 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord4
+    val currentAbsEncTrolleyPositionWord5 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord5
+    val currentAbsEncTrolleyPositionWord6 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord6
+    val currentAbsEncTrolleyPositionWord7 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord7
+    val currentAbsEncTrolleyPositionWord8 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord8
+    val currentAbsEncTrolleyPositionWord9 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord9
+    val currentAbsEncTrolleyPositionWord10 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord10
+    val currentAbsEncTrolleyPositionWord11 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord11
+    val currentAbsEncTrolleyPositionWord12 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord12
+
+    val currentTrolleyStopFwd1 = sensorsTrolleyState.currentTrolleyStopFwd1
+    val trolleyMaxPosition = sensorsTrolleyState.trolleyMaxPosition
+    val currentTrolleyStopRev1 = sensorsTrolleyState.currentTrolleyStopRev1
+    val trolleyMinPosition = sensorsTrolleyState.trolleyMinPosition
+    val currentTrolleyFwdDwnSp1 = sensorsTrolleyState.currentTrolleyFwdDwnSp1
+    val trolleyPosFwdDwnSp = sensorsTrolleyState.trolleyPosFwdDwnSp
+    val currentTrolleyRevDwnSp1 = sensorsTrolleyState.currentTrolleyRevDwnSp1
+    val trolleyPosRevDwnSp = sensorsTrolleyState.trolleyPosRevDwnSp
+
+    val currentTrolleyEncoderMaxDeltaError= sensorsTrolleyState.currentTrolleyEncoderMaxDeltaError
+    val currentTrolleyEncoderMaxValueError= sensorsTrolleyState.currentTrolleyEncoderMaxValueError
+    val currentTrolleyAbsEncErrCanOpen= sensorsTrolleyState.currentTrolleyAbsEncErrCanOpen
+
+    val trolleyLimitStatus = sensorsTrolleyState.trolleyLimitStatus
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -152,7 +164,20 @@ fun CalibrationSensorTrolley(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncTrolleyPositionWord1, currentAbsEncTrolleyPositionWord2)
+                    valueParameterId = formatAbsEncPositionPosition(
+                        currentAbsEncTrolleyPositionWord1,
+                        currentAbsEncTrolleyPositionWord2,
+                        currentAbsEncTrolleyPositionWord3,
+                        currentAbsEncTrolleyPositionWord4,
+                        currentAbsEncTrolleyPositionWord5,
+                        currentAbsEncTrolleyPositionWord6,
+                        currentAbsEncTrolleyPositionWord7,
+                        currentAbsEncTrolleyPositionWord8,
+                        currentAbsEncTrolleyPositionWord9,
+                        currentAbsEncTrolleyPositionWord10,
+                        currentAbsEncTrolleyPositionWord11,
+                        currentAbsEncTrolleyPositionWord12,
+                        )
                 )
             }
 // Отображение текущего вылета
@@ -327,8 +352,14 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%d%05d", value2, value1)
+private fun formatAbsEncPositionPosition(
+    value1: Int, value2: Int, value3: Int,
+    value4: Int, value5: Int, value6: Int,
+    value7: Int, value8: Int, value9: Int,
+    value10: Int, value11: Int, value12: Int,
+): String {
+    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
+        value7, value8, value9, value10, value11, value12)
 }
 
 @Preview
@@ -336,40 +367,43 @@ private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
 fun CalibrationSensorTrolleyPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorTrolley(
-            currentTrolleyPosition = 1f,
-            currentAbsEncTrolleyPositionWord1 = 1,
-            currentAbsEncTrolleyPositionWord2 = 1,
+            sensorsTrolleyState = SettingSensorsViewModule.SensorsTrolleyState(
+                currentTrolleyPosition = 1f,
+                currentAbsEncTrolleyPositionWord1 = 1,
+                currentAbsEncTrolleyPositionWord2 = 1,
+
+                trolleyLimitStatus = 1,
+
+                currentTrolleyStopFwd1 = 1,
+                trolleyMaxPosition = 60f,
+                currentTrolleyStopRev1 = 1,
+                trolleyMinPosition = 2f,
+                currentTrolleyFwdDwnSp1 = 1,
+                trolleyPosFwdDwnSp = 55f,
+                currentTrolleyRevDwnSp1 = 1,
+                trolleyPosRevDwnSp = 5f,
+                currentTrolleyEncoderMaxDeltaError= 1,
+                currentTrolleyEncoderMaxValueError= 1,
+                currentTrolleyAbsEncErrCanOpen= 1,
+            ),
 
             onSetTrolleyLimitTestEn = { },
-            trolleyLimitStatus = 1,
 
             setValueTrolleyPosFwdStop = "1",
             updateValueTrolleyPosFwdStop = { },
             onSetValueTrolleyPosFvdStop = {},
-            currentTrolleyStopFwd1 = 1,
-            trolleyMaxPosition = 60f,
 
             setValueTrolleyPosRevStop = "`1",
             updateValueTrolleyPosRevStop = {},
             onSetValueTrolleyPosRevStop = {},
-            currentTrolleyStopRev1 = 1,
-            trolleyMinPosition = 2f,
 
             setValueTrolleyPosFwdDwnSp = "1",
             updateValueTrolleyPosFwdDwnSp = {},
             onSetValueTrolleyPosFwdDwnSp = {},
-            currentTrolleyFwdDwnSp1 = 1,
-            trolleyPosFwdDwnSp = 55f,
 
             setValueTrolleyPosRevDwnSp = "1",
             updateValueTrolleyPosRevDwnSp = { },
             onSetValueTrolleyPosRevDwnSp = {},
-            currentTrolleyRevDwnSp1 = 1,
-            trolleyPosRevDwnSp = 5f,
-
-            currentTrolleyEncoderMaxDeltaError= 1,
-            currentTrolleyEncoderMaxValueError= 1,
-            currentTrolleyAbsEncErrCanOpen= 1,
 
             errorMessageTrolley = null,
             logMessageTrolley = null,

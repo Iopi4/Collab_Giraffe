@@ -37,6 +37,7 @@ import com.example.giraffenew.ui.theme.DarkGrew
 fun SettingSensorsScreen (
     settingSensorsViewModule: SettingSensorsViewModule = hiltViewModel()
 ){
+    val state = settingSensorsViewModule.state.value
 
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -81,67 +82,45 @@ fun SettingSensorsScreen (
             composable(NavRoutesDriveContent.PageSensorHoist.route) 
             { 
                 CalibrationSensorHoist(
-                    currentHoistPosition = settingSensorsViewModule.state.value.currentHoistPosition,
-                    currentAbsEncHoistPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord1,
-                    currentAbsEncHoistPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncHoistPositionWord2,
+                    sensorsHoistState = state.sensorsHoistState,
+
                     onSetHoistLimitTestEn = { settingSensorsViewModule.onSetHoistLimitTestEn()},
-                    hoistLimitStatus = settingSensorsViewModule.state.value.hoistLimitStatus,
 
                     setValueHoistPosFwdStop = settingSensorsViewModule.setValueHoistPosFwdStop.value,
                     updateValueHoistPosFwdStop = { settingSensorsViewModule.updateValueHoistPosFwdStop(it)},
                     onSetValueHoistPosFvdStop = {settingSensorsViewModule.onSetValueHoistPosFvdStop()},
-                    currentHoistStopUp1 = settingSensorsViewModule.state.value.currentHoistStopUp1,
-                    hoistMaxPosition = settingSensorsViewModule.state.value.hoistMaxPosition,
 
                     setValueHoistPosRevStop = settingSensorsViewModule.setValueHoistPosRevStop.value,
                     updateValueHoistPosRevStop = {settingSensorsViewModule.updateValueHoistPosRevStop(it)},
                     onSetValueHoistPosRevStop = {settingSensorsViewModule.onSetValueHoistPosRevStop()},
-                    currentHoistStopDwn1 = settingSensorsViewModule.state.value.currentHoistStopDwn1,
-                    hoistMinPosition = settingSensorsViewModule.state.value.hoistMinPosition,
 
                     setValueHoistPosZero = settingSensorsViewModule.setValueHoistPosZero.value,
                     updateValueHoistPosZero = {settingSensorsViewModule.updateValueHoistPosZero(it)},
                     onSetValueHoistPosZero = {settingSensorsViewModule.onSetValueHoistPosZero()},
-                    hoistZeroPosition = settingSensorsViewModule.state.value.hoistZeroPosition,
 
                     setValueHoistPosFwdDwnSp = settingSensorsViewModule.setValueHoistPosFwdDwnSp.value,
                     updateValueHoistPosFwdDwnSp = {settingSensorsViewModule.updateValueHoistPosFwdDwnSp(it)},
                     onSetValueHoistPosFwdDwnSp = {settingSensorsViewModule.onSetValueHoistPosFwdDwnSp()},
-                    currentHoistUpDwnSp1 = settingSensorsViewModule.state.value.currentHoistUpDwnSp1,
-                    hoistPosFwdDwnSp = settingSensorsViewModule.state.value.hoistPosFwdDwnSp,
 
                     setValueHoistPosRevDwnSp = settingSensorsViewModule.setValueHoistPosRevDwnSp.value,
                     updateValueHoistPosRevDwnSp = {settingSensorsViewModule.updateValueHoistPosRevDwnSp(it)},
                     onSetValueHoistPosRevDwnSp = {settingSensorsViewModule.onSetValueHoistPosRevDwnSp()},
-                    currentHoistDwnDwnSp1 = settingSensorsViewModule.state.value.currentHoistDwnDwnSp1,
-                    hoistPosRevDwnSp = settingSensorsViewModule.state.value.hoistPosRevDwnSp,
-
-                    currentHoistEncoderMaxDeltaError= settingSensorsViewModule.state.value.currentHoistEncoderMaxDeltaError,
-                    currentHoistEncoderMaxValueError= settingSensorsViewModule.state.value.currentHoistEncoderMaxValueError,
-                    currentHoistAbsEncErrCanOpen= settingSensorsViewModule.state.value.currentHoistAbsEncErrCanOpen,
 
                     errorMessageHoist = settingSensorsViewModule.errorMessageHoist.value,
                     logMessageHoist = settingSensorsViewModule.logMessageHoist.value,
                 )}
             composable(NavRoutesDriveContent.PageSensorSlewing.route)
             { CalibrationSensorSlewing(
-                currentAbsEncSlewPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncSlewPositionWord1,
-                currentAbsEncSlewPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncSlewPositionWord2,
-                currentSlewPosition = settingSensorsViewModule.state.value.currentSlewPosition,
+                sensorsSlewState = state.sensorsSlewState,
 
                 onSetSlewZeroMemEn = {settingSensorsViewModule.onSetSlewZeroMemEn()},
-
-                setValueSlewCalcAngle = settingSensorsViewModule.setValueSlewCalcAngle.value,
-                updateValueSlewCalcAngle = {settingSensorsViewModule.updateValueSlewCalcAngle(it) },
-                onSetValueSlewCalcAngle = { settingSensorsViewModule.onSetValueSlewCalcAngle()},
+                //setValueSlewCalcAngle = settingSensorsViewModule.setValueSlewCalcAngle.value,
+                //updateValueSlewCalcAngle = {settingSensorsViewModule.updateValueSlewCalcAngle(it) },
+                //onSetValueSlewCalcAngle = { settingSensorsViewModule.onSetValueSlewCalcAngle()},
 
                 setValueSlewMaxAngle = settingSensorsViewModule.setValueSlewMaxAngle.value,
                 updateValueSlewMaxAngle = {settingSensorsViewModule.updateValueSlewMaxAngle(it) },
                 onSetValueSlewMaxAngle = { settingSensorsViewModule.onSetValueSlewMaxAngle()},
-
-                currentSlewEncoderMaxDeltaError = settingSensorsViewModule.state.value.currentSlewEncoderMaxDeltaError,
-                currentSlewEncoderMaxValueError = settingSensorsViewModule.state.value.currentSlewEncoderMaxValueError,
-                currentSlewAbsEncErrCanOpen = settingSensorsViewModule.state.value.currentSlewAbsEncErrCanOpen,
 
                 errorMessageSlew = settingSensorsViewModule.errorMessageSlew.value,
                 logMessageSlew = settingSensorsViewModule.logMessageSlew.value
@@ -149,92 +128,61 @@ fun SettingSensorsScreen (
 
             composable(NavRoutesDriveContent.PageSensorTrolley.route) {
                 CalibrationSensorTrolley(
-                    currentTrolleyPosition = settingSensorsViewModule.state.value.currentTrolleyPosition,
-                    currentAbsEncTrolleyPositionWord1 = settingSensorsViewModule.state.value.currentAbsEncTrolleyPositionWord1,
-                    currentAbsEncTrolleyPositionWord2 = settingSensorsViewModule.state.value.currentAbsEncTrolleyPositionWord2,
+                    sensorsTrolleyState = state.sensorsTrolleyState,
+
                     onSetTrolleyLimitTestEn = { settingSensorsViewModule.onSetTrolleyLimitTestEn()},
 
                     setValueTrolleyPosFwdStop = settingSensorsViewModule.setValueTrolleyPosFwdStop.value,
                     updateValueTrolleyPosFwdStop = { settingSensorsViewModule.updateValueTrolleyPosFwdStop(it)},
                     onSetValueTrolleyPosFvdStop = {settingSensorsViewModule.onSetValueTrolleyPosFvdStop()},
-                    currentTrolleyStopFwd1 = settingSensorsViewModule.state.value.currentTrolleyStopFwd1,
-                    trolleyMaxPosition = settingSensorsViewModule.state.value.trolleyMaxPosition,
 
                     setValueTrolleyPosRevStop = settingSensorsViewModule.setValueTrolleyPosRevStop.value,
                     updateValueTrolleyPosRevStop = {settingSensorsViewModule.updateValueTrolleyPosRevStop(it)},
                     onSetValueTrolleyPosRevStop = {settingSensorsViewModule.onSetValueTrolleyPosRevStop()},
-                    currentTrolleyStopRev1 = settingSensorsViewModule.state.value.currentTrolleyStopRev1,
-                    trolleyMinPosition = settingSensorsViewModule.state.value.trolleyMinPosition,
 
                     setValueTrolleyPosFwdDwnSp = settingSensorsViewModule.setValueTrolleyPosFwdDwnSp.value,
                     updateValueTrolleyPosFwdDwnSp = {settingSensorsViewModule.updateValueTrolleyPosFwdDwnSp(it)},
                     onSetValueTrolleyPosFwdDwnSp = {settingSensorsViewModule.onSetValueTrolleyPosFwdDwnSp()},
-                    currentTrolleyFwdDwnSp1 = settingSensorsViewModule.state.value.currentTrolleyFwdDwnSp1,
-                    trolleyPosFwdDwnSp = settingSensorsViewModule.state.value.trolleyPosFwdDwnSp,
 
                     setValueTrolleyPosRevDwnSp = settingSensorsViewModule.setValueTrolleyPosRevDwnSp.value,
                     updateValueTrolleyPosRevDwnSp = { settingSensorsViewModule.updateValueTrolleyPosRevDwnSp(it)},
                     onSetValueTrolleyPosRevDwnSp = {settingSensorsViewModule.onSetValueTrolleyPosRevDwnSp()},
-                    currentTrolleyRevDwnSp1 = settingSensorsViewModule.state.value.currentTrolleyRevDwnSp1,
-                    trolleyPosRevDwnSp = settingSensorsViewModule.state.value.trolleyPosRevDwnSp,
-
-                    currentTrolleyEncoderMaxDeltaError= settingSensorsViewModule.state.value.currentTrolleyEncoderMaxDeltaError,
-                    currentTrolleyEncoderMaxValueError= settingSensorsViewModule.state.value.currentTrolleyEncoderMaxValueError,
-                    currentTrolleyAbsEncErrCanOpen= settingSensorsViewModule.state.value.currentTrolleyAbsEncErrCanOpen,
 
                     errorMessageTrolley = settingSensorsViewModule.errorMessageTrolley.value,
                     logMessageTrolley = settingSensorsViewModule.logMessageTrolley.value,
-                    trolleyLimitStatus = settingSensorsViewModule.state.value.trolleyLimitStatus,
+
                 ) }
             composable(NavRoutesDriveContent.PageSensorCrane.route)
             { CalibrationSensorCrane(
-                currentAbsEncCranePositionWord1 = settingSensorsViewModule.state.value.currentAbsEncCranePositionWord1,
-                currentAbsEncCranePositionWord2 = settingSensorsViewModule.state.value.currentAbsEncCranePositionWord2,
-                currentCranePosition = settingSensorsViewModule.state.value.currentCranePosition,
+                sensorsCraneState = state.sensorsCraneState,
 
                 onSetCraneLimitTestEn = { settingSensorsViewModule.onSetCraneLimitTestEn() },
                 onSetCraneRailsEn = { settingSensorsViewModule.onSetCraneRailsEn() },
-                currentCraneRailsEn = settingSensorsViewModule.state.value.currentCraneRailsEn,
 
                 setValueCranePosFwdStop = settingSensorsViewModule.setValueCranePosFwdStop.value,
                 updateValueCranePosFwdStop = {settingSensorsViewModule.updateValueCranePosFwdStop(it) },
                 onSetValueCranePosFwdStop = { settingSensorsViewModule.onSetValueCranePosFwdStop() },
-                currentCraneStopFwd1 = settingSensorsViewModule.state.value.currentCraneStopFwd1,
-                craneMaxPosition = settingSensorsViewModule.state.value.craneMaxPosition,
 
                 setValueCranePosRevStop = settingSensorsViewModule.setValueCranePosRevStop.value,
                 updateValueCranePosRevStop = { settingSensorsViewModule.updateValueCranePosRevStop(it) },
                 onSetValueCranePosRevStop = { settingSensorsViewModule.onSetValueCranePosRevStop() },
-                currentCraneStopRev1 = settingSensorsViewModule.state.value.currentCraneStopRev1,
-                craneMinPosition = settingSensorsViewModule.state.value.craneMinPosition,
 
                 setValueCranePosFwdDwnSp = settingSensorsViewModule.setValueCranePosFwdDwnSp.value,
                 updateValueCranePosFwdDwnSp = { settingSensorsViewModule.updateValueCranePosFwdDwnSp(it) },
                 onSetValueCranePosFwdDwnSp = { settingSensorsViewModule.onSetValueCranePosFwdDwnSp()},
-                currentCraneFwdDwnSp1 = settingSensorsViewModule.state.value.currentCraneFwdDwnSp1,
-                cranePosFwdDwnSp = settingSensorsViewModule.state.value.cranePosFwdDwnSp,
 
                 setValueCranePosRevDwnSp = settingSensorsViewModule.setValueCranePosRevDwnSp.value,
                 updateValueCranePosRevDwnSp = { settingSensorsViewModule.updateValueCranePosRevDwnSp(it)},
                 onSetValueCranePosRevDwnSp = {settingSensorsViewModule.onSetValueCranePosRevDwnSp() },
-                currentCraneRevDwnSp1 = settingSensorsViewModule.state.value.currentCraneRevDwnSp1,
-                cranePosRevDwnSp = settingSensorsViewModule.state.value.cranePosRevDwnSp,
 
                 setValueCranePosRepPoint = settingSensorsViewModule.setValueCranePosRepPoint.value,
                 updateValueCranePosRepPoint = {settingSensorsViewModule.updateValueCranePosRepPoint(it) },
                 onSetValueCranePosRepPoint = {settingSensorsViewModule.onSetValueCranePosRepPoint() },
-                currentCraneRepPoint = settingSensorsViewModule.state.value.currentCraneRepPoint,
-                cranePosCTRLPoint = settingSensorsViewModule.state.value.cranePosCTRLPoint,
-
-                currentCraneEncoderMaxDeltaError = settingSensorsViewModule.state.value.currentCraneEncoderMaxDeltaError,
-                currentCraneEncoderMaxValueError = settingSensorsViewModule.state.value.currentCraneEncoderMaxValueError,
-                currentCraneAbsEncErrCanOpen = settingSensorsViewModule.state.value.currentCraneAbsEncErrCanOpen,
 
                 errorMessageCrane = settingSensorsViewModule.errorMessageCrane.value,
                 logMessageCrane = settingSensorsViewModule.logMessageCrane.value,
-
-                craneLimitStatus = settingSensorsViewModule.state.value.craneLimitStatus
-            ) }
+                )
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsPar
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
+import com.example.giraffenew.setting_sensors.presentation.SettingSensorsViewModule
 import com.example.giraffenew.setting_sensors.ui.text.BasicInputRowandTensButtonBelowZero
 import com.example.giraffenew.setting_sensors.ui.text.BasicTextFilledBelowZero
 import com.example.giraffenew.ui.theme.Burgundy_violet
@@ -37,50 +38,66 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorHoist(
-    currentAbsEncHoistPositionWord1: Int,
-    currentAbsEncHoistPositionWord2: Int,
-    currentHoistPosition: Float,
+    sensorsHoistState: SettingSensorsViewModule.SensorsHoistState,
 
     onSetHoistLimitTestEn : () -> Unit,
-    hoistLimitStatus : Int,
 
     setValueHoistPosFwdStop: String,
     updateValueHoistPosFwdStop: (String) -> Unit,
     onSetValueHoistPosFvdStop: () -> Unit,
-    currentHoistStopUp1: Int,
-    hoistMaxPosition: Float,
 
     setValueHoistPosRevStop: String,
     updateValueHoistPosRevStop: (String) -> Unit,
     onSetValueHoistPosRevStop: () -> Unit,
-    currentHoistStopDwn1: Int,
-    hoistMinPosition: Float,
 
     setValueHoistPosZero: String,
     updateValueHoistPosZero: (String) -> Unit,
     onSetValueHoistPosZero: () -> Unit,
-    hoistZeroPosition: Float,
 
     setValueHoistPosFwdDwnSp: String,
     updateValueHoistPosFwdDwnSp: (String) -> Unit,
     onSetValueHoistPosFwdDwnSp: () -> Unit,
-    currentHoistUpDwnSp1: Int,
-    hoistPosFwdDwnSp: Float,
 
     setValueHoistPosRevDwnSp: String,
     updateValueHoistPosRevDwnSp: (String) -> Unit,
     onSetValueHoistPosRevDwnSp: () -> Unit,
-    currentHoistDwnDwnSp1: Int,
-    hoistPosRevDwnSp: Float,
-
-    currentHoistEncoderMaxDeltaError: Int,
-    currentHoistEncoderMaxValueError: Int,
-    currentHoistAbsEncErrCanOpen: Int,
 
     errorMessageHoist: String?,
     logMessageHoist: String?,
 
 ) {
+    val currentHoistPosition = sensorsHoistState.currentHoistPosition
+    val currentAbsEncHoistPositionWord1 = sensorsHoistState.currentAbsEncHoistPositionWord1
+    val currentAbsEncHoistPositionWord2 = sensorsHoistState.currentAbsEncHoistPositionWord2
+    val currentAbsEncHoistPositionWord3 = sensorsHoistState.currentAbsEncHoistPositionWord3
+    val currentAbsEncHoistPositionWord4 = sensorsHoistState.currentAbsEncHoistPositionWord4
+    val currentAbsEncHoistPositionWord5 = sensorsHoistState.currentAbsEncHoistPositionWord5
+    val currentAbsEncHoistPositionWord6 = sensorsHoistState.currentAbsEncHoistPositionWord6
+    val currentAbsEncHoistPositionWord7 = sensorsHoistState.currentAbsEncHoistPositionWord7
+    val currentAbsEncHoistPositionWord8 = sensorsHoistState.currentAbsEncHoistPositionWord8
+    val currentAbsEncHoistPositionWord9 = sensorsHoistState.currentAbsEncHoistPositionWord9
+    val currentAbsEncHoistPositionWord10 = sensorsHoistState.currentAbsEncHoistPositionWord10
+    val currentAbsEncHoistPositionWord11 = sensorsHoistState.currentAbsEncHoistPositionWord11
+    val currentAbsEncHoistPositionWord12 = sensorsHoistState.currentAbsEncHoistPositionWord12
+
+    val hoistLimitStatus = sensorsHoistState.hoistLimitStatus
+    val currentHoistStopUp1 = sensorsHoistState.currentHoistStopUp1
+    val hoistMaxPosition = sensorsHoistState.hoistMaxPosition
+
+    val currentHoistStopDwn1 = sensorsHoistState.currentHoistStopDwn1
+    val hoistMinPosition = sensorsHoistState.hoistMinPosition
+
+    val hoistZeroPosition = sensorsHoistState.hoistZeroPosition
+
+    val currentHoistUpDwnSp1 = sensorsHoistState.currentHoistUpDwnSp1
+    val hoistPosFwdDwnSp = sensorsHoistState.hoistPosFwdDwnSp
+
+    val currentHoistDwnDwnSp1 = sensorsHoistState.currentHoistDwnDwnSp1
+    val hoistPosRevDwnSp = sensorsHoistState.hoistPosRevDwnSp
+
+    val currentHoistEncoderMaxDeltaError = sensorsHoistState.currentHoistEncoderMaxDeltaError
+    val currentHoistEncoderMaxValueError = sensorsHoistState.currentHoistEncoderMaxValueError
+    val currentHoistAbsEncErrCanOpen = sensorsHoistState.currentHoistAbsEncErrCanOpen
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -162,8 +179,21 @@ fun CalibrationSensorHoist(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
-                        valueParameterId = formatAbsEncPositionPosition(currentAbsEncHoistPositionWord1,currentAbsEncHoistPositionWord2)
-                )
+                        valueParameterId = formatAbsEncPositionPosition(
+                            currentAbsEncHoistPositionWord1,
+                            currentAbsEncHoistPositionWord2,
+                            currentAbsEncHoistPositionWord3,
+                            currentAbsEncHoistPositionWord4,
+                            currentAbsEncHoistPositionWord5,
+                            currentAbsEncHoistPositionWord6,
+                            currentAbsEncHoistPositionWord7,
+                            currentAbsEncHoistPositionWord8,
+                            currentAbsEncHoistPositionWord9,
+                            currentAbsEncHoistPositionWord10,
+                            currentAbsEncHoistPositionWord11,
+                            currentAbsEncHoistPositionWord12,
+                            )
+                    )
             }
 
             // Отображение текущей высоты подъема
@@ -365,8 +395,14 @@ private fun formatDecimalMinus(value: Float): String {
     }
 }
 
-private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%d%05d", value2, value1)
+private fun formatAbsEncPositionPosition(
+    value1: Int, value2: Int, value3: Int,
+    value4: Int, value5: Int, value6: Int,
+    value7: Int, value8: Int, value9: Int,
+    value10: Int, value11: Int, value12: Int,
+    ): String {
+    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
+        value7, value8, value9, value10, value11, value12)
 }
 
 
@@ -378,49 +414,67 @@ private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
 fun CalibrationSensorHoistPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorHoist(
-            currentHoistPosition = 1f,
-            currentAbsEncHoistPositionWord1 = 1,
-            currentAbsEncHoistPositionWord2 = 1,
+
+            sensorsHoistState = SettingSensorsViewModule.SensorsHoistState(
+                currentHoistPosition = 1f,
+                currentAbsEncHoistPositionWord1 = 1,
+                currentAbsEncHoistPositionWord2 = 1,
+                currentAbsEncHoistPositionWord3 = 1,
+                currentAbsEncHoistPositionWord4 = 1,
+                currentAbsEncHoistPositionWord5 = 1,
+                currentAbsEncHoistPositionWord6 = 1,
+                currentAbsEncHoistPositionWord7 = 1,
+                currentAbsEncHoistPositionWord8 = 1,
+                currentAbsEncHoistPositionWord9 = 1,
+                currentAbsEncHoistPositionWord10 = 1,
+                currentAbsEncHoistPositionWord11 = 1,
+                currentAbsEncHoistPositionWord12 = 1,
+
+
+                currentHoistStopUp1 = 1,
+                hoistMaxPosition = 50f,
+                currentHoistStopDwn1 = 1,
+                hoistMinPosition = 0f,
+                hoistZeroPosition = 0f,
+                currentHoistUpDwnSp1 = 1,
+                hoistPosFwdDwnSp = 45f,
+                currentHoistDwnDwnSp1 = 1,
+                hoistPosRevDwnSp = 5f,
+
+                currentHoistEncoderMaxDeltaError = 1,
+                currentHoistEncoderMaxValueError = 1,
+                currentHoistAbsEncErrCanOpen = 1,
+                hoistLimitStatus = 1,
+            ),
+
             onSetHoistLimitTestEn = { },
 
             setValueHoistPosFwdStop = "1",
             updateValueHoistPosFwdStop = { },
             onSetValueHoistPosFvdStop = {},
-            currentHoistStopUp1 = 1,
-            hoistMaxPosition = 50f,
+
 
             setValueHoistPosRevStop = "`1",
             updateValueHoistPosRevStop = {},
             onSetValueHoistPosRevStop = {},
-            currentHoistStopDwn1 = 1,
-            hoistMinPosition = 0f,
+
 
             setValueHoistPosZero = "`1",
             updateValueHoistPosZero = {},
             onSetValueHoistPosZero = {},
-            hoistZeroPosition = 0f,
+
 
             setValueHoistPosFwdDwnSp = "1",
             updateValueHoistPosFwdDwnSp = {},
             onSetValueHoistPosFwdDwnSp = {},
-            currentHoistUpDwnSp1 = 1,
-            hoistPosFwdDwnSp = 45f,
+
 
             setValueHoistPosRevDwnSp = "1",
             updateValueHoistPosRevDwnSp = { },
             onSetValueHoistPosRevDwnSp = {},
-            currentHoistDwnDwnSp1 = 1,
-            hoistPosRevDwnSp = 5f,
-
-            currentHoistEncoderMaxDeltaError = 1,
-            currentHoistEncoderMaxValueError = 1,
-            currentHoistAbsEncErrCanOpen = 1,
 
             errorMessageHoist = null,
             logMessageHoist = null,
-
-            hoistLimitStatus = 1,
-
         )
     }
 }

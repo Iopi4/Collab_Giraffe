@@ -113,9 +113,12 @@ class SettingSensorsViewModule
     private val addresses = listOf(
         155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
         340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
-        730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207,
-        382, 383, 386, 387, 390, 391, 394, 395, 1623, 1648, 1699, 1738,
-        160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372
+        730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207, 1623, 1648, 1699, 1738,
+        160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372,
+        382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393,
+        663, 664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674,
+        675, 676, 677, 678, 679, 680, 681, 682, 683, 684, 685, 686,
+        687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 698,
         // Регистры для считывания
     )
 
@@ -183,79 +186,132 @@ class SettingSensorsViewModule
     // //Функция createSettingLoadCapacityState() для обработки отфильтрованных данных:
     private fun createSettingSensorsState(cache: Map<Int, Int?>): SettingSensorsState {
         return SettingSensorsState(
+            sensorsHoistState = SensorsHoistState(
+                currentHoistPosition = safeDivideTens(cache[159] ?: 0),
+                //Статус теста ограничений подъема
+                currentHoistStopDwn1 = cache[341] ?: 0,
+                currentHoistStopUp1 = cache[342] ?: 0,
+                currentHoistDwnDwnSp1 = cache[343] ?: 0,
+                currentHoistUpDwnSp1 = cache[344] ?: 0,
+                //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+                currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
+                currentHoistEncoderMaxValueError = cache[734] ?: 0,
+                currentHoistAbsEncErrCanOpen = cache[204] ?: 0, //-----ошибка связи энкодеров
+                //Данные с абсолютного энкодера
+                currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
+                currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
+                currentAbsEncHoistPositionWord3 = cache[384] ?: 0,
+                currentAbsEncHoistPositionWord4 = cache[385] ?: 0,
+                currentAbsEncHoistPositionWord5 = cache[386] ?: 0,
+                currentAbsEncHoistPositionWord6 = cache[387] ?: 0,
+                currentAbsEncHoistPositionWord7 = cache[388] ?: 0,
+                currentAbsEncHoistPositionWord8 = cache[389] ?: 0,
+                currentAbsEncHoistPositionWord9 = cache[390] ?: 0,
+                currentAbsEncHoistPositionWord10 = cache[391] ?: 0,
+                currentAbsEncHoistPositionWord11 = cache[392] ?: 0,
+                currentAbsEncHoistPositionWord12 = cache[393] ?: 0,
 
 
-            //Параметры крана
-            currentHoistPosition = safeDivideTens(cache[159] ?: 0),
-            currentSlewPosition = safeDivideTens(cache[158] ?: 0),
-            currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
-            currentCranePosition = safeDivideTens(cache[162] ?: 0),
-            currentCraneRailsEn = cache[212] ?: 0,
-            //Статус теста ограничений подъема
-            currentHoistStopDwn1 = cache[341] ?: 0,
-            currentHoistStopUp1 = cache[342] ?: 0,
-            currentHoistDwnDwnSp1 = cache[343] ?: 0,
-            currentHoistUpDwnSp1 = cache[344] ?: 0,
-            //Статус теста ограничений Тележки
-            currentTrolleyStopFwd1 = cache[345] ?: 0,
-            currentTrolleyStopRev1 = cache[346] ?: 0,
-            currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
-            currentTrolleyRevDwnSp1 = cache[348] ?: 0,
-            //Статус теста ограничений Хода крана
-            currentCraneStopFwd1 = cache[349] ?: 0,
-            currentCraneStopRev1 = cache[350] ?: 0,
-            currentCraneFwdDwnSp1 = cache[351] ?: 0,
-            currentCraneRevDwnSp1 = cache[352] ?: 0,
-            currentCraneRepPoint = cache[353] ?: 0,
+                hoistLimitStatus = cache[1623] ?: 0,
 
-            //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
-            currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
-            currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
-            currentTrolleyEncoderMaxDeltaError = cache[732] ?: 0,
-            currentCraneEncoderMaxDeltaError = cache[733] ?: 0,
-            currentHoistEncoderMaxValueError = cache[734] ?: 0,
-            currentSlewEncoderMaxValueError = cache[735] ?: 0,
-            currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
-            currentCraneEncoderMaxValueError = cache[737] ?: 0,
-            //-----ошибка связи энкодеров
-            currentHoistAbsEncErrCanOpen = cache[204] ?: 0,
-            currentSlewAbsEncErrCanOpen = cache[205] ?: 0,
-            currentTrolleyAbsEncErrCanOpen = cache[206] ?: 0,
-            currentCraneAbsEncErrCanOpen = cache[207] ?: 0,
+                hoistMaxPosition = safeDivideTens(cache[160] ?: 0),
+                hoistMinPosition = safeDivideTens(cache[161] ?: 0),
+                hoistPosFwdDwnSp = safeDivideTens(cache[338] ?: 0),
+                hoistPosRevDwnSp = safeDivideTens(cache[339] ?: 0),
+                hoistZeroPosition = safeDivideTens(cache[340] ?: 0),
+            ),
+            sensorsSlewState = SensorsSlewState(
+                currentSlewPosition = safeDivideTens(cache[158] ?: 0),
+                //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+                currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
+                currentSlewEncoderMaxValueError = cache[735] ?: 0,
+                currentSlewAbsEncErrCanOpen = cache[205] ?: 0, //-----ошибка связи энкодеров
+                //Данные с абсолютного энкодера
+                currentAbsEncSlewPositionWord1 = cache[663] ?: 0,
+                currentAbsEncSlewPositionWord2 = cache[664] ?: 0,
+                currentAbsEncSlewPositionWord3 = cache[665] ?: 0,
+                currentAbsEncSlewPositionWord4 = cache[666] ?: 0,
+                currentAbsEncSlewPositionWord5 = cache[667] ?: 0,
+                currentAbsEncSlewPositionWord6 = cache[668] ?: 0,
+                currentAbsEncSlewPositionWord7 = cache[669] ?: 0,
+                currentAbsEncSlewPositionWord8 = cache[670] ?: 0,
+                currentAbsEncSlewPositionWord9 = cache[671] ?: 0,
+                currentAbsEncSlewPositionWord10 = cache[672] ?: 0,
+                currentAbsEncSlewPositionWord11 = cache[673] ?: 0,
+                currentAbsEncSlewPositionWord12 = cache[674] ?: 0,
 
-            currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
-            currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
+                slewLimitStatus = cache[1648] ?: 0,
+            ),
 
-            currentAbsEncSlewPositionWord1 = cache[386] ?: 0,
-            currentAbsEncSlewPositionWord2 = cache[387] ?: 0,
+            sensorsTrolleyState = SensorsTrolleyState(
+                currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
+                //Статус теста ограничений Тележки
+                currentTrolleyStopFwd1 = cache[345] ?: 0,
+                currentTrolleyStopRev1 = cache[346] ?: 0,
+                currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
+                currentTrolleyRevDwnSp1 = cache[348] ?: 0,
+                //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+                currentTrolleyEncoderMaxDeltaError = cache[732] ?: 0,
+                currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
+                currentTrolleyAbsEncErrCanOpen = cache[206] ?: 0, //-----ошибка связи энкодеров
+                //Данные с абсолютного энкодера
+                currentAbsEncTrolleyPositionWord1 = cache[675] ?: 0,
+                currentAbsEncTrolleyPositionWord2 = cache[676] ?: 0,
+                currentAbsEncTrolleyPositionWord3 = cache[677] ?: 0,
+                currentAbsEncTrolleyPositionWord4 = cache[678] ?: 0,
+                currentAbsEncTrolleyPositionWord5 = cache[679] ?: 0,
+                currentAbsEncTrolleyPositionWord6 = cache[680] ?: 0,
+                currentAbsEncTrolleyPositionWord7 = cache[681] ?: 0,
+                currentAbsEncTrolleyPositionWord8 = cache[682] ?: 0,
+                currentAbsEncTrolleyPositionWord9 = cache[683] ?: 0,
+                currentAbsEncTrolleyPositionWord10 = cache[684] ?: 0,
+                currentAbsEncTrolleyPositionWord11 = cache[685] ?: 0,
+                currentAbsEncTrolleyPositionWord12 = cache[686] ?: 0,
 
-            currentAbsEncTrolleyPositionWord1 = cache[390] ?: 0,
-            currentAbsEncTrolleyPositionWord2 = cache[391] ?: 0,
+                trolleyLimitStatus = cache[1699] ?: 0,
 
-            currentAbsEncCranePositionWord1 = cache[394] ?: 0,
-            currentAbsEncCranePositionWord2 = cache[395] ?: 0,
+                trolleyMaxPosition = safeDivideTens(cache[156] ?: 0),
+                trolleyMinPosition = safeDivideTens(cache[157] ?: 0),
+                trolleyPosFwdDwnSp = safeDivideTens(cache[354] ?: 0),
+                trolleyPosRevDwnSp = safeDivideTens(cache[355] ?: 0),
 
-            hoistLimitStatus = cache[1623] ?: 0,
-            slewLimitStatus = cache[1648] ?: 0,
-            trolleyLimitStatus = cache[1699] ?: 0,
-            craneLimitStatus = cache[1738] ?: 0,
+            ),
 
-            hoistMaxPosition = safeDivideTens(cache[160] ?: 0),
-            hoistMinPosition = safeDivideTens(cache[161] ?: 0),
-            hoistPosFwdDwnSp = safeDivideTens(cache[338] ?: 0),
-            hoistPosRevDwnSp = safeDivideTens(cache[339] ?: 0),
-            hoistZeroPosition = safeDivideTens(cache[340] ?: 0),
+            sensorsCraneState = SensorsCraneState(
+                currentCranePosition = safeDivideTens(cache[162] ?: 0),
+                currentCraneRailsEn = cache[212] ?: 0,
+                //Статус теста ограничений Хода крана
+                currentCraneStopFwd1 = cache[349] ?: 0,
+                currentCraneStopRev1 = cache[350] ?: 0,
+                currentCraneFwdDwnSp1 = cache[351] ?: 0,
+                currentCraneRevDwnSp1 = cache[352] ?: 0,
+                currentCraneRepPoint = cache[353] ?: 0,
+                //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+                currentCraneEncoderMaxDeltaError = cache[733] ?: 0,
+                currentCraneEncoderMaxValueError = cache[737] ?: 0,
+                currentCraneAbsEncErrCanOpen = cache[207] ?: 0, //-----ошибка связи энкодеров
+                //Данные с абсолютного энкодера
+                currentAbsEncCranePositionWord1 = cache[687] ?: 0,
+                currentAbsEncCranePositionWord2 = cache[688] ?: 0,
+                currentAbsEncCranePositionWord3 = cache[689] ?: 0,
+                currentAbsEncCranePositionWord4 = cache[690] ?: 0,
+                currentAbsEncCranePositionWord5 = cache[691] ?: 0,
+                currentAbsEncCranePositionWord6 = cache[692] ?: 0,
+                currentAbsEncCranePositionWord7 = cache[693] ?: 0,
+                currentAbsEncCranePositionWord8 = cache[694] ?: 0,
+                currentAbsEncCranePositionWord9 = cache[695] ?: 0,
+                currentAbsEncCranePositionWord10 = cache[696] ?: 0,
+                currentAbsEncCranePositionWord11 = cache[697] ?: 0,
+                currentAbsEncCranePositionWord12 = cache[698] ?: 0,
 
-            trolleyMaxPosition = safeDivideTens(cache[156] ?: 0),
-            trolleyMinPosition = safeDivideTens(cache[157] ?: 0),
-            trolleyPosFwdDwnSp = safeDivideTens(cache[354] ?: 0),
-            trolleyPosRevDwnSp = safeDivideTens(cache[355] ?: 0),
+                craneLimitStatus = cache[1738] ?: 0,
 
-            craneMaxPosition = safeDivideTens(cache[356] ?: 0),
-            craneMinPosition = safeDivideTens(cache[357] ?: 0),
-            cranePosFwdDwnSp = safeDivideTens(cache[358] ?: 0),
-            cranePosRevDwnSp = safeDivideTens(cache[359] ?: 0),
-            cranePosCTRLPoint = safeDivideTens(cache[372] ?: 0),
+                craneMaxPosition = safeDivideTens(cache[356] ?: 0),
+                craneMinPosition = safeDivideTens(cache[357] ?: 0),
+                cranePosFwdDwnSp = safeDivideTens(cache[358] ?: 0),
+                cranePosRevDwnSp = safeDivideTens(cache[359] ?: 0),
+                cranePosCTRLPoint = safeDivideTens(cache[372] ?: 0),
+                ),
         )
     }
 
@@ -264,58 +320,38 @@ class SettingSensorsViewModule
     }
 
     data class SettingSensorsState(
-        //ПАРАМЕТРЫ КРАНА
-        val currentHoistPosition: Float = 0f,
-        val currentSlewPosition: Float = 0f,
-        val currentTrolleyPosition: Float = 0f,
-        val currentCranePosition: Float = 0f,
-        val currentCraneRailsEn: Int = 0,
-        //ЗНАЧЕНИЕ ДАТЧИКОВ
-        //Статус теста ограничений подъема
+        val sensorsHoistState: SensorsHoistState = SensorsHoistState(),
+        val sensorsSlewState: SensorsSlewState = SensorsSlewState(),
+        val sensorsTrolleyState: SensorsTrolleyState = SensorsTrolleyState(),
+        val sensorsCraneState: SensorsCraneState = SensorsCraneState(),
+    )
+
+    data class SensorsHoistState(
+        val currentHoistPosition: Float = 0f,//ЗНАЧЕНИЕ ВЫСОТЫ
+//Статус теста ограничений подъема
         val currentHoistStopDwn1: Int = 0,
         val currentHoistStopUp1: Int = 0,
         val currentHoistDwnDwnSp1: Int = 0,
         val currentHoistUpDwnSp1: Int = 0,
-        //Статус теста ограничений Тележки
-        val currentTrolleyStopFwd1: Int = 0,
-        val currentTrolleyStopRev1: Int = 0,
-        val currentTrolleyFwdDwnSp1: Int = 0,
-        val currentTrolleyRevDwnSp1: Int = 0,
-        //Статус теста ограничений Хода крана
-        val currentCraneStopFwd1: Int = 0,
-        val currentCraneStopRev1: Int = 0,
-        val currentCraneFwdDwnSp1: Int = 0,
-        val currentCraneRevDwnSp1: Int = 0,
-        val currentCraneRepPoint: Int = 0,
 //-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
         val currentHoistEncoderMaxDeltaError: Int = 0,
-        val currentSlewEncoderMaxDeltaError: Int = 0,
-        val currentTrolleyEncoderMaxDeltaError: Int = 0,
-        val currentCraneEncoderMaxDeltaError: Int = 0,
         val currentHoistEncoderMaxValueError: Int = 0,
-        val currentSlewEncoderMaxValueError: Int = 0,
-        val currentTrolleyEncoderMaxValueError: Int = 0,
-        val currentCraneEncoderMaxValueError: Int = 0,
-//Лампа. Ошибка связи по  CANopen
-        val currentHoistAbsEncErrCanOpen: Int = 0,
-        val currentSlewAbsEncErrCanOpen: Int = 0,
-        val currentTrolleyAbsEncErrCanOpen: Int = 0,
-        val currentCraneAbsEncErrCanOpen: Int = 0,
-//Данные с датчиков
+        val currentHoistAbsEncErrCanOpen: Int = 0, //Лампа. Ошибка связи по  CANopen
+//Данные с датчиков. Подъем
         val currentAbsEncHoistPositionWord1: Int = 0,
         val currentAbsEncHoistPositionWord2: Int = 0,
-        val currentAbsEncSlewPositionWord1: Int = 0,
-        val currentAbsEncSlewPositionWord2: Int = 0,
-        val currentAbsEncTrolleyPositionWord1: Int = 0,
-        val currentAbsEncTrolleyPositionWord2: Int = 0,
-        val currentAbsEncCranePositionWord1: Int = 0,
-        val currentAbsEncCranePositionWord2: Int = 0,
+        val currentAbsEncHoistPositionWord3: Int = 0,
+        val currentAbsEncHoistPositionWord4: Int = 0,
+        val currentAbsEncHoistPositionWord5: Int = 0,
+        val currentAbsEncHoistPositionWord6: Int = 0,
+        val currentAbsEncHoistPositionWord7: Int = 0,
+        val currentAbsEncHoistPositionWord8: Int = 0,
+        val currentAbsEncHoistPositionWord9: Int = 0,
+        val currentAbsEncHoistPositionWord10: Int = 0,
+        val currentAbsEncHoistPositionWord11: Int = 0,
+        val currentAbsEncHoistPositionWord12: Int = 0,
 
-//Статус функции проверки ограничений в наладке
-        val hoistLimitStatus: Int = 0,
-        val slewLimitStatus: Int = 0,
-        val trolleyLimitStatus: Int = 0,
-        val craneLimitStatus: Int = 0,
+        val hoistLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
 
 //Данные крайних положений механизмов
         val hoistMaxPosition: Float = 0f, //Максимальное положение подъема
@@ -323,20 +359,100 @@ class SettingSensorsViewModule
         val hoistPosFwdDwnSp: Float = 0f, //Положение крюка замедление вверх
         val hoistPosRevDwnSp: Float = 0f, //Положение крюка замедление вниз
         val hoistZeroPosition: Float = 0f, //Положение крюка при нулевой высоте
+    )
 
+    data class SensorsSlewState(
+        val currentSlewPosition: Float = 0f,//ЗНАЧЕНИЕ АЗИМУТА
+        //-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+        val currentSlewEncoderMaxDeltaError: Int = 0,
+        val currentSlewEncoderMaxValueError: Int = 0,
+        val currentSlewAbsEncErrCanOpen: Int = 0, //Лампа. Ошибка связи по  CANopen
+        //Данные с датчика
+        val currentAbsEncSlewPositionWord1: Int = 0,
+        val currentAbsEncSlewPositionWord2: Int = 0,
+        val currentAbsEncSlewPositionWord3: Int = 0,
+        val currentAbsEncSlewPositionWord4: Int = 0,
+        val currentAbsEncSlewPositionWord5: Int = 0,
+        val currentAbsEncSlewPositionWord6: Int = 0,
+        val currentAbsEncSlewPositionWord7: Int = 0,
+        val currentAbsEncSlewPositionWord8: Int = 0,
+        val currentAbsEncSlewPositionWord9: Int = 0,
+        val currentAbsEncSlewPositionWord10: Int = 0,
+        val currentAbsEncSlewPositionWord11: Int = 0,
+        val currentAbsEncSlewPositionWord12: Int = 0,
+
+        val slewLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
+
+    )
+    data class SensorsTrolleyState(
+        val currentTrolleyPosition: Float = 0f,//ЗНАЧЕНИЕ ВЫЛЕТА
+        //Статус теста ограничений Тележки
+        val currentTrolleyStopFwd1: Int = 0,
+        val currentTrolleyStopRev1: Int = 0,
+        val currentTrolleyFwdDwnSp1: Int = 0,
+        val currentTrolleyRevDwnSp1: Int = 0,
+        //-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+        val currentTrolleyEncoderMaxDeltaError: Int = 0,
+        val currentTrolleyEncoderMaxValueError: Int = 0,
+        val currentTrolleyAbsEncErrCanOpen: Int = 0, //Лампа. Ошибка связи по  CANopen
+        //Данные с датчика
+        val currentAbsEncTrolleyPositionWord1: Int = 0,
+        val currentAbsEncTrolleyPositionWord2: Int = 0,
+        val currentAbsEncTrolleyPositionWord3: Int = 0,
+        val currentAbsEncTrolleyPositionWord4: Int = 0,
+        val currentAbsEncTrolleyPositionWord5: Int = 0,
+        val currentAbsEncTrolleyPositionWord6: Int = 0,
+        val currentAbsEncTrolleyPositionWord7: Int = 0,
+        val currentAbsEncTrolleyPositionWord8: Int = 0,
+        val currentAbsEncTrolleyPositionWord9: Int = 0,
+        val currentAbsEncTrolleyPositionWord10: Int = 0,
+        val currentAbsEncTrolleyPositionWord11: Int = 0,
+        val currentAbsEncTrolleyPositionWord12: Int = 0,
+
+        val trolleyLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
+        //Данные крайних положений механизмов
         val trolleyMaxPosition: Float = 0f, //Максимальное положение тележки
         val trolleyMinPosition: Float = 0f, //Минимальное положение тележки
         val trolleyPosFwdDwnSp: Float = 0f, //положение при котором снижаем скорость двигая тележку вперед
         val trolleyPosRevDwnSp: Float = 0f, //положение при котором снижаем скорость двигая тележку назад
+    )
+    data class SensorsCraneState(
+        val currentCranePosition: Float = 0f,//ЗНАЧЕНИЕ ПЕРЕМЕЩЕНИЯ КРАНА
+        val currentCraneRailsEn: Int = 0,
+        //Статус теста ограничений Хода крана
+        val currentCraneStopFwd1: Int = 0,
+        val currentCraneStopRev1: Int = 0,
+        val currentCraneFwdDwnSp1: Int = 0,
+        val currentCraneRevDwnSp1: Int = 0,
+        val currentCraneRepPoint: Int = 0,
+        //-----Лампа. ошибки выхода за рабочий диапазон показаний энкодера
+        val currentCraneEncoderMaxDeltaError: Int = 0,
+        val currentCraneEncoderMaxValueError: Int = 0,
+        val currentCraneAbsEncErrCanOpen: Int = 0, //Лампа. Ошибка связи по  CANopen
+        //Данные с датчика.
+        val currentAbsEncCranePositionWord1: Int = 0,
+        val currentAbsEncCranePositionWord2: Int = 0,
+        val currentAbsEncCranePositionWord3: Int = 0,
+        val currentAbsEncCranePositionWord4: Int = 0,
+        val currentAbsEncCranePositionWord5: Int = 0,
+        val currentAbsEncCranePositionWord6: Int = 0,
+        val currentAbsEncCranePositionWord7: Int = 0,
+        val currentAbsEncCranePositionWord8: Int = 0,
+        val currentAbsEncCranePositionWord9: Int = 0,
+        val currentAbsEncCranePositionWord10: Int = 0,
+        val currentAbsEncCranePositionWord11: Int = 0,
+        val currentAbsEncCranePositionWord12: Int = 0,
 
+        val craneLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
+        //Данные крайних положений механизмов
         val craneMaxPosition: Float = 0f, //Путь при котором останавливаем движение крана вперед
         val craneMinPosition: Float = 0f, //Путь при котором останавливаем движение крана назад
         val cranePosFwdDwnSp: Float = 0f, //Путь при котором снижаем скорость при движении крана вперед
         val cranePosRevDwnSp: Float = 0f, //Путь при котором снижаем скорость при движении крана назад
         val cranePosCTRLPoint: Float = 0f, //Путь при котором снижаем скорость при движении крана назад
+    )
 
 
-        )
 
 
     //Функция проверки и преобразования целых чисел

@@ -30,61 +30,75 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsPar
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorDwn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingSensorStop
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandTensButton
+import com.example.giraffenew.setting_sensors.presentation.SettingSensorsViewModule
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorCrane(
-    currentAbsEncCranePositionWord1: Int,
-    currentAbsEncCranePositionWord2: Int,
-
-    currentCranePosition: Float,
+    sensorsCraneState: SettingSensorsViewModule.SensorsCraneState,
 
     onSetCraneLimitTestEn : () -> Unit,
-    craneLimitStatus :Int,
 
     onSetCraneRailsEn : () -> Unit,
-    currentCraneRailsEn: Int,
 
     setValueCranePosFwdStop: String,
     updateValueCranePosFwdStop: (String) -> Unit,
     onSetValueCranePosFwdStop: () -> Unit,
-    currentCraneStopFwd1: Int,
-    craneMaxPosition: Float,
 
     setValueCranePosRevStop: String,
     updateValueCranePosRevStop: (String) -> Unit,
     onSetValueCranePosRevStop: () -> Unit,
-    currentCraneStopRev1: Int,
-    craneMinPosition: Float,
 
     setValueCranePosFwdDwnSp: String,
     updateValueCranePosFwdDwnSp: (String) -> Unit,
     onSetValueCranePosFwdDwnSp: () -> Unit,
-    currentCraneFwdDwnSp1: Int,
-    cranePosFwdDwnSp: Float,
 
     setValueCranePosRevDwnSp: String,
     updateValueCranePosRevDwnSp: (String) -> Unit,
     onSetValueCranePosRevDwnSp: () -> Unit,
-    currentCraneRevDwnSp1: Int,
-    cranePosRevDwnSp: Float,
-
 
     setValueCranePosRepPoint: String,
     updateValueCranePosRepPoint: (String) -> Unit,
     onSetValueCranePosRepPoint: () -> Unit,
-    currentCraneRepPoint: Int,
-    cranePosCTRLPoint: Float,
-
-    currentCraneEncoderMaxDeltaError: Int,
-    currentCraneEncoderMaxValueError: Int,
-    currentCraneAbsEncErrCanOpen: Int,
 
     errorMessageCrane: String?,
     logMessageCrane: String?,
 ) {
+
+    val currentAbsEncCranePositionWord1 = sensorsCraneState.currentAbsEncCranePositionWord1
+    val currentAbsEncCranePositionWord2 = sensorsCraneState.currentAbsEncCranePositionWord2
+    val currentAbsEncCranePositionWord3 = sensorsCraneState.currentAbsEncCranePositionWord3
+    val currentAbsEncCranePositionWord4 = sensorsCraneState.currentAbsEncCranePositionWord4
+    val currentAbsEncCranePositionWord5 = sensorsCraneState.currentAbsEncCranePositionWord5
+    val currentAbsEncCranePositionWord6 = sensorsCraneState.currentAbsEncCranePositionWord6
+    val currentAbsEncCranePositionWord7 = sensorsCraneState.currentAbsEncCranePositionWord7
+    val currentAbsEncCranePositionWord8 = sensorsCraneState.currentAbsEncCranePositionWord8
+    val currentAbsEncCranePositionWord9 = sensorsCraneState.currentAbsEncCranePositionWord9
+    val currentAbsEncCranePositionWord10 = sensorsCraneState.currentAbsEncCranePositionWord10
+    val currentAbsEncCranePositionWord11 = sensorsCraneState.currentAbsEncCranePositionWord11
+    val currentAbsEncCranePositionWord12 = sensorsCraneState.currentAbsEncCranePositionWord12
+
+
+    val currentCranePosition = sensorsCraneState.currentCranePosition
+
+    val currentCraneRailsEn = sensorsCraneState.currentCraneRailsEn
+    val currentCraneStopFwd1 = sensorsCraneState.currentCraneStopFwd1
+    val craneMaxPosition = sensorsCraneState.craneMaxPosition
+    val currentCraneStopRev1 = sensorsCraneState.currentCraneStopRev1
+    val craneMinPosition = sensorsCraneState.craneMinPosition
+    val currentCraneFwdDwnSp1 = sensorsCraneState.currentCraneFwdDwnSp1
+    val cranePosFwdDwnSp = sensorsCraneState.cranePosFwdDwnSp
+    val currentCraneRevDwnSp1 = sensorsCraneState.currentCraneRevDwnSp1
+    val cranePosRevDwnSp = sensorsCraneState.cranePosRevDwnSp
+    val currentCraneRepPoint = sensorsCraneState.currentCraneRepPoint
+    val cranePosCTRLPoint = sensorsCraneState.cranePosCTRLPoint
+    val currentCraneEncoderMaxDeltaError = sensorsCraneState.currentCraneEncoderMaxDeltaError
+    val currentCraneEncoderMaxValueError = sensorsCraneState.currentCraneEncoderMaxValueError
+    val currentCraneAbsEncErrCanOpen = sensorsCraneState.currentCraneAbsEncErrCanOpen
+
+    val craneLimitStatus = sensorsCraneState.craneLimitStatus
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -163,7 +177,20 @@ fun CalibrationSensorCrane(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncCranePositionWord1, currentAbsEncCranePositionWord2)
+                    valueParameterId = formatAbsEncPositionPosition(
+                        currentAbsEncCranePositionWord1,
+                        currentAbsEncCranePositionWord2,
+                        currentAbsEncCranePositionWord3,
+                        currentAbsEncCranePositionWord4,
+                        currentAbsEncCranePositionWord5,
+                        currentAbsEncCranePositionWord6,
+                        currentAbsEncCranePositionWord7,
+                        currentAbsEncCranePositionWord8,
+                        currentAbsEncCranePositionWord9,
+                        currentAbsEncCranePositionWord10,
+                        currentAbsEncCranePositionWord11,
+                        currentAbsEncCranePositionWord12,
+                    )
                 )
             }
 // Отображение пройденного пути
@@ -366,8 +393,14 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%d%05d", value2, value1)
+private fun formatAbsEncPositionPosition(
+    value1: Int, value2: Int, value3: Int,
+    value4: Int, value5: Int, value6: Int,
+    value7: Int, value8: Int, value9: Int,
+    value10: Int, value11: Int, value12: Int,
+): String {
+    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
+        value7, value8, value9, value10, value11, value12)
 }
 
 @Preview
@@ -375,48 +408,52 @@ private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
 fun CalibrationSensorCranePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorCrane(
-            currentAbsEncCranePositionWord1 = 1,
-            currentAbsEncCranePositionWord2 = 1,
-            currentCranePosition = 1f,
+            sensorsCraneState = SettingSensorsViewModule.SensorsCraneState(
+                currentAbsEncCranePositionWord1 = 1,
+                currentAbsEncCranePositionWord2 = 1,
+                currentCranePosition = 1f,
 
+                craneLimitStatus = 1,
+                currentCraneRailsEn = 1,
+                currentCraneStopFwd1 = 1,
+                craneMaxPosition = 40F,
+                currentCraneStopRev1 = 1,
+                craneMinPosition = 0f,
+                currentCraneFwdDwnSp1 = 1,
+                cranePosFwdDwnSp = 35f,
+                currentCraneRevDwnSp1 = 1,
+                cranePosRevDwnSp = 5f,
+
+                currentCraneRepPoint = 1,
+                cranePosCTRLPoint = 20f,
+
+                currentCraneEncoderMaxDeltaError = 1,
+                currentCraneEncoderMaxValueError = 1,
+                currentCraneAbsEncErrCanOpen = 1,
+                ),
             onSetCraneLimitTestEn = { },
-            craneLimitStatus = 1,
+
             onSetCraneRailsEn = { },
-            currentCraneRailsEn = 1,
 
             setValueCranePosFwdStop = "1",
             updateValueCranePosFwdStop = { },
             onSetValueCranePosFwdStop = { },
-            currentCraneStopFwd1 = 1,
-            craneMaxPosition = 40F,
 
             setValueCranePosRevStop = "1",
             updateValueCranePosRevStop = { },
             onSetValueCranePosRevStop = { },
-            currentCraneStopRev1 = 1,
-            craneMinPosition = 0f,
 
             setValueCranePosFwdDwnSp = "1",
             updateValueCranePosFwdDwnSp = { },
             onSetValueCranePosFwdDwnSp = { },
-            currentCraneFwdDwnSp1 = 1,
-            cranePosFwdDwnSp = 35f,
 
             setValueCranePosRevDwnSp = "1",
             updateValueCranePosRevDwnSp = { },
             onSetValueCranePosRevDwnSp = { },
-            currentCraneRevDwnSp1 = 1,
-            cranePosRevDwnSp = 5f,
 
             setValueCranePosRepPoint = "1",
             updateValueCranePosRepPoint = { },
             onSetValueCranePosRepPoint = { },
-            currentCraneRepPoint = 1,
-            cranePosCTRLPoint = 20f,
-
-            currentCraneEncoderMaxDeltaError = 1,
-            currentCraneEncoderMaxValueError = 1,
-            currentCraneAbsEncErrCanOpen = 1,
 
             errorMessageCrane = null,
             logMessageCrane = null,

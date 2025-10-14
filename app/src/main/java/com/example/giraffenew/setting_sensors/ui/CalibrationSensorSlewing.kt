@@ -26,33 +26,47 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsNameInfo
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
+import com.example.giraffenew.setting_sensors.presentation.SettingSensorsViewModule
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun CalibrationSensorSlewing(
-    currentAbsEncSlewPositionWord1: Int,
-    currentAbsEncSlewPositionWord2: Int,
-    currentSlewPosition: Float,
+    sensorsSlewState: SettingSensorsViewModule.SensorsSlewState,
 
     onSetSlewZeroMemEn: () -> Unit,
 
-    setValueSlewCalcAngle: String,
-    updateValueSlewCalcAngle: (String) -> Unit,
-    onSetValueSlewCalcAngle: () -> Unit,
+    //setValueSlewCalcAngle: String,
+    //updateValueSlewCalcAngle: (String) -> Unit,
+    //onSetValueSlewCalcAngle: () -> Unit,
 
     setValueSlewMaxAngle: String,
     updateValueSlewMaxAngle: (String) -> Unit,
     onSetValueSlewMaxAngle: () -> Unit,
 
-    currentSlewEncoderMaxDeltaError: Int,
-    currentSlewEncoderMaxValueError: Int,
-    currentSlewAbsEncErrCanOpen: Int,
-
     errorMessageSlew: String?,
     logMessageSlew: String?,
 ) {
+
+    val currentAbsEncSlewPositionWord1 = sensorsSlewState.currentAbsEncSlewPositionWord1
+    val currentAbsEncSlewPositionWord2 = sensorsSlewState.currentAbsEncSlewPositionWord2
+    val currentAbsEncSlewPositionWord3 = sensorsSlewState.currentAbsEncSlewPositionWord3
+    val currentAbsEncSlewPositionWord4 = sensorsSlewState.currentAbsEncSlewPositionWord4
+    val currentAbsEncSlewPositionWord5 = sensorsSlewState.currentAbsEncSlewPositionWord5
+    val currentAbsEncSlewPositionWord6 = sensorsSlewState.currentAbsEncSlewPositionWord6
+    val currentAbsEncSlewPositionWord7 = sensorsSlewState.currentAbsEncSlewPositionWord7
+    val currentAbsEncSlewPositionWord8 = sensorsSlewState.currentAbsEncSlewPositionWord8
+    val currentAbsEncSlewPositionWord9 = sensorsSlewState.currentAbsEncSlewPositionWord9
+    val currentAbsEncSlewPositionWord10 = sensorsSlewState.currentAbsEncSlewPositionWord10
+    val currentAbsEncSlewPositionWord11 = sensorsSlewState.currentAbsEncSlewPositionWord11
+    val currentAbsEncSlewPositionWord12 = sensorsSlewState.currentAbsEncSlewPositionWord12
+
+    val currentSlewPosition = sensorsSlewState.currentSlewPosition
+
+    val currentSlewEncoderMaxDeltaError = sensorsSlewState.currentSlewEncoderMaxDeltaError
+    val currentSlewEncoderMaxValueError = sensorsSlewState.currentSlewEncoderMaxValueError
+    val currentSlewAbsEncErrCanOpen = sensorsSlewState.currentSlewAbsEncErrCanOpen
 
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
@@ -135,7 +149,20 @@ fun CalibrationSensorSlewing(
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
-                    valueParameterId = formatAbsEncPositionPosition(currentAbsEncSlewPositionWord1, currentAbsEncSlewPositionWord2)
+                    valueParameterId = formatAbsEncPositionPosition(
+                        currentAbsEncSlewPositionWord1,
+                        currentAbsEncSlewPositionWord2,
+                        currentAbsEncSlewPositionWord3,
+                        currentAbsEncSlewPositionWord4,
+                        currentAbsEncSlewPositionWord5,
+                        currentAbsEncSlewPositionWord6,
+                        currentAbsEncSlewPositionWord7,
+                        currentAbsEncSlewPositionWord8,
+                        currentAbsEncSlewPositionWord9,
+                        currentAbsEncSlewPositionWord10,
+                        currentAbsEncSlewPositionWord11,
+                        currentAbsEncSlewPositionWord12,
+                        )
                 )
             }
             // Отображение текущего угла поворота
@@ -256,8 +283,14 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
-    return String.format("%d%05d", value2, value1)
+private fun formatAbsEncPositionPosition(
+    value1: Int, value2: Int, value3: Int,
+    value4: Int, value5: Int, value6: Int,
+    value7: Int, value8: Int, value9: Int,
+    value10: Int, value11: Int, value12: Int,
+): String {
+    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
+        value7, value8, value9, value10, value11, value12)
 }
 
 @Preview
@@ -265,20 +298,22 @@ private fun formatAbsEncPositionPosition(value1: Int, value2: Int): String {
 fun CalibrationSensorSlewingPreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         CalibrationSensorSlewing(
-            currentAbsEncSlewPositionWord1 = 1,
-            currentAbsEncSlewPositionWord2 = 1,
-            currentSlewPosition = 1f,
+            sensorsSlewState = SettingSensorsViewModule.SensorsSlewState(
+                currentAbsEncSlewPositionWord1 = 1,
+                currentAbsEncSlewPositionWord2 = 1,
+                currentSlewPosition = 1f,
+
+                currentSlewEncoderMaxDeltaError = 1,
+                currentSlewEncoderMaxValueError = 1,
+                currentSlewAbsEncErrCanOpen = 1,
+            ),
             onSetSlewZeroMemEn = { },
-            setValueSlewCalcAngle = "`1",
-            updateValueSlewCalcAngle = { },
-            onSetValueSlewCalcAngle = { },
+            //setValueSlewCalcAngle = "`1",
+            //updateValueSlewCalcAngle = { },
+            //onSetValueSlewCalcAngle = { },
             setValueSlewMaxAngle = "`1",
             updateValueSlewMaxAngle = { },
             onSetValueSlewMaxAngle = { },
-
-            currentSlewEncoderMaxDeltaError = 1,
-            currentSlewEncoderMaxValueError = 1,
-            currentSlewAbsEncErrCanOpen = 1,
 
             errorMessageSlew = null,
             logMessageSlew = null
