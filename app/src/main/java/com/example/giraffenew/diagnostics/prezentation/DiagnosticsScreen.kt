@@ -41,6 +41,8 @@ fun DiagnosticsScreen (
 ){
     BasicSettingBackground()
 
+    val state = diagnosticViewModule.state.value
+
     // 1. Получаем текущий LifecycleOwner
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -78,37 +80,7 @@ fun DiagnosticsScreen (
     { NavBarDiagnostic (navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticSystem.roote){
             composable(NavRoutesDiagnostic.PageDiagnosticSystem.roote)
-            {
-                DiagnosticSystem(
-                    ogpLimSw = diagnosticViewModule.state.value.systemParams.ogpLimSw,
-                    currentWeightAI = diagnosticViewModule.state.value.systemParams.currentWeightAI,
-                    weightSensorErr = diagnosticViewModule.state.value.systemParams.weightSensorErr,
-                    currentWindAI   = diagnosticViewModule.state.value.systemParams.currentWindAI,
-                    windSensorErr   = diagnosticViewModule.state.value.systemParams.windSensorErr,
-                    //-----Данные с энкодеров
-                    currentAbsEncHoistPositionWord1 = diagnosticViewModule.state.value.systemParams.currentAbsEncHoistPositionWord1,
-                    currentAbsEncHoistPositionWord2 = diagnosticViewModule.state.value.systemParams.currentAbsEncHoistPositionWord2,
-                    currentAbsEncSlewPositionWord1 = diagnosticViewModule.state.value.systemParams.currentAbsEncSlewPositionWord1,
-                    currentAbsEncSlewPositionWord2 = diagnosticViewModule.state.value.systemParams.currentAbsEncSlewPositionWord2,
-                    currentAbsEncTrolleyPositionWord1 = diagnosticViewModule.state.value.systemParams.currentAbsEncTrolleyPositionWord1,
-                    currentAbsEncTrolleyPositionWord2 = diagnosticViewModule.state.value.systemParams.currentAbsEncTrolleyPositionWord2,
-                    currentAbsEncCranePositionWord1 = diagnosticViewModule.state.value.systemParams.currentAbsEncCranePositionWord1,
-                    currentAbsEncCranePositionWord2 = diagnosticViewModule.state.value.systemParams.currentAbsEncCranePositionWord2,
-                    //-----ошибка связи энкодеров
-                    currentHoistAbsEncErrCanOpen = diagnosticViewModule.state.value.systemParams.currentHoistAbsEncErrCanOpen,
-                    currentSlewAbsEncErrCanOpen  = diagnosticViewModule.state.value.systemParams.currentSlewAbsEncErrCanOpen,
-                    currentTrolleyAbsEncErrCanOpen = diagnosticViewModule.state.value.systemParams.currentTrolleyAbsEncErrCanOpen,
-                    currentCraneAbsEncErrCanOpen = diagnosticViewModule.state.value.systemParams.currentCraneAbsEncErrCanOpen,
-                    canOpenSensorsError = diagnosticViewModule.state.value.systemParams.canOpenSensorsError,
-                    //-----Статус приводов
-                    hoistStatusWord = diagnosticViewModule.state.value.systemParams.hoistStatusWord,
-                    slewStatusWord = diagnosticViewModule.state.value.systemParams.slewStatusWord,
-                    trolleyStatusWord = diagnosticViewModule.state.value.systemParams.trolleyStatusWord,
-                    craneStatusWord = diagnosticViewModule.state.value.systemParams.craneStatusWord,
-                    craneRepPoint = diagnosticViewModule.state.value.systemParams.craneRepPoint,
-
-                    )
-            }
+            { DiagnosticSystem(systemParams = state.systemParams,) }
             composable(NavRoutesDiagnostic.PageDiagnosticPLC.roote) { DiagnosticPLCContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticHoist.roote) { DiagnosticHoistContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticSlewing.roote) { DiagnosticSlewingContent() }
