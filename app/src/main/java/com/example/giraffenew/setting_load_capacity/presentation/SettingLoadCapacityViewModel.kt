@@ -45,7 +45,7 @@ class SettingLoadCapacityViewModel
 
 
     private val addresses = listOf(
-        195, 197, 198, 314, 199, 316 // Регистры для считывания
+        195, 197, 198, 314, 199, 316, 661, 662, 155, 159 // Регистры для считывания
     )
 
     private val _state = mutableStateOf(LoadCapacityState())
@@ -125,7 +125,12 @@ class SettingLoadCapacityViewModel
             //КАЛИБРОВКА ДАТЧИКА УСИЛИЯ
             currentCurrAI = cache[198] ?: 0,
             currentWeight = safeDivideTens(cache[314] ?: 0),
-        )
+            hmiWeightCalibStatus = cache[661] ?: 0,
+            hmiWeightCalibMessage = cache[662 ] ?: 0,
+            trolleyCurrent = safeDivideTens(cache[155] ?: 0),
+            heightCurrent = safeDivideTens(cache[159] ?: 0),
+
+            )
     }
 
     private fun safeDivideTens(value: Int?): Float {
@@ -141,7 +146,13 @@ class SettingLoadCapacityViewModel
         //КАЛИБРОВКА ДАТЧИКА УСИЛИЯ
         val currentCurrAI: Int = 0,
         val currentWeight: Float = 0f,
-    )
+        val hmiWeightCalibStatus: Int = 0, //Статус калибровки датчика усилия
+        val hmiWeightCalibMessage: Int = 0, //Сообщения при калибровке датчика усилия
+
+        val trolleyCurrent: Float = 0f,
+        val heightCurrent: Float = -0f,
+
+        )
 
     //Функция проверки и преобразования десятичных чисел
     private fun validateAndConvertFloatTens(value: String, min: Float, max: Float): Int {
@@ -157,8 +168,6 @@ class SettingLoadCapacityViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
                 modbusRepository.writeRegister(862, index+VIRTUAL_ZERO)
                 _errorMessageGH.value = null
                 _logMessageGH.value = "СОХРАНЕНО"
@@ -174,8 +183,55 @@ class SettingLoadCapacityViewModel
     /**
     !!!!!!!!!!!!!!!!!!!КАЛИБРОВКА ДАТЧИКА УСИЛИЯ!!!!!!!!!!!!!!!!!!!!!!!!
      */
+
+    // КАЛИБРОВКА МИНИМАЛЬНОГО ВЕСА.
+    fun onSetMinWeightCalibration(
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Запись в регистры
+                Log.d("LoadCapacityViewModel", "Writing registers...")
+                // Активация калибровки
+                modbusRepository.writeRegister(865, 1)
+                delay(200)
+                modbusRepository.writeRegister(865, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // КАЛИБРОВКА МАКСИМАЛЬНОГО ВЕСА.
+    fun onSetMaxWeightCalibration(
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Активация калибровки
+                modbusRepository.writeRegister(866, 1)
+                delay(200)
+                modbusRepository.writeRegister(866, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    // СБРОС ТОЧЕК КАЛИБРОВКИ МАКС и МИН ВЕСА.  1-сброс минимума,2-сброс максимума
+    fun onResetWeightCalibration(index: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Активация калибровки
+                modbusRepository.writeRegister(1260, index)
+                delay(200)
+                modbusRepository.writeRegister(1260, 0)
+            } catch (e: Exception) {
+            }
+        }
+    }
     // Запись минимального веса груза (т)
     fun onSetValueMinWeight() {
+        onSetMinWeightCalibration()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val model = validateAndConvertFloatTens(_setValueMinWeight.value, 0.0f, 99.9f )
@@ -191,6 +247,7 @@ class SettingLoadCapacityViewModel
     }
     // Запись максимального веса груза (т)
     fun onSetValueMaxWeight() {
+        onSetMaxWeightCalibration()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val model = validateAndConvertFloatTens(_setValueMaxWeight.value, 0.0f, 99.9f )
@@ -204,47 +261,7 @@ class SettingLoadCapacityViewModel
             }
         }
     }
-    // КАЛИБРОВКА МИНИМАЛЬНОГО ВЕСА.
-    fun onSetMinWeightCalibration(
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(865, 1)
-                delay(1000)
-                modbusRepository.writeRegister(865, 0)
-                _errorMessageWeightSensor.value = null
-                _logMessageWeightSensor.value = "Сохранено"
-            } catch (e: Exception) {
-                _errorMessageWeightSensor.value = "Не удалось:${e.message}"
-                _logMessageWeightSensor.value = null
-            }
-        }
-    }
 
-    // КАЛИБРОВКА МИНИМАЛЬНОГО ВЕСА.
-    fun onSetMaxWeightCalibration(
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (!isActive) return@launch // Проверка активности ViewModel
-                // Запись в регистры
-                Log.d("LoadCapacityViewModel", "Writing registers...")
-                // Активация калибровки
-                modbusRepository.writeRegister(866, 1)
-                delay(1000)
-                modbusRepository.writeRegister(866, 0)
-                _errorMessageWeightSensor.value = null
-                _logMessageWeightSensor.value = "Сохранено"
-            } catch (e: Exception) {
-                _errorMessageWeightSensor.value = "Не удалось:${e.message}"
-                _logMessageWeightSensor.value = null
-            }
-        }
-    }
 
     // Калибровка датчика веса. Обновления для UI
     fun updateMinWeight(value: String) {

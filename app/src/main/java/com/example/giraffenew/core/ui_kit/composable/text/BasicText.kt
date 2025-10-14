@@ -51,6 +51,18 @@ fun BasicSettingsName (text:String, modifier:Modifier=Modifier){
         , fontSize = 20.sp, textAlign = TextAlign.Center, color = Black, fontWeight = FontWeight.Bold) }
 
 @Composable
+//Создадим функцию для свойств текста для сообщений важной информации
+fun BasicSettingsNameInfo (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 0.dp).fillMaxWidth()
+        , fontSize = 18.sp, textAlign = TextAlign.Start, color = Black) }
+
+@Composable
+//Создадим функцию для свойств текста для сообщений важной информации
+fun BasicSettingsNameInfoBold (text:String, modifier:Modifier=Modifier){
+    Text(text, modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 0.dp).fillMaxWidth()
+        , fontSize = 18.sp, textAlign = TextAlign.Start, color = Black,fontWeight = FontWeight.Bold) }
+
+@Composable
 //Создадим функцию для свойств текста в названии механизмов крана (Область с параметрами работы крана)
 fun BasicSettingsText (text:String, modifier:Modifier=Modifier){
     Text(text, modifier.padding(start = 150.dp, end = 7.dp, top = 5.dp, bottom = 0.dp).fillMaxWidth()

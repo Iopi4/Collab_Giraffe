@@ -698,6 +698,10 @@ object UISettingLoadCapacityConfiguration {
 
     val REGISTERS = listOf(
         //Параметры настройки грузовой характеристики
+
+        RegisterInfo(155, "Trolley_Position_MW", "WORD16", "Текущее положение тележки на стреле *0,1м"),
+        RegisterInfo(159, "Hoist_Position_MW", "WORD16", "Текущее положение подъема *0,1м"),
+
         RegisterInfo(195, "MaxWeight2_MW", "WORD16", "Максимальный вес на конце стрелы"),
         RegisterInfo(199, "MaxWeight1_MW", "WORD16", "Максимальный вес для выбранной ГХ"),
         RegisterInfo(197, "Crane_Lenght_MW", "WORD16", "Длина стрелы крана"),
@@ -706,6 +710,10 @@ object UISettingLoadCapacityConfiguration {
         RegisterInfo(314, "HMI_Weight_MW", "WORD16", "Текущий вес на крюке *0,1т"),
         RegisterInfo(316, "HMI_Zapasovka_MW", "WORD16", "Значение - текущая запасовка. 2 / 4"),
 
+        RegisterInfo(661, "HMI_Read_Weight_Calib_Stat", "WORD16", "Статус калибровки датчика усилия"),
+        RegisterInfo(662, "HMI_Read_Weight_Calib_Message", "WORD16", "Сообщения при калибровке датчика усилия"),
+
+
         RegisterInfo(861, "HMI_Write_xHMI_Curr_Gruz_Blok_MW", "WORD16", "Запись выбора блока, =0 с блоком, =1 без блока"),
         RegisterInfo(862, "HMI_Write_iHMI_Curr_Gruz_Fun_MW", "WORD16", "Выбор грузовая характеристика"),
         RegisterInfo(863, "HMI_Write_rMin_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при минимальном грузе"),
@@ -713,7 +721,11 @@ object UISettingLoadCapacityConfiguration {
         RegisterInfo(865, "HMI_Write_xMin_Weight_Set_MW", "WORD16", "Калибровать минимальный груз"),
         RegisterInfo(866, "HMI_Write_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз"),
 
-        RegisterInfo(868, "HMI_Write_xUISettingLoadCapacity_Active_MW", "WORD16", "Флаг активности экрана настройки грузоподъемности")
+        RegisterInfo(868, "HMI_Write_xUISettingLoadCapacity_Active_MW", "WORD16", "Флаг активности экрана настройки грузоподъемности"),
+        RegisterInfo(1260, "HMI_Read_Weight_Calib_Reset", "WORD16", "Сброс калибровки датчики усилия 1-сброс минимума, 2-сброс максимума"),
+
+
+
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

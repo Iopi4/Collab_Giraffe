@@ -90,6 +90,9 @@
 
 
     <!-- Текст экрана SettingLoadCapacity' -->
+    <string name="SettingLoadCapacityMenu_Button_LoadCapacity">ВЫБОР ГХ</string>
+    <string name="SettingLoadCapacityMenu_Button_WeightSensor">КАЛИБРОВКА ДАТЧИКА</string>
+
     <string name="SettingLoadCapacity_Button_GH_16">ГХ 16</string>
     <string name="SettingLoadCapacity_Button_GH_17">ГХ 17</string>
     <string name="SettingLoadCapacity_Button_GH_18">ГХ 18</string>
@@ -97,7 +100,7 @@
     <string name="SettingLoadCapacity_Button_GH_20">ГХ 20</string>
     <string name="SettingLoadCapacity_Button_GH_21">ГХ 21</string>
     <string name="SettingLoadCapacity_Button_GH_22">ГХ 22</string>
-    <string name="SettingLoadCapacity_Button_Calibration">КАЛИБР.</string>
+    <string name="SettingLoadCapacity_Button_Calibration">КАЛИБ.</string>
 
     <string name="SettingLoadCapacity_Text_Type_GH">Тип грузовой характеристики</string>
     <string name="SettingLoadCapacity_Text_ChoiceType_GH">Выбор груз.хар.</string>
@@ -117,12 +120,65 @@
     <string name="SettingLoadCapacity_Text_MaxLoadCapacity">Макс. вес на конце стрелы [т]</string>
     <string name="SettingLoadCapacity_Text_ArrowLength">Длина стрелы [м]</string>
 
-    <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика</string>
+    <string name="SettingLoadCapacity_Text_CalibrationSensor">Калибровка датчика*</string>
     <string name="SettingLoadCapacity_Text_SettingSensor">Настройка датчика</string>
-    <string name="SettingLoadCapacity_Text_SensorReadings">Показания датчика</string>
-    <string name="SettingLoadCapacity_Text_HookWeightReadings">Текущий вес на крюке</string>
-    <string name="SettingLoadCapacity_TextFilled_HookWeightMin">Ввод. Мин. вес груза [т]</string>
-    <string name="SettingLoadCapacity_TextFilled_HookWeightMax">Ввод. Макс. вес груза [т]</string>
+    <string name="SettingLoadCapacity_Text_SensorReadings">Показания датчика. Вес [т]</string>
+    <string name="SettingLoadCapacity_Text_Hoist_Trolley">Подъем [м]. Вылет [м]</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMin">(1,2)Ввод. Мин. вес груза [т]</string>
+    <string name="SettingLoadCapacity_TextFilled_HookWeightMax">(3,4)Ввод. Калибр. вес груза [т]</string>
+    <string name="SettingLoadCapacity_Message_Calibration">Этапы калибровки</string>
+    <string name="SettingLoadCapacity_Status_Calibration">Статус калибровки датчика</string>
+    <string name="SettingLoadCapacity_Button_Reset_Calibration_12">СБРОС ТОЧЕК (1,2)</string>
+    <string name="SettingLoadCapacity_Button_Reset_Calibration_34">СБРОС ТОЧЕК (3,4)</string>
+    <string name="SettingLoadCapacity_Button_Reset_Min_Calibration">Сброс точек. Мин.вес</string>
+    <string name="SettingLoadCapacity_Button_Reset_Max_Calibration">Сброс точек. Калибр.вес</string>
+
+
+    <string name="SettingLoadCapacity_Text_Calibration">*Порядок калибровки датчика (листайте вниз):</string>
+    <string name="SettingLoadCapacity_Text_Calibration_0">
+        1.Подготовить калибровочный груз. Предварительно определить по ГХ крана максимальный вылет [Xм] для калибровочного веса (см. Паспорт).</string>
+    <string name="SettingLoadCapacity_Text_Calibration_1">
+        2.Калибровка ведется по 4-м точкам (по 2-ве на каждый вес).</string>
+    <string name="SettingLoadCapacity_Text_Calibration_2">
+        3.Высота подъема груза над землей должна быть (3..5 метров). Для всех точек высота должна быть одинаковой</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_1">(1 Шаг) Мин.вес. Мин.вылет=7м.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_11">
+        Установить тележку на рекомендованную высоту и минимальный вылет. Ввести значение минимального груза, нажать кнопку КАЛИБ.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_2">(2 Шаг) Мин.вес. Макс.вылете=Xм.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_22">
+        Переместить без остановки тележку на вылет Xм. Остановить тележку. Дождаться стабилизации груза. Не изменяя значение минимального веса нажать кнопку КАЛИБ.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_3">(3 Шаг) Калибр.вес. Мин.вылет=7м.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_33">
+        Установить тележку на минимальный вылет. Поднять калибровочный груз на высоту калибровки минимального веса.
+        Ввести значение веса калибровочного груза, нажать кнопку КАЛИБ.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_4">(4 шаг) Калибр.вес. Макс.вылет=Xм.</string>
+    <string name="SettingLoadCapacity_Text_CalibrationPoint_44">Переместить без остановки тележку на вылет Xм. Остановить тележку. Дождаться стабилизации груза. Не изменяя значение калибровочного веса нажать кнопку КАЛИБ.</string>
+
+    <string name="SettingLoadCapacity_Text_CalibrationStatus_BIT1">Откалибрована 1 точка мин.вес</string>
+    <string name="SettingLoadCapacity_Text_CalibrationStatus_BIT2">Откалибрована 2 точка мин.вес</string>
+    <string name="SettingLoadCapacity_Text_CalibrationStatus_BIT3">Откалибрована 3 точка калибр.вес</string>
+    <string name="SettingLoadCapacity_Text_CalibrationStatus_BIT4">Откалибрована 4 точка калибр.вес</string>
+    <string name="SettingLoadCapacity_Text_CalibrationStatus_BIT0">Не откалиброван</string>
+
+    <string name="SettingLoadCapacity_Text_Message_0">Настройка не начата</string>
+    <string name="SettingLoadCapacity_Text_Message_1">Датчик вылета не настроен</string>
+    <string name="SettingLoadCapacity_Text_Message_2">Датчик вылета настроен не корректно</string>
+    <string name="SettingLoadCapacity_Text_Message_3">Некорректное значение минимального веса</string>
+    <string name="SettingLoadCapacity_Text_Message_4">Значение вылета совпадает с предыдущей точкой</string>
+    <string name="SettingLoadCapacity_Text_Message_5">Изменение калибруемого веса</string>
+    <string name="SettingLoadCapacity_Text_Message_6">Точка №1 мин.вес сохранена</string>
+    <string name="SettingLoadCapacity_Text_Message_7">Точка №2 мин.вес сохранена</string>
+    <string name="SettingLoadCapacity_Text_Message_8">Точка №3 калибр.вес сохранена</string>
+    <string name="SettingLoadCapacity_Text_Message_9">Точка №4 калибр.вес сохранена</string>
+    <string name="SettingLoadCapacity_Text_Message_10">Точки для минимального веса сброшены</string>
+    <string name="SettingLoadCapacity_Text_Message_11">Точки для калибровочного веса сброшены</string>
+    <string name="SettingLoadCapacity_Text_Message_12">Настройте минимальный вес</string>
+    <string name="SettingLoadCapacity_Text_Message_13">Вылет не соответствует точке №1 мин.вес</string>
+    <string name="SettingLoadCapacity_Text_Message_14">Вылет не соответствует точке №2 мин.вес</string>
+    <string name="SettingLoadCapacity_Text_Message_15">Ошибка калибровки</string>
+
+
+
     <!-- Текст экрана SettingLoadCapacityScreen' -->
 
     <!-- Текст экрана SettingSensorsScreen' -->
