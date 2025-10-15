@@ -69,16 +69,6 @@ fun CalibrationSensorHoist(
     val currentHoistPosition = sensorsHoistState.currentHoistPosition
     val currentAbsEncHoistPositionWord1 = sensorsHoistState.currentAbsEncHoistPositionWord1
     val currentAbsEncHoistPositionWord2 = sensorsHoistState.currentAbsEncHoistPositionWord2
-    val currentAbsEncHoistPositionWord3 = sensorsHoistState.currentAbsEncHoistPositionWord3
-    val currentAbsEncHoistPositionWord4 = sensorsHoistState.currentAbsEncHoistPositionWord4
-    val currentAbsEncHoistPositionWord5 = sensorsHoistState.currentAbsEncHoistPositionWord5
-    val currentAbsEncHoistPositionWord6 = sensorsHoistState.currentAbsEncHoistPositionWord6
-    val currentAbsEncHoistPositionWord7 = sensorsHoistState.currentAbsEncHoistPositionWord7
-    val currentAbsEncHoistPositionWord8 = sensorsHoistState.currentAbsEncHoistPositionWord8
-    val currentAbsEncHoistPositionWord9 = sensorsHoistState.currentAbsEncHoistPositionWord9
-    val currentAbsEncHoistPositionWord10 = sensorsHoistState.currentAbsEncHoistPositionWord10
-    val currentAbsEncHoistPositionWord11 = sensorsHoistState.currentAbsEncHoistPositionWord11
-    val currentAbsEncHoistPositionWord12 = sensorsHoistState.currentAbsEncHoistPositionWord12
 
     val hoistLimitStatus = sensorsHoistState.hoistLimitStatus
     val currentHoistStopUp1 = sensorsHoistState.currentHoistStopUp1
@@ -180,19 +170,9 @@ fun CalibrationSensorHoist(
                 BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = formatAbsEncPositionPosition(
-                            currentAbsEncHoistPositionWord1,
                             currentAbsEncHoistPositionWord2,
-                            currentAbsEncHoistPositionWord3,
-                            currentAbsEncHoistPositionWord4,
-                            currentAbsEncHoistPositionWord5,
-                            currentAbsEncHoistPositionWord6,
-                            currentAbsEncHoistPositionWord7,
-                            currentAbsEncHoistPositionWord8,
-                            currentAbsEncHoistPositionWord9,
-                            currentAbsEncHoistPositionWord10,
-                            currentAbsEncHoistPositionWord11,
-                            currentAbsEncHoistPositionWord12,
-                            )
+                            currentAbsEncHoistPositionWord1
+                        )
                     )
             }
 
@@ -395,14 +375,10 @@ private fun formatDecimalMinus(value: Float): String {
     }
 }
 
-private fun formatAbsEncPositionPosition(
-    value1: Int, value2: Int, value3: Int,
-    value4: Int, value5: Int, value6: Int,
-    value7: Int, value8: Int, value9: Int,
-    value10: Int, value11: Int, value12: Int,
-    ): String {
-    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
-        value7, value8, value9, value10, value11, value12)
+private fun formatAbsEncPositionPosition(high: Int, low: Int): String {
+    // Правильное объединение: старший регистр (high) сдвигается на 16 бит
+    val combined = (high.toLong() shl 16) or (low.toLong() and 0xFFFF)
+    return String.format("%d", combined)
 }
 
 
@@ -419,17 +395,6 @@ fun CalibrationSensorHoistPreview () {
                 currentHoistPosition = 1f,
                 currentAbsEncHoistPositionWord1 = 1,
                 currentAbsEncHoistPositionWord2 = 1,
-                currentAbsEncHoistPositionWord3 = 1,
-                currentAbsEncHoistPositionWord4 = 1,
-                currentAbsEncHoistPositionWord5 = 1,
-                currentAbsEncHoistPositionWord6 = 1,
-                currentAbsEncHoistPositionWord7 = 1,
-                currentAbsEncHoistPositionWord8 = 1,
-                currentAbsEncHoistPositionWord9 = 1,
-                currentAbsEncHoistPositionWord10 = 1,
-                currentAbsEncHoistPositionWord11 = 1,
-                currentAbsEncHoistPositionWord12 = 1,
-
 
                 currentHoistStopUp1 = 1,
                 hoistMaxPosition = 50f,

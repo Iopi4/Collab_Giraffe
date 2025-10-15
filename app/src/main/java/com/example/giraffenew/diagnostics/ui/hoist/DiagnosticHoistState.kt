@@ -22,8 +22,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParame
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
-import com.example.giraffenew.diagnostics.ui.text.ControlDriveCS710
-import com.example.giraffenew.diagnostics.ui.text.StatusDriveCS710
+import com.example.giraffenew.diagnostics.text.ControlDriveCS710
 
 @Composable
 fun DiagnosticHoistState (

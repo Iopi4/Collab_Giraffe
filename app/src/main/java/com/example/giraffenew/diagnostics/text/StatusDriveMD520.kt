@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.text
+package com.example.giraffenew.diagnostics.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 //Функция отображения текста в левой области экрана для меню настроек
-fun ControlDriveCS710 (
+fun StatusDriveMD520 (
     modifier: Modifier,
     valueParameterId: Int,
 ){
@@ -37,18 +37,20 @@ fun ControlDriveCS710 (
             color = colorResource(R.color.Lavanda),
             shape = RoundedCornerShape(5.dp)
         )
-
-    val ControlWordDrive: String = when (valueParameterId) {
-        129 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_129)
-        136 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_136)
-        132 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_132)
-     else -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_Not_Available)
+    val statusWordDrive: String = when (valueParameterId) {
+        16 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_16)
+        17 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_17)
+        19 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_19)
+        25 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_25)
+        27 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_27)
+        7700 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_7700)
+        else -> stringResource(R.string.Diagnostic_Text_System_Status_Word_SlewTrolleyCrane_Not_Available)
     }
     Box (myBoxVisualValuesModifier) {
         Text(modifier = modifier
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp, top = 5.dp,bottom = 5.dp),
-            text = ControlWordDrive,
+            text = statusWordDrive,
             fontSize = 17.sp, fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center, color = DarkGrew
         )
@@ -58,11 +60,11 @@ fun ControlDriveCS710 (
 
 @Preview
 @Composable
-fun ControlDriveCS710Preview (){
+fun StatusDriveMD520Preview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        ControlDriveCS710(
+        StatusDriveMD520(
             modifier = Modifier,
-            valueParameterId = 1
+            valueParameterId = 16
         )
     }
 }

@@ -63,16 +63,6 @@ fun CalibrationSensorTrolley(
     val currentTrolleyPosition = sensorsTrolleyState.currentTrolleyPosition
     val currentAbsEncTrolleyPositionWord1 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord1
     val currentAbsEncTrolleyPositionWord2 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord2
-    val currentAbsEncTrolleyPositionWord3 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord3
-    val currentAbsEncTrolleyPositionWord4 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord4
-    val currentAbsEncTrolleyPositionWord5 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord5
-    val currentAbsEncTrolleyPositionWord6 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord6
-    val currentAbsEncTrolleyPositionWord7 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord7
-    val currentAbsEncTrolleyPositionWord8 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord8
-    val currentAbsEncTrolleyPositionWord9 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord9
-    val currentAbsEncTrolleyPositionWord10 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord10
-    val currentAbsEncTrolleyPositionWord11 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord11
-    val currentAbsEncTrolleyPositionWord12 = sensorsTrolleyState.currentAbsEncTrolleyPositionWord12
 
     val currentTrolleyStopFwd1 = sensorsTrolleyState.currentTrolleyStopFwd1
     val trolleyMaxPosition = sensorsTrolleyState.trolleyMaxPosition
@@ -165,18 +155,8 @@ fun CalibrationSensorTrolley(
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(
-                        currentAbsEncTrolleyPositionWord1,
                         currentAbsEncTrolleyPositionWord2,
-                        currentAbsEncTrolleyPositionWord3,
-                        currentAbsEncTrolleyPositionWord4,
-                        currentAbsEncTrolleyPositionWord5,
-                        currentAbsEncTrolleyPositionWord6,
-                        currentAbsEncTrolleyPositionWord7,
-                        currentAbsEncTrolleyPositionWord8,
-                        currentAbsEncTrolleyPositionWord9,
-                        currentAbsEncTrolleyPositionWord10,
-                        currentAbsEncTrolleyPositionWord11,
-                        currentAbsEncTrolleyPositionWord12,
+                        currentAbsEncTrolleyPositionWord1,
                         )
                 )
             }
@@ -352,14 +332,10 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(
-    value1: Int, value2: Int, value3: Int,
-    value4: Int, value5: Int, value6: Int,
-    value7: Int, value8: Int, value9: Int,
-    value10: Int, value11: Int, value12: Int,
-): String {
-    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
-        value7, value8, value9, value10, value11, value12)
+private fun formatAbsEncPositionPosition(high: Int, low: Int): String {
+    // Правильное объединение: старший регистр (high) сдвигается на 16 бит
+    val combined = (high.toLong() shl 16) or (low.toLong() and 0xFFFF)
+    return String.format("%d", combined)
 }
 
 @Preview

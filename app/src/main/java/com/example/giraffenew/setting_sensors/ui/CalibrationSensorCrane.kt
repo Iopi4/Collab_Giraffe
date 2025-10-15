@@ -69,17 +69,6 @@ fun CalibrationSensorCrane(
 
     val currentAbsEncCranePositionWord1 = sensorsCraneState.currentAbsEncCranePositionWord1
     val currentAbsEncCranePositionWord2 = sensorsCraneState.currentAbsEncCranePositionWord2
-    val currentAbsEncCranePositionWord3 = sensorsCraneState.currentAbsEncCranePositionWord3
-    val currentAbsEncCranePositionWord4 = sensorsCraneState.currentAbsEncCranePositionWord4
-    val currentAbsEncCranePositionWord5 = sensorsCraneState.currentAbsEncCranePositionWord5
-    val currentAbsEncCranePositionWord6 = sensorsCraneState.currentAbsEncCranePositionWord6
-    val currentAbsEncCranePositionWord7 = sensorsCraneState.currentAbsEncCranePositionWord7
-    val currentAbsEncCranePositionWord8 = sensorsCraneState.currentAbsEncCranePositionWord8
-    val currentAbsEncCranePositionWord9 = sensorsCraneState.currentAbsEncCranePositionWord9
-    val currentAbsEncCranePositionWord10 = sensorsCraneState.currentAbsEncCranePositionWord10
-    val currentAbsEncCranePositionWord11 = sensorsCraneState.currentAbsEncCranePositionWord11
-    val currentAbsEncCranePositionWord12 = sensorsCraneState.currentAbsEncCranePositionWord12
-
 
     val currentCranePosition = sensorsCraneState.currentCranePosition
 
@@ -178,18 +167,8 @@ fun CalibrationSensorCrane(
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(
-                        currentAbsEncCranePositionWord1,
                         currentAbsEncCranePositionWord2,
-                        currentAbsEncCranePositionWord3,
-                        currentAbsEncCranePositionWord4,
-                        currentAbsEncCranePositionWord5,
-                        currentAbsEncCranePositionWord6,
-                        currentAbsEncCranePositionWord7,
-                        currentAbsEncCranePositionWord8,
-                        currentAbsEncCranePositionWord9,
-                        currentAbsEncCranePositionWord10,
-                        currentAbsEncCranePositionWord11,
-                        currentAbsEncCranePositionWord12,
+                        currentAbsEncCranePositionWord1,
                     )
                 )
             }
@@ -393,14 +372,10 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(
-    value1: Int, value2: Int, value3: Int,
-    value4: Int, value5: Int, value6: Int,
-    value7: Int, value8: Int, value9: Int,
-    value10: Int, value11: Int, value12: Int,
-): String {
-    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
-        value7, value8, value9, value10, value11, value12)
+private fun formatAbsEncPositionPosition(high: Int, low: Int): String {
+    // Правильное объединение: старший регистр (high) сдвигается на 16 бит
+    val combined = (high.toLong() shl 16) or (low.toLong() and 0xFFFF)
+    return String.format("%d", combined)
 }
 
 @Preview

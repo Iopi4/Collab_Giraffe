@@ -115,10 +115,7 @@ class SettingSensorsViewModule
         340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
         730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207, 1623, 1648, 1699, 1738,
         160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372,
-        382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393,
-        663, 664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674,
-        675, 676, 677, 678, 679, 680, 681, 682, 683, 684, 685, 686,
-        687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 698,
+        382, 383, 386, 387, 390, 391, 394, 395,
         // Регистры для считывания
     )
 
@@ -200,17 +197,6 @@ class SettingSensorsViewModule
                 //Данные с абсолютного энкодера
                 currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
                 currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
-                currentAbsEncHoistPositionWord3 = cache[384] ?: 0,
-                currentAbsEncHoistPositionWord4 = cache[385] ?: 0,
-                currentAbsEncHoistPositionWord5 = cache[386] ?: 0,
-                currentAbsEncHoistPositionWord6 = cache[387] ?: 0,
-                currentAbsEncHoistPositionWord7 = cache[388] ?: 0,
-                currentAbsEncHoistPositionWord8 = cache[389] ?: 0,
-                currentAbsEncHoistPositionWord9 = cache[390] ?: 0,
-                currentAbsEncHoistPositionWord10 = cache[391] ?: 0,
-                currentAbsEncHoistPositionWord11 = cache[392] ?: 0,
-                currentAbsEncHoistPositionWord12 = cache[393] ?: 0,
-
 
                 hoistLimitStatus = cache[1623] ?: 0,
 
@@ -227,18 +213,8 @@ class SettingSensorsViewModule
                 currentSlewEncoderMaxValueError = cache[735] ?: 0,
                 currentSlewAbsEncErrCanOpen = cache[205] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncSlewPositionWord1 = cache[663] ?: 0,
-                currentAbsEncSlewPositionWord2 = cache[664] ?: 0,
-                currentAbsEncSlewPositionWord3 = cache[665] ?: 0,
-                currentAbsEncSlewPositionWord4 = cache[666] ?: 0,
-                currentAbsEncSlewPositionWord5 = cache[667] ?: 0,
-                currentAbsEncSlewPositionWord6 = cache[668] ?: 0,
-                currentAbsEncSlewPositionWord7 = cache[669] ?: 0,
-                currentAbsEncSlewPositionWord8 = cache[670] ?: 0,
-                currentAbsEncSlewPositionWord9 = cache[671] ?: 0,
-                currentAbsEncSlewPositionWord10 = cache[672] ?: 0,
-                currentAbsEncSlewPositionWord11 = cache[673] ?: 0,
-                currentAbsEncSlewPositionWord12 = cache[674] ?: 0,
+                currentAbsEncSlewPositionWord1 = cache[386] ?: 0,
+                currentAbsEncSlewPositionWord2 = cache[387] ?: 0,
 
                 slewLimitStatus = cache[1648] ?: 0,
             ),
@@ -255,18 +231,8 @@ class SettingSensorsViewModule
                 currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
                 currentTrolleyAbsEncErrCanOpen = cache[206] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncTrolleyPositionWord1 = cache[675] ?: 0,
-                currentAbsEncTrolleyPositionWord2 = cache[676] ?: 0,
-                currentAbsEncTrolleyPositionWord3 = cache[677] ?: 0,
-                currentAbsEncTrolleyPositionWord4 = cache[678] ?: 0,
-                currentAbsEncTrolleyPositionWord5 = cache[679] ?: 0,
-                currentAbsEncTrolleyPositionWord6 = cache[680] ?: 0,
-                currentAbsEncTrolleyPositionWord7 = cache[681] ?: 0,
-                currentAbsEncTrolleyPositionWord8 = cache[682] ?: 0,
-                currentAbsEncTrolleyPositionWord9 = cache[683] ?: 0,
-                currentAbsEncTrolleyPositionWord10 = cache[684] ?: 0,
-                currentAbsEncTrolleyPositionWord11 = cache[685] ?: 0,
-                currentAbsEncTrolleyPositionWord12 = cache[686] ?: 0,
+                currentAbsEncTrolleyPositionWord1 = cache[390] ?: 0,
+                currentAbsEncTrolleyPositionWord2 = cache[391] ?: 0,
 
                 trolleyLimitStatus = cache[1699] ?: 0,
 
@@ -291,18 +257,8 @@ class SettingSensorsViewModule
                 currentCraneEncoderMaxValueError = cache[737] ?: 0,
                 currentCraneAbsEncErrCanOpen = cache[207] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncCranePositionWord1 = cache[687] ?: 0,
-                currentAbsEncCranePositionWord2 = cache[688] ?: 0,
-                currentAbsEncCranePositionWord3 = cache[689] ?: 0,
-                currentAbsEncCranePositionWord4 = cache[690] ?: 0,
-                currentAbsEncCranePositionWord5 = cache[691] ?: 0,
-                currentAbsEncCranePositionWord6 = cache[692] ?: 0,
-                currentAbsEncCranePositionWord7 = cache[693] ?: 0,
-                currentAbsEncCranePositionWord8 = cache[694] ?: 0,
-                currentAbsEncCranePositionWord9 = cache[695] ?: 0,
-                currentAbsEncCranePositionWord10 = cache[696] ?: 0,
-                currentAbsEncCranePositionWord11 = cache[697] ?: 0,
-                currentAbsEncCranePositionWord12 = cache[698] ?: 0,
+                currentAbsEncCranePositionWord1 = cache[394] ?: 0,
+                currentAbsEncCranePositionWord2 = cache[395] ?: 0,
 
                 craneLimitStatus = cache[1738] ?: 0,
 
@@ -340,16 +296,6 @@ class SettingSensorsViewModule
 //Данные с датчиков. Подъем
         val currentAbsEncHoistPositionWord1: Int = 0,
         val currentAbsEncHoistPositionWord2: Int = 0,
-        val currentAbsEncHoistPositionWord3: Int = 0,
-        val currentAbsEncHoistPositionWord4: Int = 0,
-        val currentAbsEncHoistPositionWord5: Int = 0,
-        val currentAbsEncHoistPositionWord6: Int = 0,
-        val currentAbsEncHoistPositionWord7: Int = 0,
-        val currentAbsEncHoistPositionWord8: Int = 0,
-        val currentAbsEncHoistPositionWord9: Int = 0,
-        val currentAbsEncHoistPositionWord10: Int = 0,
-        val currentAbsEncHoistPositionWord11: Int = 0,
-        val currentAbsEncHoistPositionWord12: Int = 0,
 
         val hoistLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
 
@@ -370,16 +316,7 @@ class SettingSensorsViewModule
         //Данные с датчика
         val currentAbsEncSlewPositionWord1: Int = 0,
         val currentAbsEncSlewPositionWord2: Int = 0,
-        val currentAbsEncSlewPositionWord3: Int = 0,
-        val currentAbsEncSlewPositionWord4: Int = 0,
-        val currentAbsEncSlewPositionWord5: Int = 0,
-        val currentAbsEncSlewPositionWord6: Int = 0,
-        val currentAbsEncSlewPositionWord7: Int = 0,
-        val currentAbsEncSlewPositionWord8: Int = 0,
-        val currentAbsEncSlewPositionWord9: Int = 0,
-        val currentAbsEncSlewPositionWord10: Int = 0,
-        val currentAbsEncSlewPositionWord11: Int = 0,
-        val currentAbsEncSlewPositionWord12: Int = 0,
+
 
         val slewLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
 
@@ -398,16 +335,6 @@ class SettingSensorsViewModule
         //Данные с датчика
         val currentAbsEncTrolleyPositionWord1: Int = 0,
         val currentAbsEncTrolleyPositionWord2: Int = 0,
-        val currentAbsEncTrolleyPositionWord3: Int = 0,
-        val currentAbsEncTrolleyPositionWord4: Int = 0,
-        val currentAbsEncTrolleyPositionWord5: Int = 0,
-        val currentAbsEncTrolleyPositionWord6: Int = 0,
-        val currentAbsEncTrolleyPositionWord7: Int = 0,
-        val currentAbsEncTrolleyPositionWord8: Int = 0,
-        val currentAbsEncTrolleyPositionWord9: Int = 0,
-        val currentAbsEncTrolleyPositionWord10: Int = 0,
-        val currentAbsEncTrolleyPositionWord11: Int = 0,
-        val currentAbsEncTrolleyPositionWord12: Int = 0,
 
         val trolleyLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
         //Данные крайних положений механизмов
@@ -432,16 +359,6 @@ class SettingSensorsViewModule
         //Данные с датчика.
         val currentAbsEncCranePositionWord1: Int = 0,
         val currentAbsEncCranePositionWord2: Int = 0,
-        val currentAbsEncCranePositionWord3: Int = 0,
-        val currentAbsEncCranePositionWord4: Int = 0,
-        val currentAbsEncCranePositionWord5: Int = 0,
-        val currentAbsEncCranePositionWord6: Int = 0,
-        val currentAbsEncCranePositionWord7: Int = 0,
-        val currentAbsEncCranePositionWord8: Int = 0,
-        val currentAbsEncCranePositionWord9: Int = 0,
-        val currentAbsEncCranePositionWord10: Int = 0,
-        val currentAbsEncCranePositionWord11: Int = 0,
-        val currentAbsEncCranePositionWord12: Int = 0,
 
         val craneLimitStatus: Int = 0, //Статус функции проверки ограничений в наладке
         //Данные крайних положений механизмов

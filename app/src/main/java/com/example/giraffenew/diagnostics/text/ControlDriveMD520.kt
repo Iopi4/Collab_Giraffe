@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.text
+package com.example.giraffenew.diagnostics.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

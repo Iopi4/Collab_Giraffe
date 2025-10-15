@@ -21,9 +21,9 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParame
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.diagnostics.prezentation.DiagnosticViewModule
-import com.example.giraffenew.diagnostics.ui.state.StateValueWindAndLoadSensor
-import com.example.giraffenew.diagnostics.ui.text.StatusDriveCS710
-import com.example.giraffenew.diagnostics.ui.text.StatusDriveMD520
+import com.example.giraffenew.diagnostics.state.StateValueWindAndLoadSensor
+import com.example.giraffenew.diagnostics.text.StatusDriveCS710
+import com.example.giraffenew.diagnostics.text.StatusDriveMD520
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -41,55 +41,16 @@ fun DiagnosticSystem(
     //-----Данные с энкодеров
     val currentAbsEncHoistPositionWord1 = systemParams.currentAbsEncHoistPositionWord1
     val currentAbsEncHoistPositionWord2 = systemParams.currentAbsEncHoistPositionWord2
-    val currentAbsEncHoistPositionWord3 = systemParams.currentAbsEncHoistPositionWord3
-    val currentAbsEncHoistPositionWord4 = systemParams.currentAbsEncHoistPositionWord4
-    val currentAbsEncHoistPositionWord5 = systemParams.currentAbsEncHoistPositionWord5
-    val currentAbsEncHoistPositionWord6 = systemParams.currentAbsEncHoistPositionWord6
-    val currentAbsEncHoistPositionWord7 = systemParams.currentAbsEncHoistPositionWord7
-    val currentAbsEncHoistPositionWord8 = systemParams.currentAbsEncHoistPositionWord8
-    val currentAbsEncHoistPositionWord9 = systemParams.currentAbsEncHoistPositionWord9
-    val currentAbsEncHoistPositionWord10 = systemParams.currentAbsEncHoistPositionWord10
-    val currentAbsEncHoistPositionWord11 = systemParams.currentAbsEncHoistPositionWord11
-    val currentAbsEncHoistPositionWord12 = systemParams.currentAbsEncHoistPositionWord12
 
     val currentAbsEncSlewPositionWord1 = systemParams.currentAbsEncSlewPositionWord1
     val currentAbsEncSlewPositionWord2 = systemParams.currentAbsEncSlewPositionWord2
-    val currentAbsEncSlewPositionWord3 = systemParams.currentAbsEncSlewPositionWord3
-    val currentAbsEncSlewPositionWord4 = systemParams.currentAbsEncSlewPositionWord4
-    val currentAbsEncSlewPositionWord5 = systemParams.currentAbsEncSlewPositionWord5
-    val currentAbsEncSlewPositionWord6 = systemParams.currentAbsEncSlewPositionWord6
-    val currentAbsEncSlewPositionWord7 = systemParams.currentAbsEncSlewPositionWord7
-    val currentAbsEncSlewPositionWord8 = systemParams.currentAbsEncSlewPositionWord8
-    val currentAbsEncSlewPositionWord9 = systemParams.currentAbsEncSlewPositionWord9
-    val currentAbsEncSlewPositionWord10 = systemParams.currentAbsEncSlewPositionWord10
-    val currentAbsEncSlewPositionWord11 = systemParams.currentAbsEncSlewPositionWord11
-    val currentAbsEncSlewPositionWord12 = systemParams.currentAbsEncSlewPositionWord12
 
     val currentAbsEncTrolleyPositionWord1 = systemParams.currentAbsEncTrolleyPositionWord1
     val currentAbsEncTrolleyPositionWord2 = systemParams.currentAbsEncTrolleyPositionWord2
-    val currentAbsEncTrolleyPositionWord3 = systemParams.currentAbsEncTrolleyPositionWord3
-    val currentAbsEncTrolleyPositionWord4 = systemParams.currentAbsEncTrolleyPositionWord4
-    val currentAbsEncTrolleyPositionWord5 = systemParams.currentAbsEncTrolleyPositionWord5
-    val currentAbsEncTrolleyPositionWord6 = systemParams.currentAbsEncTrolleyPositionWord6
-    val currentAbsEncTrolleyPositionWord7 = systemParams.currentAbsEncTrolleyPositionWord7
-    val currentAbsEncTrolleyPositionWord8 = systemParams.currentAbsEncTrolleyPositionWord8
-    val currentAbsEncTrolleyPositionWord9 = systemParams.currentAbsEncTrolleyPositionWord9
-    val currentAbsEncTrolleyPositionWord10 = systemParams.currentAbsEncTrolleyPositionWord10
-    val currentAbsEncTrolleyPositionWord11 = systemParams.currentAbsEncTrolleyPositionWord11
-    val currentAbsEncTrolleyPositionWord12 = systemParams.currentAbsEncTrolleyPositionWord12
 
     val currentAbsEncCranePositionWord1 = systemParams.currentAbsEncCranePositionWord1
     val currentAbsEncCranePositionWord2 = systemParams.currentAbsEncCranePositionWord2
-    val currentAbsEncCranePositionWord3 = systemParams.currentAbsEncCranePositionWord3
-    val currentAbsEncCranePositionWord4 = systemParams.currentAbsEncCranePositionWord4
-    val currentAbsEncCranePositionWord5 = systemParams.currentAbsEncCranePositionWord5
-    val currentAbsEncCranePositionWord6 = systemParams.currentAbsEncCranePositionWord6
-    val currentAbsEncCranePositionWord7 = systemParams.currentAbsEncCranePositionWord7
-    val currentAbsEncCranePositionWord8 = systemParams.currentAbsEncCranePositionWord8
-    val currentAbsEncCranePositionWord9 = systemParams.currentAbsEncCranePositionWord9
-    val currentAbsEncCranePositionWord10 = systemParams.currentAbsEncCranePositionWord10
-    val currentAbsEncCranePositionWord11 = systemParams.currentAbsEncCranePositionWord11
-    val currentAbsEncCranePositionWord12 = systemParams.currentAbsEncCranePositionWord12
+
     //-----ошибка связи энкодеров
     val currentHoistAbsEncErrCanOpen = systemParams.currentHoistAbsEncErrCanOpen
     val currentSlewAbsEncErrCanOpen  = systemParams.currentSlewAbsEncErrCanOpen
@@ -196,18 +157,8 @@ fun DiagnosticSystem(
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = formatAbsEncPositionPosition(
-                            currentAbsEncHoistPositionWord1,
                             currentAbsEncHoistPositionWord2,
-                            currentAbsEncHoistPositionWord3,
-                            currentAbsEncHoistPositionWord4,
-                            currentAbsEncHoistPositionWord5,
-                            currentAbsEncHoistPositionWord6,
-                            currentAbsEncHoistPositionWord7,
-                            currentAbsEncHoistPositionWord8,
-                            currentAbsEncHoistPositionWord9,
-                            currentAbsEncHoistPositionWord10,
-                            currentAbsEncHoistPositionWord11,
-                            currentAbsEncHoistPositionWord12,
+                            currentAbsEncHoistPositionWord1,
                         )
                     )
                 }
@@ -228,18 +179,8 @@ fun DiagnosticSystem(
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = formatAbsEncPositionPosition(
-                            currentAbsEncSlewPositionWord1,
                             currentAbsEncSlewPositionWord2,
-                            currentAbsEncSlewPositionWord3,
-                            currentAbsEncSlewPositionWord4,
-                            currentAbsEncSlewPositionWord5,
-                            currentAbsEncSlewPositionWord6,
-                            currentAbsEncSlewPositionWord7,
-                            currentAbsEncSlewPositionWord8,
-                            currentAbsEncSlewPositionWord9,
-                            currentAbsEncSlewPositionWord10,
-                            currentAbsEncSlewPositionWord11,
-                            currentAbsEncSlewPositionWord12,)
+                            currentAbsEncSlewPositionWord1,)
 
                     )
                 }
@@ -260,18 +201,8 @@ fun DiagnosticSystem(
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = formatAbsEncPositionPosition(
-                            currentAbsEncTrolleyPositionWord1,
                             currentAbsEncTrolleyPositionWord2,
-                            currentAbsEncTrolleyPositionWord3,
-                            currentAbsEncTrolleyPositionWord4,
-                            currentAbsEncTrolleyPositionWord5,
-                            currentAbsEncTrolleyPositionWord6,
-                            currentAbsEncTrolleyPositionWord7,
-                            currentAbsEncTrolleyPositionWord8,
-                            currentAbsEncTrolleyPositionWord9,
-                            currentAbsEncTrolleyPositionWord10,
-                            currentAbsEncTrolleyPositionWord11,
-                            currentAbsEncTrolleyPositionWord12,)
+                            currentAbsEncTrolleyPositionWord1,)
 
                     )
                 }
@@ -292,18 +223,8 @@ fun DiagnosticSystem(
                     BasicValuesSettingsParameterGiraffe(
                         modifier = Modifier,
                         valueParameterId = formatAbsEncPositionPosition(
-                            currentAbsEncCranePositionWord1,
                             currentAbsEncCranePositionWord2,
-                            currentAbsEncCranePositionWord3,
-                            currentAbsEncCranePositionWord4,
-                            currentAbsEncCranePositionWord5,
-                            currentAbsEncCranePositionWord6,
-                            currentAbsEncCranePositionWord7,
-                            currentAbsEncCranePositionWord8,
-                            currentAbsEncCranePositionWord9,
-                            currentAbsEncCranePositionWord10,
-                            currentAbsEncCranePositionWord11,
-                            currentAbsEncCranePositionWord12,)
+                            currentAbsEncCranePositionWord1,)
 
                     )
                 }
@@ -369,14 +290,10 @@ private fun format(value: Int): String {
     return String.format("%d", value)
 }
 
-private fun formatAbsEncPositionPosition(
-    value1: Int, value2: Int, value3: Int,
-    value4: Int, value5: Int, value6: Int,
-    value7: Int, value8: Int, value9: Int,
-    value10: Int, value11: Int, value12: Int,
-): String {
-    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
-        value7, value8, value9, value10, value11, value12)
+private fun formatAbsEncPositionPosition(high: Int, low: Int): String {
+    // Правильное объединение: старший регистр (high) сдвигается на 16 бит
+    val combined = (high.toLong() shl 16) or (low.toLong() and 0xFFFF)
+    return String.format("%d", combined)
 }
 
 

@@ -51,16 +51,6 @@ fun CalibrationSensorSlewing(
 
     val currentAbsEncSlewPositionWord1 = sensorsSlewState.currentAbsEncSlewPositionWord1
     val currentAbsEncSlewPositionWord2 = sensorsSlewState.currentAbsEncSlewPositionWord2
-    val currentAbsEncSlewPositionWord3 = sensorsSlewState.currentAbsEncSlewPositionWord3
-    val currentAbsEncSlewPositionWord4 = sensorsSlewState.currentAbsEncSlewPositionWord4
-    val currentAbsEncSlewPositionWord5 = sensorsSlewState.currentAbsEncSlewPositionWord5
-    val currentAbsEncSlewPositionWord6 = sensorsSlewState.currentAbsEncSlewPositionWord6
-    val currentAbsEncSlewPositionWord7 = sensorsSlewState.currentAbsEncSlewPositionWord7
-    val currentAbsEncSlewPositionWord8 = sensorsSlewState.currentAbsEncSlewPositionWord8
-    val currentAbsEncSlewPositionWord9 = sensorsSlewState.currentAbsEncSlewPositionWord9
-    val currentAbsEncSlewPositionWord10 = sensorsSlewState.currentAbsEncSlewPositionWord10
-    val currentAbsEncSlewPositionWord11 = sensorsSlewState.currentAbsEncSlewPositionWord11
-    val currentAbsEncSlewPositionWord12 = sensorsSlewState.currentAbsEncSlewPositionWord12
 
     val currentSlewPosition = sensorsSlewState.currentSlewPosition
 
@@ -150,18 +140,8 @@ fun CalibrationSensorSlewing(
                 BasicValuesSettingsParameterGiraffe(
                     modifier = Modifier,
                     valueParameterId = formatAbsEncPositionPosition(
-                        currentAbsEncSlewPositionWord1,
                         currentAbsEncSlewPositionWord2,
-                        currentAbsEncSlewPositionWord3,
-                        currentAbsEncSlewPositionWord4,
-                        currentAbsEncSlewPositionWord5,
-                        currentAbsEncSlewPositionWord6,
-                        currentAbsEncSlewPositionWord7,
-                        currentAbsEncSlewPositionWord8,
-                        currentAbsEncSlewPositionWord9,
-                        currentAbsEncSlewPositionWord10,
-                        currentAbsEncSlewPositionWord11,
-                        currentAbsEncSlewPositionWord12,
+                        currentAbsEncSlewPositionWord1,
                         )
                 )
             }
@@ -283,14 +263,10 @@ private fun formatDecimal(value: Float): String {
     return String.format("%04.1f", value).replace(',', '.')
 }
 
-private fun formatAbsEncPositionPosition(
-    value1: Int, value2: Int, value3: Int,
-    value4: Int, value5: Int, value6: Int,
-    value7: Int, value8: Int, value9: Int,
-    value10: Int, value11: Int, value12: Int,
-): String {
-    return String.format("%d%d%d%d%d%d%d%d%d%d%d%d", value1, value2, value3, value4, value5, value6,
-        value7, value8, value9, value10, value11, value12)
+private fun formatAbsEncPositionPosition(high: Int, low: Int): String {
+    // Правильное объединение: старший регистр (high) сдвигается на 16 бит
+    val combined = (high.toLong() shl 16) or (low.toLong() and 0xFFFF)
+    return String.format("%d", combined)
 }
 
 @Preview

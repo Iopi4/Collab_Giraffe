@@ -1,4 +1,4 @@
-package com.example.giraffenew.diagnostics.ui.text
+package com.example.giraffenew.diagnostics.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,7 @@ import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 
 @Composable
 //Функция отображения текста в левой области экрана для меню настроек
-fun StatusDriveCS710 (
+fun ControlDriveCS710 (
     modifier: Modifier,
     valueParameterId: Int,
 ){
@@ -38,20 +38,17 @@ fun StatusDriveCS710 (
             shape = RoundedCornerShape(5.dp)
         )
 
-    val statusWordDrive: String = when (valueParameterId) {
-        40 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_40)
-        45 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_45)
-        43 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_43)
-        109 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_109)
-        107 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_107)
-        5152 -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_5152)
-     else -> stringResource(R.string.Diagnostic_Text_System_Status_Word_Hoist_Not_Available)
+    val ControlWordDrive: String = when (valueParameterId) {
+        129 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_129)
+        136 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_136)
+        132 -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_132)
+     else -> stringResource(R.string.Diagnostic_Text_System_Control_Word_Hoist_Not_Available)
     }
     Box (myBoxVisualValuesModifier) {
         Text(modifier = modifier
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp, top = 5.dp,bottom = 5.dp),
-            text = statusWordDrive,
+            text = ControlWordDrive,
             fontSize = 17.sp, fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center, color = DarkGrew
         )
@@ -61,9 +58,9 @@ fun StatusDriveCS710 (
 
 @Preview
 @Composable
-fun StatusDriveCS710Preview (){
+fun ControlDriveCS710Preview (){
     GIRAFFEnewTheme(dynamicColor = false) {
-        StatusDriveCS710(
+        ControlDriveCS710(
             modifier = Modifier,
             valueParameterId = 1
         )
