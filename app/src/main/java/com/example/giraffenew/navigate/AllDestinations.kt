@@ -12,6 +12,7 @@ import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_DIAGNOSTICS
 import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_PARAMETER_LOGGER
 import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_TECHNICAL_MAINTENANCE
 import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_ACCIDENT_AND_WARNING_LOG
+import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_EXCEPTION
 import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_LOGIN
 import com.example.giraffenew.navigate.AllDestinations.NAVIGATE_MODBUS_TOOLS
 
@@ -31,6 +32,7 @@ object AllDestinations {
     const val NAVIGATE_ACCIDENT_AND_WARNING_LOG = "Журнал событий"
     const val NAVIGATE_LOGIN = "Авторизация пользователя"
     const val NAVIGATE_MODBUS_TOOLS = "Настройка Modbus"
+    const val NAVIGATE_EXCEPTION = "Ошибки Android"
 }
 class AppNavigationActions(private val navController: NavHostController) {
 
@@ -116,10 +118,19 @@ class AppNavigationActions(private val navController: NavHostController) {
         }
     }
 
-    fun navigateTo_ModbusTools() {
-        navController.navigate(NAVIGATE_MODBUS_TOOLS) {
+    fun navigateTo_Exceptions() {
+        navController.navigate(NAVIGATE_EXCEPTION) {
             launchSingleTop = true
             restoreState = true
         }
     }
+
+    //fun navigateTo_ModbusTools() {
+        //navController.navigate(NAVIGATE_MODBUS_TOOLS) {
+            //launchSingleTop = true
+            //restoreState = true
+        //}
+    //}
+
+
 }

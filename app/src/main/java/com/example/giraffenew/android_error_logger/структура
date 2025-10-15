@@ -1,0 +1,38 @@
+Domain:
+- ExceptionEntity (уже есть)
+- LogLevel (уже есть)
+- ExceptionRepository (аналог EventRepository)
+
+UseCases:
+- AddExceptionUseCase,
+- GetExceptionsUseCase,
+- ClearExceptionsUseCase и т.д.
+
+Data:
+ExceptionDao (аналог EventDao)
+- AppDatabase (добавим таблицу exceptions)
+- ExceptionRepositoryImpl (реализация ExceptionRepository)
+
+Presentation:
+- ViewModel для экрана ошибок
+- Composable функции для отображения списка ошибок
+
+
+
+// Пример использования в любой части приложения
+class SomeRepository @Inject constructor(
+    private val exceptionLogger: AndroidExceptionLogger
+) {
+    suspend fun fetchData() {
+        try {
+            // какой-то код
+        } catch (e: Exception) {
+            exceptionLogger.logError(
+                "SomeRepository",
+                "Failed to fetch data",
+                e
+            )
+            throw e
+        }
+    }
+}

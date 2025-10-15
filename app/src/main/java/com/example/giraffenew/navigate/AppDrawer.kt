@@ -29,8 +29,9 @@ fun AppDrawer(
     navigateToParameterLogger: () -> Unit = {},
     navigateToTechnicalMaintenance: () -> Unit = {},
     navigateToAccidentWarninglog: () -> Unit = {},
+    navigateToExceptionLog: () -> Unit = {},
     navigateToLogin: () -> Unit = {},
-    navigateToModbusTools: () -> Unit = {},
+    //navigateToModbusTools: () -> Unit = {},
     closeDrawer: () -> Unit = {},
     buildMode: Int,
     serviceMode: Int,
@@ -190,18 +191,33 @@ fun AppDrawer(
                 closeDrawer() },
         )
 
-//Кнопка навигации "Настройки Modbus"
-        ServiceNavigationButton(
-            iconResId = R.drawable.ic_nav_setting_modbus,
-            labelResId = R.string.menu_ModbusTools,
-            isSelected = route == AllDestinations.NAVIGATE_MODBUS_TOOLS,
-            isLocked = !protectedMenusEnabledService,
+        //Кнопка навигации "Ошибки Android"
+        NavigationButton(
+            iconResId = R.drawable.ic_topbar_android,
+            labelResId = R.string.menu_Exception_Android,
+            isSelected = route == AllDestinations.NAVIGATE_EXCEPTION,
             onClick = {
-                if (protectedMenusEnabledService) {
-                navigateToModbusTools()
+                navigateToExceptionLog()
                 closeDrawer()
-                } else topBarViewModule.playAccessDeniedSound()
-                      },
+            },
         )
+
+        /**
+        //Кнопка навигации "Настройки Modbus"
+        ServiceNavigationButton(
+        iconResId = R.drawable.ic_nav_setting_modbus,
+        labelResId = R.string.menu_ModbusTools,
+        isSelected = route == AllDestinations.NAVIGATE_MODBUS_TOOLS,
+        isLocked = !protectedMenusEnabledService,
+        onClick = {
+        if (protectedMenusEnabledService) {
+        navigateToModbusTools()
+        closeDrawer()
+        } else topBarViewModule.playAccessDeniedSound()
+        },
+        )
+         */
+
+
     }
 }

@@ -1,7 +1,9 @@
 package com.example.giraffenew
 
 import android.app.Application
+import com.example.giraffenew.android_error_logger.data.logger.AndroidExceptionLogger
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 /**
  * Hilt Application class для DI контейнера
@@ -14,9 +16,17 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class GiraffeApplication : Application() {
-    
+
+    @Inject
+    lateinit var exceptionLogger: AndroidExceptionLogger
+
+
     override fun onCreate() {
         super.onCreate()
         // Application-level initialization если потребуется
+
+        // Настраиваем глобальный обработчик исключений
+        exceptionLogger.setupGlobalExceptionHandler()
+
     }
 }

@@ -63,6 +63,7 @@ import com.example.giraffenew.setting_rotation.presentation.SettingRotationScree
 import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 import com.example.giraffenew.R
+import com.example.giraffenew.android_error_logger.presentation.screen.ExceptionsScreen
 import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.home.ui.button.ButtonIconAndroid
 
@@ -122,7 +123,8 @@ fun SampleAppNavGraph(
             navigateToTechnicalMaintenance = { navigationActions.navigateTo_TechnicalMaintenance() },
             navigateToAccidentWarninglog = { navigationActions.navigateTo_AccidentAndWarningLog() },
             navigateToLogin = { navigationActions.navigateTo_Login() },
-            navigateToModbusTools = {navigationActions.navigateTo_ModbusTools() },
+            //navigateToModbusTools = {navigationActions.navigateTo_ModbusTools() },
+            navigateToExceptionLog = {navigationActions.navigateTo_Exceptions() },
             closeDrawer = { coroutineScope.launch { drawerState.close() } },
             modifier = Modifier,
             buildMode = topBarViewModel.buildMode.value, // Передаем значение buildMode
@@ -274,9 +276,13 @@ fun SampleAppNavGraph(
                     LoginScreen()
                 }
 
-                composable(AllDestinations.NAVIGATE_MODBUS_TOOLS) {
-                    ModbusToolsScreen()
+                composable(AllDestinations.NAVIGATE_EXCEPTION) {
+                    ExceptionsScreen()
                 }
+
+                //composable(AllDestinations.NAVIGATE_MODBUS_TOOLS) {
+                    //ModbusToolsScreen()
+                //}
 
             }
         }
