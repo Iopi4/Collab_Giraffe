@@ -37,8 +37,8 @@ fun ButtonIconAndroid(
 
     Box(
         modifier = Modifier
-            .size(width = 35.dp, height = 35.dp)
-            .padding(start = 10.dp),
+            .size(width = 70.dp, height = 20.dp)
+            .padding(start = 50.dp, top = 2.dp),
         contentAlignment = Alignment.TopStart
     ) {
         Button(
@@ -52,7 +52,7 @@ fun ButtonIconAndroid(
             Icon(
                 painter = painterResource(R.drawable.ic_topbar_android),
                 contentDescription = description,
-                modifier = Modifier.size(35.dp),
+                modifier = Modifier.size(20.dp),
                 tint = iconColor
             )
         }

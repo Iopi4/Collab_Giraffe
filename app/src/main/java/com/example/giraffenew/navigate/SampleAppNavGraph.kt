@@ -25,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -65,6 +66,7 @@ import com.example.giraffenew.technical_maintenance.presentation.TechnicalMainte
 import com.example.giraffenew.R
 import com.example.giraffenew.android_error_logger.presentation.screen.ExceptionsScreen
 import com.example.giraffenew.core.sound.SoundController
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampCloudDone
 import com.example.giraffenew.home.ui.button.ButtonIconAndroid
 
 
@@ -107,6 +109,9 @@ fun SampleAppNavGraph(
         montageMode == 1 -> colorResource(R.color.Red)
     else -> colorResource(R.color.Silver) }
 
+
+    // Собираем статус подключения к облаку
+    val cloudConnectionStatus by topBarViewModel.cloudConnectionStatus.collectAsState()
 
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(
@@ -153,10 +158,7 @@ fun SampleAppNavGraph(
                                 Box (boxTopBarText) {TopBarText(topBarViewModel.currentLoadCapacity.value) }
 
                                 // Добавляем кнопку управления kiosk режимом
-                                ButtonIconAndroid(
-                                    onClick = onKioskModeToggle,
-                                    isKioskModeEnabled = isKioskModeEnabled
-                                )
+
                             }
 
 //Область отображения кнопки меню навигации
@@ -199,16 +201,18 @@ fun SampleAppNavGraph(
                     }
 //Область отобтражения даты и времени
                     Box(modifier = Modifier.weight(1f)) {
-
-                        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-                            //модификатор устанавливает отступы  между границей компонента и границами контейнера)
-                            //В начале определяем данные в виде списке langs. В столбце Column пробегаемся
-                            // по этому списку и создаем для каждого свой компонент Text
-
+                        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Row(modifier = Modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+                                BasicLampCloudDone(
+                                    isStatusCloud = cloudConnectionStatus
+                                )
+                                ButtonIconAndroid(
+                                    onClick = onKioskModeToggle,
+                                    isKioskModeEnabled = isKioskModeEnabled
+                                )
+                            }
                             TopBarTextDateTime(topBarViewModel.currentTime.value)
-
                             TopBarTextDateTime(topBarViewModel.currentDate.value)
-
                         }
                     }
                 }
@@ -299,4 +303,4 @@ fun TopBarText (text:String, modifier:Modifier=Modifier){
 @Composable
 //Создадим функцию для свойств текста TopAppBar (Верхняя часть экрана - Дата и время)
 fun TopBarTextDateTime (text:String, modifier:Modifier=Modifier){
-    Text(text, modifier.padding(5.dp), fontSize = 20.sp, textAlign = TextAlign.Center, color = Burgundy_violet, fontWeight = FontWeight.Bold) }
+    Text(text, modifier.padding(1.dp), fontSize = 18.sp, textAlign = TextAlign.Center, color = Burgundy_violet, fontWeight = FontWeight.Bold) }

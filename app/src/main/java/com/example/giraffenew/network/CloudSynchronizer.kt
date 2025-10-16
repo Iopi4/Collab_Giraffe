@@ -191,9 +191,42 @@ class CloudSynchronizer @Inject constructor(
         private const val MAX_PAYLOAD_SIZE = 1024 * 1024 // 1MB максимальный размер payload
     }
 
+    //Добавим отслеживание статуса подключение к облачному сервису
+    private val _cloudConnectionStatus = MutableStateFlow(false)
+    val cloudConnectionStatus: StateFlow<Boolean> = _cloudConnectionStatus.asStateFlow()
 
+    // Таймер для проверки "свежести" подключения
+    private var lastSuccessfulSyncTime = 0L
+    private val connectionTimeoutMs = 60000L // 60 секунд timeout
 
+    // Запускаем мониторинг статуса подключения
+    private var connectionMonitorJob: Job? = null
 
+    private fun startConnectionMonitoring(){
+        connectionMonitorJob = syncScope.launch {
+            while (coroutineContext.isActive) {
+                updateConnectionStatus()
+                delay(5000L)// Проверяем каждые 5 секунд
+            }
+        }
+    }
+
+    private fun stopConnectionMonitoring (){
+        connectionMonitorJob?.cancel()
+        _cloudConnectionStatus.value = false
+    }
+
+    private fun updateConnectionStatus(){
+        val currenTime = System.currentTimeMillis()
+        val isConnected = (currenTime - lastSuccessfulSyncTime)<connectionTimeoutMs
+        _cloudConnectionStatus.value = isConnected
+    }
+
+    // Обновляем время последней успешной синхронизации
+    private fun updateLastSuccessfulSyncTime() {
+        lastSuccessfulSyncTime = System.currentTimeMillis()
+        updateConnectionStatus()
+    }
 
     /**
      * Статусы синхронизации
@@ -260,6 +293,9 @@ class CloudSynchronizer @Inject constructor(
         // Загружаем offline queue. Сначала загружаем файлы регистров которые копились пока не было связи
         loadOfflineQueue()
 
+        // ЗАПУСКАЕМ МОНИТОРИНГ ПОДКЛЮЧЕНИЯ
+        startConnectionMonitoring()
+
         //Запускаем корутины.
         // Первый поток обработки. Основной цикл синхронизации (runSyncLoop) -
         // каждые 5 секунд отправляет последнее значение и в случае ошибки кладет его в offlineQueue.
@@ -283,6 +319,9 @@ class CloudSynchronizer @Inject constructor(
 
         syncJob?.cancel()
         offlineProcessingJob?.cancel()
+
+        // ОСТАНАВЛИВАЕМ МОНИТОРИНГ ПОДКЛЮЧЕНИЯ
+        stopConnectionMonitoring()
 
         _syncStatus.value = SyncStatus.Stopped
 
@@ -416,6 +455,10 @@ class CloudSynchronizer @Inject constructor(
 
                     successfulSyncs.incrementAndGet()
                     totalDataSent.addAndGet(response.request.content.contentLength ?: 0L)
+
+
+                    // ОБНОВЛЯЕМ СТАТУС ПОДКЛЮЧЕНИЯ
+                    updateLastSuccessfulSyncTime()
 
                     Log.i(TAG, "Cloud sync successful: ${cloudResponse.message}")
                     true
@@ -699,6 +742,13 @@ class CloudSynchronizer @Inject constructor(
     /**
      */
 
+    // Добавляем метод для принудительной проверки статуса
+    fun checkConnectionStatus(): Boolean {
+        updateConnectionStatus()
+        return _cloudConnectionStatus.value
+    }
+
+
     /**
      * Cleanup ресурсов. Освобождает ресурсы (HTTP-клиент, отменяет корутины),
      * что может помочь в освобождении памяти, особенно если CloudSynchronizer больше не будет использоваться.
@@ -711,6 +761,7 @@ class CloudSynchronizer @Inject constructor(
         httpClient.close()
         syncScope.cancel()
         craneIdJob?.cancel()
+        connectionMonitorJob?.cancel()
     }
 
 }

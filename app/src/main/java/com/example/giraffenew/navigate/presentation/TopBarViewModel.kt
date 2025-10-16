@@ -20,9 +20,12 @@ import com.example.giraffenew.accident_and_warning_log.presentation.viewmodel.Ev
 import com.example.giraffenew.data.repositories.SettingsRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
+import com.example.giraffenew.network.CloudSynchronizer
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.security.PrivateKey
 import java.util.Calendar
 
 /**
@@ -46,7 +49,9 @@ class TopBarViewModel @Inject constructor(
     private val eventTimeProvider: EventTimeProvider,
     private val craneRepository: CraneRepository,
     private var timeZoneRepository: TimeZoneRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+
+    private val cloudSynchronizer: CloudSynchronizer,
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
 
@@ -61,9 +66,6 @@ class TopBarViewModel @Inject constructor(
     val currentVolume: State<Float> = _currentVolume
 
     private val volumeLevels = listOf(0.7f, 1f, 0.5f) //Low, Medium, Max
-
-
-
 
     private val _currentTime = mutableStateOf("00:00")
     val currentTime: State<String> = _currentTime
@@ -108,6 +110,10 @@ class TopBarViewModel @Inject constructor(
     private var currentCraneId: Int? = null
     private var currentTimeZoneUTC: Int? = null
 
+    // Добавляем статус подключения к облаку
+    val cloudConnectionStatus: StateFlow<Boolean> = cloudSynchronizer.cloudConnectionStatus
+
+
     init {
         Log.d("TopBarViewModel", "Init called, initial volume: ${_currentVolume.value}")
         startDataCollection()
@@ -117,6 +123,11 @@ class TopBarViewModel @Inject constructor(
         observeCraneDatabase()
         // Запускаем наблюдение за изменениями в базе данных часовых поясов
         observeTimeZoneDatabase()
+
+        // Запускаем синхронизацию при инициализации ViewModel
+        viewModelScope.launch {
+            cloudSynchronizer.startSync()
+        }
 
         // Устанавливаем независимую громкость при инициализации
         soundController.setAppVolumeIndependent()
@@ -378,6 +389,7 @@ class TopBarViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         //soundController.release()
+        cloudSynchronizer.cleanup()
     }
 
 }
