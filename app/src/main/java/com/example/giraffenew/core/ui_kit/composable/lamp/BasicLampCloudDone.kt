@@ -32,9 +32,9 @@ fun BasicLampCloudDone(
     }
 
     val iconItem = if (isStatusCloud) {
-        painterResource(R.drawable.ic_cloud_done) // Зеленый - Данные передаются в облачный сервис
+        painterResource(R.drawable.ic_topbar_cloud_done) // Зеленый - Данные передаются в облачный сервис
     } else {
-        painterResource(R.drawable.ic_cloud_off) // Серый данные не передаются на облачный сервер
+        painterResource(R.drawable.ic_topbar_cloud_off) // Серый данные не передаются на облачный сервер
     }
 
     val description = if (isStatusCloud) {

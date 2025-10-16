@@ -298,7 +298,19 @@ class ModbusRepository @Inject constructor(
     }
     
     // === Configuration Management ===
-    
+
+    suspend fun readRegisters(startAddress: Int, count: Int): ModbusClient.BatchReadResult {
+        val result = modbusClient.readRegisters(startAddress, count)
+
+        // Обновляем активность соединения после успешного чтения
+        if (result.results.any { it is ModbusClient.RegisterReadResult.Success }) {
+            modbusClient.updateActivity()
+        }
+
+        return result
+    }
+
+
     /**
      * Получить все конфигурации
      */
@@ -456,6 +468,7 @@ class ModbusRepository @Inject constructor(
 
 
     // Функция чтения регистров для конкретной конфигурации
+    //УЛУЧШЕННОЕ ЧТЕНИЕ РЕГИСТРОВ С ОБРАБОТКОЙ СТАТУСА
     private suspend fun readConfigurationRegisters(configName: String) {
         Log.d(TAG, "Reading configuration: $configName")
         val registers = when (configName) {
@@ -481,20 +494,56 @@ class ModbusRepository @Inject constructor(
         val ranges = groupRegistersIntoRanges(registers)
         val results = mutableListOf<RegisterValue>()
 
+        //УЛУЧШЕННОЕ
+        var hasConnectionError = false
+        var hasSuccessfulRead = false
+
         for (range in ranges) {
             try {
                 val batchResult = modbusClient.readRegisters(range.start, range.count)
+
+                // Проверяем, есть ли успешные результаты
+                val successfulResults = batchResult.results.filterIsInstance<ModbusClient.RegisterReadResult.Success>()
+                if (successfulResults.isNotEmpty()) {
+                    hasSuccessfulRead = true
+                }
+
                 results.addAll(batchResult.results.map { result ->
                     val registerInfo = registers.find { it.address == result.address }
                     RegisterValue.fromReadResult(result, registerInfo)
                 })
+
             } catch (e: Exception) {
-                Log.e(TAG, "Error reading range ${range.start}-${range.start + range.count - 1}", e)
+                Log.e(TAG, "Error reading range ${range.start}-${range.start + range.count - 1}: ${e.message}")
+                hasConnectionError = true
+
+                // Создаем error results для всего batch
+                for (i in 0 until range.count) {
+                    results.add(
+                        RegisterValue(
+                            address = range.start + i,
+                            value = 0,
+                            hexValue = "0000",
+                            timestamp = System.currentTimeMillis(),
+                            name = registers.find { it.address == range.start + i }?.name ?: "",
+                            type = registers.find { it.address == range.start + i }?.type ?: "",
+                            isValid = false,
+                            error = "Read failed: ${e.message}"
+                        )
+                    )
+                }
             }
         }
 
         // Обновляем кэш только при изменениях
         updateConfigurationCache(configName, results)
+
+        // Логируем статус соединения
+        if (hasConnectionError && !hasSuccessfulRead) {
+            Log.w(TAG, "Complete connection failure during reading $configName")
+        } else if (hasConnectionError) {
+            Log.w(TAG, "Partial connection issues during reading $configName")
+        }
 
     }
 

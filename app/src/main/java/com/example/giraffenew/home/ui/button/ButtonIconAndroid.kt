@@ -24,9 +24,9 @@ fun ButtonIconAndroid(
     isKioskModeEnabled: Boolean
 ) {
     val iconColor = if (isKioskModeEnabled) {
-        colorResource(R.color.Orange) // Серый - доступ к Android запрещен
+        colorResource(R.color.DarkGrew) // Серый - доступ к Android запрещен
     } else {
-        colorResource(R.color.Orange) // Зеленый - доступ к Android разрешен
+        colorResource(R.color.Emerald) // Зеленый - доступ к Android разрешен
     }
 
     val description = if (isKioskModeEnabled) {

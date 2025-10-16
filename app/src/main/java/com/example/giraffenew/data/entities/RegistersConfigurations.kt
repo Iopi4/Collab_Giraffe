@@ -58,6 +58,8 @@ object RegistersConfigurations {
 object TopBarRegisterConfiguration {
     const val NAME_TOP_BAR = "TopBar_configuration"
     val REGISTERS = listOf(
+        RegisterInfo(0, "test", "WORD16", "Год"),
+
         RegisterInfo(90, "gv_wYear_MW", "WORD16", "Год"),
         RegisterInfo(91, "gv_wMonth_MW", "WORD16", "Месяц"),
         RegisterInfo(94, "gv_wDay_MW", "WORD16", "День"),

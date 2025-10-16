@@ -67,6 +67,7 @@ import com.example.giraffenew.R
 import com.example.giraffenew.android_error_logger.presentation.screen.ExceptionsScreen
 import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampCloudDone
+import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampEthernetDone
 import com.example.giraffenew.home.ui.button.ButtonIconAndroid
 
 
@@ -112,6 +113,9 @@ fun SampleAppNavGraph(
 
     // Собираем статус подключения к облаку
     val cloudConnectionStatus by topBarViewModel.cloudConnectionStatus.collectAsState()
+
+    // Собираем статус подключения к Modbus
+    val modbusConnectionStatus by topBarViewModel.modbusConnectionStatus.collectAsState()
 
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(
@@ -205,6 +209,9 @@ fun SampleAppNavGraph(
                             Row(modifier = Modifier, horizontalArrangement = Arrangement.SpaceBetween) {
                                 BasicLampCloudDone(
                                     isStatusCloud = cloudConnectionStatus
+                                )
+                                BasicLampEthernetDone(
+                                    isStatusEthernet = modbusConnectionStatus
                                 )
                                 ButtonIconAndroid(
                                     onClick = onKioskModeToggle,

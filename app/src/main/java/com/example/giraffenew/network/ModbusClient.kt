@@ -8,7 +8,10 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.time.delay
 import java.nio.ByteBuffer
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -48,7 +51,19 @@ class ModbusClient @Inject constructor() {
     // Connection state management
     private val _connectionState = MutableStateFlow<ConnectionState>(ConnectionState.Disconnected)
     val connectionState: StateFlow<ConnectionState> = _connectionState.asStateFlow()
-    
+
+    // ДОБАВИМ ПРОСТОЙ БУЛЕВ СТАТУС ДЛЯ UI
+    private val _isConnected = MutableStateFlow(false)
+    val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
+
+
+    // Добавляем флаг для отслеживания работы сервиса
+    private val isServiceRunning = AtomicBoolean(true)
+
+    fun setServiceRunning(running: Boolean) {
+        isServiceRunning.set(running)
+    }
+
     // Reconnection logic
     private var reconnectJob: Job? = null
     private var reconnectAttempts = 0
@@ -136,16 +151,27 @@ class ModbusClient @Inject constructor() {
             }
         }
     }
+
+    /**
+     * Обновляем все методы изменения состояния подключения для синхронизации булева статуса isConnected
+     */
+    private fun updateConnectionState(newState: ConnectionState) {
+        _connectionState.value = newState
+        _isConnected.value = newState == ConnectionState.Connected
+    }
+
     
     /**
      * Установить соединение с Modbus TCP сервером
+     * Добавим метод отслеживания статуса подключения
      */
     suspend fun connect(): Boolean = withContext(Dispatchers.IO) {
         if (_connectionState.value == ConnectionState.Connected) {
             return@withContext true
         }
         
-        _connectionState.value = ConnectionState.Connecting
+        //_connectionState.value = ConnectionState.Connecting
+        updateConnectionState(ConnectionState.Connecting)
         Log.d(TAG, "Connecting to Modbus server at $ipAddress:$port")
         
         try {
@@ -165,20 +191,28 @@ class ModbusClient @Inject constructor() {
             input = socket!!.openReadChannel()
             output = socket!!.openWriteChannel(autoFlush = true)
             
-            _connectionState.value = ConnectionState.Connected
+           // _connectionState.value = ConnectionState.Connected
+            updateConnectionState(ConnectionState.Connected)
             reconnectAttempts = 0 // Сбрасываем счетчик попыток
-            
+
+            _lastActivityTime.set(System.currentTimeMillis()) // Сбрасываем таймер активности
+
+            // ЗАПУСКАЕМ ЛЕГКОВЕСНЫЙ МОНИТОРИНГ СТАТУСА
+            startConnectionStatusMonitoring()
+
             Log.i(TAG, "Successfully connected to Modbus server at $ipAddress:$port")
             return@withContext true
             
         } catch (e: Exception) {
             Log.e(TAG, "Failed to connect to Modbus server: ${e.message}", e)
-            
-            _connectionState.value = ConnectionState.Error(
+
+            //_connectionState.value = ConnectionState.Error(
+            updateConnectionState(ConnectionState.Error(
                 message = "Connection failed: ${e.message}",
                 canRetry = true
             )
-            
+            )
+
             // Очистка ресурсов при ошибке
             closeResources()
             
@@ -188,14 +222,18 @@ class ModbusClient @Inject constructor() {
     
     /**
      * Закрыть соединение
+     * добавляем метод для остановки отслеживания статуса соединения
      */
     suspend fun disconnect() = withContext(Dispatchers.IO) {
         Log.d(TAG, "Disconnecting from Modbus server")
         
         reconnectJob?.cancel()
         reconnectJob = null
+
+        stopConnectionStatusMonitoring() // Останавливаем легковесный мониторинг
         
-        _connectionState.value = ConnectionState.Disconnected
+        //_connectionState.value = ConnectionState.Disconnected
+        updateConnectionState(ConnectionState.Disconnected)
         closeResources()
         
         Log.i(TAG, "Disconnected from Modbus server")
@@ -236,7 +274,6 @@ class ModbusClient @Inject constructor() {
         globalMutex.withLock { // Защищаем все операции
             withContext(Dispatchers.IO) {
 
-
         val startTime = System.currentTimeMillis()
         
         if (_connectionState.value != ConnectionState.Connected) {
@@ -247,7 +284,8 @@ class ModbusClient @Inject constructor() {
         }
         
         val results = mutableListOf<RegisterReadResult>()
-        
+
+                var hasConnectionError = false
         try {
             // Разбиваем большой запрос на batch'и для оптимизации
             var currentAddress = startAddress
@@ -272,9 +310,11 @@ class ModbusClient @Inject constructor() {
                             )
                         )
                     }
-                    
+
                     // Проверяем не нужно ли переподключиться
                     if (isConnectionError(e)) {
+                        Log.w(TAG, "Connection error detected, starting reconnection")
+                        hasConnectionError = true
                         startReconnection()
                         break
                     }
@@ -292,13 +332,18 @@ class ModbusClient @Inject constructor() {
              * Улучшение обработки ошибок соединения
              */
         } catch (e: Exception) {
+            Log.e(TAG, "Error in readRegisters: ${e.message}")
             if (isConnectionError(e)) {
-                _connectionState.value = ConnectionState.Error("Connection lost", true)
+                hasConnectionError = true
                 startReconnection()
             }
-            throw e // Перебрасываем исключение для обработки выше
         }
-        
+
+                // Если была ошибка соединения, обновляем статус
+                if (hasConnectionError) {
+                    updateConnectionState(ConnectionState.Error("Connection error during read", true))
+                }
+
         val endTime = System.currentTimeMillis()
         return@withContext BatchReadResult(
             results = results,
@@ -309,28 +354,72 @@ class ModbusClient @Inject constructor() {
     
     /**
      * Прочитать batch регистров (внутренний метод)
+     * Обновляем методы чтения/записи для отслеживания активности
+     * УЛУЧШЕННАЯ ОБРАБОТКА "BROKEN PIPE"
+
+    private suspend fun readRegisterBatch(startAddress: Int, count: Int): List<RegisterReadResult> {
+    try {
+    val request = buildModbusReadRequest(startAddress, count)
+    output?.writeFully(request) ?: throw Exception("Output channel is null")
+
+    val response = ByteArray(256)
+    val bytesRead = withTimeoutOrNull(timeout.toLong()) {
+    input?.readAvailable(response, 0, response.size) ?: 0
+    } ?: throw Exception("Read timeout")
+
+    if (bytesRead == 0) {
+    throw Exception("No data received")
+    }
+
+    // ОБНОВЛЯЕМ ВРЕМЯ АКТИВНОСТИ ПРИ УСПЕШНОЙ ОПЕРАЦИИ
+    _lastActivityTime.set(System.currentTimeMillis())
+
+    return parseModbusResponse(response.copyOfRange(0, bytesRead), startAddress)
+    } catch (e: Exception) {
+    // При ошибке НЕ обновляем время активности, чтобы детектор неактивности сработал
+    // _lastActivityTime.set(System.currentTimeMillis()) // УБИРАЕМ
+    throw e
+    }
+    }
      */
     private suspend fun readRegisterBatch(startAddress: Int, count: Int): List<RegisterReadResult> {
-        val request = buildModbusReadRequest(startAddress, count)
-        //Log.d(TAG, "Request: ${request.joinToString(separator = " ") { "%02x".format(it) }}")
-        // Отправляем запрос
-        output?.writeFully(request) ?: throw Exception("Output channel is null")
-        
-        // Читаем ответ с timeout
-        val response = ByteArray(256)
-        val bytesRead = withTimeoutOrNull(timeout.toLong()) {
-            input?.readAvailable(response, 0, response.size) ?: 0
-        } ?: throw Exception("Read timeout")
-        
-        if (bytesRead == 0) {
-            throw Exception("No data received")
+        try {
+            // Проверяем соединение перед операцией
+            if (_connectionState.value != ConnectionState.Connected) {
+                throw Exception("Not connected to server")
+            }
+
+            val request = buildModbusReadRequest(startAddress, count)
+
+            // Убрали synchronized, потому что мы уже под globalMutex
+            output?.writeFully(request) ?: throw Exception("Output channel is null")
+
+            val response = ByteArray(256)
+            val bytesRead = withTimeoutOrNull(timeout.toLong()) {
+                input?.readAvailable(response, 0, response.size) ?: 0
+            } ?: throw Exception("Read timeout")
+
+            if (bytesRead == 0) {
+                throw Exception("No data received")
+            }
+
+            // ОБНОВЛЯЕМ ВРЕМЯ АКТИВНОСТИ ПРИ УСПЕШНОЙ ОПЕРАЦИИ
+            _lastActivityTime.set(System.currentTimeMillis())
+
+            return parseModbusResponse(response.copyOfRange(0, bytesRead), startAddress)
+        } catch (e: Exception) {
+            // ПРИ "BROKEN PIPE" НЕМЕДЛЕННО ЗАПУСКАЕМ ПЕРЕПОДКЛЮЧЕНИЕ
+            if (e.message?.contains("Broken pipe", ignoreCase = true) == true) {
+                Log.w(TAG, "Broken pipe detected, forcing reconnection")
+                startReconnection()
+            }
+            // При ошибке тоже обновляем время активности (попытка связи)
+            _lastActivityTime.set(System.currentTimeMillis())
+            throw e
         }
-        
-        // Парсим ответ
-        return parseModbusResponse(response.copyOfRange(0, bytesRead), startAddress)
-        val responseData = response.copyOfRange(0, bytesRead)
-        //Log.d(TAG, "Response: ${responseData.joinToString(separator = " ") { "%02x".format(it) }}")
     }
+
+
     
     /**
      * Записать значение в одиночный регистр
@@ -509,55 +598,120 @@ class ModbusClient @Inject constructor() {
      */
     private fun isConnectionError(exception: Exception): Boolean {
         val message = exception.message?.lowercase() ?: ""
-        return message.contains("connection") || 
-               message.contains("timeout") || 
-               message.contains("closed") ||
-               message.contains("reset") ||
-               exception is java.net.ConnectException ||
-               exception is java.net.SocketTimeoutException
+        return message.contains("connection") ||
+                message.contains("timeout") ||
+                message.contains("closed") ||
+                message.contains("reset") ||
+                message.contains("broken pipe") || // Явно добавляем Broken pipe
+                message.contains("software caused connection abort") ||
+                exception is java.net.ConnectException ||
+                exception is java.net.SocketTimeoutException ||
+                exception is java.net.SocketException
     }
     
     /**
      * Начать процесс автоматического переподключения
+     * добавляем контроль переподключений
+     * УЛУЧШЕННЫЙ МЕТОД ПЕРЕПОДКЛЮЧЕНИЯ
+
+
+    private fun startReconnection() {
+    if (reconnectJob?.isActive == true) {
+    return // Уже переподключаемся
+    }
+
+    //_connectionState.value = ConnectionState.Reconnecting
+    updateConnectionState(ConnectionState.Reconnecting)
+
+    reconnectJob = clientScope.launch {
+    while (reconnectAttempts < maxReconnectAttempts) {
+    reconnectAttempts++
+
+    // Exponential backoff с jitter
+    val delay = (baseReconnectDelay * (1L shl (reconnectAttempts - 1))).coerceAtMost(30000L)
+    val jitter = (0..1000).random()
+
+    Log.i(TAG, "Reconnection attempt $reconnectAttempts/$maxReconnectAttempts in ${delay + jitter}ms")
+    delay(delay + jitter)
+
+    try {
+    closeResources()
+
+    if (connect()) {
+    Log.i(TAG, "Reconnection successful after $reconnectAttempts attempts")
+    return@launch
+    }
+
+    } catch (e: Exception) {
+    Log.w(TAG, "Reconnection attempt $reconnectAttempts failed: ${e.message}")
+    }
+    }
+
+    Log.e(TAG, "Failed to reconnect after $maxReconnectAttempts attempts")
+    //_connectionState.value = ConnectionState.Error(
+    updateConnectionState(ConnectionState.Error(
+    "Failed to reconnect after $maxReconnectAttempts attempts",
+    canRetry = false
+    )
+    )
+    }
+    }
      */
     private fun startReconnection() {
         if (reconnectJob?.isActive == true) {
+            Log.d(TAG, "Reconnection already in progress")
             return // Уже переподключаемся
         }
-        
-        _connectionState.value = ConnectionState.Reconnecting
-        
+
+        Log.i(TAG, "Starting reconnection process")
+        updateConnectionState(ConnectionState.Reconnecting)
+
         reconnectJob = clientScope.launch {
-            while (reconnectAttempts < maxReconnectAttempts) {
-                reconnectAttempts++
-                
-                // Exponential backoff с jitter
-                val delay = (baseReconnectDelay * (1L shl (reconnectAttempts - 1))).coerceAtMost(30000L)
-                val jitter = (0..1000).random()
-                
-                Log.i(TAG, "Reconnection attempt $reconnectAttempts/$maxReconnectAttempts in ${delay + jitter}ms")
-                delay(delay + jitter)
-                
-                try {
-                    closeResources()
-                    
-                    if (connect()) {
-                        Log.i(TAG, "Reconnection successful after $reconnectAttempts attempts")
-                        return@launch
+            try {
+                // Сначала закрываем соединение
+                closeResources()
+
+                while (reconnectAttempts < maxReconnectAttempts && isServiceRunning.get()) {
+                    reconnectAttempts++
+
+                    // Exponential backoff с jitter
+                    val delay = (baseReconnectDelay * (1L shl (reconnectAttempts - 1))).coerceAtMost(30000L)
+                    val jitter = (0..1000).random()
+
+                    Log.i(TAG, "Reconnection attempt $reconnectAttempts/$maxReconnectAttempts in ${delay + jitter}ms")
+                    delay(delay + jitter)
+
+                    try {
+                        if (connect()) {
+                            Log.i(TAG, "Reconnection successful after $reconnectAttempts attempts")
+                            return@launch
+                        }
+
+                    } catch (e: Exception) {
+                        Log.w(TAG, "Reconnection attempt $reconnectAttempts failed: ${e.message}")
                     }
-                    
-                } catch (e: Exception) {
-                    Log.w(TAG, "Reconnection attempt $reconnectAttempts failed: ${e.message}")
                 }
+
+                if (reconnectAttempts >= maxReconnectAttempts) {
+                    Log.e(TAG, "Failed to reconnect after $maxReconnectAttempts attempts")
+                    updateConnectionState(ConnectionState.Error(
+                        "Failed to reconnect after $maxReconnectAttempts attempts",
+                        canRetry = true
+                    ))
+                }
+
+            } catch (e: Exception) {
+                Log.e(TAG, "Error in reconnection process", e)
+                updateConnectionState(ConnectionState.Error(
+                    "Reconnection process failed: ${e.message}",
+                    canRetry = true
+                ))
             }
-            
-            Log.e(TAG, "Failed to reconnect after $maxReconnectAttempts attempts")
-            _connectionState.value = ConnectionState.Error(
-                "Failed to reconnect after $maxReconnectAttempts attempts",
-                canRetry = false
-            )
         }
     }
+
+
+
     
     /**
      * Принудительно перезапустить попытки переподключения
@@ -583,14 +737,59 @@ class ModbusClient @Inject constructor() {
             "isConnected" to (_connectionState.value == ConnectionState.Connected)
         )
     }
-    
+
+
+    // Добавляем легковесный способ отслеживания активности соединения
+    private val _lastActivityTime = AtomicLong(System.currentTimeMillis())
+    private var connectionStatusJob: Job? = null
+
+    // Запускаем мониторинг статуса подключения (без блокирующих операций)
+    private fun startConnectionStatusMonitoring() {
+        connectionStatusJob = clientScope.launch {
+            while (coroutineContext.isActive) {
+                updateConnectionStatusBasedOnActivity()
+                delay(2000L) // Проверяем каждые 2 секунды
+            }
+        }
+    }
+
+    private fun stopConnectionStatusMonitoring() {
+        connectionStatusJob?.cancel()
+    }
+
+    private fun updateConnectionStatusBasedOnActivity() {
+        val currentTime = System.currentTimeMillis()
+        val lastActivity = _lastActivityTime.get()
+        val timeSinceLastActivity = currentTime - lastActivity
+
+        // Если активность была менее 10 секунд назад - считаем соединение активным
+        val isActive = timeSinceLastActivity < 10000L
+
+        // Обновляем статус только если он изменился
+        if (isActive != _isConnected.value) {
+            _isConnected.value = isActive
+            if (!isActive) {
+                Log.w(TAG, "Connection inactive for ${timeSinceLastActivity}ms")
+            }
+        }
+    }
+
+
+
     /**
      * Освобождение ресурсов при уничтожении клиента
+     * Добавим остановку контроля мониторинга статуса подключения
      */
     fun cleanup() {
         clientScope.cancel()
+        stopConnectionStatusMonitoring()
         clientScope.launch {
             disconnect()
         }
+    }
+
+    // Добавляем метод для принудительного обновления статуса активности
+    fun updateActivity() {
+        _lastActivityTime.set(System.currentTimeMillis())
     }
 }

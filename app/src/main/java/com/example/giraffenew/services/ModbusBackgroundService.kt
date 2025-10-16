@@ -48,6 +48,7 @@ class ModbusBackgroundService : Service() {
     @Inject lateinit var modbusRepository: ModbusRepository
     @Inject lateinit var fileLogger: FileLogger
     @Inject lateinit var cloudSynchronizer: CloudSynchronizer
+    @Inject lateinit var modbusClient: ModbusClient
     
     // Service scope для всех операций
     private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -123,7 +124,10 @@ class ModbusBackgroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "ModbusBackgroundService created")
-        
+
+        // Устанавливаем флаг работы сервиса
+        modbusClient.setServiceRunning(true)
+
         createNotificationChannel()
         acquireWakeLock()
         
@@ -162,6 +166,10 @@ class ModbusBackgroundService : Service() {
     
     override fun onDestroy() {
         Log.i(TAG, "ModbusBackgroundService destroyed")
+
+        // Сбрасываем флаг работы сервиса
+        modbusClient.setServiceRunning(false)
+
         stopModbusService()
         releaseWakeLock()
         serviceScope.cancel()
@@ -307,55 +315,69 @@ class ModbusBackgroundService : Service() {
      */
     private suspend fun runMainReadingLoop() {
         Log.i(TAG, "Starting main reading loop")
-        
+
         var lastReadTime = System.currentTimeMillis()
-        
+        var consecutiveErrors = 0
+        val maxConsecutiveErrors = 5 // Увеличиваем до 5 ошибок подряд
+
         while (isServiceRunning.get()) {
             try {
                 val currentTime = System.currentTimeMillis()
                 val timeSinceLastRead = currentTime - lastReadTime
-                
+
                 // Корректируем delay для поддержания точного интервала
                 val adjustedDelay = (targetCycleTimeMs - (timeSinceLastRead - targetCycleTimeMs))
-                    .coerceIn(targetCycleTimeMs - cycleTimeToleranceMs, 
-                              targetCycleTimeMs + cycleTimeToleranceMs)
-                
+                    .coerceIn(targetCycleTimeMs - cycleTimeToleranceMs,
+                        targetCycleTimeMs + cycleTimeToleranceMs)
+
                 if (adjustedDelay > 0) {
                     delay(adjustedDelay)
                 }
-                
+
                 // Выполняем цикл чтения
                 val cycleStartTime = System.currentTimeMillis()
                 _serviceStatus.value = ServiceStatus.Reading
-                
+
                 val cycleTime = measureTimeMillis {
                     executeReadingCycle()
                 }
-                
+
+                // Сбрасываем счетчик ошибок при успешном чтении
+                consecutiveErrors = 0
+
                 // Обновляем метрики
                 cycleCount.incrementAndGet()
                 totalCycleTime.addAndGet(cycleTime)
                 lastCycleTime.set(cycleTime)
                 lastReadTime = cycleStartTime
-                
+
                 _serviceStatus.value = ServiceStatus.Running
-                
+
                 // Проверяем точность цикла
                 if (abs(cycleTime - targetCycleTimeMs) > cycleTimeToleranceMs) {
                     Log.w(TAG, "Cycle time out of tolerance: ${cycleTime}ms (target: ${targetCycleTimeMs}±${cycleTimeToleranceMs}ms)")
                 }
-                
+
             } catch (e: Exception) {
                 Log.e(TAG, "Error in main reading loop", e)
                 errorCount.incrementAndGet()
-                _serviceStatus.value = ServiceStatus.Error
-                
+                consecutiveErrors++
+
+                // Если много последовательных ошибок, меняем статус
+                if (consecutiveErrors >= maxConsecutiveErrors) {
+                    _serviceStatus.value = ServiceStatus.Error
+                    Log.e(TAG, "Multiple consecutive errors ($consecutiveErrors), connection may be lost")
+
+                    // НЕ ОСТАНАВЛИВАЕМ CLOUD SYNCHRONIZER - только логируем
+                    Log.w(TAG, "Modbus connection issues detected, but cloud sync continues")
+                }
+
                 // Пауза перед следующей попыткой
                 delay(1000)
                 _serviceStatus.value = ServiceStatus.Running
             }
         }
-        
+
         Log.i(TAG, "Main reading loop stopped")
     }
     
@@ -423,32 +445,27 @@ class ModbusBackgroundService : Service() {
     private suspend fun runHealthCheck() {
         while (isServiceRunning.get()) {
             try {
-                // Проверяем состояние подключения
+                // Только мониторинг, без автоматического переподключения
                 val connectionState = modbusRepository.getConnectionState().value
                 if (connectionState != ModbusClient.ConnectionState.Connected) {
                     Log.w(TAG, "Connection not healthy: $connectionState")
-                    
-                    // Пробуем переподключиться
-                    val reconnectResult = modbusRepository.connect()
-                    if (reconnectResult.isSuccess) {
-                        Log.i(TAG, "Reconnection successful")
-                    }
+                    // НЕ пробуем переподключиться автоматически - пусть ModbusClient сам управляет
                 }
-                
+
                 // Проверяем статус файлового логгера
                 val loggerStatus = fileLogger.fileLoggerStatus.value
                 if (loggerStatus is FileLogger.FileLoggerStatus.Error) {
                     Log.w(TAG, "FileLogger error: ${loggerStatus.message}")
                 }
-                
-                // Проверяем статус cloud sync
+
+                // Cloud sync продолжает работать независимо от Modbus статуса
                 val syncStatus = cloudSynchronizer.syncStatus.value
                 if (syncStatus is CloudSynchronizer.SyncStatus.Error) {
                     Log.w(TAG, "CloudSync error: ${syncStatus.message}")
                 }
-                
+
                 delay(30_000) // Health check каждые 30 секунд
-                
+
             } catch (e: Exception) {
                 Log.e(TAG, "Error in health check", e)
                 delay(30_000)

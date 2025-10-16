@@ -21,6 +21,7 @@ import com.example.giraffenew.data.repositories.SettingsRepository
 import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
 import com.example.giraffenew.network.CloudSynchronizer
+import com.example.giraffenew.network.ModbusClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
@@ -52,6 +53,7 @@ class TopBarViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 
     private val cloudSynchronizer: CloudSynchronizer,
+    private val modbusClient: ModbusClient,
     // Добавим репозиторий хранения craneId
 ) : ViewModel() {
 
@@ -100,7 +102,7 @@ class TopBarViewModel @Inject constructor(
     private val _montageMode = mutableStateOf(0)
     val montageMode: State<Int> = _montageMode
 
-    private val addresses = listOf(90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194,
+    private val addresses = listOf(0, 1, 90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194,
         367, 278, 279, 280, 281, 282, 641) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
@@ -113,6 +115,8 @@ class TopBarViewModel @Inject constructor(
     // Добавляем статус подключения к облаку
     val cloudConnectionStatus: StateFlow<Boolean> = cloudSynchronizer.cloudConnectionStatus
 
+    // Добавляем статус подключения к Modbus
+    val modbusConnectionStatus: StateFlow<Boolean> = modbusClient.isConnected
 
     init {
         Log.d("TopBarViewModel", "Init called, initial volume: ${_currentVolume.value}")
@@ -124,10 +128,11 @@ class TopBarViewModel @Inject constructor(
         // Запускаем наблюдение за изменениями в базе данных часовых поясов
         observeTimeZoneDatabase()
 
-        // Запускаем синхронизацию при инициализации ViewModel
+        // Запускаем синхронизацию для отслеживания статуса CloudSynchronizer при инициализации ViewModel
         viewModelScope.launch {
             cloudSynchronizer.startSync()
         }
+
 
         // Устанавливаем независимую громкость при инициализации
         soundController.setAppVolumeIndependent()

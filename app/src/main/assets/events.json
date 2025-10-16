@@ -2,6 +2,10 @@
   {"registrationNumber": "REG-001", "type": "ACCIDENT", "description": "АВАРИЯ"},
   {"registrationNumber": "REG-002", "type": "WARNING", "description": "ПРЕДУПРЕЖДЕНИЕ"},
 
+  {"registrationNumber": "190", "type": "WARNING", "description": "Вход в режим [НАЛАДКА]"},
+  {"registrationNumber": "191", "type": "WARNING", "description": "Вход в режим [СЕРВИС]"},
+  {"registrationNumber": "192", "type": "WARNING", "description": "Вход в режим [МОНТАЖ]"},
+
   {"registrationNumber": "186", "type": "ACCIDENT", "description": "Превышена грузоподъемность более 105%"},
   {"registrationNumber": "187", "type": "ACCIDENT", "description": "Превышена грузоподъемность более 110%"},
   {"registrationNumber": "189", "type": "ACCIDENT", "description": "Износ тормоза привода главного подъема"},
