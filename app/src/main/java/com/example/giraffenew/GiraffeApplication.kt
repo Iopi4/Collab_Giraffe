@@ -2,7 +2,7 @@ package com.example.giraffenew
 
 import android.app.Application
 import com.example.giraffenew.android_error_logger.data.logger.AndroidExceptionLogger
-import com.example.giraffenew.android_error_logger.database_monitoring.DatabaseMonitor
+import com.example.giraffenew.database_monitoring.DatabaseMonitor
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

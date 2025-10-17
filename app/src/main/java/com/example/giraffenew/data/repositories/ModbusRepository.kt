@@ -313,17 +313,20 @@ class ModbusRepository @Inject constructor(
 
     /**
      * Получить все конфигурации
+     *
      */
     fun getAllConfigurations(): Flow<List<RegisterConfiguration>> {
         return configDao.getAllConfigurations()
-    }
+        }
     
     /**
      * Получить активную конфигурацию
+     *
      */
     fun getActiveConfiguration(): Flow<RegisterConfiguration?> {
         return configDao.getActiveConfigurationFlow()
     }
+
     
     /**
      * Создать новую конфигурацию

@@ -1,4 +1,4 @@
-package com.example.giraffenew.android_error_logger.database_monitoring
+package com.example.giraffenew.database_monitoring
 
 import android.util.Log
 import com.example.giraffenew.android_error_logger.data.repository.ExceptionRepositoryImpl

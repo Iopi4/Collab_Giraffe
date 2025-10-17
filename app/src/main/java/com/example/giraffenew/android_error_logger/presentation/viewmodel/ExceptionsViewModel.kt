@@ -11,8 +11,8 @@ import com.example.giraffenew.android_error_logger.domian.usecase.GetActiveOpera
 import com.example.giraffenew.android_error_logger.domian.usecase.GetAllExceptionsUseCase
 import com.example.giraffenew.android_error_logger.domian.usecase.GetExceptionsByLevelUseCase
 import com.example.giraffenew.android_error_logger.domian.usecase.GetRepositoryDiagnosticsUseCase
-import com.example.giraffenew.android_error_logger.database_monitoring.DatabaseMonitor
-import com.example.giraffenew.android_error_logger.database_monitoring.MemoryUsage
+import com.example.giraffenew.database_monitoring.DatabaseMonitor
+import com.example.giraffenew.database_monitoring.MemoryUsage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
