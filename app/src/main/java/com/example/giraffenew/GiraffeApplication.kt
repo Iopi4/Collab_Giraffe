@@ -2,6 +2,7 @@ package com.example.giraffenew
 
 import android.app.Application
 import com.example.giraffenew.android_error_logger.data.logger.AndroidExceptionLogger
+import com.example.giraffenew.android_error_logger.database_monitoring.DatabaseMonitor
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -19,6 +20,8 @@ class GiraffeApplication : Application() {
 
     @Inject
     lateinit var exceptionLogger: AndroidExceptionLogger
+    @Inject
+    lateinit var databaseMonitor: DatabaseMonitor
 
 
     override fun onCreate() {
@@ -27,6 +30,12 @@ class GiraffeApplication : Application() {
 
         // Настраиваем глобальный обработчик исключений
         exceptionLogger.setupGlobalExceptionHandler()
+
+        //Запускаем мониторинг базы данных
+        databaseMonitor.startMonitoring()
+
+        // Логируем метрики при запуске
+        databaseMonitor.logDatabaseMetrics()
 
     }
 }

@@ -9,6 +9,8 @@ import com.example.giraffenew.android_error_logger.data.logger.AndroidExceptionL
 import com.example.giraffenew.android_error_logger.data.repository.ExceptionRepositoryImpl
 import com.example.giraffenew.android_error_logger.domian.model.ExceptionEntity
 import com.example.giraffenew.android_error_logger.domian.repository.ExceptionRepository
+import com.example.giraffenew.android_error_logger.domian.usecase.GetActiveOperationsUseCase
+import com.example.giraffenew.android_error_logger.domian.usecase.GetRepositoryDiagnosticsUseCase
 import com.example.giraffenew.android_error_logger.domian.usecase.LogExceptionUseCase
 import dagger.Module
 import dagger.Provides
@@ -46,6 +48,22 @@ object ExceptionModule {
     fun provideAndroidExceptionLogger(
         logExceptionUseCase: LogExceptionUseCase
     ): AndroidExceptionLogger = AndroidExceptionLogger(logExceptionUseCase)
+
+
+    // Новые UseCase
+    @Provides
+    @Singleton
+    fun provideGetActiveOperationsUseCase(
+        repository: ExceptionRepositoryImpl
+    ): GetActiveOperationsUseCase = GetActiveOperationsUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetRepositoryDiagnosticsUseCase(
+        repository: ExceptionRepositoryImpl
+    ): GetRepositoryDiagnosticsUseCase = GetRepositoryDiagnosticsUseCase(repository)
+
+
 }
 
 @Database(

@@ -81,5 +81,4 @@ class AndroidExceptionLogger
             defaultHandler?.uncaughtException(thread, throwable)
         }
     }
-
 }

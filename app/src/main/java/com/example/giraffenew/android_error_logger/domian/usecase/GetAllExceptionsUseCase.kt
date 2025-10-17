@@ -5,9 +5,17 @@ import com.example.giraffenew.android_error_logger.domian.repository.ExceptionRe
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
 class GetAllExceptionsUseCase
 @Inject constructor(
     private val repository: ExceptionRepository
 ){
     operator fun invoke(): Flow<List<ExceptionEntity>> = repository.getAllExceptions()
+}
+*/
+
+class GetAllExceptionsUseCase @Inject constructor(
+    private val repository: ExceptionRepository
+) {
+    suspend operator fun invoke(): List<ExceptionEntity> = repository.getAllExceptions()
 }

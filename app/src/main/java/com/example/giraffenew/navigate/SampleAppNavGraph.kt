@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,7 +54,6 @@ import kotlinx.coroutines.launch
 import com.example.giraffenew.home.presentation.HomeScreen
 import com.example.giraffenew.initial_setup.presentation.InitialSetupScreen
 import com.example.giraffenew.login.presentation.LoginScreen
-import com.example.giraffenew.modbus_tools.presentation.ModbusToolsScreen
 import com.example.giraffenew.navigate.presentation.TopBarViewModel
 import com.example.giraffenew.parameter_logger.presentation.ParameterLoggerScreen
 import com.example.giraffenew.service_menu.presentation.ServiceMenuScreen
@@ -65,7 +63,6 @@ import com.example.giraffenew.setting_sensors.presentation.SettingSensorsScreen
 import com.example.giraffenew.technical_maintenance.presentation.TechnicalMaintenanceScreen
 import com.example.giraffenew.R
 import com.example.giraffenew.android_error_logger.presentation.screen.ExceptionsScreen
-import com.example.giraffenew.core.sound.SoundController
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampCloudDone
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampEthernetDone
 import com.example.giraffenew.home.ui.button.ButtonIconAndroid

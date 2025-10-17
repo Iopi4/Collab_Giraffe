@@ -7,8 +7,13 @@ import kotlinx.coroutines.flow.Flow
 interface ExceptionRepository {
 
     suspend fun logException(exception: ExceptionEntity)
-    fun getAllExceptions(): Flow<List<ExceptionEntity>>
-    fun getAllExceptionByLevel(level: LogExceptionLevel): Flow<List<ExceptionEntity>>
+
+    suspend fun getAllExceptions(): List<ExceptionEntity>
+    //fun getAllExceptions(): Flow<List<ExceptionEntity>>
+
+    suspend fun getAllExceptionByLevel(level: LogExceptionLevel): List<ExceptionEntity>
+    //fun getAllExceptionByLevel(level: LogExceptionLevel): Flow<List<ExceptionEntity>>
+
     suspend fun clearAllExceptions()
     suspend fun getExceptionsCount(): Int
 }

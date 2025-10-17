@@ -10,16 +10,21 @@ interface ExceptionDao {
     @Insert
     suspend fun insert(exception: ExceptionEntity)
 
+    // Заменяем Flow на suspend функции
     @Query("SELECT * FROM exceptions ORDER BY timestamp DESC")
-    fun getAll(): Flow<List<ExceptionEntity>>
+    suspend fun getAll(): List<ExceptionEntity>
 
     @Query("SELECT * FROM exceptions WHERE level = :level ORDER BY timestamp DESC")
-    fun getByLevel(level : LogExceptionLevel): Flow<List<ExceptionEntity>>
+    suspend fun getByLevel(level: LogExceptionLevel): List<ExceptionEntity>
 
     @Query("DELETE FROM exceptions")
-    fun clearAll()
+    suspend fun clearAll()
 
-    @Query("SELECT  COUNT(*) FROM exceptions")
+    @Query("SELECT COUNT(*) FROM exceptions")
     suspend fun getCount(): Int
+
+    // Опционально: оставляем один Flow метод, если действительно нужна реактивность
+    //@Query("SELECT COUNT(*) FROM exceptions")
+    //fun getCountFlow(): Flow<Int>
 
 }
