@@ -18,9 +18,9 @@ object CraneDatabaseModule {
         return CraneAppDatabase.getDatabase(context)
     }
 
-    @Provides
-    @Singleton
-    fun provideCraneDao(appDatabase: CraneAppDatabase): CraneDao {
-        return appDatabase.craneDao()
-    }
+    //@Provides
+    //@Singleton
+    //fun provideCraneDao(appDatabase: CraneAppDatabase): CraneDao {
+        //return appDatabase.craneDao()
+    //}
 }

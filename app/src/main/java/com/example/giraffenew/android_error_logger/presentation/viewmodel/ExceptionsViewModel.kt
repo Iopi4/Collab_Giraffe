@@ -11,6 +11,9 @@ import com.example.giraffenew.android_error_logger.domian.usecase.GetActiveOpera
 import com.example.giraffenew.android_error_logger.domian.usecase.GetAllExceptionsUseCase
 import com.example.giraffenew.android_error_logger.domian.usecase.GetExceptionsByLevelUseCase
 import com.example.giraffenew.android_error_logger.domian.usecase.GetRepositoryDiagnosticsUseCase
+import com.example.giraffenew.database_monitoring.AppActivityMonitor
+import com.example.giraffenew.database_monitoring.AppActivityMonitor.MemoryStats
+import com.example.giraffenew.database_monitoring.AppActivityMonitor.MethodStats
 import com.example.giraffenew.database_monitoring.DatabaseMonitor
 import com.example.giraffenew.database_monitoring.MemoryUsage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -73,6 +76,9 @@ class ExceptionsViewModel @Inject constructor(
     private val getRepositoryDiagnosticsUseCase: GetRepositoryDiagnosticsUseCase,
     private val databaseMonitor: DatabaseMonitor, // Добавляем DatabaseMonitor
     private val getActiveOperationsUseCase: GetActiveOperationsUseCase, // Новый UseCase
+
+    private val activityMonitor: AppActivityMonitor
+
 ) : ViewModel() {
 
     private companion object {
@@ -96,6 +102,12 @@ class ExceptionsViewModel @Inject constructor(
 
     //добавляем мониторинг активных операций
     val activeOperation: StateFlow<Int> = getActiveOperationsUseCase()
+
+    // Мониторинг активности
+    val globalActiveOperations: StateFlow<Int> = activityMonitor.globalActiveOperations
+    val memoryStats: StateFlow<MemoryStats> = activityMonitor.memoryStats
+    val methodStatsFlow: StateFlow<Map<String, MethodStats>> = activityMonitor.methodStatsFlow
+
 
     init {
         refreshData()

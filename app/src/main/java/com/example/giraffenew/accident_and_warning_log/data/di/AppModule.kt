@@ -46,8 +46,9 @@ object AppModule {
     // - Предоставляет Data Access Object (DAO) для работы с событиям
     // - Принимает экземпляр базы данных (AppDatabase)
     // - Возвращает объект DAO через метод eventDao()
-    @Provides
-    fun provideEventDao(db: AppDatabase): EventDao = db.eventDao()
+
+    //@Provides
+    //fun provideEventDao(db: AppDatabase): EventDao = db.eventDao()
 
     @Provides
     fun provideEventSimulator(handleStatusChange: HandleStatusChangeUseCase): EventSimulator {
