@@ -12,11 +12,13 @@ class TrackedRegisterConfigurationDao(
 ) : RegisterConfigurationDao, TrackedDao(monitor, "RegisterConfigurationDao") {
 
     override fun getActiveConfigurationFlow(): Flow<RegisterConfiguration?> {
-        return trackFlowOperation("getActiveConfigurationFlow", delegate.getActiveConfigurationFlow())
+        return trackFlowOperation("getActiveConfigurationFlow")
+            {delegate.getActiveConfigurationFlow()}
     }
 
     override fun getAllConfigurations(): Flow<List<RegisterConfiguration>> {
-        return trackFlowOperation("getAllConfigurations", delegate.getAllConfigurations())
+        return trackFlowOperation("getAllConfigurations"){
+            delegate.getAllConfigurations()}
     }
 
     override suspend fun getActiveConfiguration(): RegisterConfiguration? {

@@ -12,16 +12,25 @@ class TrackedEventDao(
 ) : EventDao, TrackedDao(monitor, "EventDao") {
 
     override fun getActiveEvents(): Flow<List<EventEntity>> {
-        return trackFlowOperation("getActiveEvents", delegate.getActiveEvents())
+        return trackFlowOperation("getActiveEvents"){
+            delegate.getActiveEvents()
+        }
     }
 
     override fun getArchivedEvents(): Flow<List<EventEntity>> {
-        return trackFlowOperation("getArchivedEvents", delegate.getArchivedEvents())
+        return trackFlowOperation("getArchivedEvents") {
+            delegate.getArchivedEvents()// Лямбда
+        }
     }
 
     // Остальные методы без изменений
-    override suspend fun insert(event: EventEntity) = delegate.insert(event)
-    override suspend fun update(event: EventEntity) = delegate.update(event)
-    override suspend fun clearArchive() = delegate.clearArchive()
-    override suspend fun getActiveEventByRegistration(regNumber: String): EventEntity? = delegate.getActiveEventByRegistration(regNumber)
+    override suspend fun insert(event: EventEntity) = trackOperation("insertEvent") { delegate.insert(event) }
+
+
+
+    override suspend fun update(event: EventEntity) = trackOperation("updateEvent") {delegate.update(event)}
+
+    override suspend fun clearArchive() = trackOperation("clearEvent") { delegate.clearArchive()}
+    override suspend fun getActiveEventByRegistration(regNumber: String): EventEntity? = trackOperation("getActiveEventByRegistration") {
+        delegate.getActiveEventByRegistration(regNumber)}
 }

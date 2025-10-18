@@ -11,22 +11,33 @@ class TrackedTimeZoneDao(
     private val monitor: AppActivityMonitor
 ) : TimeZoneDao, TrackedDao(monitor, "TimeZoneDao") {
 
-    // метод без изменений
-    override suspend fun insert(time: TimeZoneEntity) = delegate.insert(time)
-    override suspend fun getTimeZoneByUtc(timeZoneUtc: Int) = delegate.getTimeZoneByUtc(timeZoneUtc)
-
-
-    override fun getTimeZoneByUtcFlow(timeZoneUtc: Int): Flow<TimeZoneEntity?> {
-        return trackFlowOperation("getTimeZoneByUtcFlow", delegate.getTimeZoneByUtcFlow(timeZoneUtc))
+    override suspend fun insert(time: TimeZoneEntity) {
+        trackOperation("insert") {
+            delegate.insert(time)
+        }
     }
 
-    override fun getAllTimeZonesFlow(): Flow<List<TimeZoneEntity>> {
-        return trackFlowOperation("getAllTimeZonesFlow", delegate.getAllTimeZonesFlow())
+    override suspend fun getTimeZoneByUtc(timeZoneUtc: Int): TimeZoneEntity? {
+        return trackOperation("getTimeZoneByUtc") {
+            delegate.getTimeZoneByUtc(timeZoneUtc)
+        }
+    }
+
+    override fun getTimeZoneByUtcFlow(timeZoneUtc: Int): Flow<TimeZoneEntity?> {
+        return trackFlowOperation("getTimeZoneByUtcFlow") {
+            delegate.getTimeZoneByUtcFlow(timeZoneUtc)  // Лямбда
+        }
     }
 
     override suspend fun getAllTimeZones(): List<TimeZoneEntity> {
         return trackOperation("getAllTimeZones") {
             delegate.getAllTimeZones()
+        }
+    }
+
+    override fun getAllTimeZonesFlow(): Flow<List<TimeZoneEntity>> {
+        return trackFlowOperation("getAllTimeZonesFlow") {
+            delegate.getAllTimeZonesFlow()  // Лямбда
         }
     }
 }

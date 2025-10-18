@@ -1,7 +1,6 @@
 package com.example.giraffenew.di
 
 import android.content.Context
-import androidx.room.Room
 import com.example.giraffenew.data.ModbusDatabase
 import com.example.giraffenew.data.dao.ModbusLogDao
 import com.example.giraffenew.data.dao.RegisterConfigurationDao
@@ -48,10 +47,10 @@ object DatabaseModule {
     /**
      * Предоставляет ModbusLogDao
      */
-    @Provides
-    fun provideModbusLogDao(
-        database: ModbusDatabase
-    ): ModbusLogDao {
-        return database.modbusLogDao()
-    }
+    //@Provides
+    //fun provideModbusLogDao(
+        //database: ModbusDatabase
+    //): ModbusLogDao {
+        //return database.modbusLogDao()
+    //}
 }

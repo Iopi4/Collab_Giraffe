@@ -7,8 +7,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class TimeZoneRepository
-@Inject constructor(
+class TimeZoneRepository @Inject constructor(
     private val timeZoneDao: TimeZoneDao
 ){
     suspend fun getTimeZoneModel (timeZoneUTC: Int): String?{
@@ -32,6 +31,4 @@ class TimeZoneRepository
     fun getAllTimeZoneFlow(): Flow<List<TimeZoneEntity>>{
         return timeZoneDao.getAllTimeZonesFlow()
     }
-
-
 }

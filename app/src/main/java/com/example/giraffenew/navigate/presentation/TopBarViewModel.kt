@@ -22,11 +22,11 @@ import com.example.giraffenew.initial_setup.data.CraneRepository
 import com.example.giraffenew.initial_setup.data.TimeZoneRepository
 import com.example.giraffenew.network.CloudSynchronizer
 import com.example.giraffenew.network.ModbusClient
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.security.PrivateKey
 import java.util.Calendar
 
 /**
@@ -60,6 +60,14 @@ class TopBarViewModel @Inject constructor(
     private val _appActiveState = mutableStateOf(true)
     private var lastAppState: Boolean? = null
     private val mutex = Mutex()
+
+    //Переменные для управления подписками на Flow
+    private var craneModelJob: Job? = null
+    private var timeZoneJob: Job? = null
+    private var dataCollectionJob: Job? = null
+    private var craneDatabaseObservationJob: Job? = null
+    private var timeZoneDatabaseObservationJob: Job? = null
+
 
 
     //1.1 Создадим переменные и функцию для управления уровнем громкости звуковых сигналов на главном экрана
@@ -108,7 +116,7 @@ class TopBarViewModel @Inject constructor(
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
 
-    // Для отслеживания текущего craneId
+    // Для отслеживания текущих подписок craneId b timeZoneUTC
     private var currentCraneId: Int? = null
     private var currentTimeZoneUTC: Int? = null
 
@@ -153,17 +161,17 @@ class TopBarViewModel @Inject constructor(
     }
 
     private fun startDataCollection() {
-        viewModelScope.launch {
+        // Отменяем предыдущую подписку если есть
+        dataCollectionJob?.cancel()
+
+        dataCollectionJob = viewModelScope.launch {
             modbusRepository.getConfigurationFlow(TopBarRegisterConfiguration.NAME_TOP_BAR)
                 .collect { cache ->
-                    // Фильтруем только нужные регистры
                     val currentValues = addresses.associate { addr ->
                         addr to cache[addr]?.value
                     }
-                    // Проверяем, изменились ли значения целевых регистров
-                    if (haveRelevantRegistersChanged(currentValues)) {
 
-                        // Обновляем данные на основе отфильтрованного кэша
+                    if (haveRelevantRegistersChanged(currentValues)) {
                         updateTime(currentValues)
                         updateTimeEvents(currentValues)
                         updateDate(currentValues)
@@ -182,7 +190,7 @@ class TopBarViewModel @Inject constructor(
                                 soundController.setRegisterState(register, currentValue == 1)
                             }
                         }
-                        // Обработка звуковых регистров режима сервис и наладка
+
                         for (register in 190..191) {
                             val currentValue = currentValues[register] ?: 0
                             val previousValue = previousValues[register] ?: 0
@@ -191,7 +199,6 @@ class TopBarViewModel @Inject constructor(
                             }
                         }
 
-                        // Сохраняем текущие значения для следующего сравнения
                         previousValues = currentValues
                     }
                 }
@@ -284,11 +291,12 @@ class TopBarViewModel @Inject constructor(
 
     // Функция для наблюдения за изменениями в базе данных
     private fun observeCraneDatabase() {
-        viewModelScope.launch {
-            // Подписываемся на изменения всех кранов
+        // Отменяем предыдущую подписку
+        craneDatabaseObservationJob?.cancel()
+
+        craneDatabaseObservationJob = viewModelScope.launch {
             craneRepository.getAllCranesFlow()
                 .collect { cranes ->
-                    // Если у нас есть текущий craneId, обновляем модель
                     currentCraneId?.let { id ->
                         updateModelFromDatabase(id)
                     }
@@ -299,14 +307,20 @@ class TopBarViewModel @Inject constructor(
     //Чтобы TopBarViewModel реагировал на изменения в базе данных кранов в реальном времени, надо использовать Flow:
     private fun updateModelCrane(cache: Map<Int, Int?>) {
         val craneId = cache[150] ?: return
-        currentCraneId = craneId
-        updateModelFromDatabase(craneId)
+
+        // Обновляем только если ID изменился
+        if (currentCraneId != craneId) {
+            currentCraneId = craneId
+            updateModelFromDatabase(craneId)
+        }
     }
 
     private fun updateModelFromDatabase(craneId: Int) {
-        viewModelScope.launch {
+        // Отменяем предыдущую подписку
+        craneModelJob?.cancel()
+
+        craneModelJob = viewModelScope.launch {
             try {
-                // Используем Flow для получения модели крана
                 craneRepository.getCraneModelFlow(craneId)
                     .collect { model ->
                         _currentModelCrane.value = model ?: "XXX-00.000"
@@ -321,15 +335,21 @@ class TopBarViewModel @Inject constructor(
     //Чтобы TopBarViewModel реагировал на изменения в базе данных часовых поясов, надо использовать Flow:
     private fun updateTimeZone(cache: Map<Int, Int?>) {
         val timeZoneUTC = cache[641] ?: return
-        currentTimeZoneUTC = timeZoneUTC
-        updateTimeZoneFromDatabase(timeZoneUTC)
+
+        // Обновляем только если UTC изменился
+        if (currentTimeZoneUTC != timeZoneUTC) {
+            currentTimeZoneUTC = timeZoneUTC
+            updateTimeZoneFromDatabase(timeZoneUTC)
+        }
     }
+
     private fun observeTimeZoneDatabase() {
-        viewModelScope.launch {
-            // Подписываемся на изменения часовых поясов
+        // Отменяем предыдущую подписку
+        timeZoneDatabaseObservationJob?.cancel()
+
+        timeZoneDatabaseObservationJob = viewModelScope.launch {
             timeZoneRepository.getAllTimeZoneFlow()
                 .collect { timeZones ->
-                    // Если у нас есть текущий timeZoneUTC, обновляем модель
                     currentTimeZoneUTC?.let { id ->
                         updateTimeZoneFromDatabase(id)
                     }
@@ -337,16 +357,18 @@ class TopBarViewModel @Inject constructor(
         }
     }
     private fun updateTimeZoneFromDatabase(timeZoneUTC: Int) {
-        viewModelScope.launch {
+        // Отменяем предыдущую подписку
+        timeZoneJob?.cancel()
+
+        timeZoneJob = viewModelScope.launch {
             try {
-                // Используем Flow для получения модели крана
                 timeZoneRepository.getTimeZoneFlow(timeZoneUTC)
                     .collect { timeZone ->
                         _currentTimeZone.value = timeZone ?: "UTC+X(MCK+XX)"
                     }
             } catch (e: Exception) {
                 _currentTimeZone.value = "ОШИБКА"
-                Log.e("InitialSetupViewModel", "Ошибка получения часового пояса: ${e.message}")
+                Log.e("TopBarViewModel", "Ошибка получения часового пояса: ${e.message}")
             }
         }
     }
@@ -393,7 +415,14 @@ class TopBarViewModel @Inject constructor(
     //Закомментировать.
     override fun onCleared() {
         super.onCleared()
-        //soundController.release()
+
+        // Отменяем ВСЕ подписки
+        craneModelJob?.cancel()
+        timeZoneJob?.cancel()
+        dataCollectionJob?.cancel()
+        craneDatabaseObservationJob?.cancel()
+        timeZoneDatabaseObservationJob?.cancel()
+
         cloudSynchronizer.cleanup()
     }
 

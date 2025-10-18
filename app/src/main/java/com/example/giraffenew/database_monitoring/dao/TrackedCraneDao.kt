@@ -12,20 +12,21 @@ class TrackedCraneDao(
     private val monitor: AppActivityMonitor
 ) : CraneDao, TrackedDao(monitor, "CraneDao") {
 
-    override fun getCraneByIdFlow(craneId: Int): Flow<CraneEntity?> {
-        return trackFlowOperation("getCraneByIdFlow",
-            delegate.getCraneByIdFlow(craneId))
+    override suspend fun insert(crane: CraneEntity) {
+        trackOperation("insert") {
+            delegate.insert(crane)
+        }
     }
 
-    override fun getAllCranesFlow(): Flow<List<CraneEntity>> {
-        return trackFlowOperation("getAllCranesFlow",
-            delegate.getAllCranesFlow())
-    }
-
-    // Остальные методы
     override suspend fun getCraneById(craneId: Int): CraneEntity? {
         return trackOperation("getCraneById") {
             delegate.getCraneById(craneId)
+        }
+    }
+
+    override fun getCraneByIdFlow(craneId: Int): Flow<CraneEntity?> {
+        return trackFlowOperation("getCraneByIdFlow") {
+            delegate.getCraneByIdFlow(craneId)  // Лямбда, а не прямой вызов
         }
     }
 
@@ -35,7 +36,9 @@ class TrackedCraneDao(
         }
     }
 
-    // Остальные методы без изменений
-    override suspend fun insert(crane: CraneEntity) = delegate.insert(crane)
-
+    override fun getAllCranesFlow(): Flow<List<CraneEntity>> {
+        return trackFlowOperation("getAllCranesFlow") {
+            delegate.getAllCranesFlow()  // Лямбда, а не прямой вызов
+        }
+    }
 }

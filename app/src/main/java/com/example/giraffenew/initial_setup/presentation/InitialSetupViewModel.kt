@@ -1,6 +1,5 @@
 package com.example.giraffenew.initial_setup.presentation
 
-import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
@@ -14,6 +13,7 @@ import com.example.giraffenew.initial_setup.domain.CraneEntity
 import com.example.giraffenew.initial_setup.domain.TimeZoneEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -43,6 +43,9 @@ class InitialSetupViewModel
     private val _setValueYear = mutableStateOf("")
     val setValueYear: State<String> = _setValueYear
 
+    // Job для управления подписками
+    private var loadCranesJob: Job? = null
+    private var loadTimeZonesJob: Job? = null
 
     // Переменные выбора часового пояса
     private val _selectedTimeZone = mutableStateOf<TimeZoneEntity?>(null)
@@ -82,7 +85,6 @@ class InitialSetupViewModel
     private val _setNumberSBKB = mutableStateOf("")
     val setValueNumberSBKB: State<String> = _setNumberSBKB
 
-
     private val _setValueDayCrane = mutableStateOf("")
     val setValueDayCrane: State<String> = _setValueDayCrane
 
@@ -91,7 +93,6 @@ class InitialSetupViewModel
 
     private val _setValueYearCrane = mutableStateOf("")
     val setValueYearCrane: State<String> = _setValueYearCrane
-
 
     private val _setValueDayRTN = mutableStateOf("")
     val setValueDayRTN: State<String> = _setValueDayRTN
@@ -191,8 +192,11 @@ class InitialSetupViewModel
             }
         }
     }
-    fun loadAllCranes() {
-        viewModelScope.launch {
+    private fun loadAllCranes() {
+        // Отменяем предыдущую загрузку
+        loadCranesJob?.cancel()
+
+        loadCranesJob = viewModelScope.launch {
             try {
                 val cranes = craneRepository.getAllCranes()
                 _cranesList.clear()
@@ -202,6 +206,7 @@ class InitialSetupViewModel
             }
         }
     }
+
     fun openCraneDialog() {
         _showCraneDialog.value = true
     }
@@ -216,8 +221,11 @@ class InitialSetupViewModel
         closeCraneDialog()
     }
 
-    fun loadAllTimeZones() {
-        viewModelScope.launch {
+    private fun loadAllTimeZones() {
+        // Отменяем предыдущую загрузку
+        loadTimeZonesJob?.cancel()
+
+        loadTimeZonesJob = viewModelScope.launch {
             try {
                 val timeZones = timeZoneRepository.getAllTimeZone()
                 _timeZonesList.clear()
@@ -478,6 +486,11 @@ class InitialSetupViewModel
     // Очистка при уничтожении ViewModel
     override fun onCleared() {
         super.onCleared()
+
+        // Отменяем все подписки
+        loadCranesJob?.cancel()
+        loadTimeZonesJob?.cancel()
+
         Log.d("InitialSetupVM", "ViewModel cleared")
         modbusRepository.setActiveUiConfiguration(null)
     }

@@ -27,15 +27,21 @@ class TrackedModbusLogDao(
     }
 
     override fun getRecentLogs(limit: Int): Flow<List<ModbusLog>> {
-        return trackFlowOperation("getRecentLogs", delegate.getRecentLogs(limit))
+        return trackFlowOperation("getRecentLogs") {
+            delegate.getRecentLogs(limit)  // Лямбда с параметром
+        }
     }
 
     override fun getLogsByLevel(level: LogLevel, limit: Int): Flow<List<ModbusLog>> {
-        return trackFlowOperation("getLogsByLevel", delegate.getLogsByLevel(level,limit))
+        return trackFlowOperation("getLogsByLevel") {
+            delegate.getLogsByLevel(level, limit)  // Лямбда с параметрами
+        }
     }
 
     override fun getLogsByCategory(category: LogCategory, limit: Int): Flow<List<ModbusLog>> {
-        return trackFlowOperation("getLogsByCategory", delegate.getLogsByCategory(category,limit))
+        return trackFlowOperation("getLogsByCategory") {
+            delegate.getLogsByCategory(category, limit)  // Лямбда с параметрами
+        }
     }
 
     override suspend fun getLogsByTimeRange(

@@ -114,4 +114,5 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 }
