@@ -15,12 +15,14 @@ interface TimeZoneDao {
     @Query("SELECT * FROM timeZone WHERE timeZoneUTC = :timeZoneUtc")
     suspend fun getTimeZoneByUtc(timeZoneUtc: Int): TimeZoneEntity?
 
-    @Query("SELECT * FROM timeZone WHERE timeZoneUTC = :timeZoneUtc")
-    fun getTimeZoneByUtcFlow(timeZoneUtc: Int): Flow<TimeZoneEntity?>
-
     @Query("SELECT * FROM timeZone")
     suspend fun getAllTimeZones(): List<TimeZoneEntity>
 
-    @Query("SELECT * FROM timeZone")
-    fun getAllTimeZonesFlow(): Flow<List<TimeZoneEntity>>
+    // УДАЛЯЕМ Flow методы:
+    //@Query("SELECT * FROM timeZone")
+    //fun getAllTimeZonesFlow(): Flow<List<TimeZoneEntity>>
+
+    //@Query("SELECT * FROM timeZone WHERE timeZoneUTC = :timeZoneUtc")
+    //fun getTimeZoneByUtcFlow(timeZoneUtc: Int): Flow<TimeZoneEntity?>
+
 }

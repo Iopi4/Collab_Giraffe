@@ -136,24 +136,7 @@ class AppActivityMonitor @Inject constructor() {
         // Можно улучшить с помощью Debug.MemoryInfo
         return _globalOperationCounter.get() * 2L // Примерная оценка
     }
-
-    fun getComponentOperations(component: String): StateFlow<Int> {
-        return _componentActiveOperations.getOrPut(component) { MutableStateFlow(0) }
-    }
-
-    fun getMethodStats(methodName: String): MethodStats? {
-        return _methodStatistics[methodName]
-    }
-
-    suspend fun getGlobalDiagnostics(): GlobalActivityDiagnostics {
-        return GlobalActivityDiagnostics(
-            globalActiveOperations = _globalOperationCounter.get(),
-            componentOperations = _componentOperations.mapValues { it.value.get() },
-            methodStatistics = _methodStatistics.mapValues { it.value.copy() },
-            memoryStats = _memoryStats.value,
-            timestamp = System.currentTimeMillis()
-        )
-    }
+    
 
     fun startMonitoring() {
         if (monitoringJob != null) {
@@ -176,21 +159,6 @@ class AppActivityMonitor @Inject constructor() {
         monitoringJob = null
     }
 
-    fun logActivityMetrics() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val diagnostics = getGlobalDiagnostics()
-                Log.i(TAG, """
-                    Activity Metrics:
-                    - Global active operations: ${diagnostics.globalActiveOperations}
-                    - Memory usage: ${diagnostics.memoryStats.usedMemoryMB}MB / ${diagnostics.memoryStats.maxMemoryMB}MB
-                    - Top methods: ${diagnostics.methodStatistics.values.sortedByDescending { it.callCount }.take(5).joinToString { "${it.methodName}(${it.callCount})" }}
-                """.trimIndent())
-            } catch (e: Exception) {
-                Log.e(TAG, "Error logging activity metrics", e)
-            }
-        }
-    }
 }
 
 data class GlobalActivityDiagnostics(

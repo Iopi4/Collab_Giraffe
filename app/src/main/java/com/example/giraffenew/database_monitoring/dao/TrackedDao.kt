@@ -1,11 +1,9 @@
 package com.example.giraffenew.database_monitoring.dao
 
-import android.util.Log
 import com.example.giraffenew.database_monitoring.AppActivityMonitor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+
 
 // Базовый класс для отслеживания DAO операций
 abstract class TrackedDao(

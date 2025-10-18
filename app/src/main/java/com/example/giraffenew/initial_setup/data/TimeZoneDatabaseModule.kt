@@ -18,10 +18,9 @@ object TimeZoneDatabaseModule {
     }
 
 
-    //Замена оригинального DAO на отслеживаемую версию TrackedTimeZoneDao
-    //@Provides
-    //@Singleton
-    //fun provideTimeZoneDao (appDatabase: TimeZoneAppDatabase): TimeZoneDao{
-        //return appDatabase.timeZoneDao()
-    //}
+    @Provides
+    @Singleton
+    fun provideTimeZoneDao (appDatabase: TimeZoneAppDatabase): TimeZoneDao{
+        return appDatabase.timeZoneDao()
+    }
 }

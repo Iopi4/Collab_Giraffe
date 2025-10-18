@@ -37,8 +37,6 @@ import java.util.Calendar
 будем запоминать предыдущий отфильтрованный набор значений и сравнивать с новым.
 Если отфильтрованный набор не изменился, то не будем обновлять состояние.
 Однако, в TopBarViewModel этого нет, но мы можем добавить для еще большей оптимизации.
-
-
  */
 
 //Создание ViewModel для управления временем, датой и типом крана
@@ -62,11 +60,11 @@ class TopBarViewModel @Inject constructor(
     private val mutex = Mutex()
 
     //Переменные для управления подписками на Flow
-    private var craneModelJob: Job? = null
-    private var timeZoneJob: Job? = null
+    //private var craneModelJob: Job? = null
+    //private var timeZoneJob: Job? = null
     private var dataCollectionJob: Job? = null
-    private var craneDatabaseObservationJob: Job? = null
-    private var timeZoneDatabaseObservationJob: Job? = null
+    //private var craneDatabaseObservationJob: Job? = null
+    //private var timeZoneDatabaseObservationJob: Job? = null
 
 
 
@@ -131,10 +129,9 @@ class TopBarViewModel @Inject constructor(
         startDataCollection()
         setupAppStateMonitoring()
 
-        // Запускаем наблюдение за изменениями в базе данных кранов
-        observeCraneDatabase()
-        // Запускаем наблюдение за изменениями в базе данных часовых поясов
-        observeTimeZoneDatabase()
+        // УДАЛЯЕМ наблюдение за базой данных:
+        //observeCraneDatabase()
+        //observeTimeZoneDatabase()
 
         // Запускаем синхронизацию для отслеживания статуса CloudSynchronizer при инициализации ViewModel
         viewModelScope.launch {
@@ -290,19 +287,6 @@ class TopBarViewModel @Inject constructor(
     }
 
     // Функция для наблюдения за изменениями в базе данных
-    private fun observeCraneDatabase() {
-        // Отменяем предыдущую подписку
-        craneDatabaseObservationJob?.cancel()
-
-        craneDatabaseObservationJob = viewModelScope.launch {
-            craneRepository.getAllCranesFlow()
-                .collect { cranes ->
-                    currentCraneId?.let { id ->
-                        updateModelFromDatabase(id)
-                    }
-                }
-        }
-    }
 
     //Чтобы TopBarViewModel реагировал на изменения в базе данных кранов в реальном времени, надо использовать Flow:
     private fun updateModelCrane(cache: Map<Int, Int?>) {
@@ -316,15 +300,10 @@ class TopBarViewModel @Inject constructor(
     }
 
     private fun updateModelFromDatabase(craneId: Int) {
-        // Отменяем предыдущую подписку
-        craneModelJob?.cancel()
-
-        craneModelJob = viewModelScope.launch {
+        viewModelScope.launch {
             try {
-                craneRepository.getCraneModelFlow(craneId)
-                    .collect { model ->
-                        _currentModelCrane.value = model ?: "XXX-00.000"
-                    }
+                val model = craneRepository.getCraneModel(craneId)
+                _currentModelCrane.value = model ?: "XXX-00.000"
             } catch (e: Exception) {
                 _currentModelCrane.value = "ОШИБКА"
                 Log.e("TopBarViewModel", "Ошибка получения модели крана: ${e.message}")
@@ -343,29 +322,11 @@ class TopBarViewModel @Inject constructor(
         }
     }
 
-    private fun observeTimeZoneDatabase() {
-        // Отменяем предыдущую подписку
-        timeZoneDatabaseObservationJob?.cancel()
-
-        timeZoneDatabaseObservationJob = viewModelScope.launch {
-            timeZoneRepository.getAllTimeZoneFlow()
-                .collect { timeZones ->
-                    currentTimeZoneUTC?.let { id ->
-                        updateTimeZoneFromDatabase(id)
-                    }
-                }
-        }
-    }
     private fun updateTimeZoneFromDatabase(timeZoneUTC: Int) {
-        // Отменяем предыдущую подписку
-        timeZoneJob?.cancel()
-
-        timeZoneJob = viewModelScope.launch {
+        viewModelScope.launch {
             try {
-                timeZoneRepository.getTimeZoneFlow(timeZoneUTC)
-                    .collect { timeZone ->
-                        _currentTimeZone.value = timeZone ?: "UTC+X(MCK+XX)"
-                    }
+                val timeZone = timeZoneRepository.getTimeZoneModel(timeZoneUTC)
+                _currentTimeZone.value = timeZone ?: "UTC+X(MCK+XX)"
             } catch (e: Exception) {
                 _currentTimeZone.value = "ОШИБКА"
                 Log.e("TopBarViewModel", "Ошибка получения часового пояса: ${e.message}")
@@ -417,12 +378,7 @@ class TopBarViewModel @Inject constructor(
         super.onCleared()
 
         // Отменяем ВСЕ подписки
-        craneModelJob?.cancel()
-        timeZoneJob?.cancel()
         dataCollectionJob?.cancel()
-        craneDatabaseObservationJob?.cancel()
-        timeZoneDatabaseObservationJob?.cancel()
-
         cloudSynchronizer.cleanup()
     }
 

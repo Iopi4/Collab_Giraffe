@@ -15,22 +15,11 @@ class CraneRepository
         return craneDao.getCraneById(craneID)?.craneModel
     }
 
-    // Добавляем метод для получения модели крана как Flow
-    fun getCraneModelFlow(craneID: Int): Flow<String?> {
-        return craneDao.getCraneByIdFlow(craneID)
-            .map { it?.craneModel }
-            .catch { e ->
-                Log.e("CraneRepository", "Ошибка получения модели крана: ${e.message}")
-                emit(null)
-            }
-    }
-
     suspend fun getAllCranes(): List<CraneEntity> {
         return craneDao.getAllCranes()
     }
 
-    // Добавляем метод для получения всех кранов как Flow
-    fun getAllCranesFlow(): Flow<List<CraneEntity>> {
-        return craneDao.getAllCranesFlow()
-    }
+    // УДАЛЯЕМ Flow методы:
+    // fun getCraneModelFlow(craneID: Int): Flow<String?> { ... }
+    // fun getAllCranesFlow(): Flow<List<CraneEntity>> { ... }
 }

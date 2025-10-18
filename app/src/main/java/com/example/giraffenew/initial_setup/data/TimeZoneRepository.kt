@@ -14,7 +14,15 @@ class TimeZoneRepository @Inject constructor(
         return timeZoneDao.getTimeZoneByUtc(timeZoneUTC)?.timeZoneRegion
     }
 
-    // Добавляем метод для получения модели крана как Flow
+    suspend fun getAllTimeZone(): List<TimeZoneEntity>{
+        return timeZoneDao.getAllTimeZones()
+    }
+
+    // УДАЛЯЕМ Flow методы, если они есть
+    //fun getAllTimeZoneFlow(): Flow<List<TimeZoneEntity>>{
+        //return timeZoneDao.getAllTimeZonesFlow()
+    //}
+    /*
     fun getTimeZoneFlow(timeZoneUTC: Int): Flow<String?> {
         return timeZoneDao.getTimeZoneByUtcFlow(timeZoneUTC)
             .map { it?.timeZoneRegion }
@@ -23,12 +31,6 @@ class TimeZoneRepository @Inject constructor(
                 emit(null)
             }
     }
+    */
 
-    suspend fun getAllTimeZone(): List<TimeZoneEntity>{
-        return timeZoneDao.getAllTimeZones()
-    }
-
-    fun getAllTimeZoneFlow(): Flow<List<TimeZoneEntity>>{
-        return timeZoneDao.getAllTimeZonesFlow()
-    }
 }
