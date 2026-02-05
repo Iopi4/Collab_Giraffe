@@ -39,7 +39,7 @@ class LoginViewModule
     private val _passwordOrNaladka = mutableStateOf(0)
     val passwordOrNaladka: State<Int> = _passwordOrNaladka
 
-    private val addresses = listOf( 190, 191, 192, 751)
+    private val addresses = listOf( 33001, 33002, 33003, 33071)
 
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
@@ -87,14 +87,14 @@ class LoginViewModule
     }
 
     private fun createLoginState(cache: Map<Int, Int?>): LoginState {
-        val passwordOrNaladkaValue = cache[751] ?: 0
+        val passwordOrNaladkaValue = cache[33071] ?: 0
         _passwordOrNaladka.value = passwordOrNaladkaValue // Сохраняем значение
 
         return LoginState(
             //Параметры крана
-            buildMode = cache[190] ?: 0,
-            serviceMode = cache[191] ?: 0,
-            montageMode = cache[192] ?: 0,
+            buildMode = cache[33001] ?: 0,
+            serviceMode = cache[33002] ?: 0,
+            montageMode = cache[33003] ?: 0,
             passwordOrNaladka = passwordOrNaladkaValue,
         )
     }
@@ -147,7 +147,7 @@ class LoginViewModule
             try {
                 val model = validateAndConvert(_setValuePasswordPart1.value, 0, 1999 )
                 // Запись в регистры
-                modbusRepository.writeRegister(798, model)
+                modbusRepository.writeRegister(63007, model)
             } catch (e: Exception) {
             }
         }
@@ -157,7 +157,7 @@ class LoginViewModule
             try {
                 val model = validateAndConvert(_setValuePasswordPart2.value, 0, 1999 )
                 // Запись в регистры
-                modbusRepository.writeRegister(799, model)
+                modbusRepository.writeRegister(63008, model)
             } catch (e: Exception) {
             }
         }
@@ -167,7 +167,7 @@ class LoginViewModule
             try {
                 val model = validateAndConvert(_setValuePasswordPart3.value, 0, 1999 )
                 // Запись в регистры
-                modbusRepository.writeRegister(800, model)
+                modbusRepository.writeRegister(63009, model)
             } catch (e: Exception) {
             }
         }
@@ -179,26 +179,26 @@ class LoginViewModule
             try {
                 if (passwordOrNaladka.value == 1 && password.value == "naladka") {
                     // Отправляем фиксированные значения для "naladka"
-                    modbusRepository.writeRegister(798, 1009)
-                    modbusRepository.writeRegister(799, 1007)
-                    modbusRepository.writeRegister(800, 1008)
+                    modbusRepository.writeRegister(63007, 1009)
+                    modbusRepository.writeRegister(63008, 1007)
+                    modbusRepository.writeRegister(63009, 1008)
                 } else {
                     // Стандартная логика отправки частей пароля
                     val part1 = validateAndConvert(_setValuePasswordPart1.value, 0, 1999)
-                    modbusRepository.writeRegister(798, part1)
+                    modbusRepository.writeRegister(63007, part1)
 
                     val part2 = validateAndConvert(_setValuePasswordPart2.value, 0, 1999)
-                    modbusRepository.writeRegister(799, part2)
+                    modbusRepository.writeRegister(63008, part2)
 
                     val part3 = validateAndConvert(_setValuePasswordPart3.value, 0, 1999)
-                    modbusRepository.writeRegister(800, part3)
+                    modbusRepository.writeRegister(63009, part3)
                 }
 
                 // Отправка команды ввода
                 delay(200)
-                modbusRepository.writeRegister(801, 1)
+                modbusRepository.writeRegister(63001, 1)
                 delay(200)
-                modbusRepository.writeRegister(801, 0)
+                modbusRepository.writeRegister(63001, 0)
             } catch (e: Exception) {
                 // Обработка ошибок
             }
@@ -208,9 +208,9 @@ class LoginViewModule
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
-                modbusRepository.writeRegister(802, 1)
+                modbusRepository.writeRegister(63000, 1)
                 delay(200)
-                modbusRepository.writeRegister(802, 0)
+                modbusRepository.writeRegister(63000, 0)
                 // Логирование
             } catch (e: Exception) {
             }

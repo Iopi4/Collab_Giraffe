@@ -41,11 +41,8 @@ class SettingLoadCapacityViewModel
     private val _logMessageWeightSensor = mutableStateOf<String?>(null)
     val logMessageWeightSensor: State<String?> = _logMessageWeightSensor
 
-
-
-
     private val addresses = listOf(
-        195, 197, 198, 314, 199, 316, 661, 662, 155, 159 // Регистры для считывания
+        33508, 33505, 33020, 33200, 33509, 33202, 33025, 33026, 33130, 33110 // Регистры для считывания
     )
 
     private val _state = mutableStateOf(LoadCapacityState())
@@ -73,12 +70,12 @@ class SettingLoadCapacityViewModel
 
     private fun writeUiActiveStatus(value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            modbusRepository.writeRegister(868, value).fold(
+            modbusRepository.writeRegister(63531, value).fold(
                 onSuccess = {
-                    Log.d("LoadCapacityVM", "Register 868 set to $value")
+                    Log.d("LoadCapacityVM", "Register 63531 set to $value")
                 },
                 onFailure = { e ->
-                    Log.e("LoadCapacityVM", "Failed to write register 868", e)
+                    Log.e("LoadCapacityVM", "Failed to write register 63531", e)
                 }
             )
         }
@@ -118,17 +115,17 @@ class SettingLoadCapacityViewModel
     private fun createSettingLoadCapacityState(cache: Map<Int, Int?>): LoadCapacityState {
         return LoadCapacityState(
             //ПАРАМЕТРЫ ГРУЗОВОЙ ХАРАКТЕРИСТИКИ
-            currentGruzovayZapasovka = cache[316] ?: 0,
-            currentMaxWeight = safeDivideTens(cache[199] ?: 0),
-            currentMaxWeight2 = safeDivideTens(cache[195] ?: 0),
-            currentCraneLenght = cache[197] ?: 0,
+            currentGruzovayZapasovka = cache[33202] ?: 0,
+            currentMaxWeight = safeDivideTens(cache[33509] ?: 0),
+            currentMaxWeight2 = safeDivideTens(cache[33508] ?: 0),
+            currentCraneLenght = safeDivideTens(cache[33505] ?: 0),
             //КАЛИБРОВКА ДАТЧИКА УСИЛИЯ
-            currentCurrAI = cache[198] ?: 0,
-            currentWeight = safeDivideTens(cache[314] ?: 0),
-            hmiWeightCalibStatus = cache[661] ?: 0,
-            hmiWeightCalibMessage = cache[662 ] ?: 0,
-            trolleyCurrent = safeDivideTens(cache[155] ?: 0),
-            heightCurrent = safeDivideTens(cache[159] ?: 0),
+            currentCurrAI = cache[33020] ?: 0,
+            currentWeight = safeDivideTens(cache[33200] ?: 0),
+            hmiWeightCalibStatus = cache[33025] ?: 0,
+            hmiWeightCalibMessage = cache[33026] ?: 0,
+            trolleyCurrent = safeDivideTens(cache[33130] ?: 0),
+            heightCurrent = safeDivideTens(cache[33110] ?: 0),
 
             )
     }
@@ -142,7 +139,7 @@ class SettingLoadCapacityViewModel
         val currentGruzovayZapasovka: Int = 0,
         val currentMaxWeight: Float = 0f,
         val currentMaxWeight2: Float = 0f,
-        val currentCraneLenght: Int = 0,
+        val currentCraneLenght: Float = 0f,
         //КАЛИБРОВКА ДАТЧИКА УСИЛИЯ
         val currentCurrAI: Int = 0,
         val currentWeight: Float = 0f,
@@ -168,7 +165,7 @@ class SettingLoadCapacityViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(862, index+VIRTUAL_ZERO)
+                modbusRepository.writeRegister(63507, index+VIRTUAL_ZERO)
                 _errorMessageGH.value = null
                 _logMessageGH.value = "СОХРАНЕНО"
             } catch (e: Exception) {
@@ -193,9 +190,9 @@ class SettingLoadCapacityViewModel
                 // Запись в регистры
                 Log.d("LoadCapacityViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(865, 1)
+                modbusRepository.writeRegister(63028, 1)
                 delay(200)
-                modbusRepository.writeRegister(865, 0)
+                modbusRepository.writeRegister(63028, 0)
             } catch (e: Exception) {
             }
         }
@@ -208,9 +205,9 @@ class SettingLoadCapacityViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Активация калибровки
-                modbusRepository.writeRegister(866, 1)
+                modbusRepository.writeRegister(63029, 1)
                 delay(200)
-                modbusRepository.writeRegister(866, 0)
+                modbusRepository.writeRegister(63029, 0)
             } catch (e: Exception) {
             }
         }
@@ -222,9 +219,9 @@ class SettingLoadCapacityViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Активация калибровки
-                modbusRepository.writeRegister(1260, index)
+                modbusRepository.writeRegister(63020, index)
                 delay(200)
-                modbusRepository.writeRegister(1260, 0)
+                modbusRepository.writeRegister(63020, 0)
             } catch (e: Exception) {
             }
         }
@@ -236,7 +233,7 @@ class SettingLoadCapacityViewModel
             try {
                 val model = validateAndConvertFloatTens(_setValueMinWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
-                modbusRepository.writeRegister(863, model)
+                modbusRepository.writeRegister(63021, model)
                 _errorMessageWeightSensor.value = null
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
@@ -252,7 +249,7 @@ class SettingLoadCapacityViewModel
             try {
                 val model = validateAndConvertFloatTens(_setValueMaxWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
-                modbusRepository.writeRegister(864, model)
+                modbusRepository.writeRegister(63022, model)
                 _errorMessageWeightSensor.value = null
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {

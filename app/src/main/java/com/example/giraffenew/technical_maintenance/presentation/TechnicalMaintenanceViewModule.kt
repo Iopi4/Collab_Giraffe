@@ -32,7 +32,7 @@ class TechnicalMaintenanceViewModule
     private val _logMessagePassword = mutableStateOf<String?>(null)
     val logMessagePassword: State<String?> = _logMessagePassword
 
-    private val addresses = listOf( 299, 366, 368, 305, 306, 307, 308, 309)
+    private val addresses = listOf( 33550, 33556, 33500, 33551, 33552, 33553, 33554, 33555)
 
 
     private val _state = mutableStateOf(SettingSensorsState())
@@ -84,14 +84,14 @@ class TechnicalMaintenanceViewModule
     private fun createTechnicalMaintenanceState(cache: Map<Int, Int?>): SettingSensorsState {
         return SettingSensorsState(
             //Параметры крана
-            craneNo = cache[368] ?: 0,
-            tOCounter = cache[299] ?: 0,
-            technicalReglamentTO1 = cache[305] ?: 0,
-            alarmTO1 = cache[306] ?: 0,
-            motorHourDelta = safeDivideTens(cache[307] ?: 0),
-            technicalReglamentTO1Delta = cache[308] ?: 0,
-            technicalReglamentxWarrantyEnd= cache[309] ?: 0,
-            hmiTotalCraneOperatingHoursMaintenance = safeDivideTens(cache[366] ?: 0),
+            craneNo = cache[33500] ?: 0,
+            tOCounter = cache[33550] ?: 0,
+            technicalReglamentTO1 = cache[33551] ?: 0,
+            alarmTO1 = cache[33552] ?: 0,
+            motorHourDelta = safeDivideTens(cache[33553] ?: 0),
+            technicalReglamentTO1Delta = cache[33554] ?: 0,
+            technicalReglamentxWarrantyEnd= cache[33555] ?: 0,
+            hmiTotalCraneOperatingHoursMaintenance = safeDivideTens(cache[33556] ?: 0),
             )
     }
 
@@ -122,9 +122,9 @@ class TechnicalMaintenanceViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(867, 1)
+                modbusRepository.writeRegister(63550, 1)
                 delay(200)
-                modbusRepository.writeRegister(867, 0)
+                modbusRepository.writeRegister(63550, 0)
             } catch (e: Exception) {
             }
         }

@@ -115,9 +115,9 @@ fun ParametersDateAndTime(
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentTime) }
             Box(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp))
             { BasicValuesSettingsParameterGiraffe(modifier = Modifier, valueParameterId = currentDate) }
-//Ввод. Модель крана
+//Ввод. Выбор часового пояса
             Row (horizontalArrangement = Arrangement.SpaceBetween) {
-                //Поле ввода значения максимального веса груза
+                //Поле выбора часового пояса
                 Box (modifier = Modifier
                     .padding(start = 10.dp, end = 0.dp, top = 5.dp)
                     .weight(3f)

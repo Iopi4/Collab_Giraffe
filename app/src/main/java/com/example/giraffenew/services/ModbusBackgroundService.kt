@@ -139,6 +139,7 @@ class ModbusBackgroundService : Service() {
     
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.i(TAG, "onStartCommand: ${intent?.action}")
+        Log.i(TAG, "Service starting, memory: ${getMemoryInfo()}")
         
         when (intent?.action) {
             ACTION_START -> {
@@ -157,10 +158,18 @@ class ModbusBackgroundService : Service() {
                 startModbusService()
             }
         }
-        
+
         // START_STICKY обеспечивает автоматический перезапуск
         return START_STICKY
     }
+
+    private fun getMemoryInfo(): String {
+        val runtimeInfo = Runtime.getRuntime()
+        val used = (runtimeInfo.totalMemory() - runtimeInfo.freeMemory()) / (1024 * 1024)
+        val max = runtimeInfo.maxMemory() / (1024 * 1024)
+        return "${used}MB/${max}MB"
+    }
+
     
     override fun onBind(intent: Intent?): IBinder? = null // Unbound service
     
@@ -355,7 +364,8 @@ class ModbusBackgroundService : Service() {
 
                 // Проверяем точность цикла
                 if (abs(cycleTime - targetCycleTimeMs) > cycleTimeToleranceMs) {
-                    Log.w(TAG, "Cycle time out of tolerance: ${cycleTime}ms (target: ${targetCycleTimeMs}±${cycleTimeToleranceMs}ms)")
+//Закоментировал лог прверки точности
+//                    Log.w(TAG, "Cycle time out of tolerance: ${cycleTime}ms (target: ${targetCycleTimeMs}±${cycleTimeToleranceMs}ms)")
                 }
 
             } catch (e: Exception) {
@@ -492,7 +502,11 @@ class ModbusBackgroundService : Service() {
         // Получаем использование памяти
         val runtime = Runtime.getRuntime()
         val memoryUsedMB = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-        
+
+
+
+
+
         return PerformanceMetrics(
             status = _serviceStatus.value,
             cycleCount = totalCycles,

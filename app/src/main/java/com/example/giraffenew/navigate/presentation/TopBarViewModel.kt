@@ -108,8 +108,8 @@ class TopBarViewModel @Inject constructor(
     private val _montageMode = mutableStateOf(0)
     val montageMode: State<Int> = _montageMode
 
-    private val addresses = listOf(0, 1, 90, 91, 94, 95, 98, 99, 150, 190, 191, 192, 193, 194,
-        367, 278, 279, 280, 281, 282, 641) // Только нужные регистры
+    private val addresses = listOf(3001, 30002, 3003, 3004, 3005, 3006, 33501, 33001, 33002, 33003, 33506, 33507,
+        33500, 30210, 30211, 30212, 30213, 30214, 30007) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
     private var previousValues: Map<Int, Int?> = emptyMap()
@@ -180,7 +180,7 @@ class TopBarViewModel @Inject constructor(
                         updateStatusMode(currentValues)
 
                         // Обработка звуковых регистров
-                        for (register in 278..282) {
+                        for (register in 30210..30214) {
                             val currentValue = currentValues[register] ?: 0
                             val previousValue = previousValues[register] ?: 0
                             if (currentValue != previousValue) {
@@ -188,7 +188,7 @@ class TopBarViewModel @Inject constructor(
                             }
                         }
 
-                        for (register in 190..191) {
+                        for (register in 33001..33002) {
                             val currentValue = currentValues[register] ?: 0
                             val previousValue = previousValues[register] ?: 0
                             if (currentValue != previousValue) {
@@ -235,11 +235,11 @@ class TopBarViewModel @Inject constructor(
                 if (lastAppState != isActive) {
                     try {
                         delay(3000)
-                        modbusRepository.writeRegister(893, if (isActive) 1 else 0)
+                        modbusRepository.writeRegister(63530, if (isActive) 1 else 0)
                         lastAppState = isActive
                         _appActiveState.value = isActive
                     } catch (e: Exception) {
-                        Log.e("TopBarViewModel", "Error writing to register 893", e)
+                        Log.e("TopBarViewModel", "Error writing to register 63530", e)
                     }
                 }
             }
@@ -253,12 +253,12 @@ class TopBarViewModel @Inject constructor(
         _currentTime.value = String.format("%02d:%02d", hour, minute)
     }
     private fun updateTimeEvents(cache: Map<Int, Int?>) {
-        val year = cache[90] ?: return
-        val month = cache[91] ?: return
-        val day = cache[94] ?: return
-        val hour = cache[95] ?: return
-        val minute = cache[98] ?: return
-        val second = cache[99] ?: return
+        val year = cache[30001] ?: return
+        val month = cache[30002] ?: return
+        val day = cache[30003] ?: return
+        val hour = cache[30004] ?: return
+        val minute = cache[30005] ?: return
+        val second = cache[30006] ?: return
 
         val calendar = Calendar.getInstance().apply {
             set(Calendar.YEAR, year)
@@ -279,9 +279,9 @@ class TopBarViewModel @Inject constructor(
 
 
     private fun updateDate(cache: Map<Int, Int?>) {
-        val year = cache[90] ?: return
-        val month = cache[91] ?: return
-        val day = cache[94] ?: return
+        val year = cache[30001] ?: return
+        val month = cache[30002] ?: return
+        val day = cache[30003] ?: return
 
         _currentDate.value = String.format("%02d.%02d.%04d", day, month, year)
     }
@@ -290,7 +290,7 @@ class TopBarViewModel @Inject constructor(
 
     //Чтобы TopBarViewModel реагировал на изменения в базе данных кранов в реальном времени, надо использовать Flow:
     private fun updateModelCrane(cache: Map<Int, Int?>) {
-        val craneId = cache[150] ?: return
+        val craneId = cache[33501] ?: return
 
         // Обновляем только если ID изменился
         if (currentCraneId != craneId) {
@@ -313,7 +313,7 @@ class TopBarViewModel @Inject constructor(
 
     //Чтобы TopBarViewModel реагировал на изменения в базе данных часовых поясов, надо использовать Flow:
     private fun updateTimeZone(cache: Map<Int, Int?>) {
-        val timeZoneUTC = cache[641] ?: return
+        val timeZoneUTC = cache[30007] ?: return
 
         // Обновляем только если UTC изменился
         if (currentTimeZoneUTC != timeZoneUTC) {
@@ -335,7 +335,7 @@ class TopBarViewModel @Inject constructor(
     }
 
     private fun updateCraneID(cache: Map<Int, Int?>) {
-        val serialNumber = cache[367] ?: return
+        val serialNumber = cache[33500] ?: return
         val model = _currentModelCrane.value
         val newCraneId = "${model}_${serialNumber}"
 
@@ -344,24 +344,23 @@ class TopBarViewModel @Inject constructor(
     }
 
     private fun updatePulleyBlock(cache: Map<Int, Int?>) {
-        val pulleyblock = cache[193] ?: return
+        val pulleyblock = cache[33506] ?: return
         _currentPulleyBlock.value = when (pulleyblock) {
             1 -> "Запасовка [4х кр.]"
             else -> "Запасовка [2х кр.]"
         }
     }
     private fun updateLoadCapacity(cache: Map<Int, Int?>) {
-        val loadCapacity = cache[194] ?: return
+        val loadCapacity = cache[33507] ?: return
         _currentLoadCapacity.value = "Груз.хар. [%02d]".format(loadCapacity)
     }
     private fun updateStatusMode(cache: Map<Int, Int?>) {
-        val buildMode = cache[190] ?: 0
-        val serviceMode = cache[191] ?: 0
-        val montageMode = cache[192] ?: 0
+        val buildMode = cache[33001] ?: 0
+        val serviceMode = cache[33002] ?: 0
+        val montageMode = cache[33003] ?: 0
         _buildMode.value = buildMode
         _serviceMode.value = serviceMode
         _montageMode.value = montageMode
-
     }
 
     fun playAccessDeniedSound() {
@@ -381,7 +380,6 @@ class TopBarViewModel @Inject constructor(
         dataCollectionJob?.cancel()
         cloudSynchronizer.cleanup()
     }
-
 }
 
 /**

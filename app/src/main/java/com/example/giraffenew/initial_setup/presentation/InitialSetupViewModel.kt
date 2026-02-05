@@ -24,7 +24,7 @@ class InitialSetupViewModel
 @Inject constructor(
     private val modbusRepository: ModbusRepository,
     private var craneRepository: CraneRepository, // Внедряем через Hilt
-    private var timeZoneRepository: TimeZoneRepository,
+    private var timeZoneRepository: TimeZoneRepository, // Внедряем через Hilt
 ): ViewModel(){
 
     // Переменные для ввода даты и времени
@@ -171,16 +171,16 @@ class InitialSetupViewModel
                 val year = validateAndConvert(_setValueYear.value, 2006, 2099)
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
-                modbusRepository.writeRegister(846, hour)
-                modbusRepository.writeRegister(847, minute)
-                modbusRepository.writeRegister(845, day)
-                modbusRepository.writeRegister(844, month)
-                modbusRepository.writeRegister(843, year)
+                modbusRepository.writeRegister(60004, hour)
+                modbusRepository.writeRegister(60005, minute)
+                modbusRepository.writeRegister(60003, day)
+                modbusRepository.writeRegister(60002, month)
+                modbusRepository.writeRegister(60001, year)
 
                 // Активация записи
-                modbusRepository.writeRegister(842, 1)
+                modbusRepository.writeRegister(60000, 1)
                 delay(1000)
-                modbusRepository.writeRegister(842, 0)
+                modbusRepository.writeRegister(60000, 0)
                 _errorMessage.value = null
                 _logMessageDateTime.value = "Сохранено"
                 // Логирование
@@ -255,7 +255,7 @@ class InitialSetupViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Запись в регистр часового пояса (timeZoneUTC)
-                modbusRepository.writeRegister(939, timeZoneUTC)
+                modbusRepository.writeRegister(60007, timeZoneUTC)
                 _errorMessage.value = null
                 _logMessageDateTime.value = "Сохранено"
             } catch (e: Exception) {
@@ -276,9 +276,9 @@ class InitialSetupViewModel
                 val year = validateAndConvert(_setValueYearCrane.value, 2006, 2099)
 
                 // Запись в регистры даты ввода крана в эксплуатацию
-                modbusRepository.writeRegister(854, day)
-                modbusRepository.writeRegister(855, month)
-                modbusRepository.writeRegister(856, year)
+                modbusRepository.writeRegister(63554, day)
+                modbusRepository.writeRegister(63555, month)
+                modbusRepository.writeRegister(63556, year)
 
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
@@ -298,9 +298,9 @@ class InitialSetupViewModel
                 val year = validateAndConvert(_setValueYearRTN.value, 2006, 2099)
 
                 // Запись в регистры даты регистрации крана в Ростехнадзоре
-                modbusRepository.writeRegister(851, day)
-                modbusRepository.writeRegister(852, month)
-                modbusRepository.writeRegister(853, year)
+                modbusRepository.writeRegister(63551, day)
+                modbusRepository.writeRegister(63552, month)
+                modbusRepository.writeRegister(63553, year)
 
                 _errorMessageRTN.value = null
                 _logMessageRTN.value = "Сохранено"
@@ -321,9 +321,9 @@ class InitialSetupViewModel
                 val year = validateAndConvert(_setValueYearSBKB.value, 2006, 2099)
 
                 // Запись в регистры даты установки СБКБ на кран
-                modbusRepository.writeRegister(858, day)
-                modbusRepository.writeRegister(859, month)
-                modbusRepository.writeRegister(860, year)
+                modbusRepository.writeRegister(63557, day)
+                modbusRepository.writeRegister(63558, month)
+                modbusRepository.writeRegister(63559, year)
 
                 _errorMessageSBKB.value = null
                 _logMessageSBKB.value = "Сохранено"
@@ -339,7 +339,7 @@ class InitialSetupViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Запись в регистры модель крана (craneID)
-                modbusRepository.writeRegister(848, craneID)
+                modbusRepository.writeRegister(63501, craneID)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -355,7 +355,7 @@ class InitialSetupViewModel
             try {
                 val number = validateAndConvert(_setNumberCrane.value, 0, 65535)
                 // Запись в регистры номер крана
-                modbusRepository.writeRegister(850, number)
+                modbusRepository.writeRegister(63502, number)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -371,7 +371,7 @@ class InitialSetupViewModel
             try {
                 val number = validateAndConvert(_setNumberSBKB.value, 0, 65535)
                 // Запись в регистры модель крана
-                modbusRepository.writeRegister(857, number)
+                modbusRepository.writeRegister(63510, number)
                 // Сброс состояний
 
                 _errorMessageSBKB.value = null

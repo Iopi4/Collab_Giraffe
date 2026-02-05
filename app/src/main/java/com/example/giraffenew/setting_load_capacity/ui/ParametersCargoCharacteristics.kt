@@ -28,7 +28,7 @@ fun ParametersCargoCharacteristics(
     currentGruzovayZapasovka: Int,
     currentMaxWeight: Float,
     currentMaxWeight2: Float,
-    currentCraneLenght: Int,
+    currentCraneLenght: Float,
 
 ) {
 
@@ -102,7 +102,7 @@ fun ParametersCargoCharacteristics(
             Box(modifier = Modifier
                 .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = format(currentCraneLenght))
+                    valueParameterId = formatDecimal(currentCraneLenght))
             }
 
 
@@ -112,17 +112,14 @@ fun ParametersCargoCharacteristics(
 }
 
 private fun formatZapasovka(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%01d", value)
 }
 
 private fun format(value: Int): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%02d", value)
 }
 
 private fun formatDecimal(value: Float): String {
-    //return String.format("%.1f", value).padStart(5, '0')
     return String.format("%03.1f", value).replace(',', '.')
 }
 
@@ -134,7 +131,7 @@ fun ParametersCargoCharacteristicsPreview () {
             currentGruzovayZapasovka = 1,
             currentMaxWeight = 1f,
             currentMaxWeight2 = 1f,
-            currentCraneLenght = 1
+            currentCraneLenght = 60f
         )
     }
 }

@@ -271,17 +271,18 @@ class ServiceMenuViewModel
 
 
     private val addresses = listOf(
-        163, 381, 336, 373, 374, 175, 154, 176, 644, 645, 646, 647, 648, 649,
-        650, 651, 652, 653, 654, 655, 656, 657, 658, 659, 660, 997,
-        750, 751, 752, 753, 754, 755, 756, 757, 758,
-        1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619,
-        1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1631,
-        1640, 1641, 1642, 1643, 1644, 1645, 1646, 1647, 1648, 1649,
-        1650, 1651, 1652, 1653, 1654, 1690, 1691, 1692, 1693, 1694,
-        1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704,
-        1705, 1730, 1731, 1732, 1733, 1734, 1735, 1736, 1737, 1738,
-        1739, 1740, 1741, 1742, 1743, 1744,
-        2001
+        33010, 30151, 33209, 33147, 33148, 33011, 33012, 33013, 33014, 33016, 33021, 33022, 33023, 33024,
+        33171, 33172, 33173, 33174, 33061, 33062, 33063, 33064, 33017, 33018, 33019,
+        33070, 33071, 33072, 33073, 33074, 33075, 33076, 33077, 33078,
+        31150, 31151, 31152, 31153, 31154, 31155, 31156, 31157,31158, 31159,
+        31160, 31161, 31162, 31163, 31164, 31165, 31166, 31167, 31168, 31169,
+        31170, 31171,
+        31250, 31251, 31252, 31253, 31254, 31255, 31256, 31257, 31258,
+        31260, 31263, 31262, 31261, 31264, 31265,
+        31350, 31351, 31352, 1693, 31354, 31355, 31359, 31356, 31357, 31358,
+        31360, 31363, 31362, 31361, 31364, 31365,
+        31450, 31451, 31452, 31453, 31454, 31455, 31456, 31457, 31458,
+        31460, 31463, 31462, 31461, 31464, 31465,
         // Регистры для считывания
     )
 
@@ -344,140 +345,137 @@ class ServiceMenuViewModel
         return ServiceMenuState(
             userState = UserState (
                 //СЕРВИСНЫЙ РЕЖИМ. СИСТЕМНАЯ НАСТРОЙКА УРОВЕНЬ ИНЖЕНЕР
-                currentDataLogErrStopHoist = cache[750] ?: 0,
-                currentPasswordOrNaladka = cache[751] ?: 0,
-                currentFOURPolygonsEn = cache[752] ?: 0,
-                currentWithoutRingCurrentCollector = cache[753] ?: 0,
-                currentZoneACCDECActive = cache[754] ?: 0,
-                currentLukModeActiveEn = cache[758] ?: 0,
+                currentDataLogErrStopHoist = cache[33070] ?: 0,
+                currentPasswordOrNaladka = cache[33071] ?: 0,
+                currentFOURPolygonsEn = cache[33072] ?: 0,
+                currentWithoutRingCurrentCollector = cache[33073] ?: 0,
+                currentZoneACCDECActive = cache[33074] ?: 0,
+                currentLukModeActiveEn = cache[33075] ?: 0,
             ),
 
             sensorsState = SensorsState (
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ВЕТРА
-                currentWind = safeDivideTens(cache[163] ?: 0),
-                currentAnemometerSensor = cache[381] ?: 0,
-                currentAnemometerStatus = cache[336] ?: 0,
+                currentWind = safeDivideTens(cache[33010] ?: 0),
+                currentAnemometerSensor = cache[30151] ?: 0,
+                currentAnemometerStatus = cache[33209] ?: 0,
 
-                hmiWindSpeedLvl1 = safeDivideTens(cache[175] ?: 0),
-                hmiWindSpeedLvl2 = safeDivideTens(cache[154] ?: 0),
-                hmiWindSpeedLvl1Montage = safeDivideTens(cache[176] ?: 0),
-                hmiAnemometerTimeSmooth = cache[644] ?: 0,
-                hmiReadAnemometerMinWind = safeDivideTens(cache[645] ?: 0), //Нижний предел измерения анемометра, м/с
-                hmiReadAnemometerMaxWind = safeDivideTens(cache[658] ?: 0), //Верхний предел измерения анемометра, м/с
-                hmiReadAnemometerMinAmper = safeDivideTens(cache[659] ?: 0), //Нижний предел показаний анемометра, mA
-                hmiReadAnemometerMaxAmper = safeDivideTens(cache[660] ?: 0), //Верхний предел показаний анемометра, mA
+                hmiWindSpeedLvl1 = safeDivideTens(cache[33011] ?: 0),
+                hmiWindSpeedLvl2 = safeDivideTens(cache[33012] ?: 0),
+                hmiWindSpeedLvl1Montage = safeDivideTens(cache[33013] ?: 0),
+                hmiAnemometerTimeSmooth = cache[33014] ?: 0,
+                hmiReadAnemometerMinWind = safeDivideTens(cache[33016] ?: 0), //Нижний предел измерения анемометра, м/с
+                hmiReadAnemometerMaxWind = safeDivideTens(cache[33017] ?: 0), //Верхний предел измерения анемометра, м/с
+                hmiReadAnemometerMinAmper = safeDivideTens(cache[33018] ?: 0), //Нижний предел показаний анемометра, mA
+                hmiReadAnemometerMaxAmper = safeDivideTens(cache[33019] ?: 0), //Верхний предел показаний анемометра, mA
 
 
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА ГРУЗА
-                hmiAdvLoadCellLL= cache[646] ?: 0, //Минимальное значение измерения
-                hmiAdvLoadCellHH= cache[647] ?: 0, //Максимальное значение измерения
-                hmiArraySizeWeightSmooth= cache[648] ?: 0, //Глубина сглаживания измерения веса
-                hmiWeightSPOverSpeed = safeDivideTens(cache[649] ?: 0), //Уставка массы, ниже которой будет разрешена повышенная скорость
+                hmiAdvLoadCellLL= cache[33021] ?: 0, //Минимальное значение измерения
+                hmiAdvLoadCellHH= cache[33022] ?: 0, //Максимальное значение измерения
+                hmiArraySizeWeightSmooth= cache[33023] ?: 0, //Глубина сглаживания измерения веса
+                hmiWeightSPOverSpeed = safeDivideTens(cache[33024] ?: 0), //Уставка массы, ниже которой будет разрешена повышенная скорость
 
 
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКОВ ПОЛОЖЕНИЯ
-                currentAbsEncDeltaControlEn = cache[755] ?: 0,
-                currentAbsEncDebugModeHoist = cache[756] ?: 0,
-                currentAbsEncDebugModeSlew = cache[757] ?: 0,
+                currentAbsEncDeltaControlEn = cache[33076] ?: 0,
+                currentAbsEncDebugModeHoist = cache[33077] ?: 0,
+                currentAbsEncDebugModeSlew = cache[33078] ?: 0,
 
-                hmiSlewNumberTeethOPU= cache[650] ?: 0, //Число зубьев ОПУ крана
-                hmiSlewNumberTeethGearSensor= cache[651] ?: 0, //Число зубьев шестерни датчика поворота крана
-                hmiSlewSingleTurnStepsSensor= cache[652] ?: 0, //Количество импульсов за оборот датчика
-                hmiSlewRatioK = safeDivideHundred(cache[653] ?: 0), //Коэффициент передачи ОПУ и шестерни датчика
+                hmiSlewNumberTeethOPU= cache[33171] ?: 0, //Число зубьев ОПУ крана
+                hmiSlewNumberTeethGearSensor= cache[33172] ?: 0, //Число зубьев шестерни датчика поворота крана
+                hmiSlewSingleTurnStepsSensor= cache[33173] ?: 0, //Количество импульсов за оборот датчика
+                hmiSlewRatioK = safeDivideHundred(cache[33174] ?: 0), //Коэффициент передачи ОПУ и шестерни датчика
 
-                hmiHoistAbsEncMaxDeltaEn= cache[654] ?: 0, //Максимальное рассогласование абс. энкодера подъема
-                hmiSlewAbsEncMaxDeltaEn= cache[655] ?: 0, //Максимальное рассогласование абс. энкодера подъема
-                hmiTrolleyAbsEncMaxDeltaEn= cache[656] ?: 0, //Максимальное рассогласование абс. энкодера подъема
-                hmiCraneAbsEncMaxDeltaEn= cache[657] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiHoistAbsEncMaxDeltaEn= cache[33061] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiSlewAbsEncMaxDeltaEn= cache[33062] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiTrolleyAbsEncMaxDeltaEn= cache[33063] ?: 0, //Максимальное рассогласование абс. энкодера подъема
+                hmiCraneAbsEncMaxDeltaEn= cache[33064] ?: 0, //Максимальное рассогласование абс. энкодера подъема
 
                 //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ДАТЧИКА РЕПЕРНОЙ ТОЧКИ
-                craneCTRLPointEN = cache[373] ?: 0,
-                ctrlPointControlInterval = safeDivideTens(cache[374] ?: 0),
+                craneCTRLPointEN = cache[33147] ?: 0,
+                ctrlPointControlInterval = safeDivideTens(cache[33148] ?: 0),
             ),
             hoistDriveState = HoistDriveState(
-                hmiSpdRefButtonHoist    = cache[1610] ?: 0,
-                hmiSpdRef1Hoist         = cache[1611] ?: 0,
-                hmiSpdRef2Hoist         = cache[1612] ?: 0,
-                hmiSpdRef3Hoist         = cache[1613] ?: 0,
-                hmiSpdRef4Hoist         = cache[1614] ?: 0,
-                hmiSpdRefMAXHoist       = cache[1615] ?: 0,
-                hmiSpdRefNomHoist       = cache[1616] ?: 0,
-                hmiHoistACC = safeDivideTens(cache[1617] ?: 0),
-                hmiHoistDEC = safeDivideTens(cache[1618] ?: 0),
+                hmiSpdRefButtonHoist    = cache[31150] ?: 0,
+                hmiSpdRef1Hoist         = cache[31151] ?: 0,
+                hmiSpdRef2Hoist         = cache[31152] ?: 0,
+                hmiSpdRef3Hoist         = cache[31153] ?: 0,
+                hmiSpdRef4Hoist         = cache[31154] ?: 0,
+                hmiSpdRefMAXHoist       = cache[31159] ?: 0,
+                hmiSpdRefNomHoist       = cache[31155] ?: 0,
+                hmiHoistACC = safeDivideTens(cache[31156] ?: 0),
+                hmiHoistDEC = safeDivideTens(cache[31157] ?: 0),
 
-                hmiSpdRef1HoistMontage = cache[1619] ?: 0,
-                hmiSpdRef2HoistMontage = cache[1620] ?: 0,
-                hmiHoistACCMontage = safeDivideTens(cache[1621] ?: 0),
-                hmiHoistDECMontage = safeDivideTens(cache[1622] ?: 0),
+                hmiSpdRef1HoistMontage = cache[31166] ?: 0,
+                hmiSpdRef2HoistMontage = cache[31167] ?: 0,
+                hmiHoistACCMontage = safeDivideTens(cache[31168] ?: 0),
+                hmiHoistDECMontage = safeDivideTens(cache[31169] ?: 0),
 
-                hmiHoistLimitState = cache[1623] ?: 0,
-                hmiLspAutoStatHoist = cache[1624] ?: 0,
-                hmiLspDist3Hoist = safeDivideTens(cache[1625] ?: 0),
-                hmiLspDist2Hoist = safeDivideTens(cache[1626] ?: 0),
-                hmiLspDist1Hoist = safeDivideTens(cache[1627] ?: 0),
-                hmiZoneAccHoist = safeDivideTens(cache[1628] ?: 0),
-                hmiZoneDecHoist = safeDivideTens(cache[1629] ?: 0),
+                hmiHoistLimitState = cache[31158] ?: 0,
+                hmiLspAutoStatHoist = cache[31160] ?: 0,
+                hmiLspDist3Hoist = safeDivideTens(cache[31163] ?: 0),
+                hmiLspDist2Hoist = safeDivideTens(cache[31162] ?: 0),
+                hmiLspDist1Hoist = safeDivideTens(cache[31161] ?: 0),
+                hmiZoneAccHoist = safeDivideTens(cache[31164] ?: 0),
+                hmiZoneDecHoist = safeDivideTens(cache[31165] ?: 0),
 
-                hmiHoistBrakeControlStat = cache[1630] ?: 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
-                hmiHoistBrakeControlTimeout = safeDivideTens(cache[1631] ?: 0), //Время ожидания обратной связи от тормоза
+                hmiHoistBrakeControlStat = cache[31170] ?: 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
+                hmiHoistBrakeControlTimeout = safeDivideTens(cache[31171] ?: 0), //Время ожидания обратной связи от тормоза
             ),
             slewDriveState = SlewDriveState(
-                hmiSpdRefLowSlew = cache[1640] ?: 0,
-                hmiSpdRef1Slew  = cache[1641] ?: 0,
-                hmiSpdRef2Slew  = cache[1642] ?: 0,
-                hmiSpdRef3Slew  = cache[1643] ?: 0,
-                hmiSpdRef4Slew  = cache[1644] ?: 0,
-                hmiSpdRefNomSlew = cache[1645] ?: 0,
-                hmiSlewACC = safeDivideTens(cache[1646] ?: 0),
-                hmiSlewDEC = safeDivideTens(cache[1647] ?: 0),
+                hmiSpdRefLowSlew = cache[31250] ?: 0,
+                hmiSpdRef1Slew  = cache[31251] ?: 0,
+                hmiSpdRef2Slew  = cache[31252] ?: 0,
+                hmiSpdRef3Slew  = cache[31253] ?: 0,
+                hmiSpdRef4Slew  = cache[31254] ?: 0,
+                hmiSpdRefNomSlew = cache[31255] ?: 0,
+                hmiSlewACC = safeDivideTens(cache[31256] ?: 0),
+                hmiSlewDEC = safeDivideTens(cache[31257] ?: 0),
 
-
-                hmiSlewLimitState = cache[1648] ?: 0,
-                hmiLspAutoStatSlew = cache[1649] ?: 0,
-                hmiLspDist3Slew = safeDivideTens(cache[1650] ?: 0),
-                hmiLspDist2Slew = safeDivideTens(cache[1651] ?: 0),
-                hmiLspDist1Slew = safeDivideTens(cache[1652] ?: 0),
-                hmiZoneAccSlew = safeDivideTens(cache[1653] ?: 0),
+                hmiSlewLimitState = cache[31258] ?: 0,
+                hmiLspAutoStatSlew = cache[31260] ?: 0,
+                hmiLspDist3Slew = safeDivideTens(cache[31263] ?: 0),
+                hmiLspDist2Slew = safeDivideTens(cache[31262] ?: 0),
+                hmiLspDist1Slew = safeDivideTens(cache[31261] ?: 0),
+                hmiZoneAccSlew = safeDivideTens(cache[31264] ?: 0),
                 hmiZoneDecSlew = safeDivideTens(cache[1654] ?: 0),
-
-
                 ),
             trolleyDriveState = TrolleyDriveState(
-                hmiSpdRefLowTrolley = cache[1690] ?: 0,
-                hmiSpdRef1Trolley   = cache[1691] ?: 0,
-                hmiSpdRef2Trolley   = cache[1692] ?: 0,
-                hmiSpdRef3Trolley   = cache[1693] ?: 0,
-                hmiSpdRef4Trolley   = cache[1694] ?: 0,
-                hmiSpdRefNomTrolley = cache[1695] ?: 0,
-                hmiSpdRefOverSpd    = safeDivideTens( cache[1696] ?: 0), //Масса груза выше которой запрешена повышенная скорость тележки
-                hmiTrolleyACC = safeDivideTens(cache[1697] ?: 0),
-                hmiTrolleyDEC = safeDivideTens(cache[1698] ?: 0),
+                hmiSpdRefLowTrolley = cache[31350] ?: 0,
+                hmiSpdRef1Trolley   = cache[31351] ?: 0,
+                hmiSpdRef2Trolley   = cache[31352] ?: 0,
+                hmiSpdRef3Trolley   = cache[31353] ?: 0,
+                hmiSpdRef4Trolley   = cache[31354] ?: 0,
+                hmiSpdRefNomTrolley = cache[31355] ?: 0,
+                hmiSpdRefOverSpd    = safeDivideTens( cache[31359] ?: 0), //Масса груза выше которой запрешена повышенная скорость тележки
+                hmiTrolleyACC = safeDivideTens(cache[31356] ?: 0),
+                hmiTrolleyDEC = safeDivideTens(cache[31357] ?: 0),
 
-                hmiTrolleyLimitState = cache[1699] ?: 0,
-                hmiLspAutoStatSlew = cache[1700] ?: 0,
-                hmiLspDist3Slew = safeDivideTens(cache[1701] ?: 0),
-                hmiLspDist2Slew =safeDivideTens(cache[1702] ?: 0),
-                hmiLspDist1Slew = safeDivideTens(cache[1703] ?: 0),
-                hmiZoneAccSlew = safeDivideTens(cache[1704] ?: 0),
-                hmiZoneDecSlew = safeDivideTens(cache[1705] ?: 0)
+                hmiTrolleyLimitState = cache[31358] ?: 0,
+                hmiLspAutoStatSlew = cache[31360] ?: 0,
+                hmiLspDist3Slew = safeDivideTens(cache[31363] ?: 0),
+                hmiLspDist2Slew =safeDivideTens(cache[31362] ?: 0),
+                hmiLspDist1Slew = safeDivideTens(cache[31361] ?: 0),
+                hmiZoneAccSlew = safeDivideTens(cache[31364] ?: 0),
+                hmiZoneDecSlew = safeDivideTens(cache[31365] ?: 0)
             ),
             craneDriveState = CraneDriveState(
-                hmiSpdRefLowCrane = cache[1730] ?: 0,
-                hmiSpdRef1Crane = cache[1731] ?: 0,
-                hmiSpdRef2Crane = cache[1732] ?: 0,
-                hmiSpdRef3Crane = cache[1733] ?: 0,
-                hmiSpdRef4Crane = cache[1734] ?: 0,
-                hmiSpdRefNomCrane = cache[1735] ?: 0,
-                hmiCraneACC = safeDivideTens(cache[1736] ?: 0),
-                hmiCraneDEC = safeDivideTens(cache[1737] ?: 0),
+                hmiSpdRefLowCrane = cache[31450] ?: 0,
+                hmiSpdRef1Crane = cache[31451] ?: 0,
+                hmiSpdRef2Crane = cache[31452] ?: 0,
+                hmiSpdRef3Crane = cache[31453] ?: 0,
+                hmiSpdRef4Crane = cache[31454] ?: 0,
+                hmiSpdRefNomCrane = cache[31455] ?: 0,
+                hmiCraneACC = safeDivideTens(cache[31456] ?: 0),
+                hmiCraneDEC = safeDivideTens(cache[31457] ?: 0),
 
-                hmiCraneLimitState = cache[1738] ?: 0,
-                hmiLspAutoStatCrane = cache[1739] ?: 0,
-                hmiLspDist3Crane = safeDivideTens(cache[1740] ?: 0),
-                hmiLspDist2Crane = safeDivideTens(cache[1741] ?: 0),
-                hmiLspDist1Crane = safeDivideTens(cache[1742] ?: 0),
-                hmiZoneAccCrane = safeDivideTens(cache[1743] ?: 0),
-                hmiZoneDecCrane = safeDivideTens(cache[1744] ?: 0)
+                hmiCraneLimitState = cache[31458] ?: 0,
+                hmiLspAutoStatCrane = cache[31460] ?: 0,
+                hmiLspDist3Crane = safeDivideTens(cache[31463] ?: 0),
+                hmiLspDist2Crane = safeDivideTens(cache[31462] ?: 0),
+                hmiLspDist1Crane = safeDivideTens(cache[31461] ?: 0),
+                hmiZoneAccCrane = safeDivideTens(cache[31464] ?: 0),
+                hmiZoneDecCrane = safeDivideTens(cache[31465] ?: 0)
             ),
         )
     }
@@ -662,9 +660,9 @@ class ServiceMenuViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Сброс ошибки
-                modbusRepository.writeRegister(890, 1)
+                modbusRepository.writeRegister(61100, 1)
                 delay(200)
-                modbusRepository.writeRegister(890, 0)
+                modbusRepository.writeRegister(61100, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -680,7 +678,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueHoistACC.value, 0.0f, 10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(946, model)
+                modbusRepository.writeRegister(61156, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -696,7 +694,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueHoistDEC.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(947, model)
+                modbusRepository.writeRegister(61157, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -713,7 +711,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRef1.value, 0,120 )
                 // Запись в регистры
-                modbusRepository.writeRegister(941, model)
+                modbusRepository.writeRegister(61151, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -729,7 +727,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRef2.value, 0,400 )
                 // Запись в регистры
-                modbusRepository.writeRegister(942, model)
+                modbusRepository.writeRegister(61152, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -745,7 +743,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRef3.value, 0,1000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(943, model)
+                modbusRepository.writeRegister(61153, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -761,7 +759,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRef4.value, 0,3000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(944, model)
+                modbusRepository.writeRegister(61154, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -777,7 +775,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRefButton.value, 0,120 )
                 // Запись в регистры
-                modbusRepository.writeRegister(940, model)
+                modbusRepository.writeRegister(61150, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -793,7 +791,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdRefMax.value, 0,3000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(945, model)
+                modbusRepository.writeRegister(61159, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -809,7 +807,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistSpdNom.value, 0,1500 )
                 // Запись в регистры
-                modbusRepository.writeRegister(948, model)
+                modbusRepository.writeRegister(61155, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -826,7 +824,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueHoistMontageACC.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(952, model)
+                modbusRepository.writeRegister(61168, model)
                 _errorMessageHoistMontage.value = null
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
@@ -842,7 +840,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueHoistMontageDEC.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(953, model)
+                modbusRepository.writeRegister(61169, model)
                 _errorMessageHoistMontage.value = null
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
@@ -859,7 +857,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistMontageSpdRef1.value, 0,240 )
                 // Запись в регистры
-                modbusRepository.writeRegister(950, model)
+                modbusRepository.writeRegister(61166, model)
                 _errorMessageHoistMontage.value = null
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
@@ -875,7 +873,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueHoistMontageSpdRef2.value, 0,3000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(951, model)
+                modbusRepository.writeRegister(61167, model)
                 _errorMessageHoistMontage.value = null
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
@@ -890,9 +888,9 @@ class ServiceMenuViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Запись в регистры
-                modbusRepository.writeRegister(1222, 1)
+                modbusRepository.writeRegister(61170, 1)
                 delay(200)
-                modbusRepository.writeRegister(1222, 0)
+                modbusRepository.writeRegister(61170, 0)
             } catch (e: Exception) {
 
             }
@@ -905,7 +903,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueHoistBrakeControlTimeout.value, 0.0f,2.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1223, model)
+                modbusRepository.writeRegister(61171, model)
                 _errorMessageHoistMontage.value = null
                 _logMessageHoistMontage.value = "Сохранено"
             } catch (e: Exception) {
@@ -927,7 +925,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewACC.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(968, model)
+                modbusRepository.writeRegister(61256, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -943,7 +941,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewDEC.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(969, model)
+                modbusRepository.writeRegister(61257, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -959,7 +957,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdRef1.value, 0,200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(956, model)
+                modbusRepository.writeRegister(61251, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -975,7 +973,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdRef2.value, 0,600 )
                 // Запись в регистры
-                modbusRepository.writeRegister(957, model)
+                modbusRepository.writeRegister(61252, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -991,7 +989,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdRef3.value, 0,1200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(958, model)
+                modbusRepository.writeRegister(61253, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -1007,7 +1005,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdRef4.value, 0,2000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(959, model)
+                modbusRepository.writeRegister(61254, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -1023,7 +1021,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdNom.value, 0,1500 )
                 // Запись в регистры
-                modbusRepository.writeRegister(970, model)
+                modbusRepository.writeRegister(61255, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -1043,7 +1041,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyACC.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(964, model)
+                modbusRepository.writeRegister(61356, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1059,7 +1057,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyDEC.value, 0.0f,10.0f)
                 // Запись в регистры
-                modbusRepository.writeRegister(965, model)
+                modbusRepository.writeRegister(61357, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1076,7 +1074,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleySpdRef1.value, 0,200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(960, model)
+                modbusRepository.writeRegister(61351, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1092,7 +1090,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleySpdRef2.value, 0,600 )
                 // Запись в регистры
-                modbusRepository.writeRegister(961, model)
+                modbusRepository.writeRegister(61352, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1108,7 +1106,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleySpdRef3.value, 0,1200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(962, model)
+                modbusRepository.writeRegister(61353, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1124,7 +1122,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleySpdRef4.value, 0,2000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(963, model)
+                modbusRepository.writeRegister(61354, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1140,7 +1138,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleyLsp.value, 0,200 )
                 // Запись в регистры
-                modbusRepository.writeRegister(966, model)
+                modbusRepository.writeRegister(61350, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1156,7 +1154,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyTrolleyOverspd.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(967, model)
+                modbusRepository.writeRegister(61359, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1172,7 +1170,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueTrolleySpdNom.value, 0,1500 )
                 // Запись в регистры
-                modbusRepository.writeRegister(971, model)
+                modbusRepository.writeRegister(61355, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -1191,7 +1189,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueCraneACC.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(976, model)
+                modbusRepository.writeRegister(61456, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1207,7 +1205,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueCraneDEC.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(977, model)
+                modbusRepository.writeRegister(61457, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1224,7 +1222,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueCraneSpdRef1.value, 0,300 )
                 // Запись в регистры
-                modbusRepository.writeRegister(972, model)
+                modbusRepository.writeRegister(61451, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1240,7 +1238,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueCraneSpdRef2.value, 0,700 )
                 // Запись в регистры
-                modbusRepository.writeRegister(973, model)
+                modbusRepository.writeRegister(61452, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1256,7 +1254,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueCraneSpdRef3.value, 0,1500 )
                 // Запись в регистры
-                modbusRepository.writeRegister(974, model)
+                modbusRepository.writeRegister(61453, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1272,7 +1270,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueCraneSpdRef4.value, 0,2000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(975, model)
+                modbusRepository.writeRegister(61454, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -1290,9 +1288,9 @@ class ServiceMenuViewModel
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Запись в регистры
-                modbusRepository.writeRegister(978, 1)
+                modbusRepository.writeRegister(63147, 1)
                 delay(200)
-                modbusRepository.writeRegister(978, 0)
+                modbusRepository.writeRegister(63147, 0)
                 _errorMessageCTRLPoint.value = null
                 _logMessageCTRLPoint.value = "Сохранено"
             } catch (e: Exception) {
@@ -1307,7 +1305,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueCTRLPointControlInterval.value, 0.0f,300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(979, model)
+                modbusRepository.writeRegister(63148, model)
                 _errorMessageCTRLPoint.value = null
                 _logMessageCTRLPoint.value = "Сохранено"
             } catch (e: Exception) {
@@ -1327,7 +1325,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueWindSpeedLvl1.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(980, model)
+                modbusRepository.writeRegister(63011, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1342,7 +1340,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueWindSpeedLvl2.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(981, model)
+                modbusRepository.writeRegister(63012, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1357,7 +1355,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueWindSpeedMontageLvl.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(982, model)
+                modbusRepository.writeRegister(63013, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1372,7 +1370,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueWindTimeSmooth.value, 0,10 )
                 // Запись в регистры
-                modbusRepository.writeRegister(983, model)
+                modbusRepository.writeRegister(63014, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1387,7 +1385,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueAnemometerMinWind.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(984, model)
+                modbusRepository.writeRegister(63016, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1402,7 +1400,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueAnemometerMaxWind.value, 0.0f,100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(985, model)
+                modbusRepository.writeRegister(63017, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1418,7 +1416,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueAnemometerMinAmper.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(986, model)
+                modbusRepository.writeRegister(63017, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1431,9 +1429,9 @@ class ServiceMenuViewModel
     fun onSetAnemometerMaxAmperClbr() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val model = validateAndConvertFloat(_setValueAnemometerMinAmper.value, 0.0f,20.0f )
+                val model = validateAndConvertFloat(_setValueAnemometerMaxAmper.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1224, model)
+                modbusRepository.writeRegister(63017, model)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
             } catch (e: Exception) {
@@ -1450,9 +1448,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(1225, 1)
+                modbusRepository.writeRegister(63010, 1)
                 delay(200)
-                modbusRepository.writeRegister(1225, 0)
+                modbusRepository.writeRegister(63010, 0)
                 _errorMessageWind.value = null
                 _logMessageWind.value = "Сохранено"
                 // Логирование
@@ -1472,7 +1470,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setLoadCellMinWeight.value, 0,10000 )
                 // Запись в регистры
-                modbusRepository.writeRegister(1200, model)
+                modbusRepository.writeRegister(63021, model)
                 _errorMessageLoadCell.value = null
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
@@ -1487,7 +1485,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setLoadCellMaxWeight.value, 0,32767 )
                 // Запись в регистры
-                modbusRepository.writeRegister(1201, model)
+                modbusRepository.writeRegister(63022, model)
                 _errorMessageLoadCell.value = null
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
@@ -1503,7 +1501,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setLoadCellSmoothingDepth.value, 0,500 )
                 // Запись в регистры
-                modbusRepository.writeRegister(1202, model)
+                modbusRepository.writeRegister(63023, model)
                 _errorMessageLoadCell.value = null
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
@@ -1519,7 +1517,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setLoadCellOverSpeedThreshold.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1203, model)
+                modbusRepository.writeRegister(63024, model)
                 _errorMessageLoadCell.value = null
                 _logMessageLoadCell.value = "Сохранено"
             } catch (e: Exception) {
@@ -1538,7 +1536,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewNumberTeethOPU.value, 0,999 )
                 // Запись в регистры
-                modbusRepository.writeRegister(990, model)
+                modbusRepository.writeRegister(33171, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1554,7 +1552,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewNumberTeethGearSensor.value, 0,100 )
                 // Запись в регистры
-                modbusRepository.writeRegister(991, model)
+                modbusRepository.writeRegister(33172, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1570,7 +1568,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSingleTurnStepsSensor.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(992, model)
+                modbusRepository.writeRegister(33173, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1586,7 +1584,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewRatioK.value, 0.00f,999.99f )
                 // Запись в регистры
-                modbusRepository.writeRegister(993, model)
+                modbusRepository.writeRegister(33174, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1602,7 +1600,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDIHoistAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(997, model)
+                modbusRepository.writeRegister(63061, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1618,7 +1616,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDISlewAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(998, model)
+                modbusRepository.writeRegister(63062, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1634,7 +1632,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDITrolleyAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(999, model)
+                modbusRepository.writeRegister(63063, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1650,7 +1648,7 @@ class ServiceMenuViewModel
             try {
                 val model = validateAndConvert(_setValueUDICraneAbsEncMaxDeltaEn.value, 0,65535 )
                 // Запись в регистры
-                modbusRepository.writeRegister(989, model)
+                modbusRepository.writeRegister(63064, model)
                 _errorMessageAbsEnc.value = null
                 _logMessageAbsEnc.value = "Сохранено"
             } catch (e: Exception) {
@@ -1667,9 +1665,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(994, 1)
+                modbusRepository.writeRegister(63076, 1)
                 delay(200)
-                modbusRepository.writeRegister(994, 0)
+                modbusRepository.writeRegister(63076, 0)
             } catch (e: Exception) {
             }
         }
@@ -1682,9 +1680,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(995, 1)
+                modbusRepository.writeRegister(63077, 1)
                 delay(200)
-                modbusRepository.writeRegister(995, 0)
+                modbusRepository.writeRegister(63077, 0)
             } catch (e: Exception) {
             }
         }
@@ -1697,9 +1695,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(996, 1)
+                modbusRepository.writeRegister(63078, 1)
                 delay(200)
-                modbusRepository.writeRegister(996, 0)
+                modbusRepository.writeRegister(63078, 0)
             } catch (e: Exception) {
             }
         }
@@ -1716,9 +1714,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1204, 1)
+                modbusRepository.writeRegister(63070, 1)
                 delay(200)
-                modbusRepository.writeRegister(1204, 0)
+                modbusRepository.writeRegister(63070, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1731,9 +1729,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1205, 1)
+                modbusRepository.writeRegister(63071, 1)
                 delay(200)
-                modbusRepository.writeRegister(1205, 0)
+                modbusRepository.writeRegister(63071, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1746,9 +1744,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1206, 1)
+                modbusRepository.writeRegister(63072, 1)
                 delay(200)
-                modbusRepository.writeRegister(1206, 0)
+                modbusRepository.writeRegister(63072, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1761,9 +1759,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1207, 1)
+                modbusRepository.writeRegister(63073, 1)
                 delay(200)
-                modbusRepository.writeRegister(1207, 0)
+                modbusRepository.writeRegister(63073, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1776,9 +1774,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1208, 1)
+                modbusRepository.writeRegister(63074, 1)
                 delay(200)
-                modbusRepository.writeRegister(1208, 0)
+                modbusRepository.writeRegister(63074, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1791,9 +1789,9 @@ class ServiceMenuViewModel
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
                 // Активация калибровки
-                modbusRepository.writeRegister(1226, 1)
+                modbusRepository.writeRegister(63075, 1)
                 delay(200)
-                modbusRepository.writeRegister(1226, 0)
+                modbusRepository.writeRegister(63075, 0)
                 // Логирование
             } catch (e: Exception) {
             }
@@ -1806,9 +1804,9 @@ class ServiceMenuViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Активация функции
-                modbusRepository.writeRegister(2000, 1)
+                modbusRepository.writeRegister(62000, 1)
                 delay(200)
-                modbusRepository.writeRegister(2000, 0)
+                modbusRepository.writeRegister(62000, 0)
             } catch (e: Exception) {
             }
         }
@@ -1820,9 +1818,9 @@ class ServiceMenuViewModel
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Сброс ошибки
-                modbusRepository.writeRegister(954, 1)
+                modbusRepository.writeRegister(60161, 1)
                 delay(200)
-                modbusRepository.writeRegister(954, 0)
+                modbusRepository.writeRegister(60161, 0)
                 // Логирование
             } catch (e: Exception) {
             }

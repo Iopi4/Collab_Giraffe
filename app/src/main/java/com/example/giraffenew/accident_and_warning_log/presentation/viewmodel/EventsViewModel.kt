@@ -42,13 +42,14 @@ open class EventsViewModel
 
 ): ViewModel() {
 
-    val addresses = listOf(186, 187, 188, 189, 244, 245,
-        190, 191, 192, 300, 301, 302, 303, 304, 305, 306,
-        307, 308, 309, 700, 701, 702, 703, 704, 705, 706,
-        707, 708, 709, 710, 711, 712, 713, 714, 715, 716,
-        717, 718, 720, 721, 722, 723, 724, 725, 726, 727,
-        728, 729, 730, 731, 732, 733, 734, 735, 736, 737,
-        738, 739, 740, 741, 742, 743, 744)
+    val addresses = listOf(
+        33027, 33028, 33029, 31130, 30204, 30205, 33001, 33002, 33003,
+        33100,  33101, 33102, 33103, 33104, 33551, 33552, 33553, 33554, 33555,
+        39000, 39001, 39002, 39003, 39004, 39005, 39006, 39007, 39008, 39009,
+        39010, 39011, 39012, 39013, 39014, 39015, 39016, 39017, 39018,
+        39020, 39021, 39022, 39023, 39024, 39025, 39026, 39027, 39028, 39029,
+        39030, 39031, 39032, 39033, 39034, 39035, 39036, 39037,
+        39041, 39042, 39043, 39044, 39045, 39046, 39047)
 
     private val _state = mutableStateOf(EventsState())
     val state: State<EventsState> = _state
@@ -87,7 +88,7 @@ open class EventsViewModel
     }
     /**
     Связывание регистров с определениями событий:
-    При изменении значения регистра (например, 700) система проверяет, есть ли для него определение в JSON
+    При изменении значения регистра (например, 39000) система проверяет, есть ли для него определение в JSON
     Если регистр становится активным (значение = 1), создается соответствующее событие
     JsonDataSource предоставляет доступ к определениям событий
     Для каждого регистра извлекается соответствующее описание и тип события
@@ -135,79 +136,79 @@ open class EventsViewModel
 
     private fun createEventsState(cache: Map<Int, Int?>): EventsState {
         return EventsState(
-            overload105Percent      = cache[186] ?: 0, //Бит превышения грузоподъемности более 105%
-            overload110Percent      = cache[187] ?: 0, //Бит превышения грузоподъемности более 110%
-            ogpLimSw                = cache[188] ?: 0, //Датчик критического момента. 1-Норма (грузоподъемность не превышена). 0- превышение грузоподъемности
-            hoistBrakeSensor        = cache[189] ?: 0, //Износ тормоза привода главного подъема. 0-Норма (тормоз исправен). 1- тормоз изношен
-            buildMode               = cache[190] ?: 0, //Флаг режима наладки
-            serviceMode             = cache[191] ?: 0, //Флаг режима сервис
-            montageMode             = cache[192] ?: 0, //Флаг монтажного режима
-            craneConfigWarning      = cache[300] ?: 0, //Ход крана не настроен
-            hoistConfigWarning      = cache[301] ?: 0, //Подъем не настроен
-            slewConfigWarning       = cache[302] ?: 0, //Поворот крана не настроен
-            trolleyConfigWarning    = cache[303] ?: 0, //Вылет не настроен
-            weightConfigWarning     = cache[304] ?: 0, //Грузоподъемность не настроена
-            technicalReglamentTO1   = cache[305] ?: 0, //Проведите ТО
-            alrmTO1                 = cache[306] ?: 0, //Скорости ограничены, проведите ТО
-            motorHourDelta          = cache[307] ?: 0, //Сколько часов осталось до ТО
-            technicalReglamentTO1Delta      = cache[308] ?: 0, //До ТО осталось AT%MW307 часов
-            technicalReglamentXWarrantyEnd  = cache[309] ?: 0, //Грузовая лебедка отработала 750 м.ч.
+            overload105Percent      = cache[33027] ?: 0, //Бит превышения грузоподъемности более 105%
+            overload110Percent      = cache[33028] ?: 0, //Бит превышения грузоподъемности более 110%
+            ogpLimSw                = cache[33029] ?: 0, //Датчик критического момента. 1-Норма (грузоподъемность не превышена). 0- превышение грузоподъемности
+            hoistBrakeSensor        = cache[31130] ?: 0, //Износ тормоза привода главного подъема. 0-Норма (тормоз исправен). 1- тормоз изношен
+            buildMode               = cache[33001] ?: 0, //Флаг режима наладки
+            serviceMode             = cache[33002] ?: 0, //Флаг режима сервис
+            montageMode             = cache[33003] ?: 0, //Флаг монтажного режима
+            craneConfigWarning      = cache[33104] ?: 0, //Ход крана не настроен
+            hoistConfigWarning      = cache[33101] ?: 0, //Подъем не настроен
+            slewConfigWarning       = cache[33102] ?: 0, //Поворот крана не настроен
+            trolleyConfigWarning    = cache[33103] ?: 0, //Вылет не настроен
+            weightConfigWarning     = cache[33100] ?: 0, //Грузоподъемность не настроена
+            technicalReglamentTO1   = cache[33551] ?: 0, //Проведите ТО
+            alrmTO1                 = cache[33552] ?: 0, //Скорости ограничены, проведите ТО
+            motorHourDelta          = cache[33553] ?: 0, //Сколько часов осталось до ТО
+            technicalReglamentTO1Delta      = cache[33554] ?: 0, //До ТО осталось AT%MW307 часов
+            technicalReglamentXWarrantyEnd  = cache[33555] ?: 0, //Грузовая лебедка отработала 750 м.ч.
 
-            hmiHatchLimitSwitchStatus       = cache[700] ?: 0,
-            hmiLineContactorZeroPosAlarm    = cache[701] ?: 0,
-            hmiMicroclimateHeaterFault      = cache[702] ?: 0,
-            hmiBrakePowerSupplyFault        = cache[703] ?: 0,
-            hmiVentilationPowerSupplyFault  = cache[704] ?: 0,
+            hmiHatchLimitSwitchStatus       = cache[39000] ?: 0,
+            hmiLineContactorZeroPosAlarm    = cache[39001] ?: 0,
+            hmiMicroclimateHeaterFault      = cache[39002] ?: 0,
+            hmiBrakePowerSupplyFault        = cache[39003] ?: 0,
+            hmiVentilationPowerSupplyFault  = cache[39004] ?: 0,
 
-            hmiHoistJoystickError           = cache[705] ?: 0,
-            hmiSlewJoystickError            = cache[706] ?: 0,
-            hmiTrolleyJoystickError         = cache[707] ?: 0,
-            hmiTravelJoystickError          = cache[708] ?: 0,
-            hmiLoadMomentSensorAlarm        = cache[709] ?: 0,
+            hmiHoistJoystickError           = cache[39005] ?: 0,
+            hmiSlewJoystickError            = cache[39006] ?: 0,
+            hmiTrolleyJoystickError         = cache[39007] ?: 0,
+            hmiTravelJoystickError          = cache[39008] ?: 0,
+            hmiLoadMomentSensorAlarm        = cache[39009] ?: 0,
 
-            hmiCraneReferencePointSensorFault = cache[711] ?: 0,
-            hmiLoadCellSensorFault          = cache[711] ?: 0,
-            hmiAnemometerSensorFault        = cache[712] ?: 0,
+            hmiCraneReferencePointSensorFault = cache[39010] ?: 0,
+            hmiLoadCellSensorFault          = cache[39011] ?: 0,
+            hmiAnemometerSensorFault        = cache[39012] ?: 0,
 
-            hmiAbsCraneEncoderFault         = cache[713] ?: 0,
-            hmiAbsHoistEncoderFault         = cache[714] ?: 0,
-            hmiAbsSlewEncoderFault          = cache[715] ?: 0,
-            hmiAbsTrolleyEncoderFault       = cache[716] ?: 0,
+            hmiAbsCraneEncoderFault         = cache[39013] ?: 0,
+            hmiAbsHoistEncoderFault         = cache[39014] ?: 0,
+            hmiAbsSlewEncoderFault          = cache[39015] ?: 0,
+            hmiAbsTrolleyEncoderFault       = cache[39016] ?: 0,
 
-            hmiPhaseControlRelayFault       = cache[717] ?: 0,
-            hmiPowerSupplyNetworkFault      = cache[718] ?: 0,
+            hmiPhaseControlRelayFault       = cache[39017] ?: 0,
+            hmiPowerSupplyNetworkFault      = cache[39018] ?: 0,
 
-            hmiHoistDriveError              = cache[720] ?: 0,
-            hmiSlewDriveError               = cache[721] ?: 0,
-            hmiTrolleyDriveError            = cache[722] ?: 0,
-            hmiCraneDriveError              = cache[723] ?: 0,
+            hmiHoistDriveError              = cache[39020] ?: 0,
+            hmiSlewDriveError               = cache[39021] ?: 0,
+            hmiTrolleyDriveError            = cache[39022] ?: 0,
+            hmiCraneDriveError              = cache[39023] ?: 0,
 
-            hmiHoistDrivePowerError         = cache[724] ?: 0,
-            hmiSlewDrivePowerError          = cache[725] ?: 0,
-            hmiTrolleyDrivePowerError       = cache[726] ?: 0,
-            hmiCraneDrivePowerError         = cache[727] ?: 0,
+            hmiHoistDrivePowerError         = cache[39024] ?: 0,
+            hmiSlewDrivePowerError          = cache[39025] ?: 0,
+            hmiTrolleyDrivePowerError       = cache[39026] ?: 0,
+            hmiCraneDrivePowerError         = cache[39027] ?: 0,
 
-            hmiCANopenSensorsError          = cache[728] ?: 0,
-            hmiCANopenDrivesError           = cache[729] ?: 0,
+            hmiCANopenSensorsError          = cache[39028] ?: 0,
+            hmiCANopenDrivesError           = cache[39029] ?: 0,
 
-            hmiHoistAbsEncoderMaxDeltaError    = cache[730] ?: 0,
-            hmiSlewAbsEncoderMaxDeltaError     = cache[731] ?: 0,
-            hmiTrolleyAbsEncoderMaxDeltaError = cache[732] ?: 0,
-            hmiCraneAbsEncoderMaxDeltaError   = cache[733] ?: 0,
+            hmiHoistAbsEncoderMaxDeltaError    = cache[39030] ?: 0,
+            hmiSlewAbsEncoderMaxDeltaError     = cache[39031] ?: 0,
+            hmiTrolleyAbsEncoderMaxDeltaError = cache[39032] ?: 0,
+            hmiCraneAbsEncoderMaxDeltaError   = cache[39033] ?: 0,
 
-            hmiHoistAbsEncoderMaxValueError    = cache[734] ?: 0,
-            hmiSlewAbsEncoderMaxValueError     = cache[735] ?: 0,
-            hmiTrolleyAbsEncoderMaxValueError  = cache[736] ?: 0,
-            hmiCraneAbsEncoderMaxValueError   = cache[737] ?: 0,
+            hmiHoistAbsEncoderMaxValueError    = cache[39034] ?: 0,
+            hmiSlewAbsEncoderMaxValueError     = cache[39035] ?: 0,
+            hmiTrolleyAbsEncoderMaxValueError  = cache[39036] ?: 0,
+            hmiCraneAbsEncoderMaxValueError   = cache[39037] ?: 0,
 
-            hmiHoistDriveErrorCode          = cache[738] ?: 0,
-            hmiSlewDriveErrorCode           = cache[739] ?: 0,
-            hmiTrolleyDriveErrorCode        = cache[740] ?: 0,
-            hmiCraneDriveErrorCode          = cache[741] ?: 0,
+            hmiHoistDriveErrorCode          = cache[39041] ?: 0,
+            hmiSlewDriveErrorCode           = cache[39042] ?: 0,
+            hmiTrolleyDriveErrorCode        = cache[39043] ?: 0,
+            hmiCraneDriveErrorCode          = cache[39044] ?: 0,
 
-            hmiHoistEncoderFault            = cache[742] ?: 0,
-            hmiSlewEncoderFault             = cache[743] ?: 0,
-            hmiTrolleyEncoderFault          = cache[744] ?: 0,
+            hmiHoistEncoderFault            = cache[39045] ?: 0,
+            hmiSlewEncoderFault             = cache[39046] ?: 0,
+            hmiTrolleyEncoderFault          = cache[39047] ?: 0,
         )
     }
 

@@ -25,6 +25,7 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonOnOffStatus
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandButton
 import com.example.giraffenew.core.ui_kit.composable.text.BasicInputRowandThousandButton
+import com.example.giraffenew.service_menu.button.ButtonDebugOnOffStatus
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
 import com.example.giraffenew.ui.theme.Orange
@@ -218,12 +219,12 @@ fun ServicePosition(
                 onClick = onSetUDICraneAbsEncMaxDeltaEn
             )
 //Поле деактивации датчика подъема
-            BasicButtonOnOffStatus(
+            ButtonDebugOnOffStatus(
                 onClick = onSetAbsEncDebugModeHoistEn,
                 isLampStatus = currentAbsEncDebugModeHoist
             )
 //Поле деактивации датчика поворота
-            BasicButtonOnOffStatus(
+            ButtonDebugOnOffStatus(
                 onClick = onSetAbsEncDebugModeSlewEn,
                 isLampStatus = currentAbsEncDebugModeSlew
             )

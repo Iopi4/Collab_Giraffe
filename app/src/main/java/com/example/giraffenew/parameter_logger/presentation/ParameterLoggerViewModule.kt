@@ -30,12 +30,15 @@ class ParameterLoggerViewModule @Inject constructor(
     val currentDateSBKBInstallation: State<String> = _currentDateSBKBInstallation
 
 
-    val addressParameterCrane = listOf( 152, 197, 171, 172, 173, 174, 283, 0, 1,
-        165, 166, 167, 168, 169, 170, 367, 368, 369, 370, 371, 360, 361, 362, 363, 364, 365, 366,
-        1800, 1801, 1802, 1803, 1804, 1805)
+    val addressParameterCrane = listOf( 33503, 33505, 33541, 33542, 33543, 33544, 283, 33546, 33547,
+        33521, 33522, 33523, 33524, 33525, 33526, 33500, 33510, 33517, 33518, 33519,
+        33561, 33562, 33563, 33564, 33565, 33566, 33556,
+        35000, 35001, 35002, 35003, 35004, 35005)
 
-    val addressCyclesOfWork = listOf(20, 21, 24, 25, 28, 29, 32, 33, 36, 37, 40, 41, 44, 45, 48, 49,
-        52, 53, 56, 57, 60, 61, 80, 81, 84, 85, 88, 89, 92, 93, 96, 97)
+    val addressCyclesOfWork = listOf(
+        33580, 33581, 33582, 33583, 33584, 33585, 33586, 33587, 33588, 33589,
+        33590, 33591, 33592, 33593, 33594, 33595, 33596, 33597, 33598, 33599,
+        33600, 33601, 33620, 33621, 33622, 33623, 33624, 33625, 33626, 33627, 33628, 33629)
 
     private val allAddresses = (addressParameterCrane+addressCyclesOfWork).distinct()
 
@@ -98,79 +101,80 @@ class ParameterLoggerViewModule @Inject constructor(
     private fun createParameterLoggerScreenState(cache: Map<Int, Int?>): ParameterLoggerState{
         return ParameterLoggerState(
             сraneParameters = CraneParametersState(
-                qNom        = cache[152] ?: 0,
-                craneLenght = safeDivideTens(cache[197] ?: 0),
-                rAP         = cache[171] ?: 0,
-                rAFIso      = cache[172] ?: 0,
-                rQF         = cache[173] ?: 0,
-                kP          = cache[174] ?: 0,
-                classOfUseC = cache[283] ?: 0,
-                rN1         = cache[0] ?: 0,
-                rN2         = cache[1] ?: 0,
-                settingModeYear     = cache[165] ?: 0,
-                settingModeMonth    = cache[166] ?: 0,
-                settingModeDay      = cache[167] ?: 0,
-                settingModeHour     = cache[168] ?: 0,
-                settingModeMinute   = cache[169] ?: 0,
-                settingModeSeconds  = cache[170] ?: 0,
-                hmiSBKBNo           = cache[368] ?: 0,
-                hmiCraneNo          = cache[367] ?: 0,
+                qNom        = cache[33503] ?: 0,
+                craneLenght = safeDivideTens(cache[33505] ?: 0),
+                rAP         = cache[33541] ?: 0,
+                rAFIso      = cache[33542] ?: 0,
+                rQF         = cache[33543] ?: 0,
+                kP          = cache[33544] ?: 0,
+                classOfUseC = cache[33545] ?: 0,
+                rN1         = cache[33546] ?: 0,
+                rN2         = cache[33547] ?: 0,
+                settingModeYear     = cache[33521] ?: 0,
+                settingModeMonth    = cache[33522] ?: 0,
+                settingModeDay      = cache[33523] ?: 0,
+                settingModeHour     = cache[33524] ?: 0,
+                settingModeMinute   = cache[33525] ?: 0,
+                settingModeSeconds  = cache[33526] ?: 0,
+                hmiSBKBNo           = cache[33510] ?: 0,
+                hmiCraneNo          = cache[33500] ?: 0,
 
-                hmiSBKBInstallationDay= cache[369] ?: 0,
-                hmiSBKBInstallationMonth= cache[370] ?: 0,
-                hmiSBKBInstallationYear= cache[371] ?: 0,
+                hmiSBKBInstallationDay= cache[33517] ?: 0,
+                hmiSBKBInstallationMonth= cache[33518] ?: 0,
+                hmiSBKBInstallationYear= cache[33519] ?: 0,
 
-                hmiHoistOperatingHours  = safeDivideTens(cache[360] ?: 0),
-                hmiSlewOperatingHours   = safeDivideTens(cache[361] ?: 0),
-                hmiTrolleyOperatingHours    = safeDivideTens(cache[362] ?: 0),
-                hmiCraneOperatingHours      = safeDivideTens(cache[363] ?: 0),
-                hmiTotalCraneOperatingHours = safeDivideTens(cache[364] ?: 0),
-                hmiSBKBOperatingHours       = safeDivideTens(cache[365] ?: 0),
-
+                hmiHoistOperatingHours  = safeDivideTens(cache[33561] ?: 0),
+                hmiSlewOperatingHours   = safeDivideTens(cache[33562] ?: 0),
+                hmiTrolleyOperatingHours    = safeDivideTens(cache[33563] ?: 0),
+                hmiCraneOperatingHours      = safeDivideTens(cache[33564] ?: 0),
+                hmiTotalCraneOperatingHours = safeDivideTens(cache[33565] ?: 0),
+                hmiSBKBOperatingHours       = safeDivideTens(cache[33566] ?: 0),
+                hmiHoleCraneHoursTO       = safeDivideTens(cache[33556] ?: 0),
             ),
 
             cyclesOfWorkParameters = CyclesOfWorkParametersState(
-                arrRestA1MW1 = cache[20] ?: 0,
-                arrRestA1MW2 = cache[21] ?: 0,
-                arrRestA2MW1 = cache[24] ?: 0,
-                arrRestA2MW2 = cache[25] ?: 0,
-                arrRestA3MW1 = cache[28] ?: 0,
-                arrRestA3MW2 = cache[29] ?: 0,
-                arrRestA4MW1 = cache[32] ?: 0,
-                arrRestA4MW2 = cache[33] ?: 0,
-                arrRestA5MW1 = cache[36] ?: 0,
-                arrRestA5MW2 = cache[37] ?: 0,
-                arrRestA6MW1 = cache[40] ?: 0,
-                arrRestA6MW2 = cache[41] ?: 0,
-                arrRestA7MW1 = cache[44] ?: 0,
-                arrRestA7MW2 = cache[45] ?: 0,
-                arrRestA8MW1 = cache[48] ?: 0,
-                arrRestA8MW2 = cache[49] ?: 0,
-                arrRestA9MW1 = cache[52] ?: 0,
-                arrRestA9MW2 = cache[53] ?: 0,
-                arrRestA10MW1 = cache[56] ?: 0,
-                arrRestA10MW2 = cache[57] ?: 0,
-                arrRestA11MW1 = cache[60] ?: 0,
-                arrRestA11MW2 = cache[61] ?: 0,
-                rCycleHoistMW1 = cache[80] ?: 0,
-                rCycleHoistMW2 = cache[81] ?: 0,
-                rCycleSlewMW1 = cache[84] ?: 0,
-                rCycleSlewMW2 = cache[85] ?: 0,
-                rCycleTrolleyMW1 = cache[88] ?: 0,
-                rCycleTrolleyMW2 = cache[89] ?: 0,
-                rCycleCraneMW1 = cache[92] ?: 0,
-                rCycleCraneMW2 = cache[93] ?: 0,
-                rCycleHoleCraneMW1 = cache[96] ?: 0,
-                rCycleHoleCraneMW2 = cache[97] ?: 0,
+                arrRestA1MW1 = cache[33580] ?: 0,
+                arrRestA1MW2 = cache[33581] ?: 0,
+                arrRestA2MW1 = cache[33582] ?: 0,
+                arrRestA2MW2 = cache[33583] ?: 0,
+                arrRestA3MW1 = cache[33584] ?: 0,
+                arrRestA3MW2 = cache[33585] ?: 0,
+                arrRestA4MW1 = cache[33586] ?: 0,
+                arrRestA4MW2 = cache[33587] ?: 0,
+                arrRestA5MW1 = cache[33588] ?: 0,
+                arrRestA5MW2 = cache[33589] ?: 0,
+                arrRestA6MW1 = cache[33590] ?: 0,
+                arrRestA6MW2 = cache[33591] ?: 0,
+                arrRestA7MW1 = cache[33592] ?: 0,
+                arrRestA7MW2 = cache[33593] ?: 0,
+                arrRestA8MW1 = cache[33594] ?: 0,
+                arrRestA8MW2 = cache[33595] ?: 0,
+                arrRestA9MW1 = cache[33596] ?: 0,
+                arrRestA9MW2 = cache[33597] ?: 0,
+                arrRestA10MW1 = cache[33598] ?: 0,
+                arrRestA10MW2 = cache[33599] ?: 0,
+                arrRestA11MW1 = cache[33600] ?: 0,
+                arrRestA11MW2 = cache[33601] ?: 0,
+
+                rCycleHoistMW1 = cache[33620] ?: 0,
+                rCycleHoistMW2 = cache[33621] ?: 0,
+                rCycleSlewMW1 = cache[33622] ?: 0,
+                rCycleSlewMW2 = cache[33623] ?: 0,
+                rCycleTrolleyMW1 = cache[33624] ?: 0,
+                rCycleTrolleyMW2 = cache[33625] ?: 0,
+                rCycleCraneMW1 = cache[33626] ?: 0,
+                rCycleCraneMW2 = cache[33627] ?: 0,
+                rCycleHoleCraneMW1 = cache[33628] ?: 0,
+                rCycleHoleCraneMW2 = cache[33629] ?: 0,
             ),
             savingAndLoadingSettings = SavingAndLoadingSettings(
-                hmiReadSDcardStatus= cache[1800] ?: 0, //Статус SD-карты
-                hmiReadVarSaveStatus= cache[1801] ?: 0, //Статус сохранения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
-                hmiReadVarSaveProcess = safeDivideTens(cache[1802] ?: 0), //Процес выполнения сохранения 0-100%
-                hmiReadVarReadStatus= cache[1803] ?: 0, //Статус чтения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
-                hmiReadVarReadProcess = safeDivideTens(cache[1804] ?: 0), //Процес выполнения чтения 0-100%
-                hmiReadVarSize = safeDivideHundred(cache[1805] ?: 0), //Объем VAR-файла
-            )
+                hmiReadSDcardStatus= cache[35000] ?: 0, //Статус SD-карты
+                hmiReadVarSaveStatus= cache[35001] ?: 0, //Статус сохранения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+                hmiReadVarSaveProcess = safeDivideTens(cache[35002] ?: 0), //Процес выполнения сохранения 0-100%
+                hmiReadVarReadStatus= cache[35003] ?: 0, //Статус чтения VAR-файла 0-Ожидание, 1- Завершено, 2- В процессе, 4-Ошибка.
+                hmiReadVarReadProcess = safeDivideTens(cache[35004] ?: 0), //Процес выполнения чтения 0-100%
+                hmiReadVarSize = safeDivideHundred(cache[35005] ?: 0), //Объем VAR-файла
+                )
         )
     }
 
@@ -227,7 +231,7 @@ class ParameterLoggerViewModule @Inject constructor(
         val hmiCraneOperatingHours: Float=0f, //Моточасы механизма передвижения крана
         val hmiTotalCraneOperatingHours: Float=0f,//Общие моточасы крана
         val hmiSBKBOperatingHours: Float=0f, //Моточасы системы безопасности
-
+        val hmiHoleCraneHoursTO: Float=0f, //Моточасы системы безопасности
     )
     data class CyclesOfWorkParametersState(
         val arrRestA1MW1: Int=0, //0-10% Количество циклов подъема в зависимости от веса груза
@@ -275,14 +279,14 @@ class ParameterLoggerViewModule @Inject constructor(
 
 
 
-    // Записать VAR-файл
+    // Сохранить VAR-файл в память ПЛК
     fun onSetSaveVarFile() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на сохранение параметров СБКБ в VarFile
-                modbusRepository.writeRegister(1250, 1)
+                modbusRepository.writeRegister(65001, 1)
                 delay(200)
-                modbusRepository.writeRegister(1250, 0)
+                modbusRepository.writeRegister(65001, 0)
             } catch (e: Exception) {
             }
         }
@@ -292,9 +296,9 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1251, 1)
+                modbusRepository.writeRegister(65002, 1)
                 delay(200)
-                modbusRepository.writeRegister(1251, 0)
+                modbusRepository.writeRegister(65002, 0)
             } catch (e: Exception) {
             }
         }
@@ -304,9 +308,9 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1252, 1)
+                modbusRepository.writeRegister(65003, 1)
                 delay(200)
-                modbusRepository.writeRegister(1252, 0)
+                modbusRepository.writeRegister(65003, 0)
             } catch (e: Exception) {
             }
         }
@@ -316,9 +320,9 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1253, 1)
+                modbusRepository.writeRegister(65004, 1)
                 delay(200)
-                modbusRepository.writeRegister(1253, 0)
+                modbusRepository.writeRegister(65004, 0)
             } catch (e: Exception) {
             }
         }
@@ -328,9 +332,9 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1254, 1)
+                modbusRepository.writeRegister(65005, 1)
                 delay(200)
-                modbusRepository.writeRegister(1254, 0)
+                modbusRepository.writeRegister(65005, 0)
             } catch (e: Exception) {
             }
         }
@@ -340,9 +344,9 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1256, 1)
+                modbusRepository.writeRegister(65007, 1)
                 delay(200)
-                modbusRepository.writeRegister(1256, 0)
+                modbusRepository.writeRegister(65007, 0)
             } catch (e: Exception) {
             }
         }
@@ -353,25 +357,13 @@ class ParameterLoggerViewModule @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Команда на считывание параметров СБКБ из VarFile
-                modbusRepository.writeRegister(1255, 1)
+                modbusRepository.writeRegister(65006, 1)
                 delay(200)
-                modbusRepository.writeRegister(1255, 0)
+                modbusRepository.writeRegister(65006, 0)
             } catch (e: Exception) {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Очистка при уничтожении ViewModel
     override fun onCleared() {

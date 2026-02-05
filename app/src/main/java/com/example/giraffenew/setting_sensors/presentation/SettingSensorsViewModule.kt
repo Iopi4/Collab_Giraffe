@@ -111,11 +111,12 @@ class SettingSensorsViewModule
 
 //Подписываемся на необходимые нам регистры для отображения на панели оператора
     private val addresses = listOf(
-        155, 158, 159, 162, 212, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813,
-        340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353,
-        730, 731, 732, 733, 734, 735, 736, 737, 204, 205, 206, 207, 1623, 1648, 1699, 1738,
-        160, 161, 338, 339, 156, 157, 354, 355, 356, 357, 358, 359, 372,
-        382, 383, 386, 387, 390, 391, 394, 395,
+        33130, 33120, 33110, 33140, 31420,
+        61158, 63101, 63102, 63111, 63112, 63113, 63114, 61160, 61163, 61163, 61161,
+        33115, 33151, 33152, 33153, 33154, 33155, 33156, 33157, 33158, 33161, 33162, 33163, 33164, 33165,
+        39030, 39031, 39032, 39033, 39034, 39035, 39036, 39037, 30026, 30027, 30028, 30029, 31158, 31258, 31358, 31458,
+        33111, 33112, 33113, 33114, 33131, 33132, 33133, 33133, 33141, 33142, 33143, 33144, 33145,
+        33050, 33051, 33052, 33053, 33054, 33055, 33056, 33057,
         // Регистры для считывания
     )
 
@@ -138,12 +139,12 @@ class SettingSensorsViewModule
 
     private fun writeUiActiveStatus(value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            modbusRepository.writeRegister(868, value).fold(
+            modbusRepository.writeRegister(63531, value).fold(
                 onSuccess = {
-                    Log.d("SettingSensorsVM", "Register 283 set to $value")
+                    Log.d("SettingSensorsVM", "Register 63531 set to $value")
                 },
                 onFailure = { e ->
-                    Log.e("SettingSensorsVM", "Failed to write register 868", e)
+                    Log.e("SettingSensorsVM", "Failed to write register 63531", e)
                 }
             )
         }
@@ -184,89 +185,89 @@ class SettingSensorsViewModule
     private fun createSettingSensorsState(cache: Map<Int, Int?>): SettingSensorsState {
         return SettingSensorsState(
             sensorsHoistState = SensorsHoistState(
-                currentHoistPosition = safeDivideTens(cache[159] ?: 0),
+                currentHoistPosition = safeDivideTens(cache[33110] ?: 0),
                 //Статус теста ограничений подъема
-                currentHoistStopDwn1 = cache[341] ?: 0,
-                currentHoistStopUp1 = cache[342] ?: 0,
-                currentHoistDwnDwnSp1 = cache[343] ?: 0,
-                currentHoistUpDwnSp1 = cache[344] ?: 0,
+                currentHoistStopDwn1 = cache[33151] ?: 0,
+                currentHoistStopUp1 = cache[33152] ?: 0,
+                currentHoistDwnDwnSp1 = cache[33153] ?: 0,
+                currentHoistUpDwnSp1 = cache[33154] ?: 0,
                 //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
-                currentHoistEncoderMaxDeltaError = cache[730] ?: 0,
-                currentHoistEncoderMaxValueError = cache[734] ?: 0,
-                currentHoistAbsEncErrCanOpen = cache[204] ?: 0, //-----ошибка связи энкодеров
+                currentHoistEncoderMaxDeltaError = cache[39030] ?: 0,
+                currentHoistEncoderMaxValueError = cache[39034] ?: 0,
+                currentHoistAbsEncErrCanOpen = cache[30026] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncHoistPositionWord1 = cache[382] ?: 0,
-                currentAbsEncHoistPositionWord2 = cache[383] ?: 0,
+                currentAbsEncHoistPositionWord1 = cache[33050] ?: 0,
+                currentAbsEncHoistPositionWord2 = cache[33050] ?: 0,
 
-                hoistLimitStatus = cache[1623] ?: 0,
+                hoistLimitStatus = cache[31158] ?: 0,
 
-                hoistMaxPosition = safeDivideTens(cache[160] ?: 0),
-                hoistMinPosition = safeDivideTens(cache[161] ?: 0),
-                hoistPosFwdDwnSp = safeDivideTens(cache[338] ?: 0),
-                hoistPosRevDwnSp = safeDivideTens(cache[339] ?: 0),
-                hoistZeroPosition = safeDivideTens(cache[340] ?: 0),
+                hoistMaxPosition = safeDivideTens(cache[33111] ?: 0),
+                hoistMinPosition = safeDivideTens(cache[33112] ?: 0),
+                hoistPosFwdDwnSp = safeDivideTens(cache[33113] ?: 0),
+                hoistPosRevDwnSp = safeDivideTens(cache[33114] ?: 0),
+                hoistZeroPosition = safeDivideTens(cache[33115] ?: 0),
             ),
             sensorsSlewState = SensorsSlewState(
-                currentSlewPosition = safeDivideTens(cache[158] ?: 0),
+                currentSlewPosition = safeDivideTens(cache[33120] ?: 0),
                 //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
-                currentSlewEncoderMaxDeltaError = cache[731] ?: 0,
-                currentSlewEncoderMaxValueError = cache[735] ?: 0,
-                currentSlewAbsEncErrCanOpen = cache[205] ?: 0, //-----ошибка связи энкодеров
+                currentSlewEncoderMaxDeltaError = cache[39031] ?: 0,
+                currentSlewEncoderMaxValueError = cache[39035] ?: 0,
+                currentSlewAbsEncErrCanOpen = cache[30027] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncSlewPositionWord1 = cache[386] ?: 0,
-                currentAbsEncSlewPositionWord2 = cache[387] ?: 0,
+                currentAbsEncSlewPositionWord1 = cache[33052] ?: 0,
+                currentAbsEncSlewPositionWord2 = cache[33053] ?: 0,
 
-                slewLimitStatus = cache[1648] ?: 0,
+                slewLimitStatus = cache[31258] ?: 0,
             ),
 
             sensorsTrolleyState = SensorsTrolleyState(
-                currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
+                currentTrolleyPosition = safeDivideTens(cache[33130] ?: 0),
                 //Статус теста ограничений Тележки
-                currentTrolleyStopFwd1 = cache[345] ?: 0,
-                currentTrolleyStopRev1 = cache[346] ?: 0,
-                currentTrolleyFwdDwnSp1 = cache[347] ?: 0,
-                currentTrolleyRevDwnSp1 = cache[348] ?: 0,
+                currentTrolleyStopFwd1 = cache[33155] ?: 0,
+                currentTrolleyStopRev1 = cache[33156] ?: 0,
+                currentTrolleyFwdDwnSp1 = cache[33157] ?: 0,
+                currentTrolleyRevDwnSp1 = cache[33158] ?: 0,
                 //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
-                currentTrolleyEncoderMaxDeltaError = cache[732] ?: 0,
-                currentTrolleyEncoderMaxValueError = cache[736] ?: 0,
-                currentTrolleyAbsEncErrCanOpen = cache[206] ?: 0, //-----ошибка связи энкодеров
+                currentTrolleyEncoderMaxDeltaError = cache[39032] ?: 0,
+                currentTrolleyEncoderMaxValueError = cache[39036] ?: 0,
+                currentTrolleyAbsEncErrCanOpen = cache[30028] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncTrolleyPositionWord1 = cache[390] ?: 0,
-                currentAbsEncTrolleyPositionWord2 = cache[391] ?: 0,
+                currentAbsEncTrolleyPositionWord1 = cache[33054] ?: 0,
+                currentAbsEncTrolleyPositionWord2 = cache[33055] ?: 0,
 
-                trolleyLimitStatus = cache[1699] ?: 0,
+                trolleyLimitStatus = cache[31358] ?: 0,
 
-                trolleyMaxPosition = safeDivideTens(cache[156] ?: 0),
-                trolleyMinPosition = safeDivideTens(cache[157] ?: 0),
-                trolleyPosFwdDwnSp = safeDivideTens(cache[354] ?: 0),
-                trolleyPosRevDwnSp = safeDivideTens(cache[355] ?: 0),
+                trolleyMaxPosition = safeDivideTens(cache[33131] ?: 0),
+                trolleyMinPosition = safeDivideTens(cache[33132] ?: 0),
+                trolleyPosFwdDwnSp = safeDivideTens(cache[33133] ?: 0),
+                trolleyPosRevDwnSp = safeDivideTens(cache[33134] ?: 0),
 
             ),
 
             sensorsCraneState = SensorsCraneState(
-                currentCranePosition = safeDivideTens(cache[162] ?: 0),
-                currentCraneRailsEn = cache[212] ?: 0,
+                currentCranePosition = safeDivideTens(cache[33140] ?: 0),
+                currentCraneRailsEn = cache[31420] ?: 0,
                 //Статус теста ограничений Хода крана
-                currentCraneStopFwd1 = cache[349] ?: 0,
-                currentCraneStopRev1 = cache[350] ?: 0,
-                currentCraneFwdDwnSp1 = cache[351] ?: 0,
-                currentCraneRevDwnSp1 = cache[352] ?: 0,
-                currentCraneRepPoint = cache[353] ?: 0,
+                currentCraneStopFwd1 = cache[33161] ?: 0,
+                currentCraneStopRev1 = cache[33162] ?: 0,
+                currentCraneFwdDwnSp1 = cache[33163] ?: 0,
+                currentCraneRevDwnSp1 = cache[33164] ?: 0,
+                currentCraneRepPoint = cache[33165] ?: 0,
                 //Лампа. ошибки выхода за рабочий диапазон показаний энкодера
-                currentCraneEncoderMaxDeltaError = cache[733] ?: 0,
-                currentCraneEncoderMaxValueError = cache[737] ?: 0,
-                currentCraneAbsEncErrCanOpen = cache[207] ?: 0, //-----ошибка связи энкодеров
+                currentCraneEncoderMaxDeltaError = cache[39033] ?: 0,
+                currentCraneEncoderMaxValueError = cache[39037] ?: 0,
+                currentCraneAbsEncErrCanOpen = cache[30029] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
-                currentAbsEncCranePositionWord1 = cache[394] ?: 0,
-                currentAbsEncCranePositionWord2 = cache[395] ?: 0,
+                currentAbsEncCranePositionWord1 = cache[33056] ?: 0,
+                currentAbsEncCranePositionWord2 = cache[33057] ?: 0,
 
-                craneLimitStatus = cache[1738] ?: 0,
+                craneLimitStatus = cache[31458] ?: 0,
 
-                craneMaxPosition = safeDivideTens(cache[356] ?: 0),
-                craneMinPosition = safeDivideTens(cache[357] ?: 0),
-                cranePosFwdDwnSp = safeDivideTens(cache[358] ?: 0),
-                cranePosRevDwnSp = safeDivideTens(cache[359] ?: 0),
-                cranePosCTRLPoint = safeDivideTens(cache[372] ?: 0),
+                craneMaxPosition = safeDivideTens(cache[33141] ?: 0),
+                craneMinPosition = safeDivideTens(cache[33142] ?: 0),
+                cranePosFwdDwnSp = safeDivideTens(cache[33143] ?: 0),
+                cranePosRevDwnSp = safeDivideTens(cache[33144] ?: 0),
+                cranePosCTRLPoint = safeDivideTens(cache[33145] ?: 0),
                 ),
         )
     }
@@ -395,9 +396,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(803, 1)
+                modbusRepository.writeRegister(61158, 1)
                 delay(200)
-                modbusRepository.writeRegister(803, 0)
+                modbusRepository.writeRegister(61158, 0)
             } catch (e: Exception) {
             }
         }
@@ -409,9 +410,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(804, 1)
+                modbusRepository.writeRegister(63101, 1)
                 delay(200)
-                modbusRepository.writeRegister(804, 0)
+                modbusRepository.writeRegister(63101, 0)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -428,9 +429,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(805, 1)
+                modbusRepository.writeRegister(63102, 1)
                 delay(200)
-                modbusRepository.writeRegister(805, 0)
+                modbusRepository.writeRegister(63102, 0)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -446,9 +447,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(895, 1)
+                modbusRepository.writeRegister(63105, 1)
                 delay(200)
-                modbusRepository.writeRegister(895, 0)
+                modbusRepository.writeRegister(63105, 0)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -465,7 +466,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueHoistPosFwdStop.value, 0.0f, 200.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(806, model)
+                modbusRepository.writeRegister(63111, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -485,7 +486,7 @@ class SettingSensorsViewModule
                 if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
 
                 val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
-                modbusRepository.writeRegister(807, model)
+                modbusRepository.writeRegister(63112, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -505,7 +506,7 @@ class SettingSensorsViewModule
                 if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
 
                 val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
-                modbusRepository.writeRegister(894, model)
+                modbusRepository.writeRegister(63115, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -521,7 +522,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueHoistPosFwdDwnSp.value, 0.0f, 200.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(808, model)
+                modbusRepository.writeRegister(63113, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -540,7 +541,7 @@ class SettingSensorsViewModule
                 if (floatValue < -5.0f || floatValue > 200.0f) throw IllegalArgumentException("Значение вне диапазона")
 
                 val model = (VIRTUAL_ZERO + floatValue * 10).toInt()
-                modbusRepository.writeRegister(809, model)
+                modbusRepository.writeRegister(63114, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -560,9 +561,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(823, 1)
+                modbusRepository.writeRegister(61358, 1)
                 delay(200)
-                modbusRepository.writeRegister(823, 0)
+                modbusRepository.writeRegister(61358, 0)
             } catch (e: Exception) {
             }
         }
@@ -574,9 +575,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(824, 1)
+                modbusRepository.writeRegister(63301, 1)
                 delay(200)
-                modbusRepository.writeRegister(824, 0)
+                modbusRepository.writeRegister(63301, 0)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -593,9 +594,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(825, 1)
+                modbusRepository.writeRegister(63302, 1)
                 delay(200)
-                modbusRepository.writeRegister(825, 0)
+                modbusRepository.writeRegister(63302, 0)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -612,7 +613,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyPosFwdStop.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(827, model)
+                modbusRepository.writeRegister(63131, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -629,7 +630,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyPosRevStop.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(826, model)
+                modbusRepository.writeRegister(63132, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -645,7 +646,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyPosFwdDwnSp.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(828, model)
+                modbusRepository.writeRegister(63133, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -661,7 +662,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueTrolleyPosRevDwnSp.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(829, model)
+                modbusRepository.writeRegister(63134, model)
                 _errorMessageTrolley.value = null
                 _logMessageTrolley.value = "Сохранено"
             } catch (e: Exception) {
@@ -682,9 +683,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(817, 1)
+                modbusRepository.writeRegister(63201, 1)
                 delay(200)
-                modbusRepository.writeRegister(817, 0)
+                modbusRepository.writeRegister(63201, 0)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -700,9 +701,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(818, 1)
+                modbusRepository.writeRegister(63202, 1)
                 delay(200)
-                modbusRepository.writeRegister(818, 0)
+                modbusRepository.writeRegister(63202, 0)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -719,7 +720,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvert(_setValueSlewCalcAngle.value, 0, 360 )
                 // Запись в регистры
-                modbusRepository.writeRegister(816, model)
+                modbusRepository.writeRegister(63121, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -729,13 +730,13 @@ class SettingSensorsViewModule
         }
     }
 
-    // SLEW. Установить [максимальный] угол гр.
+    // SLEW. Установить [максимальный] угол поворота крана, в гр.
     fun onSetValueSlewMaxAngle() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val model = validateAndConvert(_setValueSlewMaxAngle.value, 0, 1024 )
                 // Запись в регистры
-                modbusRepository.writeRegister(815, model)
+                modbusRepository.writeRegister(63129, model)
                 _errorMessageHoist.value = null
                 _logMessageHoist.value = "Сохранено"
             } catch (e: Exception) {
@@ -754,9 +755,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(869, 1)
+                modbusRepository.writeRegister(61420, 1)
                 delay(200)
-                modbusRepository.writeRegister(869, 0)
+                modbusRepository.writeRegister(61420, 0)
             } catch (e: Exception) {
             }
         }
@@ -768,9 +769,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(834, 1)
+                modbusRepository.writeRegister(61458, 1)
                 delay(200)
-                modbusRepository.writeRegister(834, 0)
+                modbusRepository.writeRegister(61458, 0)
             } catch (e: Exception) {
             }
         }
@@ -782,9 +783,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(836, 1)
+                modbusRepository.writeRegister(63401, 1)
                 delay(200)
-                modbusRepository.writeRegister(836, 0)
+                modbusRepository.writeRegister(63401, 0)
             } catch (e: Exception) {
             }
         }
@@ -795,9 +796,9 @@ class SettingSensorsViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(837, 1)
+                modbusRepository.writeRegister(63402, 1)
                 delay(200)
-                modbusRepository.writeRegister(837, 0)
+                modbusRepository.writeRegister(63402, 0)
             } catch (e: Exception) {
             }
         }
@@ -809,7 +810,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueCranePosFwdStop.value, 0.0f, 300.0f )
                 // Запись в регистр
-                modbusRepository.writeRegister(838, model)
+                modbusRepository.writeRegister(63141, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -826,7 +827,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueCranePosRevStop.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(839, model)
+                modbusRepository.writeRegister(63142, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -842,7 +843,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueCranePosFwdDwnSp.value, 0.0f, 300.0f )
                 // Запись в регистр
-                modbusRepository.writeRegister(840, model)
+                modbusRepository.writeRegister(63143, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -858,7 +859,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueCranePosRevDwnSp.value, 0.0f, 300.0f )
                 // Запись в регистр
-                modbusRepository.writeRegister(841, model)
+                modbusRepository.writeRegister(63144, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {
@@ -873,7 +874,7 @@ class SettingSensorsViewModule
             try {
                 val model = validateAndConvertFloat(_setValueCranePosRepPoint.value, 0.0f, 300.0f )
                 // Запись в регистр
-                modbusRepository.writeRegister(835, model)
+                modbusRepository.writeRegister(63145, model)
                 _errorMessageCrane.value = null
                 _logMessageCrane.value = "Сохранено"
             } catch (e: Exception) {

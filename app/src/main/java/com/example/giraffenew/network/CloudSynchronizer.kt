@@ -34,6 +34,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.Job
+import kotlinx.serialization.SerializationException
+import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * CloudSynchronizer для отправки данных регистров в облачный сервис каждые 30 секунд
@@ -202,12 +207,46 @@ class CloudSynchronizer @Inject constructor(
     // Запускаем мониторинг статуса подключения
     private var connectionMonitorJob: Job? = null
 
-    private fun startConnectionMonitoring(){
+    //Улучшенная версия мониторинга состояния подключения
+    private fun startConnectionMonitoring() {
         connectionMonitorJob = syncScope.launch {
+            var consecutiveFailures = 0
             while (coroutineContext.isActive) {
-                updateConnectionStatus()
-                delay(5000L)// Проверяем каждые 5 секунд
+                try {
+                    updateConnectionStatus()
+
+                    // Если долго нет успешных синхронизаций, пробуем "починить" соединение
+                    val timeSinceLastSuccess = System.currentTimeMillis() - lastSuccessfulSyncTime
+                    if (timeSinceLastSuccess > connectionTimeoutMs && consecutiveFailures < 5) {
+                        Log.w(TAG, "No successful sync for ${timeSinceLastSuccess}ms, checking connection health")
+                        consecutiveFailures++
+
+                        // Пробуем легкий health check
+                        if (!performHealthCheck()) {
+                            Log.w(TAG, "Health check failed, may need to reset connection")
+                        }
+                    } else if (timeSinceLastSuccess <= connectionTimeoutMs) {
+                        consecutiveFailures = 0
+                    }
+
+                    delay(5000L)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error in connection monitoring", e)
+                    delay(10000L)
+                }
             }
+        }
+    }
+
+    private suspend fun performHealthCheck(): Boolean {
+        return try {
+            // Простой запрос для проверки доступности сервера
+            val response: HttpResponse = httpClient.get(cloudEndpoint) {
+                timeout { requestTimeoutMillis = 5000 }
+            }
+            response.status.isSuccess()
+        } catch (e: Exception) {
+            false
         }
     }
 
@@ -282,6 +321,12 @@ class CloudSynchronizer @Inject constructor(
      */
 //-----------------------------ШАГ 1.2 - Загружается offlineQueue из файла. Запуск корутин -------------------------------
     fun startSync() {
+
+        if (isStopping.get()) {
+            Log.w(TAG, "Cannot start while stopping")
+            return
+        }
+
         if (syncJob?.isActive == true) {
             Log.w(TAG, "Sync already running")
             return
@@ -313,27 +358,36 @@ class CloudSynchronizer @Inject constructor(
 
     /**
      * Остановить синхронизацию
+     * Добавлена защита от двойного вызова stopSync()
      */
+
+    private val isStopping = AtomicBoolean(false)
     fun stopSync() {
-        Log.i(TAG, "Stopping cloud synchronization")
+        if (isStopping.getAndSet(true)) {
+            Log.w(TAG, "Stop already in progress")
+            return
+        }
 
-        syncJob?.cancel()
-        offlineProcessingJob?.cancel()
+        try {
+            Log.i(TAG, "Stopping cloud synchronization")
 
-        // ОСТАНАВЛИВАЕМ МОНИТОРИНГ ПОДКЛЮЧЕНИЯ
-        stopConnectionMonitoring()
+            syncJob?.cancel()
+            offlineProcessingJob?.cancel()
+            stopConnectionMonitoring()
 
-        _syncStatus.value = SyncStatus.Stopped
+            _syncStatus.value = SyncStatus.Stopped
+            saveOfflineQueue()
 
-        // Сохраняем offline queue
-        saveOfflineQueue()
+        } finally {
+            isStopping.set(false)
+        }
     }
 
     /**
      * Синхронизировать ID крана
      */
     init { startListeningForCraneIdChanges() }
-    private fun startListeningForCraneIdChanges() {
+    fun startListeningForCraneIdChanges() {
         craneIdJob = syncScope.launch {
             craneIdRepository.craneId.collect { newCraneId ->
                 craneId = newCraneId
@@ -377,7 +431,7 @@ class CloudSynchronizer @Inject constructor(
      * Основной цикл синхронизации. runSyncLoop
      * Каждые syncIntervalMs (5 секунд) отправляет последние значения регистров и в случае ошибки кладет его в offlineQueue.
      */
-    private suspend fun runSyncLoop() {
+    suspend fun runSyncLoop() {
         while (coroutineContext.isActive) {
             try {
 
@@ -434,7 +488,7 @@ class CloudSynchronizer @Inject constructor(
     /**
      * Отправить payload в облако
      */
-    private suspend fun sendToCloud(payload: CloudPayload): Boolean {
+    suspend fun sendToCloud(payload: CloudPayload): Boolean {
         return try {
             totalSyncAttempts.incrementAndGet()
 
@@ -447,40 +501,59 @@ class CloudSynchronizer @Inject constructor(
                 // Добавляем headers
                 header("User-Agent", "GIRAFFE-Crane/1.0")
                 header("X-Crane-ID", craneId)
+
+                // Таймаут для конкретного запроса
+                timeout {
+                    requestTimeoutMillis = 30000
+                    connectTimeoutMillis = 10000
+                    socketTimeoutMillis = 30000
+                }
+
             }
 
             when {
                 response.status.isSuccess() -> {
-                    val cloudResponse = response.body<CloudResponse>()
-
+                    // Обработка успеха
                     successfulSyncs.incrementAndGet()
-                    totalDataSent.addAndGet(response.request.content.contentLength ?: 0L)
-
-
-                    // ОБНОВЛЯЕМ СТАТУС ПОДКЛЮЧЕНИЯ
                     updateLastSuccessfulSyncTime()
-
-                    Log.i(TAG, "Cloud sync successful: ${cloudResponse.message}")
+                    Log.i(TAG, "Cloud sync successful")
                     true
                 }
+                response.status.value == 429 -> {
+                    // Too Many Requests - exponential backoff
+                    Log.w(TAG, "Rate limit exceeded, implementing backoff")
+                    false
+                }
                 response.status.value in 400..499 -> {
-                    // Client errors - не ретраим
-                    failedSyncs.incrementAndGet()
-                    Log.e(TAG, "Client error in cloud sync: ${response.status} - ${response.bodyAsText()}")
+                    // Client errors
+                    Log.e(TAG, "Client error ${response.status}: ${response.bodyAsText()}")
+                    false
+                }
+                response.status.value in 500..599 -> {
+                    // Server errors - ретраим с backoff
+                    Log.e(TAG, "Server error ${response.status}")
                     false
                 }
                 else -> {
-                    // Server errors - ретраим
-                    failedSyncs.incrementAndGet()
-                    Log.e(TAG, "Server error in cloud sync: ${response.status}")
+                    Log.e(TAG, "Unexpected status ${response.status}")
                     false
                 }
             }
 
+        } catch (e: SocketTimeoutException) {
+            Log.e(TAG, "Socket timeout during cloud sync")
+            false
+        } catch (e: ConnectException) {
+            Log.e(TAG, "Connection exception during cloud sync: ${e.message}")
+            false
+        } catch (e: IOException) {
+            Log.e(TAG, "Network IO error during cloud sync: ${e.message}")
+            false
+        } catch (e: SerializationException) {
+            Log.e(TAG, "Serialization error during cloud sync: ${e.message}")
+            false
         } catch (e: Exception) {
-            failedSyncs.incrementAndGet()
-                //Log.e(TAG, "Exception during cloud sync", e)
-            Log.e(TAG, "Exception during cloud sync")
+            Log.e(TAG, "Unexpected exception during cloud sync: ${e.message}")
             false
         }
     }
@@ -525,7 +598,7 @@ class CloudSynchronizer @Inject constructor(
      * (до 600 пачек, т.е. 600 * 5 секунд * 10 очередей = 30000 секунд = 500 минут ~ 8.3 часа данных).
      * Максимальный объем OfflineQueue: 6000 * 0,024 МБ ≈ 142,28 МБ - за 8.3 часа данных
      */
-    private fun addToOfflineQueue(payload: CloudPayload) {
+    fun addToOfflineQueue(payload: CloudPayload) {
         try {
             synchronized(offlineQueue) {
                 if (offlineQueue.size >= MAX_OFFLINE_QUEUE_SIZE) {
@@ -554,7 +627,11 @@ class CloudSynchronizer @Inject constructor(
     /**
      * Обработать offline queue. Делаем попытки повторной синхронизации с задержкой после каждой неудачи.
      */
-    private suspend fun processOfflineQueue() {
+    suspend fun processOfflineQueue() {
+
+        var consecutiveFailures = 0
+        val maxConsecutiveFailures = 3
+
         while (coroutineContext.isActive) {
             try {
                 //5.1  Проверяем не пуста ли очередь?
@@ -566,8 +643,12 @@ class CloudSynchronizer @Inject constructor(
                     }
                     //5.2  Если есть, берем первый элемент очереди (самый старый) и пытаемся отправить.
                     if (payload != null) {
-                        val success = sendToCloud(payload)
                         //5.3 Если отправка неудачна и сеть все еще есть, возвращаем элемент в начало очереди и ждем 10 секунд.
+
+                        // ПРОБЛЕМА: Если отправка неуспешна, элемент возвращается в начало,
+                        // но нет задержки перед следующей попыткой для этого же элемента.
+                        // Возвращаем в начало постоянно один и тотже элемент бесконечно
+                        /*
                         if (!success && isNetworkAvailable()) {
                             // Если network есть но отправка неудачная, возвращаем в queue
                             synchronized(offlineQueue) {
@@ -577,6 +658,31 @@ class CloudSynchronizer @Inject constructor(
                             // Ждем перед следующей попыткой
                             delay(15_000L) // 10 секунд
                         }
+                         */
+
+                        //Улучшенная обработка Offline Queue
+                        val success = sendToCloud(payload)
+                        if (success) {
+                            consecutiveFailures = 0 // Сбрасываем счетчик при успехе
+                            saveOfflineQueue() // Сохраняем состояние очереди
+                        } else {
+                            consecutiveFailures++
+                            // Возвращаем элемент в очередь
+                            synchronized(offlineQueue) {
+                                offlineQueue.add(0, payload)
+                            }
+
+                            if (consecutiveFailures >= maxConsecutiveFailures) {
+                                // После нескольких неудач ждем дольше
+                                Log.w(TAG, "Multiple consecutive failures ($consecutiveFailures), waiting longer")
+                                delay(60_000L) // 1 минута
+                                consecutiveFailures = maxConsecutiveFailures - 1 // Не сбрасываем полностью
+                            } else {
+                                delay(15_000L) // Стандартная задержка
+                            }
+                            continue // Пропускаем внешний delay
+                        }
+
                     }
                 }
 
@@ -584,6 +690,7 @@ class CloudSynchronizer @Inject constructor(
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error processing offline queue", e)
+                consecutiveFailures++
                 delay(30_000L)
             }
         }

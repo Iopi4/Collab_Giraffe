@@ -202,17 +202,30 @@ class CoordinateProtectionViewModule
 
     // Регистры для считывания. Те на которые подписываемся
     private val addresses = listOf(
-        610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629,
-        630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 155, 158, 162,
-        1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019,
-        1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039,
-        1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059,
-        1060, 1061, 1062, 1063, 1064, 1065, 1066, 1067, 1068, 1069, 1070, 1071, 1072, 1073, 1074, 1075, 1076, 1077, 1078, 1079,
-        1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089, 1090, 1091, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099,
-        1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119,
-        1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139,
-        1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159
+        33130, 33120, 33140,
+        33900, 33910, 33911, 33912, 33913, 33914, 33921, 33922, 33923, 33924, 33931, 33932, 33933, 33934,
+        33941, 33942, 33943, 33944, 33951, 33952, 33953, 33954,
+        33960, 33961, 33962, 33963, 33964, 33965, 33966, 33967, 33968,
 
+        36100, 36101, 36102, 36103, 36104, 36105, 36106, 36107, 36108, 36109,
+        36110, 36111, 36112, 36113, 36114, 36115, 36116, 36117, 36118, 36119,
+        36120, 36121, 36122, 36123, 36124, 36125, 36126, 36127, 36128, 36129,
+        36130, 36131, 36132, 36133, 36134, 36135, 36136, 36137, 36138, 36139,
+
+        36200, 36201, 36202, 36203, 36204, 36205, 36206, 36207, 36208, 36209,
+        36210, 36211, 36212, 36213, 36214, 36215, 36216, 36217, 36218, 36219,
+        36220, 36221, 36222, 36223, 36224, 36225, 36226, 36227, 36228, 36229,
+        36230, 36231, 36232, 36233, 36234, 36235, 36236, 36237, 36238, 36239,
+
+        36300, 36301, 36302, 36303, 36304, 36305, 36306, 36307, 36308, 36309,
+        36310, 36311, 36312, 36313, 36314, 36315, 36316, 36317, 36318, 36319,
+        36320, 36321, 36322, 36323, 36324, 36325, 36326, 36327, 36328, 36329,
+        36330, 36331, 36332, 36333, 36334, 36335, 36336, 36337, 36338, 36339,
+
+        36400, 36401, 36402, 36403, 36404, 36405, 36406, 36407, 36408, 36409,
+        36410, 36411, 36412, 36413, 36414, 36415, 36416, 36417, 36418, 36419,
+        36420, 36421, 36422, 36423, 36424, 36425, 36426, 36427, 36428, 36429,
+        36430, 36431, 36432, 36433, 36434, 36435, 36436, 36437, 36438, 36439
     )
 
     private val _state = mutableStateOf(CoordinateProtectionState())
@@ -267,220 +280,220 @@ class CoordinateProtectionViewModule
         return CoordinateProtectionState(
             polygonState = PolygonState(
                 //Параметры крана
-                currentSlewPosition = safeDivideTens(cache[158] ?: 0),
-                currentTrolleyPosition = safeDivideTens(cache[155] ?: 0),
-                currentCranePosition = safeDivideTens(cache[162] ?: 0),
+                currentSlewPosition = safeDivideTens(cache[33120] ?: 0),
+                currentTrolleyPosition = safeDivideTens(cache[33130] ?: 0),
+                currentCranePosition = safeDivideTens(cache[33140] ?: 0),
                 //Данные состояний настройки полигонов
-                currentPosProtEn    = cache[610] ?: 0,
-                currentModePosProt  = cache[611] ?: 0,
+                currentPosProtEn    = cache[33900] ?: 0,
+                currentModePosProt  = cache[33910] ?: 0,
 
-                currentP1Up     = cache[612] ?: 0,
-                currentP1Down   = cache[613] ?: 0,
-                currentP1Height    = safeDivideTens(cache[614] ?: 0),
-                currentP1PointNum = cache[615] ?: 0,
-                currentP1PointType = cache[630] ?: 0,
+                currentP1Up     = cache[33911] ?: 0,
+                currentP1Down   = cache[33912] ?: 0,
+                currentP1Height    = safeDivideTens(cache[33913] ?: 0),
+                currentP1PointNum = cache[33914] ?: 0,
+                currentP1PointType = cache[33951] ?: 0,
 
-                currentP2Up     = cache[616] ?: 0,
-                currentP2Down   = cache[617] ?: 0,
-                currentP2Height    = safeDivideTens(cache[618] ?: 0),
-                currentP2PointNum = cache[619] ?: 0,
-                currentP2PointType = cache[631] ?: 0,
+                currentP2Up     = cache[33921] ?: 0,
+                currentP2Down   = cache[33922] ?: 0,
+                currentP2Height    = safeDivideTens(cache[33923] ?: 0),
+                currentP2PointNum = cache[33924] ?: 0,
+                currentP2PointType = cache[33952] ?: 0,
 
-                currentP3Up     = cache[620] ?: 0,
-                currentP3Down   = cache[621] ?: 0,
-                currentP3Height    = safeDivideTens(cache[622] ?: 0),
-                currentP3PointNum = cache[623] ?: 0,
-                currentP3PointType = cache[632] ?: 0,
+                currentP3Up     = cache[33931] ?: 0,
+                currentP3Down   = cache[33932] ?: 0,
+                currentP3Height    = safeDivideTens(cache[33933] ?: 0),
+                currentP3PointNum = cache[33934] ?: 0,
+                currentP3PointType = cache[33953] ?: 0,
 
-                currentP4Up     = cache[624] ?: 0,
-                currentP4Down   = cache[625] ?: 0,
-                currentP4Height    = safeDivideTens(cache[626] ?: 0),
-                currentP4PointNum = cache[627] ?: 0,
-                currentP4PointType = cache[633] ?: 0,
+                currentP4Up     = cache[33941] ?: 0,
+                currentP4Down   = cache[33942] ?: 0,
+                currentP4Height    = safeDivideTens(cache[33943] ?: 0),
+                currentP4PointNum = cache[33944] ?: 0,
+                currentP4PointType = cache[33954] ?: 0,
 
-                currentP1FewPoint       = cache[628] ?: 0,
-                currentP1ActiveStatus    = cache[629] ?: 0,
-                currentP2FewPoint       = cache[634] ?: 0,
-                currentP2ActiveStatus    = cache[635] ?: 0,
-                currentP3FewPoint       = cache[636] ?: 0,
-                currentP3ActiveStatus    = cache[637] ?: 0,
-                currentP4FewPoint       = cache[638] ?: 0,
-                currentP4ActiveStatus     = cache[639] ?: 0,
-                currentStatsCalibration = cache[640] ?: 0,
+                currentP1FewPoint       = cache[33961] ?: 0,
+                currentP1ActiveStatus    = cache[33962] ?: 0,
+                currentP2FewPoint       = cache[33963] ?: 0,
+                currentP2ActiveStatus    = cache[33964] ?: 0,
+                currentP3FewPoint       = cache[33965] ?: 0,
+                currentP3ActiveStatus    = cache[33966] ?: 0,
+                currentP4FewPoint       = cache[33967] ?: 0,
+                currentP4ActiveStatus     = cache[33968] ?: 0,
+                currentStatsCalibration = cache[33960] ?: 0,
             ),
             polygon1Point = Polygon1Point(
                 //Координаты точек. ПОЛИГОН №1
-                polygon1PointX01 = safeDivideTens(cache[1000] ?: 0),
-                polygon1PointX02 = safeDivideTens(cache[1002] ?: 0),
-                polygon1PointX03 = safeDivideTens(cache[1004] ?: 0),
-                polygon1PointX04 = safeDivideTens(cache[1006] ?: 0),
-                polygon1PointX05 = safeDivideTens(cache[1008] ?: 0),
-                polygon1PointX06 = safeDivideTens(cache[1010] ?: 0),
-                polygon1PointX07 = safeDivideTens(cache[1012] ?: 0),
-                polygon1PointX08 = safeDivideTens(cache[1014] ?: 0),
-                polygon1PointX09 = safeDivideTens(cache[1016] ?: 0),
-                polygon1PointX10 = safeDivideTens(cache[1018] ?: 0),
-                polygon1PointX11 = safeDivideTens(cache[1020] ?: 0),
-                polygon1PointX12 = safeDivideTens(cache[1022] ?: 0),
-                polygon1PointX13 = safeDivideTens(cache[1024] ?: 0),
-                polygon1PointX14 = safeDivideTens(cache[1026] ?: 0),
-                polygon1PointX15 = safeDivideTens(cache[1028] ?: 0),
-                polygon1PointX16 = safeDivideTens(cache[1030] ?: 0),
-                polygon1PointX17 = safeDivideTens(cache[1032] ?: 0),
-                polygon1PointX18 = safeDivideTens(cache[1034] ?: 0),
-                polygon1PointX19 = safeDivideTens(cache[1036] ?: 0),
-                polygon1PointX20 = safeDivideTens(cache[1038] ?: 0),
+                polygon1PointX01 = safeDivideTens(cache[36100] ?: 0),
+                polygon1PointX02 = safeDivideTens(cache[36102] ?: 0),
+                polygon1PointX03 = safeDivideTens(cache[36104] ?: 0),
+                polygon1PointX04 = safeDivideTens(cache[36106] ?: 0),
+                polygon1PointX05 = safeDivideTens(cache[36108] ?: 0),
+                polygon1PointX06 = safeDivideTens(cache[36110] ?: 0),
+                polygon1PointX07 = safeDivideTens(cache[36112] ?: 0),
+                polygon1PointX08 = safeDivideTens(cache[36114] ?: 0),
+                polygon1PointX09 = safeDivideTens(cache[36116] ?: 0),
+                polygon1PointX10 = safeDivideTens(cache[36118] ?: 0),
+                polygon1PointX11 = safeDivideTens(cache[36120] ?: 0),
+                polygon1PointX12 = safeDivideTens(cache[36122] ?: 0),
+                polygon1PointX13 = safeDivideTens(cache[36124] ?: 0),
+                polygon1PointX14 = safeDivideTens(cache[36126] ?: 0),
+                polygon1PointX15 = safeDivideTens(cache[36128] ?: 0),
+                polygon1PointX16 = safeDivideTens(cache[36130] ?: 0),
+                polygon1PointX17 = safeDivideTens(cache[36132] ?: 0),
+                polygon1PointX18 = safeDivideTens(cache[36134] ?: 0),
+                polygon1PointX19 = safeDivideTens(cache[36136] ?: 0),
+                polygon1PointX20 = safeDivideTens(cache[36138] ?: 0),
 
-                polygon1PointY01 = safeDivideTens(cache[1001] ?: 0),
-                polygon1PointY02 = safeDivideTens(cache[1003] ?: 0),
-                polygon1PointY03 = safeDivideTens(cache[1005] ?: 0),
-                polygon1PointY04 = safeDivideTens(cache[1007] ?: 0),
-                polygon1PointY05 = safeDivideTens(cache[1009] ?: 0),
-                polygon1PointY06 = safeDivideTens(cache[1011] ?: 0),
-                polygon1PointY07 = safeDivideTens(cache[1013] ?: 0),
-                polygon1PointY08 = safeDivideTens(cache[1015] ?: 0),
-                polygon1PointY09 = safeDivideTens(cache[1017] ?: 0),
-                polygon1PointY10 = safeDivideTens(cache[1019] ?: 0),
-                polygon1PointY11 = safeDivideTens(cache[1021] ?: 0),
-                polygon1PointY12 = safeDivideTens(cache[1023] ?: 0),
-                polygon1PointY13 = safeDivideTens(cache[1025] ?: 0),
-                polygon1PointY14 = safeDivideTens(cache[1027] ?: 0),
-                polygon1PointY15 = safeDivideTens(cache[1029] ?: 0),
-                polygon1PointY16 = safeDivideTens(cache[1031] ?: 0),
-                polygon1PointY17 = safeDivideTens(cache[1033] ?: 0),
-                polygon1PointY18 = safeDivideTens(cache[1035] ?: 0),
-                polygon1PointY19 = safeDivideTens(cache[1037] ?: 0),
-                polygon1PointY20 = safeDivideTens(cache[1039] ?: 0),
+                polygon1PointY01 = safeDivideTens(cache[36101] ?: 0),
+                polygon1PointY02 = safeDivideTens(cache[36103] ?: 0),
+                polygon1PointY03 = safeDivideTens(cache[36105] ?: 0),
+                polygon1PointY04 = safeDivideTens(cache[36107] ?: 0),
+                polygon1PointY05 = safeDivideTens(cache[36109] ?: 0),
+                polygon1PointY06 = safeDivideTens(cache[36111] ?: 0),
+                polygon1PointY07 = safeDivideTens(cache[36113] ?: 0),
+                polygon1PointY08 = safeDivideTens(cache[36115] ?: 0),
+                polygon1PointY09 = safeDivideTens(cache[36117] ?: 0),
+                polygon1PointY10 = safeDivideTens(cache[36119] ?: 0),
+                polygon1PointY11 = safeDivideTens(cache[36121] ?: 0),
+                polygon1PointY12 = safeDivideTens(cache[36123] ?: 0),
+                polygon1PointY13 = safeDivideTens(cache[36125] ?: 0),
+                polygon1PointY14 = safeDivideTens(cache[36127] ?: 0),
+                polygon1PointY15 = safeDivideTens(cache[36129] ?: 0),
+                polygon1PointY16 = safeDivideTens(cache[36131] ?: 0),
+                polygon1PointY17 = safeDivideTens(cache[36133] ?: 0),
+                polygon1PointY18 = safeDivideTens(cache[36135] ?: 0),
+                polygon1PointY19 = safeDivideTens(cache[36137] ?: 0),
+                polygon1PointY20 = safeDivideTens(cache[36139] ?: 0),
             ),
             polygon2Point = Polygon2Point(
                 //Координаты точек. ПОЛИГОН №2
-                polygon2PointX01 = safeDivideTens(cache[1040] ?: 0),
-                polygon2PointX02 = safeDivideTens(cache[1042] ?: 0),
-                polygon2PointX03 = safeDivideTens(cache[1044] ?: 0),
-                polygon2PointX04 = safeDivideTens(cache[1046] ?: 0),
-                polygon2PointX05 = safeDivideTens(cache[1048] ?: 0),
-                polygon2PointX06 = safeDivideTens(cache[1050] ?: 0),
-                polygon2PointX07 = safeDivideTens(cache[1052] ?: 0),
-                polygon2PointX08 = safeDivideTens(cache[1054] ?: 0),
-                polygon2PointX09 = safeDivideTens(cache[1056] ?: 0),
-                polygon2PointX10 = safeDivideTens(cache[1058] ?: 0),
-                polygon2PointX11 = safeDivideTens(cache[1060] ?: 0),
-                polygon2PointX12 = safeDivideTens(cache[1062] ?: 0),
-                polygon2PointX13 = safeDivideTens(cache[1064] ?: 0),
-                polygon2PointX14 = safeDivideTens(cache[1066] ?: 0),
-                polygon2PointX15 = safeDivideTens(cache[1068] ?: 0),
-                polygon2PointX16 = safeDivideTens(cache[1070] ?: 0),
-                polygon2PointX17 = safeDivideTens(cache[1072] ?: 0),
-                polygon2PointX18 = safeDivideTens(cache[1074] ?: 0),
-                polygon2PointX19 = safeDivideTens(cache[1076] ?: 0),
-                polygon2PointX20 = safeDivideTens(cache[1078] ?: 0),
+                polygon2PointX01 = safeDivideTens(cache[36200] ?: 0),
+                polygon2PointX02 = safeDivideTens(cache[36202] ?: 0),
+                polygon2PointX03 = safeDivideTens(cache[36204] ?: 0),
+                polygon2PointX04 = safeDivideTens(cache[36206] ?: 0),
+                polygon2PointX05 = safeDivideTens(cache[36208] ?: 0),
+                polygon2PointX06 = safeDivideTens(cache[36200] ?: 0),
+                polygon2PointX07 = safeDivideTens(cache[36212] ?: 0),
+                polygon2PointX08 = safeDivideTens(cache[36214] ?: 0),
+                polygon2PointX09 = safeDivideTens(cache[36216] ?: 0),
+                polygon2PointX10 = safeDivideTens(cache[36218] ?: 0),
+                polygon2PointX11 = safeDivideTens(cache[36210] ?: 0),
+                polygon2PointX12 = safeDivideTens(cache[36222] ?: 0),
+                polygon2PointX13 = safeDivideTens(cache[36224] ?: 0),
+                polygon2PointX14 = safeDivideTens(cache[36226] ?: 0),
+                polygon2PointX15 = safeDivideTens(cache[36228] ?: 0),
+                polygon2PointX16 = safeDivideTens(cache[36230] ?: 0),
+                polygon2PointX17 = safeDivideTens(cache[36232] ?: 0),
+                polygon2PointX18 = safeDivideTens(cache[36234] ?: 0),
+                polygon2PointX19 = safeDivideTens(cache[36236] ?: 0),
+                polygon2PointX20 = safeDivideTens(cache[36238] ?: 0),
 
-                polygon2PointY01 = safeDivideTens(cache[1041] ?: 0),
-                polygon2PointY02 = safeDivideTens(cache[1043] ?: 0),
-                polygon2PointY03 = safeDivideTens(cache[1045] ?: 0),
-                polygon2PointY04 = safeDivideTens(cache[1047] ?: 0),
-                polygon2PointY05 = safeDivideTens(cache[1049] ?: 0),
-                polygon2PointY06 = safeDivideTens(cache[1051] ?: 0),
-                polygon2PointY07 = safeDivideTens(cache[1053] ?: 0),
-                polygon2PointY08 = safeDivideTens(cache[1055] ?: 0),
-                polygon2PointY09 = safeDivideTens(cache[1057] ?: 0),
-                polygon2PointY10 = safeDivideTens(cache[1059] ?: 0),
-                polygon2PointY11 = safeDivideTens(cache[1061] ?: 0),
-                polygon2PointY12 = safeDivideTens(cache[1063] ?: 0),
-                polygon2PointY13 = safeDivideTens(cache[1065] ?: 0),
-                polygon2PointY14 = safeDivideTens(cache[1067] ?: 0),
-                polygon2PointY15 = safeDivideTens(cache[1069] ?: 0),
-                polygon2PointY16 = safeDivideTens(cache[1071] ?: 0),
-                polygon2PointY17 = safeDivideTens(cache[1073] ?: 0),
-                polygon2PointY18 = safeDivideTens(cache[1075] ?: 0),
-                polygon2PointY19 = safeDivideTens(cache[1077] ?: 0),
-                polygon2PointY20 = safeDivideTens(cache[1079] ?: 0),
+                polygon2PointY01 = safeDivideTens(cache[36201] ?: 0),
+                polygon2PointY02 = safeDivideTens(cache[36203] ?: 0),
+                polygon2PointY03 = safeDivideTens(cache[36205] ?: 0),
+                polygon2PointY04 = safeDivideTens(cache[36207] ?: 0),
+                polygon2PointY05 = safeDivideTens(cache[36209] ?: 0),
+                polygon2PointY06 = safeDivideTens(cache[36211] ?: 0),
+                polygon2PointY07 = safeDivideTens(cache[36213] ?: 0),
+                polygon2PointY08 = safeDivideTens(cache[36215] ?: 0),
+                polygon2PointY09 = safeDivideTens(cache[36217] ?: 0),
+                polygon2PointY10 = safeDivideTens(cache[36219] ?: 0),
+                polygon2PointY11 = safeDivideTens(cache[36221] ?: 0),
+                polygon2PointY12 = safeDivideTens(cache[36223] ?: 0),
+                polygon2PointY13 = safeDivideTens(cache[36225] ?: 0),
+                polygon2PointY14 = safeDivideTens(cache[36227] ?: 0),
+                polygon2PointY15 = safeDivideTens(cache[36229] ?: 0),
+                polygon2PointY16 = safeDivideTens(cache[36231] ?: 0),
+                polygon2PointY17 = safeDivideTens(cache[36233] ?: 0),
+                polygon2PointY18 = safeDivideTens(cache[36235] ?: 0),
+                polygon2PointY19 = safeDivideTens(cache[36237] ?: 0),
+                polygon2PointY20 = safeDivideTens(cache[36239] ?: 0),
             ),
             polygon3Point = Polygon3Point(
-                polygon3PointX01 = safeDivideTens(cache[1080] ?: 0),
-                polygon3PointX02 = safeDivideTens(cache[1082] ?: 0),
-                polygon3PointX03 = safeDivideTens(cache[1084] ?: 0),
-                polygon3PointX04 = safeDivideTens(cache[1086] ?: 0),
-                polygon3PointX05 = safeDivideTens(cache[1088] ?: 0),
-                polygon3PointX06 = safeDivideTens(cache[1090] ?: 0),
-                polygon3PointX07 = safeDivideTens(cache[1092] ?: 0),
-                polygon3PointX08 = safeDivideTens(cache[1094] ?: 0),
-                polygon3PointX09 = safeDivideTens(cache[1096] ?: 0),
-                polygon3PointX10 = safeDivideTens(cache[1098] ?: 0),
-                polygon3PointX11 = safeDivideTens(cache[1100] ?: 0),
-                polygon3PointX12 = safeDivideTens(cache[1102] ?: 0),
-                polygon3PointX13 = safeDivideTens(cache[1104] ?: 0),
-                polygon3PointX14 = safeDivideTens(cache[1106] ?: 0),
-                polygon3PointX15 = safeDivideTens(cache[1108] ?: 0),
-                polygon3PointX16 = safeDivideTens(cache[1110] ?: 0),
-                polygon3PointX17 = safeDivideTens(cache[1112] ?: 0),
-                polygon3PointX18 = safeDivideTens(cache[1114] ?: 0),
-                polygon3PointX19 = safeDivideTens(cache[1116] ?: 0),
-                polygon3PointX20 = safeDivideTens(cache[1118] ?: 0),
+                polygon3PointX01 = safeDivideTens(cache[36300] ?: 0),
+                polygon3PointX02 = safeDivideTens(cache[36302] ?: 0),
+                polygon3PointX03 = safeDivideTens(cache[36304] ?: 0),
+                polygon3PointX04 = safeDivideTens(cache[36306] ?: 0),
+                polygon3PointX05 = safeDivideTens(cache[36308] ?: 0),
+                polygon3PointX06 = safeDivideTens(cache[36310] ?: 0),
+                polygon3PointX07 = safeDivideTens(cache[3631] ?: 0),
+                polygon3PointX08 = safeDivideTens(cache[36314] ?: 0),
+                polygon3PointX09 = safeDivideTens(cache[36316] ?: 0),
+                polygon3PointX10 = safeDivideTens(cache[36318] ?: 0),
+                polygon3PointX11 = safeDivideTens(cache[36320] ?: 0),
+                polygon3PointX12 = safeDivideTens(cache[36322] ?: 0),
+                polygon3PointX13 = safeDivideTens(cache[36324] ?: 0),
+                polygon3PointX14 = safeDivideTens(cache[36326] ?: 0),
+                polygon3PointX15 = safeDivideTens(cache[36328] ?: 0),
+                polygon3PointX16 = safeDivideTens(cache[36330] ?: 0),
+                polygon3PointX17 = safeDivideTens(cache[36332] ?: 0),
+                polygon3PointX18 = safeDivideTens(cache[36334] ?: 0),
+                polygon3PointX19 = safeDivideTens(cache[36336] ?: 0),
+                polygon3PointX20 = safeDivideTens(cache[36338] ?: 0),
 
-                polygon3PointY01 = safeDivideTens(cache[1091] ?: 0),
-                polygon3PointY02 = safeDivideTens(cache[1093] ?: 0),
-                polygon3PointY03 = safeDivideTens(cache[1095] ?: 0),
-                polygon3PointY04 = safeDivideTens(cache[1097] ?: 0),
-                polygon3PointY05 = safeDivideTens(cache[1099] ?: 0),
-                polygon3PointY06 = safeDivideTens(cache[1101] ?: 0),
-                polygon3PointY07 = safeDivideTens(cache[1103] ?: 0),
-                polygon3PointY08 = safeDivideTens(cache[1105] ?: 0),
-                polygon3PointY09 = safeDivideTens(cache[1107] ?: 0),
-                polygon3PointY10 = safeDivideTens(cache[1109] ?: 0),
-                polygon3PointY11 = safeDivideTens(cache[1101] ?: 0),
-                polygon3PointY12 = safeDivideTens(cache[1103] ?: 0),
-                polygon3PointY13 = safeDivideTens(cache[1105] ?: 0),
-                polygon3PointY14 = safeDivideTens(cache[1107] ?: 0),
-                polygon3PointY15 = safeDivideTens(cache[1109] ?: 0),
-                polygon3PointY16 = safeDivideTens(cache[1111] ?: 0),
-                polygon3PointY17 = safeDivideTens(cache[1113] ?: 0),
-                polygon3PointY18 = safeDivideTens(cache[1115] ?: 0),
-                polygon3PointY19 = safeDivideTens(cache[1117] ?: 0),
-                polygon3PointY20 = safeDivideTens(cache[1119] ?: 0),
+                polygon3PointY01 = safeDivideTens(cache[36301] ?: 0),
+                polygon3PointY02 = safeDivideTens(cache[36303] ?: 0),
+                polygon3PointY03 = safeDivideTens(cache[36305] ?: 0),
+                polygon3PointY04 = safeDivideTens(cache[36307] ?: 0),
+                polygon3PointY05 = safeDivideTens(cache[36309] ?: 0),
+                polygon3PointY06 = safeDivideTens(cache[36311] ?: 0),
+                polygon3PointY07 = safeDivideTens(cache[36313] ?: 0),
+                polygon3PointY08 = safeDivideTens(cache[36315] ?: 0),
+                polygon3PointY09 = safeDivideTens(cache[36317] ?: 0),
+                polygon3PointY10 = safeDivideTens(cache[36319] ?: 0),
+                polygon3PointY11 = safeDivideTens(cache[36321] ?: 0),
+                polygon3PointY12 = safeDivideTens(cache[36323] ?: 0),
+                polygon3PointY13 = safeDivideTens(cache[36325] ?: 0),
+                polygon3PointY14 = safeDivideTens(cache[36327] ?: 0),
+                polygon3PointY15 = safeDivideTens(cache[36329] ?: 0),
+                polygon3PointY16 = safeDivideTens(cache[36331] ?: 0),
+                polygon3PointY17 = safeDivideTens(cache[36333] ?: 0),
+                polygon3PointY18 = safeDivideTens(cache[36335] ?: 0),
+                polygon3PointY19 = safeDivideTens(cache[36337] ?: 0),
+                polygon3PointY20 = safeDivideTens(cache[36339] ?: 0),
             ),
             polygon4Point = Polygon4Point(
-                polygon4PointX01 = safeDivideTens(cache[1120] ?: 0),
-                polygon4PointX02 = safeDivideTens(cache[1122] ?: 0),
-                polygon4PointX03 = safeDivideTens(cache[1124] ?: 0),
-                polygon4PointX04 = safeDivideTens(cache[1126] ?: 0),
-                polygon4PointX05 = safeDivideTens(cache[1128] ?: 0),
-                polygon4PointX06 = safeDivideTens(cache[1130] ?: 0),
-                polygon4PointX07 = safeDivideTens(cache[1132] ?: 0),
-                polygon4PointX08 = safeDivideTens(cache[1134] ?: 0),
-                polygon4PointX09 = safeDivideTens(cache[1136] ?: 0),
-                polygon4PointX10 = safeDivideTens(cache[1138] ?: 0),
-                polygon4PointX11 = safeDivideTens(cache[1140] ?: 0),
-                polygon4PointX12 = safeDivideTens(cache[1142] ?: 0),
-                polygon4PointX13 = safeDivideTens(cache[1144] ?: 0),
-                polygon4PointX14 = safeDivideTens(cache[1146] ?: 0),
-                polygon4PointX15 = safeDivideTens(cache[1148] ?: 0),
-                polygon4PointX16 = safeDivideTens(cache[1150] ?: 0),
-                polygon4PointX17 = safeDivideTens(cache[1152] ?: 0),
-                polygon4PointX18 = safeDivideTens(cache[1154] ?: 0),
-                polygon4PointX19 = safeDivideTens(cache[1156] ?: 0),
-                polygon4PointX20 = safeDivideTens(cache[1158] ?: 0),
+                polygon4PointX01 = safeDivideTens(cache[36400] ?: 0),
+                polygon4PointX02 = safeDivideTens(cache[36402] ?: 0),
+                polygon4PointX03 = safeDivideTens(cache[36404] ?: 0),
+                polygon4PointX04 = safeDivideTens(cache[36406] ?: 0),
+                polygon4PointX05 = safeDivideTens(cache[36408] ?: 0),
+                polygon4PointX06 = safeDivideTens(cache[36410] ?: 0),
+                polygon4PointX07 = safeDivideTens(cache[36412] ?: 0),
+                polygon4PointX08 = safeDivideTens(cache[36414] ?: 0),
+                polygon4PointX09 = safeDivideTens(cache[36416] ?: 0),
+                polygon4PointX10 = safeDivideTens(cache[36418] ?: 0),
+                polygon4PointX11 = safeDivideTens(cache[36420] ?: 0),
+                polygon4PointX12 = safeDivideTens(cache[36422] ?: 0),
+                polygon4PointX13 = safeDivideTens(cache[36424] ?: 0),
+                polygon4PointX14 = safeDivideTens(cache[36426] ?: 0),
+                polygon4PointX15 = safeDivideTens(cache[36428] ?: 0),
+                polygon4PointX16 = safeDivideTens(cache[36430] ?: 0),
+                polygon4PointX17 = safeDivideTens(cache[36432] ?: 0),
+                polygon4PointX18 = safeDivideTens(cache[36434] ?: 0),
+                polygon4PointX19 = safeDivideTens(cache[36436] ?: 0),
+                polygon4PointX20 = safeDivideTens(cache[36438] ?: 0),
 
-                polygon4PointY01 = safeDivideTens(cache[1121] ?: 0),
-                polygon4PointY02 = safeDivideTens(cache[1123] ?: 0),
-                polygon4PointY03 = safeDivideTens(cache[1125] ?: 0),
-                polygon4PointY04 = safeDivideTens(cache[1127] ?: 0),
-                polygon4PointY05 = safeDivideTens(cache[1129] ?: 0),
-                polygon4PointY06 = safeDivideTens(cache[1131] ?: 0),
-                polygon4PointY07 = safeDivideTens(cache[1133] ?: 0),
-                polygon4PointY08 = safeDivideTens(cache[1135] ?: 0),
-                polygon4PointY09 = safeDivideTens(cache[1137] ?: 0),
-                polygon4PointY10 = safeDivideTens(cache[1139] ?: 0),
-                polygon4PointY11 = safeDivideTens(cache[1141] ?: 0),
-                polygon4PointY12 = safeDivideTens(cache[1143] ?: 0),
-                polygon4PointY13 = safeDivideTens(cache[1145] ?: 0),
-                polygon4PointY14 = safeDivideTens(cache[1147] ?: 0),
-                polygon4PointY15 = safeDivideTens(cache[1149] ?: 0),
-                polygon4PointY16 = safeDivideTens(cache[1151] ?: 0),
-                polygon4PointY17 = safeDivideTens(cache[1153] ?: 0),
-                polygon4PointY18 = safeDivideTens(cache[1155] ?: 0),
-                polygon4PointY19 = safeDivideTens(cache[1157] ?: 0),
-                polygon4PointY20 = safeDivideTens(cache[1159] ?: 0),
+                polygon4PointY01 = safeDivideTens(cache[36401] ?: 0),
+                polygon4PointY02 = safeDivideTens(cache[36403] ?: 0),
+                polygon4PointY03 = safeDivideTens(cache[36405] ?: 0),
+                polygon4PointY04 = safeDivideTens(cache[36407] ?: 0),
+                polygon4PointY05 = safeDivideTens(cache[36409] ?: 0),
+                polygon4PointY06 = safeDivideTens(cache[36411] ?: 0),
+                polygon4PointY07 = safeDivideTens(cache[36413] ?: 0),
+                polygon4PointY08 = safeDivideTens(cache[36415] ?: 0),
+                polygon4PointY09 = safeDivideTens(cache[36417] ?: 0),
+                polygon4PointY10 = safeDivideTens(cache[36419] ?: 0),
+                polygon4PointY11 = safeDivideTens(cache[36421] ?: 0),
+                polygon4PointY12 = safeDivideTens(cache[36423] ?: 0),
+                polygon4PointY13 = safeDivideTens(cache[36425] ?: 0),
+                polygon4PointY14 = safeDivideTens(cache[36427] ?: 0),
+                polygon4PointY15 = safeDivideTens(cache[36429] ?: 0),
+                polygon4PointY16 = safeDivideTens(cache[36431] ?: 0),
+                polygon4PointY17 = safeDivideTens(cache[36433] ?: 0),
+                polygon4PointY18 = safeDivideTens(cache[36435] ?: 0),
+                polygon4PointY19 = safeDivideTens(cache[36437] ?: 0),
+                polygon4PointY20 = safeDivideTens(cache[36439] ?: 0),
             )
         )
     }
@@ -746,9 +759,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(891, 1)
+                modbusRepository.writeRegister(63900, 1)
                 delay(200)
-                modbusRepository.writeRegister(891, 0)
+                modbusRepository.writeRegister(63900, 0)
             } catch (e: Exception) {
             }
         }
@@ -760,9 +773,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(892, 1)
+                modbusRepository.writeRegister(63910, 1)
                 delay(200)
-                modbusRepository.writeRegister(892, 0)
+                modbusRepository.writeRegister(63910, 0)
             } catch (e: Exception) { }
         }
     }
@@ -776,9 +789,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(870, 1)
+                modbusRepository.writeRegister(63901, 1)
                 delay(200)
-                modbusRepository.writeRegister(870, 0)
+                modbusRepository.writeRegister(63901, 0)
             } catch (e: Exception) { }
         }
     }
@@ -788,9 +801,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(871, 1)
+                modbusRepository.writeRegister(63911, 1)
                 delay(200)
-                modbusRepository.writeRegister(871, 0)
+                modbusRepository.writeRegister(63911, 0)
             } catch (e: Exception) { }
         }
     }
@@ -800,9 +813,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(872, 1)
+                modbusRepository.writeRegister(63912, 1)
                 delay(200)
-                modbusRepository.writeRegister(872, 0)
+                modbusRepository.writeRegister(63912, 0)
             } catch (e: Exception) { }
         }
     }
@@ -812,7 +825,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvert(_setValuePolygon1PointNum.value, 0, 20 )
                 // Запись в регистры
-                modbusRepository.writeRegister(874, model)
+                modbusRepository.writeRegister(63914, model)
                 _errorMessagePolygon1.value = null
                 _logMessagePolygon1.value = "Сохранено"
             } catch (e: Exception) {
@@ -827,7 +840,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1Height.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(873, model)
+                modbusRepository.writeRegister(63913, model)
                 _errorMessagePolygon1.value = null
                 _logMessagePolygon1.value = "Сохранено"
             } catch (e: Exception) {
@@ -842,9 +855,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(902, 1)
+                modbusRepository.writeRegister(63952, 1)
                 delay(200)
-                modbusRepository.writeRegister(902, 0)
+                modbusRepository.writeRegister(63952, 0)
             } catch (e: Exception) {
             }
         }
@@ -855,9 +868,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(903, 1)
+                modbusRepository.writeRegister(63953, 1)
                 delay(200)
-                modbusRepository.writeRegister(903, 0)
+                modbusRepository.writeRegister(63953, 0)
             } catch (e: Exception) {
             }
         }
@@ -868,9 +881,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистр
-                modbusRepository.writeRegister(901, index)
+                modbusRepository.writeRegister(63951, index)
                 delay(200)
-                modbusRepository.writeRegister(901, 0)
+                modbusRepository.writeRegister(63951, 0)
             } catch (e: Exception) {
             }
         }
@@ -882,7 +895,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1TrolleyPos.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(906, model)
+                modbusRepository.writeRegister(63956, model)
                 _errorMessagePolygon1Manual.value = null
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -897,7 +910,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1SlewPos.value, 0.0f, 360.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(907, model)
+                modbusRepository.writeRegister(63957, model)
                 _errorMessagePolygon1Manual.value = null
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -912,7 +925,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1CranePos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(908, model)
+                modbusRepository.writeRegister(63958, model)
                 _errorMessagePolygon1Manual.value = null
                 _logMessagePolygon1Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -928,7 +941,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1PxPos.value, 0.0f, 500.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(904, model)
+                modbusRepository.writeRegister(63954, model)
                 _errorMessagePolygon1Coordinate.value = null
                 _logMessagePolygon1Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -943,7 +956,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon1PyPos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(905, model)
+                modbusRepository.writeRegister(63955, model)
                 _errorMessagePolygon1Coordinate.value = null
                 _logMessagePolygon1Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -959,9 +972,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(900, 1)
+                modbusRepository.writeRegister(63950, 1)
                 delay(200)
-                modbusRepository.writeRegister(900, 0)
+                modbusRepository.writeRegister(63950, 0)
             } catch (e: Exception) {
             }
         }
@@ -1009,9 +1022,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(875, 1)
+                modbusRepository.writeRegister(63902, 1)
                 delay(200)
-                modbusRepository.writeRegister(875, 0)
+                modbusRepository.writeRegister(63902, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1021,9 +1034,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(876, 1)
+                modbusRepository.writeRegister(63921, 1)
                 delay(200)
-                modbusRepository.writeRegister(876, 0)
+                modbusRepository.writeRegister(63921, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1033,9 +1046,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(877, 1)
+                modbusRepository.writeRegister(63922, 1)
                 delay(200)
-                modbusRepository.writeRegister(877, 0)
+                modbusRepository.writeRegister(63922, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1045,7 +1058,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvert(_setValuePolygon2PointNum.value, 0, 20 )
                 // Запись в регистры
-                modbusRepository.writeRegister(879, model)
+                modbusRepository.writeRegister(63924, model)
                 _errorMessagePolygon2.value = null
                 _logMessagePolygon2.value = "Сохранено"
             } catch (e: Exception) {
@@ -1060,7 +1073,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2Height.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(878, model)
+                modbusRepository.writeRegister(63923, model)
                 _errorMessagePolygon2.value = null
                 _logMessagePolygon2.value = "Сохранено"
             } catch (e: Exception) {
@@ -1075,9 +1088,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(912, 1)
+                modbusRepository.writeRegister(63962, 1)
                 delay(200)
-                modbusRepository.writeRegister(912, 0)
+                modbusRepository.writeRegister(63962, 0)
             } catch (e: Exception) {
             }
         }
@@ -1088,9 +1101,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(913, 1)
+                modbusRepository.writeRegister(63963, 1)
                 delay(200)
-                modbusRepository.writeRegister(913, 0)
+                modbusRepository.writeRegister(63963, 0)
             } catch (e: Exception) {
             }
         }
@@ -1101,9 +1114,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистр
-                modbusRepository.writeRegister(911, index)
+                modbusRepository.writeRegister(63961, index)
                 delay(200)
-                modbusRepository.writeRegister(911, 0)
+                modbusRepository.writeRegister(63961, 0)
             } catch (e: Exception) {
             }
         }
@@ -1115,7 +1128,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2TrolleyPos.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(916, model)
+                modbusRepository.writeRegister(63966, model)
                 _errorMessagePolygon2Manual.value = null
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1130,7 +1143,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2SlewPos.value, 0.0f, 360.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(917, model)
+                modbusRepository.writeRegister(63967, model)
                 _errorMessagePolygon2Manual.value = null
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1145,7 +1158,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2CranePos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(918, model)
+                modbusRepository.writeRegister(63968, model)
                 _errorMessagePolygon2Manual.value = null
                 _logMessagePolygon2Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1161,7 +1174,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2PxPos.value, 0.0f, 500.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(914, model)
+                modbusRepository.writeRegister(63964, model)
                 _errorMessagePolygon2Coordinate.value = null
                 _logMessagePolygon2Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1176,7 +1189,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2PyPos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(915, model)
+                modbusRepository.writeRegister(63965, model)
                 _errorMessagePolygon2Coordinate.value = null
                 _logMessagePolygon2Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1192,9 +1205,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(910, 1)
+                modbusRepository.writeRegister(63960, 1)
                 delay(200)
-                modbusRepository.writeRegister(910, 0)
+                modbusRepository.writeRegister(63960, 0)
             } catch (e: Exception) {
             }
         }
@@ -1242,9 +1255,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(880, 1)
+                modbusRepository.writeRegister(63903, 1)
                 delay(200)
-                modbusRepository.writeRegister(880, 0)
+                modbusRepository.writeRegister(63903, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1254,9 +1267,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(881, 1)
+                modbusRepository.writeRegister(63931, 1)
                 delay(200)
-                modbusRepository.writeRegister(881, 0)
+                modbusRepository.writeRegister(63931, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1266,9 +1279,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(882, 1)
+                modbusRepository.writeRegister(63932, 1)
                 delay(200)
-                modbusRepository.writeRegister(882, 0)
+                modbusRepository.writeRegister(63932, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1278,7 +1291,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvert(_setValuePolygon3PointNum.value, 0, 20 )
                 // Запись в регистры
-                modbusRepository.writeRegister(884, model)
+                modbusRepository.writeRegister(63934, model)
                 _errorMessagePolygon3.value = null
                 _logMessagePolygon3.value = "Сохранено"
             } catch (e: Exception) {
@@ -1293,7 +1306,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3Height.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(883, model)
+                modbusRepository.writeRegister(63933, model)
                 _errorMessagePolygon3.value = null
                 _logMessagePolygon3.value = "Сохранено"
             } catch (e: Exception) {
@@ -1308,9 +1321,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(922, 1)
+                modbusRepository.writeRegister(6397, 1)
                 delay(200)
-                modbusRepository.writeRegister(922, 0)
+                modbusRepository.writeRegister(6397, 0)
             } catch (e: Exception) {
             }
         }
@@ -1321,9 +1334,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(923, 1)
+                modbusRepository.writeRegister(63973, 1)
                 delay(200)
-                modbusRepository.writeRegister(923, 0)
+                modbusRepository.writeRegister(63973, 0)
             } catch (e: Exception) {
             }
         }
@@ -1334,9 +1347,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистр
-                modbusRepository.writeRegister(921, index)
+                modbusRepository.writeRegister(63971, index)
                 delay(200)
-                modbusRepository.writeRegister(921, 0)
+                modbusRepository.writeRegister(63971, 0)
             } catch (e: Exception) {
             }
         }
@@ -1348,7 +1361,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3TrolleyPos.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(926, model)
+                modbusRepository.writeRegister(63976, model)
                 _errorMessagePolygon3Manual.value = null
                 _logMessagePolygon3Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1363,7 +1376,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3SlewPos.value, 0.0f, 360.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(927, model)
+                modbusRepository.writeRegister(63977, model)
                 _errorMessagePolygon3Manual.value = null
                 _logMessagePolygon3Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1378,7 +1391,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3CranePos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(928, model)
+                modbusRepository.writeRegister(63978, model)
                 _errorMessagePolygon3Manual.value = null
                 _logMessagePolygon3Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1394,7 +1407,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3PxPos.value, 0.0f, 500.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(924, model)
+                modbusRepository.writeRegister(63974, model)
                 _errorMessagePolygon3Coordinate.value = null
                 _logMessagePolygon3Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1409,7 +1422,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon3PyPos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(925, model)
+                modbusRepository.writeRegister(63975, model)
                 _errorMessagePolygon3Coordinate.value = null
                 _logMessagePolygon3Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1425,9 +1438,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(920, 1)
+                modbusRepository.writeRegister(63970, 1)
                 delay(200)
-                modbusRepository.writeRegister(920, 0)
+                modbusRepository.writeRegister(63970, 0)
             } catch (e: Exception) {
             }
         }
@@ -1473,9 +1486,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(885, 1)
+                modbusRepository.writeRegister(63904, 1)
                 delay(200)
-                modbusRepository.writeRegister(885, 0)
+                modbusRepository.writeRegister(63904, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1485,9 +1498,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(886, 1)
+                modbusRepository.writeRegister(63941, 1)
                 delay(200)
-                modbusRepository.writeRegister(886, 0)
+                modbusRepository.writeRegister(63941, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1497,9 +1510,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(887, 1)
+                modbusRepository.writeRegister(63942, 1)
                 delay(200)
-                modbusRepository.writeRegister(887, 0)
+                modbusRepository.writeRegister(63942, 0)
             } catch (e: Exception) { }
         }
     }
@@ -1509,7 +1522,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvert(_setValuePolygon4PointNum.value, 0, 20 )
                 // Запись в регистры
-                modbusRepository.writeRegister(889, model)
+                modbusRepository.writeRegister(63944, model)
                 _errorMessagePolygon4.value = null
                 _logMessagePolygon4.value = "Сохранено"
             } catch (e: Exception) {
@@ -1524,7 +1537,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon4Height.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(888, model)
+                modbusRepository.writeRegister(63943, model)
                 _errorMessagePolygon4.value = null
                 _logMessagePolygon4.value = "Сохранено"
             } catch (e: Exception) {
@@ -1539,9 +1552,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(932, 1)
+                modbusRepository.writeRegister(63982, 1)
                 delay(200)
-                modbusRepository.writeRegister(932, 0)
+                modbusRepository.writeRegister(63982, 0)
             } catch (e: Exception) {
             }
         }
@@ -1552,9 +1565,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(933, 1)
+                modbusRepository.writeRegister(63983, 1)
                 delay(200)
-                modbusRepository.writeRegister(933, 0)
+                modbusRepository.writeRegister(63983, 0)
             } catch (e: Exception) {
             }
         }
@@ -1565,9 +1578,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистр
-                modbusRepository.writeRegister(931, index)
+                modbusRepository.writeRegister(63981, index)
                 delay(200)
-                modbusRepository.writeRegister(931, 0)
+                modbusRepository.writeRegister(63981, 0)
             } catch (e: Exception) {
             }
         }
@@ -1579,7 +1592,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon4TrolleyPos.value, 0.0f, 100.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(936, model)
+                modbusRepository.writeRegister(63986, model)
                 _errorMessagePolygon4Manual.value = null
                 _logMessagePolygon4Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1594,7 +1607,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon4SlewPos.value, 0.0f, 360.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(937, model)
+                modbusRepository.writeRegister(63987, model)
                 _errorMessagePolygon4Manual.value = null
                 _logMessagePolygon4Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1609,7 +1622,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon4CranePos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(938, model)
+                modbusRepository.writeRegister(63988, model)
                 _errorMessagePolygon4Manual.value = null
                 _logMessagePolygon4Manual.value = "Сохранено"
             } catch (e: Exception) {
@@ -1625,7 +1638,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon2PxPos.value, 0.0f, 500.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(934, model)
+                modbusRepository.writeRegister(63984, model)
                 _errorMessagePolygon4Coordinate.value = null
                 _logMessagePolygon4Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1640,7 +1653,7 @@ class CoordinateProtectionViewModule
             try {
                 val model = validateAndConvertFloat(_setValuePolygon4PyPos.value, 0.0f, 300.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(935, model)
+                modbusRepository.writeRegister(63985, model)
                 _errorMessagePolygon4Coordinate.value = null
                 _logMessagePolygon4Coordinate.value = "Сохранено"
             } catch (e: Exception) {
@@ -1656,9 +1669,9 @@ class CoordinateProtectionViewModule
             try {
                 if (!isActive) return@launch // Проверка активности ViewModel
                 // Запись в регистры
-                modbusRepository.writeRegister(930, 1)
+                modbusRepository.writeRegister(63980, 1)
                 delay(200)
-                modbusRepository.writeRegister(930, 0)
+                modbusRepository.writeRegister(63980, 0)
             } catch (e: Exception) {
             }
         }

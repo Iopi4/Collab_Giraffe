@@ -61,7 +61,7 @@ class SettingRotationViewModel
 
 
     private val addresses = listOf(
-        1655, 1656, 1657, 1658, 1659, 1660, 1661, 1662 // Регистры для считывания данных
+        31266, 31267, 31268, 31269, 31270, 31271, 31272, 31273 // Регистры для считывания данных
     )
 
     private val _state = mutableStateOf(SettingRotationState())
@@ -145,14 +145,14 @@ class SettingRotationViewModel
 
     private fun createServiceMenuState(cache: Map<Int, Int?>): SettingRotationState {
         return SettingRotationState(
-            hmiSlewSpeedBrakeClose                 = cache[1658] ?: 0,
-            hmiSlewDecRevers        = safeDivideTens(cache[1655] ?: 0),
-            hmiSlewDelayTimeBrake   = safeDivideTens(cache[1656] ?: 0),
-            hmiSlewBrakeCloseFrq = safeDivideHundred(cache[1657] ?: 0),
-            hmiSlewDelayTimeBrakeCurr = safeDivideTens(cache[1659] ?: 0),
-            hmiSlewTimeBrakeCurrent = safeDivideTens(cache[1660] ?: 0),
-            hmiSlewFrqStartBraking  = safeDivideTens(cache[1661] ?: 0),
-            hmiSlewDelayStartBraking= safeDivideTens(cache[1662] ?: 0),
+            hmiSlewSpeedBrakeClose                 = cache[31269] ?: 0,
+            hmiSlewDecRevers        = safeDivideTens(cache[31266] ?: 0),
+            hmiSlewDelayTimeBrake   = safeDivideTens(cache[31267] ?: 0),
+            hmiSlewBrakeCloseFrq = safeDivideHundred(cache[31268] ?: 0),
+            hmiSlewDelayTimeBrakeCurr = safeDivideTens(cache[31270] ?: 0),
+            hmiSlewTimeBrakeCurrent = safeDivideTens(cache[31271] ?: 0),
+            hmiSlewFrqStartBraking  = safeDivideTens(cache[31272] ?: 0),
+            hmiSlewDelayStartBraking= safeDivideTens(cache[31273] ?: 0),
         )
     }
 
@@ -176,7 +176,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvert(_setValueSlewSpdStopButton.value, 0,100 )
                 // Запись в регистры
-                modbusRepository.writeRegister(1217, model)
+                modbusRepository.writeRegister(61269, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -191,7 +191,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewDECRevers.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(987, model)
+                modbusRepository.writeRegister(61266, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -206,7 +206,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewDelayTime.value, 0.0f,30.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(988, model)
+                modbusRepository.writeRegister(61267, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -221,7 +221,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloatHundred(_setValueSlewBrakeCloseFrq.value, 0.00f,0.50f )
                 // Запись в регистры
-                modbusRepository.writeRegister(989, model)
+                modbusRepository.writeRegister(61268, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -237,7 +237,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewFrqStartBraking.value, 0.0f,5.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1220, model)
+                modbusRepository.writeRegister(61272, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -253,7 +253,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewDelayStartBraking.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1221, model)
+                modbusRepository.writeRegister(61273, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -269,7 +269,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewDelayTimeBrakeCurr.value, 0.0f,10.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1218, model)
+                modbusRepository.writeRegister(61270, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {
@@ -285,7 +285,7 @@ class SettingRotationViewModel
             try {
                 val model = validateAndConvertFloat(_setValueSlewTimeBrakeCurrent.value, 0.0f,20.0f )
                 // Запись в регистры
-                modbusRepository.writeRegister(1219, model)
+                modbusRepository.writeRegister(61271, model)
                 _errorMessageSlew.value = null
                 _logMessageSlew.value = "Сохранено"
             } catch (e: Exception) {

@@ -117,9 +117,9 @@ fun AppDrawer(
             iconResId = R.drawable.ic_nav_setting_rotation,
             labelResId = R.string.menu_setting_rotation,
             isSelected = route == AllDestinations.NAVIGATE_SETTING_ROTATION,
-            isLocked = !protectedMenusEnabled,
+            isLocked = !protectedMenusEnabledService,
             onClick = {
-            if (protectedMenusEnabled){
+            if (protectedMenusEnabledService){
                 navigateToSettingRotation()
                 closeDrawer()
             } else topBarViewModule.playAccessDeniedSound()
@@ -131,9 +131,9 @@ fun AppDrawer(
             iconResId = R.drawable.ic_nav_service_menu,
             labelResId = R.string.menu_service,
             isSelected = route == AllDestinations.NAVIGATE_SERVICE_MENU,
-            isLocked = !protectedMenusEnabled,
+            isLocked = !protectedMenusEnabledService,
             onClick = {
-                if (protectedMenusEnabled){
+                if (protectedMenusEnabledService){
                 navigateToServiceMenu()
                 closeDrawer()
                 } else topBarViewModule.playAccessDeniedSound()
