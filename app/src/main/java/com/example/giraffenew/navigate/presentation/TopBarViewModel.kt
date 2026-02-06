@@ -108,7 +108,7 @@ class TopBarViewModel @Inject constructor(
     private val _montageMode = mutableStateOf(0)
     val montageMode: State<Int> = _montageMode
 
-    private val addresses = listOf(3001, 30002, 3003, 3004, 3005, 3006, 33501, 33001, 33002, 33003, 33506, 33507,
+    private val addresses = listOf(30001, 30002, 30003, 30004, 30005, 30006, 33501, 33001, 33002, 33003, 33506, 33507,
         33500, 30210, 30211, 30212, 30213, 30214, 30007) // Только нужные регистры
 
     // Для отслеживания предыдущих значений
@@ -248,8 +248,8 @@ class TopBarViewModel @Inject constructor(
 
 
     private fun updateTime(cache: Map<Int, Int?>) {
-        val hour = cache[95] ?: return
-        val minute = cache[98] ?: return
+        val hour = cache[30004] ?: return
+        val minute = cache[30005] ?: return
         _currentTime.value = String.format("%02d:%02d", hour, minute)
     }
     private fun updateTimeEvents(cache: Map<Int, Int?>) {

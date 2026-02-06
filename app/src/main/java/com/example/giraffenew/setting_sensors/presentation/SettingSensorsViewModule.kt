@@ -197,7 +197,7 @@ class SettingSensorsViewModule
                 currentHoistAbsEncErrCanOpen = cache[30026] ?: 0, //-----ошибка связи энкодеров
                 //Данные с абсолютного энкодера
                 currentAbsEncHoistPositionWord1 = cache[33050] ?: 0,
-                currentAbsEncHoistPositionWord2 = cache[33050] ?: 0,
+                currentAbsEncHoistPositionWord2 = cache[33051] ?: 0,
 
                 hoistLimitStatus = cache[31158] ?: 0,
 

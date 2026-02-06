@@ -1708,7 +1708,7 @@ object UIParameterLoggerConfiguration {
         RegisterInfo(33600, "RE_arr_rest_a11_MW_1", "WORD32", ">101% Количество циклов подъема в зависимости от веса груза"),
         RegisterInfo(33601, "RE_arr_rest_a11_MW_2", "WORD32", ">101% Количество циклов подъема в зависимости от веса груза"),
 
-        RegisterInfo(33620, "RE_CycleHoist_MD", "WORD32", "Рабочие циклы подъема"),
+        RegisterInfo(33620, "RE_CycleHoist_MW_1", "WORD32", "Рабочие циклы подъема"),
         RegisterInfo(33621, "RE_CycleHoist_MW_2", "WORD32", "Рабочие циклы подъема"),
         RegisterInfo(33622, "RE_CycleSlew_MW_1", "WORD32", "Рабочие циклы поворота"),
         RegisterInfo(33623, "RE_CycleSlew_MW_1", "WORD32", "Рабочие циклы поворота"),

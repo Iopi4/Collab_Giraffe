@@ -33,11 +33,11 @@ class SoundController
     private val soundPool = SoundPool.Builder().setMaxStreams(4).build()
 
     private val soundConfigs = mapOf(
-        278 to SoundConfigRepeat(R.raw.beep_sound_weight, 3000, 4500),
-        279 to SoundConfigRepeat(R.raw.beep_sound_warning, 3000, 4500),
-        280 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 3000, 500),
-        281 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 500),
-        282 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 500),
+        30210 to SoundConfigRepeat(R.raw.beep_sound_weight, 3000, 4500),
+        30211 to SoundConfigRepeat(R.raw.beep_sound_warning, 3000, 4500),
+        30212 to SoundConfigRepeat(R.raw.beep_sound_alarm_2, 3000, 500),
+        30213 to SoundConfigRepeat(R.raw.karlson_ti_shto_s_yma_soshol, 3000, 500),
+        30214 to SoundConfigRepeat(R.raw.voice_stoi, 1000, 500),
     )
 
     private data class SoundConfigRepeat(
@@ -48,7 +48,7 @@ class SoundController
 
     private val soundIds = mutableMapOf<Int, Int>()
     private val jobs = mutableMapOf<Int, Job?>()
-    private val singlePlayRegisters = setOf(280, 281, 282)
+    private val singlePlayRegisters = setOf(30210, 30211, 30212)
     private val lastState = mutableMapOf<Int, Boolean>()
     private val singleSoundIds = mutableMapOf<Int, Int>()
 

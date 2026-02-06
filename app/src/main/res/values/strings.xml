@@ -225,12 +225,12 @@
 
     <string name="SettingSensors_Text_Crane_Calibration">Калибровка хода крана</string>
     <string name="SettingSensors_Text_Crane_Run">Пройденный путь</string>
-    <string name="SettingSensors_Text_Crane_Stop_Right">Коорд. Стоп вперед(вправо)[м]</string>
-    <string name="SettingSensors_Text_Crane_Stop_Left">Коорд. Стоп назад(влево) [м]</string>
-    <string name="SettingSensors_Text_Crane_Decline_Right">Ввод. Сниж. скор. вперед [м]</string>
-    <string name="SettingSensors_Text_Crane_Decline_Left">Ввод. Сниж. скор. назад [м]</string>
-    <string name="SettingSensors_Text_Crane_Reference_Point">Реперная точка [м]</string>
-    <string name="SettingSensors_Text_Crane_Activate">Активация хода крана</string>
+    <string name="SettingSensors_Text_Crane_Stop_Right">(2)Коорд.Стоп вперед(вправо)[м]</string>
+    <string name="SettingSensors_Text_Crane_Stop_Left">(3)Коорд.Стоп назад(влево)[м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Right">(4)Ввод. Сниж. скор. вперед[м]</string>
+    <string name="SettingSensors_Text_Crane_Decline_Left">(5)Ввод. Сниж. скор. назад[м]</string>
+    <string name="SettingSensors_Text_Crane_Reference_Point">(6)Реперная точка [м]</string>
+    <string name="SettingSensors_Text_Crane_Activate">(1)Активация хода крана</string>
 
     <string name="SettingSensors_Text_Sensor_Status">Состояние датчика</string>
     <!-- Текст экрана SettingSensorsScreen' -->
