@@ -718,8 +718,8 @@ object UISettingLoadCapacityConfiguration {
 
         RegisterInfo(63537, "WR_xHMI_Curr_Gruz_Blok_MW", "WORD16", "Запись выбора блока, =0 с блоком, =1 без блока"),
         RegisterInfo(63507, "WR_iHMI_Curr_Gruz_Fun_MW", "WORD16", "Выбор грузовая характеристика"),
-        RegisterInfo(63021, "WR_rMin_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при минимальном грузе"),
-        RegisterInfo(63022, "WR_rMax_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при максимальном грузе"),
+        RegisterInfo(63026, "WR_rMin_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при минимальном грузе"),
+        RegisterInfo(63027, "WR_rMax_Weight_Val_MW", "WORD16", "C HMI значение в тоннах при максимальном грузе"),
         RegisterInfo(63028, "WR_xMin_Weight_Set_MW", "WORD16", "Калибровать минимальный груз"),
         RegisterInfo(63029, "WR_xMax_Weight_Set_MW", "WORD16", "Калибровать максимальный груз"),
 

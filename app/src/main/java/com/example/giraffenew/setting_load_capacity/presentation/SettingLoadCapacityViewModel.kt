@@ -233,7 +233,7 @@ class SettingLoadCapacityViewModel
             try {
                 val model = validateAndConvertFloatTens(_setValueMinWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
-                modbusRepository.writeRegister(63021, model)
+                modbusRepository.writeRegister(63026, model)
                 _errorMessageWeightSensor.value = null
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
@@ -249,7 +249,7 @@ class SettingLoadCapacityViewModel
             try {
                 val model = validateAndConvertFloatTens(_setValueMaxWeight.value, 0.0f, 99.9f )
                 // Запись в регистры
-                modbusRepository.writeRegister(63022, model)
+                modbusRepository.writeRegister(63027, model)
                 _errorMessageWeightSensor.value = null
                 _logMessageWeightSensor.value = "Сохранено"
             } catch (e: Exception) {
