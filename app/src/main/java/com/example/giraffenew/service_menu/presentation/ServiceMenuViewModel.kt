@@ -1665,9 +1665,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(63076, 1)
+                modbusRepository.writeRegister(63066, 1)
                 delay(200)
-                modbusRepository.writeRegister(63076, 0)
+                modbusRepository.writeRegister(63066, 0)
             } catch (e: Exception) {
             }
         }
@@ -1680,9 +1680,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(63077, 1)
+                modbusRepository.writeRegister(63067, 1)
                 delay(200)
-                modbusRepository.writeRegister(63077, 0)
+                modbusRepository.writeRegister(63067, 0)
             } catch (e: Exception) {
             }
         }
@@ -1695,9 +1695,9 @@ class ServiceMenuViewModel
                 // Запись в регистры
                 Log.d("InitialSetupViewModel", "Writing registers...")
                 // Активация калибровки
-                modbusRepository.writeRegister(63078, 1)
+                modbusRepository.writeRegister(63068, 1)
                 delay(200)
-                modbusRepository.writeRegister(63078, 0)
+                modbusRepository.writeRegister(63068, 0)
             } catch (e: Exception) {
             }
         }
