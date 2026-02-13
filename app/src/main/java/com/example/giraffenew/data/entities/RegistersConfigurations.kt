@@ -1366,6 +1366,9 @@ object UIServiceMenuRegisterConfiguration {
         RegisterInfo(61170, "WR_Hoist_BrakeControl_Stat", "WORD16", "Вкл. Выкл. отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет"),
         RegisterInfo(61171, "WR_Hoist_BrakeControl_Timeout", "WORD16", "Значение времени ожидания обратной связи от тормоза подъема, сек"),
 
+        RegisterInfo(61175, "WR_HoistSpdTarget_Alarm_Hook_MW", "WORD16", "Значение скорости подъема при аварийном движении крюка вниз [*0.1Hz]"),
+        RegisterInfo(61176, "WR_HoistEncMaxDeltaEn_MW", "WORD16", "Величина рассогласования по энкодеру для срабатывания ошибки по самопроизвольному движению крюка вниз"),
+
         RegisterInfo(31150, "RE_wSpdRefButton_Hoist", "WORD16", "Пониженая скорость подъема"),
         RegisterInfo(31151, "RE_wSpdRef1_Hoist", "WORD16", "1-ая скорость подъема об/мин"),
         RegisterInfo(31152, "RE_wSpdRef2_Hoist", "WORD16", "2-ая скорость подъема об/мин"),
@@ -1391,6 +1394,9 @@ object UIServiceMenuRegisterConfiguration {
 
         RegisterInfo(31170, "RE_Hoist_BrakeControl_Stat", "WORD16", "Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет"),
         RegisterInfo(31171, "RE_Hoist_BrakeControl_Timeout", "WORD16", "Время ожидания обратной связи от тормоза"),
+
+        RegisterInfo(31175, "RE_HoistSpdTarget_Alarm_Hook_MW", "WORD16", "Значение скорости подъема при аварийном движении крюка вниз [*0.1Hz]"),
+        RegisterInfo(31176, "RE_HoistEncMaxDeltaEn_MW", "WORD16", "Величина рассогласования по энкодеру для срабатывания ошибки по самопроизвольному движению крюка вниз"),
 
         //СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОВОРОТА
         RegisterInfo(61250, "WR_Slew_wDrvSpdLSP_MW", "WORD16", "Снижение скорости поворота"),
@@ -1868,7 +1874,9 @@ object UIAccidentAndWaringConfiguration {
 
         RegisterInfo(39045, "RE_HMI_xHoist_Encoder_Fault_MW", "WORD16", "Ошибка энкодера привода подъема"),
         RegisterInfo(39046, "RE_HMI_xSlew_Encoder_Fault_MW", "WORD16", "Ошибка энкодера привода поворота"),
-        RegisterInfo(39047, "RE_HMI_xTrolley_Encoder_Fault_MW", "WORD16", "Ошибка энкодера привода тележки")
+        RegisterInfo(39047, "RE_HMI_xTrolley_Encoder_Fault_MW", "WORD16", "Ошибка энкодера привода тележки"),
+        RegisterInfo(39050, "RE_HMI_xHoist_Kryk_Vniz_Set_MW", "WORD16", "Авария. самопроизвольное движение крюка вниз")
+
     )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))

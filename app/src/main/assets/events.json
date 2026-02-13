@@ -64,6 +64,8 @@
   {"registrationNumber": "39046", "type": "ACCIDENT", "description": "Ошибка энкодера привода поворота"},
   {"registrationNumber": "39047", "type": "ACCIDENT", "description": "Ошибка энкодера привода тележки"},
 
+  {"registrationNumber": "39050", "type": "ACCIDENT", "description": "Авария самопроизвольное движение крюка вниз"},
+
   {"registrationNumber": "33104", "type": "WARNING", "description": "Привод хода крана не настроен"},
   {"registrationNumber": "33101", "type": "WARNING", "description": "Привод подъема не настроен"},
   {"registrationNumber": "33102", "type": "WARNING", "description": "Привод поворота не настроен"},
