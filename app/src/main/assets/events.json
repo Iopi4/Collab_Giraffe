@@ -47,8 +47,8 @@
   {"registrationNumber": "39026", "type": "ACCIDENT", "description": "Отключение от СБКБ сигнала PWR ПЧ тележки"},
   {"registrationNumber": "39027", "type": "ACCIDENT", "description": "Отключение от СБКБ сигнала PWR ПЧ хода крана"},
 
-  {"registrationNumber": "39028", "type": "ACCIDENT", "description": "Аавария готовности в сети CANopen. Датчики"},
-  {"registrationNumber": "39029", "type": "ACCIDENT", "description": "Аавария готовности в сети CANopen. Преоброват. частоты"},
+  {"registrationNumber": "39028", "type": "ACCIDENT", "description": "Авария сети CANopen. Датчики положения"},
+  {"registrationNumber": "39029", "type": "ACCIDENT", "description": "Авария сети Ethernet. Преоброватели частоты"},
 
   {"registrationNumber": "39030", "type": "ACCIDENT", "description": "Сбой датчика подъема. Макс. дельта"},
   {"registrationNumber": "39031", "type": "ACCIDENT", "description": "Сбой датчика поворота. Макс. дельта"},

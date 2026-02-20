@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -54,7 +56,6 @@ fun ServiceHoist(
     hmiSpdRef2HoistMontage:    Int,
     hmiHoistACCMontage:    Float,
     hmiHoistDECMontage:    Float,
-
 
     setValueHoistSpdRef1: String,
     onModelChangeHoistSpdRef1: (String) -> Unit,
@@ -103,6 +104,15 @@ fun ServiceHoist(
     errorMessageHoist: String?,
     logMessageHoist: String?,
 
+    errorMessageHoistMontage: String?,
+    logMessageHoistMontage: String?,
+
+    errorMessageHoistBrake: String?,
+    logMessageHoistBrake: String?,
+
+    errorMessageHoistHookSetting: String?,
+    logMessageHoistHookSetting: String?,
+
     onSetHoistBrakeControlEn: () -> Unit,
     hmiHoistBrakeControlStat: Int,
 
@@ -111,9 +121,22 @@ fun ServiceHoist(
     onSetHoistBrakeControlTimeout: () -> Unit,
     hmiHoistBrakeControlTimeout: Float,
 
+    setValueHoistSpdHookUp: String,
+    updateHoistSpdHookUp: (String) -> Unit,
+    onSetHoistSpdHookUp: () -> Unit,
+    hmiHoistSpdHookUp: Float,
+
+    setValueHoistEncoderMaxDeltaEn: String,
+    onModelChangeHoistEncoderMaxDeltaEn: (String) -> Unit,
+    onSetHoistEncoderMaxDeltaEn: () -> Unit,
+    hmiHoistEncoderMaxDeltaEn:    Int,
+
     onSetFltRst: () -> Unit,
 
 ){
+    // Общее состояние прокрутки
+    val scrollState = rememberScrollState()
+
     //Создаем поле в котором разделим экраны на две вертикальные области №1, №2.
     Row(
         modifier = Modifier
@@ -122,6 +145,7 @@ fun ServiceHoist(
 //№.1 - Левая область для отображения параметров скорости и ускорений
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize()
                 .weight(3f)
                 .padding(5.dp)
@@ -133,7 +157,9 @@ fun ServiceHoist(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
-// Заголовок
+//Сброс ошибки привода
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Drive_Fault_Reset)
+            // Заголовок
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Hoist_Parameters))
 //Отображения текста рабочих параметров привода подъема
@@ -147,7 +173,7 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Max_Speed_SS)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_SpdRefButton)
 
-// Заголовок
+// Заголовок. Монтажный режим
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Hoist_Montage))
 //Отображения текста параметров привода подъема в режиме монтаж
@@ -155,20 +181,26 @@ fun ServiceHoist(
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Dec)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_1)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Speed_2)
-// Заголовок
+// Заголовок. Контроль тормоза
             BasicSettingsName(modifier = Modifier,
                 text = stringResource(R.string.ServiceMenu_Text_Hoist_Brake_Setting))
+//Отображения текста параметров настройки тормоза
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_En)
             BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_BrakeControl_Timeout)
-// Отступ
+// Заголовок
+            BasicSettingsName(modifier = Modifier,
+                text = stringResource(R.string.ServiceMenu_Text_Hoist_Hook_Protection_Setting))
+//Отображения текста параметров настройки защиты по самопроизвольному движению крюка вниз
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_Hook_Up_Speed)
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Hoist_EncMaxDelta)
+
             Spacer(modifier = Modifier.size(10.dp))
-//Сброс ошибки привода
-            BasicNameSettingParameterGiraffe(settingParameterId = R.string.ServiceMenu_Text_Drive_Fault_Reset)
         }
 
 //№.2 - Правая область для отображения и ввода параметров скорости и ускорений
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState) // Добавлена прокрутка
                 .fillMaxSize()
                 .weight(2f)
                 .padding(5.dp)
@@ -180,6 +212,13 @@ fun ServiceHoist(
                 ),
             verticalArrangement = Arrangement.Top
         ) {
+            //Кнопка сброса ошибка привода
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.Button_Turn_Reset,
+                onClick = onSetFltRst,
+            ) {}
+
 // Отступ  и Статус записи данных настройки подъема
             Row(modifier = Modifier.fillMaxWidth()) {
                 BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
@@ -272,8 +311,19 @@ fun ServiceHoist(
             )
 
             Spacer(modifier = Modifier.size(20.dp))
-// Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+
+// Отступ  и Статус записи данных настройки подъема в режиме монтаж
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageHoistMontage?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageHoistMontage?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 //Настройка скоростей и ускорения в монтажном режиме для подъема
 //Ввод. Разгон. сек
             BasicInputRowandTensButton(
@@ -310,8 +360,18 @@ fun ServiceHoist(
                 onClick = onSetHoistMontageSpdRef2
             )
 
-// Отступ
-            BasicSettingsName(modifier = Modifier, text = stringResource(R.string.spacer))
+
+// Отступ  и Статус записи данных настройки подъема в режиме монтаж
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageHoistBrake?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageHoistBrake?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
 //Контроль отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет [вкл/выкл]
             BasicButtonOnOffStatus(
                 onClick = onSetHoistBrakeControlEn,
@@ -325,13 +385,37 @@ fun ServiceHoist(
                 onClick = onSetHoistBrakeControlTimeout,
                 isDecimal = true,
             )
+
+// Отступ  и Статус записи данных настройки подъема
+            Row(modifier = Modifier.fillMaxWidth()) {
+                BasicSettingsName(modifier = Modifier.weight(1f), text = stringResource(R.string.spacer))
+
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                ) {
+                    errorMessageHoistHookSetting?.let { Text(text = it, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp))}
+                    logMessageHoistHookSetting?.let { Text(text = it, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(top = 0.dp)) }
+                }
+            }
+// Ввод. Ввод. Частота подъема [Гц] при аварии крюка вниз
+            BasicInputRowandTensButton(
+                placeholder = formatDecimal(hmiHoistSpdHookUp),
+                value = setValueHoistSpdHookUp,
+                onValueChange = updateHoistSpdHookUp,
+                onClick = onSetHoistSpdHookUp,
+                isDecimal = true,
+            )
+// Ввод. Ввод. Контроль количества импульсов тэнкодера для срабатывании аварии крюка вниз [Имп]
+            BasicInputRowandButton(
+                placeholder = format(hmiHoistEncoderMaxDeltaEn),
+                valueMin = 0,
+                valueMax = 100,
+                value = setValueHoistEncoderMaxDeltaEn,
+                onValueChange = onModelChangeHoistEncoderMaxDeltaEn,
+                onClick = onSetHoistEncoderMaxDeltaEn
+            )
+
             Spacer(modifier = Modifier.size(10.dp))
-//Кнопка сброса ошибка привода
-            BasicButtonGiraffe(
-                modifier = Modifier,
-                text = R.string.Button_Turn_Reset,
-                onClick = onSetFltRst,
-            ) {}
         }
     }
 }
@@ -406,6 +490,15 @@ fun ServiceHoistPreview () {
             errorMessageHoist = null,
             logMessageHoist = null,
 
+            errorMessageHoistMontage = null,
+            logMessageHoistMontage = null,
+
+            errorMessageHoistBrake = null,
+            logMessageHoistBrake = null,
+
+            errorMessageHoistHookSetting = null,
+            logMessageHoistHookSetting = null,
+
             hmiSpdRefButtonHoist = 20,
             hmiSpdRef1Hoist = 60,
             hmiSpdRef2Hoist = 240,
@@ -425,6 +518,16 @@ fun ServiceHoistPreview () {
             updateHoistBrakeControlTimeout = {},
             onSetHoistBrakeControlTimeout = { },
             hmiHoistBrakeControlTimeout = 1f,
+
+            setValueHoistSpdHookUp = "1",
+            updateHoistSpdHookUp = { },
+            onSetHoistSpdHookUp = { },
+            hmiHoistSpdHookUp = 1f,
+
+            setValueHoistEncoderMaxDeltaEn = "10",
+            onModelChangeHoistEncoderMaxDeltaEn = { },
+            onSetHoistEncoderMaxDeltaEn = { },
+            hmiHoistEncoderMaxDeltaEn = 1,
 
             onSetFltRst = {},
         )

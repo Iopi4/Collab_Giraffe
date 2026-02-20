@@ -140,40 +140,6 @@ class LoginViewModule
         _setValuePasswordPart3.value = "1" + paddedPassword.substring(6, 9)
     }
 
-
-    // Запись пароля
-    fun onSetValuePasswordPart1() {
-        viewModelScope.launch(Dispatchers.Default) {
-            try {
-                val model = validateAndConvert(_setValuePasswordPart1.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(63007, model)
-            } catch (e: Exception) {
-            }
-        }
-    }
-    fun onSetValuePasswordPart2() {
-        viewModelScope.launch(Dispatchers.Default) {
-            try {
-                val model = validateAndConvert(_setValuePasswordPart2.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(63008, model)
-            } catch (e: Exception) {
-            }
-        }
-    }
-    fun onSetValuePasswordPart3() {
-        viewModelScope.launch(Dispatchers.Default) {
-            try {
-                val model = validateAndConvert(_setValuePasswordPart3.value, 0, 1999 )
-                // Запись в регистры
-                modbusRepository.writeRegister(63009, model)
-            } catch (e: Exception) {
-            }
-        }
-    }
-
-
     fun onSetPasswordLogIn() {
         viewModelScope.launch(Dispatchers.Default) {
             try {

@@ -49,7 +49,7 @@ open class EventsViewModel
         39010, 39011, 39012, 39013, 39014, 39015, 39016, 39017, 39018,
         39020, 39021, 39022, 39023, 39024, 39025, 39026, 39027, 39028, 39029,
         39030, 39031, 39032, 39033, 39034, 39035, 39036, 39037,
-        39041, 39042, 39043, 39044, 39045, 39046, 39047)
+        39041, 39042, 39043, 39044, 39045, 39046, 39047, 39050)
 
     private val _state = mutableStateOf(EventsState())
     val state: State<EventsState> = _state
@@ -209,6 +209,8 @@ open class EventsViewModel
             hmiHoistEncoderFault            = cache[39045] ?: 0,
             hmiSlewEncoderFault             = cache[39046] ?: 0,
             hmiTrolleyEncoderFault          = cache[39047] ?: 0,
+
+            hmiHoistHookAlarm               = cache[39050] ?: 0,
         )
     }
 
@@ -285,7 +287,9 @@ open class EventsViewModel
 
         val hmiHoistEncoderFault: Int = 0,
         val hmiSlewEncoderFault: Int = 0,
-        val hmiTrolleyEncoderFault: Int = 0
+        val hmiTrolleyEncoderFault: Int = 0,
+
+        val hmiHoistHookAlarm: Int = 0
     )
 
     /**

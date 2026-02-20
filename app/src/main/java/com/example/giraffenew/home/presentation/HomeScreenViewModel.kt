@@ -32,7 +32,7 @@ class HomeScreenViewModel @Inject constructor(
     val addressesInformation = listOf(33001, 33002, 30117, 30120, 39000, 39001, 39002, 39003, 39004, 39005, 39006, 39007, 39008,
         39013, 39014, 39015, 39016, 39017, 39018, 39020, 39021, 39022, 39023, 39024, 39025, 39026, 39027, 39028, 39029 ) // Только нужные регистры
     val addressesCraneMechanismsCondition = listOf(39011, 33215,33216,33211,33212,33213,33214,33217,33218,33227,33228,
-        33223,33224,33225,33226,33221,33222,39012,33210, 31103, 31203, 31303, 31403) // Только нужные регистры
+        33223,33224,33225,33226,33221,33222,39012,33210, 31103, 31203, 31303, 31403, 39050) // Только нужные регистры
 
     val addressesCraneSOZR = listOf(33230, 33231, 33232, 33233, 33234, 33901, 33902, 33903, 33904,
         34100, 34101, 34102, 34103, 34104, 34105, 34106, 34107, 34108, 34109,
@@ -183,7 +183,7 @@ class HomeScreenViewModel @Inject constructor(
                 windCurrent = safeDivideTens(cache[33010] ?: 0),
                 windSpeedLvl1 = safeDivideTens (cache[33011] ?: 0),
                 windSpeedLvl2 = safeDivideTens (cache[33012] ?: 0),
-                windSpeedMontage = safeDivideTens (cache[176] ?: 0),
+                windSpeedMontage = safeDivideTens (cache[33013] ?: 0),
                 anemometerStatus = cache[33209] ?: 0,
 
                 icMontageMode         = cache[33003] ?: 0, //Флаг установки режима Монтаж.
@@ -192,9 +192,10 @@ class HomeScreenViewModel @Inject constructor(
                 icLoadMomentSensorAlarm = cache[39009] ?: 0, //Авария датчика критического грузового момента.
                 icHoistBrakeSensor    = cache[30105] ?: 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
                 icCraneRailsEn        = cache[31420] ?: 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
+                icTechnicalReglamentTO = cache[33551] ?: 0, //Флаг проведите ТО
+                icAlarmTO = cache[33552] ?: 0, //Флаг. ТО не проведено. Ограничение скорости
 
-                ictechnicalReglamentTO = cache[33551] ?: 0, //Флаг проведите ТО
-                icalarmTO = cache[33552] ?: 0, //Флаг. ТО не проведено. Ограничение скорости
+                icHoistHookAlarmStatus= cache[39050] ?: 0, //Авария движение крюка вниз. Статус.
             ),
             // Mechanisms Condition
             craneMechanismsCondition = CraneMechanismsConditionState(
@@ -818,9 +819,10 @@ class HomeScreenViewModel @Inject constructor(
         val icLoadMomentSensorAlarm: Int = 0, //Авария датчика критического грузового момента.
         val icHoistBrakeSensor: Int = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
         val icCraneRailsEn : Int = 0, //Флаг включения перемещения крана. 1 - Ход крана активирован
-        val ictechnicalReglamentTO: Int = 0,
-        val icalarmTO: Int = 0,
-    )
+        val icTechnicalReglamentTO: Int = 0,
+        val icAlarmTO: Int = 0,
+        val icHoistHookAlarmStatus: Int = 0,
+        )
 
     data class InformationState (
         val icBuildMode: Int = 0,     //Флаг режима наладки

@@ -62,9 +62,16 @@ class ServiceMenuViewModel
 
     private val _setValueHoistMontageDEC = mutableStateOf("")
     val setValueHoistMontageDEC: State<String> = _setValueHoistMontageDEC
-
     private val _setValueHoistBrakeControlTimeout = mutableStateOf("")
     val setValueHoistBrakeControlTimeout: State<String> = _setValueHoistBrakeControlTimeout
+
+
+  //Настройка защиты от самопроизвольного движения крюка вниз
+    private val _setValueHoistSpdHookUp = mutableStateOf("")
+    val setValueHoistSpdHookUp: State<String> = _setValueHoistSpdHookUp
+    private val _setValueHoistEncoderMaxDeltaEn = mutableStateOf("")
+    val setValueHoistEncoderMaxDeltaEn: State<String> = _setValueHoistEncoderMaxDeltaEn
+
 
 
 
@@ -79,6 +86,18 @@ class ServiceMenuViewModel
 
     private val _logMessageHoistMontage = mutableStateOf<String?>(null)
     val logMessageHoistMontage: State<String?> = _logMessageHoistMontage
+
+    private val _errorMessageHoistBrake = mutableStateOf<String?>(null)
+    val errorMessageHoistBrake: State<String?> = _errorMessageHoistBrake
+
+    private val _logMessageHoistBrake = mutableStateOf<String?>(null)
+    val logMessageHoistBrake: State<String?> = _logMessageHoistBrake
+
+    private val _errorMessageHoistHookSetting = mutableStateOf<String?>(null)
+    val errorMessageHoistHookSetting: State<String?> = _errorMessageHoistHookSetting
+
+    private val _logMessageHoistHookSetting = mutableStateOf<String?>(null)
+    val logMessageHoistHookSetting: State<String?> = _logMessageHoistHookSetting
 
 
     // СЕРВИСНЫЙ РЕЖИМ. НАСТРОЙКА ПРИВОДА ПОВОРОТА
@@ -219,7 +238,7 @@ class ServiceMenuViewModel
     private val _setValueSlewRatioK = mutableStateOf("")
     val setValueSlewRatioK: State<String> = _setValueSlewRatioK
 
-    //Настройка параметров максимального рассогласования энкодеров
+    //Настройка параметров максимального рассогласования абсолютных энкодеров
     private val _setValueUDIHoistAbsEncMaxDeltaEn = mutableStateOf("")
     val setValueUDIHoistAbsEncMaxDeltaEn: State<String> = _setValueUDIHoistAbsEncMaxDeltaEn
 
@@ -276,7 +295,7 @@ class ServiceMenuViewModel
         33070, 33071, 33072, 33073, 33074, 33075, 33076, 33077, 33078,
         31150, 31151, 31152, 31153, 31154, 31155, 31156, 31157,31158, 31159,
         31160, 31161, 31162, 31163, 31164, 31165, 31166, 31167, 31168, 31169,
-        31170, 31171,
+        31170, 31171, 31175, 31176,
         31250, 31251, 31252, 31253, 31254, 31255, 31256, 31257, 31258,
         31260, 31263, 31262, 31261, 31264, 31265,
         31350, 31351, 31352, 1693, 31354, 31355, 31359, 31356, 31357, 31358,
@@ -421,6 +440,10 @@ class ServiceMenuViewModel
 
                 hmiHoistBrakeControlStat = cache[31170] ?: 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
                 hmiHoistBrakeControlTimeout = safeDivideTens(cache[31171] ?: 0), //Время ожидания обратной связи от тормоза
+
+                hmiHoistSpdHookUp= safeDivideTens(cache[31175] ?: 0), //Значение скорости подъема при аварийном движении крюка вниз [*0.1Hz]
+                hmiHoistEncoderMaxDelta= cache[31176] ?: 0, //Величина рассогласования по энкодеру для срабатывания ошибки по самопроизвольному движению крюка вниз
+
             ),
             slewDriveState = SlewDriveState(
                 hmiSpdRefLowSlew = cache[31250] ?: 0,
@@ -576,6 +599,9 @@ class ServiceMenuViewModel
 
         val hmiHoistBrakeControlStat: Int = 0, //Бит отслеживаения состояния тормоза 1- отслеживаем обраную связь, 0 -нет
         val hmiHoistBrakeControlTimeout: Float = 0f, //Время ожидания обратной связи от тормоза
+
+        val hmiHoistSpdHookUp: Float = 0f, //Значение скорости подъема при аварийном движении крюка вниз [*0.1Hz]
+        val hmiHoistEncoderMaxDelta: Int = 0, //Величина рассогласования по энкодеру для срабатывания ошибки по самопроизвольному движению крюка вниз
     )
     data class SlewDriveState(
         val hmiSpdRefLowSlew: Int = 0,
@@ -904,15 +930,47 @@ class ServiceMenuViewModel
                 val model = validateAndConvertFloat(_setValueHoistBrakeControlTimeout.value, 0.0f,2.0f )
                 // Запись в регистры
                 modbusRepository.writeRegister(61171, model)
-                _errorMessageHoistMontage.value = null
-                _logMessageHoistMontage.value = "Сохранено"
+                _errorMessageHoistBrake.value = null
+                _logMessageHoistBrake.value = "Сохранено"
             } catch (e: Exception) {
-                _logMessageHoistMontage.value = null
-                _errorMessageHoistMontage.value = "${e.message}"
+                _logMessageHoistBrake.value = null
+                _errorMessageHoistBrake.value = "${e.message}"
             }
         }
     }
 
+
+    // Hoist. Запись значения скорости подъема при аварийном движении крюка вниз [*0.1Hz]
+    fun onSetHoistSpdHookUp() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvertFloat(_setValueHoistSpdHookUp.value, 0.0f,10.0f )
+                // Запись в регистры
+                modbusRepository.writeRegister(61175, model)
+                _errorMessageHoistHookSetting.value = null
+                _logMessageHoistHookSetting.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoistHookSetting.value = null
+                _errorMessageHoistHookSetting.value = "${e.message}"
+            }
+        }
+    }
+
+    // Hoist. Запись величины рассогласования по энкодеру для срабатывания ошибки по самопроизвольному движению крюка вниз
+    fun onSetHoistEncoderMaxDeltaEn() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val model = validateAndConvert(_setValueHoistEncoderMaxDeltaEn.value, 0,100 )
+                // Запись в регистры
+                modbusRepository.writeRegister(61176, model)
+                _errorMessageHoistHookSetting.value = null
+                _logMessageHoistHookSetting.value = "Сохранено"
+            } catch (e: Exception) {
+                _logMessageHoistHookSetting.value = null
+                _errorMessageHoistHookSetting.value = "${e.message}"
+            }
+        }
+    }
 
 
     /**
@@ -1969,6 +2027,13 @@ class ServiceMenuViewModel
         if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,1})?$"))) {
             _setValueHoistBrakeControlTimeout.value = value }}
 
+    fun updateHoistSpdHookUp(value: String) {
+        if (value.isEmpty() || value.matches(Regex("^\\d{0,1}(\\.\\d{0,1})?$"))) {
+            _setValueHoistSpdHookUp.value = value }}
+
+    fun updateHoistEncoderMaxDeltaEn(value: String) {
+        if (value.isEmpty() || value.toIntOrNull() != null) {
+            _setValueHoistEncoderMaxDeltaEn.value = value }}
 
 
     // Поворот. Обновления для UI

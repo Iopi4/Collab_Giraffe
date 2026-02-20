@@ -154,6 +154,7 @@ object UiHomeScreenRegisterConfiguration {
         RegisterInfo(33222, "RE_EM_Vihod_8_Hoist_Down_MW", "WORD16", "Статус выхода из полигона опусканием груза"),
         RegisterInfo(39012, "RE_HMI_Anemom_Sensor_Err_MW", "WORD16", "Статус анемометра. Ошибка датчика"),
         RegisterInfo(33210, "RE_AlarmLamp_Status_MW", "WORD16", "Cбой анемоментра"),
+        RegisterInfo(39050, "RE_HMI_xHoist_Kryk_Vniz_Set_MW", "WORD16", "Авария. самопроизвольное движение крюка вниз"),
 
         RegisterInfo(31103, "RE_Hoist_ControlEffort_MW", "WORD16", "Текущая скорость вращения подъема *0,01Гц"),
         RegisterInfo(31203, "RE_Slew_ControlEffort_MW", "WORD16", "Текущая скорость вращения *0,01Гц"),
@@ -852,7 +853,7 @@ object UISettingSensorsConfiguration {
         RegisterInfo(33154, "RE_xHoist_Up_DwnSp1_MW", "WORD16", "Проверка датчика подъема. Снижение 1 ск. вверх"),
 
         RegisterInfo(33155, "RE_xTrolley_Stop_Fwd1_MW", "WORD16", "Проверка датчика тележки. Стоп вперед"),
-        RegisterInfo(33155, "RE_xTrolley_Stop_Rev1_MW", "WORD16", "Проверка датчика тележки. Стоп назад"),
+        RegisterInfo(33156, "RE_xTrolley_Stop_Rev1_MW", "WORD16", "Проверка датчика тележки. Стоп назад"),
         RegisterInfo(33157, "RE_xTrolley_Fwd_DwnSp1_MW", "WORD16", "Проверка датчика тележки. Снижение 1 ск. вперед"),
         RegisterInfo(33158, "RE_xTrolley_Rev_DwnSp1_MW", "WORD16", "Проверка датчика тележки. Снижение 1 ск. назад"),
 
@@ -1773,8 +1774,18 @@ object UITechnicalMaintenanceConfiguration {
         RegisterInfo(33555, "RE_Technical_Reglament_xWarrantyEnd_MW", "WORD16", "Грузовая лебедка отработала 750 м.ч."),
 
         RegisterInfo(33556, "RE_rHoleCraneHours_TO_MW", "WORD16", "Моточасы крана для технического обслуживания"),
-        RegisterInfo(63550, "WR_xManualResetTO_MW", "WORD16", "Команда сброса счетчика ТО"),
-    )
+        RegisterInfo(63560, "WR_xManualResetTO_MW", "WORD16", "Команда сброса счетчика ТО"),
+        RegisterInfo(63561, "WR_TO_Password1_MW", "WORD16", "Пароль для сброса счетчика моточасов контроля ТО. Слово1"),
+        RegisterInfo(63562, "WR_TO_Password2_MW", "WORD16", "Пароль для сброса счетчика моточасов контроля ТО. Слово2"),
+        RegisterInfo(63563, "WR_TO_Password3_MW", "WORD16", "Пароль для сброса счетчика моточасов контроля ТО. Слово3"),
+
+
+
+
+
+
+
+        )
 
     val JSON_CONFIG = Json.encodeToString(RegistersConfiguration.serializer(), RegistersConfiguration(REGISTERS))
 

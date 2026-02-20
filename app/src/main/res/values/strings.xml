@@ -175,7 +175,7 @@
     <string name="SettingLoadCapacity_Text_Message_11">Точки для калибровочного веса сброшены</string>
     <string name="SettingLoadCapacity_Text_Message_12">Настройте минимальный вес</string>
     <string name="SettingLoadCapacity_Text_Message_13">Вылет не соответствует точке №1 мин.вес</string>
-    <string name="SettingLoadCapacity_Text_Message_14">Вылет не соответствует точке №2 мин.вес</string>
+    <string name="SettingLoadCapacity_Text_Message_14">Вылет не соответствует точке №2 макс.вес</string>
     <string name="SettingLoadCapacity_Text_Message_15">Ошибка калибровки</string>
 
 
@@ -362,6 +362,8 @@
     <string name="ServiceMenu_Text_Hoist_Parameters">Подъем. Параметры привода</string>
     <string name="ServiceMenu_Text_Hoist_Montage">Монтажный режим</string>
     <string name="ServiceMenu_Text_Hoist_Brake_Setting">Контроль тормоза</string>
+    <string name="ServiceMenu_Text_Hoist_Hook_Protection_Setting">Защита крюка от падения</string>
+
     <string name="ServiceMenu_Text_Slewing_Parameters">Поворот. Параметры привода</string>
     <string name="ServiceMenu_Text_Trolley_Parameters">Тележка. Параметры привода</string>
     <string name="ServiceMenu_Text_Crane_Parameters">Ход крана. Параметры привода</string>
@@ -385,6 +387,9 @@
     <string name="ServiceMenu_Text_Hoist_SpdRefButton">Ввод. Скорость при нажатии кнопки [об/мин]</string>
     <string name="ServiceMenu_Text_Hoist_BrakeControl_En">Контроль обр.связи [вкл.выкл]</string>
     <string name="ServiceMenu_Text_Hoist_BrakeControl_Timeout">Ввод. Время обратной связи [c]</string>
+
+    <string name="ServiceMenu_Text_Hoist_Hook_Up_Speed">Ввод. Частота подъема [Гц]</string>
+    <string name="ServiceMenu_Text_Hoist_EncMaxDelta">Ввод. Контроль энкодера [Имп]</string>
 
     <string name="ServiceMenu_Text_Drive_Fault_Reset">Сброс ошибки привода</string>
 
@@ -494,6 +499,7 @@
     <string name="Diagnostic_Text_System_Status_Slewing">Статус.Привод поворота</string>
     <string name="Diagnostic_Text_System_Status_Trolley">Статус.Привод тележки</string>
     <string name="Diagnostic_Text_System_Status_Crane">Статус.Привод хода</string>
+    <string name="Diagnostic_Text_System__Reset_Alarm_Fault">Сброс ошибки</string>
 
     <string name="Diagnostic_Text_System_Status_Word_Hoist_Not_Available">Not Found</string>
     <string name="Diagnostic_Text_System_Status_Word_Hoist_40">RDY</string>
@@ -716,9 +722,9 @@
     <string name="TechnicalMaintenance_Text_Number_Crane">Заводской номер крана</string>
     <string name="TechnicalMaintenance_Text_TO_Counter">Проведенное ТО [шт.]</string>
     <string name="TechnicalMaintenance_Text_Maintenance_Left">До планового ТО [м.ч.]</string>
-    <string name="TechnicalMaintenance_Text_Password">Пароль</string>
+    <string name="TechnicalMaintenance_Text_Password">Пароль сброса м.ч. ТО</string>
     <string name="TechnicalMaintenance_Text_Work_Permit">Разреш. работы на 3 и 4 скор.</string>
-    <string name="TechnicalMaintenance_Text_Reset_Counter">Сброс счетчика моточасов</string>
+    <string name="TechnicalMaintenance_Text_Reset_Counter">Сброс м.ч. груз.лебедки</string>
     <string name="TechnicalMaintenance_Text_Maintenance_Not">ТО не проводилось [м.ч.]</string>
     <!-- Текст экрана TechnicalMaintenanceScreen' -->
 

@@ -73,7 +73,7 @@ class TopBarViewModel @Inject constructor(
     private val _currentVolume = mutableStateOf(settingsRepository.getVolumeLevel())
     val currentVolume: State<Float> = _currentVolume
 
-    private val volumeLevels = listOf(0.7f, 1f, 0.5f) //Low, Medium, Max
+    private val volumeLevels = listOf(0.7f, 1f, 1.5f) //Low, Medium, Max
 
     private val _currentTime = mutableStateOf("00:00")
     val currentTime: State<String> = _currentTime

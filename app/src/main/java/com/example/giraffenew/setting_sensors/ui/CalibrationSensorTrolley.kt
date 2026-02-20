@@ -200,7 +200,7 @@ fun CalibrationSensorTrolley(
                         onClick = onSetValueTrolleyPosRevStop,
                     ) {}
                 }
-                //Статус. Индикация срабатывания остановки
+                //Статус. Индикация срабатывания остановки назад
                 Box(modifier = Modifier.weight(1f)) {
                     BasicLampSettingSensorStop(
                         isLampStatus = currentTrolleyStopRev1

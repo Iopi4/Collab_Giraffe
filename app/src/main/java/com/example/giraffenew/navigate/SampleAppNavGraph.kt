@@ -166,10 +166,17 @@ fun SampleAppNavGraph(
 
                             Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
                                 Box (modifier = Modifier.weight(7f)){
-                                TopAppBar(title = { Text(text = currentRoute, color = white) },
+                                TopAppBar(title = {
+                                    Text(
+                                        text = currentRoute, color = white) },
                                     modifier = Modifier.fillMaxWidth(),
-                                    navigationIcon = { IconButton(onClick = { coroutineScope.launch { drawerState.open() } },
-                                        content = { Icon(imageVector = Icons.Default.Menu, contentDescription = null, tint = white) }) },
+                                    navigationIcon = {
+                                        IconButton(onClick = {
+                                            coroutineScope.launch {
+                                                drawerState.open() } },
+                                        content = {
+                                            Icon(imageVector = Icons.Default.Menu, contentDescription = null, tint = white) })
+                                                     },
                                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Orange))
                                 }
                                 val myBoxModifier = Modifier

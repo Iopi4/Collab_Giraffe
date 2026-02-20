@@ -290,12 +290,12 @@ fun ParameterWeightSensor(
                 ),
             contentAlignment = Alignment.TopEnd
         ) {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(scrollState) // Добавлена прокрутка
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top
-            ) {
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(scrollState) // Добавлена прокрутка
+                                    .fillMaxSize(),
+                                verticalArrangement = Arrangement.Top
+                            ) {
                 // Порядок калибровки датчика
                 BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingLoadCapacity_Text_Calibration))
                 BasicSettingsNameInfo(modifier = Modifier, text = stringResource(R.string.SettingLoadCapacity_Text_Calibration_0))

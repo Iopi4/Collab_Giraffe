@@ -80,7 +80,9 @@ fun DiagnosticsScreen (
     { NavBarDiagnostic (navController = navController)
         NavHost(navController, startDestination = NavRoutesDiagnostic.PageDiagnosticSystem.roote){
             composable(NavRoutesDiagnostic.PageDiagnosticSystem.roote)
-            { DiagnosticSystem(systemParams = state.systemParams,) }
+            { DiagnosticSystem(
+                systemParams = state.systemParams,
+                onSetFltRst = { diagnosticViewModule.onSetFltRst()},) }
             composable(NavRoutesDiagnostic.PageDiagnosticPLC.roote) { DiagnosticPLCContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticHoist.roote) { DiagnosticHoistContent() }
             composable(NavRoutesDiagnostic.PageDiagnosticSlewing.roote) { DiagnosticSlewingContent() }
