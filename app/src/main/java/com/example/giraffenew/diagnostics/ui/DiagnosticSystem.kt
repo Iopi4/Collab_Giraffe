@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
+import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampSettingParameter
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
@@ -31,6 +32,7 @@ import com.example.giraffenew.ui.theme.Orange
 @Composable
 fun DiagnosticSystem(
     systemParams: DiagnosticViewModule.ControlSystemParametersState,
+    onSetFltRst: () -> Unit,   // добавляем callback для сброса ошибок
 ) {
 
     val ogpLimSw = systemParams.ogpLimSw
@@ -99,6 +101,9 @@ fun DiagnosticSystem(
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Slewing)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Trolley)
             BasicNameSettingParameterGiraffe( settingParameterId = R.string.Diagnostic_Text_System_Status_Crane)
+            //Сброс ошибки
+            BasicNameSettingParameterGiraffe(settingParameterId = R.string.Diagnostic_Text_System__Reset_Alarm_Fault)
+
         }
 
 //№.2 - Правая область для отображения и ввода данных настройки полигона
@@ -279,9 +284,12 @@ fun DiagnosticSystem(
                     valueParameterId = craneStatusWord
                 )
             }
-
-
-
+            //Кнопка сброса ошибка привода
+            BasicButtonGiraffe(
+                modifier = Modifier,
+                text = R.string.Button_Turn_Reset,
+                onClick = onSetFltRst,
+            ) {}
         }
     }
 }
@@ -330,6 +338,7 @@ fun DiagnosticSystemPreview (){
                 craneStatusWord = 1,
                 craneRepPoint = 1,
             ),
+            onSetFltRst = {},
 
 
         )

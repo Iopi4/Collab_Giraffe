@@ -10,6 +10,8 @@ import com.example.giraffenew.data.repositories.ModbusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -375,6 +377,20 @@ class DiagnosticViewModule @Inject constructor(
         val plcAI1LoadCellSensor:Int= 0,
     )
 
+    // Driver. Сброс ошибки приводов
+    fun onSetFltRst() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (!isActive) return@launch // Проверка активности ViewModel
+                // Сброс ошибки
+                modbusRepository.writeRegister(61100, 1)
+                delay(200)
+                modbusRepository.writeRegister(61100, 0)
+                // Логирование
+            } catch (e: Exception) {
+            }
+        }
+    }
 
     // Очистка при уничтожении ViewModel
     override fun onCleared() {

@@ -118,7 +118,8 @@ fun InitialSetupScreen(
                 logMessageCrane = initialSetupViewModel.logMessageCrane.value,
                 logMessageRTN = initialSetupViewModel.logMessageRTN.value,
                 logMessageSBKB = initialSetupViewModel.logMessageSBKB.value,
-            ) }
+            )
+        }
     }
 }
 

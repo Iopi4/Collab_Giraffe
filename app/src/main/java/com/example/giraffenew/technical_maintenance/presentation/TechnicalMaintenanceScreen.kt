@@ -48,7 +48,9 @@ fun TechnicalMaintenanceScreen (
     BasicSettingBackground()
 
     TechnicalMaintenance(
-        setValueTOPassword = "1",
+        password = technicalMaintenanceViewModule.password.value,
+        onPasswordChange = { technicalMaintenanceViewModule.updatePassword(it) },
+        onSetPasswordLogIn = {technicalMaintenanceViewModule.onSetPasswordLogIn()},
         craneNo = technicalMaintenanceViewModule.state.value.craneNo,
         tOCounter = technicalMaintenanceViewModule.state.value.tOCounter,
         technicalReglamentTO1 = technicalMaintenanceViewModule.state.value.technicalReglamentTO1,

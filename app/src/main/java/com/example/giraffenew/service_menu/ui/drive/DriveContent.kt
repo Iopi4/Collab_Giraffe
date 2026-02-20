@@ -121,23 +121,24 @@ fun DriveContent(
                 onSetHoistMontageDEC = { serviceMenuViewModel.onSetHoistMontageDEC() },
 
                 setValueHoistMontageSpdRef1 = serviceMenuViewModel.setValueHoistMontageSpdRef1.value,
-                onModelChangeHoistMontageSpdRef1 = {
-                    serviceMenuViewModel.updateHoistMontageSpdRef1(
-                        it
-                    )
-                },
+                onModelChangeHoistMontageSpdRef1 = { serviceMenuViewModel.updateHoistMontageSpdRef1(it) },
                 onSetHoistMontageSpdRef1 = { serviceMenuViewModel.onSetHoistMontageSpdRef1() },
 
                 setValueHoistMontageSpdRef2 = serviceMenuViewModel.setValueHoistMontageSpdRef2.value,
-                onModelChangeHoistMontageSpdRef2 = {
-                    serviceMenuViewModel.updateHoistMontageSpdRef2(
-                        it
-                    )
-                },
+                onModelChangeHoistMontageSpdRef2 = { serviceMenuViewModel.updateHoistMontageSpdRef2(it) },
                 onSetHoistMontageSpdRef2 = { serviceMenuViewModel.onSetHoistMontageSpdRef2() },
 
                 errorMessageHoist = serviceMenuViewModel.errorMessageHoist.value,
                 logMessageHoist = serviceMenuViewModel.logMessageHoist.value,
+
+                errorMessageHoistMontage = serviceMenuViewModel.errorMessageHoistMontage.value,
+                logMessageHoistMontage = serviceMenuViewModel.logMessageHoistMontage.value,
+
+                errorMessageHoistBrake = serviceMenuViewModel.errorMessageHoistBrake.value,
+                logMessageHoistBrake = serviceMenuViewModel.logMessageHoistBrake.value,
+
+                errorMessageHoistHookSetting = serviceMenuViewModel.errorMessageHoistHookSetting.value,
+                logMessageHoistHookSetting = serviceMenuViewModel.logMessageHoistHookSetting.value,
 
                 hmiSpdRefButtonHoist = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRefButtonHoist,
                 hmiSpdRef1Hoist = serviceMenuViewModel.state.value.hoistDriveState.hmiSpdRef1Hoist,
@@ -158,6 +159,17 @@ fun DriveContent(
                 updateHoistBrakeControlTimeout = {serviceMenuViewModel.updateHoistBrakeControlTimeout(it)},
                 onSetHoistBrakeControlTimeout = {serviceMenuViewModel.onSetHoistBrakeControlTimeout()},
                 hmiHoistBrakeControlTimeout = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistBrakeControlTimeout,
+
+                setValueHoistSpdHookUp = serviceMenuViewModel.setValueHoistSpdHookUp.value,
+                updateHoistSpdHookUp = {serviceMenuViewModel.updateHoistSpdHookUp(it)},
+                onSetHoistSpdHookUp = {serviceMenuViewModel.onSetHoistSpdHookUp()},
+                hmiHoistSpdHookUp = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistSpdHookUp,
+
+                setValueHoistEncoderMaxDeltaEn = serviceMenuViewModel.setValueHoistEncoderMaxDeltaEn.value,
+                onModelChangeHoistEncoderMaxDeltaEn = {serviceMenuViewModel.updateHoistEncoderMaxDeltaEn(it)},
+                onSetHoistEncoderMaxDeltaEn = {serviceMenuViewModel.onSetHoistEncoderMaxDeltaEn()},
+                hmiHoistEncoderMaxDeltaEn = serviceMenuViewModel.state.value.hoistDriveState.hmiHoistEncoderMaxDelta,
+
 
                 onSetFltRst = { serviceMenuViewModel.onSetFltRst()},
             )}

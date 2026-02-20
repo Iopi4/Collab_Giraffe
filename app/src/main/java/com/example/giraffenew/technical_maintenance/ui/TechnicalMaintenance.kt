@@ -21,7 +21,9 @@ import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
 import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
+import com.example.giraffenew.core.ui_kit.composable.button.ButtonOn
 import com.example.giraffenew.core.ui_kit.composable.lamp.BasicLampError
+import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffe
 import com.example.giraffenew.diagnostics.state.StateValueWindAndLoadSensor
 import com.example.giraffenew.ui.theme.Burgundy_violet
 import com.example.giraffenew.ui.theme.GIRAFFEnewTheme
@@ -29,7 +31,9 @@ import com.example.giraffenew.ui.theme.Orange
 
 @Composable
 fun TechnicalMaintenance(
-    setValueTOPassword: String,
+    password: String, // Новый параметр
+    onPasswordChange: (String) -> Unit, // Новый параметр
+    onSetPasswordLogIn: () -> Unit,
     craneNo: Int,
     tOCounter: Int,
     technicalReglamentTO1: Int,
@@ -142,18 +146,39 @@ fun TechnicalMaintenance(
                 isValueStatus = alarmTO1
             )
             Spacer(modifier = Modifier.size(20.dp))
-//Ввод. Пароль
-            Box(modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 0.dp)) {
-                BasicTextFilledGiraffeDecimal(
-                    placeholder = "0123456789",
-                    value = "",
-                    onValueChange = {""},
-                    modifier = Modifier,
-                )
+// Поле ввода пароля (ОБНОВЛЕНО)
+            Box(modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)) {
+
             }
+
+
+            Row (horizontalArrangement = Arrangement.SpaceBetween) {
+                //Поле ввода значения максимального веса груза
+                Box (modifier = Modifier
+                    .padding(start = 10.dp, top = 5.dp)
+                    .weight(3f)
+                ) {
+                    BasicTextFilledGiraffe(
+                        placeholder = "0123456789",
+                        value = password,
+                        onValueChange = onPasswordChange,
+                    )
+                }
+                //Кнопка ввода
+                Box(modifier = Modifier.weight(1f)) {
+                    ButtonOn(
+                        modifier = Modifier,
+                        text = R.string.Button_ON,
+                        onClick = onSetPasswordLogIn,
+                    ) {}
+                }
+            }
+
+
+
+
             Spacer(modifier = Modifier.size(20.dp))
-//Кнопка. Сброс счетчика моточасов
+//Кнопка. Сброс счетчика моточасов грузовой лебедки
             BasicButtonGiraffe(
                 modifier = Modifier,
                 text = R.string.Button_Turn_Reset,
@@ -178,7 +203,9 @@ private fun formatDecimal(value: Float): String {
 fun TechnicalMaintenancePreview () {
     GIRAFFEnewTheme(dynamicColor = false) {
         TechnicalMaintenance(
-            setValueTOPassword = "1",
+            password = "1",
+            onPasswordChange = { },
+            onSetPasswordLogIn = {},
             craneNo = 1,
             tOCounter = 1,
             technicalReglamentTO1 = 1,

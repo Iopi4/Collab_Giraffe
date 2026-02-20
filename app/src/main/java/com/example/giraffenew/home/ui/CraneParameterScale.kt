@@ -31,6 +31,7 @@ import com.example.giraffenew.home.ui.scale.ScaleHorizonWeightMax
 import com.example.giraffenew.core.ui_kit.composable.text.BasicParametersText
 import com.example.giraffenew.home.presentation.HomeScreenViewModel
 import com.example.giraffenew.home.ui.button.ButtonIconSound
+import com.example.giraffenew.home.ui.lamp.LampHookStatus
 import com.example.giraffenew.home.ui.lamp.LampIconInformationAlarm
 import com.example.giraffenew.home.ui.lamp.LampIconInformationBrakeHoist
 import com.example.giraffenew.home.ui.lamp.LampIconInformationDebugMode
@@ -58,8 +59,8 @@ fun CraneParameterScale(
     val windSpeedMontage = parameterScale.windSpeedMontage
     val anemometerStatus = parameterScale.anemometerStatus
 
-    val icalarmTO = parameterScale.icalarmTO
-    val ictechnicalReglamentTO = parameterScale.ictechnicalReglamentTO
+    val icalarmTO = parameterScale.icAlarmTO
+    val ictechnicalReglamentTO = parameterScale.icTechnicalReglamentTO
 
     val icMontageMode = parameterScale.icMontageMode
     val icCraneRepPointFault = parameterScale.icCraneRepPointFault
@@ -72,6 +73,8 @@ fun CraneParameterScale(
     Log.d("CraneParameterScale", "Current volume: ${viewModel.currentVolume.value}")
 
     val currentVolume = viewModel.currentVolume.value
+
+    val icHoistHookAlarmStatus = parameterScale.icHoistHookAlarmStatus
 
     val myBoxMainModifier = Modifier
         .fillMaxSize()
@@ -137,17 +140,17 @@ fun CraneParameterScale(
                 isLampStatus = anemometerStatus
             )
         }
-        val imageVector = when (anemometerStatus) {
-            0 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
-            1 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48_dark_gray)
-            2 -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
-            else -> ImageVector.vectorResource(R.drawable.ic_wind_power_48)
+        val imageVectorWind = when (anemometerStatus) {
+            0 -> ImageVector.vectorResource(R.drawable.ic_home_scale_wind_power_48)
+            1 -> ImageVector.vectorResource(R.drawable.ic_home_scale_wind_power_48_dark_gray)
+            2 -> ImageVector.vectorResource(R.drawable.ic_home_scale_wind_power_48)
+            else -> ImageVector.vectorResource(R.drawable.ic_home_scale_wind_power_48)
         }
         Box(modifier = Modifier
             .padding(start = 10.dp, top =90.dp, end = 10.dp),
             contentAlignment = Alignment.TopStart) {
             Image(
-                imageVector = imageVector,
+                imageVector = imageVectorWind,
                 contentDescription = null,
                 modifier = Modifier.size(40.dp),
             )
@@ -169,8 +172,24 @@ fun CraneParameterScale(
             )
         }
 
+//Отрисовывем статус Аварии, Самопроизвольное движение крюка вниз
+        val imageVectorHook = when (icHoistHookAlarmStatus) {
+            0 -> ImageVector.vectorResource(R.drawable.ic_home_hook_down_alarm_dark_gray)
+            1 -> ImageVector.vectorResource(R.drawable.ic_home_hook_down_alarm_red)
+            else -> ImageVector.vectorResource(R.drawable.ic_home_hook_down_alarm_dark_gray)
+        }
+        Box(modifier = Modifier
+            .padding(start = 180.dp, top =90.dp, end = 10.dp),
+            contentAlignment = Alignment.TopStart) {
+            LampHookStatus(
+                isLampStatus = icHoistHookAlarmStatus)
+            Image(
+                imageVector = imageVectorHook,
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+            )
 
-
+        }
 
 
 
@@ -321,8 +340,8 @@ fun CraneParameterScalePreview (){
                 icHoistBrakeSensor    = 0, //Контроль износа тормоза подъема. 1-норма. 0-Авария
                 icCraneRailsEn        = 1, //Флаг включения перемещения крана. 1 - Ход крана активирован
 
-                ictechnicalReglamentTO = 1, //Флаг проведите ТО
-                icalarmTO = 1, //Флаг. ТО не проведено. Ограничение скорости
+                icTechnicalReglamentTO = 1, //Флаг проведите ТО
+                icAlarmTO = 1, //Флаг. ТО не проведено. Ограничение скорости
             )
         )
     }

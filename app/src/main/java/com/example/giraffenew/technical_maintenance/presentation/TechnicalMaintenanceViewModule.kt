@@ -23,6 +23,21 @@ class TechnicalMaintenanceViewModule
 ): ViewModel(
 
 ){
+    // Новое состояние для полного пароля
+    private val _setValuePasswordPart1 = mutableStateOf("100")
+    val setValuePasswordPart1: State<String> = _setValuePasswordPart1
+
+    private val _setValuePasswordPart2 = mutableStateOf("100")
+    val setValuePasswordPart2: State<String> = _setValuePasswordPart2
+
+    private val _setValuePasswordPart3 = mutableStateOf("100")
+    val setValuePasswordPart3: State<String> = _setValuePasswordPart3
+
+
+    // Новое состояние для полного пароля
+    private val _password = mutableStateOf("")
+    val password: State<String> = _password
+
     private val _setValueTOPassword = mutableStateOf("")
     val setValueTOPassword: State<String> = _setValueTOPassword
 
@@ -141,6 +156,45 @@ class TechnicalMaintenanceViewModule
             } catch (e: Exception) {
             }
         }
+    }
+    // Функция для обновления пароля
+    fun updatePassword(value: String) {
+        if (value.length <= 6 && (value.isEmpty() || value.all { it.isDigit() })) {
+            _password.value = value
+            splitPassword(value)
+        }
+    }
+
+    // Разделение пароля на части
+    private fun splitPassword(password: String) {
+        val paddedPassword = password.padEnd(9, '0')
+        _setValuePasswordPart1.value = "1" + paddedPassword.substring(0, 2)
+        _setValuePasswordPart2.value = "1" + paddedPassword.substring(2, 4)
+        _setValuePasswordPart3.value = "1" + paddedPassword.substring(4, 6)
+    }
+
+    fun onSetPasswordLogIn() {
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                // Стандартная логика отправки частей пароля
+                val part1 = validateAndConvert(_setValuePasswordPart1.value, 0, 199)
+                modbusRepository.writeRegister(63557, part1)
+
+                val part2 = validateAndConvert(_setValuePasswordPart2.value, 0, 199)
+                modbusRepository.writeRegister(63558, part2)
+
+                val part3 = validateAndConvert(_setValuePasswordPart3.value, 0, 199)
+                modbusRepository.writeRegister(63559, part3)
+            } catch (e: Exception) {
+                // Обработка ошибок
+            }
+        }
+    }
+
+    private fun validateAndConvert(value: String, min: Int, max: Int): Int {
+        val intValue = value.toIntOrNull() ?: throw NumberFormatException("Некорректное число")
+        if (intValue !in min..max) throw IllegalArgumentException("Значение вне диапазона")
+        return intValue
     }
 
     private fun validateAndConvertFloatTens(value: String, min: Float, max: Float): Int {

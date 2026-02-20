@@ -24,8 +24,8 @@ fun ScaleVerticalSound(
     currentVolume: Float,
     modifier: Modifier,
 ) {
-    val minValue = 0.5f
-    val maxValue = 1f // Максимальное значение из требований
+    val minValue = 0.7f
+    val maxValue = 1.5f // Максимальное значение из требований
     val lineThickness = 16f
     val animationDuration = 100
 
@@ -36,7 +36,7 @@ fun ScaleVerticalSound(
             (currentVolume - minValue) / (maxValue - minValue)
         } else {
             0f
-        }.coerceIn(0f, 1f),
+        }.coerceIn(0f, 1.5f),
         animationSpec = tween(durationMillis = animationDuration),
         label = "lineLengthAnimation"
     )
@@ -68,7 +68,7 @@ fun ScaleVerticalSound(
 
 
             // Дополнительно: рисуем маркеры для уровней громкости
-            val levels = listOf(0.5f, 0.7f, 1f)
+            val levels = listOf(0.7f, 1.1f, 1.5f)
             levels.forEach { level ->
                 val levelRatio = (level - minValue) / (maxValue - minValue)
                 val markerY = size.height - lineThickness / 2 - availableHeight * levelRatio
