@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.example.giraffenew.R
 import com.example.giraffenew.core.ui_kit.composable.text.BasicNameSettingParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.text.BasicSettingsName
-import com.example.giraffenew.core.ui_kit.composable.text.BasicTextFilledGiraffeDecimal
 import com.example.giraffenew.core.ui_kit.composable.text.BasicValuesSettingsParameterGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.BasicButtonGiraffe
 import com.example.giraffenew.core.ui_kit.composable.button.ButtonOn
@@ -119,7 +118,7 @@ fun TechnicalMaintenance(
 // Отображение До планового ТО [м.ч.]
             Box(myBoxValuesSettingsParameterModifier) {
                 BasicValuesSettingsParameterGiraffe(modifier = Modifier,
-                    valueParameterId = formatDecimal(motorHourDelta)
+                    valueParameterId = formatDecimalMinus(motorHourDelta)
                 )
             }
             Spacer(modifier = Modifier.size(20.dp))
@@ -139,10 +138,16 @@ fun TechnicalMaintenance(
             Spacer(modifier = Modifier.size(20.dp))
 
 // Отображение Плановое ТО не проводилось столько часов
-            val CONST_MOTOR_HOIST_DELTA = 65535
+            val CONST_MOTOR_HOIST_DELTA = 3225
             val absMotorHourDelta: Int = CONST_MOTOR_HOIST_DELTA - (motorHourDelta.toInt())
+
+            //определяем перешли ли порог в 200 м.ч.
+            val displayDelta = if (absMotorHourDelta <=0){
+                format(0)
+            } else {format(absMotorHourDelta)}
+
             StateValueWindAndLoadSensor(
-                isValueParameter = format(absMotorHourDelta),
+                isValueParameter = displayDelta,
                 isValueStatus = alarmTO1
             )
             Spacer(modifier = Modifier.size(20.dp))
@@ -188,7 +193,7 @@ fun TechnicalMaintenance(
     }
 }
 
-
+private val VIRTUAL_ZERO: Float = 32250f //Константа для виртуального нуля. Необходимо для корретного отображения м.ч.
 private fun format(value: Int): String {
     return String.format("%d", value)
 }
@@ -197,6 +202,14 @@ private fun formatDecimal(value: Float): String {
     return String.format("%01.2f", value).replace(',', '.')
 }
 
+private fun formatDecimalMinus(value: Float): String {
+    val realValue = (value * 10 - VIRTUAL_ZERO) / 10f
+    return if (realValue < 0) {
+        String.format("%01.1f", realValue).replace(',', '.')
+    } else {
+        String.format("%01.1f", realValue).replace(',', '.')
+    }
+}
 
 @Preview
 @Composable
